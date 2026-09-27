@@ -1,0 +1,35 @@
+{
+  "topicId": "gaussian-processes-gp",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/gaussian-processes-gp.jsx",
+    "src/learn/components/lesson-labs/GaussianProcessIntuition.jsx",
+    "src/learn/components/lesson-labs/gaussian-process-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "35928a1d36c8c013d542b74d1fcd6bb30da4b571a277586d49ade650ec4759d6",
+    "src/learn/components/lesson-labs/GaussianProcessIntuition.jsx": "09ed0841589f0fcfbc178002928c222e2facff043cf1e3456463db04470bc6cb",
+    "src/learn/components/lesson-labs/gaussian-process-intuition.css": "70a32fe55aaa20384e477b8ef80eb18116bf1c9d1ea3043d0fddca064bc006cc"
+  },
+  "scope": "Entire GP lesson read. Added local-periodic covariance, evidence-direction and inducing residual visuals; deeper decision/integration bridges. Existing code/labs unchanged.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "All plotted kernel coordinates and periodic recurrence",
+      "passed": true
+    },
+    {
+      "name": "Gaussian eigenvariance, inverse quadratic cost and ellipse bounds",
+      "passed": true
+    },
+    {
+      "name": "Inducing variance/trace correction and nonlinear averaging",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

@@ -1,0 +1,4 @@
+.cluster-structure { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; color: #e3e3e3; }
+.cluster-structure svg { display: block; width: min(100%, 470px); height: auto; margin-inline: auto; }
+.cluster-structure svg text { fill: #d4d4d4; font: 18px ui-monospace, monospace; }
+.cluster-structure figcaption { line-height: 1.7; font-size: .95rem; }

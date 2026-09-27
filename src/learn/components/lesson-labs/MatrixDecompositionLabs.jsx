@@ -104,10 +104,10 @@ export function EliminationLab() {
     </div>
     <p className="decomposition-feedback" aria-live="polite">{state.message}</p>
     {state.solution && <p className="decomposition-readout">x = {vectorText(state.solution)}</p>}
-    <details><summary>Inspect the stored factors at this step</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the stored factors at this step</h4>
       <div className="decomposition-matrix-row"><DecompositionMatrix values={state.permutation} label="P: row ordering" /><DecompositionMatrix values={state.lower} label="L: stored multipliers" /></div>
       <p>After elimination, the current left side is U and PA = LU. The current target is y = L⁻¹Pb. Singular presets still have factors; they do not have a unique solution.</p>
-    </details>
+    </section>
     <p className="decomposition-note">Exact small preset systems evaluated in JavaScript arithmetic. This bounded view does not simulate numerical roundoff or implement a general-purpose solver.</p>
   </section>;
 }

@@ -1,0 +1,35 @@
+{
+  "topicId": "dbscan-density-based-clustering",
+  "date": "2026-09-26T15:32:28.635Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx",
+    "src/learn/components/lesson-labs/DbscanIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/dbscan-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": "52bbcb9f1765f528d3f32f209712821db48018f6ece68705cdfb0142bfc6d5b8",
+    "src/learn/components/lesson-labs/DbscanIntuitionFigures.jsx": "513e77f04217c27bdceb9e2c2c6aa19515900fbe00d521b5f471c0c541e0619c",
+    "src/learn/components/lesson-labs/dbscan-intuition.css": "b9088e276c391f1892bf3762a722088a166bbf31a203504043b382758554114d"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "OPTICS candidate minimum versus endpoint maximum",
+    "Xi local relative steepness illustration",
+    "Persistence sum equals count-by-density area",
+    "Duplicate new row changes border into core and preserves isolated J",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/dbscan-models.js",
+    "src/learn/data/dbscan-examples.js",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx",
+    "src/learn/components/lesson-labs/DbscanFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

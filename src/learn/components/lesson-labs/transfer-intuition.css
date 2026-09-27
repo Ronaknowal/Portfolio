@@ -1,0 +1,12 @@
+.transfer-intuition { margin: 1.7rem 0; padding: 1.2rem; border: 1px solid #3c362b; border-radius: 6px; background: #10100f; color: #dedbd3; }
+.transfer-intuition h3, .transfer-intuition h4 { color: #edcc80; line-height: 1.5; }
+.transfer-intuition figcaption { margin-top: 1rem; font-size: .92rem; line-height: 1.7; color: #b8b4aa; }
+.transfer-intuition-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
+.transfer-intuition svg { display: block; width: 100%; max-width: 340px; height: auto; }
+.transfer-intuition svg text { fill: #dedbd3; font: 12px ui-monospace, monospace; }
+.transfer-collapsed-features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+.transfer-collapsed-features > div { display: flex; flex-direction: column; gap: .7rem; padding: .6rem; border: 1px solid #796134; }
+.transfer-adapter-trace { display: grid; gap: .8rem; }
+.transfer-adapter-trace > div { display: flex; flex-direction: column; gap: .3rem; border-left: 2px solid #b99244; padding: .5rem 1rem; }
+@media (max-width: 750px) { .transfer-intuition-pair { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .transfer-intuition { padding: .8rem; } }

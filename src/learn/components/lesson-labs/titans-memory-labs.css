@@ -1,0 +1,18 @@
+.titans-lesson {overflow-wrap:anywhere}
+.titans-controls,.titans-cards {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:.8rem;margin:1rem 0}
+.titans-controls>*,.titans-cards>* {min-width:0}
+.titans-card {padding:.8rem;border:1px solid #555;background:#1b1b1b}
+.titans-two {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.titans-figure {max-width:100%;min-width:0;margin:1.4rem 0;padding:1rem;border:1px solid #555;background:#171717}
+.titans-figure figcaption {color:#eddbb4;font-weight:650;margin-bottom:.8rem}
+.titans-scroll,.titans-plot-scroll {max-width:100%;min-width:0;overflow-x:auto}
+.titans-scroll svg {display:block;width:100%;height:auto}
+.titans-scroll text {fill:#eee;font:12px system-ui,sans-serif}
+.titans-scroll path,.titans-scroll polyline,.titans-scroll line {fill:none;stroke:#aaa}
+.titans-scroll rect {fill:#242424;stroke:#aaa}
+.titans-scroll circle {fill:#ddd;stroke:#ddd}
+.titans-plot-scroll .neural-plot,.titans-plot-scroll .neural-chart {min-width:340px;max-height:none}
+.titans-source {padding:1rem;background:#111;overflow-x:auto;font-size:.8rem;line-height:1.6}
+.titans-downloads {display:flex;flex-wrap:wrap;gap:.8rem;margin:1rem 0}
+.titans-state {font-variant-numeric:tabular-nums;color:#eddbb4}
+@media(max-width:720px){.titans-two{grid-template-columns:minmax(0,1fr)}.titans-figure{padding:.6rem}}

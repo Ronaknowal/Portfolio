@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "scalarComparisons": 12972,
+  "maximumError": 6.16016571086675e-10,
+  "checks": [
+    "21 independent SciPy matrix exponentials, including Jordan repeated eigenvalues and oscillatory modes",
+    "Full Euler/classical RK4 trajectories and global errors",
+    "Every adaptive Euler–Heun attempted step, acceptance, ratio, endpoint and evaluation count plus zero state",
+    "19 native gradient fixtures: direct tangent, central difference, exact continuous and backward accumulator; exact-zero Euler amplification",
+    "Augmented lifting and explicit equality threshold",
+    "Irregular observations including omission versus zero, future exclusion, exact event-time update and empty state",
+    "Density trace/probes/volume preservation relation",
+    "72 prepared Iris solver variants plus12 fresh cases across all6 field checkpoints; complete4/6-coordinate traces/logits/probabilities and48 input derivatives per centimeter",
+    "All8 deployed source/data files and6 selected-model assets equal intended canonical bytes/objects"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Chosen kernel: fresh exact answers, 5 chunk sizes, short remainder, zero denominator, future edit",
+      "passed": true
+    },
+    {
+      "name": "RWKV independent enumeration, large shifts, retention=1, bonus/state invariant, constant values",
+      "passed": true
+    },
+    {
+      "name": "Orthogonal/correlated delta writes, nonempty zero-rate state, generalized matrix correction",
+      "passed": true
+    },
+    {
+      "name": "16 native PyTorch fixtures: both model kinds, 2 real validation rows, changed/carry/reset/reverse inputs",
+      "passed": true,
+      "maximumPortError": 0.000002638422790468553
+    },
+    {
+      "name": "Topic and component JSX parse",
+      "passed": true
+    }
+  ],
+  "maximumPortError": 0.000002638422790468553
+}

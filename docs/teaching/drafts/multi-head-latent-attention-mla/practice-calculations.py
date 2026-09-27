@@ -1,7 +1,7 @@
-"""Fresh prediction-gated fixtures, evaluated without training or downloads.
+"""Fresh live-exploration fixtures, evaluated without training or downloads.
 
 Run beside the two original programs and forecast-model.json.
-Answers belong to author/phase-two evidence and remain hidden before commit.
+Expected values support phase-two parity checks; the live UI recomputes outputs.
 """
 from pathlib import Path
 import importlib.util

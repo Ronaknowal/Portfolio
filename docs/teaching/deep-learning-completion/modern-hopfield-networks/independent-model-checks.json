@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": 12258,
+  "freshNativeReads": 6,
+  "inputGradientCoordinates": 384,
+  "sharedProjectionFiniteDifferences": 128,
+  "fullProjectionDirections": 4,
+  "seed": 81401,
+  "geometryAndGaugeCases": 80,
+  "maxNativeError": 4.884981308350689e-15,
+  "maxInputGradientError": 4.84445678017309e-11,
+  "maxProjectionEntryGradientError": 1.1456142701149474e-9,
+  "sourceFilesVerified": 52,
+  "scope": "Complementary native queries/gradients, both shared projection paths, whole-bank duplication, semantic class/memory permutations, coordinate rotation/scaling, covariance PSD and binary gauge dynamics. Existing 502047 author comparisons reused; no fitting or browser checks."
+}

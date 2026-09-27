@@ -1,0 +1,30 @@
+{
+  "topicId": "calibration-conformal-prediction",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/calibration-conformal-prediction.jsx",
+    "src/learn/components/lesson-labs/CalibrationIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/calibration-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/calibration-conformal-prediction.jsx": "64a7ed9091e428c4bb046a1aae6837487772a7cea3d95911d3159d5e88873d38",
+    "src/learn/components/lesson-labs/CalibrationIntuitionFigures.jsx": "ae126ca540b692a028872fa39deb5677d3f06b68cba6941ad77e3166e6360c57",
+    "src/learn/components/lesson-labs/calibration-intuition.css": "7d368961e37df429560ce118ccb6c77dd55f21dc2e4c8167154fa112aacab9c6"
+  },
+  "checks": [
+    {
+      "name": "Entire lesson, practice and new support source read",
+      "passed": true
+    },
+    {
+      "name": "Independent targeted arithmetic and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Source hashes agree with author checkpoint",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

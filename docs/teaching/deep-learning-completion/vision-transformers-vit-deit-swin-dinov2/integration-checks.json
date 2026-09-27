@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T20:11:30.185Z",
+  "topicId": "vision-transformers-vit-deit-swin-dinov2",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T20-07-57-572Z.json",
+  "buildReceiptHash": "e7ff43b93a5e42765ae90b9becb84aae4d55a2cdc574a86508959c37d194a57a",
+  "publicationMapping": "./topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

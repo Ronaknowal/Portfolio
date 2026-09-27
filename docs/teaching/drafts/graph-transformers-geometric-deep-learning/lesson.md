@@ -1,6 +1,6 @@
 # Graph Transformers & Geometric Deep Learning
 
-**Explore as you read.** Edit graph structure/coordinates, structural encodings, transformation action, message parameters and intentionally broken symmetry modes. Show invariant scalars, equivariant vectors, neighborhood membership and transformed outputs side by side. Distinguish a relabeled graph from a physically moved geometry. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose operations compatible with the required symmetry and find informative asymmetric counterexamples.
+**Explore as you read.** Change a graph connection and follow its effect on a global read. Then rotate a sensor array or a set of points and compare the two routes through the same rule. Edit the inputs to find what changes, what stays fixed, and which transformation belongs to the output.
 
 
 A molecular diagram tells you which atoms are bonded. A set of three-dimensional coordinates tells you where the atoms are. These are different kinds of information. Two conformations can have the same bonds and different shapes; rotating the entire molecule changes its coordinates without changing those internal distances.
@@ -53,7 +53,7 @@ Use the path 0—1—2 with values (1,2,4). Give receiver 0 zero content scores 
 
 Node 2 contributes immediately through global attention even though it is two graph hops away. If we mask attention to the closed one-hop neighborhood, the weights become (2/3,1/3,0) and the output becomes 4/3. If instead we retain global attention and change node 2's value from 4 to 11, the output rises by exactly 1. The mask would make this edit have no effect at receiver 0 in this layer.
 
-**Investigation: build the allowed read.** Edit the edge table, sender values and permitted set. Show the current computed result and its contributing terms immediately. A distance preference and a hard mask use different marks. Changing the graph recomputes shortest paths; simply moving nodes in the layout leaves the computation unchanged. The default numbers are constructed arithmetic, not trained attention.
+**Investigation: build the allowed read.** Edit the edge table, sender values and permitted set. Follow the weights and individual contributions as the inputs change. A distance preference and a hard mask use different marks. Changing the graph recomputes shortest paths; simply moving nodes in the layout leaves the computation unchanged. The default numbers are constructed arithmetic, not trained attention.
 
 ### Graphormer and GPS make different design choices
 
@@ -77,7 +77,7 @@ Consider a six-cycle and two disjoint triangles. Both have six nodes, all degree
 
 It does not follow that a trained model must use the feature successfully. Nor does it follow that a transformer is necessary: a small model reading that return probability can already separate this pair. A random output difference on two graphs is evidence of different representations at those weights, not an accuracy benchmark.
 
-**Inline walk diagram.** Draw the two returning three-step triangle routes and their probabilities beside the impossible odd return on the six-cycle. Let a learner add an edge and predict a changed return probability, then enumerate or multiply the tiny transition matrix. Keep the original nodes and exact step count visible.
+**Inline walk diagram.** Draw the two returning three-step triangle routes and their probabilities beside the impossible odd return on the six-cycle. Add an edge or change the step count; compare the current return probability with the explicit tiny transition matrix and returning routes. Keep the original nodes and exact step count visible.
 
 ### Laplacian modes
 
@@ -386,7 +386,7 @@ The code also removes edge (0,1) after fitting, holds the original degree/cluste
 
 ### Build the local/global composition, then use GPSConv
 
-The earlier real-data study deliberately isolates distance bias and random-walk features; it is not GPS. Now compose the two routes GPS makes explicit: one local graph update and one graph-wide attention read. Reuse [Message Passing's sparse GCN and edge convention](../message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md#move-the-same-layer-from-a-matrix-to-an-edge-list). That owner is prepared content at this checkpoint, not an already published replacement. Its [complete helper](../message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py) is supplied with the [GPS composition program](gps_library_bridge.py); place both files in the same directory when running them.
+The earlier real-data study deliberately isolates distance bias and random-walk features; it is not GPS. Now compose the two routes GPS makes explicit: one local graph update and one graph-wide attention read. Reuse [Message Passing's sparse GCN and edge convention](../message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md#move-the-same-layer-from-a-matrix-to-an-edge-list). The preceding lesson develops and executes that sparse layer. Its [complete helper](../message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py) is supplied with the [GPS composition program](gps_library_bridge.py); place both files in the same directory when running them.
 
 Our comparison holds normalization and dropout off to expose composition. The two branches each carry their own residual:
 
@@ -394,11 +394,11 @@ Our comparison holds normalization and dropout off to expose composition. The tw
 h=(x+\operatorname{GCN}(x))+(x+\operatorname{Attention}_{graph}(x)),\qquad y=h+\operatorname{MLP}(h).
 \]
 
-There are **two copies of x in the sum**, not one. Replacing this with `x + local + global` is a different function. `LocalGlobalBlock` writes these operations directly. Its global attention reuses the projections/mixing taught in [Self-Attention §5](../self-attention-multi-head-attention/lesson.md#5-implement-the-operation-you-just-traced); rebuilding that primitive here would obscure the new graph-level boundary. The complete paired program copies every local, attention and MLP parameter into `GPSConv(norm=None, dropout=0, heads=2, attn_type="multihead")`. [The PyG source](https://pytorch-geometric.readthedocs.io/en/2.9.0/_modules/torch_geometric/nn/conv/gps_conv.html) is the contract for this concrete composition.
+There are **two copies of x in the sum**, not one. Replacing this with `x + local + global` is a different function. `LocalGlobalBlock` writes these operations directly. Its global attention reuses the projections/mixing taught in [Self-Attention §5](../self-attention-multi-head-attention/lesson.md#5-implement-the-operation-you-just-traced); rebuilding that primitive here would obscure the new graph-level boundary. The complete paired program copies every local, attention and MLP parameter into `GPSConv(norm=None, dropout=0, heads=2, attn_type="multihead")`. [The PyG source](https://pytorch-geometric.readthedocs.io/en/2.8.0/_modules/torch_geometric/nn/conv/gps_conv.html) is the contract for this concrete composition.
 
 Each node receives three declared scalar features plus its two-step return probability. These structural scalars move with a node under relabeling. They are **not spatial vector coordinates** and need no rotation matrix. `Batch.from_data_list` offsets each graph's edge indices and supplies its node-to-graph vector. The manual block reads one graph at a time; PyG pads graphs for its global attention and masks padding. A missing batch vector would let all five nodes communicate as one graph, even though local edge indices still contain no cross-graph edge.
 
-Run `python gps_library_bridge.py` with PyTorch and `torch-geometric==2.9.0`. This new route is fully written but **unexecuted in this content revision**. The reasoned check contract is: manual and package outputs/gradients/one SGD update agree within the supplied tolerances; the three-node and two-node graph outputs agree whether evaluated separately or together; editing graph B cannot change graph A; consistently relabeling nodes, structural features and edges relabels outputs. No training quality or runtime measurement is claimed.
+Run `python gps_library_bridge.py` with PyTorch and `torch-geometric==2.8.0.post1`. This route was executed on 27 September 2026 with PyTorch 2.14.0 CPU and PyG 2.8.0.post1. The checks establish: manual and package outputs/gradients/one SGD update agree within the supplied tolerances; the three-node and two-node graph outputs agree whether evaluated separately or together; editing graph B cannot change graph A; consistently relabeling nodes, structural features and edges relabels outputs. An additional executed case adds a third, isolated graph: its output stays fixed when graph B changes with the proper batch vector, and changes when that vector is omitted. These are value, derivative and communication checks; no training-quality or runtime measurement is inferred.
 
 Why disable normalization here? The package's default batch normalization shares batch statistics during training, so independently evaluating a graph and evaluating it in a batch need not produce the same answer. `norm=None` isolates the intended communication relation. Later choose per-node LayerNorm, per-graph normalization or BatchNorm deliberately and revise the corresponding invariance test. Dropout also changes the comparison unless modes and random masks match.
 

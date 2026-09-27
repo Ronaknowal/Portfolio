@@ -2,6 +2,7 @@ import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/conten
 import { Math, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { ChainingCorrectionsFigure } from '../../components/lesson-labs/RademacherIntuitionFigures.jsx';
 import {
   BestResponseLab, BoundedNormLab, MarginBoundLab, SignedGeometryLab,
 } from '../../components/lesson-labs/RademacherLabs.jsx';
@@ -126,7 +127,7 @@ const rademacherContent = {
       lesson is about why. Every investigation updates its topic-specific results from valid control changes, with no expected-answer input.
     </LessonIntro>
 
-    <div className="rad-route"><Prose><strong>First pass.</strong> Read sections 1–8 and do practice 1–7. That route
+    <div className="rad-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–8 and do practice 1–7. That route
       gets you the exact calculation, the theorem it feeds, the geometry that makes it computable, the margin
       construction that makes a hard classification analysable, and one real experiment you can judge. Run both
       programs on the way: the first in section 7, the second in section 8. Section 9 is a deeper branch — convex
@@ -364,9 +365,9 @@ const rademacherContent = {
       Apply a second concentration bound, allocating <Math>{'\\delta/2'}</Math> to each event. Replacing its population
       expectation by its observed value contributes two copies of the deviation term because the complexity is
       multiplied by 2; concentrating <Math>{'\\Phi'}</Math> contributes the third. That is where the empirical
-      theorem&rsquo;s coefficient 3 comes from — and <strong>this is the same number appearing by two routes</strong>:
-      the 2 in front of the complexity term and the 3 in front of the confidence term are not independent constants,
-      but a consequence of the same replacement argument applied twice.</Prose>
+      theorem&rsquo;s coefficient 3 comes from: two copies account for replacing expected complexity by its empirical
+      value, and one controls the remaining sample fluctuation. The coefficient 2 on complexity came earlier from
+      splitting the ghost-sample difference into two noise-matching problems.</Prose>
     <Prose>The assumptions now have visible jobs. If samples have different distributions, pair swapping need not
       preserve the distribution. If the loss has no range or tail control, the <Math>{'1/n'}</Math> change argument
       fails. If the class changes with the sample, the same replacement proof does not automatically apply. Extensions
@@ -732,6 +733,14 @@ const rademacherContent = {
       for smaller residual differences. <strong>Chaining</strong> combines bounds over multiple scales instead of
       paying the finest-scale count for every distinction. This can sharpen a simple one-scale Massart/Sauer
       analysis.</Prose>
+    <ChainingCorrectionsFigure />
+    <Prose>The distance here is the root-mean-square difference between two prediction vectors on the fixed sample,
+      not the distance between their parameter files. The class contains infinitely many values of t, yet the three
+      displayed grids need only 3, 5 and 9 representatives. In the decomposition, the signed correlation with the target
+      is the sum of the signed correlations with the coarse approximation, successive corrections and final residual.
+      Bounding those pieces separately lets a finer stage pay for a small correction instead of paying for the full
+      prediction range again. A full chaining inequality must also bound the number of possible corrections and the
+      residual; drawing a fine grid alone does not establish that inequality.</Prose>
     <Prose>Global complexity also measures functions the learning procedure is unlikely to consider near a good
       solution. <strong>Local Rademacher analysis</strong> restricts attention to a region, often defined by an
       excess-loss or variance condition, and solves a relation between that region&rsquo;s radius and its complexity.
@@ -739,6 +748,13 @@ const rademacherContent = {
       hypotheses after observing the sample is not a proof of
       localization. <a href="https://arxiv.org/abs/math/0508275">Bartlett, Bousquet and Mendelson&rsquo;s
       local-complexity paper</a> is a deeper route for this distinction.</Prose>
+    <Prose>To see what a fixed point buys, suppose an analysis has established the illustrative local envelope
+      <Math>{'\\psi(r)=c\\sqrt{r/n}'}</Math>, where r measures the size of the allowed excess-loss region.
+      A larger region admits more noise-fitting and therefore a larger envelope. The positive balance
+      <Math>{'r=\\psi(r)'}</Math> occurs at <Math>{'r=c^2/n'}</Math>: below that scale the envelope exceeds the
+      proposed radius, while above it the radius contains the envelope. This explains how a 1/n scale can arise.
+      It is an algebraic illustration, not permission to replace every global bound by 1/n: the local envelope,
+      variance/excess-risk relation and confidence terms must first be justified for the problem.</Prose>
     <Prose>Gaussian complexity replaces fair signs with independent standard-normal multipliers. It supports related
       geometric and comparison arguments but is a different quantity with its own normalization and tail
       behaviour. <a href="https://jmlr.org/papers/volume3/bartlett02a/bartlett02a.pdf">Bartlett and Mendelson&rsquo;s
@@ -761,6 +777,17 @@ const rademacherContent = {
       Foster and Telgarsky&rsquo;s spectral-margin paper</a> makes this comparison on stated architectures and
       datasets. Its empirical associations do not prove that every increase in a trained network&rsquo;s norm causes
       worse future performance.</Prose>
+    <LessonTable caption="A scalar ReLU network can change its parameters without changing its function"
+      headers={['Parameterization', 'First-layer magnitude', 'Second-layer magnitude', 'Output for every x']}
+      rows={[
+        ['3 ReLU(2x)', '2', '3', '6 ReLU(x)'],
+        ['.3 ReLU(20x)', '20', '.3', '6 ReLU(x)'],
+      ]} />
+    <Prose>ReLU passes positive rescaling through itself: <Math>{'\\operatorname{ReLU}(cx)=c\\operatorname{ReLU}(x)'}</Math>
+      {' '}for c&gt;0. Multiplying one layer by ten and dividing the next by ten preserves all scores and margins.
+      The first-layer norm alone changes tenfold; the product stays six. This is why normalization choices have to
+      respect the represented function. It illustrates a symmetry, not the claim that a product alone captures every
+      network bound: the additional factors in the cited results still matter.</Prose>
 
     <H3>Compare frameworks by what they control</H3>
     <LessonTable caption="Four frameworks, what each one constrains, and what an application of it must supply"
@@ -781,6 +808,18 @@ const rademacherContent = {
       estimating the randomized classifier&rsquo;s empirical
       loss. <a href="https://arxiv.org/pdf/1703.11008">Sections 3.1–3.3 describe those separate steps</a>. Merely
       moving a prior onto a trained network and declaring the KL small is not valid.</Prose>
+    <LessonTable caption="Same parameter mean, different information relative to a fixed prior"
+      headers={['Distribution over parameters −1, 0, +1', 'Mean parameter', 'KL(Q ∥ P), natural-log units']}
+      rows={[
+        ['P = (1/3, 1/3, 1/3)', '0', '0 when Q = P'],
+        ['Q = (1/2, 0, 1/2)', '0', 'ln(3/2) ≈ .4055'],
+        ['Q = (0, 1, 0)', '0', 'ln 3 ≈ 1.0986'],
+      ]} />
+    <Prose>Each contribution is <Math>{'Q(w)\\ln[Q(w)/P(w)]'}</Math>, with a zero-mass contribution defined as zero.
+      Concentrating on the middle parameter costs more relative to this uniform prior than keeping both endpoints,
+      despite the identical mean. The loss in a basic PAC-Bayes statement is averaged over a predictor drawn from Q;
+      it is not automatically the loss of a predictor made from the mean parameter. This small distribution table
+      explains the object being controlled before the cited neural-network application introduces thousands of weights.</Prose>
     <Prose>For stability, changing one observation is a perturbation of the <strong>training procedure</strong>, not a
       random-label fit. A uniform stability guarantee bounds the change in loss over all neighbouring datasets and
       query examples; measuring one leave-one-out change is a diagnostic, not the supremum. Under
@@ -796,9 +835,9 @@ const rademacherContent = {
       evaluation protocol. Each can contribute without being mislabeled as the other.</Prose>
 
     {/* ============================================================ §10 */}
-    <H2 id={headingId(headings[9])}>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2 id={headingId(headings[9])}>{headings[9]}</H2>
 
-    <Practice title="1. Two inputs, three thresholds"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. Two inputs, three thresholds"
       question={<>For inputs 2 and 5, the positive-threshold prediction rows
         are <Math>{'(-1,-1)'}</Math>, <Math>{'(-1,+1)'}</Math>, <Math>{'(+1,+1)'}</Math>. Compute the exact empirical
         complexity over all four sign patterns. Would adding <Math>{'(+1,-1)'}</Math> change it?</>}
@@ -809,9 +848,9 @@ const rademacherContent = {
         is {num(practiceThresholds.complexity)}. Adding the missing prediction row makes every maximum 1, so complexity
         becomes {num(practiceThresholdsPlus.complexity)}. Duplicating any existing row would
         preserve {num(practiceThresholds.complexity)}.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. A mysterious absolute value"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. A mysterious absolute value"
       question={<>A colleague reports complexity {num(absoluteSingleton.complexity)} for a single fixed all-positive
         rule on three observations. Your calculation gives {num(singletonModel.complexity)}. Explain how both numbers
         might have been obtained, and why one cannot be pasted into the other&rsquo;s theorem without checking
@@ -822,9 +861,9 @@ const rademacherContent = {
         the rule&rsquo;s negative as well — which is why it returns the two-constant class&rsquo;s
         value {num(constantModel.complexity)}. The definition has changed, so factors, centering properties and
         associated risk statements must be checked rather than mixed.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Geometry with a different scale"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Geometry with a different scale"
       question={<>For <Math>{'x_1=(3,0)'}</Math>, <Math>{'x_2=(0,4)'}</Math>, and <Math>{'\\|w\\|_2\\leq2'}</Math>,
         compute the exact score complexity and the feature-energy bound. Does an answer greater than 1 indicate a
         bug?</>}
@@ -836,9 +875,9 @@ const rademacherContent = {
         also <Math>{'2\\sqrt{9+16}/2='}</Math>{num(practiceGeometry.energyUpper)}. These are unrestricted real scores,
         not outputs constrained to <Math>{'[-1,1]'}</Math>; the unit ceiling does not apply. A risk theorem still
         requires its stated loss range or a valid margin transformation.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Compare a finite-class bound correctly"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Compare a finite-class bound correctly"
       question={<>There are eight distinct sign-valued hypotheses on 200 observations. Compute Massart&rsquo;s bound.
         If 1,000 duplicate copies of those same rows are added to the file, what changes?</>}
       hint={<>Use natural logarithms and the number of distinct prediction vectors. Separate a bound from the exact
@@ -847,9 +886,9 @@ const rademacherContent = {
         complexity may be smaller. Duplicate rows leave every maximum and the exact complexity unchanged. Counting
         copies inside the logarithm would give {num(massartSignBound(1008, 200))} — a valid but unnecessarily looser
         upper bound; deduplicating restores the original calculation.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Repair a loss comparison"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Repair a loss comparison"
       question={<>Margins are <Math>{'[-.1,.2,.8]'}</Math> and <Math>{'\\rho=.4'}</Math>. Calculate the ramp loss, then
         explain what is wrong with &ldquo;logistic loss is 1/4-Lipschitz, therefore its classification guarantee is
         always four times better than hinge.&rdquo;</>}
@@ -861,9 +900,9 @@ const rademacherContent = {
         over unrestricted margins; the <Math>{'[0,1]'}</Math> theorem cannot be applied unchanged. Even valid different
         loss bounds concern different empirical objectives, ranges and potentially fitted models, so a ratio of one
         term is not a universal classification comparison.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. The apparently perfect singleton certificate"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. The apparently perfect singleton certificate"
       question={<>An agent memorizes a training set with a flexible model, defines <Math>{'F'}</Math> afterward as just
         that fitted function, computes complexity zero and claims that only the confidence term is needed. Identify the
         missing condition and give two valid ways to proceed.</>}
@@ -873,9 +912,9 @@ const rademacherContent = {
         model and evaluate it on genuinely independent data with a fixed-predictor concentration result. An appropriate
         theorem for data-dependent classes is a further route, but cannot be assumed from the ordinary
         statement.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Diagnose the real experiment"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Diagnose the real experiment"
       question={<>The <Math>{'B=4'}</Math> candidate has {selected.assessment.errors}/80 assessment errors, but
         its <Math>{'\\rho=1'}</Math> bound expression is about {to(fittedModels[4].bounds[1].rawUpper, 4)}. Does this
         disprove the theorem? Should we choose <Math>{'B=2'}</Math> merely because its expression is smaller? Would
@@ -888,9 +927,9 @@ const rademacherContent = {
         prediction. Its displayed value uses the analytic energy upper bound, so more sign draws would not alter that
         calculation at all. A refined complexity analysis could change a bound, while better validation or additional
         independent data could change the practical evidence; those are separate tasks.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Audit a random-label “upper bound”"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Audit a random-label “upper bound”"
       question={<>A neural optimizer reaches mean signed correlation .35 over 200 random-label fits. Its author
         calls .35 an upper bound on the whole architecture&rsquo;s Rademacher complexity and inserts it into a 95% risk
         bound. Name the two distinct issues, even if the underlying sample were iid.</>}
@@ -902,10 +941,10 @@ const rademacherContent = {
         The class, output bounds and loss transformation must also match the theorem. Increasing the number of
         imperfect fits addresses neither the missing optimization certificate nor the loss-class distinction
         automatically.</Prose>
-    </Practice>
+    </Practice></div>
 
-    {/* ============================================================ §11 */}
-    <H2 id={headingId(headings[10])}>{headings[10]}</H2>
+    {/* ============================================================ §11 */}</section>
+    <section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2 id={headingId(headings[10])}>{headings[10]}</H2>
     <Prose>You are ready to move on when you can compute a small empirical complexity exactly, say why the maximum
       comes before the average, name which quantity a stated theorem needs and over what its probability is taken,
       derive a norm-ball best response, choose a margin threshold and account for the comparisons you made, and look at
@@ -930,7 +969,7 @@ const rademacherContent = {
         ['Correct a Monte Carlo estimate, and say which failure allowance it spends', 'Section 7, figure 13, practice 8'],
         ['Apply a declared selection rule before looking at assessment', 'Section 8, investigation 4'],
         ['Report a vacuous bound honestly beside a model that works', 'Section 8, figures 15–16, practice 7'],
-      ]} />
+      ]} /></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; each of these offers
       a second explanation or a fuller reference.</Prose><ul>

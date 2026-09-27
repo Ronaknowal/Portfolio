@@ -1,0 +1,13 @@
+.ssl-intuition { margin: 2rem 0; padding: clamp(.8rem, 2vw, 1.35rem); border: 1px solid #3f3c35; background: #121211; color: #ddd9d1; }
+.ssl-intuition h4, .ssl-intuition h5 { color: #f0e8d9; margin: 0 0 .65rem; font-size: 1rem; }
+.ssl-intuition p, .ssl-intuition figcaption { line-height: 1.7; overflow-wrap: anywhere; }
+.ssl-intuition figcaption { margin-top: 1rem; color: #c7beb0; }
+.ssl-intuition-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; }
+.ssl-intuition-panels > section { min-width: 0; border-top: 1px solid #4d4638; padding-top: 1rem; }
+.ssl-intuition svg { width: 100%; height: auto; display: block; }
+.ssl-intuition svg text { fill: #ddd9d1; font-size: 12px; }
+.ssl-intuition-controls { display: grid; gap: 1rem; margin: 1rem 0; }
+.ssl-intuition-controls label { display: block; }
+.ssl-intuition-controls input { display: block; width: 100%; min-height: 32px; accent-color: #e9b949; }
+.ssl-intuition button { color: #e9b949; background: #1c1913; border: 1px solid #8a7139; padding: .6rem .85rem; cursor: pointer; }
+.ssl-intuition button:focus-visible, .ssl-intuition input:focus-visible { outline: 2px solid #e9b949; outline-offset: 3px; }

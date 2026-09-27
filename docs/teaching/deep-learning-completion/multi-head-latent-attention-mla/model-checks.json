@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "scalarComparisons": 8176,
+  "maxForecastError": 1.404209770683451e-7,
+  "checks": [
+    "fresh NumPy expanded/absorbed fixtures and consistent basis",
+    "value-only null and latent edit",
+    "empty legal set rejects",
+    "projection/rotation order and isotropic null",
+    "15 NumPy SVD input cases including zero and repeated singular values",
+    "independent cache/operation formulas and doubled-head null",
+    "16 full-model native cases including content/rotary scores",
+    "expanded/absorbed, incremental and consistent-position-shift parity",
+    "owned JSX parses"
+  ]
+}

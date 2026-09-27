@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "comparisons": 64869,
+  "maxForwardError": 2.842170943040401e-14,
+  "maxGradientError": 0.000006249878865105529,
+  "checks": [
+    {
+      "name": "Three independent native full readers,arbitrary owner identity and270 actual input gradients",
+      "passed": true
+    },
+    {
+      "name": "Native unequal-value-width packed empty and saturated rows preserve forward and all owner gradients",
+      "passed": true
+    },
+    {
+      "name": "Fresh scalar partition merges/common offsets,all-masked blocks and parallel reductions",
+      "passed": true
+    },
+    {
+      "name": "Literal individual cell enumeration for uneven/reversed storage tiles and every visit",
+      "passed": true
+    },
+    {
+      "name": "Exact large resource inventory and timeline dependencies,aliases and singleton rank",
+      "passed": true
+    },
+    {
+      "name": "Persistent token/head identities and logical target/weighted objective examples",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Fresh native SDPA/reference parameter values,270 input finite differences (h=1e-6; relative/absolute tolerance3e-6) and independent literal arithmetic.",
+    "Existing canonical multiprocess Gloo evidence reused; no GPU or measured overlap claim.",
+    "Runtime representation/browser assessment remains separate."
+  ]
+}

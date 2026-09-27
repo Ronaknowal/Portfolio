@@ -1,0 +1,36 @@
+{
+  "topicId": "calibration-conformal-prediction",
+  "date": "2026-09-26T15:36:43.404Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/calibration-conformal-prediction.jsx",
+    "src/learn/components/lesson-labs/CalibrationIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/calibration-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/calibration-conformal-prediction.jsx": "64a7ed9091e428c4bb046a1aae6837487772a7cea3d95911d3159d5e88873d38",
+    "src/learn/components/lesson-labs/CalibrationIntuitionFigures.jsx": "ae126ca540b692a028872fa39deb5677d3f06b68cba6941ad77e3166e6360c57",
+    "src/learn/components/lesson-labs/calibration-intuition.css": "7d368961e37df429560ce118ccb6c77dd55f21dc2e4c8167154fa112aacab9c6"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Pinball slope and asymmetric costs",
+    "CQR maximum as endpoint intersection",
+    "Class-specific candidate inclusion",
+    "Paired jackknife-plus endpoint construction",
+    "Test-weight atom and finite weighted quantile mass",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/calibration-models.js",
+    "src/learn/data/calibration-examples.js",
+    "src/learn/components/lesson-labs/CalibrationLabs.jsx",
+    "src/learn/components/lesson-labs/CalibrationFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

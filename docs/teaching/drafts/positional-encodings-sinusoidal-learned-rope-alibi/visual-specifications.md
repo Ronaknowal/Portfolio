@@ -24,7 +24,7 @@ Exact source: `mechanism-calculations.py` and `mechanism-fixtures.json` for dete
 
 Every lab is a live exploration by default. Valid changes update the numerical result and its explanation immediately, with no prediction or optional assessment mode. Separate practice keeps its own hints and solutions.
 
-Inputs are editable entities, not answer choices masquerading as a lab. A learner may use fixtures to start, then alter numeric vectors, positions, content scores, point coordinates or cache IDs. Every output comes from that resulting entity. Provide the declared contrast and null controls, but do not make them the only possible inputs. Explanations of a result must use its actual difference and mechanism rather than a fixed positive message. For free-form predictions, show the numerical comparison and an explicit rubric; do not pretend to parse arbitrary prose semantically.
+Inputs are editable entities, not answer choices masquerading as a lab. A learner may use fixtures to start, then alter numeric vectors, positions, content scores, point coordinates or cache IDs. Every output comes from that resulting entity. Provide the declared contrast and null controls, but do not make them the only possible inputs. Explanations of a result must use its actual difference and mechanism rather than a fixed positive message. No prediction field or reveal action is present; changed input and computed output remain visible together.
 
 Use Reset and meaningful process/inspection controls; no answer-submission or answer-unlock controls are present. Numeric inputs and drag adjustments operate on the same state. Invalid/nonfinite values receive local feedback and all-masked rows remain explicitly undefined rather than entering a softmax divide.
 

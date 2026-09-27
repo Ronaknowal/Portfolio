@@ -238,11 +238,11 @@ export function DbscanIrisLab() {
         <button type="button" onClick={() => setSaved(shown)}>Save this report as snapshot A</button>
         <span>{saved ? `Snapshot A: ε ${number(saved.eps)}, m ${saved.minimum}, ${saved.representation}` : 'No snapshot saved yet.'}</span>
       </div>
-      <details className="db-population-ids"><summary>Inspect the current report's retained and noise row IDs</summary>
+      <section className="db-population-ids lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Inspect the current report's retained and noise row IDs</h4>
         <p>The IDs refer to the original CSV rows, including after standardization. These are the exact populations behind the current counts and conditional scores.</p>
         <p><strong>Assigned ({shown.assignedIds.length}):</strong> <span data-population="current-assigned">{shown.assignedIds.join(', ') || 'none'}</span></p>
         <p><strong>Noise ({shown.noiseIds.length}):</strong> <span data-population="current-noise">{shown.noiseIds.join(', ') || 'none'}</span></p>
-      </details>
+      </section>
       <div className="db-controls">
         <Field label="Projection: horizontal feature"><select value={axes[0]} onChange={event => setAxes([Number(event.target.value), axes[1]])}>{irisFeatures.map((f, i) => <option key={f} value={i}>{f}</option>)}</select></Field>
         <Field label="Projection: vertical feature"><select value={axes[1]} onChange={event => setAxes([axes[0], Number(event.target.value)])}>{irisFeatures.map((f, i) => <option key={f} value={i}>{f}</option>)}</select></Field>
@@ -267,14 +267,14 @@ export function DbscanIrisLab() {
       {saved && saved !== shown && (() => {
     const c = compareReports(saved, shown);
     return <><Table caption="Snapshot A versus the current report on their common retained rows" headings={['quantity', 'snapshot A', 'current', 'common rows']} rows={[['setting', `ε ${number(saved.eps)}, m ${saved.minimum}, ${saved.representation}`, `ε ${number(shown.eps)}, m ${shown.minimum}, ${shown.representation}`, `${c.common.length} rows assigned by both`], ['assigned rows', saved.assignedIds.length, shown.assignedIds.length, `${c.onlyFirst} only A, ${c.onlySecond} only current`], ['groups', saved.clusters, shown.clusters, c.ariCommon === null ? 'agreement undefined' : `partition agreement (ARI) on common rows ${number(c.ariCommon, 3)}`], ['ARI vs species, all rows', showSpecies ? number(saved.ariAllRows, 3) : 'hidden', showSpecies ? number(shown.ariAllRows, 3) : 'hidden', '—'], ['ARI vs species on the common rows only', showSpecies ? c.ariSpeciesFirstCommon === null ? 'undefined' : number(c.ariSpeciesFirstCommon, 3) : 'hidden', showSpecies ? c.ariSpeciesSecondCommon === null ? 'undefined' : number(c.ariSpeciesSecondCommon, 3) : 'hidden', `${c.common.length} rows, same population for both`]]} />
-        <details className="db-population-ids"><summary>Inspect snapshot A and the exact common-row population</summary>
+        <section className="db-population-ids lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Inspect snapshot A and the exact common-row population</h4>
           <p><strong>Snapshot A assigned ({saved.assignedIds.length}):</strong> <span data-population="snapshot-assigned">{saved.assignedIds.join(', ') || 'none'}</span></p>
           <p><strong>Snapshot A noise ({saved.noiseIds.length}):</strong> <span data-population="snapshot-noise">{saved.noiseIds.join(', ') || 'none'}</span></p>
           <p><strong>Assigned by both ({c.common.length}):</strong> <span data-population="common">{c.common.join(', ') || 'none'}</span></p>
           <p><strong>Only snapshot A ({c.onlyFirst}):</strong> <span data-population="snapshot-only">{saved.assignedIds.filter(id => !shown.assignedIds.includes(id)).join(', ') || 'none'}</span></p>
           <p><strong>Only current ({c.onlySecond}):</strong> <span data-population="current-only">{shown.assignedIds.filter(id => !saved.assignedIds.includes(id)).join(', ') || 'none'}</span></p>
           <p>Compare conditional agreement on the listed common population; the rows excluded by one setting remain part of the whole-collection question.</p>
-        </details>
+        </section>
       </>;
   })()}
     </>}

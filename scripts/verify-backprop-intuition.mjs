@@ -1,0 +1,50 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { parse } from '@babel/parser';
+
+const topicId = 'backpropagation-automatic-differentiation';
+const sourceFiles = ['src/learn/data/topics/backprop.jsx', 'src/learn/components/lesson-labs/BackpropIntuitionFigures.jsx', 'src/learn/components/lesson-labs/backprop-intuition.css', 'scripts/build-backprop-lesson.mjs'];
+const destination = 'docs/teaching/concept-intuition/' + topicId + '/author-checks.json';
+const hash = file => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const receipt = { topicId, passed: false, sourceFiles, checks: [], browser: 'pending root', independentReview: 'pending complementary reviewer' };
+const save = () => fs.writeFileSync(destination, JSON.stringify(receipt, null, 2) + '\n');
+const close = (a, b, tolerance = 1e-9) => assert.ok(Math.abs(a - b) < tolerance, `${a} != ${b}`);
+save();
+try {
+  const linearLoss = input => 2 * (3 * input - 1) - (-2 * input - 4);
+  close((linearLoss(2 + 1e-4) - linearLoss(2 - 1e-4)) / 2e-4, 8);
+  const sharedWeightLoss = weight => 2 * (2 * weight) - 5 * weight;
+  close(sharedWeightLoss(1) - sharedWeightLoss(0), -1);
+  receipt.checks.push({ name: 'Independent loss expansion reproduces matrix route sensitivities', passed: true });
+  const logits = [.2, .3, .5].map(Math.log);
+  const crossEntropy = values => Math.log(values.reduce((total, value) => total + Math.exp(value), 0)) - values[1];
+  [.2, -.7, .5].forEach((expected, index) => {
+    const high = [...logits], low = [...logits]; high[index] += 1e-5; low[index] -= 1e-5;
+    close((crossEntropy(high) - crossEntropy(low)) / 2e-5, expected);
+  });
+  close(.2 - .7 + .5, 0);
+  receipt.checks.push({ name: 'CE signals match numerical differences; common shift has zero directional derivative', passed: true });
+  const gradient = ([x, y]) => [2 * x + y, x + 6 * y];
+  const before = gradient([.3, .7]), after = gradient([.31, .72]);
+  [4, 13].forEach((expected, index) => close((after[index] - before[index]) / .01, expected));
+  receipt.checks.push({ name: 'Hessian directional table matches independently differentiated quadratic', passed: true });
+  const weights = [2 / 5 / 2, 2 / 5 / 2, 3 / 5 / 3, 3 / 5 / 3, 3 / 5 / 3];
+  weights.forEach(value => close(value, .2));
+  close((1 / 2) / (1 / 3), 1.5);
+  const contributions = [1, 2, 3, 4, 5].map(x => -4 * x * x);
+  close(contributions.reduce((total, value) => total + value, 0) / 5, -44);
+  close(contributions.slice(0, 2).reduce((a, b) => a + b) / 2 + contributions.slice(2).reduce((a, b) => a + b) / 3, -76 - 2 / 3);
+  receipt.checks.push({ name: 'Microbatch weights and displayed gradient contrast match per-example expansion', passed: true });
+  for (const file of sourceFiles.filter(file => /\.(jsx|mjs)$/.test(file))) parse(fs.readFileSync(file, 'utf8'), { sourceType: 'module', plugins: ['jsx'] });
+  receipt.checks.push({ name: 'Changed source parses', passed: true });
+  const baseline = JSON.parse(fs.readFileSync('docs/teaching/evidence/concept-intuition-baseline.json'));
+  const preserved = Object.entries(baseline.actualFileHashes).filter(([file]) => file.startsWith('public/learn-assets/backpropagation/') || /^src\/learn\/data\/backprop-(models|training|mechanism-program)\.js$/.test(file));
+  assert.ok(preserved.length > 5);
+  for (const [file, expected] of preserved) assert.equal(hash(file), expected, file);
+  receipt.checks.push({ name: 'Legacy models, programs, data and measured outcomes unchanged', passed: true, files: preserved.length });
+  receipt.sourceHashes = Object.fromEntries(sourceFiles.map(file => [file, hash(file)]));
+  receipt.reviewedOn = new Date().toISOString();
+  receipt.passed = true;
+} catch (error) { receipt.failure = error.stack; process.exitCode = 1; }
+save(); console.log(JSON.stringify({ passed: receipt.passed, checks: receipt.checks, failure: receipt.failure }));

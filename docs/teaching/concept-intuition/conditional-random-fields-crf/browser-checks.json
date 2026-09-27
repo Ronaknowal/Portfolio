@@ -1,0 +1,62 @@
+{
+  "topicId": "conditional-random-fields-crf",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "97773a50e538899059dbb236f0a566c8f0f68a133277bbf6204216e7d9db278f",
+    "src/learn/components/lesson-labs/CrfIntuition.jsx": "459f435bb6a0214202c3dbbc5843bf62a7d1b82022e25fdb031c5170f9a48a0d",
+    "src/learn/components/lesson-labs/crf-intuition.css": "8a06649143b2c657b553f834b9093caac26d083c99f651cebefca8cf401190f3",
+    "src/learn/data/crf-models.js": "e9464061389ee7d0e7be57b6b49b62838210862e0289b3e20de2b40544f87682"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        23
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        56,
+        57,
+        58,
+        59
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        15
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [
+    [
+      "Factor keyboard End changes compatible/all mass to 99/102 and loss .029853",
+      "No-label selection produces loss zero; stays zero at Home with changed all-path mass",
+      "Reset restores factor 4, partial labels, mass 27/30 and loss .105361"
+    ]
+  ],
+  "findings": [],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

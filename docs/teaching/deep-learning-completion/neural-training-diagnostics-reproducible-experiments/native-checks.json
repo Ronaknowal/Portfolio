@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Complete wine_diagnostics.py executed; every retained numeric/result field matches",
+      "passed": true
+    },
+    {
+      "name": "Complete checkpoint_replay.py executed; every retained numeric/result field matches",
+      "passed": true
+    },
+    {
+      "name": "Complete calculations.py executed; every retained numeric/result field matches",
+      "passed": true
+    },
+    {
+      "name": "Exact finite-difference program extracted from manuscript executes and matches displayed output",
+      "passed": true
+    },
+    {
+      "name": "Fresh native scalar gradients, all independent BatchNorm/linear mode switches, restart trajectories and paired summaries exported",
+      "passed": true
+    },
+    {
+      "name": "178 measured source rows match sklearn and split is disjoint/exhaustive; test remains unevaluated",
+      "passed": true
+    }
+  ],
+  "retainedNumericComparisons": 30828,
+  "maxRetainedError": 0.0,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "threads": 1,
+    "dtype": "float64",
+    "device": "CPU"
+  },
+  "fixtures": {
+    "scalar": 36,
+    "mode": 40,
+    "restart": 81,
+    "pairs": 6
+  },
+  "limitations": [
+    "Only the unchanged eight declared Wine treatments and the declared12-update checkpoint continuations were fitted; no new hyperparameter selection or test score.",
+    "Exact continuation is established for this CPU environment, not across hardware, workers or releases."
+  ]
+}

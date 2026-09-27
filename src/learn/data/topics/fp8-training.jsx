@@ -791,7 +791,7 @@ INT4         any          aggressive inference          8x / 8x (inference)
       {/* ======================================================================
           11. SELF-CHECK
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five short problems. Spend ten minutes on each before peeking. The problems are chosen so that getting them wrong diagnoses something specific about what you have not internalized about FP8.
@@ -839,7 +839,7 @@ INT4         any          aggressive inference          8x / 8x (inference)
 
       <Prose>
         Low-precision pretraining is a discipline, not a feature. The payoff is the 1.5–2× throughput multiplier on Hopper-class hardware, which compounds into either larger models, more training tokens, or shorter wall-clock runs — pick any of the three at a fixed cluster budget. The cost is attention to a few numerical details that cannot be skipped. Once you have the simulator in section 4 and the operator table in section 5 internalized, the rest is engineering: pick the HYBRID recipe, keep LayerNorm and softmax in BF16, keep master weights in FP32, watch the amax history for drift, and validate against a BF16 baseline before committing the full run. Every frontier lab runs this loop. Most training code in 2026 goes through it. The 2017 mixed-precision paper set the template; the 2022 FP8 formats paper extended it to eight bits; DeepSeek-V3 proved it works at 671 billion parameters. The frontier now is FP4, which is a research problem and not a production tool, and that is a topic for another day.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

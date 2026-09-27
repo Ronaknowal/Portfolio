@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "recordedOn": "2026-09-28",
+  "tool": "CUA in-app browser; production preview on 127.0.0.1:4197",
+  "desktop": {
+    "dlTopicIds": [
+      "perceptrons-neurons-activation-functions",
+      "backpropagation-automatic-differentiation",
+      "loss-functions-ce-mse-focal-contrastive-triplet",
+      "batch-layer-group-rms-normalization",
+      "transfer-learning-fine-tuning-strategies",
+      "weight-initialization-xavier-kaiming-p",
+      "residual-connections-skip-connections",
+      "dropout-droppath-stochastic-depth",
+      "convolution-pooling-receptive-fields",
+      "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "depthwise-separable-dilated-convolutions",
+      "convnext-modern-cnn-designs",
+      "capsule-networks",
+      "rnns-lstms-grus",
+      "sequence-to-sequence-encoder-decoder",
+      "attention-mechanism-bahdanau-luong",
+      "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "state-space-models-s4-mamba-mamba-2",
+      "rwkv-linear-attention-models",
+      "self-attention-multi-head-attention",
+      "transformer-block-architecture",
+      "positional-encodings-sinusoidal-learned-rope-alibi",
+      "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "multi-head-latent-attention-mla",
+      "sparse-linear-attention-variants",
+      "vision-transformers-vit-deit-swin-dinov2",
+      "mixture-of-experts-transformers-moe",
+      "interleaved-cross-attention-architectures",
+      "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "graph-transformers-geometric-deep-learning",
+      "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "spectral-normalization-gradient-penalty",
+      "modern-hopfield-networks",
+      "xlstm-extended-lstm",
+      "hyena-long-convolution-models",
+      "ring-attention-sequence-parallelism",
+      "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "neural-ode-continuous-depth-models",
+      "hybrid-ssm-transformer-architectures-jamba",
+      "titans-multi-memory-architecture",
+      "mini-batches-training-loops-gradient-accumulation",
+      "neural-training-diagnostics-reproducible-experiments"
+    ],
+    "otherTopicIds": [
+      "python-basics-types-control-flow-functions-modules",
+      "linux-basics-filesystems-processes",
+      "linked-lists-stacks-queues",
+      "hypothesis-testing-confidence-intervals",
+      "bayesian-inference-conjugate-priors",
+      "spectral-graph-theory",
+      "dynamical-systems-theory-chaos",
+      "topology-topological-data-analysis-tda",
+      "category-theory-emerging-use-in-ml",
+      "linear-logistic-regression",
+      "feature-selection-importance-shap-permutation-mutual-info",
+      "gaussian-processes-gp",
+      "active-learning",
+      "numerical-pdes-grids-finite-elements-stability",
+      "end-to-end-supervised-learning-error-analysis"
+    ],
+    "totalPages": 57,
+    "validSectionDestinations": 639,
+    "checks": [
+      "Exactly one compass, directly after reader-header",
+      "Complete actual main-H2 list",
+      "Every section link has a destination",
+      "No portalled guidance remains in article",
+      "No horizontal page overflow"
+    ],
+    "failures": []
+  },
+  "mobile": {
+    "width": 320,
+    "height": 800,
+    "topicIds": [
+      "transfer-learning-fine-tuning-strategies",
+      "perceptrons-neurons-activation-functions",
+      "residual-connections-skip-connections",
+      "titans-multi-memory-architecture",
+      "active-learning",
+      "numerical-pdes-grids-finite-elements-stability"
+    ],
+    "failures": [],
+    "checks": [
+      "One column, wrapped labels, no horizontal overflow",
+      "Transfer links at least 44px tall",
+      "Prerequisite disclosure opens",
+      "Keyboard Enter updates fragment and focuses heading below header"
+    ]
+  },
+  "interactions": [
+    "Transfer section 4 click focuses matching heading at about 90px",
+    "Keyboard jump to practice and Back preserve native history",
+    "Next-in-sequence client navigation replaces Transfer guidance with Weight Initialization",
+    "No captured browser error logs on checked pages"
+  ],
+  "finalTargetedRechecks": [
+    "Final-build labels contain exactly one authored number",
+    "Transfer legacy #transfer-section-4 wrapper lands at 89.93px and its heading at 101.93px",
+    "Active Learning core-route guidance appears in compass and is absent from article"
+  ],
+  "build": {
+    "passed": true,
+    "publishedLessonDynamicEntries": 234,
+    "eagerLessonBodiesInHomeHubOrReader": 0,
+    "checks": [
+      "vite production build",
+      "verify-site-build.mjs",
+      "verify-learning-artifacts.mjs",
+      "verify-content-import-boundary.mjs"
+    ],
+    "warnings": [
+      "Existing LearningNav chunk exceeds Vite 500kB guidance"
+    ]
+  },
+  "runtimeFiles": {
+    "src/learn/components/LessonOpening.jsx": "2fa02df542ec025b2e738578eb3efb8eec1556939d57d8b888937870b7ec0348",
+    "src/learn/components/LessonGuide.jsx": "7b7f9f95d61e5335cddc6f9626fb0a770f7b353bc50d332e7fb533bbdb6b6acb",
+    "src/learn/components/lesson-navigation.js": "43da1442fea7ff0558efa30063535b410ffdc8c41cca4eba1d7e1f88fff4394b",
+    "src/learn/components/lesson-guide.css": "6f8bd387c8573f001efcf36b78789ada244a7f2a808e935b1e444ab619b9cdd2",
+    "src/learn/components/TopicContent.jsx": "8a573509642974aef89dc370cb0a4173c01009c0cac10924000a3fec6ed61b38",
+    "src/learn/components/content/Prose.jsx": "e3cc90613a71a02dc1880fb5771685267b7dc17ed68cc3d184b45dd40e350aff",
+    "src/learn/components/content/Headings.jsx": "5db5b3f2bd423c33ee48dc43910219b6bff2785b8672a6c13442f945e670992f",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "c7550b8fd603b171093e5f58b54b0b1fe91d8e90de65f4006b1fd883bfc08ded",
+    "src/learn/learning-base.css": "434562e545573a931609a0695c71ac1f309401179b88bda5db086591fe09a919"
+  },
+  "limitations": [
+    "The broad 57-page check preceded the final wrapper-offset and Active Learning placement fixes; those affected behaviors were rechecked on the final build.",
+    "No fresh scientific experiment or every-lab control audit was performed for this presentation-only follow-up.",
+    "No assistive technology hardware/software test was performed; keyboard, semantic markup and focus were checked."
+  ]
+}

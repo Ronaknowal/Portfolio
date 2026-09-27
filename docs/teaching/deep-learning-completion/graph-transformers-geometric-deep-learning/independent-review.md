@@ -1,0 +1,61 @@
+# Independent review: Graph Transformers & Geometric Deep Learning
+
+Reviewer: training_dynamics_implementation, 27 September 2026. **Passed for the bound source version.** Shared production build and painted browser observations belong to the integration owner. No new fit, dataset, pretrained model, or GPU result was required or claimed.
+
+## Scope actually read
+
+Read the complete current manuscript, visual specifications, original author design, implementation concept map, destination note, data provenance/license, all three complete programs and the prerequisite sparse-layer program. Inspected all retained JSON schemas and complete source identities. Read the pure model, all three component files, scoped CSS, rendering/asset/check scripts, and author native/library/model/render evidence. The generated article retains every section, eight changed problems with closed hints/solutions, and the complete scratch and normal-library programs through visible explanations and on-demand source disclosures.
+
+The measured twelve-run campaign is preserved, including its weak 9–10/18 assessment outcomes. The original graph is the actual 34-node, 78-edge NetworkX representation; labels stay outside inference features. The node roles, distinction between fixed and recomputed structural features, float32 recorded outputs versus double live inference, and seed-11-only retained parameters are explained where used. The previous label-propagation result is identified as previous evidence; the GCN learning-rate difference prevents an unjustified controlled-comparison claim.
+
+## Independent correctness checks
+
+`independent-native.py` imports no author model or verifier. It uses functional PyTorch layer normalization, exact GELU and scaled-dot-product attention, SciPy shortest paths and special functions, NumPy symmetric eigendecomposition, actual PyG GPSConv/GCNConv and native autograd. A single CPU thread runs bounded new cases without fitting.
+
+`independent-model-checks.mjs` passed **50,671 scalar comparisons**:
+
+- Twelve fresh whole-network inputs across all four retained model families, with three graph densities, isolates, changed feature tables and arbitrary row permutations. Both blocks' attention and all logits/probabilities agree with the independent native route; maximum difference **1.11e−14**. Sixty selected input gradients agree with central differences, maximum **1.075e−9**.
+- A freshly initialized actual PyG GPS block on packed graphs of sizes 4/1/2, directed unequal-degree local edges, then an entirely empty local edge set. All outputs and cross-graph isolation agree (maximum **8.89e−16**); all 56 input gradients agree with independent finite differences (maximum **2.49e−10**). This checks receiver orientation, degree factors, two residual rails, padding/batch isolation and isolated self-updates on a new parameter state.
+- Every one of the 64 simple four-node graphs: eigenvalues, orthonormality, eigenvector residuals and complete repeated-eigenspace projectors against NumPy. Maximum **4.43e−14**. Comparing projectors avoids treating arbitrary eigenvector signs or bases as errors.
+- Twelve fresh 2–6-point geometries, both orthogonal parities and translations, three step sizes including zero; direct coordinate updates and native energy gradients agree. Native zero torque and Euler's homogeneous-energy identity provide additional conservative-force checks. Maximum **2.85e−14**.
+- SciPy erf and normal-CDF GELU comparisons, including central/tail method boundaries; chirality under translation, orthogonal parity, role swap and signed scaling; exact BigInt comparison of supported resource-count boundaries. All passed.
+
+The first oracle attempt exposed a non-contiguous-array requirement in SciPy's shortest-path wrapper. The independent fixture code now explicitly copies to contiguous storage; the completed native execution and comparisons above use the corrected oracle. No lesson-source numerical defect was found. Existing author's 92,693 comparisons, actual twelve-fit replay, parameter-gradient/SGD GPS bridge and full SSR evidence were reviewed and reused, not relabeled as these independent checks.
+
+## Concept and representation reading pass
+
+| Reading transition | Actual support and assessment |
+| --- | --- |
+| §1 identity, drawing and geometry | GeoIdentityLab separately changes layout, both stored adjacency axes and physical coordinate distance. Named semantic IDs travel with rows. The three objects cannot be confused merely because each uses node dots. |
+| §2 global reads and structural routes | The routes diagram separates feature, pair-bias and local-message entries. GeoReadLab shows edges, dashed nonlocal read paths, legal donors, scores, normalization and signed value products. The 12/7 versus 4/3 calculation and remote 11 contrast remain visible; finite unreachable bias differs from a hard mask. Empty support is undefined. |
+| §3 return probabilities and bases | Cycle/triangle geometry and two explicit 1/8 paths precede the editable transition matrix and complete return enumeration. The basis lab uses signed coordinate/projector matrices; an actual edge deletion distinguishes mixing a span from retaining individual eigenvectors. It does not claim a sign convention fixes repeated eigenspaces. |
+| §4 access versus useful information | Equal donor values give output 7 despite different weights. The contribution geometry and access/state/use/assessment distinction make this a substantive null, not an artificial no-op. |
+| §5 finite symmetry | Input-output route values, all-input commutator, all eight conjugates and tied mean accompany the square calculation. Constant inputs hide the untied defect while the matrix still exposes it. The scope remains the finite square group. |
+| §6 physical representations and nonlinearities | Point translation, polar versus axial reflection and scalar invariance are introduced as different tasks. Actual Q, determinant and orthogonality accompany the outputs; the two common-origin ReLU/norm-gate vectors expose the default defect of 2. Exact 3D values accompany the oblique geometry. |
+| §7 equivariant coordinate update | Relative vector → squared distance → invariant scalar → directional contribution is derived before the live investigation. Per-neighbor tables, displacement arrows and both shared-scale routes explain every term. Broken axis neighborhoods/ReLU and zero-step/duplicate-point cases distinguish a contract from a selected numerical pass. |
+| §8 code and real evidence | Observed graph roles and source IDs, actual tensor-shape pipeline, all twelve scores and baselines, and complete programs connect the explanation to executable evidence. The fitted inspector exposes Q/K/V, bias-added score, coefficient, product, donor sum and both residual stages. Tiny deltas use explicit powers of ten, rather than an imperceptible unscaled axis. |
+| §8 ordinary GPS tool route | The schematic includes both input residual rails and MLP residual. Actual 3/2/1 batching exposes IDs, padding, local/global contributions and deliberate missing-ID leakage. The complete normal PyG bridge includes all matching parameters, input/parameter derivatives and SGD, with the exact prerequisite helper downloadable. |
+| §9 parity, forces and typed features | Ordered tetrahedron displacements plus every labeled distance reveal reflection-sensitive chirality. Energy and its negative gradient share one explicit formula and finite-difference investigation. The 1/3/5 strips, symmetric traceless matrix and 9=1+3+5 decomposition explain representation blocks without pretending arbitrary channels are geometric vectors. |
+| §10 frames, applications and costs | Worked local-to-global points, invariant distance, weighted point and inverse receiver frame provide concrete intermediates. Tensor counting separates dense work, retained scores, bias and preprocessing. Neither a universal hardware cutoff nor molecular/protein performance is invented. |
+| §11 independent practice | Eight changed questions include different graph/read conditions, eigenspace/finite-symmetry reasoning, transformed geometry and force/resource cases. Hints and full solutions permit independent checking; the supplied GPS changed-practice answer handles the isolate and batching constraints. |
+
+The static pipeline's distance table illustrates the distance variant; adjacent text and loaded-family explanation explicitly separate set, distance, walk and GCN routes. It is sufficient in that reading context. The real attention heatmap is an optional exhaustive view, with larger equivalent semantic selectors and exact selected products in the main flow. Neither a tiny cell nor a chart alone is the only way to inspect an entity.
+
+## Separate learning-experience checklist
+
+1. **Route:** opening first-pass guidance names §§1–8 and practice 1–5; physical/tensor/resource depth is marked at §§9–10. Prerequisites are linked and refreshed at their actual use.
+2. **Cautions:** interpretation limits have clear homes: §4 access versus information, §8 empirical protocol, §§6–7 transformation assumptions, §9 conservative forces, §10 resource accounting. Programs principally perform the mechanism rather than print warnings.
+3. **Real question:** naming, connection and physical position are distinguished by concrete changes, then judged on the actual historical network and separate declared constructed geometry. No social layout acquires fabricated physical units.
+4. **Live investigations:** twelve investigations show current results without prediction entry or answer gates. Numeric/entity controls edit edges, values, rows, coordinates, actions and trained inputs beyond named presets; pin/reset/null modes are meaningful. Fetched model state is above the loading boundary, so current edits survive changes and retry.
+5. **Figures:** geometric edges, matrices, signed contributions, vector paths, typed components and numerical plots fit their topics. Probability changes use scaled units; paired geometry uses the same scale. Local focusable scroll wrappers preserve nominal label sizes. Actual painted desktop/phone evidence is root-owned and was read in browser-review.md; this review does not relabel source inspection as a screenshot check.
+6. **Connections:** exact scratch/native/runtime intermediates and the analytical/numerical contracts are linked. Graphormer/GPS, SignNet/BasisNet, EGNN and typed-feature/frame routes are covered or clearly bounded. Generalization remains distinct from architecture and algebra.
+7. **Code:** the complete graph study, geometry program, GPS bridge and reused sparse helper are available in actual deployed bytes. The manuscript explains data, encoding, normalization, projections, objectives and updates; verifier orchestration is separate. No toy browser approximation substitutes for trained forward inference.
+8. **Practice:** eight changed problems and worked solutions remain intact; the reader can reproduce exact numbers and make independent variations. No lab prediction gate replaced the practice.
+9. **Screenshots:** root's recorded desktop and 320px review inspected meaningful edited, broken and null states, full-width geometry, all complete programs and fetch failure/retry; final text-bound repairs were rechecked there. No duplicate browser claim is made here.
+10. **Buildup throughout:** the transition table above independently follows all middle and advanced concepts, including code choices. Every required hurdle has its question, entities, operation and consequence in reading order. No material concept/representation omission remains.
+
+## Findings and closure
+
+One source-evidence finding: the first author receipt bound topic files but omitted imported shared content/lesson components and styles. The author expanded its inventory from 49 to 62 files, including the real runtime dependencies and prepared renderer. I verified the current hashes and actual deployed program copies. This was an evidence correction; runtime and scientific bytes did not change. No further author correction is requested.
+
+Independent correctness and teaching review are complete. Final integration/build/browser status is maintained by the root, not inferred from this pass. User acceptance remains separate.

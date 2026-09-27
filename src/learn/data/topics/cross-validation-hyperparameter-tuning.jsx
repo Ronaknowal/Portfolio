@@ -57,7 +57,7 @@ const crossValidationContent = {
       to choose a learning procedure. This lesson combines them by deciding, every time, <strong>what is being chosen, what is being assessed,
       and which information each decision is allowed to use</strong>. Four investigations show how each valid change reaches the fitted model, score and information flow immediately.
     </LessonIntro>
-    <Prose className="cv-route">
+    <Prose opening="route" className="cv-route">
       <strong>First pass.</strong> Read sections 1–6 and try core practice questions 1–6, doing the fold-building, candidate-selection and
       nested-fold investigations where they appear, and running the two Python programs in sections 2 and 6. Sections 7–9 deepen uncertainty,
       adaptive search and computational budgeting; they do not become hidden prerequisites for the core readiness check, and practices 7–10
@@ -65,7 +65,7 @@ const crossValidationContent = {
     </Prose>
 
     <Callout title="Selection evidence and assessment evidence, once for the whole lesson">
-      A score that was used to <strong>choose</strong> a setting is not an estimate of that setting&rsquo;s performance. Throughout this lesson
+      A score that was used to <strong>choose</strong> a setting is not an independent assessment of that setting&rsquo;s future performance. Throughout this lesson
       the number that picked something is called a <strong>selection score</strong> and the number produced by rows that were kept out of that
       choice is called an <strong>assessment</strong>. They are never averaged together, never plotted on the same axis, and never quoted
       interchangeably &mdash; including inside the investigations, where the two always occupy separate rows. Everything else here follows from
@@ -504,6 +504,34 @@ const crossValidationContent = {
     <RiskFigure />
 
     <H3>Why overlap is not a variance formula</H3>
+    <Prose>
+      Averaging reduces fluctuations that can cancel each other. It does not remove a fluctuation shared by every term.
+      Imagine four fold-loss fluctuations, each written as one shared shock plus its own independent shock.
+      If each part has variance 0.5, each fold has variance 1. Their average still contains the entire shared shock,
+      but only one quarter of the independent variance: <Math>{'0.5+0.5/4=0.625'}</Math>.
+      Four completely independent fluctuations of variance 1 would instead average to variance 0.25.
+    </Prose>
+    <figure data-intuition="cv-shared-variance" className="cv-figure">
+      <figcaption><strong>Which uncertainty survives averaging?</strong> A constructed four-fold comparison.</figcaption>
+      <svg viewBox="0 0 320 172" role="img" aria-label="On a common variance scale from zero to one, independent fold fluctuations average to variance 0.25; shared variance 0.5 plus independent variance 0.125 totals 0.625."
+        style={{ width: '100%', maxWidth: 400, height: 'auto', display: 'block', margin: '1rem auto' }}>
+        <text x="20" y="22" fill="currentColor" style={{ fontSize: 16 }}>Independent: 0.25</text>
+        <rect x="20" y="32" width="70" height="24" fill="#e7b94a" />
+        <text x="20" y="83" fill="currentColor" style={{ fontSize: 16 }}>Shared: 0.5 + 0.125 = 0.625</text>
+        <rect x="20" y="94" width="140" height="24" fill="currentColor" opacity=".45" />
+        <rect x="160" y="94" width="35" height="24" fill="#e7b94a" />
+        <line x1="20" y1="138" x2="300" y2="138" stroke="currentColor" opacity=".4" />
+        {[0, .25, .5, .75, 1].map(value => <g key={value}>
+          <line x1={20 + value * 280} y1="138" x2={20 + value * 280} y2="143" stroke="currentColor" />
+          <text x={20 + value * 280} y="163" textAnchor="middle" fill="currentColor" style={{ fontSize: 15 }}>{value}</text>
+        </g>)}
+      </svg>
+      <Prose>
+        Amber is variance from independent parts after averaging; the neutral segment is the shared variance that remains.
+        These are hypothetical repeated-sampling fluctuations, not estimated correlations from our three observed folds.
+        The common horizontal scale measures variance in squared loss units, not a confidence interval.
+      </Prose>
+    </figure>
     <Prose>For arbitrary fold losses <Math>{'E_1,\\ldots,E_K'}</Math>,</Prose>
     <MathBlock>{'\\begin{gathered}\\operatorname{Var}\\!\\Bigl(\\tfrac1K\\textstyle\\sum_k E_k\\Bigr)\\\\[4pt]=\\frac1{K^2}\\sum_k\\operatorname{Var}(E_k)\\\\[4pt]+\\frac{2}{K^2}\\sum_{j<k}\\operatorname{Cov}(E_j,E_k).\\end{gathered}'}</MathBlock>
     <Prose>
@@ -544,6 +572,12 @@ const crossValidationContent = {
       <Math>{'e^{-1}\\approx0.368'}</Math>. Thus a bootstrap sample contains about {decimals(100 * bootstrap.distinctShare, 1)}% distinct
       original rows on average, despite having n sampled positions. This differs from K-fold&rsquo;s sampling without replacement and its
       exactly-once validation partition.
+    </Prose>
+    <Prose>
+      For four original row IDs <Code>[0,1,2,3]</Code>, one valid bootstrap sample is <Code>[0,0,2,2]</Code>.
+      It contains four sampled positions but only two distinct observations; IDs 1 and 3 are out of bag for this fit.
+      Repeated positions give repeated weight to the same measured row. They do not create four independent new measurements.
+      The fraction of distinct rows varies by draw; the formula above describes its expectation.
     </Prose>
     <Prose>
       Bootstrap estimates of an estimator&rsquo;s variability and out-of-bag prediction assessment have different constructions. A question about
@@ -589,6 +623,12 @@ const crossValidationContent = {
 
     <H3>What TPE models</H3>
     <Prose>
+      Reverse the usual question. Instead of asking &ldquo;what loss will this setting produce?&rdquo;, ask
+      &ldquo;which settings tended to appear among the better trials?&rdquo; A setting common in both good and poor trials
+      is weak evidence; a setting much more common among the good trials is a more promising place to spend the next evaluation.
+      This uses densities of settings, not a guarantee that a setting will be good.
+    </Prose>
+    <Prose>
       A Gaussian-process surrogate commonly models loss conditional on settings. The <strong>tree-structured Parzen estimator</strong> instead
       separates observed settings into a better-loss group and the remaining group, fits densities <Math>{'l(\\lambda)'}</Math> and{' '}
       <Math>{'g(\\lambda)'}</Math>, and seeks settings likely under the better group relative to the other. In its original construction,
@@ -600,6 +640,15 @@ const crossValidationContent = {
       same as fitting one Gaussian process, and its tree structure can express conditional choices such as parameters for an optional second
       layer. The <a href="https://papers.nips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf">original TPE paper</a>{' '}
       derives the relation and describes the density construction.
+    </Prose>
+    <LessonTable caption="A constructed TPE comparison with gamma = 0.25; density values are illustrative, not trial probabilities" headers={['Candidate', 'Better-group density l', 'Other-group density g', 'Relative acquisition expression']} rows={[
+      ['A', '0.4', '0.1', '1 / (0.25 + 0.75 × 0.25) = 16/7'],
+      ['B', '0.2', '0.4', '1 / (0.25 + 0.75 × 2) = 4/7'],
+    ]} />
+    <Prose>
+      A has four times B&rsquo;s acquisition expression because its better-to-other density ratio is much stronger.
+      The values 16/7 and 4/7 are proportional scores under this construction, not probabilities or losses.
+      A still needs a real fit and validation: the density model can be wrong, especially with a short trial history.
     </Prose>
     <Prose>
       For an optional practical extension, save this as <Code>cv_optuna.py</Code> beside the complete <Code>cv_penguins.py</Code> and CSV above.
@@ -614,8 +663,8 @@ const crossValidationContent = {
         <Code>distance_power=1</Code> uses absolute-coordinate differences in the Minkowski metric; 2 gives Euclidean distance. Uniform neighbour
         weights count neighbours equally; distance weighting gives nearer ones greater influence according to the estimator&rsquo;s rule. These
         choices change the search space from the earlier six-candidate grid, so comparing the two selected scores is not a controlled claim
-        that one search algorithm is superior &mdash; and the printed number is a selection score on a development split, not an assessment of
-        anything.
+        that one search algorithm is superior &mdash; and the printed number is a selection score from development folds, not an
+        independent assessment of the selected procedure.
       </Prose>
     </Program>
     <Prose>
@@ -711,95 +760,95 @@ const crossValidationContent = {
     </Prose>
 
     {/* ============================== 10 ============================== */}
-    <H2>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[9]}</H2>
     <Prose>
       Try the first six using only the core route. The remaining questions extend the deeper branches. Attempt each task before opening its hint
       or solution.
     </Prose>
 
-    <Practice title="1. Unequal folds" question="Three folds assess 4, 3 and 3 rows and get 3, 1 and 2 correct. Find the unweighted mean fold accuracy and the pooled accuracy. Which gives each row equal weight?"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. Unequal folds" question="Three folds assess 4, 3 and 3 rows and get 3, 1 and 2 correct. Find the unweighted mean fold accuracy and the pooled accuracy. Which gives each row equal weight?"
       hint="Average the three fractions for one answer; add correct counts before dividing for the other.">
       <Prose>
         The fold mean is <Math>{'(3/4+1/3+2/3)/3=7/12\\approx.5833'}</Math>. Pooled accuracy is 6/10 = .6 and gives each row equal weight. Equal
         weighting of folds is a different declared summary.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. A remainder is still a learner's data" question="A splitter uses fold_size = n // k and slices exactly that many rows for each of k validation folds. What happens at n = 11, k = 3? How does the provided splitter repair it?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. A remainder is still a learner's data" question="A splitter uses fold_size = n // k and slices exactly that many rows for each of k validation folds. What happens at n = 11, k = 3? How does the provided splitter repair it?">
       <Prose>
         Only nine rows receive a validation turn; two are omitted. Depending on how training indices are constructed, those omitted rows may be
         permanently in training or dropped altogether. <Code>np.array_split</Code> creates folds 4, 4 and 3 so every row belongs to one
         validation fold and the remaining folds form its training set.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. New patient or known patient?" question="A wearable model will predict tomorrow's measurements for people who already provided a week of history. A second product must work on entirely new wearers. Describe an assessment boundary for each. What extra question arises if the second product also launches in a future season?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. New patient or known patient?" question="A wearable model will predict tomorrow's measurements for people who already provided a week of history. A second product must work on entirely new wearers. Describe an assessment boundary for each. What extra question arises if the second product also launches in a future season?">
       <Prose>
         The first task can use each person&rsquo;s available earlier history but must respect prediction time and target availability. The second
         needs held-out people. A future season introduces a time-distribution boundary as well, so a custom group-and-time assessment may be
         needed. A random visit split does not by itself establish either claimed setting.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. An impossible out-of-fold array" question="A forward plan trains on rows 0–3 and assesses 4–5, then trains 0–5 and assesses 6–7. Why can it be used for fold scoring but not passed directly to cross_val_predict on all eight rows? What should a manual prediction table contain at rows 0–3?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. An impossible out-of-fold array" question="A forward plan trains on rows 0–3 and assesses 4–5, then trains 0–5 and assesses 6–7. Why can it be used for fold scoring but not passed directly to cross_val_predict on all eight rows? What should a manual prediction table contain at rows 0–3?">
       <Prose>
         Rows 0&ndash;3 never appear in a held-out set, so the required exactly-once partition is missing. A manual table should retain their
         predictions as absent, not fit on them and label in-sample outputs out-of-fold. Score the valid held-out rows, or train a stacking stage
         only where legitimate predictions exist.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. A new candidate pattern" question="Validation labels are [0,1,0,1]. Initially the candidates predict all zeros or all ones. Add a candidate predicting [0,1,0,1]. Under the independent fair-label model, what changes in best validation accuracy and expected future accuracy? What if you add only another all-zero candidate?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. A new candidate pattern" question="Validation labels are [0,1,0,1]. Initially the candidates predict all zeros or all ones. Add a candidate predicting [0,1,0,1]. Under the independent fair-label model, what changes in best validation accuracy and expected future accuracy? What if you add only another all-zero candidate?">
       <Prose>
         The best validation score rises from .5 to 1. Every fixed prediction remains independent of future fair labels, so expected future
         accuracy remains .5. A duplicate all-zero candidate changes neither the original best validation score nor future accuracy. Candidate
         diversity, and how selection uses the labels, are what matter. Both cases are saved setups in the selection investigation above.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Which rows selected the epoch?" question="An outer-fold model chooses its number of epochs using outer assessment loss, then reports accuracy on that same outer fold. Identify the violated boundary and give two repairs.">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Which rows selected the epoch?" question="An outer-fold model chooses its number of epochs using outer assessment loss, then reports accuracy on that same outer fold. Identify the violated boundary and give two repairs.">
       <Prose>
         The assessed rows selected a training setting. Move stopping into the outer training data, either using a stopping subset inside each
         inner training partition or treating inner-validation-based stopping as part of the complete rule assessed by protected outer rows.
         Another valid design uses development data for all such choices and a genuinely separate final test set. Renaming the used assessment set
         does not restore independence.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Probability mass is not score distance — deeper" question="A satisfactory parameter region has probability .02 under your sampler. How many independent draws give at least a 95% chance of hitting it? Would this guarantee a score within 2% of the global optimum?"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Probability mass is not score distance — deeper" question="A satisfactory parameter region has probability .02 under your sampler. How many independent draws give at least a 95% chance of hitting it? Would this guarantee a score within 2% of the global optimum?"
       hint={<>Solve <Math>{'(1-.02)^T\\le.05'}</Math> and round upward.</>}>
       <Prose>
         <Math>{'T\\ge\\log(.05)/\\log(.98)\\approx148.28'}</Math>, so {drawsForHitProbability(0.02, 0.95)} draws suffice under the assumed
         independent sampling model. The 2% is sampling mass, not score proximity. The satisfactory region itself must be defined and its assumed
         mass justified for a practical guarantee.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. An unchanged acquisition value — deeper" question="The incumbent loss is .30. Candidate C has equal predicted probabilities of losses .10 and .50. Find EI. If only the worse outcome changes from .50 to .90, does EI change? Does expected loss change?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. An unchanged acquisition value — deeper" question="The incumbent loss is .30. Candidate C has equal predicted probabilities of losses .10 and .50. Find EI. If only the worse outcome changes from .50 to .90, does EI change? Does expected loss change?">
       <Prose>
         EI is <Math>{'.5(.30-.10)=.10'}</Math>. The worse outcome contributes zero improvement in both cases, so EI remains .10. Expected loss
         changes from .30 to .50. This does not prove the surrogate is calibrated; it distinguishes the summaries of its stated distribution.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="9. Account for the whole schedule — deeper" question="A halving plan starts 27 candidates with budgets 5, 15, 45 and 135 and retains one third after each stage. Find the nominal from-scratch resource cost, and compare it with giving every candidate 135. If each stage instead resumes genuine saved state, what is the incremental resource cost?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="9. Account for the whole schedule — deeper" question="A halving plan starts 27 candidates with budgets 5, 15, 45 and 135 and retains one third after each stage. Find the nominal from-scratch resource cost, and compare it with giving every candidate 135. If each stage instead resumes genuine saved state, what is the incremental resource cost?">
       <Prose>
         Candidate counts 27, 9, 3 and 1 each consume 135 nominal units per stage, totalling 540, versus 3,645 for all candidates at 135.
         Resuming costs <Math>{'27\\cdot5+9\\cdot10+3\\cdot30+1\\cdot90=405'}</Math>. Multiply appropriate evaluations by fold count and account
         separately for scoring and refits. Real time need not be linear in this resource.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="10. A fixed rule tests an overlap story — deeper" question="A classifier always predicts class 0 and ignores training. Labels on n observations are independent fair bits. What is the variance of its leave-one-out accuracy? Why does this contradict equating loss correlation with training overlap?">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="10. A fixed rule tests an overlap story — deeper" question="A classifier always predicts class 0 and ignores training. Labels on n observations are independent fair bits. What is the variance of its leave-one-out accuracy? Why does this contradict equating loss correlation with training overlap?">
       <Prose>
         The correctness indicators are independent Bernoulli(.5), so their average has variance <Math>{'(.5)(.5)/n=1/(4n)'}</Math>. The
         leave-one-out training sets overlap heavily, but those sets do not influence this rule&rsquo;s predictions. Thus overlap alone does not
         determine loss correlation or imply variance stays near 1/4.
       </Prose>
-    </Practice>
+    </Practice></div>
 
-    {/* ============================== 11 ============================== */}
-    <H2>{headings[10]}</H2>
+    {/* ============================== 11 ============================== */}</section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[10]}</H2>
     <Prose>
       You are ready to continue when you can build a complete fold assignment, identify what each score was allowed to influence, place learned
       preprocessing inside that assignment, select a split matching a concrete future use, and explain why a selected inner score differs from
@@ -821,7 +870,7 @@ const crossValidationContent = {
       <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">feature selection</a> and{' '}
       <a href="/learn/path/full-curriculum/automl-as-meta-learning?module=classical-ml">AutoML</a> reuse the same boundary around increasingly
       broad choices.
-    </Prose>
+    </Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
       <li><a href="https://scikit-learn.org/stable/modules/cross_validation.html">Scikit-learn cross-validation guide</a>: current splitters, multiple metrics, prediction-table contracts and structured-data choices. Use its diagrams to inspect what a splitter actually assigns, then check that assignment against your task.</li>

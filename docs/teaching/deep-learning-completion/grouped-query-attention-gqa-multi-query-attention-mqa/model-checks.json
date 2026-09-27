@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "assertions": 3662,
+  "maximumForecastError": 1.2871622867560717e-7,
+  "checks": [
+    "NumPy manual fixture parity",
+    "key/value nulls and exact consistent relabeling",
+    "empty legal set rejects",
+    "cache bytes and divisibility",
+    "conversion nonlinearity and tied null",
+    "12 native model/attention/head/rollout comparisons",
+    "incremental and global-shift equivalence",
+    "owned JSX parses"
+  ]
+}

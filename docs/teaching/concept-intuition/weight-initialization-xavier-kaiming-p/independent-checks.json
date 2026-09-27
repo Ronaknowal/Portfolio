@@ -1,0 +1,45 @@
+{
+  "topicId": "weight-initialization-xavier-kaiming-p",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:34:40.138Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+    "src/learn/components/lesson-labs/InitializationUpdateIntuition.jsx",
+    "src/learn/components/lesson-labs/initialization-update-intuition.css",
+    "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md",
+    "scripts/generate-weight-initialization-lesson.mjs",
+    "docs/teaching/concept-intuition/weight-initialization-xavier-kaiming-p/independent-review.md",
+    "scripts/review-network-architecture-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx": "0afb834fce7e584cc1f5faed48c1bd00f9d8539a9498fe0406ecc2c6ceb962a5",
+    "src/learn/components/lesson-labs/InitializationUpdateIntuition.jsx": "8cca86a9d7af53d6e0f0b76aea310990f075e15dcf369da066d507b4239f08bc",
+    "src/learn/components/lesson-labs/initialization-update-intuition.css": "72374b475e8d07da25e62ed002d89af452de36aa2cec5c7cbe48eada3e9c7973",
+    "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md": "e77b0c723c02c9dcac541628a629e705a6418de28b74be13fb0c732cca895ccf",
+    "scripts/generate-weight-initialization-lesson.mjs": "39e81e1b3671e03e1e9ff1a793a8194f9fb4c8aad5e9cdf64bbaceca6ab60da1",
+    "docs/teaching/concept-intuition/weight-initialization-xavier-kaiming-p/independent-review.md": "fa7e5d6a191ee88f30f64174eb1da395f67615d8e154274089cafe805cb8fb71",
+    "scripts/review-network-architecture-intuition.mjs": "5185333ed3ee2340f3d1f1d25474db08870c76a3bd6fee4311dac897be3a78c7"
+  },
+  "checks": [
+    {
+      "name": "Changed non-unit inputs distinguish aligned updates from independent random update RMS",
+      "status": "passed"
+    },
+    {
+      "name": "Nonzero-mean second moment and changed LSUV rescaling",
+      "status": "passed"
+    },
+    {
+      "name": "Rectangular orthogonality preserves only the appropriate subspace",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/weight-initialization-xavier-kaiming-p/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new fitting or library-execution claim."
+}

@@ -1,0 +1,41 @@
+{
+  "topicId": "hidden-markov-models-hmm",
+  "reviewedAt": "2026-09-26T15:43:53.760Z",
+  "sourceFiles": [
+    "src/learn/data/topics/hidden-markov-models-hmm.jsx",
+    "docs/teaching/concept-intuition/hidden-markov-models-hmm/review.md",
+    "scripts/verify-model-selection-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/hidden-markov-models-hmm.jsx": "5a3b89118502b55c3d4b8a45fe8ba723e092c46d1e02b7286c5e71387080da0c",
+    "docs/teaching/concept-intuition/hidden-markov-models-hmm/review.md": "dd79a79d1e47fd132e4707f3443cf5c1b6876f1f69778d073b6e5bd3d7815f0c",
+    "scripts/verify-model-selection-sequence-intuition.mjs": "aed7d76adb84de450a55418b72b1019c2ce39cf6b947993ec93d15802a365f92"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/hidden-markov-models-hmm/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Constrained adjacent-state joint versus marginal product",
+      "status": "passed"
+    },
+    {
+      "name": "Gaussian posterior invariance under unit conversion",
+      "status": "passed"
+    },
+    {
+      "name": "Shared-meter evidence induces posterior dependence",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing models, native programs, datasets and run outputs retained; no fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

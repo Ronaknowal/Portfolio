@@ -1,0 +1,7 @@
+import './capsule-intuition.css';
+
+export function CapsuleSensitivityFigure() {
+  return <figure className="capsule-intuition" data-figure="capsule-radial-tangent" data-constructed-fixture="true"><div className="capsule-intuition-directions">
+    {[{name:'Length direction', vector:'q = (0.6, 0.8)', delta:'0.01479 δ · q', end:[120,50], description:'Move along the arrow. The already saturated length changes very little.'},{name:'Turning direction',vector:'t = (−0.8, 0.6)',delta:'0.19231 δ · t',end:[78,56],description:'Move sideways. The direction still responds more strongly.'}].map(item=><section key={item.name}><h4>{item.name}</h4><svg viewBox="0 0 190 195" role="img" aria-label={`Input arrow is (3,4). Amber segment indicates a small perturbation in ${item.vector}.`}><path d="M30 170H165M30 170V24" stroke="#666" fill="none"/><path d="M30 170L102 74" stroke="#ddd" strokeWidth="2"/><circle cx="102" cy="74" r="4" fill="#ddd"/><path d={`M102 74L${item.end[0]} ${item.end[1]}`} stroke="#e8b44a" strokeWidth="4"/><text x="108" y="95">s=(3,4)</text><text x="95" y="189" textAnchor="middle">{item.vector}</text></svg><p>{item.description}</p><p>Output change ≈ <strong>{item.delta}</strong></p></section>)}
+  </div><figcaption>Local, first-order changes for a small input perturbation of size δ at radius 5. The two amber input segments have equal length. The output multipliers are calculated derivatives, not measured classification effects; terms of order δ² and higher are omitted.</figcaption></figure>;
+}

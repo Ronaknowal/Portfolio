@@ -28,7 +28,7 @@ export function IterationLatticeLab() {
         }} /></label>
       <button onClick={reset}>Reset lattice</button>
     </div>
-    <CodeBlock language="python">{loopPatterns[pattern].code}</CodeBlock>
+    <CodeBlock language="python" filename="loop-pattern.py">{loopPatterns[pattern].code}</CodeBlock>
     {size > 0 ? <div className="complexity-scroll" tabIndex={0} role="region" aria-label="Execution lattice; rows i and columns j">
       <div className="complexity-lattice" style={{
         '--columns': size

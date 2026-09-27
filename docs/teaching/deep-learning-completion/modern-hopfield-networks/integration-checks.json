@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:14:23.039Z",
+  "topicId": "modern-hopfield-networks",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-11-18-917Z.json",
+  "buildReceiptHash": "c293b79b5ef27de2929b806f0ef1088e38028f255caf46c4fc234ddbe48e38f6",
+  "publicationMapping": "./topics/modern-hopfield-networks.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

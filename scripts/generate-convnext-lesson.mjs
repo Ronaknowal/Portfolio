@@ -4,7 +4,7 @@ import { renderPreparedLesson } from './lib/prepared-lesson-renderer.mjs';
 const id = 'convnext-modern-cnn-designs';
 let manuscript = readFileSync(`docs/teaching/drafts/${id}/lesson.md`, 'utf8');
 manuscript = manuscript.replace(/<details><summary>(.*?)<\/summary>(.*?)<\/details>/g, '<details>\n<summary>$1</summary>\n\n$2\n\n</details>');
-const rendered = renderPreparedLesson(manuscript, {
+const rendered = renderPreparedLesson(manuscript, { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-assets/${id}/`,
   replacements: [
     ['**Visual: an experiment genealogy.**','<ConvNeXtGenealogy />'],
@@ -18,6 +18,7 @@ const rendered = renderPreparedLesson(manuscript, {
     ['All local experimental numbers come','<Prose>All local experimental numbers come from the accompanying programs and retained results. Read the <a href={convnextAsset+"data-provenance.md"}>dataset provenance</a> and <a href={convnextAsset+"native-verification.json"}>current native verification record</a> for execution boundaries. The six original fits are conserved, with fresh native reconstruction and independent browser-model comparisons; no ImageNet training, pretrained photograph run or hardware timing is claimed.</Prose>'],
   ],
   additions: [
+    ['Follow two locations through both head orders.','<ConvNeXtHeadOrderFigure />'],
     ['The two linear layers are applied','<ConvNeXtBlockFigure />'],
     ['The attached [complete architecture program]','<ConvNeXtProgram file="convnext-blocks.py" title="Read the complete V1/V2 block, hierarchy, initialization and shape checks" />'],
     ['The script sets one PyTorch CPU thread','<ConvNeXtProgram file="masked-reconstruction.py" title="Read the complete masked learning, evaluation and probe program" /><Prose>To reproduce the recorded environment in a separate activated Python environment, run <code>python -m pip install torch==2.14.0 numpy==2.3.5 scipy scikit-learn==1.9.1</code>. For the separate native block bridge, also install <code>torchvision==0.29.0 pillow</code>. The large source is loaded only when you open its disclosure; the downloaded CSV runs offline.</Prose>'],
@@ -30,6 +31,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { ConvNeXtHeadOrderFigure } from '../../components/lesson-labs/ConvNeXtIntuitionFigures.jsx';
 import { ConvNeXtGenealogy, ConvNeXtBlockFigure, ConvNeXtNormalizationLab, ConvNeXtHierarchy, ConvNeXtBudgetLab, ConvNeXtResponseLab, ConvNeXtMaskFigure, ConvNeXtReconstructionLab, ConvNeXtRecordedExperiment, ConvNeXtFusionLab, ConvNeXtProgram, convnextAsset } from '../../components/lesson-labs/ConvNeXtLabs.jsx';
 export default {
  title: 'ConvNeXt & Modern CNN Designs',

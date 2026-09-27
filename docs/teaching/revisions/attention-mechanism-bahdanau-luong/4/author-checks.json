@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "date": "2026-09-26T13:12:15.654517+00:00",
+  "checks": [
+    {
+      "name": "Displayed core executed against independent scalar formula",
+      "output": "[0.665241 0.244728 0.090031] [1.240451 0.579488]"
+    },
+    {
+      "name": "Mask-before-normalization and zero-PAD counterexample",
+      "passed": true
+    },
+    {
+      "name": "Nine fresh NumPy/Torch read and mask comparisons",
+      "passed": true
+    },
+    {
+      "name": "Constructed lookup, additive score and learning-margin figures",
+      "passed": true
+    }
+  ],
+  "reusedNumericalEvidence": {
+    "unchangedRuntimeSources": [
+      "public/learn-code/attention-mechanism-bahdanau-luong/additive-seed-one.json",
+      "public/learn-code/attention-mechanism-bahdanau-luong/analytic-results.json",
+      "public/learn-code/attention-mechanism-bahdanau-luong/attention-calculations.py",
+      "public/learn-code/attention-mechanism-bahdanau-luong/attention-inference.py",
+      "public/learn-code/attention-mechanism-bahdanau-luong/attention-mechanics.py",
+      "public/learn-code/attention-mechanism-bahdanau-luong/attentive-inflection.py",
+      "public/learn-code/attention-mechanism-bahdanau-luong/calculated-inputs.json",
+      "public/learn-code/attention-mechanism-bahdanau-luong/data-extraction.json",
+      "public/learn-code/attention-mechanism-bahdanau-luong/data-provenance.md",
+      "public/learn-code/attention-mechanism-bahdanau-luong/english-inflections.csv",
+      "public/learn-code/attention-mechanism-bahdanau-luong/general-seed-one.json",
+      "public/learn-code/attention-mechanism-bahdanau-luong/mechanics-results.json",
+      "public/learn-code/attention-mechanism-bahdanau-luong/prepare-inflection-data.py",
+      "public/learn-code/attention-mechanism-bahdanau-luong/saved-inflection.py",
+      "public/learn-code/attention-mechanism-bahdanau-luong/split-integrity-repair.json",
+      "src/learn/data/recurrent-attention-measurements.json",
+      "src/learn/data/recurrent-attention-models.js"
+    ],
+    "receipts": [
+      "docs/teaching/evidence/recurrent-attention-models.json",
+      "docs/teaching/evidence/recurrent-attention-native.json"
+    ],
+    "scope": "Identical numerical engine, weights, native programs, measured data and original packet. New prose/figures/UI are assessed separately."
+  },
+  "sourceHashes": {
+    "scripts/verify-recurrent-attention-intuition.py": "ed0703d265d7a0e112233a3e7650a0cef31a9dd72bfe99815b3f71852ee43c15",
+    "scripts/generate-recurrent-attention-lesson.mjs": "348b7aca3c63a07d310a40df824205b5540fd4739de9f94a768e62f753c45cbe",
+    "public/learn-code/attention-mechanism-bahdanau-luong/attention-read.py": "89962ed58c5f13c59961d7e7b850d31303f218bf7a3735d03b8b463891c4f2c3",
+    "src/learn/components/lesson-labs/RecurrentAttentionIntuition.jsx": "92d08faa4b3d8a4cdd0d66fa9bbf1d1dece2d116ab8e11de236033b60ea68de4",
+    "src/learn/components/lesson-labs/recurrent-attention-intuition.css": "2e1bde29045805987913851641a4dd0ba8585ca2f6afcb6a22f677b2fb19412d",
+    "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx": "a1a23a8fd44f2ca83653677f84135482ee631bcaedf10d7d92933d18885d656c",
+    "src/learn/data/topics/attention.jsx": "502bd1c2be9206d9b0b0931392fe7c980e08456c4cbb0581a4824b891a6e7f3a",
+    "docs/teaching/revisions/attention-mechanism-bahdanau-luong/4/lesson.md": "ba1816022f4fa4e13f819c45be08923652095a44de9852abebedd42dcefe19a7"
+  }
+}

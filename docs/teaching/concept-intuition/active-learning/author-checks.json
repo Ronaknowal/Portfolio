@@ -1,0 +1,39 @@
+{
+  "topicId": "active-learning",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/active-learning.jsx",
+    "src/learn/components/lesson-labs/ActiveLearningIntuition.jsx",
+    "src/learn/components/lesson-labs/active-learning-intuition.css",
+    "docs/teaching/drafts/active-learning/lesson.md",
+    "scripts/build-active-learning-lesson.py"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/active-learning.jsx": "b094df7c85750b32629f4a896a95d1e93913a2fe8099e2ae2753cb45cb4ecd9d",
+    "src/learn/components/lesson-labs/ActiveLearningIntuition.jsx": "2ab31ee678da00b05b566b862a3c21442d038d1ab21d5293f7d97b80289ba18f",
+    "src/learn/components/lesson-labs/active-learning-intuition.css": "6133e74096e18879e4a6e5d853506a58bcf2087e84e7a8a4564820e64dd3dc35",
+    "docs/teaching/drafts/active-learning/lesson.md": "899da37839c543701d0d58edb5ef7b54006f3d99958c62823280d9fcf8c4c446",
+    "scripts/build-active-learning-lesson.py": "517b1d2b89f28df41025995ae802ca7a35ed908f974974374424627f49aec4b2"
+  },
+  "scope": "Full ten-section review; deeper GP acquisition and BADGE geometry transitions; generator preservation of prior specialist library walkthrough.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Constructed covariance is positive definite; Schur complement matches variance bars",
+      "passed": true
+    },
+    {
+      "name": "Four-dimensional gradient distances match displayed two-dimensional scaled geometry and sampling probabilities",
+      "passed": true
+    },
+    {
+      "name": "Regeneration byte equality; library walkthrough appears exactly once",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

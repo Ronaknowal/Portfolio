@@ -955,9 +955,9 @@ for batch in prompt_dataloader:
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Derive the Bradley-Terry gradient</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Derive the Bradley-Terry gradient</H3>
 
       <Prose>
         Starting from the reward model loss <Code>L_RM = -E[log σ(r_φ(x, y_w) - r_φ(x, y_l))]</Code>, derive the gradient with respect to the reward model parameters <Code>φ</Code>. Show that the gradient points in the direction of increasing the gap between chosen and rejected reward, and that the magnitude of the gradient is largest when the model is most uncertain (i.e., when the sigmoid output is near 0.5). What does this imply about which training pairs are most informative?
@@ -965,31 +965,31 @@ for batch in prompt_dataloader:
 
       <Callout accent="green">
         Hint: let <Code>delta = r_w - r_l</Code>. Then <Code>d/d(delta) [-log σ(delta)] = -(1 - σ(delta))</Code>. Apply the chain rule through <Code>delta</Code> to <Code>φ</Code>. The gradient magnitude is <Code>(1 - σ(delta))</Code>, which is maximized at <Code>delta = 0</Code>.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2 — Design an active learning scheme</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Design an active learning scheme</H3>
 
       <Prose>
         Human annotation is expensive. Design an active learning strategy for selecting which (prompt, response_A, response_B) pairs to show to annotators, given a partially trained reward model. Your strategy should: (a) maximize information gain per annotation, (b) maintain coverage across the prompt distribution, and (c) avoid concentrating queries in regions the current policy visits often (which would cause RM to overfit to the current policy distribution). Describe how you would estimate RM uncertainty, and what failure modes your strategy introduces.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Pick β from KL vs reward curves</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Pick β from KL vs reward curves</H3>
 
       <Prose>
         You are running a PPO training job and have monitoring data showing two curves: (A) reward model score vs training step, and (B) KL divergence from SFT vs training step. You observe that the RM score is still rising at step 200, but human evaluation (run at steps 50, 100, 150, 200) shows human preference peaked at step 100 and has since declined. At step 100, KL was 3.2 nats; at step 200, KL is 8.7 nats. Given this, what <Code>β</Code> target would you set for your next run? How would you use AdaptiveKLController to enforce it? What additional signal would you collect to confirm your new <Code>β</Code> is better?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Detect reward hacking from rollout statistics</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Detect reward hacking from rollout statistics</H3>
 
       <Prose>
         Without running a human evaluation, design a set of automatic statistics you would monitor during PPO training to detect reward hacking early. Consider: response length distribution, token entropy, bigram repetition rate, frequency of specific phrases ("Great question!", "As an AI"), refusal rate on sensitive prompts, and calibration of the policy's stated confidence against factual accuracy on a held-out benchmark. For each statistic, describe the direction of change that would indicate hacking and the threshold at which you would intervene.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Isolate RM vs PPO contribution</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Isolate RM vs PPO contribution</H3>
 
       <Prose>
         Your RLHF pipeline produces a model that human raters prefer over the SFT baseline on 71% of prompts. Your manager asks: "How much of this improvement came from the reward model and how much from the PPO training?" Design an ablation study to answer this question. Consider the following conditions: (a) SFT baseline, (b) SFT + best-of-N sampling against the RM (no policy update), (c) SFT + PPO with a random reward signal and the same KL coefficient, (d) full RLHF. What does each comparison isolate? What confounders remain? How would you present the results to a non-ML audience?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

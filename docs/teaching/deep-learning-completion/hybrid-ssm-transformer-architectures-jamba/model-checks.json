@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "comparisons": 84803,
+  "maximumDifference": 0.000004824263100555726,
+  "nativeDoubleMaximum": 4.796163466380676e-14,
+  "throughGradientMaximum": 3.677928968326416e-11,
+  "checks": [
+    {
+      "name": "180 actual native float64 full/branch/cache cases across all five models and six interventions",
+      "passed": true
+    },
+    {
+      "name": "80 raw-coordinate input derivatives versus native autograd",
+      "passed": true
+    },
+    {
+      "name": "Native recurrence/router/storage fixtures, exact BigInt operations and stored/active SwiGLU counts",
+      "passed": true
+    },
+    {
+      "name": "Request/branch immutability, future exclusion, exact carry and empty-boundary identities",
+      "passed": true
+    },
+    {
+      "name": "Prepared worked/fresh actual float32 fault fixtures reproduced within stated1e-4 tolerance",
+      "passed": true
+    },
+    {
+      "name": "All ten deployed learner downloads exactly match canonical bytes",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Double native comparisons use2e-10 scaled tolerance; retained float32 fixtures use the prepared1e-4 tolerance.",
+    "80 derivative comparisons use epsilon1e-4 and2e-6 scaled tolerance; they check the input path without training."
+  ]
+}

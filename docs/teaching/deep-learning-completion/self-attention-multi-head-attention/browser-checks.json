@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "topicId": "self-attention-multi-head-attention",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T18:58:01.783Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T18-53-46-807Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/self-attention-multi-head-attention.jsx": "dd502ef6d7fc7824d13b59ff2cce28ab2906c0e7233e48061e82071c8a1b37cb",
+    "src/learn/data/self-attention-models.js": "47afb9f5870b77dbb6d62ea52fa0c3587dcf60cea352b747e57db92054688971",
+    "src/learn/data/self-attention-trajectory-example.json": "59fe1280422d5ef9cb79aacbc524c9238377ddc0ec127a2afd4369a09d56d41b",
+    "src/learn/components/lesson-labs/SelfAttentionLabs.jsx": "c67a9f13742dd268757deb8617dca571670f6eace11f94de2ac8cae83061c1eb",
+    "src/learn/components/lesson-labs/SelfAttentionFigures.jsx": "02cc13cf327f9c7c16b53a59b0c6ee8107767016a27e76471e55517739899e9e",
+    "src/learn/components/lesson-labs/self-attention-labs.css": "83d653562be7bf603f0a1ea2f9b8581aadafb23a2eb8cc7a163fdc52131a8dcb",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "public/learn-assets/self-attention-multi-head-attention/trajectory-model.json": "e822bcaa9899e5579ac29e80a683b8f62f567225e09d64458bd12592209761d0",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-code/self-attention-multi-head-attention/additional-calculations.py": "b6cb8b4443b5dfc0fcfba17639ea95e2d214f7cd6e6c0b91a9c488edf36b8bca",
+    "public/learn-code/self-attention-multi-head-attention/additional-fixtures.json": "4d8c7d340a10281f888d749a36b89153cc047caf463d54931c7d74cec047abac",
+    "public/learn-code/self-attention-multi-head-attention/attention-model.json": "1c4f90ac50b9759cf6a7b38c2291c243e27a21fd56d55e61e19493b7958eacaf",
+    "public/learn-code/self-attention-multi-head-attention/author-calculations.py": "62bf46fd8b2c97173c5cb2cf5bfa39e9e629e2834391c33286f80e231f978fc1",
+    "public/learn-code/self-attention-multi-head-attention/author-results.json": "168c0cb0504ceae9f0638825a6a2c7427364ee5a25e5ad49aaf0b62898aa95c4",
+    "public/learn-code/self-attention-multi-head-attention/data-provenance.md": "addb7421f4812ab6321f7fc58cef8d2637722288f6768a995c52defba89079d8",
+    "public/learn-code/self-attention-multi-head-attention/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/self-attention-multi-head-attention/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/browser-review.md": "e3b02a28c71b01b15ecb0a92fd37d0aa375f69b913624c68a8e3e63b3c05abe9"
+  },
+  "checks": [
+    "Six live workspaces: meaningful changed and null states, immediate outputs; actual results in browser-review.md",
+    "Default/value/key/offset/causal/empty/zeroV/sensitivity/mixture/real-coordinate/reverse/padding cases",
+    "Invalid numeric input then one Reset click, slider ArrowRight, deferred code and separate solution disclosure",
+    "1280 and320px screenshots inspected; no horizontal page overflow, nominal chart/diagram labels and local keyboard scroll",
+    "No observed console warnings/errors or KaTeX errors"
+  ],
+  "findings": [
+    {
+      "issue": "Reset lost after invalid-input blur",
+      "status": "closed"
+    },
+    {
+      "issue": "Contribution diagram absent",
+      "status": "closed"
+    },
+    {
+      "issue": "Small painted labels",
+      "status": "closed"
+    }
+  ],
+  "limitations": "Representative control and viewport verification; no exhaustive Cartesian input sweep or observed beginner study."
+}

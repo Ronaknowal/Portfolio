@@ -51,7 +51,7 @@ function Data({
   rows,
   title = 'Inspect calculated values'
 }) {
-  return <details className="pde-data"><summary>{title}</summary><div className="pde-table-scroll"><table><thead><tr>{headers.map(label => <th key={label}>{label}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((value, column) => <td key={column}>{value}</td>)}</tr>)}</tbody></table></div></details>;
+  return <section className="pde-data lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{title}</h4><div className="pde-table-scroll"><table><thead><tr>{headers.map(label => <th key={label}>{label}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((value, column) => <td key={column}>{value}</td>)}</tr>)}</tbody></table></div></section>;
 }
 function Plot({
   title,

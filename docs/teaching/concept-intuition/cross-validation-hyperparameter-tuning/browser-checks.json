@@ -1,0 +1,47 @@
+{
+  "topicId": "cross-validation-hyperparameter-tuning",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx": "8cb9526317b7c948e7cf2114a9611658e6a6457eeca20704497fa6d32a7c9fc1"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        21
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": []
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        13
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

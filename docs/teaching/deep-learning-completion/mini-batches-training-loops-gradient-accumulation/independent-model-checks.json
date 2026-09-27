@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "comparisons": 22257,
+  "actualNewSGDSteps": 12,
+  "newFullGradientFiniteDifferences": 804,
+  "randomizedMetamorphicCases": 100,
+  "maxNativeError": 1.7763568394002505e-15,
+  "maxFiniteDifferenceError": 1.221900358672201e-10,
+  "sourceFilesVerified": 46,
+  "reusedAuthorComparisons": 82096,
+  "scope": "Two consecutive real-data SGD updates from each saved model with existing momentum, every parameter derivative by finite difference, row replication/reversal, hidden-unit state relabeling, supervision-mass rescaling/regrouping, normalized-coordinate shift/sign symmetries and scalar clock boundaries. No retraining or GPU/distributed execution."
+}

@@ -1,0 +1,43 @@
+{
+  "topicId": "interleaved-cross-attention-architectures",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/calculated-inputs.json",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/data-provenance.md",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/design.md",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/digits-400.csv",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md",
+    "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/calculated-inputs.json": "131707f3f7efed416038e28d348cefc0a0d87932f569e6f6da3e57ec62f8344f",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/data-provenance.md": "8bf22eccacbf9c693bf63431ec04275e52b473ad89560c2882a9c4bcc3f3e0d9",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/design.md": "f7753b82f1f32fe06ef93bc6dc10d66edcc88c85c866001e3344ff733c5df002",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md": "0d6a02ead0da39ff245992de7070ee4c92b33b743df7c89243aa6983eb01526b",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md": "e30350ee3141b01cf418c650ed9add31c722827e741dd4aedaf86756605d79fa",
+    "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md": "0c268b0f58ab956edc4d4a946b435ba71ffd1b192df3a839e98ecd8c7a9fc42f"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

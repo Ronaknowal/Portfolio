@@ -1,0 +1,7 @@
+# Independent concept-level review
+
+Read all eleven sections, deeper branches 10.1-10.7, eight practices, programs' local explanations, references, and new figure/CSS sources. Mean, scores and reconstruction use the same A-D observations before optimization; the Pythagorean identity connects retained variance to residual error. Scaling, budgets, biplot conventions, task information and computation retain explicit objectives. Later branches bridge their equations to the original point cloud rather than opening unrelated definitions.
+
+Independent arithmetic confirmed ordinary score distances sqrt(2) and 3sqrt(2), whitening both to sqrt(3), sample variance one on each whitened axis, fixed-line projection for perpendicular versus parallel noise, and the Rayleigh weighted-average angle example 10/3. Randomized sketch shapes were traced through multiplication and the full-input storage warning. Historical Wine/native fit results were not rerun.
+
+Resolved one real teaching issue: whitening caption referred to A/B and A/C without visible identifiers. Added A-D at the actual fixture points in both panels, retaining shared numeric axis scale and enough source-viewBox margins. Author verifier refreshed its source checkpoint. No other mathematical/reading issue found. All changed JSX parsed, actual bytes match author record. Browser verification belongs separately to integration; this review does not claim rendered sizing.

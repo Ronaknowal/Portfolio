@@ -363,12 +363,12 @@ export function CandidateFigure() {
       rows={candidates.map(row => [row[0], row[1], fixed(row[2], 6), fixed(row[3], 3)])}
       rowClass={index => (candidates[index][0] === 'full' && candidates[index][1] === 2 ? 'is-selected' : undefined)}
       scroll />
-    <details>
-      <summary>Inspect all 150 observation IDs, measurements and split memberships</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Inspect all 150 observation IDs, measurements and split memberships</h4>
       <Table caption="The observed sepal measurements and their fixed evaluation roles"
         headings={['observation ID', 'sepal length (cm)', 'sepal width (cm)', 'split']}
         rows={observations.map(row => [row[0], row[1], row[2], ['training', 'validation', 'test'][row[3]]])} scroll />
-    </details>
+    </section>
     <p>
       The component drawn above holds weight {round(narrowComponent.weight, 6)} and a fitted sepal-width variance of exactly
       {' '}{narrowComponent.covariance[1][1]} in standardized coordinates, which is the additive regularization level supplied to the fit.

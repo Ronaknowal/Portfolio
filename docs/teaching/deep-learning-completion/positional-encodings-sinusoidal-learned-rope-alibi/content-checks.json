@@ -1,0 +1,49 @@
+{
+  "topicId": "positional-encodings-sinusoidal-learned-rope-alibi",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json": "c8e7329e2348a6040d6588167ed0f531dbfe915b7317f78ce1892e67088f90f0",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md": "365ce409e2d3ce2609ce9928b0a47fb4e2d20ebb50d65ff2a033868e6275f479",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md": "0c2b1e670401d337908f012be3d40626c1d22de259afc770a066f1ea9837c33e",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md": "179d6005d9b06f41e26948235aad3a89d70fa50a27b8298d6ae6f97f43aef4ab",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json": "2cfd90c591fa862d3ec991f436c6219197801757c04818554b46f75dae7e3f95",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json": "b2efd301b3c51ef9b24462a3f9c2c0e2bc679b973eeefb623c376adb429a73de",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md": "e40b2bc4db51b72213f8cea7e9cb02da69cb0a036e4b6b5bf87e41ae382bcf19"
+  },
+  "manuscript": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md",
+  "reconciliation": [
+    "Read complete current manuscript/specification/design/provenance and all three source programs. Preserve substantive prepared SDPA/Embedding forward/gradient bridge additions.",
+    "Correct obsolete malformed prediction/reveal prose in real-data investigation and one contradictory specification sentence to current immediate-live-results requirement. Numerical content/weights/fit histories retained.",
+    "Source-bound checkpoint records new content bytes explicitly rather than refreshing historical identities."
+  ],
+  "checks": [
+    {
+      "name": "Complete per-concept teaching and scratch/library coverage assessed",
+      "passed": true
+    },
+    {
+      "name": "Current live-exploration policy reconciled in manuscript and specification",
+      "passed": true
+    }
+  ]
+}

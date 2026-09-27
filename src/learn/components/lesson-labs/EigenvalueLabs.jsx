@@ -89,7 +89,7 @@ export function EigenDirectionLab() {
         label: 'Unit input v'
       }]} lineDirection={state.input} /><div><MatrixValues matrix={state.matrix} /><dl className="eigen-readings"><dt>Dashed blue input v</dt><dd>{pair(state.input)}</dd><dt>Solid gold output Av</dt><dd>{pair(state.output)}</dd><dt>Signed factor along v</dt><dd>{number(state.alongFactor)}</dd><dt>Output left perpendicular to v</dt><dd>{pair(state.perpendicular)}; length {number(state.residualNorm)}</dd></dl></div></div>
     <p className="eigen-feedback" aria-live="polite">{state.isEigenDirection ? state.isZeroOutput ? 'A nonzero input maps to zero: this is an eigenvector with eigenvalue 0. The output has no direction to draw.' : `This line is preserved: the eigenvalue is ${number(state.alongFactor)}. A negative factor reverses the arrow along the same line.` : 'This line is not preserved. The along-line factor is a projection coefficient, not an eigenvalue for this input.'}</p>
-    <details><summary>Interpret this transformation</summary><p>{state.interpretation}</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Interpret this transformation</h4><p>{state.interpretation}</p></section>
     <p className="eigen-caption">Every quantity is calculated from the displayed 2×2 matrix. Values are rounded to three decimals. The perpendicular-residual classification uses tolerance 10⁻¹⁰ for these presets, not a universal numerical test.</p>
   </section>;
 }
@@ -140,7 +140,7 @@ export function RepeatedMapLab() {
         label: 'Current state'
       }]} trail={trace.states.slice(0, step + 1).map(item => item.vector)} /><NormHistory states={trace.states} selected={step} /></div>
     <div className="eigen-columns"><MatrixValues matrix={trace.matrix} /><div className="eigen-feedback" aria-live="polite"><p>x<sub>{step}</sub> = {pair(state.vector)}</p><p>Length = {number(state.norm)}; eigenvalues: {trace.eigenvalues}.</p></div></div>
-    <details><summary>All computed states and interpretation</summary><p>{trace.conclusion}</p><table className="eigen-data"><caption>Unnormalized recurrence; k=0 is the starting vector</caption><thead><tr><th>k</th><th>xₖ</th><th>‖xₖ‖</th></tr></thead><tbody>{trace.states.map(item => <tr key={item.step}><th>{item.step}</th><td>{pair(item.vector)}</td><td>{number(item.norm)}</td></tr>)}</tbody></table></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">All computed states and interpretation</h4><p>{trace.conclusion}</p><table className="eigen-data"><caption>Unnormalized recurrence; k=0 is the starting vector</caption><thead><tr><th>k</th><th>xₖ</th><th>‖xₖ‖</th></tr></thead><tbody>{trace.states.map(item => <tr key={item.step}><th>{item.step}</th><td>{pair(item.vector)}</td><td>{number(item.norm)}</td></tr>)}</tbody></table></section>
     <p className="eigen-caption">Twelve calculated updates, not empirical observations or an asymptotic proof. The length plot includes the full trace for comparison; the selected gold point matches the left state. Coordinates use equal scales, and are not normalized to hide growth.</p>
   </section>;
 }
@@ -165,7 +165,7 @@ export function PcaDirectionLab() {
         projected: true
       }))]} segments={state.points.map((point, index) => [point, state.projections[index]])} /><div><MatrixValues matrix={state.covariance} label="Sample covariance C" /><dl className="eigen-readings"><dt>Unit direction q</dt><dd>{pair(state.direction)}</dd><dt>Sample variance of Xq</dt><dd>{number(state.variance)}</dd><dt>Total sample variance</dt><dd>{number(state.totalVariance)}</dd><dt>Retained fraction</dt><dd>{number(100 * state.retainedFraction)}%</dd><dt>Sum of squared reconstruction errors</dt><dd>{number(state.squaredReconstructionError)}</dd></dl></div></div>
     <table className="eigen-data"><caption>Four invented, centered observations in the same arbitrary units</caption><thead><tr><th>Point</th><th>Original</th><th>Score qᵀx</th><th>Projection</th></tr></thead><tbody>{state.points.map((point, index) => <tr key={index}><th>{String.fromCharCode(65 + index)}</th><td>{pair(point)}</td><td>{number(state.scores[index])}</td><td>{pair(state.projections[index])}</td></tr>)}</tbody></table>
-    <details><summary>Compare with the eigenvalues</summary><p>{state.conclusion}</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Compare with the eigenvalues</h4><p>{state.conclusion}</p></section>
     <p className="eigen-caption">Sample covariance divides by n−1=3. Points, projections and variance are computed from the same four values. These geometric/error quantities do not establish a predictive or causal model.</p>
   </section>;
 }

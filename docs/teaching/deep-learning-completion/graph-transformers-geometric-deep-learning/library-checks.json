@@ -1,0 +1,1 @@
+{"passed":true,"pyg":"2.8.0.post1","canonical":{"nodes":5,"features":4,"manual_package_error":2.220446049250313e-16,"input_gradient_and_update":"matched","batch_isolation":"matched","relabeling":"matched","norm":null,"dropout":0.0},"thirdIsolateAndMissingBatch":true}

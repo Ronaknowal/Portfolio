@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "figures": [
+    "read",
+    "shapes",
+    "teacher",
+    "resampler",
+    "frozen",
+    "named",
+    "blip",
+    "pipeline",
+    "results",
+    "pairs",
+    "dependency"
+  ],
+  "labs": [
+    "CrossReadLab",
+    "CrossShapeLab",
+    "CrossAccessLab",
+    "CrossCompressionLab",
+    "CrossGateLab",
+    "CrossBudgetLab",
+    "CrossCacheLab",
+    "CrossObservedLab"
+  ],
+  "wholeLessonRendered": true,
+  "nonemptyMarkupLengths": [
+    4009,
+    2811,
+    2309,
+    4380,
+    2228,
+    4429,
+    4539,
+    1620,
+    4883,
+    3660,
+    2300,
+    9041,
+    5612,
+    9272,
+    4246,
+    4144,
+    6170,
+    7133,
+    519,
+    14035,
+    248564
+  ],
+  "scope": "Author server render smoke plus loaded observed workspace; browser/network/keyboard separate"
+}

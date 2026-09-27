@@ -1,0 +1,35 @@
+{
+  "topicId": "decision-trees-random-forests",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/decision-trees-random-forests.jsx",
+    "src/learn/components/lesson-labs/DecisionTreeIntuition.jsx",
+    "src/learn/components/lesson-labs/decision-tree-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/decision-trees-random-forests.jsx": "d379d3b49a78e9ca3605833f866b51d492d9f0c0c046612ffb18612614084073",
+    "src/learn/components/lesson-labs/DecisionTreeIntuition.jsx": "8232cf18f9c3aa3a03011a0b3af879b934067632dffbd1aec186d0a08a3832af",
+    "src/learn/components/lesson-labs/decision-tree-intuition.css": "9fe5560ebd8358eaed7366304f41668a3b700a9918a998adf86a3b0d96b5e054"
+  },
+  "scope": "Complete lesson read; explanatory bridges and three local diagrams; preserved canonical programs and prior native results",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Gini pair enumeration",
+      "passed": true
+    },
+    {
+      "name": "All prefix split gains",
+      "passed": true
+    },
+    {
+      "name": "Tree-specific shared-leaf fractions",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

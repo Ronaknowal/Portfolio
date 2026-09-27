@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "comparisons": 26040,
+  "maximumError": 1.4210854715202004e-14,
+  "gradientError": 1.397021698323897e-8,
+  "forwardTolerance": 1e-10,
+  "gradientTolerance": 0.000001,
+  "scope": "Native PyG full two-layer models, fresh features/directed/isolate/no-edge cases, semantic permutation, input gradients and independent algebraic limits."
+}

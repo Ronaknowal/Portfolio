@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T20:47:46.120Z",
+  "topicId": "mixture-of-experts-transformers-moe",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T20-41-17-712Z.json",
+  "buildReceiptHash": "aaebb7264808e0b1b6bc1b97fc85f038c69c6ad695442bc21d151ddccc76117f",
+  "publicationMapping": "./topics/mixture-of-experts-transformers-moe.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

@@ -1,13 +1,9 @@
 import "./lessons.css";
+import { LessonOrientation } from "../LessonOpening.jsx";
+import { H2 } from "../content/Headings.jsx";
 
-export function LessonIntro({ children, prerequisites, sections, exampleKind = "Python" }) {
-  return <aside className="lesson-intro" aria-label="Lesson route">
-    <p className="lesson-eyebrow">UNDERSTAND · EXPLORE · PRACTISE</p>
-    <p>{children}</p>
-    <p><strong>Before you start:</strong> {prerequisites}</p>
-    <nav aria-label="In this lesson"><ol>{sections.map(([id, title]) => <li key={id}><a href={`#${id}`}>{title}</a></li>)}</ol></nav>
-    <p className="lesson-note">First time? Follow the route in order. Revising? Jump to the worked example or practise section. The labs run here; {exampleKind} examples run in your own environment.</p>
-  </aside>;
+export function LessonIntro({ children, prerequisites, exampleKind = "Python" }) {
+  return <LessonOrientation prerequisites={prerequisites} exampleKind={exampleKind}>{children}</LessonOrientation>;
 }
 
 export function Checkpoint({ prompt, children }) {
@@ -25,6 +21,15 @@ export function LessonTable({ caption, headers, rows }) {
 }
 
 export function Sources({ children, alternatives }) {
-  return <aside className="lesson-sources"><h3>References & another way to learn it</h3>{alternatives}{alternatives && <h4>Technical references</h4>}<ul>{children}</ul>
-    <p className="lesson-note">These are optional deeper references. The explanation, labs, code and exercises above are self-contained.</p></aside>;
+  return <>
+    {alternatives && <section className="lesson-ending lesson-ending--resources" data-lesson-ending="further-learning">
+      <H2>Further learning</H2>
+      <div className="lesson-resource-list">{alternatives}</div>
+    </section>}
+    <section className="lesson-ending lesson-ending--resources" data-lesson-ending="references">
+      <H2>Technical references</H2>
+      <div className="lesson-resource-list"><ul>{children}</ul></div>
+      <p className="lesson-note">These are optional deeper references. The explanation, labs, code and exercises above are self-contained.</p>
+    </section>
+  </>;
 }

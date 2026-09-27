@@ -761,9 +761,9 @@ clusters:
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Design routing for 80% chat / 20% batch</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Design routing for 80% chat / 20% batch</H3>
 
       <Prose>
         Your LLM serving cluster receives 80% chat traffic (short turns, multi-session, shared per-tenant system prompts of ~2,000 tokens) and 20% batch inference traffic (single long document summarizations, 15,000–50,000 tokens each, unique prompts with no prefix reuse). Design a routing architecture that minimizes P99 latency for chat while maximizing throughput for batch. Which routing algorithm(s) apply to each traffic class? How do you ensure batch traffic does not degrade chat latency?
@@ -771,9 +771,9 @@ clusters:
 
       <Prose>
         Answer: Separate the two traffic classes at the L7 gateway using the request metadata (e.g., a custom header set by the client SDK or detected from the endpoint path). Route chat traffic through a cache-aware router with consistent hashing keyed on the system prompt prefix — shared system prompts land on warmed instances and get cache hits, reducing P50 significantly. Route batch traffic through a cost-aware router (JSQ weighted by estimated token cost) that distributes load evenly across a dedicated batch instance pool, or the same pool if capacity allows. Use priority queuing to give chat requests preemption over batch requests within a shared pool — vLLM and TGI both support priority-ordered scheduling. Set the batch pool's maximum queue depth to a value that bounds worst-case batch latency rather than letting it grow unbounded.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Consistent hashing ring size tradeoff</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Consistent hashing ring size tradeoff</H3>
 
       <Prose>
         You are configuring a consistent hash ring for 50 GPU instances. You can choose virtual nodes per instance: 10, 100, or 1,000. Analyze the tradeoff in terms of (a) load distribution variance, (b) memory for the ring, and (c) disruption when one instance is added or removed. Which setting would you choose for a production LLM cluster?
@@ -781,9 +781,9 @@ clusters:
 
       <Prose>
         Answer: Load distribution variance decreases as O(1/√V) where V is virtual nodes per instance. With V=10: high variance, some instances may receive 2–3× the average load. With V=100: variance is 10× lower than V=10, typically within 5–10% of balanced. With V=1000: further reduction, under 2%, but with diminishing returns. Memory: the ring stores one entry per virtual node per instance. At V=1000 and 50 instances, the ring has 50,000 entries. At 16 bytes per entry (8-byte hash key + 4-byte instance ID), that is 800 KB — trivially small for a server process. Disruption is identical regardless of V: adding one instance displaces exactly 1/N = 2% of traffic in all cases, since displacement depends only on the fraction of ring arcs reassigned, not on V. Production recommendation: V=150–200. This gives good balance (variance well under 10%), negligible memory cost, and is the empirically validated range used by systems like Redis Cluster, DynamoDB, and vLLM's consistent-hash implementation.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Derive JSQ near-optimality under exponential service</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Derive JSQ near-optimality under exponential service</H3>
 
       <Prose>
         Consider N servers, each with exponential service time rate μ, receiving Poisson arrivals at rate λ = ρNμ. Under random routing, each server operates as an independent M/M/1 queue at utilization ρ. Under JSQ (join shortest queue), Mitzenmacher's result shows the maximum queue length is O(log log N) rather than O(log N / log log N). Explain intuitively why joining the shortest of two random queues produces this exponential improvement. What property of the exponential distribution makes the analysis tractable?
@@ -791,9 +791,9 @@ clusters:
 
       <Prose>
         Answer: Under random routing, the maximum queue length across N queues is O(log N / log log N) because the birthday paradox guarantees that at least one queue will accumulate Θ(log N) jobs. The key insight of power-of-two choices: by always routing to the shorter of two random queues, you make it exponentially unlikely that any queue grows long. Specifically, if the probability of a queue having ≥k jobs is p_k under random routing, then under power-of-two it is p_k squared — a double-exponential decay. Starting from p_1 ≈ ρ, p_k under power-of-two satisfies p_k ≈ ρ^(2^k), so the queue depth k at which the probability drops below 1/N is k = O(log log N). The exponential distribution makes the analysis tractable because the memoryless property means the service time remaining for a job in service has the same distribution regardless of how long it has been running — this stationarity enables the Markov chain analysis that produces the p_k recurrence.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — When does round-robin beat JSQ?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — When does round-robin beat JSQ?</H3>
 
       <Prose>
         Describe a realistic LLM serving scenario where round-robin produces lower P99 latency than JSQ. What workload property creates this reversal, and how would you detect it in production metrics?
@@ -801,9 +801,9 @@ clusters:
 
       <Prose>
         Answer: JSQ routes to the instance with the fewest current requests. If request lengths are positively correlated with arrival time — for example, in a pipeline where the orchestrator sends a batch of large document requests all at once, followed by a pause — JSQ will route the first few large requests to the "shortest" queue (which looks good by count), but those instances will then be slow for a long time. Round-robin distributes the large requests more evenly, so no single instance becomes a bottleneck for the full batch. More precisely: JSQ underperforms round-robin when service time variance is very high AND high-cost requests arrive in bursts. JSQ's queue-depth signal gives a misleading picture when one long request has the same count contribution as one short request. In production, detect this by tracking the correlation between queue depth at routing time and actual wait time for the routed request: if high queue depth at routing correlates weakly with long wait (R² {"<"} 0.3), JSQ is poorly calibrated for the workload and cost-aware routing (using token-weighted queue load) will outperform it.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Identify routing failure from metrics</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Identify routing failure from metrics</H3>
 
       <Prose>
         Your monitoring dashboard shows: (a) aggregate GPU utilization is 65% across the fleet, (b) P50 latency is 2.1s and well within SLA, (c) P99 latency is 94s and violating the 30s SLA, (d) per-instance queue depth ranges from 0 to 47 requests simultaneously, and (e) the prefix cache hit rate is 78% fleet-wide. Diagnose the routing failure mode and propose a specific fix.
@@ -811,7 +811,7 @@ clusters:
 
       <Prose>
         Answer: The symptom pattern is: low aggregate utilization, acceptable P50, catastrophic P99, and extreme per-instance queue depth variance (0 to 47). This is hot-spotting — one or a few instances are severely overloaded while others are idle. The high prefix cache hit rate (78%) is the tell: cache-aware routing is working (keeping prefixes on the right instances), but it is creating hot spots because a popular prefix is routing all its traffic to one instance. The fix is load-bounded consistent hashing: configure a maximum queue-depth threshold per instance (e.g., 12 requests or 30s of estimated wait), and when the primary ring instance exceeds the threshold, route the overflow to the next ring position that is below capacity. This preserves cache affinity for the common case (primary instance is below threshold) while automatically shedding overload to replicas. The secondary instance will have a cold cache miss for the first few overflow requests, but bounded P99 is worth the cold prefill cost. Also verify that the instance with 47 requests queued has health checks configured to return non-200 when queue depth is critical — a misconfigured health check may be allowing the router to continue routing to an already-overwhelmed instance.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

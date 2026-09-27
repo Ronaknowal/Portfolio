@@ -1,0 +1,1614 @@
+{
+  "topicId": "multi-head-latent-attention-mla",
+  "passed": true,
+  "reviewer": "memory_energy_implementation",
+  "productionPath": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+  "sourceFiles": [
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/design.md",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-browser-cases.mjs",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-browser-values.json",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-native-results.json",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-native.py",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-review.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-results.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/design.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/forecast-model.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-fixtures.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.data",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.names",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-fixtures.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md",
+    "public/learn-assets/multi-head-latent-attention-mla/author-calculations.py",
+    "public/learn-assets/multi-head-latent-attention-mla/author-results.json",
+    "public/learn-assets/multi-head-latent-attention-mla/data-provenance.md",
+    "public/learn-assets/multi-head-latent-attention-mla/forecast-model.json",
+    "public/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py",
+    "public/learn-assets/multi-head-latent-attention-mla/mechanism-fixtures.json",
+    "public/learn-assets/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+    "public/learn-assets/multi-head-latent-attention-mla/movement_libras.data",
+    "public/learn-assets/multi-head-latent-attention-mla/movement_libras.names",
+    "public/learn-assets/multi-head-latent-attention-mla/runtime.json",
+    "scripts/check-latent-attention-models.mjs",
+    "scripts/check-latent-attention-native.py",
+    "scripts/check-latent-attention-render.mjs",
+    "scripts/generate-latent-attention-lesson.mjs",
+    "scripts/lib/prepared-lesson-renderer.mjs",
+    "src/learn/components/lesson-labs/LatentAttentionLabs.jsx",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/latent-attention-labs.css",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/data/grouped-query-models.js",
+    "src/learn/data/latent-attention-models.js",
+    "src/learn/data/topics/multi-head-latent-attention-mla.jsx"
+  ],
+  "sourceHashes": {
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/design.md": "a0d13e4ec38c462fbd1971f039d73b7cbd966f567e8ad3f2f994761f2cf3004b",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-browser-cases.mjs": "8d66925760e7247d9bc652c90648918154ac0e7d0df3a7216898e75cd1aecbf4",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-browser-values.json": "aabb269564a6e0bdcd94d7fa0f47fff37d0da1810ddaa973ce2e32f369771ffb",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-native-results.json": "d95a975dfa78b6593d35b9ede96bf5cc9dc144721082cebdaf396aa41a177d41",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-native.py": "88bb842b6768cdea3cfd2ca9a649a8a497ad3513116a226e3b343ba6608708b0",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-review.md": "62da8cb586c56ff6876245d951ec3ce78bef5fa2016e8ce45430a3bf6d88e8ad",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-results.json": "ae90f897e3773387e874df3d4ff74ec0dc5da3bfdd964b3dd081ae814587d07d",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md": "1a52d8b0c8897ae2ef2798a299ff233653f6df17f1987d943cfda2143f2d265c",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/design.md": "d52ee8133d4e5058587adeb530a31938122e83aad36350312c5989e42aa2bdfd",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/forecast-model.json": "a516d590c4119511dbc965a4eb1832d750402ecf77569f8d5b0f0fe875745baa",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md": "cf7eb2f3318da7790ceaa625cf03ee7784f1936afcaecc1b0490e35ba5c2ede5",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-fixtures.json": "da2a73b801bc891d9e0a3b5d6eedfb4a60ee880746afd98a60d8b57ad3ae3fc0",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py": "116e75bdc5df6f44fc390afd1d4f9f20aff9e8588f4f99a421b0c70edbf99831",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-fixtures.json": "67aa008b575242064698801b5ecf1a3c7b0109c7dc928db1f0a06d92f72abaa1",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md": "9d2ee6d0eb7c68320d607906bc85b59b00ecc6f7eb3d3444392b01b6a63c5973",
+    "public/learn-assets/multi-head-latent-attention-mla/author-calculations.py": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+    "public/learn-assets/multi-head-latent-attention-mla/author-results.json": "ae90f897e3773387e874df3d4ff74ec0dc5da3bfdd964b3dd081ae814587d07d",
+    "public/learn-assets/multi-head-latent-attention-mla/data-provenance.md": "1a52d8b0c8897ae2ef2798a299ff233653f6df17f1987d943cfda2143f2d265c",
+    "public/learn-assets/multi-head-latent-attention-mla/forecast-model.json": "a516d590c4119511dbc965a4eb1832d750402ecf77569f8d5b0f0fe875745baa",
+    "public/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+    "public/learn-assets/multi-head-latent-attention-mla/mechanism-fixtures.json": "da2a73b801bc891d9e0a3b5d6eedfb4a60ee880746afd98a60d8b57ad3ae3fc0",
+    "public/learn-assets/multi-head-latent-attention-mla/mla_sdpa_bridge.py": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+    "public/learn-assets/multi-head-latent-attention-mla/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-assets/multi-head-latent-attention-mla/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-assets/multi-head-latent-attention-mla/runtime.json": "d00c9fde37f8bd18dd324c367dbc8a82b12ca07a1145bbf9bdae846a6b7be4e2",
+    "scripts/check-latent-attention-models.mjs": "419f919a119cd2c5b49c2e3f562eaa3147387016616a755a295965f44ab4a01d",
+    "scripts/check-latent-attention-native.py": "23e404cde7bfadc810d017f62cc84b6f9c2aa3fb62e243ea380a27d95a6de4ad",
+    "scripts/check-latent-attention-render.mjs": "c6794c760e40ab1207462154d19b2bd1d55b4babda54e88e247ce35d8f9c7016",
+    "scripts/generate-latent-attention-lesson.mjs": "379eaaf712c8bd0d412a0ecf0befccba56335840b7881d07b788e48ae3d6e6d4",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "src/learn/components/lesson-labs/LatentAttentionLabs.jsx": "0acd8631b31c7549ef01bc40af1577743766bf301ae77ff265cdb3bf4dc5a7dc",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/latent-attention-labs.css": "d2dc5275481f3f87d0f1118f73ce25d6239f8c63dafdb9edbe8c33a2df3fc177",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/data/grouped-query-models.js": "fdc3da4a8e09985fe1d789332ec4d1538571bbc8a240e26ddadff58b51f4b3db",
+    "src/learn/data/latent-attention-models.js": "e0abebd487622765c2d08734723e2a6c6d9bdee6b277a083e6c439c949f6dc54",
+    "src/learn/data/topics/multi-head-latent-attention-mla.jsx": "446fecabdb663620e2d7a12762bdac3910a09b099e36323c1bbf2191542a48bf"
+  },
+  "checks": [
+    {
+      "name": "shape0 rankNone shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.84658713057118e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rankNone shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.846587186082331e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rankNone shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.937891372515992e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank1 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.937891372515992e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank1 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.109565617163355e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank3 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.5612511283791264e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.109565617163355e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank3 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.5612511283791264e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 3.602857567841511e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank5 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 3.602857623352662e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank5 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.846588740394566e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank8 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.8465889069280195e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape0 rank8 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.04199978645525e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rankNone shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0419997975574802e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rankNone shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.278465192188776e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank1 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.608224830031759e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.278465303211078e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank1 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.608224830031759e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 9.062978478802108e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank3 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.7470027081099033e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 9.062978478802108e-9,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank3 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.7470027081099033e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0997507349230773e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank5 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0997507404741924e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank5 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0419999751931641e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank8 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0419999640909339e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape1 rank8 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9609257218000664e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rankNone shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9609256829422606e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rankNone shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.2651308778366399e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank1 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 2.498001805406602e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.2651308778366399e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank1 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 2.498001805406602e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9019103736361842e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank3 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9019103791872993e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank3 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9870856293735528e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank5 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.134781488891349e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9870856293735528e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank5 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.134781488891349e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9609258161690235e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank8 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 7.494005416219807e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.960925788413448e-8,
+      "tolerance": 3e-7
+    },
+    {
+      "name": "shape2 rank8 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 7.494005416219807e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed 7-latent/3-content batched SDPA paths",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "Changed-dimension factor gradient 0",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 1",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 2",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 3",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 4",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 5",
+      "passed": true,
+      "maxAbsoluteError": 1.249000902703301e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "All9 public reproduction files byte-identical to intended sources",
+      "passed": true
+    },
+    {
+      "name": "Browser future exclusion, logical-record permutation, chunk3 cache and BigInt budget controls",
+      "passed": true
+    },
+    {
+      "name": "Full manuscript/program/representation and ten-item learning-experience review; all five findings closed",
+      "passed": true
+    },
+    {
+      "name": "BigInt odd-large valid arithmetic boundary equals 9600086246924179440",
+      "passed": true
+    },
+    {
+      "name": "Scoped output matrix numeric controls use one intrinsic column; mobile matrix uses two columns, source-reviewed CSS-only overflow correction",
+      "passed": true
+    }
+  ],
+  "evidencepaths": [
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-review.md",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-native-results.json",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-native.py",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-browser-cases.mjs"
+  ],
+  "remaining": [
+    "browser",
+    "integration"
+  ]
+}

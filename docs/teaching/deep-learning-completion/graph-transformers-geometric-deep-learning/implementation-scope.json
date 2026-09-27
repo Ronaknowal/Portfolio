@@ -1,0 +1,50 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+    "src/learn/data/geometric-graph-models.js",
+    "src/learn/data/geometric-graph-examples.json",
+    "src/learn/components/lesson-labs/GeometricGraphFigures.jsx",
+    "src/learn/components/lesson-labs/GeometricGraphLabs.jsx",
+    "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+    "src/learn/components/lesson-labs/geometric-graph.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "scripts/prepare-geometric-graph-assets.py",
+    "scripts/verify-geometric-graph-models.mjs",
+    "scripts/render-geometric-graph-lesson.mjs",
+    "scripts/check-geometric-graph-static-render.mjs",
+    "public/learn-assets/graph-transformers-geometric-deep-learning/gcn-11.json",
+    "public/learn-assets/graph-transformers-geometric-deep-learning/set-11.json",
+    "public/learn-assets/graph-transformers-geometric-deep-learning/distance-11.json",
+    "public/learn-assets/graph-transformers-geometric-deep-learning/walk-11.json",
+    "public/learn-assets/graph-transformers-geometric-deep-learning/recorded-probabilities.json"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/design.md",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/native-checks.json",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/library-checks.json",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/reproduced-study.json",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/reproduced-geometry.json",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/model-checks.json",
+    "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/static-checks.json"
+  ],
+  "browserInventory": [
+    "All concept-map figures and11 exact labs + lazy real study; nominal diagram labels12px; keyboard local scrolling at320px, no whole-page overflow. All8practice hints/solutions initially closed, four program disclosures and9downloads resolve.",
+    "geo-identity: layout only leaves A/H/Xdistance unchanged; physical point1edit changes distance; rewire changes A; reverse changes both axes and rows. Reset. geo-read:default12/7,local4/3,remote11global19/7andlocalnull;equalvalues7null;edits3edges/3values/receiver/bias/mask;emptyrowundefined,unreachable separatecategory;pin/reset and invalid-numberfirstReset.",
+    "geo-walk: sixcycle k3return0,twotriangles.25andtwo1/8paths; k2pathcenter count2prob1; edit actualedges/count3..8/steps1..5/node; noedgesreturns0; absorbingisolatesreturns1. Exacttotals/first40routecap/reset.",
+    "geo-basis:.37rotatedcolumns matchsavedprojectorerror~1e-16; angle/flip/reversenodeorder; removing0\u20141changesgraph/eigenvalues and warns rotated distinctmodecolumns no longer individualeigenvectors;reset.",
+    "geo-square defaultreflectroutes[8,4,2,1]/[2,1,8,4], tiedboth[5,2.5,5,2.5] transformedappropriately; constantonescurrenterror0butcommutator1;all8actions/readings/tiedfilter/eightconjugates/reset.",
+    "geo-action defaultReLU[2,1,0]/[0,1,0]defect2;normgatezero;positiontranslationvsfreevectorvsaxial reflection andscalar;Qdet/orthogonality;identitynull;allcoordinate/angle/translation controls/reset.",
+    "geo-update defaultpoints[-.05,-.04,0],[1.0666667,-.0333333,0],[-.0166667,2.0733333,0]; validrotation/reflectionerror~1e-16; brokenReLU/axisnonzero;step0null;duplicatefinite;2..6points/xyz/step/angle/pin/oneupdate bounds/reset. Two route charts share scale.",
+    "geo-gps defaults sixnodes in3/2/1graphs. Editing node3feature0 .3\u21924.3 preserves graphA/isolate correctbatch; missingbatch createschange. Include/excludeisolate,within-graphrelabel,allnodefeatures,reset. Actuallocal/global/2x/h/output table andpaddingdiagram.",
+    "geo-force defaultE5forces[1,2,0],[-2,2,0],[1,-4,0]sum0; finite diffsteps; translateallnull/rotatevectors;singlepointeditandreset. geo-chiralitydet1/-1, mirrorpairdistancesequal;role-swapdistinct;height0planarnull;reset. geo-budgetdefault32millionbytes,10knodes3.2billion,allbounds exactandone-tensorlabel.",
+    "geo-study resource only onopen;recordedall12models/seeds,allassessmentnodes,originalvsedge-removedfloat32,5pre-updateepochs;liveonlyseed11fourmodels. Allfeature/edge/nodecontrols,explicitall-featurerecompute,removalallgraph,pin,wrong-assessmentnodebutton,maxdelta,reverse semanticstorage,block/head/channel/donor. Two fullheadmatricesvisibleaxes andexactselectedrows. Tinydeltaunit exponent honestly labeled. Preserveeditedfeatures/graph/pin acrossfamilychanges,fetchfailure/retry andclose/reopen;rapidchanges no staleasset. Recordedmeasurement andlive doublearithmetic distinctions remainvisible."
+  ],
+  "limits": [
+    "All twelve fits and complete geometry program actually reexecuted; historical results preserved",
+    "Actual PyG GPS and third-isolate diagnostic executed; no pretrained molecular network/GPU benchmark",
+    "Author-ready only; independent/browser/shared integration remain"
+  ]
+}

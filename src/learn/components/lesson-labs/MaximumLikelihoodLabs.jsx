@@ -138,7 +138,7 @@ export function LocationFitLab() {
       <path d={`M53 ${values.length * 33 + 26}H333`} className="mle-axis" /><text x="53" y={values.length * 33 + 49}>{fmt(low)}</text><text x="333" y={values.length * 33 + 49} textAnchor="end">{fmt(high)}</text><text x="193" y={values.length * 33 + 77} textAnchor="middle">measurement units</text>
     </svg></figure>
     <div aria-live="polite"><Readouts rows={[["Squared cost Σ(x−c)²", fmt(fit.squared)], ['Absolute cost Σ|x−c|', fmt(fit.absolute)], ['Squared-cost minimizer', fmt(fit.mean)], ['Absolute-cost minimizers', fit.medianLow === fit.medianHigh ? fmt(fit.medianLow) : `[${fit.medianLow}, ${fit.medianHigh}]`]]} /></div>
-    <details><summary>Observation and residual table</summary><table><thead><tr><th>Observation</th><th>Residual</th><th>Squared</th></tr></thead><tbody>{values.map((value, index) => <tr key={index}><td>{value}</td><td>{fmt(fit.residuals[index])}</td><td>{fmt(fit.residuals[index] ** 2)}</td></tr>)}</tbody></table></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Observation and residual table</h4><table><thead><tr><th>Observation</th><th>Residual</th><th>Squared</th></tr></thead><tbody>{values.map((value, index) => <tr key={index}><td>{value}</td><td>{fmt(fit.residuals[index])}</td><td>{fmt(fit.residuals[index] ** 2)}</td></tr>)}</tbody></table></section>
     <p className="mle-note">Lines encode signed errors, not uncertainty intervals. The normal model with fixed variance minimizes squared cost. A Laplace model with fixed scale minimizes absolute cost. Cost units differ; their raw totals are not directly comparable likelihoods.</p>
   </section>;
 }
@@ -181,7 +181,7 @@ export function BetaMapLab() {
       }]} /></div>
     <div aria-live="polite"><Readouts rows={[["MLE", mle === null ? 'Not unique' : fmt(mle)], ['Posterior mode / MAP', posterior.mode === null ? 'Every p in [0,1]' : fmt(posterior.mode)], ['Posterior mean', fmt(posterior.mean)], ['Next-success probability', fmt(posterior.mean)], ['Posterior standard deviation', fmt(Math.sqrt(posterior.variance))]]} /></div>
     <p className="mle-note">Positive integer prior shapes keep every plotted density finite. The readouts use exact analytic formulas evaluated in floating point; the lines sample those formulas. Posterior standard deviation describes spread in p under this model, not a confidence interval.</p>
-    <details><summary>What to notice</summary><p>With four successes and a uniform prior, MLE and MAP equal 1, but the predictive probability is 5/6. A density mode at the boundary does not mean all posterior mass sits there. With no data and a uniform prior, every p is a mode while the mean is 1/2.</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">What to notice</h4><p>With four successes and a uniform prior, MLE and MAP equal 1, but the predictive probability is 5/6. A density mode at the boundary does not mean all posterior mass sits there. With no data and a uniform prior, every p is a mode while the mean is 1/2.</p></section>
   </section>;
 }
 export function SamplingEstimateLab() {
@@ -209,7 +209,7 @@ export function SamplingEstimateLab() {
           color: colors[1]
         }}>┄ True p</span></div></figure>
     <div aria-live="polite"><Readouts rows={[["Expected estimate", fmt(p)], ['Variance across studies', fmt(p * (1 - p) / n)], ['Standard deviation', fmt(Math.sqrt(p * (1 - p) / n))]]} /></div>
-    <details><summary>Exact mass table (rounded for display)</summary><table><thead><tr><th>Successes k</th><th>Estimate k/n</th><th>Probability</th></tr></thead><tbody>{rows.map(row => <tr key={row.k}><td>{row.k}</td><td>{fmt(row.estimate)}</td><td>{fmt(row.mass)}</td></tr>)}</tbody></table></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact mass table (rounded for display)</h4><table><thead><tr><th>Successes k</th><th>Estimate k/n</th><th>Probability</th></tr></thead><tbody>{rows.map(row => <tr key={row.k}><td>{row.k}</td><td>{fmt(row.estimate)}</td><td>{fmt(row.mass)}</td></tr>)}</tbody></table></section>
     <p className="mle-note">The bar height is probability mass, not density. Increase n: possible estimates become more closely spaced and concentrate near p. This is a sampling distribution, not the fixed-data likelihood from the first investigation.</p>
   </section>;
 }

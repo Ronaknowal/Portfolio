@@ -1,6 +1,8 @@
 import { colors, fonts } from "../../styles";
+import { LessonOpeningNote } from "../LessonOpening.jsx";
 
-export function Prose({ children, dim = false }) {
+export function Prose({ children, dim = false, opening }) {
+  if (opening) return <LessonOpeningNote kind={opening}><p>{children}</p></LessonOpeningNote>;
   return (
     <p style={{
       fontFamily: fonts.sans,

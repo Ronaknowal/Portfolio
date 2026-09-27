@@ -1,0 +1,70 @@
+.attention-lesson { --attention-accent: #e2b55a; container-type: inline-size; container-name: recurrent-attention; }
+.attention-lesson .neural-lab { background: #101010; border-color: #444; }
+.attention-lesson .neural-lab input, .attention-lesson .neural-lab select, .attention-lesson button { background: #191919; color: #f0cd7c; border: 1px solid #6b6250; border-radius: 4px; min-height: 44px; font: inherit; padding: .4rem .6rem; }
+.attention-lesson button { cursor: pointer; }
+.attention-lesson button:disabled { opacity: .5; cursor: default; }
+.attention-lesson input[type="range"], .attention-lesson input[type="checkbox"] { accent-color: #e2b55a; }
+.attention-lesson input[type="checkbox"] { width: 20px; height: 20px; min-height: 20px; flex-shrink: 0; }
+.attention-lesson summary { color: #f0cd7c; cursor: pointer; padding: .8rem 0; line-height: 1.6; }
+.attention-lesson .neural-table-scroll th, .attention-lesson .neural-table-scroll td { border-color: #444; }
+.attention-lesson .neural-chart text { fill: #ddd; }
+.attention-lesson .neural-chart > line { stroke: #888; }
+.attention-lesson figure { margin: 1.5rem 0; min-width: 0; }
+.attention-lesson figcaption { line-height: 1.7; }
+.attention-lesson fieldset { border: 1px solid #555; padding: .8rem; min-width: 0; }
+.attention-lesson legend { color: #e2b55a; }
+.attention-lesson .attention-two-column, .attention-lesson .attention-branch { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr)); gap: 1.2rem; }
+.attention-lesson .attention-result { padding: 1rem; border-left: 3px solid #e2b55a; background: #1c1913; line-height: 1.8; overflow-wrap: anywhere; }
+.attention-lesson .attention-plane svg { width: 100%; max-width: 340px; height: auto; display: block; margin: auto; }
+.attention-lesson .attention-plane svg text { font: 12px monospace; fill: #ddd; }
+.attention-lesson .attention-plane p { font-size: .84rem; line-height: 1.6; }
+.attention-lesson .attention-share-row { display: grid; grid-template-columns: minmax(4.7rem, auto) minmax(35px, 1fr) 6.2rem; gap: .5rem; align-items: center; margin: .7rem 0; font: 12px monospace; }
+.attention-lesson .attention-share-row output { text-align: right; }
+.attention-lesson .attention-bar { display: block; background: #303030; height: 17px; }
+.attention-lesson .attention-bar > span { display: block; height: 100%; background: #e2b55a; }
+.attention-lesson .attention-token-strip ol { display: flex; list-style: none; flex-wrap: wrap; gap: .35rem; padding: 0; }
+.attention-lesson .attention-token-strip li { display: grid; text-align: center; gap: .3rem; border: 1px solid #555; padding: .5rem; min-width: 2rem; margin: 0; background: #191919; font: 13px monospace; }
+.attention-lesson .attention-token-strip small { font: 11px monospace; color: #aaa; }
+.attention-lesson .attention-token-strip .is-selected { border-color: #e2b55a; }
+.attention-lesson .attention-branch > p { border-top: 2px solid #e2b55a; padding: .8rem; background: #171717; display: grid; gap: .8rem; }
+.attention-lesson .attention-mask-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+.attention-lesson .attention-mask-controls label, .attention-lesson .attention-toggle { display: flex; align-items: center; gap: .5rem; min-height: 44px; }
+.attention-lesson .attention-timeline { background: #141414; border-top: 2px solid #e2b55a; padding: 1rem; }
+.attention-lesson .attention-timeline ol { padding-left: 1.3rem; }
+.attention-lesson .attention-timeline li { border-left: 1px solid #777; padding: .2rem .7rem 1rem; line-height: 1.7; }
+.attention-lesson .attention-gradient-chain { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: 1rem 0; }
+.attention-lesson .attention-gradient-chain p { flex: 1 1 180px; min-width: 0; padding: 1rem; border-top: 2px solid #e2b55a; background: #171717; line-height: 1.7; overflow-wrap: anywhere; }
+.attention-lesson .attention-gradient-chain > span { color: #e2b55a; }
+.attention-lesson .attention-curve-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1rem; }
+.attention-lesson .attention-program pre { background: #111; padding: 1rem; line-height: 1.7; font-size: 12px; max-width: 100%; max-height: 560px; overflow: auto; }
+.attention-lesson .attention-program a { overflow-wrap: anywhere; }
+.attention-lesson .attention-scratch > p { line-height: 1.9; margin: 1rem 0; }
+.attention-lesson .attention-scratch > h3 { margin: 1.5rem 0 1rem; }
+.attention-lesson .attention-text-control { display: grid; align-content: start; gap: .5rem; }
+.attention-lesson .attention-text-control input { width: 100%; box-sizing: border-box; }
+.attention-lesson .attention-text-control small { color: #efbd86; line-height: 1.6; }
+.attention-lesson .attention-matrix-scroll { overflow-x: auto; max-width: 100%; margin: 1rem 0; border: 1px solid #444; }
+.attention-lesson .attention-matrix { border-collapse: separate; border-spacing: 2px; font: 12px monospace; width: 100%; }
+.attention-lesson .attention-matrix caption { text-align: left; padding: .7rem; font: 13px/1.6 inherit; }
+.attention-lesson .attention-matrix th, .attention-lesson .attention-matrix td { text-align: center; white-space: nowrap; min-width: 44px; height: 40px; padding: .2rem; }
+.attention-lesson .attention-matrix th { background: #171717; color: #eee; }
+.attention-lesson .attention-matrix td { color: #fff; }
+.attention-lesson .attention-matrix small { display: block; margin-bottom: .4rem; color: #aaa; }
+.attention-lesson .attention-matrix .is-selected button { border-color: #e2b55a; background: #302719; }
+.attention-lesson .attention-window-ruler { display: grid; grid-template-columns: repeat(5, 1fr); gap: .25rem; margin: 1rem 0; }
+.attention-lesson .attention-window-ruler > div { display: grid; gap: .7rem; padding: .7rem .2rem; border-top: 3px solid #555; text-align: center; background: #191919; font-size: 11px; }
+.attention-lesson .attention-window-ruler .is-included { border-color: #e2b55a; background: #292215; }
+.attention-lesson .attention-window-ruler strong { font-size: 18px; }
+.attention-lesson .attention-stacked-bar { display: flex; background: #333; height: 22px; margin: .6rem 0; }
+.attention-lesson .attention-stacked-bar span:first-child { background: #e2b55a; }
+.attention-lesson .attention-stacked-bar span:last-child { background: #ccc; }
+.attention-lesson .attention-copy-output { display: grid; gap: 1.2rem; margin: 1rem 0; }
+@container recurrent-attention (max-width: 650px) {
+  .attention-lesson .attention-gradient-chain { display: grid; }
+  .attention-lesson .attention-gradient-chain > span { transform: rotate(90deg); justify-self: center; }
+  .attention-lesson .attention-gradient-chain p { margin: 0; }
+  .attention-lesson .neural-controls { grid-template-columns: 1fr; }
+}
+@container recurrent-attention (max-width: 450px) {
+  .attention-lesson .attention-share-row { grid-template-columns: 4rem minmax(30px, 1fr) 5.8rem; font-size: 11px; }
+}

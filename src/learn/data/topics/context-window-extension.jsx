@@ -886,37 +886,37 @@ retrieval tasks | + FT + eval harness | retrieval, or multi-doc QA at long range
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: derive the NTK-Aware base scaling formula from first principles</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: derive the NTK-Aware base scaling formula from first principles</H3>
 
       <Prose>
         NTK-Aware Scaling changes the RoPE base from <Code>b = 10000</Code> to <Code>b' = b · s^{"{d/(d-2)}"}</Code>. Your task: derive why this particular exponent is chosen. Start from the requirement that the lowest-frequency dimension pair (pair <Code>d/2 - 1</Code>) should compress to match the PI scale factor <Code>s</Code> at its wavelength. Write out the wavelength of pair <Code>d/2 - 1</Code> under the original base and under the new base, set them to differ by exactly <Code>s</Code>, and solve for the exponent. Then verify: does the highest-frequency pair (pair 0) remain unchanged, or does it also shift? What does this tell you about the tradeoff NTK-Aware makes relative to PI?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2: implement YaRN from scratch and measure the temperature effect</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: implement YaRN from scratch and measure the temperature effect</H3>
 
       <Prose>
         Using the code from section 4d as a starting point, implement a complete YaRN attention layer (not just the frequency computation, but the full attention function including temperature scaling). Then run the following experiment: compare perplexity at 8× extension on a toy model using YaRN with temperature correction <Code>t = 0.1 ln(s) + 1</Code> versus YaRN without temperature correction (t=1). Use a sequence of 32k tokens drawn from a held-out text corpus. Report: (a) perplexity difference, (b) the distribution of attention weights with and without temperature correction (mean, 95th percentile, entropy of the softmax distribution), and (c) why the temperature correction is particularly important for tasks that require attending to rare but critical tokens in a long document.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: analyze the lost-in-the-middle failure</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: analyze the lost-in-the-middle failure</H3>
 
       <Prose>
         Liu et al. (arXiv:2307.03172) report that multi-document QA performance degrades when the relevant document is placed in the middle of a 20-document context, even for models with large nominal context windows. Design an experiment to distinguish two hypotheses: (a) the degradation is caused by attentional dilution (the relevant tokens receive too little weight in the softmax), versus (b) the degradation is caused by positional encoding confusion (the model misinterprets the position of mid-context tokens). For each hypothesis, specify: what intervention would test it, what result would confirm it, and what result would rule it out. What does the experimental design tell you about whether RoPE scaling alone could fix the lost-in-the-middle problem?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: compute the memory cost of context extension</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: compute the memory cost of context extension</H3>
 
       <Prose>
         A team is deploying a 70B-parameter model (80 layers, 8 KV heads, head dimension 128, BF16 KV cache) on an 8-GPU H100 cluster. The base context is 8,192 tokens; they want to extend to 65,536 tokens using YaRN. Compute: (a) KV cache memory per sequence at 8K and 65K in BF16, (b) maximum concurrent requests at each context length assuming 320 GB total KV cache budget across the cluster, (c) how FP8 quantization of the KV cache changes both numbers, (d) at what extension ratio does the KV cache per sequence exceed the model weights per GPU, and (e) what is the minimum number of H100s required to serve 32 concurrent users at 65K context with BF16 KV cache, assuming 75% of each GPU's HBM is available for cache after weights and activations.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: design a production context extension strategy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: design a production context extension strategy</H3>
 
       <Prose>
         You are an ML engineer at a company that ships a RAG-based document analysis product. The current setup uses a 13B-parameter model trained at 4,096 tokens, serving legal documents that average 12,000 tokens and peak at 48,000 tokens. Customers complain that the model "forgets" clauses from early in long contracts. Design a full context extension plan covering: (a) which scaling method to apply and at what extension ratio, (b) fine-tuning data requirements (how many documents, at what context lengths, from what distribution), (c) a benchmark suite to validate quality at both short ({"<"}4K) and long contexts before shipping, (d) serving configuration changes required in vLLM including any KV cache quantization decisions, and (e) a rollback plan if the extended model degrades on a short-context task that 80% of users rely on. Justify each decision with reference to the methods and failure modes covered in this topic.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

@@ -3,6 +3,7 @@ import { Math, MathBlock as SharedMathBlock } from '../../components/content/Mat
 import { LessonTable } from '../../components/lesson-labs/LessonElements.jsx';
 import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
 import mechanismProgram from '../transfer-learning-mechanism-program.js';
+import { ProbeInformationFigure, LowRankDirectionFigure, AdapterCorrectionFigure } from '../../components/lesson-labs/TransferIntuitionFigures.jsx';
 import { TransferReuseFigure, TransferFreezeLab, TransferPartitionsFigure, TransferProgram, TransferLoraLab, TransferAdapterBudget, TransferEvidenceLab, TransferCheckpointLab, TransferScheduleFigure, programUrl, dataUrl, provenanceUrl } from '../../components/lesson-labs/TransferLearningLabs.jsx';
 
 function MathBlock({children}) { return <div className="transfer-equation" role="region" tabIndex={0} aria-label="Equation; scroll horizontally if needed"><SharedMathBlock>{children}</SharedMathBlock></div>; }
@@ -12,8 +13,7 @@ export default {
  readTime: '~60 min read + 60–90 min exploration and practice; optional deeper branches ~30 min',
  hasIntegratedGuide: true,
  content: () => <div className="transfer-lesson">
-<aside className="transfer-downloads"><h3>Learning route</h3><p>Start with a backbone and a new head, investigate freezing and low-rank updates, then choose from actual measured evidence. Before starting: forward/backward passes, squared error and cross-entropy, simple matrix multiplication, and the preceding normalization lesson.</p><nav aria-label="Transfer learning lesson sections"><ol><li><a href="#transfer-section-1">{"1. What exactly moves from one problem to another?"}</a></li><li><a href="#transfer-section-2">{"2. Choose what the target task may change"}</a></li><li><a href="#transfer-section-3">{"3. A complete small transfer pipeline"}</a></li><li><a href="#transfer-section-4">{"4. Make an update without replacing the whole weight matrix"}</a></li><li><a href="#transfer-section-5">{"5. Change features through a bottleneck adapter"}</a></li><li><a href="#transfer-section-6">{"6. Deeper: derivatives tell you what “frozen” actually preserves"}</a></li><li><a href="#transfer-section-7">{"7. Read the evidence before choosing the method"}</a></li><li><a href="#transfer-section-8">{"8. A usable checkpoint includes meaning, not only tensors"}</a></li><li><a href="#transfer-section-9">{"9. Further choices once the basic comparison is sound"}</a></li><li><a href="#transfer-section-10">{"10. Practice and transfer"}</a></li><li><a href="#transfer-section-11">{"Where to go next"}</a></li><li><a href="#transfer-section-12">{"References and other ways to learn"}</a></li></ol></nav></aside>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Toggle parameter updates, gradient recording and module mode; edit LoRA factors/rate; change parameter budgets over saved validation candidates. Show parameters, buffers, gradients and before/after function values separately. Display eligible candidates and the validation-selected winner live; the one retained test result remains clearly identified as previously observed. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to select an adaptation strategy under a real budget and avoid confusing frozen weights with frozen behavior or repeated inspection with a fresh test."}</Prose>
+<Prose opening="summary">Start with a backbone and a new head, investigate freezing and low-rank updates, then choose from actual measured evidence. Before starting: forward/backward passes, squared error and cross-entropy, simple matrix multiplication, and the preceding normalization lesson.</Prose>
 
 <Prose>{"A model has learned to recognize handwritten digits 0–4. You now need a model for digits 5–9, with only eight labeled examples of each new digit. Can the first model help?"}</Prose>
 
@@ -21,7 +21,7 @@ export default {
 
 <Prose>{"Here you will replace a prediction head, decide which parts may change, make a low-rank update by hand, and run a complete offline comparison. The experiment includes a transferred model that performs worse than training from scratch. That result is part of the lesson."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow sections 1–5, run or inspect the experiment in section 7, and solve practice 1–3. You should be able to explain what was transferred, what was frozen, and which evidence justified choosing a model. Sections 6 and 9 provide optional depth on low-rank derivatives, schedules, and larger-model methods; practice 4–6 checks that depth. You do not need to know convolution or Transformer attention to complete the first pass."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow sections 1–5, run or inspect the experiment in section 7, and solve practice 1–3. You should be able to explain what was transferred, what was frozen, and which evidence justified choosing a model. Sections 6 and 9 provide optional depth on low-rank derivatives, schedules, and larger-model methods; practice 4–6 checks that depth. You do not need to know convolution or Transformer attention to complete the first pass."}</Prose>
 
 <div id="transfer-section-1" className="transfer-section-anchor" /><H2>{"1. What exactly moves from one problem to another?"}</H2>
 
@@ -42,6 +42,8 @@ export default {
 <Prose>{"Picture the source backbone as a learned measuring instrument. Reusing it can save learning useful measurements again. However, a measuring instrument that records only weight cannot recover color, however powerful the new decision rule is. A weak probe may indicate missing target information, but it can also reflect poor optimization, unsuitable regularization, or a nonlinear separation that a linear head cannot express. It does not prove the representation contains no useful information."}</Prose>
 
 <Prose>{"For some image networks, earlier features transfer more broadly than later features. The classic study also identified disruption of features that had learned to work together—"}<strong>{"coadaptation"}</strong>{"—as a reason transfer can fail. Layer position alone does not determine usefulness. "}<a href="https://arxiv.org/abs/1411.1792">{"Yosinski et al., "}<em>{"How transferable are features in deep neural networks?"}</em>{""}</a>{""}</Prose>
+
+<ProbeInformationFigure />
 
 <div id="transfer-section-2" className="transfer-section-anchor" /><H2>{"2. Choose what the target task may change"}</H2>
 
@@ -103,6 +105,8 @@ export default {
 
 <Prose>{"For a 4×6 matrix, rank 2 requires "}<Math>{"2(6+4)=20"}</Math>{" factor weights instead of 24 unrestricted weights. Rank 3 requires 30 factor weights, so “low rank” does not automatically mean fewer parameters at every small shape. In general the saving requires "}<Math>{"r(d+k)<dk"}</Math>{". Also count biases, trainable heads and other modules."}</Prose>
 
+<LowRankDirectionFigure />
+
 <Prose>{"The original LoRA method freezes "}<Math>{"W"}</Math>{", initializes one factor randomly and the other to zero, and permits merging a trained update into the base matrix. "}<a href="https://arxiv.org/abs/2106.09685">{"Hu et al., "}<em>{"LoRA"}</em>{""}</a>{" Our program uses Gaussian standard deviation 0.1 for "}<Math>{"A"}</Math>{", zero "}<Math>{"B"}</Math>{", "}<Math>{"r=2"}</Math>{", "}<Math>{"\\alpha=2"}</Math>{", and adapters on both backbone matrices. These are explicit teaching choices."}</Prose>
 
 <Prose>{"The scale "}<Math>{"s"}</Math>{" controls the multiplier, but "}<Math>{"\\alpha/r"}</Math>{" does not make changing rank optimization-neutral. Rank changes the number and initialization of factors, the possible update directions, and their gradients. Keep the data fixed when comparing ranks; do not generate a new task for each rank."}</Prose>
@@ -146,6 +150,8 @@ export default {
 <Prose>{"An adapter may contain nonlinear computation and therefore is not generally mergeable into one fixed linear weight. It also changes the active feature function even though the base parameters remain untouched."}</Prose>
 
 <TransferAdapterBudget />
+
+<AdapterCorrectionFigure />
 
 <div id="transfer-section-6" className="transfer-section-anchor" /><H2>{"6. Deeper: derivatives tell you what “frozen” actually preserves"}</H2>
 
@@ -225,6 +231,8 @@ export default {
 
 <Prose>{"AdaLoRA allocates an update budget across weight matrices using importance estimates and a singular-value-style parameterization. This differs from pruning whichever raw LoRA factor entries happen to be small. IA³ learns multiplicative activation scales; it restricts changes to selected feature rescalings rather than adding an arbitrary matrix update. Their value depends on which restriction matches the task; a catalogue of method names is not a selection procedure. "}<a href="https://arxiv.org/abs/2303.10512">{"AdaLoRA"}</a>{", "}<a href="https://arxiv.org/abs/2205.05638">{"IA³"}</a>{""}</Prose>
 
+<Prose>These restrictions become easier to compare with a tiny feature vector. Multiplicative scales [.5, 3] turn h = [2, −1] into [1, −3]: each output still depends only on its matching coordinate at that scaling operation. A low-rank matrix correction can mix coordinates instead, and the bottleneck adapter above can change its response nonlinearly. A frozen quantized base changes another part of the problem: its stored weights are approximate, while gradients still pass through the resulting forward computation into trainable adapters. Fewer stored bits, fewer trainable parameters and fewer allowed update directions describe different constraints.</Prose>
+
 <H3>{"Account for memory in units"}</H3>
 
 <Prose>{"For "}<Math>{"P"}</Math>{" parameters, 16-bit weights alone require "}<Math>{"2P"}</Math>{" bytes. Seven billion such weights require 14 GB in decimal units. Raw 4-bit storage would require "}<Math>{"P/2"}</Math>{" bytes, or 3.5 GB, before scale metadata and other overhead."}</Prose>
@@ -233,9 +241,9 @@ export default {
 
 <Prose>{"PEFT can greatly reduce gradients and optimizer-state storage while retaining the base model's weight storage and significant activation memory. Sequence length, batch size, where trainable modules sit, and checkpointing affect the latter. Parameter count is therefore a useful exact calculation, not a measurement of browser speed, GPU throughput or total training memory."}</Prose>
 
-<div id="transfer-section-10" className="transfer-section-anchor" /><H2>{"10. Practice and transfer"}</H2>
+<div id="transfer-section-10" className="transfer-section-anchor" /><section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice and transfer"}</H2>
 
-<H3>{"1. A head that fits but means the wrong thing"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. A head that fits but means the wrong thing"}</H3>
 
 <Prose>{"The old head outputs three scores for [cat, dog, horse]. Your new task is [healthy, scratched, broken], also three classes. A colleague loads the old head unchanged because the dimensions match. What should change, and what must be saved for inference?"}</Prose>
 
@@ -249,9 +257,9 @@ export default {
 
 <Prose>{"normally initialize and train a new three-output head for the new task. Assess whether the backbone is useful; shape compatibility is insufficient. Preserve the new class order, input preprocessing, architecture and corresponding weights. Keeping the old head is a candidate initialization only if deliberately tested, not a completed transfer."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Decide from a new validation table"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Decide from a new validation table"}</H3>
 
 <Prose>{"All candidates use the same 80 validation rows. The rule was declared as lowest validation CE, with a maximum of 500 trainable parameters. Scratch uses 2,000 parameters and CE 0.30. Probe uses 120 and CE 0.55. LoRA uses 480 and CE 0.42. Adapter uses 360 and CE 0.47. Which is eligible and selected? Can you evaluate all four on the final test to reconsider?"}</Prose>
 
@@ -265,9 +273,9 @@ export default {
 
 <Prose>{"probe, LoRA and adapter are eligible; LoRA wins among them. Scratch's lower loss does not satisfy the declared resource constraint. Evaluate the selected artifact on the final test to report its performance. Using test outcomes to change the choice consumes that holdout for development; it no longer supports the original untouched-test claim."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. A freeze that still changes predictions"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. A freeze that still changes predictions"}</H3>
 
 <Prose>{"A probe's backbone parameters stay bit-for-bit unchanged, but its feature vector for the same original image changes between epochs. Name two state or input mechanisms worth checking. When could feature caching be invalid?"}</Prose>
 
@@ -281,9 +289,9 @@ export default {
 
 <Prose>{"check whether BatchNorm running statistics update in training mode, and whether dropout or random augmentation changes the forward computation. A cache is invalid when its preprocessing or backbone function differs from the active one. "}<Code>{"no_grad()"}</Code>{" alone prevents none of those training-mode behaviors."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Change the LoRA example"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Change the LoRA example"}</H3>
 
 <Prose>{"Keep "}<Math>{"W=I_2,A=[1,-1],B=0,s=1"}</Math>{", zero target and mean squared loss, but use "}<Math>{"x=[1,3]^T"}</Math>{". Find the first "}<Math>{"B"}</Math>{" gradient and output after one step of size 0.1. Then choose a nonzero input for which this first update vanishes."}</Prose>
 
@@ -297,9 +305,9 @@ export default {
 
 <Prose>{""}<Math>{"Ax=-2"}</Math>{", output gradient is "}<Math>{"[1,3]^T"}</Math>{", so "}<Math>{"\\nabla_B=[-2,-6]^T"}</Math>{". The updated "}<Math>{"B=[0.2,0.6]^T"}</Math>{" adds "}<Math>{"[-0.4,-1.2]^T"}</Math>{", yielding "}<Math>{"[0.6,1.8]^T"}</Math>{". The new loss is 1.8. For "}<Math>{"x=[1,1]^T"}</Math>{", "}<Math>{"Ax=0"}</Math>{" and "}<Math>{"B=0"}</Math>{", so both factor gradients vanish despite positive loss. Changing the input can remove the learning signal without changing the optimizer."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Count, then question the count"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Count, then question the count"}</H3>
 
 <Prose>{"A layer has 1,024 inputs and 256 outputs. Find the LoRA factor count at rank 8, excluding bias, and compare with full weight tuning. With 4-byte gradients and two 4-byte moments, how many bytes do those trainable states need? Does that predict total memory?"}</Prose>
 
@@ -313,9 +321,9 @@ export default {
 
 <Prose>{"full tuning has "}<Math>{"1024\\times256=262{,}144"}</Math>{" weights. LoRA has "}<Math>{"8(1024+256)=10{,}240"}</Math>{", or 3.90625% as many. The stated trainable states require 3,145,728 bytes versus 122,880 bytes. Base weights, any master weights, activations and temporary buffers remain outside that calculation."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Design a rank investigation that can answer its question"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Design a rank investigation that can answer its question"}</H3>
 
 <Prose>{"A script creates a fresh random target dataset for ranks 1, 2, 4 and 8, then plots accuracy against rank. Redesign it. What can a flat result establish?"}</Prose>
 
@@ -331,14 +339,14 @@ export default {
 
 </details>
 
-<div id="transfer-section-11" className="transfer-section-anchor" /><H2>{"Where to go next"}</H2>
+<div id="transfer-section-11" className="transfer-section-anchor" /></div></section><section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{"Where to go next"}</H2>
 
 <Prose>{"On the first-pass route, you are ready when you can explain a backbone/head split, construct a deliberate freeze policy, compare transfer with a target-only baseline, and keep selection separate from final reporting. The deeper route adds factor gradients, memory accounting and controlled adaptation experiments."}</Prose>
 
 <Prose>{"The next module topic is "}<a href="/learn/path/full-curriculum/weight-initialization-xavier-kaiming-p?module=deep-learning-fundamentals">{"Weight Initialization: Xavier, Kaiming & μP"}</a>{". Transfer starts from learned weights, but a new head, adapter or scratch baseline still needs an initial state. We will investigate how that state changes signal and gradient behavior before training has learned anything."}</Prose>
 
-<div id="transfer-section-12" className="transfer-section-anchor" /><H2>{"References and other ways to learn"}</H2>
+<div id="transfer-section-12" className="transfer-section-anchor" /></section><section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and other ways to learn"}</H2>
 
-<ul><li>{""}<a href="https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html">{"PyTorch: Transfer Learning for Computer Vision"}</a>{" — an alternate practical route with pretrained ResNet18 and ants/bees images. Read the data transforms, head replacement, optimizer construction and custom-image inference. It requires external weights/data and knowledge of convolution. Its shared training loop puts the entire model in training mode, so its “fixed feature extractor” freezes weights while BatchNorm buffers can still update. Apply the explicit state policy taught here. Tutorial updated January 2025; documentation served as 2.14 in the author review."}</li><li>{""}<a href="https://www.youtube.com/watch?v=_JB0AO7QxSA">{"Stanford CS231n 2017, Lecture 7: Training Neural Networks II"}</a>{" — official course video covering optimization and transfer, useful after the first-pass experiment for another explanation of adapting image models. It predates LoRA and current library APIs. The author verified the official title, description and syllabus association, not the full recording."}</li><li>{""}<a href="https://arxiv.org/abs/1411.1792">{"Yosinski et al."}</a>{" — study of generality, specificity and coadaptation; read the experimental setup before generalizing its layer conclusions."}</li><li>{""}<a href="https://aclanthology.org/P18-1031/">{"ULMFiT, §3"}</a>{" — source for the three-stage language-model adaptation strategy and its schedule/unfreezing choices."}</li><li>{""}<a href="https://arxiv.org/abs/2106.09685">{"LoRA, §4"}</a>{" and "}<a href="https://huggingface.co/docs/peft/v0.20.0/en/package_reference/lora">{"PEFT 0.20.0 LoRA documentation"}</a>{" — separate the mathematical mechanism from a library's initialization, target-module and merge behavior. The documentation has many model-specific snippets; the self-contained CPU program here does not require that package."}</li><li>{""}<a href="https://arxiv.org/abs/1902.00751">{"Adapter paper"}</a>{", "}<a href="https://arxiv.org/abs/2402.09353">{"DoRA"}</a>{", "}<a href="https://arxiv.org/abs/2305.14314">{"QLoRA"}</a>{", and "}<a href="https://arxiv.org/abs/2402.12354">{"LoRA+"}</a>{" — optional method families with different restrictions and resource goals. Their reported benchmark improvements are evidence for their settings, not predictions for this lesson's data."}</li><li>{""}<a href="https://arxiv.org/abs/2104.08691">{"Prompt tuning"}</a>{" and "}<a href="https://arxiv.org/abs/2101.00190">{"Prefix tuning"}</a>{" — optional bridges after learning token embeddings and attention."}</li></ul>
+<ul><li>{""}<a href="https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html">{"PyTorch: Transfer Learning for Computer Vision"}</a>{" — an alternate practical route with pretrained ResNet18 and ants/bees images. Read the data transforms, head replacement, optimizer construction and custom-image inference. It requires external weights/data and knowledge of convolution. Its shared training loop puts the entire model in training mode, so its “fixed feature extractor” freezes weights while BatchNorm buffers can still update. Apply the explicit state policy taught here. Tutorial updated January 2025; documentation served as 2.14 in the author review."}</li><li>{""}<a href="https://www.youtube.com/watch?v=_JB0AO7QxSA">{"Stanford CS231n 2017, Lecture 7: Training Neural Networks II"}</a>{" — official course video covering optimization and transfer, useful after the first-pass experiment for another explanation of adapting image models. It predates LoRA and current library APIs. The author verified the official title, description and syllabus association, not the full recording."}</li><li>{""}<a href="https://arxiv.org/abs/1411.1792">{"Yosinski et al."}</a>{" — study of generality, specificity and coadaptation; read the experimental setup before generalizing its layer conclusions."}</li><li>{""}<a href="https://aclanthology.org/P18-1031/">{"ULMFiT, §3"}</a>{" — source for the three-stage language-model adaptation strategy and its schedule/unfreezing choices."}</li><li>{""}<a href="https://arxiv.org/abs/2106.09685">{"LoRA, §4"}</a>{" and "}<a href="https://huggingface.co/docs/peft/v0.20.0/en/package_reference/lora">{"PEFT 0.20.0 LoRA documentation"}</a>{" — separate the mathematical mechanism from a library's initialization, target-module and merge behavior. The documentation has many model-specific snippets; the self-contained CPU program here does not require that package."}</li><li>{""}<a href="https://arxiv.org/abs/1902.00751">{"Adapter paper"}</a>{", "}<a href="https://arxiv.org/abs/2402.09353">{"DoRA"}</a>{", "}<a href="https://arxiv.org/abs/2305.14314">{"QLoRA"}</a>{", and "}<a href="https://arxiv.org/abs/2402.12354">{"LoRA+"}</a>{" — optional method families with different restrictions and resource goals. Their reported benchmark improvements are evidence for their settings, not predictions for this lesson's data."}</li><li>{""}<a href="https://arxiv.org/abs/2104.08691">{"Prompt tuning"}</a>{" and "}<a href="https://arxiv.org/abs/2101.00190">{"Prefix tuning"}</a>{" — optional bridges after learning token embeddings and attention."}</li></ul></section>
 </div>
 };

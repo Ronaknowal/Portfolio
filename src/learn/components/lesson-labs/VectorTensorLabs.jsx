@@ -203,7 +203,7 @@ export function LinearMapLab() {
     </div></div>
     <p className="vector-note">Green solid and blue dashed arrows track unit directions; gold tracks x and Ax. The shaded region is the unit square's image. Both plots share equal x/y scale and the same range; changing inputs may refit both ranges together. Dotted segments add scaled columns head to tail. Collapse to a line or point has zero shaded area; exact coordinates distinguish coincident arrows.</p>
     <button type="button" onClick={reset}>Reset map</button>
-    <details><summary>What does collapse discard?</summary><p>For A=[[1,1],[0,0]], both (1,0) and (0,1) become (1,0). The whole direction (1,−1) becomes zero. No operation on the output alone can recover which of these inputs you supplied. The zero map loses every direction.</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">What does collapse discard?</h4><p>For A=[[1,1],[0,0]], both (1,0) and (0,1) become (1,0). The whole direction (1,−1) becomes zero. No operation on the output alone can recover which of these inputs you supplied. The zero map loses every direction.</p></section>
   </Investigation>;
 }
 export function MatrixProductLab() {

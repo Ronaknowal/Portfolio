@@ -1,0 +1,51 @@
+{
+  "topicId": "transformer-block-architecture",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py",
+    "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json",
+    "docs/teaching/drafts/transformer-block-architecture/author-calculations.py",
+    "docs/teaching/drafts/transformer-block-architecture/author-results.json",
+    "docs/teaching/drafts/transformer-block-architecture/block-models.json",
+    "docs/teaching/drafts/transformer-block-architecture/data-provenance.md",
+    "docs/teaching/drafts/transformer-block-architecture/design.md",
+    "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.data",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.names",
+    "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py": "8fb20ccbde4ce37ce2e3c465ba839361920a3be079e777d1b61b20d844a63ee3",
+    "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json": "c4808ad9a2771c7a70d1e9f41b11b4a992274646ef168aac3ee184da6f01c044",
+    "docs/teaching/drafts/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+    "docs/teaching/drafts/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+    "docs/teaching/drafts/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+    "docs/teaching/drafts/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+    "docs/teaching/drafts/transformer-block-architecture/design.md": "e88822449064e999124286aeb536145aeb13386ea996bf218ff30d0afd7378d9",
+    "docs/teaching/drafts/transformer-block-architecture/lesson.md": "9080d4a5a9ccbf7805f39a8f109ae794fbc7d24176dd7ad6f960f8fdc1d089fa",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md": "6ee0a05b97662a21f0ed90f0d9106d91fe32e08b81106229b48d9cbd82e78322"
+  },
+  "manuscript": "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md",
+  "reconciliation": [
+    "Read current complete manuscript, visual specifications, design, provenance, native programs and retained evidence schema. Preserve substantive manuscript additions mapping scratch/library gradients and equal updates; these are authorized prepared-content improvements, not line-ending differences.",
+    "Historical fit and source evidence retained with original provenance. Runtime will replace old unsupported gradient/architecture claims with current manuscript.",
+    "Existing preflight stale content is explicitly reconciled under the current full-content-and-implementation request; no historical hashes are refreshed."
+  ],
+  "checks": [
+    {
+      "name": "Complete content and concept progression assessed against current standard",
+      "passed": true
+    },
+    {
+      "name": "Source files readable, declared real data and native programs retained",
+      "passed": true
+    },
+    {
+      "name": "Static output/native/browser completion not inferred from prior packet",
+      "passed": true
+    }
+  ]
+}

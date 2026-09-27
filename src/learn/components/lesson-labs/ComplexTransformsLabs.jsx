@@ -42,7 +42,7 @@ function Table({
   rows,
   summary = 'Read the numerical values'
 }) {
-  return <details className="transform-data"><summary>{summary}</summary><div className="transform-table-scroll"><table><thead><tr>{headers.map(text => <th key={text}>{text}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((text, column) => <td key={column}>{text}</td>)}</tr>)}</tbody></table></div></details>;
+  return <section className="transform-data lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{summary}</h4><div className="transform-table-scroll"><table><thead><tr>{headers.map(text => <th key={text}>{text}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((text, column) => <td key={column}>{text}</td>)}</tr>)}</tbody></table></div></section>;
 }
 function Investigation({
   title,

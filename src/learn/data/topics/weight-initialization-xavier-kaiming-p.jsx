@@ -3,19 +3,20 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { CorrelatedUpdateFigure } from '../../components/lesson-labs/InitializationUpdateIntuition.jsx';
 import { InitializationSignalLab, InitializationMomentsLab, InitializationGeometryLab, InitializationSpectrumFigure, InitializationSymmetryLab, InitializationTrainingLab, InitializationWidthLab, InitializationPrecisionFigure, InitializationProgram, initializationAsset } from '../../components/lesson-labs/WeightInitializationLabs.jsx';
 export default {
  title: 'Weight Initialization: Xavier, Kaiming, Orthogonal Methods & μP',
  readTime: '~65 min read + experiments and practice; optional μP route ~30 min',
  hasIntegratedGuide: true,
  content: () => <div className="neural-lesson initialization-lesson"><LessonIntro prerequisites="Weighted sums, activations and backpropagation. Statistical moments and singular directions are refreshed locally; the prior loss, normalization and transfer lessons own their full mechanisms." sections={[["a-signal-can-disappear-before-learning-starts","A signal can disappear before learning starts"],["what-the-scale-calculation-actually-preserves","What the scale calculation actually preserves"],["choose-a-recipe-for-the-operation-it-initializes","Choose a recipe for the operation it initializes"],["average-preservation-can-hide-a-collapsed-direction","Average preservation can hide a collapsed direction"],["construct-an-orthogonal-draw-then-match-a-width-aware-optimizer","Construct an orthogonal draw, then match a width-aware optimizer"],["why-equal-hidden-units-can-stay-equal","Why equal hidden units can stay equal"],["run-a-complete-initialization-comparison-on-real-inputs","Run a complete initialization comparison on real inputs"],["p-changing-width-changes-more-than-parameter-count","μP: changing width changes more than parameter count"],["deeper-tools-and-practical-failure-checks","Deeper tools and practical failure checks"],["practice-use-the-mechanism-on-a-changed-case","Practice: use the mechanism on a changed case"],["another-way-to-learn-and-what-comes-next","Another way to learn, and what comes next"]]}>Choose a starting state by the signals, directions and updates it preserves. Follow the core route first; μP adds a separate width-scaling route.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Inspect saved initialization/seed traces; edit four activation values, singular directions, depth and width/rate scaling. Show forward/backward second moments, means/variance, directional gain and shape/update formulas together. Continuous tiny models are distinct from selectors over measured training records. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an initialization/parameterization by the signal and update behavior it preserves, without treating average scale as every-direction stability."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Inspect saved initialization/seed traces; edit four activation values, singular directions, depth and width/rate scaling. Show forward/backward second moments, means/variance, directional gain and shape/update formulas together. Continuous tiny models are distinct from selectors over measured training records. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an initialization/parameterization by the signal and update behavior it preserves, without treating average scale as every-direction stability."}</Prose>
 
 <Prose>{"A network begins making predictions before it has learned anything. Its initial weights determine whether useful differences between inputs survive the journey through its layers—and whether a change in an early weight can still affect the loss."}</Prose>
 
 <Prose>{"Think of passing a sound through twenty amplifiers. A small gain error repeated twenty times can make the signal nearly inaudible or enormously loud. A neural network adds another complication: nonlinear gates can remove parts of the signal. Choosing a starting scale is therefore a problem about a whole sequence of transformations, not simply drawing “small random numbers.”"}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow the signal example, the second-moment calculation, the initialization recipes, the geometry counterexample, and the complete digit experiment. Then solve the first three practice problems. The μP section is a second route for learning how to change network width while keeping a meaningful training procedure. LSUV, Fixup, and precision details are reference branches; they are not prerequisites for the next lesson."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow the signal example, the second-moment calculation, the initialization recipes, the geometry counterexample, and the complete digit experiment. Then solve the first three practice problems. The μP section is a second route for learning how to change network width while keeping a meaningful training procedure. LSUV, Fixup, and precision details are reference branches; they are not prerequisites for the next lesson."}</Prose>
 
 <Prose>{"You need weighted sums, a nonlinear activation, and the idea that backpropagation multiplies local sensitivities. We will refresh the statistics and matrix geometry where they are used. The "}<a href={"/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies?module=deep-learning-fundamentals"}>{"previous lesson on transfer learning"}</a>{" reused learned weights. Here we study fresh initialization. Later, "}<strong>{"μTransfer"}</strong>{" will mean transferring selected hyperparameters across widths, which is a different operation."}</Prose>
 
@@ -64,6 +65,8 @@ export default {
 <Prose>{"Here "}<InlineMath>{"n"}</InlineMath>{" is "}<strong>{"fan-in"}</strong>{", the number of contributions to this output. Assume initially independent, zero-mean weights with variance "}<InlineMath>{"s^2"}</InlineMath>{", independent of the input vector. For a fixed input, cross terms vanish when averaging over those random weights:"}</Prose>
 
 <div className="neural-equation"><MathBlock>{"E_w[z^2\\mid x]=s^2\\sum_i x_i^2."}</MathBlock></div>
+
+<Prose>{"For two inputs the missing algebra is visible: "}<InlineMath>{"(w_1x_1+w_2x_2)^2=w_1^2x_1^2+w_2^2x_2^2+2w_1w_2x_1x_2"}</InlineMath>{". The last term averages to zero because "}<InlineMath>{"E[w_1w_2]=E[w_1]E[w_2]=0"}</InlineMath>{", even if both fixed inputs are positive. For example, "}<InlineMath>{"x=[1,2]"}</InlineMath>{" gives "}<InlineMath>{"E_w[z^2]=5s^2"}</InlineMath>{". This is an average over weight draws; an individual draw still contains its cross term."}</Prose>
 
 <Prose>{"If the input coordinates share second moment "}<InlineMath>{"q"}</InlineMath>{", averaging over inputs gives "}<InlineMath>{"E[z^2]=ns^2q"}</InlineMath>{". Input coordinates do not have to have zero mean for this calculation. What removes the cross terms is the assumption about the weights. After training, weights depend on the data and such independence is no longer a reliable description."}</Prose>
 
@@ -211,6 +214,10 @@ export default {
 
 <Prose>{"A forward sum of independent zero-mean random terms tends to grow on the order of the square root of their count. But a learning update is correlated with the inputs that produced its gradient. Summing those correlated changes can scale differently. Therefore an initialization that controls the first forward pass is not enough to control the size of the first learned feature change."}</Prose>
 
+<CorrelatedUpdateFigure />
+
+<Prose>{"If "}<InlineMath>{"z=\\sum_iw_ix_i"}</InlineMath>{", "}<InlineMath>{"w=0"}</InlineMath>{", "}<InlineMath>{"y=1"}</InlineMath>{" and every "}<InlineMath>{"x_i"}</InlineMath>{" is ±1, squared-loss gradients are "}<InlineMath>{"-x_i"}</InlineMath>{". Updating gives "}<InlineMath>{"\\Delta w_i=\\eta x_i"}</InlineMath>{" and therefore "}<InlineMath>{"\\Delta z=\\eta\\sum_i x_i^2=\\eta n"}</InlineMath>{". There is no sign cancellation. Independent zero-mean changes of magnitude "}<InlineMath>{"\\eta"}</InlineMath>{" would instead have output RMS "}<InlineMath>{"\\eta\\sqrt n"}</InlineMath>{". This is the missing link between an initialization calculation and an update calculation: the latter reuses the inputs that determined the change. It motivates coordinated scaling, while the precise scaling still depends on architecture and optimizer."}</Prose>
+
 <Prose>{""}<strong>{"Maximal update parametrization"}</strong>{", written μP, coordinates initialization, forward multipliers, and optimizer scaling as width changes. Its associated μTransfer procedure tunes a smaller model and transfers eligible settings under the matching parametrization. It does not mean that every finite model has exactly the same best learning rate, nor that a rule derived for Adam can simply be copied into SGD. "}<a href={"https://arxiv.org/abs/2203.03466"}>{"μTransfer paper"}</a>{", "}<a href={"https://github.com/microsoft/mup"}>{"Microsoft's implementation and coordinate-check guide"}</a>{""}</Prose>
 
 <Prose>{"Here is the exact restricted case in "}<code>{"WidthMLP"}</code>{": a bias-free 64→"}<InlineMath>{"n"}</InlineMath>{"→"}<InlineMath>{"n"}</InlineMath>{"→10 MLP with two ReLUs, fixed input/output sizes, base width "}<InlineMath>{"n_0=32"}</InlineMath>{", and width multiplier "}<InlineMath>{"m=n/n_0"}</InlineMath>{"."}</Prose>
@@ -239,6 +246,8 @@ export default {
 
 <Prose>{""}<strong>{"Data-dependent initialization."}</strong>{" LSUV starts with orthogonal weights, sends a calibration batch through successive layers, and rescales each layer toward a chosen output variance. This adapts to an observed distribution rather than only an assumed one. The procedure is bounded by a tolerance and maximum iteration count. A zero or tiny variance needs a diagnostic stop, not division by zero. Calibration on training inputs is legitimate; using a held-out evaluation distribution to fit those scales consumes that information. The chosen measurement point—before or after an activation—must be explicit. "}<a href={"https://arxiv.org/pdf/1511.06422"}>{"LSUV, Algorithm 1"}</a>{""}</Prose>
 
+<Prose>{"For the simplest rescaling arithmetic, a linear output with measured variance 9 can be divided by 3 to reach variance 1. Dividing weights by 9 would instead reduce variance to 1/9. With intervening nonlinearities or nonzero biases, measure the actual next pass rather than assume this linear calculation still describes it. Once an earlier layer changes, recompute the later layer's input before calibrating that later layer."}</Prose>
+
 <Prose>{""}<strong>{"Residual initialization."}</strong>{" A residual block computes "}<InlineMath>{"x+F(x)"}</InlineMath>{". Making "}<InlineMath>{"F"}</InlineMath>{" initially small can begin near a usable identity map. Fixup uses a coordinated recipe including depth-scaled earlier branch weights, zero final branch/classification layers, and specified scalar multipliers and biases. For a branch containing "}<InlineMath>{"r"}</InlineMath>{" weight layers, its earlier branch weights use a factor "}<InlineMath>{"L^{-1/(2r-2)}"}</InlineMath>{", where "}<InlineMath>{"L"}</InlineMath>{" is the number of residual branches. This is not a universal instruction to multiply any second layer by "}<InlineMath>{"1/\\sqrt L"}</InlineMath>{". The next lesson makes the paths and placement concrete. "}<a href={"https://arxiv.org/pdf/1901.09321"}>{"Fixup, §3"}</a>{""}</Prose>
 
 <Prose>{""}<strong>{"Truncated normal is not clipping."}</strong>{" Values outside the interval are redrawn; they do not pile up at the endpoints. In "}<code>{"trunc_normal_"}</code>{", bounds are absolute values. With "}<code>{"std=0.02"}</code>{", the default bounds −2 and 2 are one hundred standard deviations away. To truncate at two standard deviations, specify −0.04 and 0.04. In the program's 100,000-value float64 sample, these choices produce standard deviations about 0.02000 and 0.01758 respectively. The truncated distribution has less variance; the function does not silently restore 0.02 afterward. "}<a href={"https://docs.pytorch.org/docs/2.14/nn.init.html#torch.nn.init.trunc_normal_"}>{"PyTorch truncated-normal contract"}</a>{""}</Prose>
@@ -251,9 +260,9 @@ export default {
 
 <Prose>{"When a model fails, inspect initial preactivations, post-activation mean square, zero/saturated fractions, gradient magnitudes, and actual update-to-weight magnitudes. Check inputs, loss, and labels too. Large logits do not automatically make a stable cross-entropy implementation overflow; large finite losses, saturation elsewhere, and excessive parameter updates are separate diagnoses."}</Prose>
 
-<H2>{"Practice: use the mechanism on a changed case"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"Practice: use the mechanism on a changed case"}</H2>
 
-<H3>{"1. Initialize a wider-input layer"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Initialize a wider-input layer"}</H3>
 
 <Prose>{"A ReLU layer has 200 inputs and 50 outputs. Find the fan-in Kaiming normal standard deviation and uniform bounds. Then calculate Xavier's idealized linear forward and backward factors."}</Prose>
 
@@ -267,9 +276,9 @@ export default {
 
 <Prose>{"Kaiming variance is "}<InlineMath>{"2/200=0.01"}</InlineMath>{", so std is 0.1 and bounds are "}<InlineMath>{"\\pm\\sqrt{0.03}\\approx\\pm0.1732"}</InlineMath>{". Xavier variance is "}<InlineMath>{"2/250=0.008"}</InlineMath>{", giving forward factor 1.6 and backward factor 0.4. Fan-out Kaiming would be a different priority, with variance "}<InlineMath>{"2/50=0.04"}</InlineMath>{"."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Repair a misleading statistic"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Repair a misleading statistic"}</H3>
 
 <Prose>{"A layer's pooled mean square stays at 1, while its pooled mean changes from 0 to 0.8. Someone reports “the variance stayed at 1.” Correct the report."}</Prose>
 
@@ -283,9 +292,9 @@ export default {
 
 <Prose>{"the final variance is "}<InlineMath>{"1-0.8^2=0.36"}</InlineMath>{". The second moment stayed constant. We also need to know whether the samples and coordinates were pooled consistently before comparing those measurements."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Keep average gain, lose a direction"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Keep average gain, lose a direction"}</H3>
 
 <Prose>{"Construct a diagonal 2-by-2 matrix whose average squared singular value is 1 but whose smaller singular value is 0.2. Find the larger singular value and the gain after five repetitions along the smaller direction."}</Prose>
 
@@ -299,9 +308,9 @@ export default {
 
 <Prose>{"the larger is "}<InlineMath>{"\\sqrt{1.96}=1.4"}</InlineMath>{". The smaller direction has gain "}<InlineMath>{"0.2^5=0.00032"}</InlineMath>{". Preserving the average does not protect this direction."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Follow the first update"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Follow the first update"}</H3>
 
 <Prose>{"Two tanh hidden units have different incoming weights, but their outgoing weights are both zero. Is there no learning signal anywhere? Contrast this with an all-zero hidden ReLU network."}</Prose>
 
@@ -315,9 +324,9 @@ export default {
 
 <Prose>{"the output weights can have nonzero gradients because the hidden features differ and are nonzero; earlier weights receive no gradient through the zero output weights on that first step. After the output moves, that route can open. In the all-zero ReLU case used here, the features and their chosen derivatives at zero block the relevant paths. Zero initialization must be assessed by location."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Transfer a base learning rate carefully"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Transfer a base learning rate carefully"}</H3>
 
 <Prose>{"For the exact bias-free μP model above, base width is 32, target width is 256, and base Adam learning rate is 0.004. Specify the three group rates, raw readout std, and forward divisor."}</Prose>
 
@@ -331,9 +340,9 @@ export default {
 
 <Prose>{""}<InlineMath>{"m=8"}</InlineMath>{". Input and raw-readout rates are 0.004; the hidden matrix rate is 0.0005. Raw readout std remains "}<InlineMath>{"1/\\sqrt{32}"}</InlineMath>{"; divide its input by 8. These answers depend on the stated Adam parametrization, not a general rule for all optimizers."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Plan a useful failure investigation"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Plan a useful failure investigation"}</H3>
 
 <Prose>{"You observe a roughly constant forward mean square but a tiny gradient in an early layer. Propose two checks that distinguish explanations."}</Prose>
 
@@ -347,12 +356,12 @@ export default {
 
 <Prose>{"inspect the local Jacobian or directional sensitivities to test whether some directions are blocked despite average scale preservation. Separately inspect activation gates/saturation and the backward signal arriving from the head. Record which scalar output or loss supplied that gradient. A single final norm cannot distinguish all these cases."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"Another way to learn, and what comes next"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"Another way to learn, and what comes next"}</H2>
 
 <ul><li>{""}<a href={"https://www.youtube.com/watch?v=wEoyxE0GP2M"}>{"Stanford CS231n, Lecture 6: Training Neural Networks I"}</a>{" offers a lecture-based route through activation, initialization, and normalization. The official "}<a href={"https://cs231n.stanford.edu/2017/syllabus"}>{"2017 syllabus"}</a>{" identifies its scope. Use it for intuition; this lesson's μP material and versioned API checks go beyond that lecture."}</li><li>{""}<a href={"https://www.microsoft.com/en-us/research/blog/%C2%B5transfer-a-technique-for-hyperparameter-tuning-of-enormous-neural-networks/"}>{"Microsoft Research's μTransfer article"}</a>{" explains why random forward sums and correlated training updates require different reasoning. It is a historical 2022 introduction, not a current catalogue of every supported model."}</li><li>{""}<a href={"https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf"}>{"The original Xavier paper"}</a>{" is useful after the local calculation: read the assumptions and compare its activation diagnostics with the measurements here."}</li><li>{""}<a href={"https://github.com/microsoft/mup"}>{"The μP repository"}</a>{" is the implementation route after the restricted example. Study base shapes, readout layers, optimizer choice, and coordinate checks together."}</li></ul>
 
-<Prose>{"The next topic in this module is "}<a href={"/learn/path/full-curriculum/residual-connections-skip-connections?module=deep-learning-fundamentals"}>{"Residual Connections & Skip Connections"}</a>{". Initialization controls the starting transformations. A residual path changes how those transformations are connected, giving the network a direct route alongside the learned correction."}</Prose>
+<Prose>{"The next topic in this module is "}<a href={"/learn/path/full-curriculum/residual-connections-skip-connections?module=deep-learning-fundamentals"}>{"Residual Connections & Skip Connections"}</a>{". Initialization controls the starting transformations. A residual path changes how those transformations are connected, giving the network a direct route alongside the learned correction."}</Prose></section>
 </div>
 };

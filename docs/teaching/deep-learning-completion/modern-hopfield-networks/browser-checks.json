@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:14:22.296Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-11-18-917Z.json",
+  "checks": [
+    "Four live mechanisms: changed inputs, causal intermediate values, nulls, pinning and reset.",
+    "Actual saved handwriting model edits, model switching, missing asset and successful retry preserve inputs.",
+    "Inline sensitivity, mass bounds, capacity, temporal weights and parity interactions.",
+    "Complete program disclosures and reasoned practice solutions.",
+    "Desktop and320px screenshots,31 bespoke SVGs, local keyboard scroll, pixel keyboard navigation and no page overflow.",
+    "Console warnings/errors empty.",
+    "Final key/value fixture, separate live key-space/payload geometry, and ten fixed0–1 probability bars inspected on final build."
+  ],
+  "findings": [
+    {
+      "issue": "Mid-gray editable pixels used low-contrast white labels",
+      "status": "closed",
+      "resolution": "Intensity8 now black on rgb128; actual screenshot and computed-style recheck on the final build."
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/modern-hopfield-networks.jsx": "956bea6d09a92cf8beabc5a325752ff18d684e8943ace3035ee264d269aa2cc0",
+    "src/learn/data/hopfield-memory-models.js": "52664e4f2e93912b6b022e562e274f8759acbb76e4239bf4f5354831925e9000",
+    "src/learn/components/lesson-labs/HopfieldPrimitives.jsx": "489355b517367d8e1c19126002ebc119a9c090d7219b31f5eb239647bc11d496",
+    "src/learn/components/lesson-labs/HopfieldFigures.jsx": "10e44b91c2c3702657de0f07ce1e07830a6e257d0076078067e2bca55a7d73ff",
+    "src/learn/components/lesson-labs/HopfieldLabs.jsx": "5738ab9dfa010b3b3abe65103d5663dd0662a015c53f46175b910b2d8f15834b",
+    "src/learn/components/lesson-labs/HopfieldDigitLab.jsx": "6b967308011bb39087bf5935c8a7a633b20885fa21f3219892177af31250c10c",
+    "src/learn/components/lesson-labs/hopfield-memory-labs.css": "3230243c56e4273b82f2536ba21ec9c40b4f0995231fda0cab1912493e5d50c7",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "9d081761b3b4ba38fd92933501ebd0aa6f60aa2046ac29772f8eb386949ccb78",
+    "public/learn-code/modern-hopfield-networks/associative_memory.py": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+    "public/learn-code/modern-hopfield-networks/data-provenance.md": "049b89daf5ecd3c767af2429d643ad898f6ea7e76cc6ea3475cac153d359f8da",
+    "public/learn-code/modern-hopfield-networks/digit-bank.json": "07496f262127caf7619f475cd1c1aac024b3b2156dd569807a829d09f3e0a7cf",
+    "public/learn-code/modern-hopfield-networks/digit-memory-fits.npz": "6752b5d608fa548b81c37191347b590bdfbf0170b830336de56206e39cfaec7a",
+    "public/learn-code/modern-hopfield-networks/digit-results.json": "514a0afdfd92410c0f3260edf2a913e1190a93734bf78f479b5244924d043a46",
+    "public/learn-code/modern-hopfield-networks/digit_memory.py": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+    "public/learn-code/modern-hopfield-networks/mechanism-results.json": "2dd480cd1d0309f5f8c0382ae2bb77b667f1c8623e6d0c9b00ac7536e8a08a2c",
+    "public/learn-code/modern-hopfield-networks/model-fixed.json": "12e7558f6e40a56e83a4658e9be632a52c4700ae1e028d1981d5e757210a823a",
+    "public/learn-code/modern-hopfield-networks/model-seed17.json": "c82b06401397cd1cced135505474804e3c64d3e9e39e9328165cc6e7094acb33",
+    "public/learn-code/modern-hopfield-networks/model-seed41.json": "890b75f6c98342e62c81bcca1fa9fa4b83f42a825cd64172bd3b9314e3611d56",
+    "public/learn-code/modern-hopfield-networks/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "public/learn-code/modern-hopfield-networks/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "public/learn-code/modern-hopfield-networks/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/browser-review.md": "0df974f45a212a86a668ee5aac76025a2bd21c90a3c38e2f4cd1d0d4f17942c3"
+  }
+}

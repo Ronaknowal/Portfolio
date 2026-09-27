@@ -201,46 +201,46 @@ export default {
     <Prose>To check a gradient, choose tangent v and compare [f(Expₓ(hv))−f(Expₓ(−hv))]/(2h) with grad f·v over several moderate h values. The central-difference discrepancy initially falls quadratically, then rounding can dominate. Verification uses this changed-direction check; one agreement at one h would be weaker evidence.</Prose>
     <Callout label="A complete result includes its limits">Report the manifold and metric, objective, starting state, update map, stopping rule, feasibility residual, gradient norm and independent reference or certificate. A plotted path on a sphere is not evidence that the right gradient was used or that a global minimum was found.</Callout>
 
-    <H2>10. Practise the connections</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Practise the connections</H2>
     <Prose>Work these with explanations hidden. Each changes an input or asks you to transfer the mechanism. Re-running a worked program unchanged is useful revision, but does not answer these tasks.</Prose>
-    <Practice question="A point has circle angle 315°. Find both chart labels, their transition and a unit tangent vector. Which label survives at angle 180°?" hint="Subtract 360° to place α in (−180°,180°); differentiate (cos θ,sin θ).">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="A point has circle angle 315°. Find both chart labels, their transition and a unit tangent vector. Which label survives at angle 180°?" hint="Subtract 360° to place α in (−180°,180°); differentiate (cos θ,sin θ).">
       <Prose>α=−45°=−π/4 and β=315°=7π/4, so β−α=2π. The point is (√2/2,−√2/2) and an increasing-angle unit tangent is (√2/2,√2/2). Their dot product is zero. At 180° the α chart excludes the point, but β=π is valid.</Prose>
-    </Practice>
-    <Practice question="At x=(0,3,0) on the radius-three sphere, project a=(2,5,−1) to the induced tangent space. Why is v=(1,0,2) tangent?" hint="Use a−(x·a)x/R²; do not use the unit-sphere denominator by accident.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="At x=(0,3,0) on the radius-three sphere, project a=(2,5,−1) to the induced tangent space. Why is v=(1,0,2) tangent?" hint="Use a−(x·a)x/R²; do not use the unit-sphere denominator by accident.">
       <Prose>x·a=15 and R²=9. The removed vector is (0,5,0), leaving (2,0,−1). Since x·v=0, v is tangent. Both gradients give the same directional derivative a·v=0 in this direction, but the projected gradient also satisfies the constraint for every direction.</Prose>
-    </Practice>
-    <Practice question="Use x=u+2v, y=v with metric dx²+4dy² and f=2x−y. Find G, differential coefficients and the coordinate/physical gradients." hint="Form Sᵀdiag(1,4)S, then solve Gg=a.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="Use x=u+2v, y=v with metric dx²+4dy² and f=2x−y. Find G, differential coefficients and the coordinate/physical gradients." hint="Form Sᵀdiag(1,4)S, then solve Gg=a.">
       <Prose>G=[[1,2],[2,8]], a=(2,3), and g=(2.5,−0.25). Transforming gives (2.5+2·(−0.25),−0.25)=(2,−0.25). The shear changes components; the physical y-cost explains the smaller y-component.</Prose>
-    </Practice>
-    <Practice question="On a sphere of radius two, compare the full latitude circumference at θ=30° with the equator, and compute the area fraction of the band θ∈[30°,60°]." hint="Use ds=R sinθ dφ along latitude and integrate the area element for the band.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="On a sphere of radius two, compare the full latitude circumference at θ=30° with the equator, and compute the area fraction of the band θ∈[30°,60°]." hint="Use ds=R sinθ dφ along latitude and integrate the area element for the band.">
       <Prose>The latitude length is 2πR sin30°=2π, half the equator's 4π. The band fraction is (cos30°−cos60°)/2=(√3−1)/4≈0.183013. The latitude is generally not a geodesic; the equator is. A short curve in coordinate angle need not be the shortest permitted path between endpoints.</Prose>
-    </Practice>
-    <Practice question="At x=(1,0,0), follow tangent v=(0,3π/2,0). What does Exp return, what shortest Log returns, and why do they differ?" hint="Evaluate sine/cosine at 3π/2 and choose the shorter arc to that endpoint.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="At x=(1,0,0), follow tangent v=(0,3π/2,0). What does Exp return, what shortest Log returns, and why do they differ?" hint="Evaluate sine/cosine at 3π/2 and choose the shorter arc to that endpoint.">
       <Prose>Expₓ(v)=(0,−1,0). Its shortest Log is (0,−π/2,0), not v. The original geodesic went three quarters of a circle; the shortest route goes one quarter in the other direction. At length π the endpoint is antipodal and the shortest Log nonunique.</Prose>
-    </Practice>
-    <Practice question="For the straight line (t,2), compute polar coordinate accelerations and their corrections at t=0. Does nonzero radial acceleration establish curvature?" hint="Here r=2, r′=0 and θ′=−1/2.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="For the straight line (t,2), compute polar coordinate accelerations and their corrections at t=0. Does nonzero radial acceleration establish curvature?" hint="Here r=2, r′=0 and θ′=−1/2.">
       <Prose>r″=b²/r³=1/2 and its correction −r(θ′)²=−1/2. Both θ″ and 2r′θ′/r are zero. Covariant acceleration is zero; the plane is flat. A changing coordinate component is not a measurement of intrinsic curvature.</Prose>
-    </Practice>
-    <Practice question="Use the northern wedge loop with longitude 60° on a radius-two sphere. Find its area, curvature and final turn, then reverse the loop." hint="The triangle area is R²φ; positive orientation is N→A→B→N.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="Use the northern wedge loop with longitude 60° on a radius-two sphere. Find its area, curvature and final turn, then reverse the loop." hint="The triangle area is R²φ; positive orientation is N→A→B→N.">
       <Prose>φ=π/3, area=4π/3 and K=1/4. Their product is π/3, giving a +60° turn; the reverse gives −60°. Transport along a route followed exactly backward is the inverse map and returns every arrow unchanged.</Prose>
-    </Practice>
-    <Practice question="For ds²=du²+(1+u²)²dv², compute K and scalar curvature at u=0. Is nonzero a′ necessary for curvature?" hint="Use a=1+u², a″=2 and the two-dimensional scalar=2K relation.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="For ds²=du²+(1+u²)²dv², compute K and scalar curvature at u=0. Is nonzero a′ necessary for curvature?" hint="Use a=1+u², a″=2 and the two-dimensional scalar=2K relation.">
       <Prose>K=−2/(1+u²), so at zero it is −2 and scalar curvature is −4. Here a′=0 but a″≠0, so curvature remains nonzero. Curvature depends on local metric variation, not one connection coefficient alone.</Prose>
-    </Practice>
-    <Practice question="Compare the arithmetic and affine-invariant midpoint of A=diag(1,9), B=diag(4,1). Why should the result not be computed by taking entrywise powers of general matrices?" hint="For this commuting pair, interpolate each positive diagonal entry geometrically.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="Compare the arithmetic and affine-invariant midpoint of A=diag(1,9), B=diag(4,1). Why should the result not be computed by taking entrywise powers of general matrices?" hint="For this commuting pair, interpolate each positive diagonal entry geometrically.">
       <Prose>The arithmetic midpoint is diag(2.5,5); the affine midpoint is diag(2,3). Distance is √[(log4)²+(log(1/9))²]. General matrices require eigenvalue-based matrix functions and surrounding A±1/2 factors; their entries are not independent scalar coordinates for these operations.</Prose>
-    </Practice>
-    <Practice question="In Bernoulli Fisher geometry, how far is p=1/4 from the boundary p→0? Is the boundary a point of the regular manifold?" hint="Transform to u=2 asin√p.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="In Bernoulli Fisher geometry, how far is p=1/4 from the boundary p→0? Is the boundary a point of the regular manifold?" hint="Transform to u=2 asin√p.">
       <Prose>The limiting distance is π/3. The regular manifold contains only 0&lt;p&lt;1, so the boundary is missing although its distance is finite. A diverging metric coefficient by itself does not establish infinite distance.</Prose>
-    </Practice>
-    <Practice question="Modify the optimizer: use the changed rotated matrix, start at its largest eigenvector (0,0,1), then at (1,2,3) with tolerance 10⁻⁶. Predict both outcomes and propose evidence stronger than a small gradient." hint="Stationarity holds at every eigenvector. The independent eigenvalues are 2,5,9.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice question="Modify the optimizer: use the changed rotated matrix, start at its largest eigenvector (0,0,1), then at (1,2,3) with tolerance 10⁻⁶. Predict both outcomes and propose evidence stronger than a small gradient." hint="Stationarity holds at every eigenvector. The independent eigenvalues are 2,5,9.">
       <Prose>The largest-eigenvector start reports stationary with value 9. The mixed start reaches a value near 2 with the looser gradient tolerance in the checked run. Compare its Rayleigh value to 2 and inspect feasibility and gradient residuals. At a stationary eigenvector, Hessian eigenvalues on tangent eigendirections are twice the differences from its eigenvalue; at the maximum they are negative. The included changed program with the tighter default records its finite line-search limitation instead of silently accepting it.</Prose>
-    </Practice>
-    <Prose><strong>Ready to move on:</strong> you can distinguish point from chart, differential from metric gradient, valid step from minimizing step, connection coefficients from curvature, and stationarity from optimality. You can derive a metric from a parameterization, check a constrained update, explain transport's path dependence, and state the geometry behind a distance or average.</Prose>
+    </Practice></div>
+    <Prose><strong>Ready to move on:</strong> you can distinguish point from chart, differential from metric gradient, valid step from minimizing step, connection coefficients from curvature, and stationarity from optimality. You can derive a metric from a parameterization, check a constrained update, explain transport's path dependence, and state the geometry behind a distance or average.</Prose></section>
 
-    <H2>11. Continue and choose another learning route</H2>
+    <section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>11. Continue and choose another learning route</H2>
     <Prose>The next entry in this module is <strong>Algebra, Functions, Exponentials &amp; Logarithms</strong>. The current catalogue starts a foundational sequence there; publication status does not change that order. Review <a href="/learn/path/full-curriculum/tensor-algebra-einsum-notation?module=math-foundations">Tensor Algebra</a> for vector/covector components, <a href="/learn/path/full-curriculum/multivariate-calculus-gradients?module=math-foundations">Multivariate Calculus</a> for Jacobians and directional derivatives, and <a href="/learn/path/full-curriculum/topology-topological-data-analysis-tda?module=math-foundations">Topology/TDA</a> for neighborhoods and continuity when those are the actual hurdles.</Prose>
-    <Prose>For deeper applications, existing owners include Second-Order Methods for natural-gradient algorithms, t-SNE/UMAP/Manifold Learning for learned representations, Coordinate Frames/Transformations for robot states, and geometric deep learning for architecture choices. These local tools do not establish that every embedding, neural state space or constrained parameter set is automatically a smooth manifold with a uniquely correct metric.</Prose>
+    <Prose>For deeper applications, existing owners include Second-Order Methods for natural-gradient algorithms, t-SNE/UMAP/Manifold Learning for learned representations, Coordinate Frames/Transformations for robot states, and geometric deep learning for architecture choices. These local tools do not establish that every embedding, neural state space or constrained parameter set is automatically a smooth manifold with a uniquely correct metric.</Prose></section>
     <Sources alternatives={<Prose>For another route, use Boumal's optimization-first course after sections 1–5, Tong's coordinate/tensor explanations alongside sections 2 and 6, or MIT's curves-and-surfaces exercises after section 7. Videos supplement the local derivations; no full-video viewing or exact timestamp endorsement is implied.</Prose>}>
       <li><a href="https://www.nicolasboumal.net/book/">Nicolas Boumal, An Introduction to Optimization on Smooth Manifolds</a> — author-hosted book, exercises and recorded EPFL course links. Selected gradient, sphere, retraction and transport sections were inspected; the course page was checked as an alternate route.</li>
       <li><a href="https://www.nicolasboumal.net/book/IntroOptimManifolds_Boumal_2023.pdf">Boumal's freely available prepublication text</a> — sections 3.7–3.8, 4.5, 7.2, 10.2–10.3 and 11.7 support geometric and optimization conventions. Section numbers agree with the published book; PDF page numbering differs. Useful for proofs and general SPD formulas after the examples.</li>

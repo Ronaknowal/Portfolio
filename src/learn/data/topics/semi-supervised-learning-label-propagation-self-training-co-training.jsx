@@ -5,6 +5,7 @@ import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
 import { DataTable, LabelLedgerFigure, SameInputsFigure, HardFlowFigure, EvidenceFigure, PrototypeFlowFigure, PairedViewsFigure, PromotionAuditFigure } from '../../components/lesson-labs/SemiSupervisedFigures.jsx';
 import { LabelPropagationLab, SelfTrainingLab, CoTrainingLab } from '../../components/lesson-labs/SemiSupervisedLabs.jsx';
+import { DegreeNormalizedAgreementFigure, ConsistencyTargetLab } from '../../components/lesson-labs/SemiSupervisedIntuition.jsx';
 import { semiSupervisedExamples } from '../semi-supervised-examples.js';
 
 const semiSupervisedLesson = {
@@ -158,6 +159,14 @@ const semiSupervisedLesson = {
 
 <Prose>{"The first term penalizes disagreement after degree normalization; the second penalizes departure from the injected evidence. Taking the derivative and setting it to zero gives "}<InlineMath>{"(I-\\alpha S)F=(1-\\alpha)Y"}</InlineMath>{". This connects the update to an optimization problem rather than a visual blending trick. "}<a href={"https://proceedings.neurips.cc/paper_files/paper/2003/file/87682805257e619d49b8e0dfdc14affa-Paper.pdf"}>{"Zhou and colleagues"}</a>{" develop the local-and-global-consistency approach."}</Prose>
 
+<Prose>{"To unpack “degree normalization,” inspect one score column "}<InlineMath>{"f"}</InlineMath>{" on nodes with positive degree. Its graph term is"}</Prose>
+
+<div className="ssl-equation" tabIndex={0} role="region" aria-label="Mathematical expression"><MathBlock>{"f^\\top(I-S)f=\\frac12\\sum_{i,j}w_{ij}\\left(\\frac{f_i}{\\sqrt{d_i}}-\\frac{f_j}{\\sqrt{d_j}}\\right)^2."}</MathBlock></div>
+
+<Prose>{"The quantities being compared are "}<InlineMath>{"f_i/\\sqrt{d_i}"}</InlineMath>{", not the raw scores. On a three-node unit-weight chain, degrees are "}<InlineMath>{"[1,2,1]"}</InlineMath>{". Equal raw scores "}<InlineMath>{"[1,1,1]"}</InlineMath>{" still have normalized disagreement; scores "}<InlineMath>{"[1,\\sqrt2,1]"}</InlineMath>{" have none. This is why replacing "}<InlineMath>{"S"}</InlineMath>{" with an ordinary neighbor average silently changes the regularizer. We assume positive degrees in this identity; isolated nodes need the separate zero-degree convention discussed above."}</Prose>
+
+<DegreeNormalizedAgreementFigure />
+
 <Prose>{"The error obeys "}<InlineMath>{"E^{(t+1)}=\\alpha S E^{(t)}"}</InlineMath>{". Since the eigenvalues of this normalized adjacency lie in "}<InlineMath>{"[-1,1]"}</InlineMath>{", the Euclidean error norm contracts by at most "}<InlineMath>{"\\alpha"}</InlineMath>{" per step. Increasing "}<InlineMath>{"\\alpha"}</InlineMath>{" toward one can slow convergence considerably: "}<InlineMath>{"0.99^{100}\\approx0.366"}</InlineMath>{", and "}<InlineMath>{"0.99^{500}\\approx0.00657"}</InlineMath>{". A worst-case reduction to "}<InlineMath>{"10^{-6}"}</InlineMath>{" needs 1,375 steps at that factor. Use a residual or convergence criterion, not an animation that declares victory after an arbitrary number of frames."}</Prose>
 
 <H3>{"Reproduce the two different solutions"}</H3>
@@ -239,7 +248,7 @@ const semiSupervisedLesson = {
 
 <CodeBlock language={"text"}>{"round 1 offers [(2, 1, 2, 0), (4, 2, 1, 1)] conflicts [6]\nround 2 offers [(2, 2, 1, 0), (3, 2, 1, 0), (4, 1, 2, 1), (5, 1, 2, 1)] conflicts [6]\nround 3 offers [(3, 1, 2, 0), (5, 2, 1, 1)] conflicts [6]\nround 4 offers [] conflicts [6]"}</CodeBlock>
 
-<details><summary>Inspect the complete categorical co-training program and its recorded output</summary><RunnableExample example={semiSupervisedExamples[1]} /><p><a href={semiSupervisedExamples[1].download} download>Download the complete co-training program</a></p></details>
+<section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Inspect the complete categorical co-training program and its recorded output</h3><RunnableExample example={semiSupervisedExamples[1]} /><p><a href={semiSupervisedExamples[1].download} download>Download the complete co-training program</a></p></section>
 
 <Prose>{"The final view-1 rules include green→0 and orange→1; view 2 includes triangle→0 and hexagon→1. Run the duplicate-view case and the unresolved view-1 row indices are "}<InlineMath>{"[3,4,5]"}</InlineMath>{". The exercise teaches the information flow and its failure conditions, not the accuracy of a real document classifier."}</Prose>
 
@@ -334,6 +343,8 @@ const semiSupervisedLesson = {
 
 <Prose>{"The first term learns from observed labels, the second controls the prediction rule and the third lets the input geometry constrain it. The kernel space connects back to the GP lesson; the graph term connects to section 2. Constants depend on the formulation, so preserve them when reproducing a specific algorithm."}</Prose>
 
+<Prose>{"Confidence alone cannot supply the class balance. For two unlabeled examples, predictions "}<InlineMath>{"[0.5,0.5]"}</InlineMath>{" each have entropy "}<InlineMath>{"\\log 2"}</InlineMath>{". Assigning both "}<InlineMath>{"[0.99,0.01]"}</InlineMath>{" lowers each entropy to about 0.056 nats, even if the true classes differ. Observed-label loss and the other structural assumptions are therefore doing essential work alongside confidence."}</Prose>
+
 <H3>{"Deep consistency and teacher–student learning"}</H3>
 
 <Prose>{"In "}<a href={"https://arxiv.org/pdf/2001.07685"}>{"FixMatch"}</a>{", a weakly augmented input supplies a pseudo-label; a strongly augmented version is trained toward it:"}</Prose>
@@ -341,6 +352,12 @@ const semiSupervisedLesson = {
 <div className="ssl-equation" tabIndex={0} role="region" aria-label="Mathematical expression"><MathBlock>{" q=p_\\theta(\\cdot\\mid a_{\\rm weak}(x)),\\quad\n \\hat y=\\arg\\max_c q_c,\\quad\n \\ell_u=\\mathbf1[\\max q\\geq\\tau]\\,\n       [-\\log p_\\theta(\\hat y\\mid a_{\\rm strong}(x))]."}</MathBlock></div>
 
 <Prose>{"Treat the selected target and acceptance decision as fixed for that gradient update. Average over the specified unlabeled batch and combine with supervised loss using a weight "}<InlineMath>{"\\lambda_u"}</InlineMath>{". A horizontal flip may preserve an animal category but alter the interpretation of a character. The transformation is part of the modeling assumption."}</Prose>
+
+<Prose>{"For a numerical reading, let the weak view output "}<InlineMath>{"[0.02,0.98]"}</InlineMath>{" and use threshold 0.95. The accepted target is class 1. If the strong view outputs "}<InlineMath>{"[0.6,0.4]"}</InlineMath>{", its loss is "}<InlineMath>{"-\\log 0.4\\approx0.9163"}</InlineMath>{". Treating the target as fixed gives derivative "}<InlineMath>{"0.4-1=-0.6"}</InlineMath>{" with respect to the binary class-1 logit. Gradient descent pushes that logit upward. If the weak confidence were 0.90 instead, the mask would zero this example's contribution; it would not relabel the example as class 0."}</Prose>
+
+<ConsistencyTargetLab />
+
+<Prose>{"The denominator also expresses a choice. With two unlabeled examples, only the first accepted, the FixMatch batch average is "}<InlineMath>{"(0.9163+0)/2\\approx0.4581"}</InlineMath>{", not 0.9163. Dividing by accepted examples instead changes the effective strength as acceptance varies. Keep the full unlabeled-batch denominator when reproducing this objective."}</Prose>
 
 <Prose>{""}<a href={"https://arxiv.org/pdf/1911.04252"}>{"Noisy Student"}</a>{" trains a teacher, generates pseudo-labels, then trains a student with input and model noise before optionally repeating the process. The student can have equal or greater capacity, and the noise introduces consistency pressure; a pseudo-label still has an origin and can still be wrong."}</Prose>
 
@@ -350,11 +367,11 @@ const semiSupervisedLesson = {
 
 <Prose>{"If two possible worlds have the same input distribution but different target rules, unlabeled inputs alone cannot distinguish them. A guarantee must restrict that ambiguity through a hypothesis class, compatibility condition, graph assumption or other stated relationship. The later PAC and generalization lessons formalize what can be inferred from a limited sample; they do not turn “more unlabeled data” into an assumption-free promise."}</Prose>
 
-<H2>{"9. Practice: produce a decision and explain its evidence"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"9. Practice: produce a decision and explain its evidence"}</H2>
 
 <Prose>{"Try each question before opening the hint or solution."}</Prose>
 
-<H3>{"A. Change the graph"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"A. Change the graph"}</H3>
 
 <Prose>{"In the A–B–C–D chain, use edge weights A–B=2, B–C=1, C–D=1, with endpoint labels 0 and 1. Compute B and C. Which endpoint gained influence?"}</Prose>
 
@@ -368,9 +385,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"Substitution gives "}<InlineMath>{"f_C=(f_C/3+1)/2"}</InlineMath>{", so "}<InlineMath>{"f_C=3/5"}</InlineMath>{" and "}<InlineMath>{"f_B=1/5"}</InlineMath>{". The stronger connection to the class-0 endpoint pulls both values downward from "}<InlineMath>{"1/3,2/3"}</InlineMath>{"."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"B. Diagnose a normalization error"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"B. Diagnose a normalization error"}</H3>
 
 <Prose>{"A teammate says every row of "}<InlineMath>{"S=D^{-1/2}WD^{-1/2}"}</InlineMath>{" is a probability distribution and initializes all unknown rows of "}<InlineMath>{"Y"}</InlineMath>{" to "}<InlineMath>{"[0.5,0.5]"}</InlineMath>{". What two meanings have been mixed up?"}</Prose>
 
@@ -384,9 +401,9 @@ const semiSupervisedLesson = {
 
 <Prose>{""}<InlineMath>{"S"}</InlineMath>{" is a symmetric normalized adjacency, not generally a transition matrix. "}<InlineMath>{"P=D^{-1}W"}</InlineMath>{" is the row-stochastic walk matrix on non-isolated nodes. Standard spreading uses zero unknown rows in "}<InlineMath>{"Y"}</InlineMath>{"; adding uniform rows injects additional evidence and changes the objective. Row-normalized output is a separate readout, unavailable when a row has zero mass."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"C. Identify what a pseudo-label can move"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"C. Identify what a pseudo-label can move"}</H3>
 
 <Prose>{"Use the prototype classifier with observed "}<InlineMath>{"(-3,0),(3,1)"}</InlineMath>{", unlabeled "}<InlineMath>{"[-2,2,8]"}</InlineMath>{", and threshold 0.8. What is the boundary after the first accepted batch? What must be checked before claiming improvement?"}</Prose>
 
@@ -400,9 +417,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"The new means are "}<InlineMath>{"(-3-2)/2=-2.5"}</InlineMath>{" and "}<InlineMath>{"(3+2+8)/3=13/3"}</InlineMath>{". The boundary is "}<InlineMath>{"(-2.5+13/3)/2=11/12"}</InlineMath>{". It moved right from zero. Improvement requires observed-label evaluation on the intended prediction population; the number accepted and their model confidence are insufficient."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"D. Break the information bridge"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"D. Break the information bridge"}</H3>
 
 <Prose>{"In the categorical co-training table, replace row 2 with violet/triangle while leaving all other rows unchanged. Which new rules can still be learned? Which chain is broken?"}</Prose>
 
@@ -416,9 +433,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"Square→1 still teaches orange→1, which teaches hexagon→1. No observed or inferred rule reaches triangle, violet or green, so the class-0 transfer through rows 2 and 3 cannot start. This is an absence of a bridge, not evidence that the unresolved categories belong to class 1."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"E. Read the banknote result"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"E. Read the banknote result"}</H3>
 
 <Prose>{"The 0.8 run's first 48 pseudo-labels are all correct in the offline audit. Why does that not justify continuing to exhaustion? What did the 0.95 result establish?"}</Prose>
 
@@ -432,9 +449,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"Refitting changes the boundary and the remaining pool is not the same collection as the first accepted batch. Later correctness can deteriorate, as the checked counts show. At 0.95 no points passed the rule, so this candidate reproduced the initial classifier. It showed no benefit from pseudo-labeling under that setting; it did not show that all high-confidence pseudo-labels are safe."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"F. Audit the learning budget"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"F. Audit the learning budget"}</H3>
 
 <Prose>{"A report says “only six labels,” but uses six seed labels, 80 development labels and 80 test labels. It chooses its graph bandwidth after evaluating all three on the test labels. Rewrite the protocol."}</Prose>
 
@@ -448,9 +465,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"Report six fitting labels plus 160 evaluation labels. Choose graph bandwidth and other candidates on development data with a predeclared rule. Evaluate the selected procedure once on the locked test set. If earlier test comparisons have already influenced decisions, that set has served as development data; reserve fresh evaluation data or report the limitation explicitly rather than relabeling the old result."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"G. Test the claimed EM explanation"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"G. Test the claimed EM explanation"}</H3>
 
 <Prose>{"Someone adds "}<InlineMath>{"\\sum_{x\\in U}\\log\\sum_c p_\\theta(c\\mid x)"}</InlineMath>{" to logistic regression and says unlabeled examples will improve its parameters. Compute the new term and describe a mechanism that would actually introduce information."}</Prose>
 
@@ -464,9 +481,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"Each inner sum is one, so the added term is zero. A generative model for "}<InlineMath>{"p_\\theta(x,c)"}</InlineMath>{", a graph smoothness penalty, a pseudo-label objective or a label-preserving consistency constraint could introduce an additional relationship. Its assumptions and evaluation must then be stated."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"H. A small independent investigation"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"H. A small independent investigation"}</H3>
 
 <Prose>{"Using the CSV, reserve the same locked test rows. On a new development-only experiment, vary the number of observed training labels while retaining shared preprocessing and the same logistic baseline for each budget. Record how seeds are selected, pseudo-label counts and development accuracy. Form a hypothesis about why the threshold-0.8 run deteriorates before changing the method."}</Prose>
 
@@ -480,9 +497,9 @@ const semiSupervisedLesson = {
 
 <Prose>{"Choose deterministic, documented seed sets and compare supervised and self-trained versions within each set. A useful hypothesis is that a small seed set misrepresents part of a class, making later confident promotions unreliable. More representative observed labels may help; they may also change the threshold at which promotions occur. Report the measured result even if the hypothesis fails. These changed experiments have no preclaimed numeric answer, and the original final-test result does not validate them."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"10. Another route through the subject"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"10. Another route through the subject"}</H2>
 
 <ul className="ssl-prose-list"><li>{""}<a href={"https://pages.cs.wisc.edu/~jerryzhu/pub/ssl_survey.pdf"}>{"Zhu's literature survey, July 2008 version"}</a>{": begin with the FAQ and then sections 3, 4 and 6. It provides a broad classical map and a useful discussion of when assumptions can fail; read it as a historical foundation."}</li>
 <li>{""}<a href={"https://www.cs.cmu.edu/~wcohen/10-605/notes/graph-ssl.pdf"}>{"CMU graph semi-supervised learning notes"}</a>{": an alternative mathematical route through graph objectives and propagation. Use it after the four-node calculation if you prefer lecture notes to a research paper."}</li>
@@ -491,7 +508,7 @@ const semiSupervisedLesson = {
 <li>{""}<a href={"https://www.cs.cmu.edu/~avrim/Papers/cotrain.pdf"}>{"Blum and Mitchell's co-training paper"}</a>{": read the two-view setup before its theorem. It explains why representation assumptions are more demanding than simply having two models."}</li>
 <li>{""}<a href={"https://academic.oup.com/mit-press-scholarship-online/book/41571"}>{"Chapelle, Schölkopf and Zien's edited book"}</a>{": the contents map generative, low-density, graph, representation and practical families. This is a deeper reference, with full-text access depending on availability."}</li></ul>
 
-<Prose>{"The next module topic is "}<strong>{"Active Learning"}</strong>{". Instead of allowing a model to supply every new label, it asks which examples a human or other labeling oracle should label next. The graph's unanchored island, co-training's conflict and self-training's uncertain boundary are useful reasons to investigate a query; they are not yet guarantees that a query will be valuable."}</Prose>
+<Prose>{"The next module topic is "}<strong>{"Active Learning"}</strong>{". Instead of allowing a model to supply every new label, it asks which examples a human or other labeling oracle should label next. The graph's unanchored island, co-training's conflict and self-training's uncertain boundary are useful reasons to investigate a query; they are not yet guarantees that a query will be valuable."}</Prose></section>
   </div>,
 };
 export default semiSupervisedLesson;

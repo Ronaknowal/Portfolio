@@ -2,6 +2,7 @@ import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/conten
 import { Math, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { PathCoverageFigure } from '../../components/lesson-labs/TimeSeriesIntuitionFigures.jsx';
 import {
   EligibilityLab, ForecastRequestLab, SeasonalDonorLab,
 } from '../../components/lesson-labs/TimeSeriesLabs.jsx';
@@ -148,7 +149,7 @@ const timeSeriesValidationContent = {
       at three of seven horizons. Every investigation updates its topic-specific results from valid control changes, with no expected-answer input.
     </LessonIntro>
 
-    <div className="ts-route"><Prose><strong>First pass.</strong> Read sections 1–6 and do practice 1–6. That
+    <div className="ts-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–6 and do practice 1–6. That
       route gets you the three clocks a forecast carries, the four baseline rules and which observation each one
       copies, the one inequality that decides whether a training row may be used, the rolling-origin rehearsal
       and its refit schedule, and a real measured comparison you can judge. Run the three short programs on the
@@ -421,6 +422,11 @@ const timeSeriesValidationContent = {
       returns to the same units after the square root. Averaging MAE over equal-sized horizons equals pooling
       all their absolute errors. Averaging per-horizon RMSE generally differs from taking one square root after
       pooling squared errors.</Prose>
+    <Prose>For a small check, suppose horizon one's two errors are 0 and 0, and horizon two's are 4 and 4.
+      Their RMSEs are 0 and 4, averaging to 2. Pooling first gives
+      <Math>{'\\sqrt{(0+0+16+16)/4}=\\sqrt8\\approx2.828'}</Math>. The square root is nonlinear: taking it
+      separately before averaging changes the question. Keep the pooling rule as part of the evaluation contract,
+      just as you keep the issue schedule.</Prose>
     <Prose>Longer horizons often lose information, but an empirical error curve need not increase at every step.
       Here every origin is a Saturday, so horizon and weekday are tied together. A difficult {weekdays[0]} and
       an easier {weekdays[3]} can produce a nonmonotone curve. To separate horizon difficulty from weekday
@@ -553,19 +559,19 @@ const timeSeriesValidationContent = {
       exactly, in development as well as in the final period, for the reason given above.</Prose>
 
     {/* ============================================================ §6 */}
-    <H2 id={headingId(headings[5])}>{headings[5]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2 id={headingId(headings[5])}>{headings[5]}</H2>
     <Prose>Try each question before opening its hint or solution.</Prose>
 
-    <Practice title="1. A reporting delay changes the training set"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A reporting delay changes the training set"
       question="Offered training origins are days 4–10. At cutoff day 10, labels predict three days ahead and arrive one day after their target day. Which rows have known labels? What changes at cutoff 12?"
       hint="Test the label arrival inequality for each row, not just whether its feature date precedes the cutoff.">
       <Prose>Require <Math>{'s+3+1\\le10'}</Math>, so origins {practiceOneAtTen.join(', ')} qualify. At cutoff
         12, origins {practiceOneAtTwelve[0]}–{practiceOneAtTwelve.at(-1)} qualify. This assumes all features for
         those rows are also available; label eligibility alone does not certify an arbitrary feature
         pipeline.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. Repeat the last cycle beyond one season"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. Repeat the last cycle beyond one season"
       question="History is 3, 9, 6, 4, 10, 8, with period 3. Produce five seasonal-naive forecasts. Which historical value supplies horizon five? Change only that value by adding 2."
       hint="Repeat the final three values in their existing order.">
       <Prose>Forecasts are {practiceCycle.seasonal.map(asInput).join(', ')}. Horizon five copies
@@ -573,27 +579,27 @@ const timeSeriesValidationContent = {
         to {asInput(practiceCycleChanged.seasonal[4])}
         produces {practiceCycleChanged.seasonal.map(asInput).join(', ')}. It does not change horizon
         three, which stays at {asInput(practiceCycle.seasonal[2])}.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Identify the illegal arrow"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Identify the illegal arrow"
       question="A model predicts the next three days from Sunday evening. Its Monday prediction uses Sunday observations, its Tuesday prediction uses Monday's actual count, and its Wednesday prediction uses Tuesday's actual count. The report calls all three “Sunday's three-day forecast.” Repair either the procedure or the claim."
       hint="The same numerical predictions can be legitimate under a different issue schedule.">
       <Prose>For a genuine fixed-origin recursive forecast, feed Monday's prediction into the next step, then
         Tuesday's prediction, with only Sunday-available additional inputs. Or relabel and evaluate the
         procedure as an updated one-day forecast issued each evening. A direct three-model approach can also
         predict each horizon from Sunday-available features without recursion.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Equal MAE can hide different large errors"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Equal MAE can hide different large errors"
       question="Two procedures have four absolute errors: A 0, 0, 4, 4; B 2, 2, 2, 2. Calculate MAE and RMSE. Which metric exposes A's concentrated misses?"
       hint="Square before averaging for RMSE, then take a square root.">
       <Prose>Both have MAE {fixed(profileA.mae, 0)}. A has RMSE <Math>{'\\sqrt8\\approx'}</Math>
         {fixed(profileA.rmse, 3)}; B has RMSE {fixed(profileB.rmse, 0)}. RMSE gives A's two larger misses more
         weight. Whether that is the right preference depends on the cost of large misses; neither arithmetic
         result proves an application policy.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Inspect the real protocol"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Inspect the real protocol"
       question="The final table's seven-day MAE favors seasonal naive over expanding ridge. May we now claim that a hybrid chosen from that same final table has independently established final performance? What should happen next?"
       hint="Choosing a different model per horizon is itself selection.">
       <Prose>No. The table can motivate a candidate hybrid, but its reported final performance would be
@@ -601,9 +607,9 @@ const timeSeriesValidationContent = {
         treat the observed final results as development for a new experiment and obtain fresh later assessment.
         Keep the original locked-procedure result visible — here, final
         MAE {fixed(final[selected].mae, 2)} for {METHOD_LABELS[selected].toLowerCase()}.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. A time-series CSV is not necessarily a daily calendar"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. A time-series CSV is not necessarily a daily calendar"
       question="Rows are Monday, Tuesday, Thursday and Friday. A developer labels the preceding row's count “yesterday” for every target. Identify the failure and propose a repair. Should a missing Wednesday be filled with zero?"
       hint="Separate missing observation from observed absence of events.">
       <Prose>For Thursday, the previous row is Tuesday, two days earlier. Build the intended daily calendar and
@@ -611,9 +617,9 @@ const timeSeriesValidationContent = {
         based on available history; do not interpolate from Thursday while pretending to forecast Wednesday. If
         the application truly operates on irregular events, use elapsed time and describe the lag as previous
         event instead.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Overlapping labels and pooled horizons — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Overlapping labels and pooled horizons — deeper"
       question="A row at origin s predicts the sum of the next three days, reported immediately after day s + 3. At cutoff 20, what is the latest eligible training origin? If forecasts are issued daily, do adjacent target sums form independent error samples automatically?">
       <Prose>The latest eligible origin is {practiceSevenLatest}. The sums from
         origins {practiceSevenLatest} and {practiceSevenLatest + 1} share days {practiceSevenLatest + 2}
@@ -621,9 +627,9 @@ const timeSeriesValidationContent = {
         independent; shared inputs, parameter fits and serial dynamics can add dependence too. A gap that
         prevents unknown labels from entering training does not establish independent assessment errors. Under
         the index-based splitter of section 3 the same requirement reads g ≥ {practiceSeven.minimumGap}.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. A scaled-error denominator — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. A scaled-error denominator — deeper"
       question="For training history 2, 4, 3, 5, calculate the nonseasonal naive training-error scale. A later forecast has absolute error 1.5. What is its scaled error? What if all training values were 4?">
       <Prose>The scale is <Math>{'(|4-2|+|3-4|+|5-3|)/3=5/3'}</Math>, which
         is {fixed(practiceScale.scale, 6)}. The scaled error
@@ -631,13 +637,13 @@ const timeSeriesValidationContent = {
         is {fixed(practiceConstantScale.rawScale, 0)}, so this ratio is undefined; silently adding a tiny
         denominator creates a different metric. Name a suitable alternative and retain the original-unit
         errors.</Prose>
-    </Practice>
+    </Practice></div>
 
     <Prose><strong>Core readiness:</strong> given a new request, you can name the issue time and horizon,
       reconstruct legal features and labels, draw the evaluation/refit schedule, compute an informative
       baseline, and report errors without losing the horizon or changing the selection boundary.</Prose>
 
-    {/* ============================================================ §7 */}
+    {/* ============================================================ §7 */}</section>
     <H2 id={headingId(headings[6])}>{headings[6]}</H2>
     <Prose>This section is a deeper branch. It answers questions the core route raises but does not
       need.</Prose>
@@ -652,11 +658,30 @@ const timeSeriesValidationContent = {
       observed-history inputs seen during ordinary training. Approximation errors can feed forward. This is a
       mechanism, not a theorem that recursive prediction must lose to direct prediction on every
       dataset.</Prose>
+    <Prose>Follow one perturbation through a scalar recursive rule <Math>{'\\hat y_{k+1}=a\\hat y_k+b'}</Math>.
+      If two otherwise identical trajectories begin 2 units apart, their next differences are
+      <Math>{'2a,2a^2,2a^3'}</Math>. For a=.8 these are 1.6, 1.28 and 1.024; for a=1.2 they are 2.4, 2.88 and
+      3.456. The fitted feedback strength decides whether this particular perturbation shrinks or grows. Actual
+      future errors also include new disturbances and model mismatch, so this deterministic calculation does not
+      claim that uncertainty vanishes when |a|&lt;1. Direct models avoid this prediction-to-input feedback, while still
+      having their own estimation and approximation errors.</Prose>
     <Prose>A <strong>joint multi-output</strong> model predicts a vector of future values. It can share
       information across horizons and can support path-level objectives. Labels for a complete
       length-<Math>{'H'}</Math> vector are available only when the whole vector has matured, unless training
       explicitly handles partial labels. This is another reason not to apply one origin cutoff formula blindly
       to every architecture.</Prose>
+    <LessonTable caption="At issue day 20 with immediate reporting, the last eligible training origin depends on the output"
+      headers={['Training output', 'Latest origin s', 'Last label day needed']}
+      rows={[
+        ['Direct one-day target', '19', '20'],
+        ['Direct three-day target', '17', '20'],
+        ['Direct seven-day target', '13', '20'],
+        ['Joint next-seven-day vector, all labels required', '13', '20 (the seventh coordinate)'],
+      ]} />
+    <Prose>The joint row at s=14 already has its first six outcomes by day 20 but lacks the seventh, on day 21.
+      A mask-aware partial-label objective could use the known coordinates; an ordinary complete-vector fit cannot
+      silently treat the absent seventh value as zero. This connects the architecture choice to the arrival rule,
+      rather than treating the split as a separate preprocessing detail.</Prose>
     <Prose>The same distinctions matter in a controller planning battery use for the next hour. A forecast that
       will be revised every minute serves a different decision than a schedule that must be committed for the
       full hour. Evaluate the forecast-and-update policy the controller will actually use.</Prose>
@@ -688,6 +713,7 @@ const timeSeriesValidationContent = {
       entire seven-day path 90% of the time. For seven independent events each covered with probability 0.9,
       simultaneous coverage would be <Math>{'0.9^7\\approx0.4783'}</Math>; real dependence changes this
       calculation.</Prose>
+    <PathCoverageFigure />
     <Prose>Residual checks can reveal patterns the model left behind: persistent positive errors suggest
       systematic underprediction on those assessed cases; repeating weekday errors suggest a missing cycle.
       White-looking residuals do not prove future accuracy or correct interval coverage. Residuals from the
@@ -717,6 +743,12 @@ const timeSeriesValidationContent = {
       median of that positive lognormal model and its mean
       is <Math>{'\\exp(\\mu+\\sigma^2/2)'}</Math>. The distributional assumption is essential. A simple
       exponential back-transform does not universally give an unbiased mean forecast.</Prose>
+    <Prose>A two-outcome example exposes the issue without any normality assumption. If positive demand is 1 or 9
+      with equal probability, mean demand is 5. The mean of its logs is
+      <Math>{'(\\log1+\\log9)/2=\\log3'}</Math>, whose exponential is 3. Logging compresses the large outcome;
+      averaging on that compressed scale and undoing the log produces a geometric mean. This example is not
+      lognormal, so adding a normal-theory variance correction is not automatically exact. Decide which summary
+      the downstream loss needs before choosing a transformation and back-transform.</Prose>
     <Prose>Decomposing a series into trend, seasonality and remainder can make patterns easier to reason about.
       A two-sided smoother fitted using the full series, however, cannot supply a historically available feature
       at an earlier origin. Fit the allowed decomposition using only that origin's information, or label the
@@ -729,7 +761,7 @@ const timeSeriesValidationContent = {
       actual use; this file alone does not identify the cause.</Prose>
 
     {/* ============================================================ next */}
-    <H2 id={headingId(headings[7])}>{headings[7]}</H2>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2 id={headingId(headings[7])}>{headings[7]}</H2>
     <Prose>The next lesson in this
       module, <a href="/learn/path/full-curriculum/end-to-end-supervised-learning-error-analysis?module=classical-ml">End-to-End
       Supervised Learning &amp; Error Analysis</a>, brings task formulation, baseline comparison, disciplined
@@ -745,12 +777,13 @@ const timeSeriesValidationContent = {
         {' '}{provenance.retrieved}, and this lesson serves its own copy. The
         complete <a href={provenance.program}>author program</a> is served beside it; a fresh run reproduces its
         recorded results file exactly.</Prose>
-      <Prose>Every measured number above comes from that run. Every constructed number is recomputed in the
-        browser from the same definitions, and the three displayed programs are byte-exact slices of frozen
+      <Prose>Every measured number above comes from that run. The original live constructed fixtures are recomputed in the
+        browser from the same definitions; the additional pooling, feedback, maturity, coverage and log-transform
+        illustrations are exact constructed calculations checked by the author verifier. The three displayed programs are byte-exact slices of frozen
         sources — two functions lifted from the author program by their <Code>def</Code> lines, and one block
         lifted whole out of this lesson's own manuscript — each pinned by SHA-256, with only import lines and a
         few printing lines composed around them.</Prose>
-    </Callout>
+    </Callout></section>
 
     <Sources alternatives={<>
       <p>For a free, complete textbook route, Hyndman and Athanasopoulos'

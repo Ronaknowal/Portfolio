@@ -1,0 +1,29 @@
+.sparse-attention-lesson { min-width: 0; overflow-wrap: anywhere; }
+.sparse-attention-lesson figcaption { color: #efd092; font-weight: 600; margin-bottom: .75rem; }
+.sparse-panels { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: flex-start; }
+.sparse-panels > * { flex: 1 1 300px; min-width: 0; }
+.sparse-scroll, .sparse-chart-scroll { max-width: 100%; min-width: 0; overflow-x: auto; scrollbar-color: #bc9652 #222; }
+.sparse-chart-scroll > .neural-plot { min-width: 340px; }
+.sparse-diagram { margin: 1.5rem 0; max-width: 480px; }
+.sparse-diagram svg { display: block; width: 100%; height: auto; }
+.sparse-diagram svg text { font: 12px system-ui, sans-serif; fill: #eee; }
+.sparse-diagram svg .sparse-amber { fill: #e9c47b; }
+.sparse-matrix { margin: 1rem 0; }
+.sparse-matrix table { border-collapse: collapse; font-size: .8rem; font-variant-numeric: tabular-nums; }
+.sparse-matrix td { border: 1px solid #666; min-width: 4.6rem; padding: .6rem .4rem; text-align: center; }
+.sparse-mask { display: grid; width: max-content; margin: .6rem 0; }
+.sparse-mask button { width: 32px; height: 32px; min-height: 32px; padding: 0; border: 1px solid #888; background: #202020; color: #ddd; border-radius: 0; }
+.sparse-mask button.selected { background: #694c20; color: #fff; }
+.sparse-mask button:disabled { color: #888; opacity: 1; }
+.sparse-checks { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+.sparse-checks label { display: flex; gap: .5rem; align-items: center; min-height: 36px; }
+.sparse-weight-strip { margin: 1.25rem 0; }
+.sparse-weight-strip > div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); align-items: end; gap: .5rem; margin-bottom: .7rem; }
+.sparse-bars { display: flex; height: 110px; align-items: end; gap: 3px; border-bottom: 1px solid #aaa; }
+.sparse-bars > div { height: 100%; flex: 1; position: relative; display: flex; align-items: end; }
+.sparse-bars i { display: block; width: 100%; min-width: 1px; }
+.sparse-bars span { position: absolute; bottom: -1.2rem; width: 100%; text-align: center; font-size: .72rem; }
+.sparse-weight-strip > div { padding-bottom: 1.2rem; }
+.sparse-attention-lesson details { margin: 1rem 0; }
+.sparse-attention-lesson summary { cursor: pointer; color: #ecd29a; padding: .6rem 0; }
+@media (max-width: 480px) { .sparse-panels { display: block; } .sparse-weight-strip > div { grid-template-columns: 4rem minmax(0, 1fr); } }

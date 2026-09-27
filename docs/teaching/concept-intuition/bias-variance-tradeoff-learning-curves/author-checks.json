@@ -1,0 +1,41 @@
+{
+  "topicId": "bias-variance-tradeoff-learning-curves",
+  "reviewedAt": "2026-09-26T14:41:49.838Z",
+  "sourceFiles": [
+    "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx",
+    "docs/teaching/concept-intuition/bias-variance-tradeoff-learning-curves/review.md",
+    "scripts/verify-model-selection-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx": "14f179d6355ed77f46702344f5171fd4df2b9737fadaaf16d6f95230544486ed",
+    "docs/teaching/concept-intuition/bias-variance-tradeoff-learning-curves/review.md": "bf5ecec5728740008904b33b9224c7a106e1bffde9a060d4779a3f96ed74b77f",
+    "scripts/verify-model-selection-sequence-intuition.mjs": "aed7d76adb84de450a55418b72b1019c2ce39cf6b947993ec93d15802a365f92"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/bias-variance-tradeoff-learning-curves/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Smoother trace and squared-amplitude distinction",
+      "status": "passed"
+    },
+    {
+      "name": "Exact independent-noise enumeration of train/fresh risk",
+      "status": "passed"
+    },
+    {
+      "name": "Small singular value amplifies a fixed noise coordinate",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing models, native programs, datasets and run outputs retained; no fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

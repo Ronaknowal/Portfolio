@@ -1,0 +1,134 @@
+{
+  "topicId": "transformer-block-architecture",
+  "passed": true,
+  "reviewer": "training-dynamics agent, independent author review",
+  "sourceFiles": [
+    "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py",
+    "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json",
+    "docs/teaching/drafts/transformer-block-architecture/author-calculations.py",
+    "docs/teaching/drafts/transformer-block-architecture/author-results.json",
+    "docs/teaching/drafts/transformer-block-architecture/block-models.json",
+    "docs/teaching/drafts/transformer-block-architecture/data-provenance.md",
+    "docs/teaching/drafts/transformer-block-architecture/design.md",
+    "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.data",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.names",
+    "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md",
+    "src/learn/data/topics/transformer-block-architecture.jsx",
+    "src/learn/data/transformer-block-models.js",
+    "src/learn/data/sequence-tensor-operations.js",
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+    "src/learn/components/lesson-labs/transformer-block-labs.css",
+    "scripts/generate-transformer-block-lesson.mjs",
+    "scripts/check-transformer-block-models.mjs",
+    "scripts/check_transformer_block_native.py",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/design.md",
+    "public/learn-code/transformer-block-architecture/author-calculations.py",
+    "public/learn-code/transformer-block-architecture/author-results.json",
+    "public/learn-code/transformer-block-architecture/block-models.json",
+    "public/learn-code/transformer-block-architecture/data-provenance.md",
+    "public/learn-code/transformer-block-architecture/evidence-runtime.json",
+    "public/learn-code/transformer-block-architecture/movement-runtime.json",
+    "public/learn-code/transformer-block-architecture/movement_libras.data",
+    "public/learn-code/transformer-block-architecture/movement_libras.names",
+    "src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-native.py",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-models.mjs",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-fixtures.json",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-numerical.json",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-review.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py": "8fb20ccbde4ce37ce2e3c465ba839361920a3be079e777d1b61b20d844a63ee3",
+    "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json": "c4808ad9a2771c7a70d1e9f41b11b4a992274646ef168aac3ee184da6f01c044",
+    "docs/teaching/drafts/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+    "docs/teaching/drafts/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+    "docs/teaching/drafts/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+    "docs/teaching/drafts/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+    "docs/teaching/drafts/transformer-block-architecture/design.md": "e88822449064e999124286aeb536145aeb13386ea996bf218ff30d0afd7378d9",
+    "docs/teaching/drafts/transformer-block-architecture/lesson.md": "9080d4a5a9ccbf7805f39a8f109ae794fbc7d24176dd7ad6f960f8fdc1d089fa",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md": "6ee0a05b97662a21f0ed90f0d9106d91fe32e08b81106229b48d9cbd82e78322",
+    "src/learn/data/topics/transformer-block-architecture.jsx": "1ba8783855b75c88418db2e7fe7d5ae415e8a585d30a6b6939b27ad0996c9360",
+    "src/learn/data/transformer-block-models.js": "92ebf577b69ab97ac18d7c8d214ebb769f3776c26ad116f9e35ed96d684e39ee",
+    "src/learn/data/sequence-tensor-operations.js": "d9bb0a81927032a6e76beff864e5df8fa548fd59e12cd7158e5d49a07e16a21f",
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx": "feb09397170eeb07a83fbfb2867030a3aedc48d4f77b7823aab86df24ee933bc",
+    "src/learn/components/lesson-labs/transformer-block-labs.css": "1bb5dcb44cfb4f51be9fc4bfb604fac911b4ca5d507d03f667c764bbcad1e53e",
+    "scripts/generate-transformer-block-lesson.mjs": "fc143a9a55a69377d113f011dba523cc57c24f13fe4d88ba4b6b12e81946b27c",
+    "scripts/check-transformer-block-models.mjs": "4ba0c08001cfdaf476c8909b22536e239165fd6dc84cc0ba1834d0253ee09c39",
+    "scripts/check_transformer_block_native.py": "609c3e1f59809dbddd1757d7b43aabb417a7226ac0e844e45dae6c0fe942db72",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/design.md": "2a6ab88bab0daf8b254d448bf72864ae1f5eefb3931549fa82ed3202f2ccb17a",
+    "public/learn-code/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+    "public/learn-code/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+    "public/learn-code/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+    "public/learn-code/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+    "public/learn-code/transformer-block-architecture/evidence-runtime.json": "f0c28a4ad36901a45a5f6e77983b4130bc018dba5e2e548c8b67101e69c9ee78",
+    "public/learn-code/transformer-block-architecture/movement-runtime.json": "54f64c07f968c7b995233adc40ba6df390a169922a3710bd09952ae9ac12a8b6",
+    "public/learn-code/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx": "c12d99fff440f7240849c86c3a9a7157d33732792400e2801f0d2097e214aa37",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx": "0d0a7cc44054f3ad177cce6c401da21d5a90e778ecd6e39d0614d00d16c2bb20",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-native.py": "cf38b4ee52d84ed671343be41e57f1a8e65f094ba5bb60ce309510621743dfeb",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-models.mjs": "26d8549ac83c47a34bf87957e3bac7de98e4d3e2641b44e1efbf8b78721660dd",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-fixtures.json": "73f5ecdff94e6e4f4d59804207f797101660af770528271d9ea8bffdbfbdb17c",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-numerical.json": "eb8bfe6a925b91767fee06abf0bbba608b563f190d9a794bcc5e479a84d94f4f",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-review.md": "a791ce07a6905e17b79d850379dae2d602a28e4d136a28fdec26768cbd22ad74"
+  },
+  "checks": [
+    {
+      "name": "Complete manuscript/program/visual-contract and deployed source review",
+      "passed": true
+    },
+    {
+      "name": "Complementary independent functional torch reference: 13674 scalar comparisons, maximum error 7.373355480067012e-7",
+      "passed": true
+    },
+    {
+      "name": "All six checkpoint epochs independently selected from recorded validation F1/CE/earliest-tie order",
+      "passed": true
+    },
+    {
+      "name": "Six deployed reproduction files match their canonical bytes",
+      "passed": true
+    },
+    {
+      "name": "Five material representation findings closed and affected code reread",
+      "passed": true
+    },
+    {
+      "name": "Learning-experience checklist independently completed with exact mechanism locations",
+      "passed": true
+    },
+    {
+      "name": "Implementation receipt hashes match actual reviewed files",
+      "passed": true
+    },
+    {
+      "name": "Reviewed responsive task-diagram auto-fit tracks: minmax(min(100%,320px),1fr) admits two desktop columns and one narrow column while retaining local diagram scroll; CSS-only binding refreshed",
+      "passed": true
+    }
+  ],
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-native.py",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-models.mjs",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-fixtures.json",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-numerical.json",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-review.md"
+  ],
+  "remaining": [
+    "browser",
+    "integration"
+  ],
+  "limits": [
+    "No duplicate fit campaign or GPU timing",
+    "Source geometry and root-provided browser observations do not replace final painted checks; reviewer took no browser captures"
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "topicId": "grouped-query-attention-gqa-multi-query-attention-mqa",
+  "passed": true,
+  "productionPath": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+  "sourceFiles": [
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md",
+    "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+    "src/learn/data/grouped-query-models.js",
+    "src/learn/data/grouped-query-study.js",
+    "src/learn/components/lesson-labs/GroupedQueryLabs.jsx",
+    "src/learn/components/lesson-labs/grouped-query-labs.css",
+    "scripts/generate-grouped-query-lesson.mjs",
+    "scripts/check-grouped-query-native.py",
+    "scripts/check-grouped-query-models.mjs",
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/design.md",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-1.json",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-2.json",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-4.json",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/GroupedQueryDiagrams.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json": "a69e6e932bd11d6bf7a0323a10ee875623e94f39ee1b7ec074875d5d8da435f7",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md": "5bdd2638d5d44e66377f864a8be873da74d1efeb7abbb49d74450b49361e8fdc",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md": "d7dba8fc00c75fbb7634f01d4efac6183bf69100ed58de28858c023339dade39",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json": "e844d4f22e958eaed49aeccb6be4ccc47147849279ebcb96ab0b45f9ea354247",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md": "e80befb61c99e6e9cd39f9a436d5abde5eb06b128fc6a25101451856deec550e",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json": "3166b2234c2bbed981b0d6a8dc6c6002752aa04eff65471ed73cc0756edb72f5",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md": "ed5e611e3f54aa1df9024c92626f03f0202d7912475c91dd220df36458fcbb1b",
+    "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx": "992302c4cab60ee42974a75f7dbd257a2ecf2610b9fe0397fe593fcb2b8318c5",
+    "src/learn/data/grouped-query-models.js": "fdc3da4a8e09985fe1d789332ec4d1538571bbc8a240e26ddadff58b51f4b3db",
+    "src/learn/data/grouped-query-study.js": "fe038f4bfc206927dc9406fb183e9d28530500cf15c2ae4e28595ae75d3b5188",
+    "src/learn/components/lesson-labs/GroupedQueryLabs.jsx": "f9da8a3df522897770dbaa156db606c8014cd82a6738bcbdfbf1ae253dd7d969",
+    "src/learn/components/lesson-labs/grouped-query-labs.css": "af14807c99093500588260d0e61a3fd765c68bd6375737383509b9bd0efd7dca",
+    "scripts/generate-grouped-query-lesson.mjs": "a49ccd892a9a0c6e99439e9aea86e7bd63294259e6c3abe0f9306f506a9c7f9a",
+    "scripts/check-grouped-query-native.py": "c239ebfbd22a597299f83038b5ce2f962a1f0338e5b705d5f115f55dc701e11a",
+    "scripts/check-grouped-query-models.mjs": "42f9c1ca4ee5066bbf9c9b934f161ab8093408821ea7668b3e9874f296b7018f",
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/design.md": "526fe0471c424a04941498d44939c0e1f229fbca08915b0da8210bf272aea822",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json": "a69e6e932bd11d6bf7a0323a10ee875623e94f39ee1b7ec074875d5d8da435f7",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md": "5bdd2638d5d44e66377f864a8be873da74d1efeb7abbb49d74450b49361e8fdc",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json": "e844d4f22e958eaed49aeccb6be4ccc47147849279ebcb96ab0b45f9ea354247",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json": "3166b2234c2bbed981b0d6a8dc6c6002752aa04eff65471ed73cc0756edb72f5",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-1.json": "6a70c5281f4ac00541433f9c20cc5e85412cfa4a65afaa954cf5587943cb0936",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-2.json": "a31f71318a91aa3874c196ee80e27cf3b6d1ed5f27620b991f61bb852e40df53",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-4.json": "ff270c9aa33c0f4eaff3acf734648ada57dcb63247a345ba4f6fe27e635f6ba4",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/GroupedQueryDiagrams.jsx": "0efa3c94a918ec1c96488c5b226966edaa9bf2b04e7f2b9a9780ab1897c9d4b2",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09"
+  },
+  "checks": [
+    {
+      "name": "Complete prepared manuscript rendered, all eight insertion anchors and two complete program views generated",
+      "passed": true
+    },
+    {
+      "name": "Supplied complete NumPy and PyTorch operator programs executed",
+      "passed": true
+    },
+    {
+      "name": "Three selected native models reload and all split metrics replay within 2e-6",
+      "passed": true
+    },
+    {
+      "name": "Twelve independent native-to-JavaScript cases, causal null, compact/full cache, shift, head outputs and rollouts pass",
+      "passed": true
+    },
+    {
+      "name": "Owned source parses with Babel and copied native assets match canonical programs/data",
+      "passed": true
+    },
+    {
+      "name": "Neutral lesson scope applied; dense SVGs retain nominal readable width in keyboard-scrollable figures at narrow widths, pending browser recheck",
+      "passed": true
+    },
+    {
+      "name": "All query counts1-128 and divisor KV choices now admit the 12-query/3-KV changed-practice case; local parser/model checks passed",
+      "passed": true
+    },
+    {
+      "name": "Independent-review entity controls and candidate-distance/output-delta readouts added; 3661 model assertions and JSX parse passed; timeline660/plots340 local scroll implemented",
+      "passed": true
+    },
+    {
+      "name": "Inline cache-lifetime/axis/replication/ownership diagram coverage and stable number-input control added; JSX and dependency model checks passed",
+      "passed": true
+    },
+    {
+      "name": "Reviewer compact-write K/V paths now join continuously at a visible common write node; JSX parse passed",
+      "passed": true
+    },
+    {
+      "name": "Model-load failures use actionable learner message and existing retry instead of raw fetch/JSON diagnostics; JSX parse rerun",
+      "passed": true
+    }
+  ],
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/native-checks.json",
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/model-checks.json",
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/design.md"
+  ],
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limitations": [
+    "Historical declared model fitting reused; saved checkpoint inference and metrics freshly executed.",
+    "No GPU dispatch or serving speed benchmark.",
+    "Author source/numerical review is not independent/browser acceptance."
+  ],
+  "browserInventory": {
+    "labs": [
+      "gqa-read",
+      "gqa-budget",
+      "gqa-mask",
+      "gqa-conversion",
+      "gqa-forecast",
+      "gqa-gradient"
+    ],
+    "figures": [
+      "three-step cache timeline",
+      "head-to-memory wiring",
+      "signed vector mixture",
+      "cache factors",
+      "recorded validation histories",
+      "observed/generated trajectory and time series",
+      "actual attention distribution"
+    ],
+    "actions": [
+      "Q/K/V edits; interleaved routing and consistent relabel; reset",
+      "cache axes; Amdahl null fraction and reset",
+      "mask positions/count/reverse slots/empty legal state/reset",
+      "scalar conversion edits/tie/reset",
+      "selected model, observed point edit/reflection, boundary, shift, generated length, head, reset",
+      "gradient cancellation and reset",
+      "complete program details load/retry"
+    ]
+  }
+}

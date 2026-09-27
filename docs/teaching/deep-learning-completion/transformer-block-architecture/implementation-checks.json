@@ -1,0 +1,861 @@
+{
+  "topicId": "transformer-block-architecture",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py",
+    "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json",
+    "docs/teaching/drafts/transformer-block-architecture/author-calculations.py",
+    "docs/teaching/drafts/transformer-block-architecture/author-results.json",
+    "docs/teaching/drafts/transformer-block-architecture/block-models.json",
+    "docs/teaching/drafts/transformer-block-architecture/data-provenance.md",
+    "docs/teaching/drafts/transformer-block-architecture/design.md",
+    "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.data",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.names",
+    "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md",
+    "src/learn/data/topics/transformer-block-architecture.jsx",
+    "src/learn/data/transformer-block-models.js",
+    "src/learn/data/sequence-tensor-operations.js",
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+    "src/learn/components/lesson-labs/transformer-block-labs.css",
+    "scripts/generate-transformer-block-lesson.mjs",
+    "scripts/check-transformer-block-models.mjs",
+    "scripts/check_transformer_block_native.py",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/design.md",
+    "public/learn-code/transformer-block-architecture/author-calculations.py",
+    "public/learn-code/transformer-block-architecture/author-results.json",
+    "public/learn-code/transformer-block-architecture/block-models.json",
+    "public/learn-code/transformer-block-architecture/data-provenance.md",
+    "public/learn-code/transformer-block-architecture/evidence-runtime.json",
+    "public/learn-code/transformer-block-architecture/movement-runtime.json",
+    "public/learn-code/transformer-block-architecture/movement_libras.data",
+    "public/learn-code/transformer-block-architecture/movement_libras.names",
+    "src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py": "8fb20ccbde4ce37ce2e3c465ba839361920a3be079e777d1b61b20d844a63ee3",
+    "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json": "c4808ad9a2771c7a70d1e9f41b11b4a992274646ef168aac3ee184da6f01c044",
+    "docs/teaching/drafts/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+    "docs/teaching/drafts/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+    "docs/teaching/drafts/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+    "docs/teaching/drafts/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+    "docs/teaching/drafts/transformer-block-architecture/design.md": "e88822449064e999124286aeb536145aeb13386ea996bf218ff30d0afd7378d9",
+    "docs/teaching/drafts/transformer-block-architecture/lesson.md": "9080d4a5a9ccbf7805f39a8f109ae794fbc7d24176dd7ad6f960f8fdc1d089fa",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md": "6ee0a05b97662a21f0ed90f0d9106d91fe32e08b81106229b48d9cbd82e78322",
+    "src/learn/data/topics/transformer-block-architecture.jsx": "1ba8783855b75c88418db2e7fe7d5ae415e8a585d30a6b6939b27ad0996c9360",
+    "src/learn/data/transformer-block-models.js": "92ebf577b69ab97ac18d7c8d214ebb769f3776c26ad116f9e35ed96d684e39ee",
+    "src/learn/data/sequence-tensor-operations.js": "d9bb0a81927032a6e76beff864e5df8fa548fd59e12cd7158e5d49a07e16a21f",
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx": "feb09397170eeb07a83fbfb2867030a3aedc48d4f77b7823aab86df24ee933bc",
+    "src/learn/components/lesson-labs/transformer-block-labs.css": "1bb5dcb44cfb4f51be9fc4bfb604fac911b4ca5d507d03f667c764bbcad1e53e",
+    "scripts/generate-transformer-block-lesson.mjs": "fc143a9a55a69377d113f011dba523cc57c24f13fe4d88ba4b6b12e81946b27c",
+    "scripts/check-transformer-block-models.mjs": "4ba0c08001cfdaf476c8909b22536e239165fd6dc84cc0ba1834d0253ee09c39",
+    "scripts/check_transformer_block_native.py": "609c3e1f59809dbddd1757d7b43aabb417a7226ac0e844e45dae6c0fe942db72",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/design.md": "2a6ab88bab0daf8b254d448bf72864ae1f5eefb3931549fa82ed3202f2ccb17a",
+    "public/learn-code/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+    "public/learn-code/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+    "public/learn-code/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+    "public/learn-code/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+    "public/learn-code/transformer-block-architecture/evidence-runtime.json": "f0c28a4ad36901a45a5f6e77983b4130bc018dba5e2e548c8b67101e69c9ee78",
+    "public/learn-code/transformer-block-architecture/movement-runtime.json": "54f64c07f968c7b995233adc40ba6df390a169922a3710bd09952ae9ac12a8b6",
+    "public/learn-code/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx": "c12d99fff440f7240849c86c3a9a7157d33732792400e2801f0d2097e214aa37",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx": "0d0a7cc44054f3ad177cce6c401da21d5a90e778ecd6e39d0614d00d16c2bb20",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09"
+  },
+  "productionPath": "src/learn/data/topics/transformer-block-architecture.jsx",
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/model-checks.json",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/native-checks.json"
+  ],
+  "checks": [
+    {
+      "name": "Shift-stable softmax",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "LayerNorm common-offset invariance",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "GELU independent reference at \u00c2\u00b11",
+      "passed": true,
+      "maxAbsoluteError": 9.900906650095465e-09,
+      "tolerance": 2e-07
+    },
+    {
+      "name": "pre: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: weights",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: update",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: weights",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: update",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: context",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: weights",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: update",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: weights",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: update",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: weights",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: update",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Analytic/finite-difference 1,2,5,8/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-10,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 1,2,5,8/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 1.0136563810547727e-10,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 1,2,5,8/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 1.0696670771359607e-09,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference -0.03,-0.01,0.01,0.03/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-10,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference -0.03,-0.01,0.01,0.03/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 8.672728313285916e-09,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference -0.03,-0.01,0.01,0.03/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 1.6953421777543554e-08,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 2,2,2,2/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 1.7554165586408654e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 2,2,2,2/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 2.9555419018834073e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 2,2,2,2/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 7.860667437853408e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 0,0,0,0/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 2.710505431213761e-14,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 0,0,0,0/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 2.9646352572854084e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 0,0,0,0/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 7.633935865669628e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Exact copy entropy denominator",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre-norm retained original logits",
+      "passed": true,
+      "maxAbsoluteError": 8.321318190063209e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 5.937132407929369e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm reverse_coordinates_fixed_time",
+      "passed": true,
+      "maxAbsoluteError": 5.88713223503845e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm frame23_x_reflection",
+      "passed": true,
+      "maxAbsoluteError": 1.1745132415530435e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 7.953020737978822e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 8.398411344145984e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 input",
+      "passed": true,
+      "maxAbsoluteError": 5.710863870689309e-08,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 4.2257471433160276e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 update",
+      "passed": true,
+      "maxAbsoluteError": 2.0508176357125762e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 residual",
+      "passed": true,
+      "maxAbsoluteError": 2.1075916845081366e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 context",
+      "passed": true,
+      "maxAbsoluteError": 2.1075916845081366e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 7.173505988111728e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 hidden",
+      "passed": true,
+      "maxAbsoluteError": 5.160423084404897e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 2.1081992773730462e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 output",
+      "passed": true,
+      "maxAbsoluteError": 4.1779556392285144e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 weights",
+      "passed": true,
+      "maxAbsoluteError": 1.4208768739365496e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 input",
+      "passed": true,
+      "maxAbsoluteError": 4.1779556392285144e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 2.3152187915709277e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 update",
+      "passed": true,
+      "maxAbsoluteError": 4.421264017118176e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 residual",
+      "passed": true,
+      "maxAbsoluteError": 5.476655348113368e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 context",
+      "passed": true,
+      "maxAbsoluteError": 5.476655348113368e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 9.85888711557692e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 hidden",
+      "passed": true,
+      "maxAbsoluteError": 1.1585473669306623e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 6.602499511565441e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 output",
+      "passed": true,
+      "maxAbsoluteError": 6.708178803549458e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 weights",
+      "passed": true,
+      "maxAbsoluteError": 2.027292145406756e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm retained original logits",
+      "passed": true,
+      "maxAbsoluteError": 1.9152233692310006e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 6.213847618674606e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm reverse_coordinates_fixed_time",
+      "passed": true,
+      "maxAbsoluteError": 1.111843907164456e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm frame23_x_reflection",
+      "passed": true,
+      "maxAbsoluteError": 3.941966437714939e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 1.4383862110278756e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 1.5598378420578207e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 input",
+      "passed": true,
+      "maxAbsoluteError": 6.16959656696281e-08,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 6.16959656696281e-08,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 update",
+      "passed": true,
+      "maxAbsoluteError": 1.217798167862938e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 residual",
+      "passed": true,
+      "maxAbsoluteError": 1.4987363428087264e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 context",
+      "passed": true,
+      "maxAbsoluteError": 5.040822694812874e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 5.040822694812874e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 hidden",
+      "passed": true,
+      "maxAbsoluteError": 9.341667475126769e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 5.127067435051202e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 output",
+      "passed": true,
+      "maxAbsoluteError": 7.287845229519974e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 weights",
+      "passed": true,
+      "maxAbsoluteError": 3.947814150584428e-08,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 input",
+      "passed": true,
+      "maxAbsoluteError": 7.287845229519974e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 7.287845229519974e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 update",
+      "passed": true,
+      "maxAbsoluteError": 7.273780944228037e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 residual",
+      "passed": true,
+      "maxAbsoluteError": 9.244719914036637e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 context",
+      "passed": true,
+      "maxAbsoluteError": 1.3860269088006305e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 1.3860269088006305e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 hidden",
+      "passed": true,
+      "maxAbsoluteError": 1.5323224791252699e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 1.2136032960796683e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 output",
+      "passed": true,
+      "maxAbsoluteError": 2.195239597657661e-06,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 weights",
+      "passed": true,
+      "maxAbsoluteError": 2.0590496338512843e-07,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Babel JSX parse src/learn/data/topics/transformer-block-architecture.jsx",
+      "passed": true
+    },
+    {
+      "name": "Babel JSX parse src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "Babel JSX parse src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed Python program 1",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed Python program 2",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed Python program 3",
+      "passed": true
+    },
+    {
+      "name": "Both block placements against installed TransformerEncoderLayer",
+      "passed": true,
+      "maxErrors": {
+        "True": 0,
+        "False": 0
+      }
+    },
+    {
+      "name": "Original data, duplicate groups and split identity",
+      "passed": true
+    },
+    {
+      "name": "All saved initialization gradient-depth and carried-state measurements",
+      "passed": true
+    },
+    {
+      "name": "pre-norm retained checkpoint on all 60 test records",
+      "passed": true,
+      "actual": {
+        "loss": 0.7524762749671936,
+        "correct": 49,
+        "total": 60,
+        "macro_f1": 0.8070370370370371
+      }
+    },
+    {
+      "name": "post-norm retained checkpoint on all 60 test records",
+      "passed": true,
+      "actual": {
+        "loss": 0.49134397506713867,
+        "correct": 52,
+        "total": 60,
+        "macro_f1": 0.866825396825397
+      }
+    },
+    {
+      "name": "Bound topic plots and labeled SVGs to readable native width in keyboard-scrollable local regions; JSX syntax rechecked",
+      "passed": true
+    },
+    {
+      "name": "SwiGLU gate projection reads the actual input",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "SwiGLU value projection",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "SwiGLU signed write and output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "SwiGLU zero-gate projection null",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Babel JSX parse src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx",
+      "passed": true
+    },
+    {
+      "name": "Independent teaching findings corrected: centered deviations/actual denominators, input-projected gates and signed write stacks, source/target mask geometry, paired six-fit plot, checkpoint/tensor-partition diagrams",
+      "passed": true
+    }
+  ],
+  "controls": [
+    "block-normalization: 4 features, shift, scale, epsilon, null/reset",
+    "block-feature-write: 2 direct input rows, up/down weights, activation, gate/value, reset",
+    "block-trace: input rows, placement, branch scale, selected position, weights/reset",
+    "block-movement: placement, point x/y/time, padding, reversal, layer/reset",
+    "block-probe: input/probe coordinates, finite-difference step, null/contrast/reset",
+    "block-cost: length, width/reset"
+  ],
+  "figures": [
+    "communication lanes",
+    "pre/post bypass circuits",
+    "signed feature writes",
+    "real movement with start/end and exact model probabilities",
+    "actual learning curves and full fit table",
+    "measured depth gradients and state RMS",
+    "task/source/target layouts",
+    "serial/parallel and norm-position wiring",
+    "derived MAC curves and explicit memory-entry counts"
+  ],
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limits": [
+    "No fresh six-fit training campaign; unchanged measured histories reused.",
+    "No hardware speed claim.",
+    "Browser/integration are not certified by native or syntax checks."
+  ],
+  "corrections": [
+    "Connected diagrams replace text-only visual paths; direct bypasses and sum junctions are visible.",
+    "Full intermediate feature dump is optional; current input/output stays visible.",
+    "Narrow grid track corrected to minmax(0,1fr), shared scoped neutral CSS imported.",
+    "Public asset allowlist excludes drafts/design/specifications and unused author calculation fixtures.",
+    "Shared maxDifference now flattens both tensors once and rejects shape-size mismatch; numerical and model parity checks rerun."
+  ]
+}

@@ -1,0 +1,9 @@
+import fs from 'node:fs';
+import {createRequire} from 'node:module';
+import {build} from 'esbuild';
+const id='interleaved-cross-attention-architectures',figures=['read','shapes','teacher','resampler','frozen','named','blip','pipeline','results','pairs','dependency'],labs=['CrossReadLab','CrossShapeLab','CrossAccessLab','CrossCompressionLab','CrossGateLab','CrossBudgetLab','CrossCacheLab','CrossObservedLab'];
+const result=await build({stdin:{contents:`import {createElement} from 'react';import {renderToString} from 'react-dom/server';import {CrossFigure} from './src/learn/components/lesson-labs/CrossAttentionFigures.jsx';import * as labs from './src/learn/components/lesson-labs/CrossAttentionLabs.jsx';import topic from './src/learn/data/topics/${id}.jsx';import data from './public/learn-assets/${id}/observed-reads.json';export const lengths=[...${JSON.stringify(figures)}.map(kind=>renderToString(createElement(CrossFigure,{kind})).length),...${JSON.stringify(labs)}.map(name=>renderToString(createElement(labs[name])).length),renderToString(createElement(labs.CrossObservedWorkspace,{data})).length,renderToString(createElement(topic.content)).length];`,resolveDir:process.cwd(),loader:'jsx'},write:false,bundle:true,format:'cjs',platform:'node',jsx:'automatic',loader:{'.css':'empty'},external:['react','react-dom/server']});
+const module={exports:{}};new Function('require','module','exports',result.outputFiles[0].text)(createRequire(import.meta.url),module,module.exports);
+if(module.exports.lengths.some(x=>x<100))throw Error('Empty required representation');
+const receipt={passed:true,figures,labs,wholeLessonRendered:true,nonemptyMarkupLengths:module.exports.lengths,scope:'Author server render smoke plus loaded observed workspace; browser/network/keyboard separate'};
+fs.writeFileSync(`docs/teaching/deep-learning-completion/${id}/static-checks.json`,JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));

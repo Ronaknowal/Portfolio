@@ -1,0 +1,17 @@
+.normalization-intuition { margin: 1.7rem 0; padding: 1.2rem; border: 1px solid #3c362b; border-radius: 6px; background: #10100f; color: #dedbd3; }
+.normalization-intuition h3, .normalization-intuition h4 { color: #edcc80; line-height: 1.5; }
+.normalization-intuition figcaption { color: #b8b4aa; line-height: 1.7; font-size: .92rem; margin-top: 1rem; }
+.normalization-axis-grid { display: grid; grid-template-columns: minmax(5rem, 1.3fr) repeat(3, minmax(0, 1fr)); gap: .4rem; text-align: center; font-size: .9rem; }
+.normalization-axis-grid > * { padding: .6rem .2rem; align-content: center; min-width: 0; overflow-wrap: anywhere; }
+.normalization-axis-first { border-top: 2px solid #e4b752; border-bottom: 2px solid #e4b752; background: #45371d; }
+.normalization-axis-second { border-top: 2px solid #a49a85; border-bottom: 2px solid #a49a85; background: #292721; }
+.normalization-causal-case { border-top: 1px solid #39352c; padding-top: .6rem; margin-top: 1rem; }
+.normalization-causal-flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; text-align: center; }
+.normalization-causal-flow > span { border-bottom: 2px solid #b28b40; padding: .8rem .3rem; }
+.normalization-memory-strip { display: flex; height: 2.5rem; margin: 1rem 0; }
+.normalization-memory-strip > span { border: 1px solid #a88a4e; background: #302d27; }
+.normalization-memory-strip .normalization-memory-1 { background: #695125; }
+.normalization-memory-strip .normalization-memory-2 { background: #a78137; }
+.normalization-memory-strip .normalization-memory-3 { background: #e4b752; }
+.normalization-memory-key { line-height: 1.9; padding-left: 1.4rem; }
+@media (max-width: 480px) { .normalization-intuition { padding: .8rem; } .normalization-axis-grid { font-size: .78rem; gap: .2rem; grid-template-columns: minmax(4.3rem, 1.2fr) repeat(3, minmax(0, 1fr)); } }

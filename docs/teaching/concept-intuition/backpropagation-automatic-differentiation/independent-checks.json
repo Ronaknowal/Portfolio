@@ -1,0 +1,44 @@
+{
+  "topicId": "backpropagation-automatic-differentiation",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:08:38.192Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/backprop.jsx",
+    "src/learn/components/lesson-labs/BackpropIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/backprop-intuition.css",
+    "scripts/build-backprop-lesson.mjs",
+    "docs/teaching/concept-intuition/backpropagation-automatic-differentiation/independent-review.md",
+    "scripts/review-neural-foundation-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/backprop.jsx": "fd25192b27586e41456dc7db2a82022385eb8dfaa37170d65e45ae48690f8281",
+    "src/learn/components/lesson-labs/BackpropIntuitionFigures.jsx": "8023eab989f114ffcdcb2b83fd3ba434efc02e913f29c596b1a892f7883480d8",
+    "src/learn/components/lesson-labs/backprop-intuition.css": "8a22ae459d41298cc054fa5b7a338ba9cb1ce038d6dae59e79a01450ae30fb81",
+    "scripts/build-backprop-lesson.mjs": "b41806c789767003545e1b0896e998905d4ae0da781b9b34719d155a38e20530",
+    "docs/teaching/concept-intuition/backpropagation-automatic-differentiation/independent-review.md": "a1e3d865735a754917db99fbc7e16cd350e141004f47e8930d2281a2342ffbca",
+    "scripts/review-neural-foundation-intuition.mjs": "0d39e7f335dd45b1a92a6e07809ccfa2c35f1a5ad1582bee4d67e7377c20722a"
+  },
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic assessment, no actual learner session",
+  "checks": [
+    {
+      "name": "Changed shared-branch cancellation",
+      "status": "passed"
+    },
+    {
+      "name": "New 1/2/3 microbatch partition preserves per-example objective",
+      "status": "passed"
+    },
+    {
+      "name": "Hessian directional symmetry with new vectors",
+      "status": "passed"
+    }
+  ],
+  "fullReading": "docs/teaching/concept-intuition/backpropagation-automatic-differentiation/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "pending root",
+  "integration": "pending root",
+  "nativeExecution": "Existing unchanged campaigns retained; no fresh fits or full native verification claimed."
+}

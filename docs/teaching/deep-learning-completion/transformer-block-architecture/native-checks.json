@@ -1,0 +1,63 @@
+{
+  "topicId": "transformer-block-architecture",
+  "passed": true,
+  "versions": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5"
+  },
+  "checks": [
+    {
+      "name": "Complete displayed Python program 1",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed Python program 2",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed Python program 3",
+      "passed": true
+    },
+    {
+      "name": "Both block placements against installed TransformerEncoderLayer",
+      "passed": true,
+      "maxErrors": {
+        "True": 0.0,
+        "False": 0.0
+      }
+    },
+    {
+      "name": "Original data, duplicate groups and split identity",
+      "passed": true
+    },
+    {
+      "name": "All saved initialization gradient-depth and carried-state measurements",
+      "passed": true
+    },
+    {
+      "name": "pre-norm retained checkpoint on all 60 test records",
+      "passed": true,
+      "actual": {
+        "loss": 0.7524762749671936,
+        "correct": 49,
+        "total": 60,
+        "macro_f1": 0.8070370370370371
+      }
+    },
+    {
+      "name": "post-norm retained checkpoint on all 60 test records",
+      "passed": true,
+      "actual": {
+        "loss": 0.49134397506713867,
+        "correct": 52,
+        "total": 60,
+        "macro_f1": 0.866825396825397
+      }
+    }
+  ],
+  "limits": [
+    "Historical six-fit training histories retained unchanged; no redundant refit.",
+    "Both actual display checkpoints re-evaluated; all three current displayed programs executed including gradients and equal updates."
+  ]
+}

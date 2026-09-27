@@ -1,0 +1,71 @@
+{
+  "topicId": "neural-ode-continuous-depth-models",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/author-checks.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/calculated-inputs.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/fitted-models.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/study-results.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md",
+    "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/author-checks.json": "7de0b5a019d030e3a54873c3797801c46c6d33a4e9d0c633081fcd5b5f777715",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/calculated-inputs.json": "0c1be5a1e205387f244d36a9d5df909fb5fa95a49894428418bff825e697aa1e",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py": "f02445d85c27c145a7a80ea5bd9c7752c3208f165372b30d572e3585e2d52a37",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md": "ff91ae872fd75007c0d7c212197b52cc0b7191220f0333c428a17d4edf24651b",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md": "799aa9ee3efee11085e97a42e74cfc1b2ff6ebca3280bae39bb0863721469efa",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/fitted-models.json": "346542dd802b87063454a57e19d39b64aea0ae12218a7f689345dc4b50f31b6f",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md": "26ad10503731b34d7551e49deb58f45e303f1a8274ed36fe8e40624c3d7d8617",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py": "a8c05ebe2ee0096362cf7f4ced5ae41bdb8707d481e5c096ed0a0b1f043fb65b",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py": "4ee845ecd7f34c5cc702bfa09efccbb344b9c421e827c8b4e26f2a08f0b9b0eb",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/study-results.json": "72bba64186b3e38137c8fc2a7137d5f41bbf75131aa04b5914bc90a1b1616b6b",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md": "d6ae3f84246400d624f18a54b8fb9cdcbceb3063c46f0214fc9742039bdec687",
+    "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md": "14ea0bcf313545e6958a904741a3ec1cb5b4f279a3be46f4b508355e06774e06"
+  },
+  "reconciliation": [
+    "Read the complete69KB prepared manuscript, visual contracts, design, provenance, four complete programs and scoped destination note. Parsed all JSON recursively and verified exact full embedded study and solver bridge source equality.",
+    "Reused root exact-hash CRLF preflight; current canFinish true. No broad historical reconciliation.",
+    "Preserved all12 actual fits and all72 real solver/input cases; six distinct investigation mechanisms and all12 inline figures remain required.",
+    "Removed surviving before-Run species withholding, Run-only recomputation and prediction requests from prepared interaction language. Independent written practice remains unchanged.",
+    "Primary torchdiffeq solver/API/RK4 and Diffrax differentiation documentation reviewed. Subsequent local torchdiffeq0.2.5 execution passed the unchanged bridge; manuscript/provenance now report actual state/gradient execution and clearly separate unexecuted official example suite and Diffrax."
+  ],
+  "checks": [
+    {
+      "name": "Full prepared source and destination-note consumption",
+      "passed": true
+    },
+    {
+      "name": "Complete scratch/library mechanisms with concept-level intuition, worked intermediate values and changed practice retained",
+      "passed": true
+    },
+    {
+      "name": "Exact embedded/download source equality and Python syntax; all JSON values finite",
+      "passed": true
+    },
+    {
+      "name": "Six investigation entity/representation contracts reconciled to immediate computation without learner prediction inputs",
+      "passed": true
+    },
+    {
+      "name": "Canonical library execution wording reconciled to actual isolated native bridge/checkpoint replay; complete study and solver source remain unchanged",
+      "passed": true
+    },
+    {
+      "name": "Final independent wording/download correction: numerical-loss label names direct/finite-difference routes; inherited GMM provenance has a published link and explicit repository path",
+      "passed": true
+    }
+  ],
+  "manuscript": "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md"
+}

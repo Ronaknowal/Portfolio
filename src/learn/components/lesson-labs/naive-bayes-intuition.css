@@ -1,0 +1,12 @@
+.nb-intuition { margin: 1.6rem 0; padding: 1rem; background: #101010; border: 1px solid #383838; border-radius: 6px; }
+.nb-intuition figcaption { color: #eee; margin-bottom: .8rem; }
+.nb-intuition p { font-size: .95rem; line-height: 1.65; }
+.nb-mixture-branches, .nb-observation-branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)); gap: 1rem; }
+.nb-mixture-branches > section, .nb-observation-branches > section { border-top: 1px solid #626262; padding-top: .8rem; display: grid; gap: .6rem; }
+.nb-mixture-fork { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .5rem; }
+.nb-mixture-fork > span { border-left: 2px solid #e8b84b; padding-left: .65rem; }
+.nb-observation-branches > section > b { color: #e8b84b; font-weight: 500; }
+.nb-composition > span { display: block; margin-bottom: .4rem; }
+.nb-composition > div { display: flex; flex-wrap: wrap; gap: .25rem; }
+.nb-composition b, .nb-composition i { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border: 1px solid #b3832a; color: #efbc4e; font-style: normal; font-weight: 500; }
+.nb-composition i { border-color: #888; color: #ddd; }

@@ -1,0 +1,37 @@
+{
+  "topicId": "ml-problem-formulation-baselines-data-leakage",
+  "date": "2026-09-26T15:56:15.050Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx",
+    "src/learn/components/lesson-labs/FormulationIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/formulation-intuition.css",
+    "src/learn/components/lesson-labs/FormulationLabs.jsx"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "8747f667b8a5dad95349872f2da296822ae0eb1f400be2b7b03d2a5addce70ef",
+    "src/learn/components/lesson-labs/FormulationIntuitionFigures.jsx": "60be5082c4ff626d352d50fac3c3f61d1414c0c546ee13b4489d0a778d45940b",
+    "src/learn/components/lesson-labs/formulation-intuition.css": "24ee87ceec34f80987cc4b252acc06ed33909d777c1918168334c8c02c0975ab",
+    "src/learn/components/lesson-labs/FormulationLabs.jsx": "bd2a858d9cfc7ab421714460929b815eb13743fc9ba27208046ba4fdc056ebe6"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Known-positive versus mature-negative label eligibility",
+    "Proxy and desired-outcome rates can move oppositely",
+    "Mean and median loss totals",
+    "Capacity-constrained expected action benefit",
+    "Selective-label population extremes",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/formulation-models.js",
+    "src/learn/data/formulation-examples.js",
+    "src/learn/components/lesson-labs/FormulationFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

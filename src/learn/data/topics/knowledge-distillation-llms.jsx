@@ -924,37 +924,37 @@ trainer.train()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: why higher T exposes more information</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: why higher T exposes more information</H3>
 
       <Prose>
         Derive analytically why increasing the temperature <Code>T</Code> exposes more information in the teacher's output distribution. Start from the definition of Shannon entropy: <Code>H(p) = -Σ p(k) log p(k)</Code>. Show that as <Code>T → 0</Code>, the softmax approaches a one-hot distribution and the entropy approaches 0 (no dark knowledge). As <Code>T → ∞</Code>, show the softmax approaches a uniform distribution and the entropy approaches <Code>log(V)</Code> where <Code>V</Code> is the vocabulary size. Explain why the maximum information about the teacher's conceptual structure is accessible at some intermediate temperature, and why that temperature is typically between 3 and 10 for classification tasks.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2: student-teacher size ratio for 90% capability retention</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: student-teacher size ratio for 90% capability retention</H3>
 
       <Prose>
         Given the empirical finding that a 7B student distilled from a 70B teacher retains roughly 85% of the teacher's AIME 2024 score, and a 14B student retains roughly 90%, estimate: (a) what student size would be needed to retain 95% of a 70B teacher's capability on this benchmark; (b) whether this estimate would hold across all tasks or whether task difficulty would modulate the ratio; (c) why there is likely a floor below which further doubling of student size gives diminishing capability returns. Consider both the capacity argument (smaller models cannot represent complex distributions) and the optimization argument (SFT on a finite dataset reaches a ceiling independent of model size).
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: design a CoT distillation pipeline for code generation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: design a CoT distillation pipeline for code generation</H3>
 
       <Prose>
         Design the verifier component for CoT distillation of a code-generating teacher. The teacher generates Python solutions to competitive programming problems. Specify: (a) what the verifier receives as input (problem statement, generated code, expected outputs); (b) how the verifier executes the code safely (sandboxing requirements: process isolation, time limits, memory limits, network blocking); (c) what score it returns and whether that score should be binary or fractional (fraction of test cases passing); (d) what failure modes the verifier misses — consider off-by-one errors in floating-point, infinite loops that hit the time limit, and solutions that pass public tests but fail on hidden test cases. How would you make the verifier more robust to each failure mode?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: when does response-based beat softmax-KL distillation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: when does response-based beat softmax-KL distillation</H3>
 
       <Prose>
         List and explain three concrete scenarios where response-based distillation (CE on teacher outputs) is likely to outperform soft-target KL distillation in practice, even though KL distillation is theoretically more information-rich. Consider: (1) proprietary teacher with API-only access; (2) very large teacher vocabulary where storing full logit distributions is infeasible; (3) cases where the teacher's high-confidence regions dominate the distribution and most dark knowledge is noise rather than signal. For each scenario, describe what assumption of soft-target distillation is violated and how response-based distillation avoids the issue.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: estimating the contamination risk of a distillation benchmark</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: estimating the contamination risk of a distillation benchmark</H3>
 
       <Prose>
         You want to evaluate a student model distilled from GPT-4 on the MATH benchmark. Describe a protocol to estimate how much of the student's MATH score reflects genuine reasoning capability versus benchmark contamination inherited from the teacher. Your protocol should: (a) probe the student with rephrased or equivalent problems not seen in standard benchmark sets; (b) compare student performance on problems from the benchmark's public training split versus its hidden test split; (c) test whether the student can explain its reasoning step-by-step in a way that generalizes to minor problem variations (e.g., same structure, different numbers). What outcome would confirm contamination? What outcome would provide evidence of genuine capability transfer?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

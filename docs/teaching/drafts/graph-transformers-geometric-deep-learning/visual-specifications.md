@@ -16,7 +16,7 @@ Phase two must test default results without any action, meaningful edits, quick 
 **Decision connection.** Choose operations compatible with the required symmetry and find informative asymmetric counterexamples.
 
 
-Research/write only. Implement this complete manuscript later; none of the components described here is already built. Use calculated-inputs.json for the actual34-node experiment and geometry-results.json for constructed exact examples. Code/data/provenance meanings are binding; visual styles may adapt to the hurdle. Keep the topology, basis and physical-coordinate illustrations visibly distinct.
+Prepared representation contracts, reconciled for implementation on 27 September 2026. Author execution and current component locations are recorded separately in the completion design. Use calculated-inputs.json for the actual34-node experiment and geometry-results.json for constructed exact examples. Code/data/provenance meanings are binding; visual styles may adapt to the hurdle. Keep the topology, basis and physical-coordinate illustrations visibly distinct.
 
 ## Shared investigation behavior
 
@@ -26,7 +26,7 @@ Provide numeric tables/keyboard edge editing as alternatives to dragging. IDs, a
 
 ## 1. Identity, graph layout and geometry — first use in §1
 
-Three synchronized views use the same named nodes: node/edge table; topology-only drawing; a separate physical-coordinate example. Relabel permutes H and both A axes; a layout drag changes only drawing positions; a physical edit changes X and derived distances. Do not animate social-network layout as a molecular conformation. A task asks which stored mathematical inputs changed, with actual node/table edits and feedback on the selected object. Contrast a rewire with a layout move. This small view establishes semantics before attention heatmaps appear.
+Three synchronized views use the same named nodes: node/edge table; topology-only drawing; a separate physical-coordinate example. Relabel permutes H and both A axes; a layout drag changes only drawing positions; a physical edit changes X and derived distances. Do not animate social-network layout as a molecular conformation. Editable layout and physical-coordinate controls show exactly which mathematical tables changed; a relabel operation moves both adjacency axes and feature rows. Contrast a rewire with a layout move. This small view establishes semantics before attention heatmaps appear.
 
 ## 2. Structural attention route — §2
 
@@ -44,7 +44,7 @@ Basis investigation uses the full two-column eigenvalue2 basis of the four-cycle
 
 ## 4. Access versus information — §4
 
-A compact same-value comparison keeps different global/local weights but shows identical weighted outputs7. Let the learner construct a nonconstant value table that exposes the difference. This is a meaningful counterexample task: equality of all selected values is rejected when the prompt asks for a differing output; mere selector changes do not count. Distinguish possible graph access, retained information, learned use and actual prediction in a small four-stage flow. Do not reuse a generic architecture-versus-score chart.
+A compact same-value comparison keeps different global/local weights but shows identical weighted outputs7. Let the learner construct a nonconstant value table that exposes the difference. Equal values are accepted and immediately display the meaningful null; nonconstant edits reveal the difference without grading or submission. Distinguish possible graph access, retained information, learned use and actual prediction in a small four-stage flow. Do not reuse a generic architecture-versus-score chart.
 
 ## 5. Square action and weight tying — §5
 
@@ -72,7 +72,7 @@ Use a legend separating node ID, observed edge, label role, model prediction and
 
 Seed11bounded forward inference uses saved state_dict, exact LayerNorm epsilon(default1e−5), row-wise layer normalization, two heads of width8, scaled dot products, pre-norm residual ordering, default exact GELU, shared distance embedding across the two blocks and final per-node linear head. GCN uses bias after normalized propagation. Browser translation must match recorded logits/probabilities within explicit tolerances. Recorded other seeds offer only retained probabilities and traces, not arbitrary inference. Epoch traces represent pre-update loss at1/10/50/100/300; do not present them as post-update measurements or add interpolated measurements.
 
-Investigations: Show the current computed result and its contributing terms immediately. Its exact unchanged result is meaningful. Other models' tiny changes are displayed numerically, with axes honestly labeled; don't turn.0000008into a dramatic unlabeled bar. If learner chooses recomputed degree/clustering, recompute every affected feature and label this different intervention; saved edit outputs apply only to fixed original structural features. Edits invalidate prior answers. Trained edge weights/attention show mixing and dependence, not causal explanations or assurance that graph structure helps.
+Investigations: remove edge (0,1), with the original three structural features fixed initially. The set model receives the same features and is exactly unchanged. Display the current result immediately. Other models' tiny changes are displayed numerically, with axes honestly labeled; don't turn.0000008into a dramatic unlabeled bar. If learner chooses recomputed degree/clustering, recompute every affected feature and label this different intervention; saved edit outputs apply only to fixed original structural features. Edits invalidate prior answers. Trained edge weights/attention show mixing and dependence, not causal explanations or assurance that graph structure helps.
 
 No network fitting in the browser. Lazy-load model/evidence only after inspection is opened, cap to34nodes, compute on valid input change, discard stale results by input-version token. A small exact path remains the main high-contrast lesson where actual trained sensitivity is visually negligible.
 
@@ -99,3 +99,6 @@ Phase two must render the entire inline route, implement live-update/reset/null/
 Extend the existing GPS branch schematic to show both residual x rails and the 2x sum before the MLP. Add two graph containers (3 nodes,2 nodes) with IDs, offsets and a padding mask; feature edits in graphB preserve graphA. A missing-batch diagnostic explicitly merges global attention only. Structural return scalars travel with node labels; physical coordinate vectors remain a different panel.
 
 Use topic-owned responsive diagrams and local scrolling for code/matrices. Long filenames and links wrap within the reader at 320px. Show source/setup/download dependencies at the relevant explanation; deferred Python programs load only on request. Keep labels outside geometric marks where possible, fixed scale comparisons truthful, and current results visible during edits. No learner prediction field, submit button, answer lock or optional prediction gate is specified. Existing numerical/interaction checks still apply, and optional package/checkpoint routes carry their actual unexecuted status until phase two supplies evidence.
+
+## 27 September implementation reconciliation
+The complete twelve-fit program and geometry calculations executed again and reproduced every retained result. The actual PyG 2.8.0.post1 GPS bridge passed its output/gradient/SGD, graph isolation and relabeling checks, plus a third-isolate missing-batch case. Source code uses the actual installed version; historical 2.9 documentation preparation remains in the dated design history. The current ordinary library contract was checked against the official 2.8 GPS source. Runtime, independent and painted browser checks have separate source-bound receipts.

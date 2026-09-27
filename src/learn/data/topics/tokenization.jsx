@@ -997,7 +997,7 @@ famous users        early GPTs,    BERT,          ALBERT,        Llama 1/2/3,   
       {/* ======================================================================
           11. SELF-CHECK
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five short problems. Spend ten minutes per problem before peeking at the answer. The point is to catch confusions; the problems are chosen so that doing them wrong tells you something specific about what you have not internalized yet.
@@ -1045,7 +1045,7 @@ famous users        early GPTs,    BERT,          ALBERT,        Llama 1/2/3,   
 
       <Prose>
         The tokenizer is the layer of the stack that models the least and matters more than it should. The next topic picks up from this point, looking at what happens when you drop the subword step entirely and let the model learn over raw bytes.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

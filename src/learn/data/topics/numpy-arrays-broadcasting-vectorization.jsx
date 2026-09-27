@@ -64,10 +64,10 @@ export default {
     <PythonExample example={numpyFoundationsExamples.memory}><Prose>The copy and gathered selection were created before the view write, so their middle reading stays 24 until explicitly changed. The view's step between consecutive values is 16 bytes: it passes over the other sensor's 8-byte reading each time. Those byte steps are called <strong>strides</strong>. A view can therefore follow a column without moving the underlying values together.</Prose></PythonExample>
     <Prose><strong>Reading a selection and assigning into the original are different operations.</strong> <Code>{'picked = X[[0, 2], 0]'}</Code> returns copied data. But <Code>{'X[[0, 2], 0] = 7'}</Code> tells NumPy to write directly to those positions of X. Chaining <Code>{'X[[0, 2]][:, 0] = 7'}</Code> instead writes to a temporary gathered array. It leaves X unchanged.</Prose>
     <Prose>When independence matters, request it before modifying the selection. <Code>np.shares_memory(a, b)</Code> checks whether two arrays overlap in memory; equality of values does not answer that question. Also, <Code>other = X</Code> merely adds another name for the same array object—it is not a new view or a copy.</Prose>
-    <details className="numpy-deeper"><summary>Deeper: non-contiguous arrays and what copying cannot promise</summary>
+    <section className="numpy-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper: non-contiguous arrays and what copying cannot promise</h3>
       <Prose>The lab shows one contiguous float64 buffer with strides (16, 8). Transposes and slices can expose the same buffer with other strides, including negative strides for a reversed view. Reshape returns a view when the requested organisation permits it, but may need a copy; do not promise that every reshape shares storage. <Code>ravel()</Code> returns a flattened view when possible and otherwise copies; <Code>flatten()</Code> copies.</Prose>
       <Prose>A tiny view may keep a large base allocation alive. Copying that small selection can release the dependency when no other reference needs the original. Numeric storage independence is the promise used here: copying an object-dtype array copies its object references, not recursively every referenced Python object.</Prose>
-    </details>
+    </section>
 
     <H2>4. Broadcast by matching coordinates</H2>
     <Prose>Suppose sensor A reads 2 °C too high and sensor B reads 4 °C too high. Every time needs the same two corrections. A Python solution would loop over times, then subtract the appropriate sensor offset. NumPy can express the whole question as <Code>X - offsets</Code>, where offsets is [2, 4].</Prose>
@@ -96,10 +96,10 @@ export default {
     <H3>Write the coordinates before compressing the code</H3>
     <Prose>Use ordinary Python loops to implement this small calibration and column-mean contract. The subtraction holds the sensor coordinate fixed when choosing its offset. The mean holds that same sensor fixed while visiting every time. The two NumPy expressions below express those same choices; their results are compared on the same inputs.</Prose>
     <PythonExample example={numpyFoundationsExamples.loopReference}><Prose>The loop reference accepts a nonempty rectangular table with one finite offset per sensor. It explains this operation, rather than implementing NumPy's general broadcasting or storage engine. The reusable array function checks that contract, creates a separate calibrated result and performs the numeric loops inside NumPy. For T times and S sensors, both routes do O(TS) arithmetic and store O(TS) corrected values plus O(S) means. Returning every corrected cell already requires visiting TS values. The library route removes Python's per-cell loop overhead; it does not change that growth rate or promise a speedup for every tiny input. Very large finite magnitudes can still overflow, and different summation orders can round differently; use the numerical checks in section 8 for those questions.</Prose></PythonExample>
-    <details className="numpy-deeper"><summary>Deeper: variability, empty groups and more axes</summary>
+    <section className="numpy-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper: variability, empty groups and more axes</h3>
       <Prose><Code>var</Code> averages squared deviations and <Code>std</Code> takes their square root. Their divisor is N − ddof, with N contributing observations; NumPy defaults to ddof=0. Under the usual independent, identically distributed sampling assumptions, ddof=1 gives an unbiased estimator of population variance, but not a universally unbiased standard-deviation estimator. The divisor must be positive.</Prose>
       <Prose>An empty mean has no ordinary finite answer; check that accepted observations exist. Boolean all on an empty collection is True and any is False, reflecting their logical definitions; neither demonstrates that data was observed. For shape (run, time, sensor), reducing axis 1 keeps run and sensor. A tuple axis=(0, 1) combines both runs and times.</Prose>
-    </details>
+    </section>
 
     <H2>6. Change the shape deliberately</H2>
     <Prose>Reshape and transpose can produce the same shape while giving cells different meanings. Default C-order <strong>reshape</strong> reads the logical row-by-row sequence and regroups it; the total number of elements must stay equal. <strong>Transpose</strong> reorders axes. Here X.T turns one row per time into one row per sensor. Compare both maps below; the earlier selection explorer's final two choices let you trace additional cells.</Prose>
@@ -130,10 +130,10 @@ export default {
     <Prose>Floating-point stores a finite binary approximation to many decimal values. Tiny discrepancies can therefore be expected. Near zero, an absolute tolerance states an acceptable error. Away from zero, relative tolerance allows error proportional to a reference value. A tolerance for a tiny float64 calculation need not suit a long float32 computation or noisy physical measurements.</Prose>
     <Prose><Code>array_equal</Code> checks exact shape and value equality. <Code>allclose</Code> checks approximate values but may broadcast its arguments; check shapes explicitly when a wrong shape must fail. <Code>testing.assert_allclose</Code> provides a failing assertion for tests. Agreement with a reference does not establish that units, calibrations or scientific assumptions were valid.</Prose>
     <Prose><Code>NaN</Code> represents a missing or invalid floating value here; infinity is also non-finite. Use <Code>isnan</Code> to identify NaN and <Code>isfinite</Code> to reject both NaN and infinity. NaN does not equal itself. Ordinary means propagate NaN; <Code>nanmean</Code> ignores NaNs but does not choose a missing-data policy, discard infinity, or solve an all-missing group.</Prose>
-    <details className="numpy-deeper"><summary>Deeper: division masks and domain errors</summary>
+    <section className="numpy-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper: division masks and domain errors</h3>
       <PythonExample example={numpyReferenceExamples.numpyMissing}><Prose>The initialised output supplies NaN where division is excluded. In <Code>np.divide(..., out=out, where=valid)</Code>, where controls the operation's selected positions. <Code>np.where(valid, numerator / denominator, np.nan)</Code> does not prevent invalid division: Python calculates numerator / denominator before where selects results.</Prose></PythonExample>
       <Prose>Give excluded positions a defined output; an uninitialised buffer would leave their values unspecified. <Code>errstate</Code> can turn selected warnings into exceptions. Log needs positive real inputs for finite real results, and real square root needs nonnegative inputs. Clipping or suppressing warnings changes what you see; it does not justify the mathematical or scientific choice.</Prose>
-    </details>
+    </section>
 
     <H2>9. Build a small sensor report</H2>
     <Prose>A fourth observation arrives, and one earlier reading is missing. Preserve the raw table, reject incomplete rows under an explicit policy, subtract independently known sensor offsets, and identify times whose corrected mean exceeds 23 °C. Keep original time positions so filtering does not relabel time 2 as time 1.</Prose>
@@ -153,7 +153,7 @@ export default {
       <Prose>Its corrected values are [24, 24]. Each sensor mean becomes (16 + 28 + 20 + 24) / 4 = 22 °C. Warm times are [2, 4]. Accepted rows retain their original labels.</Prose>
     </Checkpoint>
 
-    <H2>10. Investigate a new dataset</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Investigate a new dataset</H2>
     <Prose><strong>Your task:</strong> three electricity meters report daily usage in kWh. Calibration uses multiplication rather than subtraction. Start with these complete inputs and write your report before opening the solution.</Prose>
     <Prose>First adapt the coordinate loops from section 5 to multiply by a per-meter gain, after selecting complete finite days. Then implement the NumPy route and compare corrected cells, daily totals and per-meter means on the same retained rows. A successful comparison must also preserve the original day identities; agreeing numbers in the wrong order are not the same report.</Prose>
     <CodeBlock language="python">{`import numpy as np
@@ -174,24 +174,24 @@ gains = np.array([1.0, 0.5, 2.0])
     </Checkpoint>
     <Checkpoint prompt="Diagnose: v = X[:, 0]; v -= 2. The author says raw X is unchanged because v is a different name.">
       <Prose>The slice is a view and in-place subtraction writes through shared storage. Use <Code>v = X[:, 0].copy()</Code> before modifying v if X must remain unchanged. A new name does not mean a new buffer.</Prose>
-    </Checkpoint>
+    </Checkpoint></section>
 
     <H2>11. Deeper tools when your task needs them</H2>
     <Prose>The core route is complete. These branches retain useful earlier material and name its additional prerequisites. Open one when you have its question; memorising an API list is not the beginner finish line. The earlier examples use their own complete fixtures, distinct from the continuing sensor dataset.</Prose>
-    <details className="numpy-deeper"><summary>Advanced indexing: pairs, cross-products and repeated writes</summary>
+    <section className="numpy-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Advanced indexing: pairs, cross-products and repeated writes</h3>
       <Prose><Code>{'X[[0, 2], [0, 1]]'}</Code> selects pairs (0, 0) and (2, 1), giving [18, 32] in the original X. For every combination of those rows and columns, use <Code>{'X[np.ix_([0, 2], [0, 1])]'}</Code>, producing [[18, 20], [30, 32]].</Prose>
       <Prose>Repeated advanced indices with <Code>+=</Code> are not a general accumulation operation because a gathered intermediate is updated before writing back. For every repeated contribution to accumulate, use an operation such as <Code>np.add.at</Code> with your intended indices.</Prose>
-    </details>
+    </section>
     <NumpyFoundationsDeeper />
-    <details className="numpy-deeper"><summary>Performance: measure correct work, then diagnose the cost</summary>
+    <section className="numpy-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Performance: measure correct work, then diagnose the cost</h3>
       <Prose>Validate units, shapes, dtype, selected inputs and outputs first. Then time representative data sizes repeatedly, separating setup and I/O from the operation. A view can avoid copying yet have less convenient memory access; a compact broadcast expression can allocate a large temporary. Neither line count nor NumPy usage proves a speedup.</Prose>
       <Prose><Code>nbytes</Code> reports element storage, excluding full Python-object overhead. Inspect strides and flags when layout matters. Array operations such as add and exp are universal functions, or ufuncs. They may accept <Code>out</Code> to reuse storage, but overwrite only values that no later step still needs. Chunk data that will not fit comfortably in memory.</Prose>
       <Prose>Float32 uses less storage than float64, with different range and precision. Accumulation order and numerical libraries can affect roundoff. Document a justified tolerance and hardware/software context when comparing implementations. The browser models make no performance speedup claim.</Prose>
-    </details>
+    </section>
 
-    <H2>12. Check your readiness and carry the structure forward</H2>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>12. Check your readiness and carry the structure forward</H2>
     <Prose>Without looking back, explain each report axis, trace an output to its source cells, distinguish a view from a copy, repair a per-row broadcast, and predict a reduction's shape. Explain why a successful calculation can still answer the wrong scientific question. If one is difficult, revisit its explorer and change the case.</Prose>
-    <Prose>The next topic in the opening curriculum sequence is <a href="/learn/topic/scientific-file-formats-schemas-reliable-data-i-o">Scientific File Formats, Schemas &amp; Reliable Data I/O</a>. You can now organise, transform and check arrays in memory. Next, learn what is preserved or lost when values, types, labels and units cross a file boundary. Follow the reader's named Next link if you are studying a different guided route.</Prose>
+    <Prose>The next topic in the opening curriculum sequence is <a href="/learn/topic/scientific-file-formats-schemas-reliable-data-i-o">Scientific File Formats, Schemas &amp; Reliable Data I/O</a>. You can now organise, transform and check arrays in memory. Next, learn what is preserved or lost when values, types, labels and units cross a file boundary. Follow the reader's named Next link if you are studying a different guided route.</Prose></section>
     <Sources>
       <li><a href="https://numpy.org/doc/stable/user/absolute_beginners.html">NumPy beginner guide: arrays, axes and creation</a></li>
       <li><a href="https://numpy.org/doc/stable/user/basics.indexing.html">Indexing: basic selections, masks and advanced-index assignment</a></li>

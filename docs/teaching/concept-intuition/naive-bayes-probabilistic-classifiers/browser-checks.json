@@ -1,0 +1,74 @@
+{
+  "topicId": "naive-bayes-probabilistic-classifiers",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "3575e51104affc4c5e4dbc2a4f7c47506df3f7136d96c8fd0a71ef2445ce9fbe",
+    "src/learn/components/lesson-labs/NaiveBayesIntuition.jsx": "9a60946be16cffe3b23722f43c34d297ccd804a99267ca8939d80125e29c2fe2",
+    "src/learn/components/lesson-labs/naive-bayes-intuition.css": "0059fb8e97ea994b63bc84fc9df32da493df967f8ee1e5fb7d2cb4db6d08aa8e",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "61563d4a48073c3bc1da80743e703bf35ad3905d91d10d9abdcc8aa842ed7424"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        5
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        51
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": [
+        2
+      ]
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [
+      "src/learn/components/lesson-labs/NaiveBayesLabs.jsx"
+    ],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Replace left/right branch wording for stacked narrow layout; requested from author.",
+      "status": "closed",
+      "resolution": "Corrected source; subsequent desktop/narrow observations retained in extra-rendered-checks.json.",
+      "recheckIndices": [
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "date": "2026-09-26T13:22:53.122Z",
+  "revision": 4,
+  "topics": [
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "revision": 4,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 48
+    },
+    {
+      "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "revision": 4,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 48
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "revision": 4,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 45
+    }
+  ],
+  "preservedOtherRows": 174,
+  "receipts": [
+    {
+      "file": "docs/teaching/revisions/attention-mechanism-bahdanau-luong/4/author-checks.json",
+      "sha256": "e489d786d04859cd8ddd1c1c53aa7259f7b71bde1f7ddda1879c2f3164374ced"
+    },
+    {
+      "file": "docs/teaching/revisions/long-context-sequence-models-transformer-xl-griffin-perceiver/4/teaching-checks.json",
+      "sha256": "90027d8de3e8d8aaac4a0cef637bce4a8fb48488d12ff70e37c426417f916b0a"
+    },
+    {
+      "file": "docs/teaching/revisions/long-context-sequence-models-transformer-xl-griffin-perceiver/4/evidence/independent-review.json",
+      "sha256": "b3fbcbc6cd4a9d7087df82db852d0479236621da8c7841594c11845f1804cfb5"
+    },
+    {
+      "file": "docs/teaching/revisions/state-space-models-s4-mamba-mamba-2/4/evidence/teaching-checks.json",
+      "sha256": "e0bc65e6f66bee7d7613624161bb24be971130330eac7db1bdaf43a711c27474"
+    },
+    {
+      "file": "docs/teaching/revisions/state-space-models-s4-mamba-mamba-2/4/evidence/independent-review.json",
+      "sha256": "34ebf9d7067992eeba9530ee0c180573d606a99356028d93882ccc8d2171decf"
+    },
+    {
+      "file": "docs/teaching/evidence/attention-memory-intuition/browser-review.json",
+      "sha256": "a4071dbff3bec7b01d83b2b8450ea66f22c4d05ab8e2bcb3fe37fff7b11bb603"
+    }
+  ],
+  "sequence": [
+    "sequence-to-sequence-encoder-decoder",
+    "attention-mechanism-bahdanau-luong",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "state-space-models-s4-mamba-mamba-2",
+    "rwkv-linear-attention-models"
+  ],
+  "independentAttentionBindings": 9,
+  "chunks": [
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "file": "dist/assets/attention-CxWYkuMO.js",
+      "bytes": 128416,
+      "gzipBytes": 40039,
+      "sha256": "eb1efef16b193d6dfa17731d4a8e275b3f31418580ba3b133f076a10fb8d84e7"
+    },
+    {
+      "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "file": "dist/assets/long-context-sequence-models-transformer-xl-griffin-perceiver-DWrA0wST.js",
+      "bytes": 139873,
+      "gzipBytes": 45477,
+      "sha256": "4809b604e6a2eb2d791769a19b6e583c8fb1605513b66eb5639825a7d799bc4b"
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "file": "dist/assets/state-space-models-s4-mamba-mamba-2-CWdwi0rG.js",
+      "bytes": 172715,
+      "gzipBytes": 60387,
+      "sha256": "efbafbcbeb84d4a7055e7282e563036e48df4fecbc0f413951a6188c7b0b8337"
+    }
+  ],
+  "buildManifestHash": "c4d78d403a5f3fc1b87cecac2a80090fca0805f098a0b7d02c56cdd55bace610",
+  "recordedCounts": {
+    "contentComplete": 177,
+    "implementationComplete": 153,
+    "preparedRemaining": 24
+  }
+}

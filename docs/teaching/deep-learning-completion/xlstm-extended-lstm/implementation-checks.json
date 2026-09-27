@@ -1,0 +1,857 @@
+{
+  "topicId": "xlstm-extended-lstm",
+  "passed": true,
+  "productionPath": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+  "sourceFiles": [
+    "docs/teaching/drafts/xlstm-extended-lstm/author-checks.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/data-provenance.md",
+    "docs/teaching/drafts/xlstm-extended-lstm/design.md",
+    "docs/teaching/drafts/xlstm-extended-lstm/investigation-results.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/lesson.md",
+    "docs/teaching/drafts/xlstm-extended-lstm/mechanism-results.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/memory_mechanisms.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-fits.npz",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-results.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md",
+    "src/learn/data/topics/xlstm-extended-lstm.jsx",
+    "src/learn/data/xlstm-memory-models.js",
+    "src/learn/data/xlstm-example-inputs.js",
+    "src/learn/components/lesson-labs/XlstmPrimitives.jsx",
+    "src/learn/components/lesson-labs/XlstmFigures.jsx",
+    "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx",
+    "src/learn/components/lesson-labs/XlstmStudy.jsx",
+    "src/learn/components/lesson-labs/xlstm-memory-labs.css",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/LessonElements.jsx",
+    "scripts/lib/prepared-lesson-renderer.mjs",
+    "scripts/generate-xlstm-lesson.mjs",
+    "scripts/extract-xlstm-display.mjs",
+    "scripts/check-xlstm-native.py",
+    "scripts/check-xlstm-models.mjs",
+    "scripts/check-xlstm-render.mjs",
+    "public/learn-code/xlstm-extended-lstm/author_calculations.py",
+    "public/learn-code/xlstm-extended-lstm/data-provenance.md",
+    "public/learn-code/xlstm-extended-lstm/digit-rows.json",
+    "public/learn-code/xlstm-extended-lstm/memory_mechanisms.py",
+    "public/learn-code/xlstm-extended-lstm/model-lstm_seed19.json",
+    "public/learn-code/xlstm-extended-lstm/model-lstm_seed43.json",
+    "public/learn-code/xlstm-extended-lstm/model-mlstm_seed19.json",
+    "public/learn-code/xlstm-extended-lstm/model-mlstm_seed43.json",
+    "public/learn-code/xlstm-extended-lstm/model-slstm_seed19.json",
+    "public/learn-code/xlstm-extended-lstm/model-slstm_seed43.json",
+    "public/learn-code/xlstm-extended-lstm/optdigits.names",
+    "public/learn-code/xlstm-extended-lstm/optdigits.tes",
+    "public/learn-code/xlstm-extended-lstm/optdigits.tra",
+    "public/learn-code/xlstm-extended-lstm/row-sequence-fits.npz",
+    "public/learn-code/xlstm-extended-lstm/row-sequence-results.json",
+    "public/learn-code/xlstm-extended-lstm/row_sequence_models.py",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/design.md",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/native-checks.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/native-port-fixtures.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/model-checks.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/render-checks.json"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/xlstm-extended-lstm/author-checks.json": "49eee276225c978f58cffaaaf3781695d2ae9eab8edd0e124daf0b4593dd775a",
+    "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87",
+    "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py": "ac16f65ff36e39a78bc4343f14aff4234c84eee568d3aacc435f954e8d5245a9",
+    "docs/teaching/drafts/xlstm-extended-lstm/data-provenance.md": "1176a88e452cda054b0c5864d88317eeb2862a9a97b9e48aeb8a86f6882eab6c",
+    "docs/teaching/drafts/xlstm-extended-lstm/design.md": "b2b9d7260ac7c60697b381504b99c561270f1746d6298023752e313642a54e51",
+    "docs/teaching/drafts/xlstm-extended-lstm/investigation-results.json": "c1cf1993620cee4572777710e6af0a38b34696bdeae17862ea7f574c15d54950",
+    "docs/teaching/drafts/xlstm-extended-lstm/lesson.md": "d8e32f7807e2ca12ebfb8d525d2ef23e1631b261209b264e038e8105bae40954",
+    "docs/teaching/drafts/xlstm-extended-lstm/mechanism-results.json": "898b9af1b4a8939313e63bb07ba10cecfd3473388bac403ab7cdffaf697205d8",
+    "docs/teaching/drafts/xlstm-extended-lstm/memory_mechanisms.py": "538752b266ac151392bfecd53f37d00d2f0464f1c70a466d5b4c5dd2672394cf",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-fits.npz": "c4abe0356e06951ce2a67fdbdd676fb4e5822b34b4863821d348495d73d2680a",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-results.json": "04cd0c138ad94e8bacf876384c3b95eaf7e8091dfe4ddb8743a83ed82d9c389f",
+    "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2",
+    "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md": "38c7c7e92a6d3c2d9fea83b26878724d723f4bb3da44f8abf31f4c53e80d89c6",
+    "src/learn/data/topics/xlstm-extended-lstm.jsx": "78d36b1b92195d6d1108fa9166bf5c3efddb3eb1356f22dc5bb38fc61ec284a8",
+    "src/learn/data/xlstm-memory-models.js": "ae2c5afc279f7d5274e7a608a986e65644c3e3ca7efc7eab37f1a0e6fd7a5e79",
+    "src/learn/data/xlstm-example-inputs.js": "e7512e3f1896358fbe0d54dba2de0d7bcd3a558ca278989b10b86306a42c95c0",
+    "src/learn/components/lesson-labs/XlstmPrimitives.jsx": "ad7d03a077dfaed6563d3fa0d166e3d0e4185c82f1ad880d16f7294d1b8a0a3f",
+    "src/learn/components/lesson-labs/XlstmFigures.jsx": "42d48fcacd673eff2d0cc5ff75a74d7796d57e9048eaf5c8eca38e811f81d64b",
+    "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx": "7114f4a097f9706df231d1aef132b46ae99eb6cf5df8922d0671b613388b9a83",
+    "src/learn/components/lesson-labs/XlstmStudy.jsx": "c3dc275abb23c3c10cd68885a0e7151ce80bf6ce63c604c45707471e00201ca3",
+    "src/learn/components/lesson-labs/xlstm-memory-labs.css": "ee90c2660b91e875fd802676404e74a05c5a3c11335d0171fc2bf446a05e423e",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "9d081761b3b4ba38fd92933501ebd0aa6f60aa2046ac29772f8eb386949ccb78",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "scripts/generate-xlstm-lesson.mjs": "ebdd2eeb0ab41bb7db6c992952462820f95d0c998461a0a98d85443476c23a56",
+    "scripts/extract-xlstm-display.mjs": "ad17d791ea5c0753466ac9ea1eb5bcaadc22e000dc36733f8b62305761175d66",
+    "scripts/check-xlstm-native.py": "ddea4f942a4020909af313701b9d3dd1608a527122ee96aeb7411591817b6ac8",
+    "scripts/check-xlstm-models.mjs": "db7ce72f62a0dfbc0518035937eeb011a0ae9f2280f0e84c0697394e01fc4092",
+    "scripts/check-xlstm-render.mjs": "6d3781006fdd99703ad011473fb8849b667085c97b00de7878ffc22abedff1f0",
+    "public/learn-code/xlstm-extended-lstm/author_calculations.py": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87",
+    "public/learn-code/xlstm-extended-lstm/data-provenance.md": "1176a88e452cda054b0c5864d88317eeb2862a9a97b9e48aeb8a86f6882eab6c",
+    "public/learn-code/xlstm-extended-lstm/digit-rows.json": "1bee979a02d6b06b2aa8e25113685e8fe51ad2494aa9925765ba738d5beab302",
+    "public/learn-code/xlstm-extended-lstm/memory_mechanisms.py": "538752b266ac151392bfecd53f37d00d2f0464f1c70a466d5b4c5dd2672394cf",
+    "public/learn-code/xlstm-extended-lstm/model-lstm_seed19.json": "7cdf8bca6979556823f1d97892a333679a0617d34584b61f403117e2070c4340",
+    "public/learn-code/xlstm-extended-lstm/model-lstm_seed43.json": "ac1596f481c4b1dbbd7169d3c3fde57d9b8ba3414ac2bc16613055262ece3c78",
+    "public/learn-code/xlstm-extended-lstm/model-mlstm_seed19.json": "513e1c707076ac8b9d1b2db86fff6bbea1e1107578c4420b04de78dd697208da",
+    "public/learn-code/xlstm-extended-lstm/model-mlstm_seed43.json": "9f22efab95f387030bd8c590a3f53a7120e91699d8954908b8df0a340bd81b7b",
+    "public/learn-code/xlstm-extended-lstm/model-slstm_seed19.json": "7dc714e8f4ab75c3976e6d9c614cc9f29c9e421a0f8e8ba829f8b712287d2434",
+    "public/learn-code/xlstm-extended-lstm/model-slstm_seed43.json": "70ef9337cd4b43327488be24ec03b8c5c641a64eaa40a955648d65ce2dea0a81",
+    "public/learn-code/xlstm-extended-lstm/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "public/learn-code/xlstm-extended-lstm/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "public/learn-code/xlstm-extended-lstm/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "public/learn-code/xlstm-extended-lstm/row-sequence-fits.npz": "c4abe0356e06951ce2a67fdbdd676fb4e5822b34b4863821d348495d73d2680a",
+    "public/learn-code/xlstm-extended-lstm/row-sequence-results.json": "04cd0c138ad94e8bacf876384c3b95eaf7e8091dfe4ddb8743a83ed82d9c389f",
+    "public/learn-code/xlstm-extended-lstm/row_sequence_models.py": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/design.md": "0ecd966bb799452d5d20672ddc385c957547a8a1f5586dad5c0750456d6a32e3",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/native-checks.json": "5c110d7997152ca5acae5958c5fe9d17699502a271b056ee791d3898e75458a4",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/native-port-fixtures.json": "e7dfa8b163b6a9c25ec5c52920e834e1f6c4da765fb9b33f512f9b99e0acd0d6",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/model-checks.json": "69b7560f9de9a2a91d2e504925c91c85020350049ff80319234c7bbfbc4a2715",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/render-checks.json": "9e2e8d5c7b2af4ec6dfe5cbe037bd47885f0fa1d131775f8f8cb216838ba805c"
+  },
+  "checks": [
+    {
+      "name": "Complete canonical replay mechanism-results.json",
+      "passed": true
+    },
+    {
+      "name": "Complete canonical replay investigation-results.json",
+      "passed": true
+    },
+    {
+      "name": "Displayed standalone scalar program executed exactly",
+      "passed": true
+    },
+    {
+      "name": "All original source bytes and role IDs identical",
+      "passed": true
+    },
+    {
+      "name": "Disjoint1000/300 fit/validation roles",
+      "passed": true
+    },
+    {
+      "name": "All saved validation images/labels equal exact source role",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 exact parameter count",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 clean-validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 fit clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 fit reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 validation clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 validation reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 test clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 test reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 all seven complete-state carry splits",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 nine fresh full-network state/layer/autograd cases",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 finite actual clipped training gradient",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed19 actual Adam update changes weights",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 exact parameter count",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 clean-validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 fit clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 fit reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 validation clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 validation reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 test clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 test reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 all seven complete-state carry splits",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 nine fresh full-network state/layer/autograd cases",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 finite actual clipped training gradient",
+      "passed": true
+    },
+    {
+      "name": "lstm_seed43 actual Adam update changes weights",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 exact parameter count",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 clean-validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 fit clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 fit reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 validation clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 validation reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 test clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 test reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 all seven complete-state carry splits",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 nine fresh full-network state/layer/autograd cases",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 finite actual clipped training gradient",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed19 actual Adam update changes weights",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 exact parameter count",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 clean-validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 fit clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 fit reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 validation clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 validation reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 test clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 test reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 all seven complete-state carry splits",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 nine fresh full-network state/layer/autograd cases",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 finite actual clipped training gradient",
+      "passed": true
+    },
+    {
+      "name": "slstm_seed43 actual Adam update changes weights",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 exact parameter count",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 clean-validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 fit clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 fit reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 validation clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 validation reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 test clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 test reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 all seven complete-state carry splits",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 nine fresh full-network state/layer/autograd cases",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 finite actual clipped training gradient",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed19 actual Adam update changes weights",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 exact parameter count",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 clean-validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 fit clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 fit reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 validation clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 validation reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 test clean selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 test reversed selected-fit complete metrics",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 all seven complete-state carry splits",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 nine fresh full-network state/layer/autograd cases",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 finite actual clipped training gradient",
+      "passed": true
+    },
+    {
+      "name": "mlstm_seed43 actual Adam update changes weights",
+      "passed": true
+    },
+    {
+      "name": "All3600 retained validation reads and every prefix argmax agree with native selected fits",
+      "passed": true
+    },
+    {
+      "name": "54 fresh float64 full networks: every stage,state,logit plus reset and normalizer-only reset",
+      "passed": true
+    },
+    {
+      "name": "3456 fresh pixel derivatives versus native autograd",
+      "passed": true
+    },
+    {
+      "name": "Every reader complete-state carry and changed grouping preserve the full function",
+      "passed": true
+    },
+    {
+      "name": "Raw/scaled scalar and matrix,floor-active failure,log1000 null,causal dense/chunk schedules,nonempty incoming state,short final chunks and12 edited settings",
+      "passed": true
+    },
+    {
+      "name": "Exact BigInt state accounting",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmPrimitives.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmFigures.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmMechanismLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmStudy.jsx",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy memory_mechanisms.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy row_sequence_models.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy author_calculations.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy row-sequence-fits.npz",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy row-sequence-results.json",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy optdigits.tra",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy optdigits.tes",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy optdigits.names",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy data-provenance.md",
+      "passed": true
+    },
+    {
+      "name": "All300 deployed images and labels equal their one-based source records",
+      "passed": true
+    },
+    {
+      "name": "Fresh and worked source identities retained",
+      "passed": true
+    },
+    {
+      "name": "Only explicit learner assets are deployed",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: weighted ledger",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: Signed retrieval is not softmax",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: checkpoint",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: xLSTM-Mixer",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: Hint and reasoned solution",
+      "passed": true
+    },
+    {
+      "name": "Twenty figure anchors and four investigations replaced",
+      "passed": true
+    },
+    {
+      "name": "Ten independent practice solutions remain closed",
+      "passed": true
+    },
+    {
+      "name": "Shared neutral style scoped to new body",
+      "passed": true
+    },
+    {
+      "name": "Initial article has no bad computed values",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation lstm_seed19",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation lstm_seed43",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation slstm_seed19",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation slstm_seed43",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation mlstm_seed19",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation mlstm_seed43",
+      "passed": true
+    },
+    {
+      "name": "Zero and negative signed contribution geometry renders",
+      "passed": true
+    },
+    {
+      "name": "Complete concept-level author learning-experience checklist and20 figures/4 lab contracts reviewed in design.md; no learner prediction entry",
+      "passed": true
+    },
+    {
+      "name": "Current16-file content receipt hashes validated; substantive specification working changes retained",
+      "passed": true
+    },
+    {
+      "name": "Unused author-fixture export removed from native extraction script; mathematical native program/checks unchanged and checker parsed; only explicit16 learner assets deployed",
+      "passed": true
+    },
+    {
+      "name": "All required runtime imports resolve in complete SSR,selected-fit state inspector and source readers; stable production path retained",
+      "passed": true
+    },
+    {
+      "name": "Root browser tick clipping fixed using topic-local460px plot,105px gutter,bounded tick strings and preserved singleton markers.74 source/SSR checks pass; mathematical engine unchanged.",
+      "passed": true
+    }
+  ],
+  "reconciliation": [
+    "Full691-line manuscript,216-line specification,166-line design,47-line provenance,all four programs,original metadata,author checks and every structured numerical/source array consumed. No destination note exists.",
+    "Preflight specification was substantive/stale: recorded166fd2b2… versus baseline actual cc9b4707…. Retained the full working specification including the scalar/matrix state-inspector bridge and current visible-output contract; did not restore historical hashes or discard working edits.",
+    "Reconciled contradictory older reset/Run/prediction phrasing in manuscript/spec: valid edits immediately compute current results, pins keep full original configuration, step selectors inspect existing calculations. Replaced author-direction opening with actual learner actions. Independent written practice is preserved.",
+    "Added concrete program/data/provenance download links where the manuscript formerly named an unspecified bundle. All mathematical programs,raw data,fits and measurements remain byte-identical to the accepted prepared packet.",
+    "Rechecked primary 7B equations5–9,original block AppendixA.4,TFLA sigmoid variant equations22–24,actual32/8/256/512 float32 configuration/model-card loading,PyTorch LSTM i/f/g/o and both-bias layout; retained dated/scoped research claims. Application source ownership/presence-mask/decision-time reading retained.",
+    "Runtime replaces all20 prepared figure anchors and4 investigation anchors without dropping manuscript/math/practice. Version,activation,state-accounting and all four application mechanisms have their own geometry.",
+    "Full model exports and300 validation images load near relevant views; only lossless selected worked inputs are imported in article code. No author/verifier numerical fixtures are public.",
+    "Raw image,state selection,order,execution,pin and fit selection persist above asynchronous model/data loading; explicit source changes and Reset own intentional resets.",
+    "Original150-epoch fitting campaigns are reused,with full selected-checkpoint replay and new native training/gradient cases. The public-export-only checker edit removed an unused private fixture payload after native verification; numerical functions and evidence are unchanged."
+  ],
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/native-checks.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/native-port-fixtures.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/model-checks.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/render-checks.json",
+    "docs/teaching/deep-learning-completion/xlstm-extended-lstm/design.md"
+  ],
+  "nativeEvidence": {
+    "namedChecks": 78,
+    "selectedFits": 6,
+    "validationReads": 3600,
+    "freshFloat64Cases": 54,
+    "pixelDerivatives": 3456,
+    "actualAdamSteps": 6
+  },
+  "numericalEvidence": {
+    "topicId": "xlstm-extended-lstm",
+    "passed": true,
+    "comparisons": 622023,
+    "maximumFloat32LogitError": 0.00008632359882376761,
+    "maximumFreshError": 2.375877272697835e-14,
+    "maximumGradientError": 1.1206349448400488e-7,
+    "checks": [
+      {
+        "name": "All3600 retained validation reads and every prefix argmax agree with native selected fits",
+        "passed": true
+      },
+      {
+        "name": "54 fresh float64 full networks: every stage,state,logit plus reset and normalizer-only reset",
+        "passed": true
+      },
+      {
+        "name": "3456 fresh pixel derivatives versus native autograd",
+        "passed": true
+      },
+      {
+        "name": "Every reader complete-state carry and changed grouping preserve the full function",
+        "passed": true
+      },
+      {
+        "name": "Raw/scaled scalar and matrix,floor-active failure,log1000 null,causal dense/chunk schedules,nonempty incoming state,short final chunks and12 edited settings",
+        "passed": true
+      },
+      {
+        "name": "Exact BigInt state accounting",
+        "passed": true
+      }
+    ],
+    "limits": [
+      "Full-network float32 absolute logit tolerance1e-4 and exact argmax comparison at every retained prefix.",
+      "New native float64 full-network stages1e-10; finite differences2e-7.",
+      "Browser paint/live inputs and integration build remain separate checks."
+    ]
+  },
+  "browserInventory": "docs/teaching/deep-learning-completion/xlstm-extended-lstm/design.md",
+  "registration": {
+    "runtimePathPreserved": true,
+    "newSharedRegistrations": []
+  },
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limits": [
+    "No original150-epoch campaign rerun; all selected fits and complete retained measurements replayed.",
+    "No pretrained7B download,GPU kernel execution or invented timing/result.",
+    "74SSR/source checks do not establish painted layout or live keyboard/retry behavior; root performs those checks."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "htmlCharacters": 444035,
+  "checks": [
+    "Full lesson renders without exceptions or React warnings",
+    "All four immediately playable investigations present; selected model honestly loads on intersection",
+    "All eighteen figure anchors replaced and dollar math converted to rendered KaTeX",
+    "Finite initial numeric outputs"
+  ],
+  "limitations": [
+    "SSR does not establish painted geometry, browser controls, keyboard/mobile access or network recovery."
+  ]
+}

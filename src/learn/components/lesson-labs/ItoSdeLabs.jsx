@@ -218,11 +218,11 @@ export function AdaptedIntegralLab() {
     <p>{choice === 'left' ? 'This coefficient is available before the increment. Brownian independence then gives conditional mean zero.' : choice === 'right' ? 'This coefficient already contains the increment. Treating it as information known beforehand would introduce look-ahead.' : 'This symmetric endpoint average is a different convention. It is not an adapted coefficient chosen before the increment.'}</p>
     <div aria-live="polite"><Metrics rows={[['Left sum', state.left], ['Right sum', state.right], ['Symmetric sum', state.symmetric], ['Q = sum of squared increments', state.quadratic], ['Terminal W', state.terminal], ['½(W²−T), T=1', state.itoLimitAtTerminal]]} /></div>
     <div className="ito-identity">2 × left sum + Q = W² → {display(2 * state.left)} + {display(state.quadratic)} = {display(state.terminal ** 2)}</div>
-    <details><summary>Inspect every interval and cumulative contribution</summary><div className="ito-table" tabIndex={0}>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect every interval and cumulative contribution</h4><div className="ito-table" tabIndex={0}>
       <table><thead><tr><th>Interval</th><th>Before</th><th>ΔW</th><th>Left contribution</th><th>Left total</th><th>Q</th></tr></thead>
         <tbody>{state.rows.map(row => <tr key={row.index} className={step === row.index ? 'selected' : ''}>
           <td>{row.index + 1}</td><td>{display(row.before)}</td><td>{display(row.increment)}</td><td>{display(row.leftContribution)}</td><td>{display(row.left)}</td><td>{display(row.quadratic)}</td>
-        </tr>)}</tbody></table></div></details>
+        </tr>)}</tbody></table></div></section>
     <p>{source === 'hand' ? 'The four increments are an exact hand fixture, not a statistical sample.' : 'The 256 finest increments are seeded synthetic normal draws. Coarser observations sum the same increments, so the terminal value is retained; Q need not improve monotonically on one path.'}
       {' '}The identities are exact algebra, evaluated in binary64. The limit target uses Brownian Q→T; this finite sample does not prove that theorem.</p>
     <button onClick={reset}>Reset integral</button>
@@ -502,10 +502,10 @@ export function SdeErrorLab() {
     {result && <div className="ito-sample-result" aria-live="polite"><h4>Seed 29 · {result.samples} paired paths</h4>
       <Metrics rows={[['Estimated bias of mean', result.bias], ['Bias standard error', result.biasStandardError], ['Sample mean squared error', result.mse], ['SE of mean squared error', result.mseStandardError], ['Square root of sample MSE', result.rms]]} />
       <p>The standard error belongs to the sample mean squared error, not directly to its square root. It estimates finite-sample uncertainty; it neither removes discretization bias nor guarantees coverage in every run. Repeating with the same controls and seed reproduces this finite experiment.</p></div>}
-    <details><summary>Inspect all analytic resolutions</summary><div className="ito-table" tabIndex={0}><table>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect all analytic resolutions</h4><div className="ito-table" tabIndex={0}><table>
       <thead><tr><th>Steps</th><th>EM RMS</th><th>Milstein RMS</th><th>Mean bias (both)</th></tr></thead>
       <tbody>{rows.map(row => <tr key={row.steps}><td>{row.steps}</td><td>{display(row.euler.rms)}</td><td>{display(row.milstein.rms)}</td><td>{display(row.euler.meanBias)}</td></tr>)}</tbody>
-    </table></div></details>
+    </table></div></section>
     <p>Try μ=0 with positive noise: the first-moment bias is zero, but path error is not. Matching one moment does not make the full distribution or path correct. General convergence orders need the smoothness and integrability conditions stated in the lesson.</p>
     <button onClick={() => {
       setMu(0.4);

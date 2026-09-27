@@ -1,0 +1,42 @@
+{
+  "topicId": "batch-layer-group-rms-normalization",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:08:38.205Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+    "src/learn/components/lesson-labs/NormalizationIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/normalization-intuition.css",
+    "docs/teaching/concept-intuition/batch-layer-group-rms-normalization/independent-review.md",
+    "scripts/review-neural-foundation-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "d4c18f31bb243fdfcfac3a4d84d4690085ff88bb8f0cfe00b47af2b15b374e27",
+    "src/learn/components/lesson-labs/NormalizationIntuitionFigures.jsx": "e308030c2925d93ccfa3cdf345fee93ace411bdda80c5cbf1d3ee288661d7944",
+    "src/learn/components/lesson-labs/normalization-intuition.css": "9d19ed37bc6f8b9175c1c6f0c633ed7297c44fe0320a714215de46cce5e9b502",
+    "docs/teaching/concept-intuition/batch-layer-group-rms-normalization/independent-review.md": "f606840a6e5ae4da80c7a313f27bcccaaf6d9ed1fb37c9a3430cf1f3a81885b2",
+    "scripts/review-neural-foundation-intuition.mjs": "0d39e7f335dd45b1a92a6e07809ccfa2c35f1a5ad1582bee4d67e7377c20722a"
+  },
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic assessment, no actual learner session",
+  "checks": [
+    {
+      "name": "New finite-epsilon VJP matches perturbations and common-shift null",
+      "status": "passed"
+    },
+    {
+      "name": "Positive rescaling is not exactly invariant with fixed epsilon",
+      "status": "passed"
+    },
+    {
+      "name": "Different running-mean history expansion",
+      "status": "passed"
+    }
+  ],
+  "fullReading": "docs/teaching/concept-intuition/batch-layer-group-rms-normalization/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "pending root",
+  "integration": "pending root",
+  "nativeExecution": "Existing unchanged campaigns retained; no fresh fits or full native verification claimed."
+}

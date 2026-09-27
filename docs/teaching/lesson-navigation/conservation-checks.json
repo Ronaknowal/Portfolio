@@ -1,0 +1,1417 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-27T18:39:49.363Z",
+  "publishedLessons": 234,
+  "presentationEditedLessons": 73,
+  "checks": [
+    "All published lesson ASTs preserved except explicit opening placement and three audited navigation wrappers",
+    "Numbers and unnumbered titles",
+    "Stable anchors, aliases, collisions, lab exclusion and repeated collection"
+  ],
+  "conservation": [
+    {
+      "file": "src/learn/data/topics/graphs-representations-bfs-dfs.jsx",
+      "before": "ffb2c634cf325e1e643b9f938fe27febdfa27e4a71f993859ee7986c4106f43f",
+      "after": "ffb2c634cf325e1e643b9f938fe27febdfa27e4a71f993859ee7986c4106f43f",
+      "semanticSha256": "628d5b2c9b474e5e0cedf81d5864e71423bb1b4a89043594bb28a1cfbe4733fb"
+    },
+    {
+      "file": "src/learn/data/topics/heaps-priority-queues-tries.jsx",
+      "before": "c9a751ef9e2bfa8404b7d5515820fc9511ea1a91acc56a6fb359f8aec5b1d198",
+      "after": "c9a751ef9e2bfa8404b7d5515820fc9511ea1a91acc56a6fb359f8aec5b1d198",
+      "semanticSha256": "9fc5c3e3930bad0172b02bf4805db21b4d863c1812a0fadc9e6777232a07e39b"
+    },
+    {
+      "file": "src/learn/data/topics/trees-binary-search-trees.jsx",
+      "before": "1da1a3d48abd575021cc5e53f49d43e74fe8239591642343c68a60f337d9d94e",
+      "after": "1da1a3d48abd575021cc5e53f49d43e74fe8239591642343c68a60f337d9d94e",
+      "semanticSha256": "d8e01d1a08da055e6f9d58e2123b2ec7a69163663b0cae88b18b73309fbcb9a5"
+    },
+    {
+      "file": "src/learn/data/topics/threads-concurrency-locks-deadlocks.jsx",
+      "before": "f2023bc982995913e806f184d33ef591d8e6bcec44c70a7c5193d16ef20a934c",
+      "after": "f2023bc982995913e806f184d33ef591d8e6bcec44c70a7c5193d16ef20a934c",
+      "semanticSha256": "a521b98c1e2444a46f9b3c231e061d241ee3e59539a775b182228bac99360f0f"
+    },
+    {
+      "file": "src/learn/data/topics/scientific-file-formats-schemas-reliable-data-i-o.jsx",
+      "before": "37a0dd6ee29a547db1a94cb38e74d69e617d4816f840b7fe775e154d5600886e",
+      "after": "37a0dd6ee29a547db1a94cb38e74d69e617d4816f840b7fe775e154d5600886e",
+      "semanticSha256": "0c034dd609f2788468a62bd7e473a6f0a455550e2860aa55b28e363c30697433"
+    },
+    {
+      "file": "src/learn/data/topics/sql-relational-data-transactions-for-ml.jsx",
+      "before": "9e861b07409362e0752715429520fe49bdd29aa56b6b4cea1548c1e885c7cde6",
+      "after": "9e861b07409362e0752715429520fe49bdd29aa56b6b4cea1548c1e885c7cde6",
+      "semanticSha256": "613f799a63332451ef1637ff9025e03b91097b79d351de40115cf5f9c5c778ba"
+    },
+    {
+      "file": "src/learn/data/topics/python-basics-types-control-flow-functions-modules.jsx",
+      "before": "1c140c79f681c4f9583d5f574cef33ad786ad7ae72276347f1d4dd986bea3e52",
+      "after": "1c140c79f681c4f9583d5f574cef33ad786ad7ae72276347f1d4dd986bea3e52",
+      "semanticSha256": "f4264e18cd002704ed88b9db51d44d4c08369f04611a44e463cae5aa93d44714"
+    },
+    {
+      "file": "src/learn/data/topics/object-oriented-programming-in-python.jsx",
+      "before": "ec97ccec9174c90aa8a7a3c830bcab02b6b1404283f37ff88cb330e7e29a9621",
+      "after": "ec97ccec9174c90aa8a7a3c830bcab02b6b1404283f37ff88cb330e7e29a9621",
+      "semanticSha256": "449c6975f21d7c9583f4616617d7e4770505c66c502697cf0ccc82ca1dc2dd97"
+    },
+    {
+      "file": "src/learn/data/topics/iterators-iterables-generators.jsx",
+      "before": "3c9539608bea908a4bcba8c290520c84a3c1310106ce41275f7a0a6c3c1194ca",
+      "after": "3c9539608bea908a4bcba8c290520c84a3c1310106ce41275f7a0a6c3c1194ca",
+      "semanticSha256": "5d8af7785057ced83fbffd868f8cea3ab960a32e3a252d4e27b1aaafd997716f"
+    },
+    {
+      "file": "src/learn/data/topics/decorators-context-managers.jsx",
+      "before": "c246f985a73c930fe30ec3ad733dd7ac89a26c850df040432c9d2db395d45567",
+      "after": "c246f985a73c930fe30ec3ad733dd7ac89a26c850df040432c9d2db395d45567",
+      "semanticSha256": "224ceabf0efa0d98d3894f5d47976c300eede1af348021a5b2a4377c3c8db17b"
+    },
+    {
+      "file": "src/learn/data/topics/testing-debugging-dependency-management.jsx",
+      "before": "e5d37e6b9fda4ccffe7f36c77e0bd5413db215bf783899a855d5f6332d5981d5",
+      "after": "e5d37e6b9fda4ccffe7f36c77e0bd5413db215bf783899a855d5f6332d5981d5",
+      "semanticSha256": "0a0a762e2ea4c682fa88f1344f9625377b466b97f878571df1c695d64748bb3c"
+    },
+    {
+      "file": "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx",
+      "before": "7dab72e2e54e03453dcd9d4763bec2b821537a0a21cc096d2659014cf8b5e41e",
+      "after": "7dab72e2e54e03453dcd9d4763bec2b821537a0a21cc096d2659014cf8b5e41e",
+      "semanticSha256": "b09015d5ef45b155cd0977b1a4cdc5da997d0e6393040a283f678c32775ade02"
+    },
+    {
+      "file": "src/learn/data/topics/pandas-data-wrangling-joins-grouping.jsx",
+      "before": "08ed02ee96cb27e61e73d283c82b0c167e7a140ba68bd4a975cc16270c2e707f",
+      "after": "08ed02ee96cb27e61e73d283c82b0c167e7a140ba68bd4a975cc16270c2e707f",
+      "semanticSha256": "5677e6dbf0345045d5384adf4a226ca10254ae33e12da79bae08ab72694f10c2"
+    },
+    {
+      "file": "src/learn/data/topics/matplotlib-scientific-plotting.jsx",
+      "before": "cc69665515934a3c7dcdcf39e3cd7bd255e73ee00bf90e1a1d575894bfec424b",
+      "after": "cc69665515934a3c7dcdcf39e3cd7bd255e73ee00bf90e1a1d575894bfec424b",
+      "semanticSha256": "76b2af1d798f30727d3b8d78b2570d652d02f3f81e4179a2c17994d72aef6895"
+    },
+    {
+      "file": "src/learn/data/topics/reproducible-notebooks-experiment-structure.jsx",
+      "before": "468f0d5480d094441f07de8a1dc1c52426194d312982a9429ad5895291fb5195",
+      "after": "468f0d5480d094441f07de8a1dc1c52426194d312982a9429ad5895291fb5195",
+      "semanticSha256": "b030eb2d39e419345e10b934d5fa9e1f0d980d059e454f107ebcdb04e252da6d"
+    },
+    {
+      "file": "src/learn/data/topics/code-documentation-type-hints-api-design.jsx",
+      "before": "87d98a779a5f500160a13cce3b0026fb08bc1c3d909ea794a68f997662d1d278",
+      "after": "87d98a779a5f500160a13cce3b0026fb08bc1c3d909ea794a68f997662d1d278",
+      "semanticSha256": "12caefe75f0359dc7ea5a6d992502ad3dd4d29173022546a611b1f6fcd375a77"
+    },
+    {
+      "file": "src/learn/data/topics/git-github-collaborative-version-control.jsx",
+      "before": "d43c9affd7cad5859c3a58f4732b80228404e1f3a30d3d19dacdc03eaa8e6084",
+      "after": "d43c9affd7cad5859c3a58f4732b80228404e1f3a30d3d19dacdc03eaa8e6084",
+      "semanticSha256": "92dd6fe7eb73accdffe51958c6f6aefae80a7e3689b5275d5f7fbd458b9445f4"
+    },
+    {
+      "file": "src/learn/data/topics/linux-basics-filesystems-processes.jsx",
+      "before": "027adefde4d40200251179dec13ea62da2a992b6771a41f570992de5f859ffb2",
+      "after": "8ba041b340040ed9a1f5d2c40b37eb0cc57b5c7a56e497472fcfbc580d113d89",
+      "semanticSha256": "91cd64facc627a9dbcdf4e96e1c8ffe0db791c4bccec066d69eddc1e43812e1a"
+    },
+    {
+      "file": "src/learn/data/topics/os-processes-virtual-memory-isolation.jsx",
+      "before": "a222c847be0e2766bf62d9dc930255dfd56cdd5d5f5f7e12211d14c69ac6e902",
+      "after": "a222c847be0e2766bf62d9dc930255dfd56cdd5d5f5f7e12211d14c69ac6e902",
+      "semanticSha256": "97b401a290cb40ef2a29fa3dbeb738b7d54f19bc9cb38a122e4607f1f5d9294b"
+    },
+    {
+      "file": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+      "before": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a",
+      "after": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a",
+      "semanticSha256": "60c3f597716fe01ad7d96932d1d4e42de36790aeb7054ada9e563aedf1cfe25a"
+    },
+    {
+      "file": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+      "before": "a5880f21bc5a8990b37238691f16779f4c504894714e2c992c380b243741293a",
+      "after": "a5880f21bc5a8990b37238691f16779f4c504894714e2c992c380b243741293a",
+      "semanticSha256": "4f1e35de2882de03d9aa3b9e895a52733024770741dabcc08c6d58fdc7a88c99"
+    },
+    {
+      "file": "src/learn/data/topics/bash-scripting-command-line-automation.jsx",
+      "before": "ce611209424a8c0eb6916a5cb14963eb385efd77ebb6196343cee9bd38a81ede",
+      "after": "ce611209424a8c0eb6916a5cb14963eb385efd77ebb6196343cee9bd38a81ede",
+      "semanticSha256": "f8ea1dabf0c84696db9e191062659fa6a27197a018bae97432d211a57ff1614d"
+    },
+    {
+      "file": "src/learn/data/topics/vectors-matrices-tensor-operations.jsx",
+      "before": "715e94574e1681ddb7c1d07d416c07b8a3184c99c01e3b6a0c0b6d40d6e23bcd",
+      "after": "b586bb7d6ce9034e8083da380a221f4fdab8d4311841467cd404eb63eb7b3d53",
+      "semanticSha256": "67a0f5fbb1bda6fdb180255532c350e1d0f37bd9966b83e4e5bcc3557fd5ac8d"
+    },
+    {
+      "file": "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx",
+      "before": "ffa9d1838d5d5de6c023e8fa693edc9f19cd92b5b0eb4a63f03f74e7b7253544",
+      "after": "ffa9d1838d5d5de6c023e8fa693edc9f19cd92b5b0eb4a63f03f74e7b7253544",
+      "semanticSha256": "b5f55989b26e96892693c241df515e028e4b37cfe045f7fbc98cfeca52ce6453"
+    },
+    {
+      "file": "src/learn/data/topics/eigenvalues-eigenvectors.jsx",
+      "before": "4c186f6765d51cef9508714f71a81b65d0d079b4de37f2bdc8dfa63b4a946b1e",
+      "after": "4c186f6765d51cef9508714f71a81b65d0d079b4de37f2bdc8dfa63b4a946b1e",
+      "semanticSha256": "afc51bb9a2ed65347808cb4e145969cd9752973451eea72e6b5829e073ada1d7"
+    },
+    {
+      "file": "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+      "before": "feda34dbaaafa255d3a357961e8e786111a457525e2d4c59b2df1e35d9824edb",
+      "after": "feda34dbaaafa255d3a357961e8e786111a457525e2d4c59b2df1e35d9824edb",
+      "semanticSha256": "6c5272366278a815840fabb48cb4a120de363a21e7fa53f2f99c93217955f4f3"
+    },
+    {
+      "file": "src/learn/data/topics/tensor-algebra-einsum-notation.jsx",
+      "before": "bdbec33acaa6bb7628dc8631f96ff42e2a33372b368a8a7584debcae60a4d4d7",
+      "after": "bdbec33acaa6bb7628dc8631f96ff42e2a33372b368a8a7584debcae60a4d4d7",
+      "semanticSha256": "efc5110e84d353b1fbabfcaac225592a8fdcbc7e1b864b4bd2f0fbce259172b5"
+    },
+    {
+      "file": "src/learn/data/topics/randomized-linear-algebra.jsx",
+      "before": "e186d90ad3e497bd674f2165392ed3226a7036fec3ab23d0f2119aefa52772fd",
+      "after": "e186d90ad3e497bd674f2165392ed3226a7036fec3ab23d0f2119aefa52772fd",
+      "semanticSha256": "ca90e490eab39e1bef231c0b5f50015a9c7103c5d582f99470556575decf554c"
+    },
+    {
+      "file": "src/learn/data/topics/multivariate-calculus-gradients.jsx",
+      "before": "6e2210b169f65c3bb6c5c9005cb564bfcdf991baad536c236470ab5df0b184fa",
+      "after": "6e2210b169f65c3bb6c5c9005cb564bfcdf991baad536c236470ab5df0b184fa",
+      "semanticSha256": "5279b9ed4fd11343274c72815cc4768f1f48cfcb7d9f8592c3841b106430b2b9"
+    },
+    {
+      "file": "src/learn/data/topics/convex-optimization.jsx",
+      "before": "60d1ad738247783a2855420036db0baf394be4ffdf29e867d17bd964af163da1",
+      "after": "60d1ad738247783a2855420036db0baf394be4ffdf29e867d17bd964af163da1",
+      "semanticSha256": "e97c9bbae46c6c43ad84a1092fb257aa1fe3b0a4ba90417052bb979a42dd27e4"
+    },
+    {
+      "file": "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+      "before": "58df55f402d9a19e01c7c0ddc33f15a8b0e81ead632c14e3bb70c5d32be513c1",
+      "after": "58df55f402d9a19e01c7c0ddc33f15a8b0e81ead632c14e3bb70c5d32be513c1",
+      "semanticSha256": "d98ab7a4beb1f758cb1bc2e6cd640023cdd3c2c17575032acb0c32cf5636dbf7"
+    },
+    {
+      "file": "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx",
+      "before": "af1979d151bdd9f7b64cf081f38f8f103d4355d51d8bb7e8e84701545d26b144",
+      "after": "af1979d151bdd9f7b64cf081f38f8f103d4355d51d8bb7e8e84701545d26b144",
+      "semanticSha256": "a6c4f2fe80637a7f9b1cfbce473763dc693d46d0e3688982bee0ac8744dd71d5"
+    },
+    {
+      "file": "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx",
+      "before": "5b325a60c233d935908d6d705c8114e9d4dd907f7c6e8a991b9008bd8cdeb2a5",
+      "after": "5b325a60c233d935908d6d705c8114e9d4dd907f7c6e8a991b9008bd8cdeb2a5",
+      "semanticSha256": "37a6ff80d9125b2e2df649402461d2bfa525dce271f6b87db7ff4fa9c03c595c"
+    },
+    {
+      "file": "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx",
+      "before": "6565a3d20f0b51874684732a6a090074494354c9b165e6cbf37b3ed2a3dd3cb0",
+      "after": "6565a3d20f0b51874684732a6a090074494354c9b165e6cbf37b3ed2a3dd3cb0",
+      "semanticSha256": "6287e3a2f4d9ee7b55b32f7eb93ec0089bef021b6ed1d9558c81380a262c1825"
+    },
+    {
+      "file": "src/learn/data/topics/non-convex-optimization-landscape.jsx",
+      "before": "fe0c2a6dfca8cb57303aabd638afb6b669edc561540f0f1b5d41b810a0cfdcb8",
+      "after": "fe0c2a6dfca8cb57303aabd638afb6b669edc561540f0f1b5d41b810a0cfdcb8",
+      "semanticSha256": "e850110826cec444777db75cb51cebe67ab41fc5d482599a3464d3de16874df0"
+    },
+    {
+      "file": "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+      "before": "f4c1d7cd9ff530a5ed48b7c847dacf07e974e1ab5295ed92e36441874845043f",
+      "after": "f4c1d7cd9ff530a5ed48b7c847dacf07e974e1ab5295ed92e36441874845043f",
+      "semanticSha256": "350c36dbaeac598a90466d427beed969fd61d5cf7276b616147f04301198ff23"
+    },
+    {
+      "file": "src/learn/data/topics/probability-distributions-bayes-theorem.jsx",
+      "before": "fed745cd0500d2b82b056cde909889d5959570ce914f88a6bd368f5bf04afefe",
+      "after": "fed745cd0500d2b82b056cde909889d5959570ce914f88a6bd368f5bf04afefe",
+      "semanticSha256": "53ff5aaa8bda97f4de5d6ba01b19bf56c3debe276c55a5ccecdc0ff08b8a7229"
+    },
+    {
+      "file": "src/learn/data/topics/maximum-likelihood-map-estimation.jsx",
+      "before": "13afed9d4c3832a7a802048a476c48359938be84d7126aaaecebf46c06c3587d",
+      "after": "13afed9d4c3832a7a802048a476c48359938be84d7126aaaecebf46c06c3587d",
+      "semanticSha256": "a086fd588eecbce2316800fe96e0901cf4445f6c7645ef610a226eb510075122"
+    },
+    {
+      "file": "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx",
+      "before": "6b5f62218cd500b9743c7dad4c71f2492bb006069919e8652a5a13a80930270d",
+      "after": "6b5f62218cd500b9743c7dad4c71f2492bb006069919e8652a5a13a80930270d",
+      "semanticSha256": "b2a5fdbc7548b36ce4b1aea7526df991f96ddd1b8a8dcd43837cbe6b6a38fec6"
+    },
+    {
+      "file": "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx",
+      "before": "c6861a46ac05ed5c8f012eb36cd82840da354ed5ce540125b517b2e6cebcda09",
+      "after": "c6861a46ac05ed5c8f012eb36cd82840da354ed5ce540125b517b2e6cebcda09",
+      "semanticSha256": "cad569698c32d9af567b020676074b3cd5c8f17955e2f9810a5ed45f7b0574f0"
+    },
+    {
+      "file": "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx",
+      "before": "9392a5fd3adf6bbb344bfe1d4ac4f5b3e49aa8c2299201ece1556adc75f2f627",
+      "after": "9392a5fd3adf6bbb344bfe1d4ac4f5b3e49aa8c2299201ece1556adc75f2f627",
+      "semanticSha256": "02f24eff14daf5ae72c76514c6456f1da1c0d34fa2c866e1641f179d0491a0a7"
+    },
+    {
+      "file": "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx",
+      "before": "f703e255d7dd83678c879c9d825437d5e97ea4a10705d4c6e587d2235f808313",
+      "after": "f703e255d7dd83678c879c9d825437d5e97ea4a10705d4c6e587d2235f808313",
+      "semanticSha256": "30a600e84307a05520cb5efb86965cc519e9762c21efbe550ebd0c2821c3f212"
+    },
+    {
+      "file": "src/learn/data/topics/variational-inference.jsx",
+      "before": "cf020ff6ba6e924f3c9b3c64c69eaabcdac652e6448bb46c9de8d883b2d3c032",
+      "after": "cf020ff6ba6e924f3c9b3c64c69eaabcdac652e6448bb46c9de8d883b2d3c032",
+      "semanticSha256": "7325ce137120b71040d11ba2232a9976577bad8d1320e21cd4f9c3d090adbd2a"
+    },
+    {
+      "file": "src/learn/data/topics/exponential-families-sufficient-statistics.jsx",
+      "before": "b4f7695e2f156a7d7f26d57e7b4490b3304511558b5534cced68c2856df0c4a2",
+      "after": "b4f7695e2f156a7d7f26d57e7b4490b3304511558b5534cced68c2856df0c4a2",
+      "semanticSha256": "1590fab1ae578498987e6d406c9848d83321e0861152a51575fef5f28dcd6d4f"
+    },
+    {
+      "file": "src/learn/data/topics/measure-theory-probability-spaces.jsx",
+      "before": "b8461925dcdd8bceff3a5b7c52c46186b8b8adc3caba71a65c449d046af1513b",
+      "after": "b8461925dcdd8bceff3a5b7c52c46186b8b8adc3caba71a65c449d046af1513b",
+      "semanticSha256": "9e217ee53fef030d956f3a95d9e72bf22b30ce3d340b70dddc439be93df8de1e"
+    },
+    {
+      "file": "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+      "before": "22169c6695f16d96be786aeb29baa752e8737079675709e7db0098b56b634159",
+      "after": "22169c6695f16d96be786aeb29baa752e8737079675709e7db0098b56b634159",
+      "semanticSha256": "fd90e0ff3971aa5d0d612d180f890337c27b579bd9b886dd6fb3eb56b994b4a2"
+    },
+    {
+      "file": "src/learn/data/topics/causal-inference-do-calculus.jsx",
+      "before": "8b3217b607046d9199e978b5f957d77f68fe247290746cd0428c0bcd54368a75",
+      "after": "8b3217b607046d9199e978b5f957d77f68fe247290746cd0428c0bcd54368a75",
+      "semanticSha256": "3626e1a863f6d26a0a08408e093fee786f9ad752313974f187c214b1a653c783"
+    },
+    {
+      "file": "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx",
+      "before": "697b2a59e0123771aeed7eb68413516985efebc70ec940d19d8d5e9ee778eba7",
+      "after": "697b2a59e0123771aeed7eb68413516985efebc70ec940d19d8d5e9ee778eba7",
+      "semanticSha256": "dd7b4c446ac4db6bbe2a912aac61260b4bb002f5b7e89bc1c3f3be270864ad7b"
+    },
+    {
+      "file": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+      "before": "cf0069130332a4137373e99444336a8f0cc6f2dce0e591d6011f6485ac281d80",
+      "after": "cf0069130332a4137373e99444336a8f0cc6f2dce0e591d6011f6485ac281d80",
+      "semanticSha256": "b7aa2911c91a2f4720b6aa83931943e25b79d6dfb52cede47a9cf739c29d2ce9"
+    },
+    {
+      "file": "src/learn/data/topics/rate-distortion-theory.jsx",
+      "before": "e110a54e7ce4aa1f3b38a76cefd3901f748936b8ffdc35e5c31014cca8d637a0",
+      "after": "e110a54e7ce4aa1f3b38a76cefd3901f748936b8ffdc35e5c31014cca8d637a0",
+      "semanticSha256": "13c3f9e0f379fa243681158abe3bc3bba202556fcaa76e715fdc5cea18341b67"
+    },
+    {
+      "file": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "before": "e0b50e857e7e862d2552a95cc6cb19a07bb337f8ca2e4f9205ec9932322a6865",
+      "after": "e0b50e857e7e862d2552a95cc6cb19a07bb337f8ca2e4f9205ec9932322a6865",
+      "semanticSha256": "63793b776c0c563700244c279973894532d2f3ae91895b63a9b8045f658c8dc0"
+    },
+    {
+      "file": "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+      "before": "7dee76788d5fe30f84504c256b67438efd4b6dde7706a361a7a4cfbdf27e7696",
+      "after": "7dee76788d5fe30f84504c256b67438efd4b6dde7706a361a7a4cfbdf27e7696",
+      "semanticSha256": "026e70488a33f1308700c9c1f91fab30c53ebce1404d7b828007ed374ba16932"
+    },
+    {
+      "file": "src/learn/data/topics/spectral-graph-theory.jsx",
+      "before": "0164a3eef7a350bfa6253c01ef9f7bbc77b2d86991e9d93b9ed6befdb63ef4f4",
+      "after": "0164a3eef7a350bfa6253c01ef9f7bbc77b2d86991e9d93b9ed6befdb63ef4f4",
+      "semanticSha256": "c12f6532273ab18c58c0ece0e94a4128b8b1964ed713b70045092f208b2d95f6"
+    },
+    {
+      "file": "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx",
+      "before": "6b1ffdcc3d5f6c350cd57aaf3f3fe8bace7c4a1417929dea6c51f299c2098eda",
+      "after": "6b1ffdcc3d5f6c350cd57aaf3f3fe8bace7c4a1417929dea6c51f299c2098eda",
+      "semanticSha256": "6ece1c2398c9138fbd838fbeb17c830cdb79f4115766842d2da6039b4f65ced9"
+    },
+    {
+      "file": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "before": "c7bd15274b94355b303a1d37c6343c041bb651616939873e6e44e63dd664d1b3",
+      "after": "c7bd15274b94355b303a1d37c6343c041bb651616939873e6e44e63dd664d1b3",
+      "semanticSha256": "84caf25314c9f93e04e3d59705bebac57fbd6c912b8affa9c327efd6ca6e742f"
+    },
+    {
+      "file": "src/learn/data/topics/random-matrix-theory.jsx",
+      "before": "2692c8c4b5dda76549b770ebc8e1148618c187b50a19719e1bb97339efa47216",
+      "after": "2692c8c4b5dda76549b770ebc8e1148618c187b50a19719e1bb97339efa47216",
+      "semanticSha256": "82929d1a7ea1620b307a16288bcabd28ed6a7ea6e26707b0d984da8ac8de8437"
+    },
+    {
+      "file": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+      "before": "6ac31ac55fc661d6c555f5ffa0c5992b20139e2889f79dc3ceeae4a2849ad02d",
+      "after": "6ac31ac55fc661d6c555f5ffa0c5992b20139e2889f79dc3ceeae4a2849ad02d",
+      "semanticSha256": "374f6402d91e6fb4addf8d427153c5b09251f3f922319a815861d9b51e5094b5"
+    },
+    {
+      "file": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+      "before": "fda5a96d9a7224ae066cf75138ef2773ae1e04042b2f0e04904221fa6324283c",
+      "after": "fda5a96d9a7224ae066cf75138ef2773ae1e04042b2f0e04904221fa6324283c",
+      "semanticSha256": "eba4f493cf3793c0c790aa443a6d623fa0d14f4b4543505f66b1f19ec5716481"
+    },
+    {
+      "file": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+      "before": "4159cc6c3edcf1cc4544f0fe328b7a1252c0c5a0cce04411518dbc9db8a25d90",
+      "after": "4159cc6c3edcf1cc4544f0fe328b7a1252c0c5a0cce04411518dbc9db8a25d90",
+      "semanticSha256": "4dbe55d702547690eb0cd1c9b0f81fa4b49bf385f4b3f33729fea60326362841"
+    },
+    {
+      "file": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+      "before": "950f4a4b68c99821d4f88caff1dc8ecb66ef6ecd25da7ec60217dc564d2982a2",
+      "after": "950f4a4b68c99821d4f88caff1dc8ecb66ef6ecd25da7ec60217dc564d2982a2",
+      "semanticSha256": "d6644d1f9cfcf12f3979c026544ab139e957e26ec534cf15f98c1c0cc1825216"
+    },
+    {
+      "file": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+      "before": "63c997a0cc9186f76072397a353161efd7395d84f457ed67a45eff89e8deb037",
+      "after": "63c997a0cc9186f76072397a353161efd7395d84f457ed67a45eff89e8deb037",
+      "semanticSha256": "8e0d34452672199973138f243b1ff12bf02ed4759f29083cd19f19b7bb59c4c6"
+    },
+    {
+      "file": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+      "before": "e9ad236088fa069503894951ab582319f30bcd56233938ecfa33e2183746ba9d",
+      "after": "e9ad236088fa069503894951ab582319f30bcd56233938ecfa33e2183746ba9d",
+      "semanticSha256": "187233ff95596776cdb3cfa3d555c3274ad8a1503c9111f0be786a2af50d2e72"
+    },
+    {
+      "file": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+      "before": "b33c550846e0c76ba7a4b9d8568279a480e50481857946bc4c4c809634192518",
+      "after": "b33c550846e0c76ba7a4b9d8568279a480e50481857946bc4c4c809634192518",
+      "semanticSha256": "6030ca5a573601b5576aa4a4f5afc8eb946d7f0a7c477ec4c957575779780d73"
+    },
+    {
+      "file": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx",
+      "before": "1e46519d387a170354a628c181268b87d9c001a8013bb971c6c139a163e3d202",
+      "after": "1e46519d387a170354a628c181268b87d9c001a8013bb971c6c139a163e3d202",
+      "semanticSha256": "c34318c9397c851dcbb59c5dcb85dc2c1b5da18b71854554fd0fb215bb82dfcd"
+    },
+    {
+      "file": "src/learn/data/topics/attention.jsx",
+      "before": "6f52df7584c835a4241f19a4ef8c779727c234bf550954bf8743087aa08937dc",
+      "after": "0151bd1064664b99fe2ebc4c6a84eff2b5949bd2f105d045ede1b37e5182db06",
+      "semanticSha256": "3ce1a1f0567a1ca45354e5d41ff11deb78a8d5b830f051f81a2c1c7b0756e5af"
+    },
+    {
+      "file": "src/learn/data/topics/backprop.jsx",
+      "before": "fd25192b27586e41456dc7db2a82022385eb8dfaa37170d65e45ae48690f8281",
+      "after": "593acb7735f4beb9e8f596753c674e572112bffbe0e716eb72fdc6205afee747",
+      "semanticSha256": "82e333bf89f331475274987d4faa63fbb7f3e2431ca79b491f5adb9f7e8f3cdf"
+    },
+    {
+      "file": "src/learn/data/topics/tokenization.jsx",
+      "before": "a2cc4cccaf32fd7274c749e83500cd463a7c594fc89e8ec12461e0fe57111130",
+      "after": "a2cc4cccaf32fd7274c749e83500cd463a7c594fc89e8ec12461e0fe57111130",
+      "semanticSha256": "e8096871734ad85a5ffce36fec206c7e23707fea94e08e3b59b36acd60efbbd8"
+    },
+    {
+      "file": "src/learn/data/topics/byte-level-tokenization.jsx",
+      "before": "efd505ace33370c6935a4a61dbf95fc1f1333ad2661ab452f8f308a54e8ddaf1",
+      "after": "efd505ace33370c6935a4a61dbf95fc1f1333ad2661ab452f8f308a54e8ddaf1",
+      "semanticSha256": "1ac74d2c59fb9fda9c58846b90c0e65ad2bdb4984d6fa9cb347faf56392e5427"
+    },
+    {
+      "file": "src/learn/data/topics/vocabulary-multilingual.jsx",
+      "before": "27678805613349ef1c3515a0da96467631b367a31f49244cb8364722daf280d1",
+      "after": "27678805613349ef1c3515a0da96467631b367a31f49244cb8364722daf280d1",
+      "semanticSha256": "e5a0d499ffdedee4fce2897cf9924ef968533173cbdbf30514d3e21a8e0c3d28"
+    },
+    {
+      "file": "src/learn/data/topics/multimodal-tokenization.jsx",
+      "before": "62fdf353537a0dd02ec2751b073c72dfa7eb557f5d17496b3778486cdf7d4fca",
+      "after": "62fdf353537a0dd02ec2751b073c72dfa7eb557f5d17496b3778486cdf7d4fca",
+      "semanticSha256": "a5a8ad6104984fb444ee421588fccbf988846f614c97d0363b38f15423a2b1f5"
+    },
+    {
+      "file": "src/learn/data/topics/dynamic-tokenization.jsx",
+      "before": "09504113fa4ceeddafc9b05644380ee849b60203a83138c20716c58efa68bae1",
+      "after": "09504113fa4ceeddafc9b05644380ee849b60203a83138c20716c58efa68bae1",
+      "semanticSha256": "edd7a7e1b100c7bb6c5b012c8d93cafe02db29d9e72fb962b3a1566c649af0c6"
+    },
+    {
+      "file": "src/learn/data/topics/causal-language-modeling.jsx",
+      "before": "93bcc27a542285f8cea33fb165ad3b5351d99b7d95efb295a4aed805f50d5c0b",
+      "after": "93bcc27a542285f8cea33fb165ad3b5351d99b7d95efb295a4aed805f50d5c0b",
+      "semanticSha256": "673ae0295665f6998fbb55b5b0458b8deec74a4bddbbd6c27ace72fb841ad741"
+    },
+    {
+      "file": "src/learn/data/topics/masked-language-modeling.jsx",
+      "before": "cd83df152727746fa796ea3862fc39b284a4ffffed52cd4b870e07580c439959",
+      "after": "cd83df152727746fa796ea3862fc39b284a4ffffed52cd4b870e07580c439959",
+      "semanticSha256": "ee4e647cd9311e2e0fc9003e3da0595b630c178c5959adfe9a17fe6ac1d795f7"
+    },
+    {
+      "file": "src/learn/data/topics/data-curation-deduplication.jsx",
+      "before": "1474cab6b20fa7954bafaa6e30ed8864581a49f0d903d0d1f948e4f9c1faed41",
+      "after": "1474cab6b20fa7954bafaa6e30ed8864581a49f0d903d0d1f948e4f9c1faed41",
+      "semanticSha256": "7c8f8221f761d7a30d689dce67f22470e12cd7dab5e46324815c5e2b8bd510c1"
+    },
+    {
+      "file": "src/learn/data/topics/scaling-laws.jsx",
+      "before": "2a20fb76798db6f1f034660cb1faf1337e476face39206c3de8f747e9091b56d",
+      "after": "2a20fb76798db6f1f034660cb1faf1337e476face39206c3de8f747e9091b56d",
+      "semanticSha256": "4b942fef45e26295e74c8e53e0be5c41c27f0c52ee579fa0c99a85a497832865"
+    },
+    {
+      "file": "src/learn/data/topics/curriculum-data-mixing.jsx",
+      "before": "3c02d6b796489715410c3a6dbf5594ff09d9e6be771e5fbdfcd5672fc528c179",
+      "after": "3c02d6b796489715410c3a6dbf5594ff09d9e6be771e5fbdfcd5672fc528c179",
+      "semanticSha256": "ddab73cc30418726947bfef00ca5a5e17aaa3db4e091e5694f1fdc8af3557ef4"
+    },
+    {
+      "file": "src/learn/data/topics/fp8-training.jsx",
+      "before": "15210d7912b11053faf09f497bcecedfc333c9988c988eb83cc9a6d7bc568500",
+      "after": "15210d7912b11053faf09f497bcecedfc333c9988c988eb83cc9a6d7bc568500",
+      "semanticSha256": "aacb63108b9b81e89c2adbdd1e95425d5a552d7ba373ae263946899fd9cf2658"
+    },
+    {
+      "file": "src/learn/data/topics/moe-training.jsx",
+      "before": "f4fb16a0d94d3b4e43e98d775273aa840d81d19487991fdd280b960d64097853",
+      "after": "f4fb16a0d94d3b4e43e98d775273aa840d81d19487991fdd280b960d64097853",
+      "semanticSha256": "5e6b5e79fa1fbd96e79148afebc9affc2331d4e167324c2628bf8e0f7ebebd4f"
+    },
+    {
+      "file": "src/learn/data/topics/multimodal-pretraining.jsx",
+      "before": "2e2dacbe3ae1983e60007baaa9989fcca69d74712af412c44f14dd19b5053511",
+      "after": "2e2dacbe3ae1983e60007baaa9989fcca69d74712af412c44f14dd19b5053511",
+      "semanticSha256": "a648eae3e27cbc4be234787278628f6ec7a3583825e407ece76e269686724742"
+    },
+    {
+      "file": "src/learn/data/topics/data-curation-pipelines.jsx",
+      "before": "ba00f971979aa14ca9d6e985feb4ea1ac089711e5c6612eb61a63b933e00dc94",
+      "after": "ba00f971979aa14ca9d6e985feb4ea1ac089711e5c6612eb61a63b933e00dc94",
+      "semanticSha256": "d410794a2565e4bcc4b6dbcadddabf8a7768f5a10c5f902a45593cf86007551a"
+    },
+    {
+      "file": "src/learn/data/topics/synthetic-data-pretraining.jsx",
+      "before": "6d15e29c91be63d2d1ef209c6ad6409405890a5f3fe96d8cb1f5d569a7a0e0d0",
+      "after": "6d15e29c91be63d2d1ef209c6ad6409405890a5f3fe96d8cb1f5d569a7a0e0d0",
+      "semanticSha256": "cb0b83e28fc02f809c1f760bf98968ebb07657eafe585bf10712169b1d0b0106"
+    },
+    {
+      "file": "src/learn/data/topics/supervised-fine-tuning.jsx",
+      "before": "bb29dca0077e3cfedd03d0538845d0c4ba7be4f5b596107956fbf0ab3c17c59e",
+      "after": "bb29dca0077e3cfedd03d0538845d0c4ba7be4f5b596107956fbf0ab3c17c59e",
+      "semanticSha256": "0b536c97ce6bfc5d8a45109114923174b7cadcf46fa3a87f23918ac4a1910dd4"
+    },
+    {
+      "file": "src/learn/data/topics/rlhf.jsx",
+      "before": "70955dadb12c4bd870a0515f39cc25f21e79e4d976ddf25d72d781cc47967888",
+      "after": "70955dadb12c4bd870a0515f39cc25f21e79e4d976ddf25d72d781cc47967888",
+      "semanticSha256": "f787982de406499ab82f279493dbc58a64d378fee5ddaf7bfaeca91d2ade75d1"
+    },
+    {
+      "file": "src/learn/data/topics/dpo.jsx",
+      "before": "5b6f0b188da64c4d079386d02900643fb7831e05b997e7d1763745d109ac2655",
+      "after": "5b6f0b188da64c4d079386d02900643fb7831e05b997e7d1763745d109ac2655",
+      "semanticSha256": "90840438cbae79a887ed508e7b707550b92c5e53c756c2a5dd0005228f55ef07"
+    },
+    {
+      "file": "src/learn/data/topics/simpo.jsx",
+      "before": "1325e3aa2a3aa59dae17366f451a8244ccab02044e78db8f0dbc5ac2d845c67c",
+      "after": "1325e3aa2a3aa59dae17366f451a8244ccab02044e78db8f0dbc5ac2d845c67c",
+      "semanticSha256": "76fe1c3480c6165e4f3028b0adca747e0a0980e246f4713538b647231129e23b"
+    },
+    {
+      "file": "src/learn/data/topics/p-tuning-soft-prompts.jsx",
+      "before": "519bf3a40d4bfd495a8efbe66b333b6324c71dbb0ef64ef7c781c1f9ac1ffc4c",
+      "after": "519bf3a40d4bfd495a8efbe66b333b6324c71dbb0ef64ef7c781c1f9ac1ffc4c",
+      "semanticSha256": "9893ac353f2e5471d6379af6624c398bbfb976ef30cdb301e350e511a6af5c75"
+    },
+    {
+      "file": "src/learn/data/topics/grpo-rloo-kto.jsx",
+      "before": "2c00af2dea075d1913f26122cc8b1c57e0c5edc11fcf80d7f2376c289652c046",
+      "after": "2c00af2dea075d1913f26122cc8b1c57e0c5edc11fcf80d7f2376c289652c046",
+      "semanticSha256": "97426dd1b9d727ba483e5e6b5c3a0c97bf085b5637c405e96a58d18553a0170e"
+    },
+    {
+      "file": "src/learn/data/topics/constitutional-ai.jsx",
+      "before": "f45cfcd58e5633a358551923d55a977b141779109bc69d4e51d819a7ab244214",
+      "after": "f45cfcd58e5633a358551923d55a977b141779109bc69d4e51d819a7ab244214",
+      "semanticSha256": "01ca8c544fb30581253307ad216979cecb69da281a834ecad1c48b7ee987de18"
+    },
+    {
+      "file": "src/learn/data/topics/prm-vs-orm.jsx",
+      "before": "def6cd722f6cec01c3bf376f8f3f7155e0a8c8821c40286ebc25c07380ad5731",
+      "after": "def6cd722f6cec01c3bf376f8f3f7155e0a8c8821c40286ebc25c07380ad5731",
+      "semanticSha256": "fda187ab27e537c162e3c3cd7fd6e6d1d31649b04a2e318abbfcf267ace3b59f"
+    },
+    {
+      "file": "src/learn/data/topics/rlaif-ipo-orpo.jsx",
+      "before": "2f22076a59f6a2cc2f812cfac0349bc3d7794d500979ae4764b077962f51860a",
+      "after": "2f22076a59f6a2cc2f812cfac0349bc3d7794d500979ae4764b077962f51860a",
+      "semanticSha256": "c17843e19fb8416acd574199951da166159dfe1a1192bd80b258ebed623ff8ac"
+    },
+    {
+      "file": "src/learn/data/topics/rlvr.jsx",
+      "before": "91451b235f6d7f408fc34680d2e1feebbb465be5d9757c4e83dc95fc7fb28ae9",
+      "after": "91451b235f6d7f408fc34680d2e1feebbb465be5d9757c4e83dc95fc7fb28ae9",
+      "semanticSha256": "3d17913a4559828160a7c093ab583afd954d94edfa7258f128b174e2aa5fc6ca"
+    },
+    {
+      "file": "src/learn/data/topics/dapo.jsx",
+      "before": "f97c9d54310d98d9ea9e894340a236b9d635573835f9b7ac8689a6b6050fc8c7",
+      "after": "f97c9d54310d98d9ea9e894340a236b9d635573835f9b7ac8689a6b6050fc8c7",
+      "semanticSha256": "5e7f61c8056b592136298fdfc80d21eedccb5ed7afbc62a982bb2c633896861f"
+    },
+    {
+      "file": "src/learn/data/topics/knowledge-distillation-llms.jsx",
+      "before": "bb3683df868574b6217fbbb69c215fc9108f3c96711975919b446cd6d0d54ae1",
+      "after": "bb3683df868574b6217fbbb69c215fc9108f3c96711975919b446cd6d0d54ae1",
+      "semanticSha256": "349b7e19ffcc38de160fde51999403c5a9a97500eb03a9dcb2b7bb6124bcfe9d"
+    },
+    {
+      "file": "src/learn/data/topics/rl-for-reasoning.jsx",
+      "before": "8c9e3782d0a3c9b58a14839134d1636ff8724d6b0f5c03ea2d0cc4778806c632",
+      "after": "8c9e3782d0a3c9b58a14839134d1636ff8724d6b0f5c03ea2d0cc4778806c632",
+      "semanticSha256": "781e4a182cda8da44b37632621036eabfc31ae9a53df9df52621ff36df5d50ef"
+    },
+    {
+      "file": "src/learn/data/topics/kv-cache.jsx",
+      "before": "059fb0ba654d5309645781d3e4052723c33f96b88116e915146dba70786a8248",
+      "after": "059fb0ba654d5309645781d3e4052723c33f96b88116e915146dba70786a8248",
+      "semanticSha256": "90220b3de393294d08d15b4a3413854143d63d893f1ee98c9eb976849b13f0ee"
+    },
+    {
+      "file": "src/learn/data/topics/decoding-strategies.jsx",
+      "before": "ca0c83e12bbcbf475f3bf985a77eab02ef0877c44810919d42d8f707bd728f72",
+      "after": "ca0c83e12bbcbf475f3bf985a77eab02ef0877c44810919d42d8f707bd728f72",
+      "semanticSha256": "97472000670446f0f998b1bfd1e778ce17a38ca08099026e258b2a99849b46b1"
+    },
+    {
+      "file": "src/learn/data/topics/constrained-decoding.jsx",
+      "before": "bf9a80762c6193f9e060ab3f72339f52f436a28137adaad046a64378b7a2fb0c",
+      "after": "bf9a80762c6193f9e060ab3f72339f52f436a28137adaad046a64378b7a2fb0c",
+      "semanticSha256": "0867c1af2c6a07226daedc6040e3c053631548333f9a66a89cd43d6e873464e9"
+    },
+    {
+      "file": "src/learn/data/topics/continuous-batching.jsx",
+      "before": "a4c622ce6e297e06690c53e2f2fa3a7b3a10f9958177d297a6d697e9d6d107ca",
+      "after": "a4c622ce6e297e06690c53e2f2fa3a7b3a10f9958177d297a6d697e9d6d107ca",
+      "semanticSha256": "13fa1fe21ee1e1af195e929ec5104d8656f69b50e0da9797e55eb0f63c5047af"
+    },
+    {
+      "file": "src/learn/data/topics/queueing-theory-llm-serving.jsx",
+      "before": "18a8b503f4600888f45095b31336770cd27e3bdba1cb2a6a5c2232a1616f9366",
+      "after": "18a8b503f4600888f45095b31336770cd27e3bdba1cb2a6a5c2232a1616f9366",
+      "semanticSha256": "5ca6a449c1b9d908fae8d2f6611024fb29ef8220c09ae73fe683be4456ab148c"
+    },
+    {
+      "file": "src/learn/data/topics/speculative-decoding.jsx",
+      "before": "2cfdd8fc08823dd13e2c91775983d660a75a007ea279e177d55d3a4e38b4373f",
+      "after": "2cfdd8fc08823dd13e2c91775983d660a75a007ea279e177d55d3a4e38b4373f",
+      "semanticSha256": "fd612917a0cb267e5760cd4ee4f5498e2f8466afb18929d1aaa0db351d68e21e"
+    },
+    {
+      "file": "src/learn/data/topics/prefix-caching.jsx",
+      "before": "ec38f1af1fb8fe03d045194dda8810c4b3a17fa4273c7b50a49b48a1df5fd641",
+      "after": "ec38f1af1fb8fe03d045194dda8810c4b3a17fa4273c7b50a49b48a1df5fd641",
+      "semanticSha256": "e9112b9233304c858385a6563ff8403aea2a4c138dc4f6e1c98a323f21f9d391"
+    },
+    {
+      "file": "src/learn/data/topics/inference-cost-economics.jsx",
+      "before": "0399f8050517998bd79db935190d737357b9d2ca5a8df48767ff89256a5e396a",
+      "after": "0399f8050517998bd79db935190d737357b9d2ca5a8df48767ff89256a5e396a",
+      "semanticSha256": "4be99b94fe572be2c08078dd623593d601a16bcc8a350ba4889d9292d9ea544b"
+    },
+    {
+      "file": "src/learn/data/topics/test-time-compute.jsx",
+      "before": "b8cde251c021e51d7ddbde75c21638278d473efc4ffd8806d551cf895ff67982",
+      "after": "b8cde251c021e51d7ddbde75c21638278d473efc4ffd8806d551cf895ff67982",
+      "semanticSha256": "355f96b3a068c86d19321bb4d3b541cf8b8ad5d533d0e2a6f5a2eab91b700897"
+    },
+    {
+      "file": "src/learn/data/topics/inference-engines.jsx",
+      "before": "ed414d7ad78ae7e6994d5f359675485cd2f7198586be7182804f54ec68b6d0a6",
+      "after": "ed414d7ad78ae7e6994d5f359675485cd2f7198586be7182804f54ec68b6d0a6",
+      "semanticSha256": "354f1af331ebfb48d3c0d0d78f3ab6ac571aea55f9bc026da9bc0ee8a4454cad"
+    },
+    {
+      "file": "src/learn/data/topics/inference-system-architecture.jsx",
+      "before": "884d7bc4cdb5b0eef15a4d8c82081c78587a5eaea34be239d1828d5604cb5e0d",
+      "after": "884d7bc4cdb5b0eef15a4d8c82081c78587a5eaea34be239d1828d5604cb5e0d",
+      "semanticSha256": "e7bb10868cce4a902771350bfb9abc6d0da1fc7abfba055c0d4ee2bf6273fb3e"
+    },
+    {
+      "file": "src/learn/data/topics/request-routing-load-balancing.jsx",
+      "before": "1c6155a2a34f91c354c1426174f2c8daa632823405858464761906bf8cb34eed",
+      "after": "1c6155a2a34f91c354c1426174f2c8daa632823405858464761906bf8cb34eed",
+      "semanticSha256": "6c5e04cc3ceb415e66243ab91630f636a287f7ff86362e146c88cb91344667be"
+    },
+    {
+      "file": "src/learn/data/topics/autoscaling-gpu.jsx",
+      "before": "9986b7d1769fcefedf1fb1280f9cfc4cd519010ac87a8992487cf35bb6cafaf4",
+      "after": "9986b7d1769fcefedf1fb1280f9cfc4cd519010ac87a8992487cf35bb6cafaf4",
+      "semanticSha256": "02f807f140ed8bbd372103926cbe491f4c587ec941ee8915d6a11a0f1c1deb8b"
+    },
+    {
+      "file": "src/learn/data/topics/disaggregated-prefill-decode.jsx",
+      "before": "0e208f7e1ed312ac7684318171d4979ce733217a01f7f3f7952e4a86924c7d3c",
+      "after": "0e208f7e1ed312ac7684318171d4979ce733217a01f7f3f7952e4a86924c7d3c",
+      "semanticSha256": "25955d8d1a85de1b997d7e6c252cfc1e3e4d21c8bf4ff766f9d417898eb51697"
+    },
+    {
+      "file": "src/learn/data/topics/caching-strategies.jsx",
+      "before": "39352098573d316686e83592931ebbbeda20aa8d8df82cf93d880bece1d5bc40",
+      "after": "39352098573d316686e83592931ebbbeda20aa8d8df82cf93d880bece1d5bc40",
+      "semanticSha256": "a00c7b47b63be6abd2b7bdeeaa6375a631479a53edf6deb091737850874c0b8b"
+    },
+    {
+      "file": "src/learn/data/topics/multi-model-serving.jsx",
+      "before": "c84380def5e77ea314b1ee0a3205adb16866085bbce47667b6b936bd996b8aee",
+      "after": "c84380def5e77ea314b1ee0a3205adb16866085bbce47667b6b936bd996b8aee",
+      "semanticSha256": "fc18d5aa4a355d1b95918a3666f9ffae6efc4c4c044e467ac873c39f1ef5894e"
+    },
+    {
+      "file": "src/learn/data/topics/rate-limiting.jsx",
+      "before": "fbfe3fbd7be83c120c022c55e1c0121568c617c0e7c8eee8986ee235917e9a94",
+      "after": "fbfe3fbd7be83c120c022c55e1c0121568c617c0e7c8eee8986ee235917e9a94",
+      "semanticSha256": "a765ae99d213a72a48c451aeb9742b5e1862a39bf2182412efce8a760c9ab72b"
+    },
+    {
+      "file": "src/learn/data/topics/guardrails.jsx",
+      "before": "6d24a452344b4851067d85dd03ba718708d13083bb85241baa0191e047e560ed",
+      "after": "6d24a452344b4851067d85dd03ba718708d13083bb85241baa0191e047e560ed",
+      "semanticSha256": "9fe721abb27588b5f24edaa713ff8740ffa8c6e94bbdb7a52a007aec0d1c5310"
+    },
+    {
+      "file": "src/learn/data/topics/observability-llm.jsx",
+      "before": "0d9b0d62526e06718b2ceffe8d7ba1b29c5a826a230bd469b1a64648f78fc578",
+      "after": "0d9b0d62526e06718b2ceffe8d7ba1b29c5a826a230bd469b1a64648f78fc578",
+      "semanticSha256": "6e27b9657215bdd8e53747848ca126c9977236af5bdf14d338ed3832f72e2def"
+    },
+    {
+      "file": "src/learn/data/topics/streaming-sse.jsx",
+      "before": "3bd55670f4ec3e13301b17944d2269034de9cf845a9407917e1069e50a138f81",
+      "after": "3bd55670f4ec3e13301b17944d2269034de9cf845a9407917e1069e50a138f81",
+      "semanticSha256": "c1424e1b13d88536ec2202d038094a45c849412d6e5091948fdf1939cadce7ef"
+    },
+    {
+      "file": "src/learn/data/topics/cost-optimization-tco.jsx",
+      "before": "5748d205b89d7c3c2ba435a2491b3abdd33f2a191cb9163c0c25ef421a022c68",
+      "after": "5748d205b89d7c3c2ba435a2491b3abdd33f2a191cb9163c0c25ef421a022c68",
+      "semanticSha256": "8e0c4a8ce04b588f7feab96b59bcf303dac005d0795d512ae4326893d442bde5"
+    },
+    {
+      "file": "src/learn/data/topics/edge-on-premise.jsx",
+      "before": "6919645d9d9638730e64a0c43534eec2adaedb5b8c0616f4bc1429e39bfa6b47",
+      "after": "6919645d9d9638730e64a0c43534eec2adaedb5b8c0616f4bc1429e39bfa6b47",
+      "semanticSha256": "5f484cbaf1382dd385c7e3f9311f61df7258fa959979cc3b7b1269ff19c92113"
+    },
+    {
+      "file": "src/learn/data/topics/multi-region-global.jsx",
+      "before": "6642ed92f41d085586d2a047bc6da2b430c67177b5d08ce909e157312ba63a64",
+      "after": "6642ed92f41d085586d2a047bc6da2b430c67177b5d08ce909e157312ba63a64",
+      "semanticSha256": "613ae27b43d8e0ae13005be75ce5c49d9ca0319d10e234cb41e5bb95c3384a8c"
+    },
+    {
+      "file": "src/learn/data/topics/context-window-extension.jsx",
+      "before": "e69d03b40d1d9e32b3ac304aad90dd329cd376c857c3e453f051f9bcf417468e",
+      "after": "e69d03b40d1d9e32b3ac304aad90dd329cd376c857c3e453f051f9bcf417468e",
+      "semanticSha256": "a3786746fd738e5ed4f459a28b6dfbcf7c16ea39eb294a8c2dfd716d3caffd78"
+    },
+    {
+      "file": "src/learn/data/topics/rag.jsx",
+      "before": "90e70a3d7246de3518bfde86156e885864bedb48157ea255cdd797d56c1582b4",
+      "after": "90e70a3d7246de3518bfde86156e885864bedb48157ea255cdd797d56c1582b4",
+      "semanticSha256": "348a498a484e09f911ab6342619ed32f3d0653fe16e7e6f84ee4376561b34e1e"
+    },
+    {
+      "file": "src/learn/data/topics/embedding-models-vector-db.jsx",
+      "before": "88f8b9a5f52b95805f89d2353f1268b49e0cbec383bf1cc7ad501f4893adfc3b",
+      "after": "88f8b9a5f52b95805f89d2353f1268b49e0cbec383bf1cc7ad501f4893adfc3b",
+      "semanticSha256": "95fd27611336ee197354baa826b0cb61fbfbb8e2a7fc7d07d5103f0fba305d74"
+    },
+    {
+      "file": "src/learn/data/topics/graphrag-agentic.jsx",
+      "before": "3ae070ccebe020ed623e11e4b31565b90147e29f36a3bde3979de686a778828d",
+      "after": "3ae070ccebe020ed623e11e4b31565b90147e29f36a3bde3979de686a778828d",
+      "semanticSha256": "5832495a10cfa18b4c1781709e2c80f1cd6ad886c5da5ac8ab4a41d9a0195900"
+    },
+    {
+      "file": "src/learn/data/topics/model-merging.jsx",
+      "before": "830fdca33af475a3575df965f0b8702a05def355cefd89ec4928d487ae04a46e",
+      "after": "830fdca33af475a3575df965f0b8702a05def355cefd89ec4928d487ae04a46e",
+      "semanticSha256": "7ef9e648a5cd2fd300aa7c412f3298d62bf289233564311896c3daef472ac73d"
+    },
+    {
+      "file": "src/learn/data/topics/hybrid-search.jsx",
+      "before": "319d45415ae2c93c6cfcb5fb178c9ebfd2ba8d39da97f22ccff176f90558aafe",
+      "after": "319d45415ae2c93c6cfcb5fb178c9ebfd2ba8d39da97f22ccff176f90558aafe",
+      "semanticSha256": "570af8bf608f56898b1599fc6ed8a9d4a1cb152d91042387023fae7cb9719aa4"
+    },
+    {
+      "file": "src/learn/data/topics/linear-logistic-regression.jsx",
+      "before": "073b125f33d564758c884beab929d3758d6887fc9f13ba1c1505f50aee27be7f",
+      "after": "073b125f33d564758c884beab929d3758d6887fc9f13ba1c1505f50aee27be7f",
+      "semanticSha256": "08e90cf9b7d67f7268d510fec6b2cae7946d71924cff73679b28e4f5bb662423"
+    },
+    {
+      "file": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "before": "d379d3b49a78e9ca3605833f866b51d492d9f0c0c046612ffb18612614084073",
+      "after": "d379d3b49a78e9ca3605833f866b51d492d9f0c0c046612ffb18612614084073",
+      "semanticSha256": "d133a62f34288fc301325ff6022638ace6a52f2a0cf654c89e32d3d593bd55f7"
+    },
+    {
+      "file": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+      "before": "86de3a90c9bb1324ccc49decb9f86eb0059f2901ef18cf5d94ef8e2dc310bbad",
+      "after": "86de3a90c9bb1324ccc49decb9f86eb0059f2901ef18cf5d94ef8e2dc310bbad",
+      "semanticSha256": "e8243832b65e512c1368c450896f17f1b0d4249c6166b2ceaed507d7a2a47a99"
+    },
+    {
+      "file": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+      "before": "cd35a4a052fa051a5d8b0faba84f433bdd4c7fb87077348c2fad9ab3f203c7d3",
+      "after": "cd35a4a052fa051a5d8b0faba84f433bdd4c7fb87077348c2fad9ab3f203c7d3",
+      "semanticSha256": "d6e11086cba72adbeb8ae95c097845ee2884abc91fd4f80f4da7a22857968183"
+    },
+    {
+      "file": "src/learn/data/topics/support-vector-machines-svm.jsx",
+      "before": "592732250b4a568657c8dea9ab27ddb0e8d9ea6f6ffc3dc0e19d7f11c424bfde",
+      "after": "592732250b4a568657c8dea9ab27ddb0e8d9ea6f6ffc3dc0e19d7f11c424bfde",
+      "semanticSha256": "4c27bc15e97dbd458ad4f1df3ed8b7c0a9b7026ba5ac19d116ec1305f9e2cc08"
+    },
+    {
+      "file": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+      "before": "3575e51104affc4c5e4dbc2a4f7c47506df3f7136d96c8fd0a71ef2445ce9fbe",
+      "after": "3575e51104affc4c5e4dbc2a4f7c47506df3f7136d96c8fd0a71ef2445ce9fbe",
+      "semanticSha256": "270b5b5f7d85d33164e7d3850dda5f1784d0ce08b3d69a9d6adc6b81669dcde7"
+    },
+    {
+      "file": "src/learn/data/topics/ensemble-methods-stacking.jsx",
+      "before": "5d58f3b9ec8823e0321375a69175b11653c53825fc3955cd0e8cb838cbc06b51",
+      "after": "5d58f3b9ec8823e0321375a69175b11653c53825fc3955cd0e8cb838cbc06b51",
+      "semanticSha256": "4392ea3c1544fb264401ed1b38c9d9a9314822d718db99e54689137bf745fd28"
+    },
+    {
+      "file": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+      "before": "2823f927016f9ada735bcc2cffaa3f60e9e8ab56d8c19170658baa3db7b0d4c0",
+      "after": "afcc81b634294b19c9de32c717557d79435d7c471097ebe70bf95838108abbb0",
+      "semanticSha256": "bec923881b4f42ef18ee14fda4edcddaddb0297b0518a10edb929824dd916dc3"
+    },
+    {
+      "file": "src/learn/data/topics/multi-label-multi-output-learning.jsx",
+      "before": "5f12d12fcfface09fd8e14f4e64ff2468ed3993a72cc7114d4dcf1bb7be570c0",
+      "after": "5f12d12fcfface09fd8e14f4e64ff2468ed3993a72cc7114d4dcf1bb7be570c0",
+      "semanticSha256": "05636ecbf0e918433205eb46212ca37686a5535a55b01eaae936b2faa01ab355"
+    },
+    {
+      "file": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+      "before": "65815bfe3587ec567f6a20d76c5d3a77dbe04166268ed6ef15c28e92294a38a9",
+      "after": "65815bfe3587ec567f6a20d76c5d3a77dbe04166268ed6ef15c28e92294a38a9",
+      "semanticSha256": "25a42dd5baabecf501240a4e46e8908fcef3db1f9df8c72f288f7e703b2d68a1"
+    },
+    {
+      "file": "src/learn/data/topics/k-means-hierarchical-clustering.jsx",
+      "before": "65394fbbce5ab09c717caa5cd823308bc620e4bcea21597e22c9c3f033eafce8",
+      "after": "f4470054fb8552579102c593aac0b8ba03babfa7157040d9001100764ed4d45c",
+      "semanticSha256": "7adbf0608a698232f4c645efd38ddd5ae23f1e79182c637da662ae991adc18b9"
+    },
+    {
+      "file": "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+      "before": "3a30c2abd790460e6d6f88cd2aca3bc3e058bc7cf5da0f09152deda018e02460",
+      "after": "0434da8b2b26adeecb0ceeb8ef05cb9d94b61b19faab7a1f015b7563fbbe9296",
+      "semanticSha256": "28f9ba33bc0cb95e56a4afae3fae00e4358d8cf89b0e5b93f1f5f418d607f565"
+    },
+    {
+      "file": "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx",
+      "before": "1a9ad0dc3ced936b6e2a0519b0fd35a810ff0dee582ea73c76639a4a649a3117",
+      "after": "302f7a5b5e7251f56b68f13adfc46ee6e060e8006ad1d8aa9d9f24567b3e814c",
+      "semanticSha256": "37d07ebb7123120f0303fca94d12da361814e0454b4296ba01664b1c5058c15f"
+    },
+    {
+      "file": "src/learn/data/topics/dbscan-density-based-clustering.jsx",
+      "before": "52bbcb9f1765f528d3f32f209712821db48018f6ece68705cdfb0142bfc6d5b8",
+      "after": "29db13b1f75990e451cb3610f7d37ac3052f56dd914d2767598f8598eb7ffbf9",
+      "semanticSha256": "3328c76c7908eb5f0deaeb3aab458335bdd4d292a8b15c9f83f37c44d723a0fd"
+    },
+    {
+      "file": "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx",
+      "before": "a0cf3f762b6e22d28049c66dcad488a78df9d57d231aace1a409aa8697a0e591",
+      "after": "49d64428d5ff9e1937d6eebd3c3af17bc5cced41355113d74f45a66c353304e4",
+      "semanticSha256": "91e31eaedfe36e37592801996d2a5b2dd8701c8c3e3598d0266eb761e973d931"
+    },
+    {
+      "file": "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx",
+      "before": "77aaba034776ce1d3e999caac76e843144e1c376f8cc75d3b5611432f80124a0",
+      "after": "bc7f2722db43e98c9640f6b1b8b61371e654a93385442848476a8d1103dd0c7f",
+      "semanticSha256": "8e29d490cbc7c5437d78f5383694218e92d67d969eb929c30527049580368202"
+    },
+    {
+      "file": "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+      "before": "adf872a6073393df294673a4520b2f5f6bb3ebcaf69c31b28504ba528e9082f7",
+      "after": "6551d30e2521245dde6cb5f7566acfb44baac93e8ff56430bb3d1308ca9debad",
+      "semanticSha256": "f7a8afdc18a176136addaa65c27af662d01fa2179f7155a3252f794f7e246f56"
+    },
+    {
+      "file": "src/learn/data/topics/independent-component-analysis-ica.jsx",
+      "before": "83c64f97a9d05b3796d862926f5fde141301d7df04dadec112ade60d85b8a8f3",
+      "after": "e341fee33f8b4818813fb57ca385ce12f2b654f7f4dcf86e946a9352b5d4b92f",
+      "semanticSha256": "462fa9337036737cf144bd836c4c47a0ee927a5a8999582278c1b5eff551dc42"
+    },
+    {
+      "file": "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx",
+      "before": "0deff84e93725925557bf4a8cc992de1b9bba406a837d1645f785b3d735a4209",
+      "after": "5c6b7f63838c65b8ec90b43c4eec902808eb3757d8445af7174e41fe7922bca9",
+      "semanticSha256": "5901987c67e9b614fc4cb06924e7d82fb2fd8c02efedcb8ae152fec44e5cca9a"
+    },
+    {
+      "file": "src/learn/data/topics/feature-scaling-encoding-imputation.jsx",
+      "before": "e1adbbe06c4592c357f74b24c76f16445b28edaf20b2503e4789e6444cd881e5",
+      "after": "573a9c94661c9f3eca9f871d6c61b899ad93883059e44533a97d109f2c5230cf",
+      "semanticSha256": "efd29daa85732d199ba50636730dddb11430d9e50c302fc0683c19b3f8a63702"
+    },
+    {
+      "file": "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx",
+      "before": "8cb9526317b7c948e7cf2114a9611658e6a6457eeca20704497fa6d32a7c9fc1",
+      "after": "6d5f11c9e21cd0b247e2e93b5376abeb16f32d0a37bcfee66af6e06a9b993e55",
+      "semanticSha256": "208e08302c44f06bd5c88179889ad2f9fe01433eb27a5584c8f2be75e392d805"
+    },
+    {
+      "file": "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx",
+      "before": "b213ab6051001ca35cc356e6050acdefdec4fd870f3f9cbfab96655a4666b4df",
+      "after": "38babf40135c75493dd2f8a0cc5640593a9b19f7c4c8c8de2c211d6b6dba360d",
+      "semanticSha256": "219a1d4299da82946fbb2bd1a95756878051a139f817219f8701628c24977420"
+    },
+    {
+      "file": "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx",
+      "before": "0fabbf0a48248c7af4bd7a4f7b88fa9dc18cbee7a5bf9003214c47f3d2dc82fb",
+      "after": "9502c35b43ce31e2ed7eca4d99ec1ec5fd589a50fefb2814972a88278b0e75dc",
+      "semanticSha256": "c12594febaf3efcf4b222d772eeddd6826103ca1fab79564038e951319c4dd4e"
+    },
+    {
+      "file": "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx",
+      "before": "14f179d6355ed77f46702344f5171fd4df2b9737fadaaf16d6f95230544486ed",
+      "after": "e9682b1425d1aebf0cebaa938bc641e25d4e28eebd382130745698bc7fbb215e",
+      "semanticSha256": "24fc786e6f202a15a25b16cf488e910c6620581e038e659c4583f221305b33d5"
+    },
+    {
+      "file": "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx",
+      "before": "791c40319281fd5eebd5faccefe36f4ed291734fa83931200be1c1317202cdac",
+      "after": "84181bea2f26335185c836e064cb4e86c79df00e0e1e3f25461959afdea377ef",
+      "semanticSha256": "d27e7c851b9cfe5184dbdffb015a67d84a853a700ba4e8cef24e62cbb24bf1e8"
+    },
+    {
+      "file": "src/learn/data/topics/automl-neural-architecture-search-nas.jsx",
+      "before": "dd99d92b0b3a6fa50688b8373db76929339379db805b229a9fde9a2b0e9fcd24",
+      "after": "9d447f047ddce45668b96058eb4d8dc4a81a915084b773b4c4819c5f52a7cc13",
+      "semanticSha256": "dc3ce301ae5a3f2492d0fa1caa8f4f962022079667575afc88cf8a24a883b57b"
+    },
+    {
+      "file": "src/learn/data/topics/hidden-markov-models-hmm.jsx",
+      "before": "5a3b89118502b55c3d4b8a45fe8ba723e092c46d1e02b7286c5e71387080da0c",
+      "after": "f67070e0d446bfe9b4a78612d11afb7453c13f97b4ca0945913cebc2c72b6967",
+      "semanticSha256": "82e66ec3312442dedfd2170e84be4cf5cca9a8e1fc2a1e9caccb734a18683c8d"
+    },
+    {
+      "file": "src/learn/data/topics/conditional-random-fields-crf.jsx",
+      "before": "97773a50e538899059dbb236f0a566c8f0f68a133277bbf6204216e7d9db278f",
+      "after": "98fc7cb59c633ea6eeb41bba0d9a553e6d273243dac67dfcbf9884b02b1973c9",
+      "semanticSha256": "05b0d4c8bbc8035773fe4ff100abd7fef4ac14c6927835db9247f5c1a6ac4004"
+    },
+    {
+      "file": "src/learn/data/topics/gaussian-processes-gp.jsx",
+      "before": "35928a1d36c8c013d542b74d1fcd6bb30da4b571a277586d49ade650ec4759d6",
+      "after": "d1912b3ae77251493a4c241c22619da97631443579cc93a293b1707e74a6d665",
+      "semanticSha256": "2753fe5b352c7a86d518e3337c58d6d7307ebf8433c64ee176ee51947434912e"
+    },
+    {
+      "file": "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+      "before": "7f61b2fff88eaa5818f1959d373031091e224521c87114da4a70046447ff1004",
+      "after": "473c2ffdd9861a876ece6a8c04869976a32e903f3358f80a2f9cf534cb45d41a",
+      "semanticSha256": "2e12e1495cf84e56231de064f25d8ad31851490a1f40838020d63c95bf06c990"
+    },
+    {
+      "file": "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx",
+      "before": "a3285d0604cd73266c7075405c0b502d2ecf684827ee1863a4fe2c5a7d6e6a61",
+      "after": "a3285d0604cd73266c7075405c0b502d2ecf684827ee1863a4fe2c5a7d6e6a61",
+      "semanticSha256": "f9c9c0fc028012e65f6fdaa003b3e1d292c4aac55be887aa92599a3ec076806b"
+    },
+    {
+      "file": "src/learn/data/topics/active-learning.jsx",
+      "before": "b094df7c85750b32629f4a896a95d1e93913a2fe8099e2ae2753cb45cb4ecd9d",
+      "after": "6719638d9297e82790431001a1a7c600b270ea022399484d7d1fe7fe1d869e77",
+      "semanticSha256": "2d71c8a8f895a311ff32b7394e3db05f8bd72a6ddade299cd2fdd56ee3e2c9c2"
+    },
+    {
+      "file": "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx",
+      "before": "c81b99ec9c2fd4de03ee5a4d6fb74d24338ece21e201ff89b5a09191a65b3850",
+      "after": "c81b99ec9c2fd4de03ee5a4d6fb74d24338ece21e201ff89b5a09191a65b3850",
+      "semanticSha256": "4d92f506289c79c5e5835f7f0c0e69faeae07c36b4403f044c8c8fc221685999"
+    },
+    {
+      "file": "src/learn/data/topics/pac-learning-vc-dimension.jsx",
+      "before": "82f27f1aa76ba161946a8ec05515c3584143c385fe0619263d4c5a85514ec11a",
+      "after": "38cc70968cfd61195477027ec6c4c5e865ae600cca1ec8602efeaae6090dc240",
+      "semanticSha256": "9b22754432e5006dd6195b18e95bb0573c6cfd177ed0454b0086ca0e9257c958"
+    },
+    {
+      "file": "src/learn/data/topics/calibration-conformal-prediction.jsx",
+      "before": "64a7ed9091e428c4bb046a1aae6837487772a7cea3d95911d3159d5e88873d38",
+      "after": "12547272576ec22be4ec66249c1645583837e8b9e0308ddb74b9c4da5a8f0637",
+      "semanticSha256": "fed98055e3efd906eeb7389b41a62d2b891b88e515ddcaf862915bf7c86657ce"
+    },
+    {
+      "file": "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+      "before": "53ce84a9038bbe6372d19108ccd8505017c902c224de34b1c9d329655722d4d8",
+      "after": "f7d678fca763fe50e968dee7825d41cc8e155895c3dcb82f3e8b57daf014329c",
+      "semanticSha256": "13e7cece6f5b4efd1878181068f245a9d59527465c374f6214251bbd258a3ab6"
+    },
+    {
+      "file": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+      "before": "389c79a2ee580692b7e43d10ca34819c4dceada66334eb9858ff2ebb90a5e404",
+      "after": "0f460c0122a01ebc05efe022e1fdb9fd39021445a91d2a5c57bbf667a5c51edf",
+      "semanticSha256": "3665195e2297854df19923c065ee1e24bab684407556f4b676dd58c95c6ee5b4"
+    },
+    {
+      "file": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+      "before": "30ba7db1eeb36060c58966a07d4521cff773c76e1fbe351026dfdbeeafea14d5",
+      "after": "bc526709f53896963ac8c71b45d641ef8d5f37349e529c52833b0993933a24dd",
+      "semanticSha256": "7d322af4b3098ae79fc392893faac8bacaa931624bae8cc4eb35b87c5a064ca7"
+    },
+    {
+      "file": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+      "before": "d4c18f31bb243fdfcfac3a4d84d4690085ff88bb8f0cfe00b47af2b15b374e27",
+      "after": "30e5495513ececc9fd4abf3353d135e4d0aa8d64106cca32baf088c30413e0cb",
+      "semanticSha256": "35251175fb6a8e7abd4e65ea85fc18581a1642b96566f2d7f68af5470ce91d75"
+    },
+    {
+      "file": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+      "before": "91fc3a6e5c2f05b829c09c5c08e26ae1f29f6642207f29889cbec34bd387cf65",
+      "after": "d5b467c278e00fb951a8d34e60b39a4c719da04374ff63c0acec1f36e294d7a7",
+      "semanticSha256": "cf10dc4664c3efbf6e14c71005f8c1bc3701a61e09ae82f3f990aeb8d781a91e"
+    },
+    {
+      "file": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+      "before": "770cb9cd08371cb50a4730b8e89eef10368bc1b02f9e694f0cc0b6e81d3e802b",
+      "after": "688fcdc762165222060703036f25053d0b3526ad255d6257d5b028c822074706",
+      "semanticSha256": "bd2d2b92aafcad9d727c75d8e8ff7793ddbf8303ed0b2ced60120c844ab9af8a"
+    },
+    {
+      "file": "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+      "before": "0afb834fce7e584cc1f5faed48c1bd00f9d8539a9498fe0406ecc2c6ceb962a5",
+      "after": "b311988fbbbd47fc6333db0ffdaadc20ccf41640c0259b1110795a016d06683f",
+      "semanticSha256": "8b3ec4b764b8cca002f37c939302b1284a4fdf6634e4e19985157596b6332790"
+    },
+    {
+      "file": "src/learn/data/topics/residual-connections-skip-connections.jsx",
+      "before": "0864b09b9cbe7d0020b61c2659d1ce17b121e088d1f403430e4235135b2bccc3",
+      "after": "33dd0ca0b33634b7461f81765264892528907e8060530998011f5cf885a9bcb7",
+      "semanticSha256": "4355e32c8ae779c2a7b7a682c0908544015fc528fe33df96f31dd162923c05c2"
+    },
+    {
+      "file": "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+      "before": "d7cad201cd33f4c13a6d98bfb25910712d86c2e7b8c29b24b01fcd6775d90367",
+      "after": "c9135d5ae4a892b5f80021ef7cfb82564aed42c35745dd9f46c38fe6484d9e40",
+      "semanticSha256": "43190da71cc5dd877add4bdfb037198cb09b2781b949e15427991bf3579e6a92"
+    },
+    {
+      "file": "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+      "before": "a27213957cec1b6e39bed2079181a3e0ae4cc7eba1dfa24f8b3b204f1a7ba1f3",
+      "after": "30fde542b7c4009262afb1e3746e8b850ffdcd2c20db784a774ba4a6f7bfbd7a",
+      "semanticSha256": "1336c2380805eeaf5cf2df14ea453092b1775905c32ce2bdfb6a611477e41e68"
+    },
+    {
+      "file": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+      "before": "1e7cb43b2f82fbb5b0511cdb1d133e5f5b5db69dce05bc55650759ec30ed142e",
+      "after": "5a5f8a50a91d883160a8826c32044a4559479432c3f31fc31b6a4ad2ca84ca50",
+      "semanticSha256": "166843e3ea5753ac078a818c398a37abb7f28cab5089e3e08f16307d896531a5"
+    },
+    {
+      "file": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+      "before": "8f6a32297452b54656296075dbbb5a3c1d2619be7bf82a29aff65bc245435799",
+      "after": "577606278f6663e214e4d04e27dd94f95d0023eb42b0cc0f8bb9d863a861b746",
+      "semanticSha256": "79ca0305ba01c8b3826d6b8bbd53023133b95a4143f78d96b86065775dd3e754"
+    },
+    {
+      "file": "src/learn/data/topics/capsule-networks.jsx",
+      "before": "8ea133b207ce23cc9e7793c0b9c1c62948a82a7237118532f691ab528ead980e",
+      "after": "d92ea0b913529ec88da7165efdd3591b4cab132a4b3d6951d53bb189725f9f49",
+      "semanticSha256": "07bf994d51ee1d54c52fd40a7840c07153334fe07dfcf6d13b16efe0a1af4ba0"
+    },
+    {
+      "file": "src/learn/data/topics/rnns-lstms-grus.jsx",
+      "before": "a72cdcd3de5fdd190aa318d459de2e1fa79e38582d7a73fc0c1674f3b2f2f2a5",
+      "after": "2aabd0286993ea52af5c5b943d7465789048167bb2b98291cf177b29407af8c8",
+      "semanticSha256": "591e001829dc894b495df3d215e75a72717e96a6b37f1295121974963d295122"
+    },
+    {
+      "file": "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+      "before": "7a8e736b7f3434ff815537399c3ce5fd8d24ecc5844bdde371da9f71becbbcc8",
+      "after": "3e5faa47f373b819a5aa3a9a2ad7a6330352cfc164b24f063e9bdd8556e456b6",
+      "semanticSha256": "cfcb81babec31380ad9c84dbf79c2bc93386a1193a974851e0dfea51c8a6cc5b"
+    },
+    {
+      "file": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+      "before": "25a95b580613f92c7198162284ea62fbb1595d1a8f5188b7003cac92c2555aa8",
+      "after": "1917a7134095222cab0fed6b1b117db64cbf3e530008451b109b9b18ba8842de",
+      "semanticSha256": "f28f7f21025450d0a0ada28665f89c883505551769ee08384a7ea512479e72f7"
+    },
+    {
+      "file": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+      "before": "a041f1c5f8605e167ad2795f2e8f751a5e528f3710b09568b852d9ff865d8777",
+      "after": "ab65c9ccf7e9af709ecf861dd01b0ee3e915179e79998f7668655c8b9122ba6b",
+      "semanticSha256": "24ccd421c936fcb7bdee5d5a77a2dcf8924aaae18972d330d50f2a41d841a145"
+    },
+    {
+      "file": "src/learn/data/topics/self-attention-multi-head-attention.jsx",
+      "before": "dd502ef6d7fc7824d13b59ff2cce28ab2906c0e7233e48061e82071c8a1b37cb",
+      "after": "509c575e633ffd549a649248b7a2e8c3dfa6927ec651d1286e5d06abf26c54a8",
+      "semanticSha256": "e5f12e975ea37c05352f8a65d8290d3fc981b77125a09ada7121ac6f54e59774"
+    },
+    {
+      "file": "src/learn/data/topics/transformer-block-architecture.jsx",
+      "before": "1ba8783855b75c88418db2e7fe7d5ae415e8a585d30a6b6939b27ad0996c9360",
+      "after": "2e0ff5f42665a37307b73051cabd73e2320575dfd177db5ef127746a8078e4be",
+      "semanticSha256": "72dc3db79451c2e22c11aa0f7eb08adfd03a0c0c13d713de3a820a48a8627ed3"
+    },
+    {
+      "file": "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+      "before": "29aae805bee9e287cb1f7e74ba0a32f0a96b5a396235d15b0a7960860f80da96",
+      "after": "8ebcf6d43573e26c3bec474c40ba86efa350fae1845f32845fd715a747dc2efa",
+      "semanticSha256": "ddcfced0e985fd07a9899b11a9897411c13eab40214301b7636093624520fefd"
+    },
+    {
+      "file": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+      "before": "992302c4cab60ee42974a75f7dbd257a2ecf2610b9fe0397fe593fcb2b8318c5",
+      "after": "dce851005a0c9bbce4ad9cc1768f0374e731af9255a5aa5b724f9577d9c64cb1",
+      "semanticSha256": "e59dfdad30adb9ac6a2b3519d56fe65d7b5c9a821099d8e77d1a0354bd04d5c0"
+    },
+    {
+      "file": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+      "before": "446fecabdb663620e2d7a12762bdac3910a09b099e36323c1bbf2191542a48bf",
+      "after": "c0e10319a79b4ee197c4fe4b5bac21a0b16882037fd73da3e425b90091b4cfc7",
+      "semanticSha256": "a29fb16500c1c159eb9d3d6718629d8d6c1bc2292d87fd511d8ba8bce3c833c2"
+    },
+    {
+      "file": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+      "before": "6ee35425e163b70b3c775f5524ad1b8b8227211731281dde05064f8fe1416abf",
+      "after": "e8fb9fca28a6793e06c2b4f269154dde58e22929bfe65ccaa54c7441ef5bef87",
+      "semanticSha256": "e13db8a5eb7b12c889d56ca73a5e5aab5eec8d70c0cafe9c7acb535cb04a37a3"
+    },
+    {
+      "file": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+      "before": "1b8a4cc6d31fe4769b0c78fb980e7c72fead52fc49b8f1dc7cf2f6c11cde488c",
+      "after": "275c4ed099def39721fb18f1cab518e43fa90a72dfd6772291d6d2f7e23ce1af",
+      "semanticSha256": "15e7aa98568240063338fa7fd6d9e66c2d5201f657831258a83beda6611c3876"
+    },
+    {
+      "file": "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+      "before": "3954ec20f678aa9a009b156d14cb8d16409b69373e3021967b09ac0675a1d4e8",
+      "after": "eb27264c677dd59dbc4a86ba21f27a9efb92e09228dd0384011aeb04f79397ec",
+      "semanticSha256": "ad06914b457fc5faf7fa80774da80bb809bb0cee7fc5f87f90e25a4d57601c6a"
+    },
+    {
+      "file": "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+      "before": "3408750a74c592e7baadc645c51bc0d3c255d49a99da3783fc04a381e5868ae0",
+      "after": "2c2ebacfc54f4cd3f81e5c51f4a802a0f7510aa36befad713351abac953d495f",
+      "semanticSha256": "9ebdbd4c4d43a786ff8b165d728181e3372f4b33a4c75025a2d69c20eb026145"
+    },
+    {
+      "file": "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+      "before": "e76ef5ba7d0284f1b21f74aa4d33177abb682f0444fbc84d536e16247f049e43",
+      "after": "4b27886601a474b4a0af0527ad6a42b8fc26dbeb5580ae822bf557c19a4bf6af",
+      "semanticSha256": "b454a899f420a9eb57a1e81a5bc0bde27228252636f68f5934882ee1f3298e15"
+    },
+    {
+      "file": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+      "before": "06cdfd4195000749be2b557e33504445e0a6e124c2c03598084e11f210b7e857",
+      "after": "b1b1f288e94151503f41a42d3eac87732c707b6b2c8f21200556d6fd63f3a0c0",
+      "semanticSha256": "6e1425df9bbd69861a6d80df467489f611c067a39e268f2e4ff2a2b887b7ee30"
+    },
+    {
+      "file": "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx",
+      "before": "b26bb23ec6b1bdc25ccc85f7b9d6ed3549962b5e45ffb040a3ec17ef1261172d",
+      "after": "31d056bd87f899165f37d3e7831c087a89b45ea2c6f27184e5d2bdef1ef93d9a",
+      "semanticSha256": "9edcea1db5f1ec17a30959e3d9dd52009ea392b8fcd08b6f47eba4e38c675f81"
+    },
+    {
+      "file": "src/learn/data/topics/spectral-normalization-gradient-penalty.jsx",
+      "before": "d8886b4ec0a85dca90bfc9c23eb3062897a0d5fdec85bb6c179b0ca33c8d92c7",
+      "after": "c994fe8a049c965d033327f77d517d8f41d0a0ba22fb2709c2097923b9cd3aa3",
+      "semanticSha256": "639092543e70120fcb301694f6b7b7fa99ccf2b4d5d32e85498870d1f56fe42c"
+    },
+    {
+      "file": "src/learn/data/topics/modern-hopfield-networks.jsx",
+      "before": "956bea6d09a92cf8beabc5a325752ff18d684e8943ace3035ee264d269aa2cc0",
+      "after": "b392c838109da5f241e4df25c788152ba2c06f5c62d79b339cdaea20d12b2242",
+      "semanticSha256": "a74ebe7b822e9240f98e9dfaf87848b877df95da71dfe4a8dc82e43e0385fa1e"
+    },
+    {
+      "file": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+      "before": "78d36b1b92195d6d1108fa9166bf5c3efddb3eb1356f22dc5bb38fc61ec284a8",
+      "after": "f2274fd220546f625fa98200ee757577db3b5fbb516ddcfbe61b5129143deb77",
+      "semanticSha256": "dd9adbdedc1d04da0269f63e66b28693d07937811ce19a875f8f8e3ca0513b4f"
+    },
+    {
+      "file": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+      "before": "aa2eadb6da7e930997cfa2e1e35570b4d159cc52ca840a1f5aa374642c0cc484",
+      "after": "9cedd4ce4889b1424b006573ddab690e25d9e8863e71dd8929c6f2399d7000d0",
+      "semanticSha256": "c8088f8edf91d77bd5bec7b65b0d2aa5d2f2e7d9a13b1cfdec0098abce0cc5ef"
+    },
+    {
+      "file": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+      "before": "21cd2f96dc3f44ced55d404bdc1b7d4fd66ec5855f4049757bf19dab648309f6",
+      "after": "c4ade2180481691a6253843a3a1e96cf8962f1915e42d47fbbca3f2e2d2302f9",
+      "semanticSha256": "d00d0df2a9b2437510b907eea614eedd93a176e0c0ba778ea157d63f0b443181"
+    },
+    {
+      "file": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+      "before": "f5d0b608012333c0c5ec43c1f290bb3e62339d06d5530b8ad651d746ac1e28fd",
+      "after": "4318ab4309b4ead7b2691f25a6cfe23d0ba712bab6552b5d4c945b1b4fbb6d21",
+      "semanticSha256": "b32316a2e0cda5d6bd53462fe090c4bab228d5e97c8b1072a52a2dac06ecc875"
+    },
+    {
+      "file": "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+      "before": "656484aa0ca3d6de4005587cad3d5651800e65e5115afc191659c8fec4032c66",
+      "after": "d3ad19add24d171a48dbd0e558045ba9c1dfed458059a9bb220ed1cd976af0d2",
+      "semanticSha256": "2cf3a797d88637c095717ef2827a6421b0b67341b556936dfd0b6fee0da0b7c7"
+    },
+    {
+      "file": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+      "before": "ce450ae130497311095cdfc4d4c810dbed5fed199b8c5935410e640b827c3e6c",
+      "after": "598162cf59f595cb8e7ad56c1b57ce69aaaeecc3337927f91daf38495ef752f6",
+      "semanticSha256": "661eba0b11d4276ee352e29b0c6f4e832bdb181f255ed95bb1df7083b8b3abcd"
+    },
+    {
+      "file": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+      "before": "2316d0c753a0152c217b1ca3ce8df9d9d4ad0c3ee9e677cb3b977b572102e243",
+      "after": "834a84ec354ec868d89d54f069ada5e8d9cd38418269304707ea2afaf98769f4",
+      "semanticSha256": "840bb27ba79dd74febaeb5422bf3ce5a685eeb961327a05ead54ab3c3a578fac"
+    },
+    {
+      "file": "src/learn/data/topics/disjoint-sets-union-find.jsx",
+      "before": "8ecc3c8e49ba29815945bbbfee6117d96e1b2bbb65c39f56f151784975ac1749",
+      "after": "8ecc3c8e49ba29815945bbbfee6117d96e1b2bbb65c39f56f151784975ac1749",
+      "semanticSha256": "4a5912cba626e0c8e866f9255579632b1cbb2a8cd39d9bc0c67c3a2589b14bc4"
+    },
+    {
+      "file": "src/learn/data/topics/complexity-analysis-recursion.jsx",
+      "before": "df910ccf4e36c957334dc2bf8edbddfc9a18152632413aed3c24f32d5475ee84",
+      "after": "df910ccf4e36c957334dc2bf8edbddfc9a18152632413aed3c24f32d5475ee84",
+      "semanticSha256": "92657b0bebd5add50e21b301b88d323a0dc11c9339c067043b807131f0d99bb0"
+    },
+    {
+      "file": "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx",
+      "before": "b234e79a55524fa7767b16121d01dba7190a329155d1440633c26cef0a7d560c",
+      "after": "b234e79a55524fa7767b16121d01dba7190a329155d1440633c26cef0a7d560c",
+      "semanticSha256": "115060d6e32fb49c7d4e6e0d2732ba4f26bb71a9ec762bb9949e52289eb60c6f"
+    },
+    {
+      "file": "src/learn/data/topics/backtracking-divide-and-conquer.jsx",
+      "before": "f9bf54b0fc73740130f25645999aee5316e94920aede1468b0758e3ec3309f28",
+      "after": "f9bf54b0fc73740130f25645999aee5316e94920aede1468b0758e3ec3309f28",
+      "semanticSha256": "382a68ee135f956bc4b07da11b8fe225d497e73bd06c225a8e1767a67e154e62"
+    },
+    {
+      "file": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "before": "a2072c79f6c9fe50e1b45b86fe56f7d68884e7c9d29064f587467b160938e2b2",
+      "after": "a2072c79f6c9fe50e1b45b86fe56f7d68884e7c9d29064f587467b160938e2b2",
+      "semanticSha256": "6eb25304f5195e9ccdec0081ac13dcaddcc97779b2c7869c878b5e3b28299339"
+    },
+    {
+      "file": "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx",
+      "before": "3c8315e86f05aefdb07b10bf0679c331c29c8e2d43a49d421f07f72aecd5c179",
+      "after": "3c8315e86f05aefdb07b10bf0679c331c29c8e2d43a49d421f07f72aecd5c179",
+      "semanticSha256": "104c6753a1e00c2b41999cc75847ed09688f60a8bc8e7472d05409a667daaefa"
+    },
+    {
+      "file": "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx",
+      "before": "626a9c5345c4e3d51d5c9863c8ca7697244c0d419c6bd07d8f96618ec2a39553",
+      "after": "626a9c5345c4e3d51d5c9863c8ca7697244c0d419c6bd07d8f96618ec2a39553",
+      "semanticSha256": "59c6928b40c2e061a8f32fb31daf8f1fc0c00849530ba669229e8f61960d8ef9"
+    },
+    {
+      "file": "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx",
+      "before": "203c5ae05abf32b09cec943554cd8de4730727b9cd72f9efc0835ea844ed56a3",
+      "after": "203c5ae05abf32b09cec943554cd8de4730727b9cd72f9efc0835ea844ed56a3",
+      "semanticSha256": "71b2a2f865adb9d2f3456188d960cd6e2d0bbac668742dcc50a0654e68101565"
+    },
+    {
+      "file": "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx",
+      "before": "07967d42b6b3875308690e708ab8e0a5f264cad55ac689f5c54b70c96b815dc1",
+      "after": "07967d42b6b3875308690e708ab8e0a5f264cad55ac689f5c54b70c96b815dc1",
+      "semanticSha256": "c9f91045862753327ed138fead0d8ef205d27254fdedf84c57ea654c0de31102"
+    },
+    {
+      "file": "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx",
+      "before": "37e744ff72f5e2fab2fd8346a24b7cfe4a9439d35335f98b53e6c4d5d57672a2",
+      "after": "37e744ff72f5e2fab2fd8346a24b7cfe4a9439d35335f98b53e6c4d5d57672a2",
+      "semanticSha256": "12598cc38fccc683dc725e03d2173c413a9bd46bcaa86d433657266fba226b8e"
+    },
+    {
+      "file": "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx",
+      "before": "d9eae683652574ae943b2fe8c604a09c56dbdd5afce01e8307bd0e8dd96f6560",
+      "after": "d9eae683652574ae943b2fe8c604a09c56dbdd5afce01e8307bd0e8dd96f6560",
+      "semanticSha256": "c151468c97914d556a15c93158e253d2cc91659efbbe76de253b29abd1627310"
+    },
+    {
+      "file": "src/learn/data/topics/reductions-p-np-computational-intractability.jsx",
+      "before": "75c9c40a371f58dc3d31241b11430001337456e96283cb6d62f3ba51b9186599",
+      "after": "75c9c40a371f58dc3d31241b11430001337456e96283cb6d62f3ba51b9186599",
+      "semanticSha256": "b420bbea16fec24602cde62a595c00415a56dbb2af45daa49ff5c96ba633ed6f"
+    },
+    {
+      "file": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+      "before": "8de10603a3d7bca6ee53453eff800eb7392c0f2ddff678e37a97dd06c081d030",
+      "after": "8de10603a3d7bca6ee53453eff800eb7392c0f2ddff678e37a97dd06c081d030",
+      "semanticSha256": "36c92361712c07e062120944ccd43a0e2ba0058531f5f741e1aa798e718ce549"
+    },
+    {
+      "file": "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx",
+      "before": "25378d90ae4fef96575f568a0957589e6596ecadbba6f45cd72c32ab7debe10e",
+      "after": "25378d90ae4fef96575f568a0957589e6596ecadbba6f45cd72c32ab7debe10e",
+      "semanticSha256": "cbb5e62a38c1ad50e0284201a772c9084f4df5d1475aba1864ecbbd6027dbb7b"
+    },
+    {
+      "file": "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+      "before": "f7969ec3c6676cbfb9a3e3b401c7b2505f9f41e026cb615754de47b810027173",
+      "after": "f7969ec3c6676cbfb9a3e3b401c7b2505f9f41e026cb615754de47b810027173",
+      "semanticSha256": "56011e800ec024bd84fc3d5c185cca2eefa41896137a98a3c65c96646027abf8"
+    },
+    {
+      "file": "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
+      "before": "314a7a852808cce49bba1039bfd7c9f6c29e60143b56b1075dd9e00f7d8a9ec2",
+      "after": "314a7a852808cce49bba1039bfd7c9f6c29e60143b56b1075dd9e00f7d8a9ec2",
+      "semanticSha256": "c672ba2810f93306baf1732a27af1687f98b0bee36e3f4a6a5e715742a7d2ed3"
+    },
+    {
+      "file": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+      "before": "5eb1359b580f238f61cb5e75c1be0cdd1dd696b7dee8ef765f7a112806a875d3",
+      "after": "5eb1359b580f238f61cb5e75c1be0cdd1dd696b7dee8ef765f7a112806a875d3",
+      "semanticSha256": "e892f6f21fd7906b4d753389dd7c6ba1b78fd45f453dcb142aceec2f0e2ffa44"
+    },
+    {
+      "file": "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx",
+      "before": "475f5bd4a31cc0e9b22d28256cb9f6839af73ebe77b19d5ca0d51864a0a2b31b",
+      "after": "475f5bd4a31cc0e9b22d28256cb9f6839af73ebe77b19d5ca0d51864a0a2b31b",
+      "semanticSha256": "1372b6ceb44f737d1296284187a9ba6dffe7306dea35a9f96a9f35fcf20e0924"
+    },
+    {
+      "file": "src/learn/data/topics/sets-logic-relations-proof-techniques.jsx",
+      "before": "45a0940a7d97603cdd861e76ce91583cd122863bc33ea4663ee6979c109f593e",
+      "after": "45a0940a7d97603cdd861e76ce91583cd122863bc33ea4663ee6979c109f593e",
+      "semanticSha256": "df40898fe289fcd2404d3d17928f0680736a216c8eebed3dbec237d1965aa720"
+    },
+    {
+      "file": "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx",
+      "before": "08eeb5b5e8db7e2b4838f142a96b95bcf312b020e2ace73230a1be08aaf294cb",
+      "after": "08eeb5b5e8db7e2b4838f142a96b95bcf312b020e2ace73230a1be08aaf294cb",
+      "semanticSha256": "59e323fb5059bc34d697bd9d5dabc0a438549e4ef87fac0277a5955a7d85de50"
+    },
+    {
+      "file": "src/learn/data/topics/counting-combinatorics-mathematical-induction.jsx",
+      "before": "1d3137d6f2fe2fa4b6ea5f726d6ff18f8befed16f6f703f14339c89e4bd3e7b8",
+      "after": "1d3137d6f2fe2fa4b6ea5f726d6ff18f8befed16f6f703f14339c89e4bd3e7b8",
+      "semanticSha256": "85cd1e8a95c2b06bdce2d7619abd961e4459ba92ea53ff7499ac21177ae2f162"
+    },
+    {
+      "file": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+      "before": "dc9e97a3398abafd36db3fcb4b005d0b49492eedc89a043ae6dcc5d896b8a5bb",
+      "after": "dc9e97a3398abafd36db3fcb4b005d0b49492eedc89a043ae6dcc5d896b8a5bb",
+      "semanticSha256": "7d6d9332db3d8f1b17323f5590aefd6172c0811ce3202aee733dd14a57b52aba"
+    },
+    {
+      "file": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+      "before": "5e62432cd6f90acaae6c0b35a178e52b41abda9a5b59c4df557c11ef50b40b6b",
+      "after": "5e62432cd6f90acaae6c0b35a178e52b41abda9a5b59c4df557c11ef50b40b6b",
+      "semanticSha256": "deca4436fcc2a86d716e9839d64056d695a8fe6f13ac4d63a452f4225c69118e"
+    },
+    {
+      "file": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+      "before": "f944ae80870d5a5c763675f930a64c8629058dc62c4e1ccfa9ff3c1a1bc78859",
+      "after": "f944ae80870d5a5c763675f930a64c8629058dc62c4e1ccfa9ff3c1a1bc78859",
+      "semanticSha256": "59e87eee3a31c8ecfbb24682680acf1badf6d4cff67c4f47493903c83ec2dfb6"
+    },
+    {
+      "file": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+      "before": "1f7b4bc936561ca4dd3ffe67e9bd3504573b7a107e6d66f21f62a1e6f90c938a",
+      "after": "1f7b4bc936561ca4dd3ffe67e9bd3504573b7a107e6d66f21f62a1e6f90c938a",
+      "semanticSha256": "82cc2eb7f41c5a2998c6d14894cbbdaa91a6cd045fca12746e2d12ee2c4deb20"
+    },
+    {
+      "file": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+      "before": "cc637837cef5c1a7c9da2a896885d7f64a0e74d465a3d206fa24a40ebc97d9b8",
+      "after": "cc637837cef5c1a7c9da2a896885d7f64a0e74d465a3d206fa24a40ebc97d9b8",
+      "semanticSha256": "65b8b3a1d56a7a39cec70177eea0bb5a497f7fe70ded574ce6ef049fa4f3b647"
+    },
+    {
+      "file": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+      "before": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+      "after": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+      "semanticSha256": "dfa8fe8c0954e020340289b87ba63510267d1970eb318ed6a8311c6de5e8a408"
+    },
+    {
+      "file": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+      "before": "ba0cb23481fcea7792bd332f2b1efc5890635287b015d73d71000671d1b28562",
+      "after": "0952c889720f42deebbcb60b1327fba79b4430a91de3ebd5dc0ea8b74e9caeb1",
+      "semanticSha256": "505f6951660e636df21435dcd3a82cd3cbe71d350303df59f696d72cdf9e1c4b"
+    },
+    {
+      "file": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+      "before": "364f16e295c013280a98664626f4bfb1a0c1262a46d2964c367219a5585f62dc",
+      "after": "364f16e295c013280a98664626f4bfb1a0c1262a46d2964c367219a5585f62dc",
+      "semanticSha256": "9190fc0e0362149f13fc1baa96a6aece19375614251eb497e1dc6df2dd7c66f9"
+    },
+    {
+      "file": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+      "before": "15c006ed02b63bbcfcd45407777da34d773c9aecc6d4a7fa14809d9a68a742a0",
+      "after": "15c006ed02b63bbcfcd45407777da34d773c9aecc6d4a7fa14809d9a68a742a0",
+      "semanticSha256": "9e024fdbf71ec49bb353c8cfe0503af96b38ceb84f00299f14535b95bcd004b4"
+    },
+    {
+      "file": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "before": "7b5e33f5b42dd3120c29d712b155f7ac74087be5805e001f3a892744aca682ed",
+      "after": "7b5e33f5b42dd3120c29d712b155f7ac74087be5805e001f3a892744aca682ed",
+      "semanticSha256": "4b29908601c606ecbd26e46b90a09a77f67bbecd375d1f398a7795bbc98968ac"
+    },
+    {
+      "file": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+      "before": "e2f0ff9616bef287a73bc63717c2cca4314dc0f763f8b8606d7ae978156fab11",
+      "after": "a0b399b3487cccc2bcbc1e8ffbe738e1e2d25d49ff38f0c3e99e8f5d2953abc0",
+      "semanticSha256": "ccd4d88fb60be3781c9631df417e18e21b031c1a39465d3ce37f673fcf9cbac0"
+    },
+    {
+      "file": "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+      "before": "afcd606885eb0956c94427dd6bb477968cb9e62515a89d9f862485eee21d42a3",
+      "after": "7f51b90e85294f0b624840a37fe0cdf1f59ab16c817089f407801b9e380c6809",
+      "semanticSha256": "e736856c48f747f99357d1ab5f17e9ffde9977391ea72198bc9121a1281c0088"
+    },
+    {
+      "file": "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx",
+      "before": "8747f667b8a5dad95349872f2da296822ae0eb1f400be2b7b03d2a5addce70ef",
+      "after": "18891048ce6cd39ee100c2de4e9d36c1df20a091a2f8ffdbfd6f3ccda37df19e",
+      "semanticSha256": "0a6aeb2a682d41bae9ac1661dca639ce99aca2dcafc97eea66093022a0a44888"
+    },
+    {
+      "file": "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx",
+      "before": "1785ee1e4c11d647b6078ae095a73a8872a0ff9463f5c6b21852c900db2d09b7",
+      "after": "f775c7ea94374fdd1d50d6f1f5954cb3361a4cdd17bce0061cdc728adba6228c",
+      "semanticSha256": "ef92bb17d191a3facff20bc5d35542353aea4ceb80c37a96f1ba70ccb87c16e5"
+    },
+    {
+      "file": "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+      "before": "edad76a866be280ba97ec622188e840aecb6f9cb24f0770335195b6416e3daec",
+      "after": "edad76a866be280ba97ec622188e840aecb6f9cb24f0770335195b6416e3daec",
+      "semanticSha256": "988f0fe29cafc3bcd6ecac3ee71c60b2884a1df5e36f85b078a6e32df6f86a9f"
+    },
+    {
+      "file": "src/learn/data/topics/mini-batches-training-loops-gradient-accumulation.jsx",
+      "before": "b54c4a656c2170ce67193f22c2c34712727c789daf588e9ee06cf1e48b3bd1be",
+      "after": "bf086a9669f41573d108e5277569866478e5514b5840a3cb3ac02144c35f33b2",
+      "semanticSha256": "734886f4fba17a8db0047f6f111398fc0ed4bf89ab1037ee90b44fcc2f0749ff"
+    },
+    {
+      "file": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+      "before": "3878a7a83416576b792923d3696bb4851f9c190f042b0725f3e878065701dee1",
+      "after": "2fb05107bb4e06814d8279a653add5e442a1aab32f1b1ffb69937080437391a7",
+      "semanticSha256": "479d212ecfe3ef3c2b624d19a724132a42b2241632c8ea96fb7d378c045c4bfc"
+    }
+  ]
+}

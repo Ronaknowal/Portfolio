@@ -1,0 +1,120 @@
+.block-two,.block-three {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem}
+.block-three {
+  grid-template-columns:repeat(3,minmax(0,1fr))}
+.block-circuit {
+  margin:1.5rem 0;
+  padding:1.2rem;
+  border:1px solid #444;
+  border-radius:.55rem;
+  background:#151515}
+.block-circuit figcaption,.block-bars figcaption,.block-path figcaption {
+  font-weight:650;
+  color:#e6b854;
+  margin-bottom:1rem}
+.block-flow {
+  padding-left:1.4rem}
+.block-flow li {
+  padding:.5rem 0}
+.block-lanes {
+  overflow:auto}
+.block-lanes>div {
+  display:grid;
+  grid-template-columns:100px repeat(5,minmax(100px,1fr)) 100px;
+  gap:.6rem;
+  padding:.7rem 0;
+  min-width:770px;
+  border-bottom:1px solid #444;
+  align-items:center}
+.block-lanes span {
+  border:1px solid #555;
+  padding:.6rem;
+  border-radius:.3rem}
+.block-bars {
+  margin:1.2rem 0;
+  padding:1rem;
+  background:#111;
+  border:1px solid #444;
+  border-radius:.4rem}
+.block-bars h4 {
+  margin:.8rem 0 .4rem;
+  font-size:.9rem}
+.block-bar-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+  gap:.45rem}
+.block-bar-cell {
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:.2rem}
+.block-bar-cell>span {
+  font-size:.75rem;
+  color:#aaa}
+.block-bar-cell strong {
+  font:12px monospace;
+  grid-column:2}
+.block-bar-track {
+  height:14px;
+  background:linear-gradient(90deg,#292929 49.5%,#aaa 49.5%,#aaa 50.5%,#292929 50.5%);
+  position:relative}
+.block-bar-track i {
+  position:absolute;
+  top:3px;
+  height:8px}
+.block-vector-editor {
+  border:1px solid #444;
+  padding:.8rem;
+  margin:.8rem 0;
+  min-width:0}
+.block-path {
+  margin:0;
+  min-width:0}
+.block-path svg {
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:380px;
+  margin:auto}
+.block-path svg text {
+  fill:#ddd;
+  font-size:11px}
+.transformer-block-lesson a,.transformer-block-lesson p {
+  overflow-wrap:anywhere}
+.block-three section {
+  padding:.8rem;
+  border:1px solid #555}
+.block-circuit button {
+  margin:.4rem 0}
+.block-circuit p,.block-bars p {
+  font-size:.9rem}
+@media(max-width:700px) {
+  .block-two,.block-three {
+  grid-template-columns:minmax(0,1fr)}
+.block-circuit,.block-bars {
+  padding:.75rem}
+.block-lanes>div {
+  min-width:0;
+  grid-template-columns:1fr 1fr}
+.block-lanes strong:last-child {
+  grid-column:1/-1}
+.block-bar-grid {
+  grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+.block-two > *, .block-three > * { min-width: 0; }
+.block-wiring-svg { display: block; width: 100%; height: auto; max-width: 330px; margin: auto; }
+.block-wiring-svg text, .block-communication-svg text { font-family: inherit; }
+.block-diagram-scroll { overflow-x: auto; max-width: 100%; }
+.block-communication-svg { display: block; width: 100%; min-width: 640px; height: auto; }
+
+
+.block-plot-scroll { max-width: 100%; overflow-x: auto; }
+.block-plot-size { min-width: 340px; }
+.block-path { overflow-x: auto; }
+.block-path svg { min-width: 320px; }
+.block-wiring-svg { min-width: 300px; }
+.block-communication-svg { min-width: 720px; }
+
+.block-three:has(.block-diagram-scroll) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }

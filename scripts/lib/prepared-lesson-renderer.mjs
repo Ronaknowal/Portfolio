@@ -1,4 +1,7 @@
 // Authoring-only Markdown subset -> static JSX. No parser ships to the browser.
+import { openingKinds, preserveLessonOpeningAnnotations } from './lesson-opening-annotations.mjs';
+import { preserveLessonEndingLayout } from './lesson-ending-layout.mjs';
+import { preserveVisibleTeachingSections } from './lesson-teaching-disclosures.mjs';
 export const jsxString = value => `{${JSON.stringify(value)}}`;
 export function renderInline(source, assetBase = '') {
   const pattern = /(\\\([\s\S]*?\\\)|`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^\s]+\))/g;
@@ -26,16 +29,27 @@ function tableCells(line) {
   });
   return protectedLine.trim().replace(/^\||\|$/g, '').split('|').map(cell => cell.trim().replace(/\u0000(\d+)\u0000/g, (_, n) => protectedTokens[n]));
 }
-export function renderPreparedLesson(manuscript, { assetBase, replacements = [], additions = [] } = {}) {
+export function renderPreparedLesson(manuscript, { assetBase, replacements = [], additions = [], opening = [], endings = [], teaching = [], preserveOpeningFrom } = {}) {
   const lines = manuscript.replaceAll('\r\n', '\n').split('\n');
   const parts = [], sections = [], used = new Map();
+  const openingUses = new Map();
+  for (const [prefix, kind] of opening) {
+    if (typeof prefix !== 'string' || !prefix || !openingKinds.has(kind) || openingUses.has(prefix)) throw new Error(`Invalid or duplicate opening paragraph annotation: ${prefix}`);
+    openingUses.set(prefix, 0);
+  }
   const inline = text => renderInline(text, assetBase);
   let paragraph = [], heading = 'Lesson overview';
   const emitParagraph = () => {
     if (!paragraph.length) return;
     const value = paragraph.join(' '), replacement = replacements.find(([prefix]) => value.startsWith(prefix));
+    const annotations = opening.filter(([prefix]) => value.startsWith(prefix));
+    if (annotations.length > 1 || (replacement && annotations.length)) throw new Error(`Ambiguous opening paragraph annotation: ${value.slice(0,90)}`);
     if (replacement) { parts.push(replacement[1]); used.set(replacement[0], (used.get(replacement[0]) || 0) + 1); }
-    else parts.push(`<Prose>${inline(value)}</Prose>`);
+    else {
+      const annotation = annotations[0];
+      if (annotation) openingUses.set(annotation[0], openingUses.get(annotation[0]) + 1);
+      parts.push(`<Prose${annotation ? ` opening="${annotation[1]}"` : ''}>${inline(value)}</Prose>`);
+    }
     for (const [prefix, jsx] of additions) if (value.startsWith(prefix)) { parts.push(jsx); used.set(prefix, (used.get(prefix) || 0) + 1); }
     paragraph = [];
   };
@@ -74,13 +88,17 @@ export function renderPreparedLesson(manuscript, { assetBase, replacements = [],
     }
     if (/^(?:- |\d+\. )/.test(line)) {
       emitParagraph(); const tag = line.startsWith('- ') ? 'ul' : 'ol', items = [];
+      const start = tag === 'ol' ? ` start={${Number(line.match(/^\d+/)[0])}}` : '';
       while (i < lines.length && /^(?:- |\d+\. )/.test(lines[i])) { items.push(lines[i].replace(/^(?:- |\d+\. )/, '')); i++; } i--;
-      parts.push(`<${tag}>${items.map(value => `<li>${inline(value)}</li>`).join('')}</${tag}>`); continue;
+      parts.push(`<${tag}${start}>${items.map(value => `<li>${inline(value)}</li>`).join('')}</${tag}>`); continue;
     }
     if (/^<\/?(?:details|summary)/.test(line)) { emitParagraph(); parts.push(line); continue; }
     paragraph.push(line);
   }
   emitParagraph();
   for (const [prefix] of [...replacements, ...additions]) if (used.get(prefix) !== 1) throw new Error(`Expected one insertion anchor: ${prefix}; found ${used.get(prefix) || 0}`);
-  return { jsx: parts.join('\n\n'), sections };
+  for (const [prefix, count] of openingUses) if (count !== 1) throw new Error(`Expected one opening paragraph: ${prefix}; found ${count}`);
+  const jsx = preserveLessonOpeningAnnotations(parts.join('\n\n'), preserveOpeningFrom);
+  const endingJsx = preserveLessonEndingLayout(jsx, preserveOpeningFrom, endings);
+  return { jsx: preserveVisibleTeachingSections(endingJsx, preserveOpeningFrom, teaching), sections };
 }

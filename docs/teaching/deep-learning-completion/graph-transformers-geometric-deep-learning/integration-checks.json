@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:50:12.248Z",
+  "topicId": "graph-transformers-geometric-deep-learning",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-46-13-247Z.json",
+  "buildReceiptHash": "18e4ef8689d2893ecb25dd44fe5844beb8ff176a65291c1d6e503d515d6da0ed",
+  "publicationMapping": "./topics/graph-transformers-geometric-deep-learning.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

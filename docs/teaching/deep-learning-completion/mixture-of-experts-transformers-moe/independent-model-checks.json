@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "reviewer": "/root",
+  "comparisons": 5803,
+  "maximumError": 1.944152373811736e-10,
+  "fullModelCases": 10,
+  "checks": [
+    "60 fresh local-gradient cases per normalizer with central differences",
+    "Independent per-expert capacity oracle, reweighting and dropless-order invariance",
+    "Log-normalizer shift identity and balancing invariance",
+    "Ten independent functional PyTorch SDPA/dense-expert model cases",
+    "Expert/router-row permutation symmetry and input-weight immutability",
+    "BigInt-derived largest integer budget controls"
+  ],
+  "limitations": "No additional fitting or distributed timing claim."
+}

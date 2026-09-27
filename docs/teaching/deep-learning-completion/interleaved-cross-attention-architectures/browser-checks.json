@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T21:28:07.287Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T21-22-05-096Z.json",
+  "checks": [
+    "All eight live investigations: initial, changed, null and reset cases.",
+    "Observed evidence unavailable asset retry recovered with state intact.",
+    "Actual diagram screenshots, desktop bounds and320px keyboard-scroll containment.",
+    "Complete executable programs, practice reveal and final color contrast.",
+    "No console warnings or errors."
+  ],
+  "findings": [
+    {
+      "issue": "Implementation-style introductory directions",
+      "status": "closed",
+      "resolution": "Learner-facing meaningful edit invitation confirmed in final browser."
+    },
+    {
+      "issue": "Bright attention weights inherited amber text",
+      "status": "closed",
+      "resolution": "Exact rounded RGB luminance selects black/white; final 0.9994 cell readable."
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/interleaved-cross-attention-architectures.jsx": "3408750a74c592e7baadc645c51bc0d3c255d49a99da3783fc04a381e5868ae0",
+    "src/learn/data/cross-attention-models.js": "6f39bbbcbf7dc69ab6144333ef13f98fa0541bae8008852fb0a5515e8b2c7f84",
+    "src/learn/data/cross-attention-examples.json": "f5549a14ec64dba4ffc7ed48e23afb42fc26f6b8ab99885a46e91140a0534dd4",
+    "src/learn/components/lesson-labs/CrossAttentionFigures.jsx": "4a7665d89976db404357c77a33b7068b21a76fc6b061e3033eb9aad27bc4dd09",
+    "src/learn/components/lesson-labs/CrossAttentionLabs.jsx": "27ada3ec9fb005ee63295167345600722b18b9102b97ca95ff632ad1b291e9ee",
+    "src/learn/components/lesson-labs/cross-attention.css": "2d4ddb38e0c94ba581da5fa06dc7bc6f89655528b73973a6e207c96880716891",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-assets/interleaved-cross-attention-architectures/observed-reads.json": "32531575164611cafdc533a936cb4bc302d141dcdffd5226a08678a135f09158",
+    "public/learn-code/interleaved-cross-attention-architectures/calculated-inputs.json": "131707f3f7efed416038e28d348cefc0a0d87932f569e6f6da3e57ec62f8344f",
+    "public/learn-code/interleaved-cross-attention-architectures/cross-attention-study.py": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+    "public/learn-code/interleaved-cross-attention-architectures/cross_attention_cache.py": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+    "public/learn-code/interleaved-cross-attention-architectures/data-provenance.md": "8bf22eccacbf9c693bf63431ec04275e52b473ad89560c2882a9c4bcc3f3e0d9",
+    "public/learn-code/interleaved-cross-attention-architectures/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/browser-review.md": "99bfd1c63bf16395444813f78ac39471b3309d40d2f6da9712ba229cb42b1435"
+  }
+}

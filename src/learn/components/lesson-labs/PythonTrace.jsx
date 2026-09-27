@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { useState } from "react";
 import { LessonTable } from "./LessonElements";
 import "./python-trace.css";
@@ -54,9 +55,9 @@ export default function PythonTrace({ kind, trace: suppliedTrace }) {
     </div>
     <div className="python-trace__state" aria-live="polite" aria-atomic="true">
       <p><strong>Step {index + 1} of {trace.steps.length}</strong></p>
-      <pre className="python-trace__code"><code>{step.code}</code></pre>
+      <CodeBlock language="python" filename="python-trace-step.py">{step.code}</CodeBlock>
       <LessonTable caption="State after this step" headers={trace.headers || ["Name", kind === "generator" ? "Execution state" : "Refers to", kind === "generator" ? "What happens next" : "Stored readings"]} rows={step.rows} />
-      {step.output !== undefined && <div><p>Output so far</p><pre className="python-trace__code">{step.output || "(nothing yet)"}</pre></div>}
+      {step.output !== undefined && <div><p>Output so far</p><CodeBlock language="text" kind="output" filename="python-trace-output.txt">{step.output || "(nothing yet)"}</CodeBlock></div>}
       <p>{step.note}</p>
     </div>
   </section>;

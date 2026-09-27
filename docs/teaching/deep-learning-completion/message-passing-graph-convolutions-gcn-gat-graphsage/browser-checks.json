@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T21:36:46.681Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T21-32-42-688Z.json",
+  "checks": [
+    "All9 live labs: current, meaningful edits, nulls, reset and linked views.",
+    "Recorded outcomes, GCN/SAGE/GAT/MLP copied weights and semantic permutation.",
+    "Actual missing asset and successful retry with edits preserved.",
+    "19 diagrams, desktop screenshots and painted bounds;320px local keyboard scrolling.",
+    "Full programs, practice solution and no console warnings/errors."
+  ],
+  "findings": [
+    {
+      "issue": "Saved-family changes and failed resource fetch discarded live inputs",
+      "status": "closed",
+      "resolution": "State moved above resource lifecycle; semantic node, features, graph, pin survive model changes and retry in final build."
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx": "e76ef5ba7d0284f1b21f74aa4d33177abb682f0444fbc84d536e16247f049e43",
+    "src/learn/data/message-passing-models.js": "c2cc1a0490bab9f9cfe08149ccdc9f2ddb4d1cb04e06b99a5031edcfbeeceb24",
+    "src/learn/data/message-passing-examples.json": "7079e18739557ab30c6268097406fc285251408437f10262a49f789214540de2",
+    "src/learn/components/lesson-labs/MessagePassingFigures.jsx": "6eab94da86e03a26b223fb6da216b8e50fc6a73e32805c3a5704980f5aeea389",
+    "src/learn/components/lesson-labs/MessagePassingLabs.jsx": "3dbd00f941376c263c3193c1fbf7444771fe4e0001f6b0026304ec544b310ded",
+    "src/learn/components/lesson-labs/MessagePassingStudy.jsx": "6bdba23a7b5d7e86700ccb21aad97317b4ce9b5b1dbd5e78c85190beaa059413",
+    "src/learn/components/lesson-labs/message-passing.css": "df91608fd8d19cba2fa921121f5829c710890cb753b439951a5a4705d15fd007",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/recorded-probabilities.json": "a09cabfa67c41e20eacb93e4084ab6135a8e569b941ecb66441dc5f632d8e506",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/mlp-11.json": "9cfe196d2c29d12b6d7fb2e61da176919ba6343a619583d621e507274c33708c",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/gcn-11.json": "c6a4f1b3819e7bb153a42345fa0ae8a3f7e6bb02368567938928dac3a491397f",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/sage-11.json": "c2a08622e1f4b16a02f018ccc835d044da5fa889ffccdae3d8c048e95e3199b7",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/gat-11.json": "555e7f9cd2a1046c014738f80eae192df34a49a88028d8747de90913e6508dc3",
+    "public/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/calculated-inputs.json": "263db8e45404de8da15ee26ffa49bb2cdacd676bdaef97020474d3f8c285dd55",
+    "public/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md": "173c24e376483dac141c1857be162239166f49bb5e3f5d1c1e3b9a71e29af374",
+    "public/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590",
+    "public/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/karate-club.json": "2b3ec6b980c8905b7aac15482e1a7a562859e6d88ae0c83e54b0436663711812",
+    "public/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py": "9c851659a8eac177518a9fdf4f047e3a05cc124c9b89dc54075e31b6e89b9e83",
+    "public/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/NETWORKX-LICENSE.txt": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/browser-review.md": "2380763c41b677fee7bf5d2176eeadd60edafb16e41a9bc1c6d1033b2a7eea5a"
+  }
+}

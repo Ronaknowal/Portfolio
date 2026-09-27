@@ -1,0 +1,41 @@
+{
+  "topicId": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:23:08.845Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx",
+    "src/learn/components/lesson-labs/EvaluationMetricsIntuition.jsx",
+    "src/learn/components/lesson-labs/evaluation-metrics-intuition.css",
+    "docs/teaching/concept-intuition/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/independent-review.md",
+    "scripts/review-probabilistic-learning-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "c81b99ec9c2fd4de03ee5a4d6fb74d24338ece21e201ff89b5a09191a65b3850",
+    "src/learn/components/lesson-labs/EvaluationMetricsIntuition.jsx": "5b69632e26f7636fdecc3d16c9083acce5ef1eef974bb321a241a410a5810bd9",
+    "src/learn/components/lesson-labs/evaluation-metrics-intuition.css": "581462e8046c22e901d744bf60e4f321cdf462a34b9eaf2599d600632ee6e3db",
+    "docs/teaching/concept-intuition/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/independent-review.md": "2d104b59eed8db39fbd00dab0ec2920fc08e9bf30f4f0ca9e62326e8a7e6a90e",
+    "scripts/review-probabilistic-learning-intuition.mjs": "a49b42abfdb91cae81d578068628788f50b5b4f6e825ddca795e29ff19b4f106"
+  },
+  "checks": [
+    {
+      "name": "Changed empirical mean/median/quantile minima",
+      "status": "passed"
+    },
+    {
+      "name": "MCC equals correlation on changed binary rows",
+      "status": "passed"
+    },
+    {
+      "name": "Aggregation reconstructed from per-class support",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new model-fitting claim."
+}

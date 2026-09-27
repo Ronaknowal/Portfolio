@@ -282,10 +282,10 @@ export function ArrivalCountWaitLab() {
       {state.masses.map(item => <rect key={item.count} x={34 + 10 * item.count} y={163 - 125 * item.mass} width="7" height={125 * item.mass} fill={item.count === 0 ? colors[0] : colors[2]} />)}
       {[0, 6, 12, 18, 24].map(count => <text key={count} x={37.5 + 10 * count} y="183" textAnchor="middle">{count}</text>)}<text x="160" y="205" textAnchor="middle">Arrival count k</text>
     </svg><figcaption>Count probabilities, not a histogram of the single timeline. Unplotted P(N&gt;24) = {number(state.tailBeyond24)}; bars are not renormalized.</figcaption></figure>
-    <details><summary>Inspect the fixed arrival calculations and count probabilities</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the fixed arrival calculations and count probabilities</h4>
       <LessonTable caption="Fixed uniform inputs transformed to cumulative arrival times" headers={['Event', 'Uniform u', 'Wait (minutes)', 'Arrival time', 'Inside window?']} rows={state.arrivals.map(event => [event.event, event.uniform, number(event.wait), number(event.time), event.inWindow ? 'yes' : 'no'])} />
       <LessonTable caption="Poisson masses calculated from the model" headers={['Count k', 'P(N=k)']} rows={state.masses.map(item => [item.count, number(item.mass)])} />
-    </details>
+    </section>
     <p><strong>Transfer.</strong> Double the rate and halve the window. The mean count and its distribution stay the same, but the waiting-time distribution in minutes changes. A mean count is an average, not a schedule.</p>
   </Investigation>;
 }

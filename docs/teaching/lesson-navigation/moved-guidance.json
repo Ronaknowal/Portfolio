@@ -1,0 +1,880 @@
+[
+  {
+    "id": "linux-basics-filesystems-processes",
+    "path": "src/learn/data/topics/linux-basics-filesystems-processes.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "Your first pass: follow sections 1–6, then 8–9 and the investigation in 12. Return to links (7), resource diagnosis (10) and shared machines (11) as deeper branches. You should finish able to explain a command's effect before running it, trace a file path, and distinguish a stopped process from one that has ended."
+      }
+    ]
+  },
+  {
+    "id": "vectors-matrices-tensor-operations",
+    "path": "src/learn/data/topics/vectors-matrices-tensor-operations.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow the numbered route and try each prediction. Optional branches extend the core without hiding essential steps. Finish able to explain why an operation is valid, identify its contributing inputs and catch a result whose shape is legal but whose meaning is wrong."
+      }
+    ]
+  },
+  {
+    "id": "attention-mechanism-bahdanau-luong",
+    "path": "src/learn/data/topics/attention.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow sections 1–2 to understand one read, section 3 to place it inside a decoder, and section 4 to implement it. In section 5, read the direction-of-learning explanation before the optional derivative. Then inspect the real spelling experiment and its alignment in sections 6–7; run the saved model before a full training run. Exercises 1–5 test that route. The scorer diagnosis and section 8 are deeper branches to return to for local windows, copying, speech and efficiency."
+      }
+    ]
+  },
+  {
+    "id": "backpropagation-automatic-differentiation",
+    "path": "src/learn/data/topics/backprop.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: read §§1–5 and solve practices 1–4. You should be able to trace a shared computation, obtain a network's gradients and diagnose a failed numerical check. §6 and practices 5–8 are deeper routes through a complete teaching engine, higher derivatives, custom operations and memory tradeoffs. Reading and tracing take roughly 60–80 minutes; core practice and programs add 40–60 minutes. The optional engine and advanced practice deserve a separate session."
+      }
+    ]
+  },
+  {
+    "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "path": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow sections 1–5, the list investigation in section 9 and the complete experiment in section 13. Then return to ALS, implicit feedback and pairwise learning as alternative objectives and solvers. The optional policy section is a self-contained extension. This is a multi-session lesson: the goal is to explain and implement the choices, not memorize every formula at once."
+      }
+    ]
+  },
+  {
+    "id": "k-means-hierarchical-clustering",
+    "path": "src/learn/data/topics/k-means-hierarchical-clustering.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "Your first pass: read sections 1 through 9, trying their four labs and four programs as you meet them, then finish with the practice in 13. Section 10 adds the fifth lab and a color-palette application; section 14 supplies a complete held-out report. Return to these applications when you are ready to transfer the methods. Sections 11 and 12 are deeper branches about scale and alternative objectives. You should finish able to trace an assignment and mean update by hand, read a dendrogram height under its convention, explain why a real dataset splits where it does, and say what a low error does and does not tell you."
+      }
+    ]
+  },
+  {
+    "id": "pca-dimensionality-reduction",
+    "path": "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First-pass route. Read sections 1 through 6, try the three labs in those sections and the first four programs as you meet them, then try practice 1 to 4 in section 9 and the readiness check in section 11. That takes you from a picture to a working analysis in about 50 minutes plus code time. Section 7 develops interpretation, section 8 connects PCA to clustering and prediction, and section 10 holds the deeper mathematics, computation and applications. Return to those when their questions become relevant."
+      }
+    ]
+  },
+  {
+    "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+    "path": "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First-pass route. Read sections 1 to 7, try the silhouette and partition investigations, and run Programs 1 and 2. Continue through the Iris comparison, rejection policy and stability in sections 8 to 10, running one of Programs 4 and 5. Finish with the report task in section 12. Section 11 and the branches marked “deeper” on secondary indices, information distances and null-reference selection can wait for a second visit."
+      }
+    ]
+  },
+  {
+    "id": "dbscan-density-based-clustering",
+    "path": "src/learn/data/topics/dbscan-density-based-clustering.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1 through 8, work the neighbour table and explore the border behavior in the first lab, and run Programs 1 to 3. Then attempt practice A to E and the Iris report in section 13. That route teaches you to explain and apply DBSCAN. Sections 9 to 12 are deeper branches on density hierarchies, larger datasets and new observations; return to them when their questions arise. Allow roughly 60 to 75 minutes of reading for the core and another 60 to 90 minutes for code and practice."
+      }
+    ]
+  },
+  {
+    "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "path": "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1 to 8, work the temperature investigation in section 10, and attempt practices A to F. That route teaches you to explain each mechanism, to keep fitting separate from thresholding and to report a real result honestly. Sections 9 and 11 develop the optimization, the resource costs and the monitoring details, and practices G to J belong with them; return to those when their questions arise. Allow roughly 60 minutes for the core reading and another 60 to 90 minutes for the code and practice."
+      }
+    ]
+  },
+  {
+    "id": "gaussian-mixture-models-gmm-em-algorithm",
+    "path": "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1 to 8, doing the responsibility, EM and covariance investigations where they appear, and run the small EM program in section 4 and the offline Iris program in section 7. Attempt practices 1 to 5. Return to section 9 for the lower-bound proof and section 10 for the k-means limit, conditional prediction and the Bayesian extension; practices 6 to 8 belong with those. Allow roughly 55 to 70 minutes for the core reading and 60 to 100 minutes for calculation and code. The deeper branches are another sitting."
+      }
+    ]
+  },
+  {
+    "id": "t-sne-umap-manifold-learning",
+    "path": "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First-pass route: read sections 1–8, trying the neighborhood, affinity and map-audit investigations as you reach them. Run the digits program in section 7 and attempt practice 1–4 in section 11. That route takes you from a geometric idea to a measured answer about a real map. Return to section 9 for Isomap, MDS and LLE calculations, and section 10 for the t-SNE derivation and exact optimizer. Those deeper branches preserve the broader manifold-learning scope. Allow roughly 50–65 minutes for the core reading and 60–90 minutes for investigations and practice; the deeper branches add another sitting."
+      }
+    ]
+  },
+  {
+    "id": "independent-component-analysis-ica",
+    "path": "src/learn/data/topics/independent-component-analysis-ica.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First-pass route. Read sections 1–5, using the mixing figure and the rotation investigation as you go. Run the short NumPy example in section 5, then read and run the real-data comparison in section 6. Try practice 1, 2 and 4 in section 9 before the readiness check. Sections 7 and 8 are deeper branches for component removal, objectives, computation and extensions. Expect about 45–55 minutes of reading on the first route, plus 45–75 minutes for code and practice; the deeper branches add about 25 minutes."
+      }
+    ]
+  },
+  {
+    "id": "non-negative-matrix-factorization-nmf",
+    "path": "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1 to 6, working through the additive reconstruction and update investigations as they appear, then attempt exercises 1 to 5 in section 9. This route takes you from matrix entries to a complete offline fit and an interpretation of its errors. Return to section 7 for optimization, nonnegative rank and separability, and section 8 for topic models, spectra and streaming; exercises 6 to 8 assess those deeper branches. Allow roughly 50 minutes for the core reading and another hour for its code and practice. The deeper branches are a separate sitting."
+      }
+    ]
+  },
+  {
+    "id": "feature-scaling-encoding-imputation",
+    "path": "src/learn/data/topics/feature-scaling-encoding-imputation.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1 to 6, work through the ruler investigation in section 2, the donor investigation in section 4 and the fitted-pipeline investigation in section 6, and run the penguin program. Attempt practice questions 1 to 6. Sections 7, 8 and 9 are deeper branches on nonlinear representations, target encoding and missing-data uncertainty; they extend the core rather than being prerequisites for finishing it, and practices 7 to 9 belong with them. Allow roughly 50 minutes for the core reading and another 50 to 80 for calculation and code."
+      }
+    ]
+  },
+  {
+    "id": "cross-validation-hyperparameter-tuning",
+    "path": "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–6 and try core practice questions 1–6, doing the fold-building, candidate-selection and nested-fold investigations where they appear, and running the two Python programs in sections 2 and 6. Sections 7–9 deepen uncertainty, adaptive search and computational budgeting; they do not become hidden prerequisites for the core readiness check, and practices 7–10 belong with them. Allow roughly 55 minutes for the core route and another 60–90 for the code and practice."
+      }
+    ]
+  },
+  {
+    "id": "regularization-l1-l2-elastic-net-dropout",
+    "path": "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Follow sections 1–6 to understand the objectives, work a tiny fit, compare real observations and explain dropout’s train/evaluation distinction. Try practice 1–6. Sections 7–9 deepen the connection to linear algebra, Bayesian priors, parameterization and model-selection criteria; you can return to those branches after the core route."
+      }
+    ]
+  },
+  {
+    "id": "feature-selection-importance-shap-permutation-mutual-info",
+    "path": "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–6, work through the small count, permutation and coalition examples, then try practice 1–6. Section 6 connects them in a reproducible observed-data workflow. Section 7 explores deeper questions about dependence, search and stability; it is optional on a first visit."
+      }
+    ]
+  },
+  {
+    "id": "bias-variance-tradeoff-learning-curves",
+    "path": "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–6 and try practices 1–5. You will calculate a small decomposition, read three kinds of curve and propose a controlled next experiment. Sections 7–9 explain training optimism, classification and double descent; their additional mathematics is a deeper route you can return to."
+      }
+    ]
+  },
+  {
+    "id": "imbalanced-learning-smote-cost-sensitive-learning",
+    "path": "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Follow sections 1–7, including the small score queue, the cost calculation, the weighted-probability example and the geometric SMOTE investigation. Section 7 joins them in a complete observed-data study with actual outcomes. Try practice 1–7 before opening solutions. Section 8 and practice 8–10 are deeper branches. You need the earlier train/validation distinction, averages and a logistic prediction; confusion counts, costs and the new probability notation are introduced here."
+      }
+    ]
+  },
+  {
+    "id": "automl-neural-architecture-search-nas",
+    "path": "src/learn/data/topics/automl-neural-architecture-search-nas.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–5 in order, including the small neural bridge in section 4, and try practices 1–6. You will build a valid search space, understand two ways to spend its budget, and interpret a real experiment. Section 6 turns the result into a workflow. Section 7 is a deeper branch on differentiable search and cheap architecture proxies; section 8 is optional library translation. You can stop after section 6 and be ready for the next topic."
+      }
+    ]
+  },
+  {
+    "id": "hidden-markov-models-hmm",
+    "path": "src/learn/data/topics/hidden-markov-models-hmm.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–5 and run the four small investigations there: one path’s product, the two beliefs at one time, the constrained path, and the trellis figures between them. Then follow the single expected-count update in section 6 and the real tagging comparison in section 8. Sections 7, 9, 10 and 11 — numerical scale, duration and Gaussian emissions, where the idea leads, and cost — are deeper branches to return to. Practice 1–5 belong to the first pass; 6–10 transfer the deeper ideas."
+      }
+    ]
+  },
+  {
+    "id": "conditional-random-fields-crf",
+    "path": "src/learn/data/topics/conditional-random-fields-crf.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: read §§1–6, trace the two-position example, and do practices 1–4. Then run the real text experiment in §7 and inspect the errors. Sections 8–9 are deeper branches on neural outputs, generalized structures and conditional sampling; return to them after you can distinguish a best path from a marginal probability. Practice 5 connects the whole workflow. Allow about 50 minutes for the reading and a separate session for code and practice."
+      }
+    ]
+  },
+  {
+    "id": "gaussian-processes-gp",
+    "path": "src/learn/data/topics/gaussian-processes-gp.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow sections 1–7, including the two-observation calculation and the CO₂ experiment. You should finish able to explain a GP prediction, distinguish its two uncertainty bands, run a small regression, and recognize a misleading forecast. Section 8 explores measurement selection; section 9 develops classification, scalable inference, and the connection to kernel ridge regression. Those branches need the core equations but are optional on a first reading."
+      },
+      {
+        "kind": "prerequisites",
+        "text": "You need vectors, matrix multiplication, an average, and the idea of a normal distribution. A normal variable has a center called its mean and spread described by its variance; standard deviation is the square root of variance. We introduce the required Gaussian conditioning operation here. The previous CRF lesson modeled dependent discrete labels. Here the dependent quantities are numerical function values, and Gaussian algebra makes the basic regression calculation exact."
+      }
+    ]
+  },
+  {
+    "id": "bayesian-networks-causal-graphical-models",
+    "path": "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–6 and do practice 1–6. That route gets you a working network, a posterior you calculated yourself, a path you can read, a real fitted classifier, and the difference between observing something and doing it. Run the two programs on the way. Sections 7 and 8 are deeper branches: 7 develops identification, do-calculus and counterfactuals, and 8 covers structure search, junction trees, sampling and the neighbouring model families. Come back to them once the small sums feel natural."
+      }
+    ]
+  },
+  {
+    "id": "active-learning",
+    "path": "src/learn/data/topics/active-learning.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "The core route is sections 1–7. Section 8 provides deeper connections to gradients, Gaussian processes, and importance weighting. You can complete the practical experiment before taking that branch."
+      }
+    ]
+  },
+  {
+    "id": "pac-learning-vc-dimension",
+    "path": "src/learn/data/topics/pac-learning-vc-dimension.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–7 and do practice 1–7. That route gets you both meanings of “probably approximately correct”, the union-bound argument in full, the difference between a gap and an excess risk, the one labelling intervals cannot make, and what a VC bound does and does not promise. Run the three short programs on the way and do the small constructions by hand before opening them. Section 8 turns the whole thing into reproducible experiments with real data; sections 9 and 10 are deeper branches — 9 on using capacity in model choice without cheating, 10 on parameter counts, Rademacher complexity, stability, PAC-Bayes and computation."
+      }
+    ]
+  },
+  {
+    "id": "calibration-conformal-prediction",
+    "path": "src/learn/data/topics/calibration-conformal-prediction.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–8 and do practice 1–6. That route gets you the two meanings of calibration, a reliability diagram you built yourself, a fitted probability map, the four separate jobs a label can do, the exact finite rank and why it has an n+1 in it, intervals in real units, and a measured comparison you can judge. Run the three short programs on the way and download the two complete ones for section 7. Section 9 is a deeper branch: adaptive sets, full conformal and jackknife+, covariate shift, risk control and the library route. Come back to it once the rank calculation feels automatic."
+      }
+    ]
+  },
+  {
+    "id": "rademacher-complexity-generalization-bounds",
+    "path": "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–8 and do practice 1–7. That route gets you the exact calculation, the theorem it feeds, the geometry that makes it computable, the margin construction that makes a hard classification analysable, and one real experiment you can judge. Run both programs on the way: the first in section 7, the second in section 8. Section 9 is a deeper branch — convex hulls, covering numbers and chaining, neural norm bounds, PAC-Bayes and stability — and is best read once the small sums feel natural."
+      }
+    ]
+  },
+  {
+    "id": "perceptrons-neurons-activation-functions",
+    "path": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand and train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes."
+      }
+    ]
+  },
+  {
+    "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+    "path": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow the prediction-to-update map, work the regression and probability examples, investigate focal loss, then build the pair→triplet→candidate-selection connection. Run the small digit experiment and attempt the practice before its solutions. The likelihood, angular-margin, and mutual-information branches add depth; their derivations are not prerequisites for the first experiment."
+      }
+    ]
+  },
+  {
+    "id": "batch-layer-group-rms-normalization",
+    "path": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: calculate one normalization, explore the axis map, compare BatchNorm's training/evaluation modes, and run the small handwriting experiment. The gradient derivation, residual placement, precision, and distributed sections are deeper branches. You do not need to know convolutions or Transformers to follow the core: the tensor axes are introduced locally."
+      }
+    ]
+  },
+  {
+    "id": "dropout-droppath-stochastic-depth",
+    "path": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow the two-value example, mask geometry, residual branch calculation, train/evaluation mode distinction and real digit comparison; then try practice 1–5. Monte Carlo uncertainty and specialized noise families are optional deeper branches. You need multiplication, averages, a loss and its gradient; these are refreshed where used."
+      }
+    ]
+  },
+  {
+    "id": "transfer-learning-fine-tuning-strategies",
+    "path": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+    "notes": [
+      {
+        "kind": "summary",
+        "text": "Start with a backbone and a new head, investigate freezing and low-rank updates, then choose from actual measured evidence. Before starting: forward/backward passes, squared error and cross-entropy, simple matrix multiplication, and the preceding normalization lesson."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow sections 1–5, run or inspect the experiment in section 7, and solve practice 1–3. You should be able to explain what was transferred, what was frozen, and which evidence justified choosing a model. Sections 6 and 9 provide optional depth on low-rank derivatives, schedules, and larger-model methods; practice 4–6 checks that depth. You do not need to know convolution or Transformer attention to complete the first pass."
+      }
+    ]
+  },
+  {
+    "id": "weight-initialization-xavier-kaiming-p",
+    "path": "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Inspect saved initialization/seed traces; edit four activation values, singular directions, depth and width/rate scaling. Show forward/backward second moments, means/variance, directional gain and shape/update formulas together. Continuous tiny models are distinct from selectors over measured training records. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an initialization/parameterization by the signal and update behavior it preserves, without treating average scale as every-direction stability."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow the signal example, the second-moment calculation, the initialization recipes, the geometry counterexample, and the complete digit experiment. Then solve the first three practice problems. The μP section is a second route for learning how to change network width while keeping a meaningful training procedure. LSUV, Fixup, and precision details are reference branches; they are not prerequisites for the next lesson."
+      }
+    ]
+  },
+  {
+    "id": "residual-connections-skip-connections",
+    "path": "src/learn/data/topics/residual-connections-skip-connections.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit branch weights, scalar depth/gain, normalization placement, projection entries and Euler step; inspect recorded block omissions. Show correction contributions, current output/loss, both derivative paths and shape compatibility as inputs change. Display every intermediate gain and genuine before/after ablation record. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to recognize cancellation, shape mismatch and step-size instability despite the presence of an identity path."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: trace one correction and its parameter update, follow the two backward paths, compare operation order and shapes, and run the small digit experiment. Practice 1–4 check those ideas. Scaled residuals, path expansions, architecture families, and the differential-equation connection are deeper branches; you can revisit them after the core."
+      },
+      {
+        "kind": "summary",
+        "text": "Before you start: matrix multiplication, gradients and the preceding normalization/initialization lessons. The first five sections build the core; optional connections follow the real experiment."
+      }
+    ]
+  },
+  {
+    "id": "convolution-pooling-receptive-fields",
+    "path": "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit image/kernel cells, stride/dilation/padding, pooling inputs, shared-weight targets/rate and receptive-field threshold. Synchronize the selected patch, products, output map, transpose contributions, gradient accumulation and ancestry paths. Geometry edits visibly change output size, alignment and holes rather than only a summary label. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose window geometry and pooling from reach, alignment, information loss and update behavior."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow one patch through a filter, learn how that filter changes, plan the sizes, and train the small digit classifier in sections 1–7. You should then be able to build and diagnose a basic CNN. Sections 8–10 are optional deeper routes into influence, reconstruction and efficient execution. The practice separates core readiness from those extensions."
+      }
+    ]
+  },
+  {
+    "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "path": "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit head dimensions, channel-context cells, scaling allocations, deployment budgets and signed score-map weights. Show exact parameter/MAC counts, gate contributions, candidate eligibility and current CAM/logit arithmetic live. Recorded model/seed selectors display existing evidence immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to identify which operation consumes the budget, what information a head discards and why a smaller model is not automatically better."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6 for the architectural ideas, §8 for the runnable investigation, and §§9–11 for interpretation and practice. The detailed historical fidelity notes and §7's additional families are optional branches. You need not memorize publication years or reproduce ImageNet training to become ready for the next topic."
+      }
+    ]
+  },
+  {
+    "id": "depthwise-separable-dilated-convolutions",
+    "path": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit depthwise/pointwise filter entries, channel cells, stencil dilation/offsets, serial rates and parallel branch choices; manipulate retained digit inputs where weights are available. Update output contributions, rank restrictions, visited lattice sites, branch union and exact frozen-model outputs. Keep coverage geometry separate from learned influence. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose separability, dilation or parallel context from expressiveness, blind spots and the measured budget."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: read sections 1–4 to understand the operators, 6–7 for a practical experiment and diagnosis, then attempt practice 1–5. Section 5 connects the mechanisms to mobile models and segmentation. The rank proof, gradient derivation and interval-coverage argument deepen the explanation; you can return to them without delaying the basic investigations. You need weighted sums and the idea that training changes weights to reduce a loss. Shapes, channel mixing and sampling geometry are refreshed here."
+      }
+    ]
+  },
+  {
+    "id": "convnext-modern-cnn-designs",
+    "path": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6, run or inspect the small experiment, and attempt practice 1–5. You should be able to trace one block, identify which numbers a normalizer sees, prevent hidden-input leakage, and distinguish reconstruction from recognition. The deployment, kernel-fusion and hybrid-design branches in §7 and practice 6–8 deepen that understanding; they are not prerequisites for the next lesson."
+      }
+    ]
+  },
+  {
+    "id": "capsule-networks",
+    "path": "src/learn/data/topics/capsule-networks.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Follow the coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow sections 1–6, run the small offline program or inspect its saved results, then attempt practice 1–5 and 8. You only need vector addition, matrix multiplication and the idea that a loss guides parameter updates. Sections 7–8 and practice 6–7 develop derivatives, matrix routing and engineering tradeoffs; they are a deeper branch, not a condition for understanding the core lesson."
+      }
+    ]
+  },
+  {
+    "id": "rnns-lstms-grus",
+    "path": "src/learn/data/topics/rnns-lstms-grus.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit sequence entries, recurrent weights, LSTM gates, GRU reset placement and supported pen-trajectory coordinates. Update state trajectories, retained/injected terms, shared-weight credit and exact learned outputs. Step, rewind and reset state explicitly; padding and request boundaries remain visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose what must persist or reset, and diagnose saturation, reset-order differences and accidental cross-sequence leakage."
+      },
+      {
+        "kind": "route",
+        "text": "Your first pass: follow the pen trajectory and the three-step calculation in sections 1–2; learn the retain/write/read roles in sections 3–4; run or inspect the complete handwriting experiment in section 5; then work through state boundaries and padding in sections 6–7. Finish the core practice. Section 8 opens the deeper derivative and architecture questions when you are ready. You do not need its full Jacobian derivation to understand the next lesson."
+      }
+    ]
+  },
+  {
+    "id": "sequence-to-sequence-encoder-decoder",
+    "path": "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit source/target shifts, bridge weights/rate, tiny probability trees, beam width and supported fitted source/prefix inputs. Show aligned timelines, dependency paths, sequence probabilities and bounded beam candidates live. Keep teacher-forced versus generated inputs explicit at every step. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish model probability from a decoding decision and identify when a prefix or alignment changes the actual task."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow sections 1–6 to understand the two networks, the shifted training targets, generation and a real experiment. Section7 supplies the complete CPU program. Use section 8 to diagnose it, then try the practice. The deeper branches in section 9 are optional on a first reading; they explain architectural variants, training objectives and production contracts."
+      }
+    ]
+  },
+  {
+    "id": "state-space-models-s4-mamba-mamba-2",
+    "path": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: build and inspect before specializing. Read §1 and move the retention control. In §2, follow the held-input example; leave the expandable numerical derivation for later. In §3, follow one input's fading trail and open the system laboratory. Read §4 through the rotating pair; the HiPPO/S4 derivation is a separate return visit. In §5, compare marked events with distractors. In §6, follow the two-by-two state before opening the SSD workshop. Then use §7's real trajectories and training program to connect a useful memory to a learned task."
+      }
+    ]
+  },
+  {
+    "id": "rwkv-linear-attention-models",
+    "path": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit keys/queries/values, decay, current-token bonus, memory write/correction inputs and real stream interruptions. Update summary matrices/denominators, present output versus stored history and chronological state together. Compare a continued stream with an explicit reset. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose the correct current-read and future-memory semantics and see what compact state cannot retain."
+      }
+    ]
+  },
+  {
+    "id": "self-attention-multi-head-attention",
+    "path": "src/learn/data/topics/self-attention-multi-head-attention.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Drag/edit vectors, manipulate legal communication edges, change head projections/temperature and supported trajectory points. Show scores, weights, mixture point, per-head outputs, mask legality and sensitivity immediately. A direct vector edit reaches every linked output and accessible table. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish compatibility, value content and legal access; choose head/mask/scale settings by those separate effects."
+      }
+    ]
+  },
+  {
+    "id": "transformer-block-architecture",
+    "path": "src/learn/data/topics/transformer-block-architecture.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit features, normalizer offset/scale, FFN matrices, branch multiplier, pre/post placement and supported retained trajectory inputs. Update normalization reference sets, feature writes, residual state, block output and derivative paths together. Show exact zero-branch and common-shift cases. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to reason about placement and branch scaling using their actual function and gradient effects rather than an architecture slogan."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: read §§1–6, try the block and movement investigations, and solve exercises 1, 2 and 4. You should be able to trace the tensor shapes and explain normalization placement before continuing. Sections 7–9 develop gradient geometry, architecture variants and systems costs; they are deeper branches you can return to. The remaining exercises follow those deeper sections. The next topic is positional encoding, not a requirement to master every large-model training method first."
+      }
+    ]
+  },
+  {
+    "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+    "path": "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit position IDs, frequencies, RoPE vectors, ALiBi slopes/scores, cache identities and supported trajectory coordinates. Synchronize phase geometry, relative-score changes, distance penalty, legal cache relations and final mixture. Show whole-record reorder and ID-only edit as different operations. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose and troubleshoot positional mechanisms by relative/absolute behavior and cache consistency; do not infer long-context quality from a toy phase plot."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6, run the small program in §7 and try exercises 1–4. You will be able to explain and implement the four main methods and diagnose a position-offset bug. The deeper route in §§8–9 develops context extension, geometric variants and engineering choices; exercises 5–8 use that material. Derivations sit beside the mechanism they explain, so you can return to them after trying the visual investigation."
+      }
+    ]
+  },
+  {
+    "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+    "path": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit Q/K/V, query-to-KV grouping, cache dimensions, offset masks and supported causal input prefixes. Show each reader, shared K/V record, weighted sum, exact byte/MAC budgets and compact cache outputs immediately. Compare equal-head versus unequal-head regrouping. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose grouping by memory and functional tradeoffs, keeping payload arithmetic separate from measured latency and model quality."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6 and exercises 1–5. You will be able to calculate a grouped head's output, implement correct caching, explain the storage savings and assess a conversion experiment. The deeper route in §7 develops gradients, representation constraints and serving tradeoffs; exercises 6–9 extend those ideas. The diagrams and short arithmetic examples belong alongside their explanations, not in a separate optional gallery."
+      }
+    ]
+  },
+  {
+    "id": "multi-head-latent-attention-mla",
+    "path": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit latent vectors/projections, rotation, retained rank, payload dimensions and supported frozen-model prefixes. Show expanded and absorbed paths, commutation residuals, singular-direction effects, bytes/arithmetic and resulting outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose compression by the function and input directions it preserves; distinguish a low parameter error from low task error."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6 and exercises 1–5. You will understand the latent representation, compute both equivalent attention paths, preserve the positional and scaling contracts, and interpret a real cache-compression experiment. Section 7 develops rank, conversion, differentiation and deployment connections; exercises 6–9 extend that reasoning. The core drawings and investigations appear beside the mechanisms they explain."
+      }
+    ]
+  },
+  {
+    "id": "sparse-linear-attention-variants",
+    "path": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit sparse edges, feature-memory writes/evictions, random-feature settings, compression coefficients, block layout and supported real trajectories. Show removed mass, reachability, normalized summaries, approximation error, future influence and tile occupancy live under a fixed random draw. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose sparsity or approximation by accessible information, numerical error and actual block work, not a single sparsity percentage."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–3 and the opening of §4, the worked sequence-compression example in §5, and the real trajectory experiment in §7. Try the graph and memory investigations, then practice 1–5. You should be able to explain what information an operator can use, calculate a small output, and distinguish work from retained state. Deeper pass: study the random-feature derivation, approximation families, gradients and current sparse systems in §§4–6 and §8, then the remaining practice. Those branches develop implementation and research judgment; they are not hidden requirements for understanding the core story."
+      }
+    ]
+  },
+  {
+    "id": "vision-transformers-vit-deit-swin-dinov2",
+    "path": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit patch pixels/projection coefficients, patch-position swaps, window/shift geometry, teacher/student logits and feature angles. Update patch contributions, actual frozen-model logits/maps, spatial dependency sets, teacher targets/gradients and relational loss immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate image edits from position changes, direct neighbors from multi-hop reach and target sharpening from learned quality."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: read §§1–2, the practical parts of §3, §§4–5, §6 through “What DINOv2 adds,” and §§7–8. Attempt the core exercises in §9. The marked deeper branches develop symmetry, operation counts, Gram geometry and model adaptation; they extend the same ideas without hiding a prerequisite for the first pass."
+      }
+    ]
+  },
+  {
+    "id": "mixture-of-experts-transformers-moe",
+    "path": "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit token/router scores, expert values, capacity, grouping and budget dimensions; manipulate supported retained images. Show selected experts, discarded probability mass, overflow/drop routes, recombined outputs, balance terms and active/total resource counts together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose routing/capacity policies from missing contributions and resource tradeoffs; auxiliary balance does not establish task quality."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–5, the worked cost example in §6, and the actual image experiment in §8; then try practice 1–6. You should be able to trace a token through routing, explain its output and identify where computation is saved. Deeper pass: return to router derivatives, alternative assignments, distributed execution and upcycling in §§3, 6–7, 9; finish the remaining practice. The optional full program makes the small experiment reproducible."
+      }
+    ]
+  },
+  {
+    "id": "interleaved-cross-attention-architectures",
+    "path": "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change a query, edit what a memory slot holds, or remove an allowed connection. Follow the resulting weights and returned values, then compare what survives compression and what a new question can reuse."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: §§1–5, the worked experiment in §6, and core practice in §9. Return to §7 for detailed cost and cache accounting and §8 for deeper design decisions. You need vector dot products, softmax, residual connections and the idea of fitting a loss. Each is refreshed where used. The preceding vision-transformer lesson explains image tokens; self-attention explains the attention machinery in more depth. Allow roughly an hour for the core explanation and another hour for computation and practice; the advanced branches can be a separate sitting."
+      }
+    ]
+  },
+  {
+    "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+    "path": "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit a node feature or reverse an edge and follow the next message-passing round. Compare degree weights, separate self and neighbor updates, and learned attention; then inspect how those choices affect an actual fitted graph model."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: §§1–6 and core practice 1–5. Return to §§7–9 for spectral limits, expressiveness, sampling and applications, then the deeper practice. You need vectors, a weighted sum, a neural layer and a supervised loss. You do not need to know spectral graph theory to begin. The earlier cross-attention lesson provides a useful connection: a node can read a neighborhood as a small memory. Here we also update that memory’s node states, in synchronized rounds."
+      }
+    ]
+  },
+  {
+    "id": "graph-transformers-geometric-deep-learning",
+    "path": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change a graph connection and follow its effect on a global read. Then rotate a sensor array or a set of points and compare the two routes through the same rule. Edit the inputs to find what changes, what stays fixed, and which transformation belongs to the output."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: §§1–4 explain graph structure and global reads; §§5–7 build the symmetry contract from a square to a point cloud; §8 gives a complete real-data experiment. Attempt practice 1–5. Sections 9–10 and practice 6–8 extend the lesson into tensor features, physical outputs, applications and resource decisions. Allow separate reading and experiment sessions. You need weighted sums, graph adjacency and a learned neural layer. The earlier groups and symmetry actions lesson supplies additional algebra, but each transformation used below is defined locally."
+      }
+    ]
+  },
+  {
+    "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+    "path": "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit small-model biases/interactions, data counts, transition/sampling settings and supported retained digit states. Show normalized joint/marginal probabilities, data-model statistics, exact transition mass and sampled chain trajectories simultaneously. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish energy from normalized likelihood, reconstruction from probability and finite mixing behavior from an equilibrium claim."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: sections 1–5 establish the mechanism, sections 6–7 carry out and interpret the experiment, and practice 1–5 checks your understanding. Section 8 and the later problems develop deeper connections. You need weighted sums, elementary probability and the idea of a gradient. We introduce the needed conditional probabilities, expectations and normalizing constants locally; no statistical physics background is assumed."
+      }
+    ]
+  },
+  {
+    "id": "spectral-normalization-gradient-penalty",
+    "path": "src/learn/data/topics/spectral-normalization-gradient-penalty.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit matrix entries, normalization method, power-iteration steps, critic/input values, interpolation points and margin geometry. Update singular stretch, effective matrix, derivative paths, sampled gradient penalties and local decision distances live. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose or diagnose a constraint by what it actually bounds and where it was evaluated; a sampled penalty is not a global guarantee."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: read §§1–6 and the experiment interpretation, then attempt practice 1–6. You need vector lengths, matrix multiplication and the idea that a derivative measures change; these are refreshed below. The normalization derivative, robustness certificate, GroupSort and continuous-time connection are deeper branches. You can inspect the recorded experiment before running its complete program."
+      }
+    ]
+  },
+  {
+    "id": "modern-hopfield-networks",
+    "path": "src/learn/data/topics/modern-hopfield-networks.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Flip cue bits and visit order, move continuous memories, and edit the keys, values and pixels of a real handwriting cue. Follow the resulting energy, retrieval weights and returned values. Compare cases where recall repairs a memory with cases where a cleaner reconstructed image represents the wrong class."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: follow §§1–6 and the investigations, then try exercises 1–7. The explicitly optional branches in §7 develop capacity, higher-order memories and energy-derived architectures. The local calculations use vectors, dot products, weighted averages and derivatives, all refreshed where they enter."
+      }
+    ]
+  },
+  {
+    "id": "xlstm-extended-lstm",
+    "path": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change the evidence written into a scalar memory, move matrix addresses, and regroup a sequence into chunks. Follow the resulting state, normalization and read. Then edit real handwriting pixels and compare the evidence preserved by three trained recurrent models."
+      },
+      {
+        "kind": "route",
+        "text": "Your route through the lesson. First follow the scalar ledger, then the matrix address grid, then the row-by-row digit reader. By the end of that core route you should be able to calculate a write and a read, explain why numerical rescaling must preserve the whole formula, train a small model, and distinguish memory efficiency from successful remembering. The marked deeper branches cover parallel/chunk computation, current large-model variants and hardware tradeoffs. You can return to their derivations after completing the core experiment."
+      }
+    ]
+  },
+  {
+    "id": "hyena-long-convolution-models",
+    "path": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change a signal, filter or gate and follow its delayed contributions. Compare causal and circular outputs, carry recurrent state across a new chunk boundary, and edit real DNA symbols to inspect a fixed classifier. Use the resulting paths, states and scores to distinguish future leakage, lost history and deliberate approximation."
+      },
+      {
+        "kind": "route",
+        "text": "Your first pass: follow §§1–7, then try practice 1–6. You should be able to compute a causal convolution, identify circular wraparound, explain a gate-filter-gate block, and interpret the real sequence experiment. §8 develops streaming and recurrence extraction; §9 connects modern variants. Those branches and practice 7–10 provide the deeper route. You need weighted sums, matrix shapes and the idea of training by reducing a loss. We introduce the Fourier and signal-processing vocabulary locally."
+      }
+    ]
+  },
+  {
+    "id": "ring-attention-sequence-parallelism",
+    "path": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+    "notes": [
+      {
+        "kind": "summary",
+        "text": "Move blocks between devices while keeping the attention result the same. Change scores, values, logical positions and real trajectory points, then follow the contributions and communication they require. The comparisons separate a change to the model’s input from a change to its execution plan."
+      },
+      {
+        "kind": "route",
+        "text": "You need the idea of an attention-weighted average and basic array shapes. We refresh both below. On a first pass, follow the ownership picture, the four-value calculation, the causal-work grids and the real movement example. The backward derivation and communication model provide a deeper route for implementing or diagnosing a distributed system."
+      }
+    ]
+  },
+  {
+    "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+    "path": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Edit gradient/momentum, curvature estimate, step scale, averaging state and supported real digit input for one update. Show the exact update vector and state changes for Lion, Sophia, Prodigy and Schedule-Free, including where gradients and evaluation occur. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a debugging question from sign, curvature, scale and averaging effects rather than extrapolating a universal optimizer ranking."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: read the update anatomy, follow one calculation for each method, then inspect the handwriting experiment and memory accounting. Try the core practice before opening the optional theory and matrix-method branches. You need derivatives, weighted averages and basic probability; each is refreshed where it enters. The second-order methods lesson supplies a deeper route through curvature."
+      }
+    ]
+  },
+  {
+    "id": "neural-ode-continuous-depth-models",
+    "path": "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change a field, follow the resulting trajectory, and compare numerical error with computational work. Later investigations let you alter real measurements and observation times while keeping the learned model fixed."
+      },
+      {
+        "kind": "route",
+        "text": "First pass. Follow sections 1–5 to calculate a trajectory and understand how a model learns it. Section 6 trains small classifiers on real flower measurements; section 7 connects continuous state to irregular observations. Then do the core practice. The deeper branches on density models, flow matching and structured dynamics can wait until the main distinction between a field and its solution feels natural."
+      }
+    ]
+  },
+  {
+    "id": "titans-multi-memory-architecture",
+    "path": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Write a new association and watch how it changes a later query. Then follow the same tokens through attention and neural memory, compare two update schedules, and inspect when real rental observations become available for adaptation."
+      },
+      {
+        "kind": "route",
+        "text": "First-pass route. Start with §§ 1–4 and the associative-memory investigation: follow two writes by hand before reading the code. Then use the three-branch example in § 5, run the real-data program in § 7, and attempt practice 1–4. Return for the outer derivative in § 6, chunk parallelization in § 8, state accounting in § 9 and the research-reading branch in § 10. Expect roughly 40–50 minutes of core reading, with a separate 45–75 minutes for the first exercises and programs. The deeper branches can be another sitting."
+      },
+      {
+        "kind": "prerequisites",
+        "text": "This is an architecture lesson, so a little neural-network background helps. A weight is a number used by a model; a loss measures an error; a gradient tells us how changing the weights changes that loss. A query asks for a representation, a key identifies an association, and a value is the representation associated with that key. We will make those roles concrete before using large tensors. The previous Jamba lesson combines attention and recurrence. Here, the recurrent state becomes the parameters of a learner."
+      }
+    ]
+  },
+  {
+    "id": "hybrid-ssm-transformer-architectures-jamba",
+    "path": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Relabel a record and compare a running summary with a query-based read. Then change a memory budget, follow an expert route, and edit a real pen trajectory to see how its saved model uses recurrent state and attention history."
+      },
+      {
+        "kind": "route",
+        "text": "Core route: follow §§1–8, then solve the first six practice questions. The optional branches on expert arithmetic, cross-layer sharing and deployment experiments add depth without being prerequisites for understanding the central mechanism."
+      }
+    ]
+  },
+  {
+    "id": "decision-theory-risk-cost-sensitive-decisions",
+    "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: follow the manufactured-item example through sections 1–3, 5–7 and the capstone in section 12. Sections 4 and 8–11 show what changes when the loss, action effects or criterion changes. Expand the optional derivations when their question becomes useful; they are complete local extensions, not prerequisites hidden inside the first example. You can spread this lesson over several sessions."
+      }
+    ]
+  },
+  {
+    "id": "numerical-pdes-grids-finite-elements-stability",
+    "path": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass: work through the steady rod in sections 1–6, then diffusion in 7–8. Return for conservation and finite elements in 9–13. The scalar shock-flux and two-grid branches are optional extensions with their own local derivations. Section 15 supplies independent tasks and a complete changed-data report; it is reasonable to spread this lesson over several sessions."
+      }
+    ]
+  },
+  {
+    "id": "end-to-end-supervised-learning-error-analysis",
+    "path": "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–7, run the offline study in section 4, and do practice 1–4. Follow figure A where it appears and work investigation B before reading the paragraph after it. Section 8 is a deeper branch on uncertainty, selective prediction and iteration design; return to it with practice 5–6. Allow about 45–60 minutes for the core and another 60–90 to reproduce and extend the study."
+      }
+    ]
+  },
+  {
+    "id": "ml-problem-formulation-baselines-data-leakage",
+    "path": "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–7 and do practice 1–5. That route gets you the target/unit/cutoff contract, the three clocks that decide what was knowable, a baseline worth beating, the difference between a classification score and a limited-capacity decision, and the five different things people call leakage. Run the two programs on the way and do the small timeline by hand before opening the first one. Section 8 is a deeper branch — on selection, intervention effects and losses that preserve what the decision needs — and is not required to finish the core."
+      }
+    ]
+  },
+  {
+    "id": "time-series-validation-forecasting-baselines",
+    "path": "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx",
+    "notes": [
+      {
+        "kind": "route",
+        "text": "First pass. Read sections 1–6 and do practice 1–6. That route gets you the three clocks a forecast carries, the four baseline rules and which observation each one copies, the one inequality that decides whether a training row may be used, the rolling-origin rehearsal and its refit schedule, and a real measured comparison you can judge. Run the three short programs on the way. Section 7 is a deeper branch on overlapping targets, uncertainty, scaling and changing environments; practice 7 and 8 belong with it. Its specialist branches are not extra entry requirements."
+      }
+    ]
+  },
+  {
+    "id": "mini-batches-training-loops-gradient-accumulation",
+    "path": "src/learn/data/topics/mini-batches-training-loops-gradient-accumulation.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change examples and their microbatch boundaries, then follow the loss derivatives into a shared gradient buffer and one optimizer update. Compare unequal target weights and physical normalization groups to discover when the same rows no longer define the same computation."
+      },
+      {
+        "kind": "route",
+        "text": "First pass: read §§1–6, run the scalar trace in §4 and the Iris program in §6, and attempt practices 1–4. Use the state and denominator investigations as you encounter them. You should finish able to write a correct accumulation loop and explain its final partial group. §§7–8 are deeper branches on batch-dependent computation, numerical precision and distributed training; return to these before applying accumulation to such models. Practice 5 tests that transfer. Allow roughly 45–60 minutes for the core reading and 45–75 minutes for programs and independent practice."
+      }
+    ]
+  },
+  {
+    "id": "neural-training-diagnostics-reproducible-experiments",
+    "path": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+    "notes": [
+      {
+        "kind": "exploration",
+        "text": "Explore as you read. Change a tiny training case, inspect gradients and actual parameter movement, then compare evaluation modes and checkpoint continuations. Later investigations use measured Wine runs to test what a selected comparison can establish."
+      },
+      {
+        "kind": "route",
+        "text": "On a first pass, follow sections 1–4, read the main comparisons in sections 5–7, and finish sections 8–11, including the independent case file. The numerical gradient check and full checkpoint program are marked deeper branches: their examples are useful now, while their implementation detail can wait for a second reading. The complete offline programs and data are supplied with this lesson. Allow roughly 45 minutes for the main reading and additional time for the investigations and practice."
+      },
+      {
+        "kind": "prerequisites",
+        "text": "You should be able to follow a forward pass, a mean loss, a gradient and an optimizer update. The preceding Mini-Batches, Training Loops & Gradient Accumulation develops that computation. Bias-Variance Tradeoff & Learning Curves explains training versus held-out error. We refresh the particular pieces used here."
+      }
+    ]
+  }
+]

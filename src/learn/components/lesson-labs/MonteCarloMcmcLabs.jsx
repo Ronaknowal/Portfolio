@@ -42,7 +42,7 @@ function DataTable({
   headings,
   rows
 }) {
-  return <details className="mcmc-table"><summary>{caption}</summary><div tabIndex={0} role="region" aria-label={caption}><table><thead><tr>{headings.map(heading => <th key={heading} scope="col">{heading}</th>)}</tr></thead><tbody>{rows.map((row, i) => <tr key={i}>{row.map((cell, j) => j === 0 ? <th key={j} scope="row">{cell}</th> : <td key={j}>{cell}</td>)}</tr>)}</tbody></table></div></details>;
+  return <section className="mcmc-table lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{caption}</h4><div tabIndex={0} role="region" aria-label={caption}><table><thead><tr>{headings.map(heading => <th key={heading} scope="col">{heading}</th>)}</tr></thead><tbody>{rows.map((row, i) => <tr key={i}>{row.map((cell, j) => j === 0 ? <th key={j} scope="row">{cell}</th> : <td key={j}>{cell}</td>)}</tr>)}</tbody></table></div></section>;
 }
 function Plot({
   title,

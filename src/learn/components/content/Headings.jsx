@@ -1,4 +1,5 @@
 import { colors, fonts } from "../../styles";
+import { sectionLabel } from "../lesson-navigation.js";
 
 const teachingLabels = {
   "1. Why it exists": "1. Start with the problem",
@@ -15,6 +16,8 @@ export function H2({ children }) {
   const id = typeof label === "string"
     ? label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
     : undefined;
+  const parts = typeof label === "string" ? sectionLabel(label) : null;
+  const displayLabel = parts?.number ? `${parts.number}. ${parts.title}` : label;
   return (
     <h2 id={id} style={{
       fontFamily: fonts.sans,
@@ -23,7 +26,7 @@ export function H2({ children }) {
       color: colors.textPrimary,
       margin: "32px 0 14px",
     }}>
-      {label}
+      {displayLabel}
     </h2>
   );
 }

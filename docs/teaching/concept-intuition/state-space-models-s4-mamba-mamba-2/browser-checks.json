@@ -1,0 +1,71 @@
+{
+  "topicId": "state-space-models-s4-mamba-mamba-2",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "25a95b580613f92c7198162284ea62fbb1595d1a8f5188b7003cac92c2555aa8"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": []
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        109,
+        110,
+        111,
+        112,
+        130,
+        131,
+        141,
+        142
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        55
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T15:23:34.962Z",
+      "2026-09-26T16:01:07.158Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Transposed the FFT wraparound table so the first column cannot push all numerical results off the phone view. All numeric columns are visible; the long final header remains horizontally scrollable.",
+      "status": "closed",
+      "recheckIndices": [
+        109,
+        110,
+        111,
+        112,
+        130,
+        131,
+        141,
+        142
+      ],
+      "copyIndices": []
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

@@ -149,11 +149,11 @@ export function ManifoldGraphLab() {
         </> : <p>No route edges to trace. Adjust the graph and watch where a route reconnects.</p>}
       </div>
     </div>
-    <details><summary>All applied coordinates and edge choices</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">All applied coordinates and edge choices</h4>
       <DataTable caption="Vertices" headings={['ID', 'x', 'y']} rows={active.points.map(item => [item.id, item.x, item.y])} />
       <p>{graph.edges.length} undirected edges: {graph.edges.map(edge => `${edge.source}–${edge.target} (${format(edge.length)})`).join(', ') || 'none'}.</p>
       <p>Edges use distance ≤ ε. Equal shortest paths choose lexicographic ID order; comparisons use tolerance 10⁻⁹.</p>
-    </details>
+    </section>
     <Reflection key={state.resetCount} prompt="Which added or removed edge explains your result? Place a point that reconnects the route, then explain whether that edge plausibly follows a surface." />
   </Investigation>;
 }
@@ -198,11 +198,11 @@ export function ManifoldProbabilityLab() {
       </div>)}
     </div>
     <p className="mf-readout">Applied σ = {format(active.sigma)}. Probability sum = {format(row.probabilities.reduce((sum, value) => sum + value, 0))}; entropy = {format(row.entropyBits)} bits; perplexity = {format(row.perplexity)}.</p>
-    <details><summary>Inspect the entropy calculation</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the entropy calculation</h4>
       <DataTable caption="Each term contributes −p log₂ p bits" headings={['Candidate', 'p', 'Entropy term']}
         rows={candidateIds.map((id, index) => [id, format(row.probabilities[index], 8), format(row.probabilities[index] > 0 ? -row.probabilities[index] * Math.log2(row.probabilities[index]) : 0)])} />
       <p>Perplexity = 2<sup>{format(row.entropyBits)}</sup> = {format(row.perplexity)}. The model subtracts the minimum squared distance inside the exponent before normalizing to protect numerical precision. The displayed unnormalized weights use the original Gaussian formula.</p>
-    </details>
+    </section>
     <Reflection key={state.resetCount} prompt="Try scaling all three distances and σ by the same factor. Why do the probabilities match? Can a middle candidate gain probability and then lose it as σ grows?" />
   </Investigation>;
 }
@@ -290,9 +290,9 @@ export function ManifoldFuzzyLab() {
     </div>
     
     <ConnectionDrawing inputs={active} connection={connection} />
-    <details><summary>Explore the ideal pair cost with this applied weight</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Explore the ideal pair cost with this applied weight</h4>
       <IdealPairLab key={`${state.resetCount}:${JSON.stringify(active)}`} weight={connection.weight} graphDraftKey={state.key} />
-    </details>
+    </section>
     <Reflection key={state.resetCount} prompt="Find two different directed configurations with the same union. Which changes affect graph support, and which only change an existing edge's strength?" />
   </Investigation>;
 }
@@ -374,12 +374,12 @@ export function ManifoldDigitLab() {
       <p className="mf-caption">Retained IDs: {audit.retained.join(', ') || 'none'}. Input-only IDs: {audit.missing.join(', ') || 'none'}. Map-only IDs: {audit.falseNeighbors.join(', ') || 'none'}.</p>
       <Reflection key={state.key} prompt="Pick one changed neighbor. Which pixel strokes make the replacement plausible or surprising? Compare a second map, then explain whether its global ranking describes this query." />
     </>}
-    <details><summary>Inspect the selected image's 64 pixel values and distance rules</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the selected image's 64 pixel values and distance rules</h4>
       <DataTable caption={`Source ${selected.sourceRow} · raw 0–16 pixel values, row-major 8 × 8`}
         headings={Array.from({ length: 8 }, (_, index) => `c${index}`)}
         rows={Array.from({ length: 8 }, (_, index) => selected.pixels.slice(index * 8, index * 8 + 8))} />
       <p>Local lists exclude the query and break exact distance ties by ascending source-row ID. Distances use full saved coordinate precision before display rounding. Native trustworthiness and continuity use scikit-learn's own sorting convention. Source IDs identify original rows, not positions in this 300-row subset.</p>
       <p>Input collection SHA-256: <code className="mf-hash">{hash}</code>. Every selectable setting is an actual stored fit. Changing the display tab preserves the query; changing query, k or map immediately recomputes its neighbor comparison.</p>
-    </details>
+    </section>
   </Investigation>;
 }

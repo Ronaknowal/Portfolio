@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Sparse normalization, missing denominator, removed mass, constant and translation controls",
+      "passed": true
+    },
+    {
+      "name": "Directed graph depth and causal hub distinction, including residual reach",
+      "passed": true
+    },
+    {
+      "name": "Outer products, query-only state invariance, zero overlap and known-write eviction",
+      "passed": true
+    },
+    {
+      "name": "Fixed Gaussian draw, nonmonotone approximation, future exclusion and constant values",
+      "passed": true
+    },
+    {
+      "name": "Full versus causal prefix summary and block occupancy endpoints",
+      "passed": true
+    },
+    {
+      "name": "Exact-erf GELU and all 15 frozen native probes, traces and streamed states",
+      "passed": true
+    },
+    {
+      "name": "Fresh near versus remote forecast edits preserve strict earlier outputs and window boundary",
+      "passed": true
+    },
+    {
+      "name": "All current JSX parses; learner program copies exactly match canonical packet",
+      "passed": true
+    }
+  ],
+  "nativeFixtures": 15,
+  "maximumPortError": 1.3698910250603547e-7,
+  "maximumStateError": 0.000003745406232269488,
+  "maximumWeightError": 9.310751186708544e-8,
+  "maximumIncrementalError": 0
+}

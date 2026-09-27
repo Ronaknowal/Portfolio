@@ -1,0 +1,14 @@
+.bn-intuition { padding: 1rem; margin: 1.6rem 0; border: 1px solid #383838; border-radius: 6px; background: #101010; }
+.bn-intuition figcaption { color: #eee; margin-bottom: .8rem; }
+.bn-intuition p { font-size: .95rem; line-height: 1.65; }
+.bn-intuition-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)); gap: 1.1rem; }
+.bn-intuition-panels section { border-top: 1px solid #666; padding-top: .8rem; }
+.bn-intuition-panels svg { display: block; width: 100%; max-width: 290px; margin: auto; }
+.bn-intuition-panels svg text { fill: #ddd; font-size: 15px; }
+.bn-intuition-panels svg .bn-intuition-cut { fill: #e8b84b; font-size: 13px; }
+.bn-intuition-result, .bn-message-separator b { color: #e8b84b; }
+.bn-message-stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1rem; }
+.bn-message-stages table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.bn-message-stages th, .bn-message-stages td { padding: .45rem; border-bottom: 1px solid #444; text-align: center; }
+.bn-message-stages caption { text-align: left; color: #ddd; padding: .35rem 0; }
+.bn-message-separator { padding: .5rem .7rem; border-left: 2px solid #e8b84b; }

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu"
+  },
+  "checks": [
+    "50 validation rows \u00d7 2 frozen models reproduce saved logits",
+    "16 full/carry/reset/reflect/reverse fixtures",
+    "five chunk sizes including short remainder",
+    "stable versus enumerated RWKV with retention boundary and \u00b11000 offsets"
+  ],
+  "notExecuted": [
+    "Optional released checkpoint program: local weights/tokenizer not supplied",
+    "New training: original frozen fits preserved"
+  ]
+}

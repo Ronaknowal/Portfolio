@@ -1,0 +1,28 @@
+/* Opt-in neutral/amber surfaces for lesson-owned neural investigations.
+   Keep semantic series colours local to the topic, separate from UI surfaces. */
+.neural-lesson-neutral { color: #e7e7e7; }
+.neural-lesson-neutral .neural-lab { background: #111; border-color: #444; }
+.neural-lesson-neutral .neural-lab :is(input, select, button),
+.neural-lesson-neutral .neural-program button {
+  background: #171717;
+  border-color: #666;
+  color: #f0cd7c;
+}
+.neural-lesson-neutral .neural-lab button[aria-pressed="true"] {
+  background: #32291a;
+  border-color: #e4b752;
+}
+.neural-lesson-neutral .neural-result { background: #1b1915; }
+.neural-lesson-neutral .neural-program-source {
+  background: #0b0b0b;
+  border-color: #444;
+  color: #ddd;
+}
+.neural-lesson-neutral .neural-table-scroll :is(th, td),
+.neural-lesson-neutral .neural-practice { border-color: #393939; }
+.neural-lesson-neutral .neural-flow > div { border-color: #e4b752; }
+.neural-lesson-neutral .neural-chart text { fill: #ddd; }
+.neural-lesson-neutral :is(button, input, select, summary):focus-visible {
+  outline: 2px solid #e4b752;
+  outline-offset: 3px;
+}

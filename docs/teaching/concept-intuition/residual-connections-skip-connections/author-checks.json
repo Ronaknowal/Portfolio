@@ -1,0 +1,43 @@
+{
+  "topicId": "residual-connections-skip-connections",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/residual-connections-skip-connections.jsx",
+    "src/learn/components/lesson-labs/ResidualGateIntuition.jsx",
+    "src/learn/components/lesson-labs/residual-gate-intuition.css",
+    "docs/teaching/drafts/residual-connections-skip-connections/lesson.md",
+    "scripts/build-residual-connections-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/residual-connections-skip-connections.jsx": "0864b09b9cbe7d0020b61c2659d1ce17b121e088d1f403430e4235135b2bccc3",
+    "src/learn/components/lesson-labs/ResidualGateIntuition.jsx": "5c8c433beba7cc479c15890f3e721ca9b01cfb1ba765d0930875921c0822f55f",
+    "src/learn/components/lesson-labs/residual-gate-intuition.css": "46bef1d18a254e3ac69fb6d58d4befcf099475e83c56493c773ce437b9b32081",
+    "docs/teaching/drafts/residual-connections-skip-connections/lesson.md": "75a210dded04d90f5270d988038b4baaeb2d3703fb5400d9f604ac63ad51485f",
+    "scripts/build-residual-connections-lesson.mjs": "ce0bc66480a5ef4e6b8b5113d92283d24ec1ad1f324b272ca0c9cdb141dc0b05"
+  },
+  "scope": "Full thirteen-section review; Highway gate-dependent derivative and checkpoint lifetime-count bridges. Preserved all live mechanisms, scratch/ordinary PyTorch programs and actual fits.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Highway residual rewrite and three derivative paths match finite differences at five signed inputs",
+      "passed": true
+    },
+    {
+      "name": "Checkpoint count example reaches its minimum at four-layer chunks",
+      "passed": true
+    },
+    {
+      "name": "Canonical generator reproduces topic byte for byte",
+      "passed": true
+    },
+    {
+      "name": "Independent wording finding: current Initialization link replaces stale prepared-page status; canonical regeneration and JSX parse passed",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

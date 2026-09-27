@@ -1,6 +1,6 @@
 # Modern Hopfield Networks
 
-**Explore as you read.** Flip cue bits and visit order; edit continuous memory vectors, temperature, keys/queries/values and real handwriting pixels. Show current energy, attractor steps, retrieval weights, payload and classifier/reconstruction outputs. Step iteration without hiding its current state. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to see how ambiguity, scale and address/content choices change retrieval and when classification and reconstruction objectives diverge.
+**Explore as you read.** Flip cue bits and visit order, move continuous memories, and edit the keys, values and pixels of a real handwriting cue. Follow the resulting energy, retrieval weights and returned values. Compare cases where recall repairs a memory with cases where a cleaner reconstructed image represents the wrong class.
 
 
 A smudged handwritten digit still contains clues: the bend of a stroke, an opening in a loop, the position of a vertical line. Suppose we keep examples of handwriting and ask a model to reconstruct something useful from those clues. The interesting question is not only which example receives the highest score. It is whether repeatedly using the retrieved information improves the cue, whether several examples should contribute, and how to recognize an incorrect reconstruction.
@@ -35,7 +35,9 @@ A new person's handwritten “1” was never in our memory bank. Returning the p
 
 A useful geometric refresher: a dot product adds coordinate-wise agreements. For q = [1, 0], memories [1, 0] and [3, 1] score 1 and 3. The second wins by dot product even though the first has Euclidean distance zero. If all memories have equal norm, minimizing squared distance to a fixed cue is equivalent to maximizing dot product, because
 
-||q − xᵢ||² = ||q||² + ||xᵢ||² − 2qᵀxᵢ.
+\[
+\|q-x_i\|^2=\|q\|^2+\|x_i\|^2-2q^\top x_i.
+\]
 
 When norms differ, the middle term matters. Normalizing nonzero vectors to unit length makes the dot product a cosine similarity. That is a modeling choice: it removes information carried only by magnitude.
 
@@ -47,7 +49,9 @@ When norms differ, the middle term matters. Normalizing nonzero vectors to unit 
 
 Let P binary memories be rows of X, each containing d values in {−1, +1}. The Hebbian storage rule forms
 
-W = XᵀX / d, then sets Wᵢᵢ = 0.
+\[
+W=\frac{X^\top X}{d},\qquad W_{ii}\leftarrow0.
+\]
 
 “Hebbian” here means that features with matching signs contribute a positive connection and opposite signs contribute a negative connection. Summing outer products adds each memory's suggested relationships. The connections are symmetric.
 
@@ -78,13 +82,17 @@ Starting from [1, −1, −1, −1], feature 1 sees field +0.25 and stays +1. Fe
 
 Define an energy, a scalar score assigned to the whole configuration:
 
-E(s) = −½sᵀWs.
+\[
+E(s)=-\frac12 s^\top Ws.
+\]
 
 This is a mathematical objective, not an amount of electrical energy measured in joules. Positive connections prefer equal signs; negative connections prefer opposite signs. Both preferences lower E.
 
 For symmetric W with zero diagonal, changing only coordinate i gives
 
-E(s after) − E(s before) = −(sᵢ after − sᵢ before)hᵢ.
+\[
+E(s_{\mathrm{after}})-E(s_{\mathrm{before}})=-(s_{i,\mathrm{after}}-s_{i,\mathrm{before}})h_i.
+\]
 
 Our corrected coordinate changes from −1 to +1 with field +0.75, so ΔE = −2 × 0.75 = −1.5. The complete cue has energy 0; the recovered state has energy −1.5.
 
@@ -98,7 +106,7 @@ This is a local guarantee. It does not say the state is the desired memory, the 
 
 If all coordinates change simultaneously, the proof above no longer applies: each changed field was computed against the old state. For W = [[0, 1], [1, 0]], synchronous updates alternate [1, −1] → [−1, 1] → [1, −1]. A stopping limit is not proof of convergence.
 
-[Investigation A: edit a binary cue and its stored pattern, record a predicted repair, then compare individual updates and alternate visit orders.]
+[Investigation A: edit a binary cue and its stored pattern, then compare the current individual updates and alternate visit orders.]
 
 ### When memories interfere
 
@@ -169,13 +177,17 @@ A cue [0, 0.6] gives equal weights and reaches [0, 0]. It stays there even at β
 
 For fixed X and β > 0, write
 
-E(q) = ½||q||² − β⁻¹ log Σᵢ exp(βxᵢᵀq).
+\[
+E(q)=\frac12\|q\|^2-\frac1\beta\log\sum_i\exp(\beta x_i^\top q).
+\]
 
 We omit constants independent of q; adding them changes neither the update nor energy differences. The log-sum-exp is a smooth version of the largest score. Its negative encourages agreement with memories. The quadratic eventually dominates this term as ||q|| grows, keeping the energy bounded below. More directly, after one update q lies in the finite memory bank's convex hull.
 
 Differentiating gives
 
-∇E(q) = q − Xᵀsoftmax(βXq) = q − F(q).
+\[
+\nabla E(q)=q-X^\top\operatorname{softmax}(\beta Xq)=q-F(q).
+\]
 
 A stationary point therefore satisfies q = F(q). Writing this equality identifies a fixed-point equation; it does not solve it in one step.
 
@@ -185,7 +197,9 @@ g(z) ≥ g(q) + ∇g(q)ᵀ(z − q).
 
 Negate this inequality and add ½||z||². We have built an upper bound on E(z) that touches E at q. Minimizing that quadratic upper bound gives z = ∇g(q) = F(q). Consequently,
 
-E(F(q)) ≤ E(q) − ½||F(q) − q||².
+\[
+E(F(q))\le E(q)-\frac12\|F(q)-q\|^2.
+\]
 
 This is a short version of the **concave-convex procedure**: replace the concave part by a tangent upper bound, minimize, repeat. Its direction matters: log-sum-exp is convex; negative log-sum-exp is concave.
 
@@ -201,8 +215,9 @@ The [Ramsauer paper](https://arxiv.org/abs/2008.02217) proves convergence proper
 
 The derivative of retrieval is
 
-J_F(q) = βXᵀ[diag(p) − ppᵀ]X
-       = β Covₚ(x).
+\[
+J_F(q)=\beta X^\top[\operatorname{diag}(p)-pp^\top]X=\beta\operatorname{Cov}_p(x).
+\]
 
 The covariance measures how much the currently weighted memories disagree. If almost all weight lies on one memory, this local derivative can be small: nearby cues yield nearly the same retrieval. If conflicting memories share weight, a cue change can have a larger effect.
 
@@ -215,7 +230,9 @@ A library catalogue separates the description used to search from the informatio
 
 Let K contain P keys of width dₖ, V contain P associated values of width dᵥ, and Q contain B query rows. The read is
 
-A = softmax(βQKᵀ), Z = AV.
+\[
+A=\operatorname{softmax}(\beta QK^\top),\qquad Z=AV.
+\]
 
 | Quantity | Shape | Meaning |
 | --- | --- | --- |
@@ -242,7 +259,7 @@ Two B memories can jointly outweigh the largest individual A memory. A classifie
 
 If every value equals [4, −2], the output is [4, −2] for every query. The keys can change the weights without changing the retrieved payload. This is why an attention heatmap alone cannot explain all output behavior.
 
-[Investigation C: edit query coordinates, key locations and associated values separately. Predict what will change in the score distribution, key-space read and returned payload.]
+[Investigation C: edit query coordinates, key locations and associated values separately. Compare the immediate changes in the score distribution, key-space read and returned payload.]
 
 ### Three useful module designs
 
@@ -260,7 +277,9 @@ These correspond to the author library's Hopfield, HopfieldPooling and HopfieldL
 
 For a single target memory t, the loss L = −log pₜ teaches the query to favor its key. With fixed keys and inverse temperature β,
 
-∂L/∂q = βKᵀ(p − eₜ).
+\[
+\frac{\partial L}{\partial q}=\beta K^\top(p-e_t).
+\]
 
 Here eₜ is one at the target's position and zero elsewhere. The gradient subtracts the target key from the current weighted key average.
 
@@ -376,7 +395,7 @@ For another image, row 3052, labeled “0,” the same occlusion retains class 0
 
 Across all test images, seed 17's mean squared reconstruction error after occlusion is 0.051198, versus 0.124713 for the damaged input. On clean images, reconstruction error is 0.029621, whereas the original clean input has zero error. Retrieval pulls handwriting toward the memory bank; it is not an identity operation and not an unconditional denoiser.
 
-[Investigation D: edit real cue pixels, Show the current computed result and its contributing terms immediately. Compare clean, occluded and blank cues.]
+[Investigation D: edit real cue pixels and inspect the current computed result and its contributing terms immediately. Compare clean, occluded and blank cues.]
 
 ## 6. Build a reliable association system
 
@@ -426,11 +445,15 @@ pₜ = 1 / [1 + Σⱼ≠ₜ exp(β(qᵀxⱼ − qᵀxₜ))].
 
 Each competing exponential is at most exp(−βδ), so
 
-pₜ ≥ 1 / [1 + (P − 1)exp(−βδ)].
+\[
+p_t\ge\frac1{1+(P-1)e^{-\beta\delta}}.
+\]
 
 Set a = (P − 1)exp(−βδ). The total competing weight is at most a/(1+a), giving
 
-||F(q) − xₜ|| ≤ 2M a/(1+a) ≤ 2M(P − 1)exp(−βδ).
+\[
+\|F(q)-x_t\|\le\frac{2Ma}{1+a}\le2M(P-1)e^{-\beta\delta}.
+\]
 
 The last step uses ||xⱼ − xₜ|| ≤ 2M. This derivation explains the three levers: better separation, sharper temperature, and fewer competitors. A high-dimensional memory bank is not enough if the actual query gives the desired memory a poor score.
 
@@ -454,8 +477,9 @@ For classical Hebbian random binary patterns, exact recall of most memories and 
 
 For continuous modern Hopfield memory, the canonical paper establishes exponentially growing storage under a specified random-sphere construction and associated attraction regions. One form of its result uses random patterns on a sphere of radius M = K√(d−1), where K > 0 is a scalar radius multiplier (separate from the earlier key matrix), d > 1, inverse temperature β > 0 and failure probability 0 < p ≤ 1. Define
 
-a = 2[1 + ln(2βK²p(d−1))]/(d−1), b = 2K²β/5,
-c = b/W₀(exp(a + ln b)).
+\[
+a=\frac{2[1+\ln(2\beta K^2p(d-1))]}{d-1},\quad b=\frac{2K^2\beta}{5},\quad c=\frac{b}{W_0(\exp(a+\ln b))}.
+\]
 
 W₀ is the principal Lambert W function, defined by W(z)exp(W(z)) = z. Under the theorem's condition c ≥ (2/√p)^(4/(d−1)), the storage lower bound has form √p × c^((d−1)/4), with probability at least 1−p. The point of displaying the parameters is to expose what must be specified: d alone does not produce a universal exp(d/2) guarantee for arbitrary learned keys.
 
@@ -471,7 +495,9 @@ Fused exact attention can avoid materializing all scores in device memory while 
 
 Modern associative memory is a family broader than the continuous softmax construction. [Krotov and Hopfield](https://arxiv.org/html/1606.01164v2) study energies of the form
 
-E(s) = −Σμ F(xμᵀs),
+\[
+E(s)=-\sum_\mu F(x_\mu^\top s),
+\]
 
 with polynomial or rectified-polynomial F. A binary coordinate update can compare the energy with that coordinate set to +1 and to −1, then choose the lower-energy state. Higher powers change how sharply strong matches dominate weak ones.
 

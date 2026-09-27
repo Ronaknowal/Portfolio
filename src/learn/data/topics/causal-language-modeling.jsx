@@ -772,32 +772,32 @@ print("nucleus  :", tokenizer.decode(g3[0]))
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Derive perplexity from cross-entropy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Derive perplexity from cross-entropy</H3>
       <Prose>
         Starting from the definition of per-token cross-entropy <Code>H = -(1/N) Σ log p(xₜ | x&#8344;ₜ)</Code>, derive the perplexity formula <Code>PPL = exp(H)</Code>. Then: if a model achieves 3.0 nats per token, what is its perplexity? If it achieves 3.0 bits per token (using log base 2), what is the perplexity? Are they the same number?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Cross-entropy of a uniform distribution</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Cross-entropy of a uniform distribution</H3>
       <Prose>
         GPT-2's vocabulary has 50,257 tokens. If a model assigned probability <Code>1/50,257</Code> uniformly to all tokens at every position, what would its cross-entropy be (in nats)? What would its perplexity be? GPT-2 base achieves perplexity ~35 on its own test set. How many times more uncertain is the uniform model than GPT-2 base?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — The -inf vs -1e9 question</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — The -inf vs -1e9 question</H3>
       <Prose>
         In the causal mask, future positions are set to <Code>-inf</Code> before the softmax. Some implementations use <Code>-1e9</Code> instead. Under what conditions does <Code>-1e9</Code> fail to correctly implement the causal constraint? Write a 10-line test that demonstrates the failure. (Hint: consider what happens when the attention logits are themselves very large.)
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — 10-line greedy decoder</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — 10-line greedy decoder</H3>
       <Prose>
         Using only <Code>torch</Code> and a pretrained <Code>MiniGPT</Code> (from Section 4), write a greedy decoding loop in 10 lines or fewer. It should take a prompt string, encode it to token IDs, loop until a stop token or max length, and return the decoded string. Then modify it to use top-k sampling with k=5.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Diagnose off-by-one shift symptoms</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Diagnose off-by-one shift symptoms</H3>
       <Prose>
         Consider two bugs: (a) the targets are not shifted — <Code>y = x</Code> instead of <Code>y = x[1:]</Code> — and (b) the targets are shifted by two positions instead of one. For each bug, predict: (i) how the training loss will behave in the first 100 steps, (ii) what generation output will look like at inference, and (iii) what a sample attention pattern will look like on a short sequence. Verify your predictions by actually introducing each bug into the MiniGPT training loop from Section 4.
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

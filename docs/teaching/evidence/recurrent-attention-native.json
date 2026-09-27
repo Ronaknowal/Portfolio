@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "date": "2026-09-26",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu"
+  },
+  "checks": [
+    "Canonical downloads preserve exact prepared source/data/measurement bytes",
+    "All six saved models reproduce 447 development sequences each; fourteen new NumPy/native state, attention and output comparisons",
+    "Every constructed query derivative matches native autograd and independent finite differences",
+    "Both complete learner entry programs execute and print lactated True"
+  ],
+  "maximum_probability_error": 2.2999024451575423e-07,
+  "training": "Unchanged six prepared fits reused; no new training or performance benchmark claimed",
+  "reviewedFiles": {
+    "public/learn-code/attention-mechanism-bahdanau-luong/attentive-inflection.py": "0b006def11a1bac2a8f30b5ed43da3f31b1f06dbd0cba95cb267fc89e76dc05a",
+    "public/learn-code/attention-mechanism-bahdanau-luong/attention-calculations.py": "54615f3153dd52e703b728f2932b33c9d472d8f978a593f715597df54766cd1a",
+    "public/learn-code/attention-mechanism-bahdanau-luong/attention-mechanics.py": "2b65810ead1e48f4eb3fa302ca1b6cc7f53f076326a1f4bd25dc209290750b2e",
+    "public/learn-code/attention-mechanism-bahdanau-luong/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+    "public/learn-code/attention-mechanism-bahdanau-luong/calculated-inputs.json": "046557cd27776737c94ca76dd35facd8fd956b0196535b3642ae79628f7602c6",
+    "public/learn-code/attention-mechanism-bahdanau-luong/mechanics-results.json": "f356197e8c02b35adb69800aeabd29506a164c88080177e61cae67ff3e2bf33d",
+    "public/learn-code/attention-mechanism-bahdanau-luong/analytic-results.json": "1bb083bed1b33c3fe84290ae482458862e3bdf9cdf8d5cd8e162f0528ebcf2fd",
+    "public/learn-code/attention-mechanism-bahdanau-luong/attention-inference.py": "6b2cbfd4c0b9fc651bcb4f2b3bbe55602e272005a5e115a89968515a20362848",
+    "public/learn-code/attention-mechanism-bahdanau-luong/saved-inflection.py": "777be3c954b6f6a9712058f96baab72da0c31123a3337e6b1bd1af10044f1af2",
+    "scripts/verify-recurrent-attention-native.py": "97bedbc0e97590dbfa94980c4bc345df332a66ca2b1220924aa35e8fed2a4dcb"
+  }
+}

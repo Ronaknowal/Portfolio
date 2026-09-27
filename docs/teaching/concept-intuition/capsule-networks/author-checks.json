@@ -1,0 +1,40 @@
+{
+  "topicId": "capsule-networks",
+  "date": "2026-09-26T15:41:49.394Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/capsule-networks.jsx",
+    "src/learn/components/lesson-labs/CapsuleIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/capsule-intuition.css",
+    "docs/teaching/drafts/capsule-networks/lesson.md",
+    "scripts/generate-capsule-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/capsule-networks.jsx": "8ea133b207ce23cc9e7793c0b9c1c62948a82a7237118532f691ab528ead980e",
+    "src/learn/components/lesson-labs/CapsuleIntuitionFigures.jsx": "cfce8d475148edb8778dedd445a68aae72f8c02d020a8f14b8ea50704e3704ad",
+    "src/learn/components/lesson-labs/capsule-intuition.css": "1f76a00f568857d9c06f86f25f97935a0dd42ce055f2151ab7ed45df44f26d77",
+    "docs/teaching/drafts/capsule-networks/lesson.md": "91892b96705add55988834f3e4ae116ded865f9ec95945f73d9d978d78fcbe3f",
+    "scripts/generate-capsule-lesson.mjs": "6e751a3d5dac02a83ba2bd6d1d890f1434613264fbd5faaf1538d524295cf94b"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Orthogonal squash perturbations and sensitivity ratio",
+    "Full versus detached scalar product derivative",
+    "Gaussian coding-cost activation contrast",
+    "Gaussian prior precision arithmetic",
+    "Relative spread-loss boundary and translation",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/capsule-models.js",
+    "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+    "public/learn-assets/capsule-networks/frozen-model.f32",
+    "public/learn-assets/capsule-networks/calculated-inputs.json"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

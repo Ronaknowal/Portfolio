@@ -1,1238 +1,641 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const rwkvLinearAttentionContent = {
-  title: "RWKV & Linear Attention Models",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        By 2020 the transformer had become the default architecture for language, but its self-attention had a costly secret: the attention matrix is quadratic in sequence length. For a sequence of length <Code>L</Code>, you compute an <Code>{"L \\times L"}</Code> score matrix, softmax it, and multiply by values. Time and memory both scale as <Code>{"O(L^2 \\cdot d)"}</Code>. At <Code>L = 1024</Code> this is a nuisance; at <Code>L = 16{","}000</Code> it is the bottleneck; at <Code>L = 100{","}000</Code> it is untenable on ordinary hardware. The question that drove everything that follows: can we keep transformer quality while paying only linear cost in <Code>L</Code>?
-      </Prose>
-
-      <Prose>
-        The first clean answer came in June 2020 from Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and François Fleuret at Idiap Research Institute. Their ICML paper "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention" (arXiv:2006.16236) observed that softmax attention is a specific choice of similarity function, and if you replace <Code>{"\\text{sim}(q, k) = \\exp(q \\cdot k / \\sqrt{d})"}</Code> with any non-negative kernel that factorizes as <Code>{"\\text{sim}(q, k) = \\phi(q) \\cdot \\phi(k)"}</Code>, you can rewrite attention as a running sum: the model becomes an RNN at inference with <Code>O(L)</Code> time and <Code>O(1)</Code> memory per step, while remaining parallelizable at training in <Code>{"O(L \\cdot d^2)"}</Code>. The accuracy gap to softmax was real — on language modeling, roughly a 5-10 percent perplexity regression at matched compute in 2020 — but the existence of a linear-cost attention was suddenly not speculative.
-      </Prose>
-
-      <Prose>
-        Around the same time, two other threads attacked the quadratic wall from different angles. Sinong Wang and colleagues at Facebook AI published "Linformer: Self-Attention with Linear Complexity" (arXiv:2006.04768) in June 2020. Linformer made the empirical observation that the <Code>{"L \\times L"}</Code> attention matrix has low effective rank, then projected keys and values along the sequence axis to a fixed dimension <Code>k \\ll L</Code>. Cost: <Code>{"O(L \\cdot k \\cdot d)"}</Code>. The trick was real but restricted to fixed-length sequences, because the projection is learned per length. Linformer worked for encoder tasks like sentence-pair classification; it never solved autoregressive language modeling cleanly.
-      </Prose>
-
-      <Prose>
-        In September 2020 Krzysztof Choromanski and colleagues at Google Brain published "Rethinking Attention with Performers" (arXiv:2009.14794, ICLR 2021). Performers addressed a deficiency in Katharopoulos's formulation: the <Code>{"\\phi(x) = \\text{elu}(x) + 1"}</Code> feature map is ad hoc, and the resulting kernel only loosely approximates softmax. Choromanski proved that <Code>{"\\exp(q \\cdot k)"}</Code> can be approximated unbiasedly by random features using Fourier methods, giving a kernel <Code>{"\\phi(x) = \\frac{1}{\\sqrt{m}} [\\cos(w_i \\cdot x), \\sin(w_i \\cdot x)]"}</Code> for random <Code>{"w_i"}</Code>. With enough random features <Code>m</Code>, Performers approximate standard softmax attention with low variance and linear cost. They were the first linear attention variant to come within 1 percent of softmax on large-scale language benchmarks. Performers used Fast Attention via positive Orthogonal Random Features (FAVOR+), which is still a reference for kernel-based linear attention.
-      </Prose>
-
-      <Prose>
-        The next move was structural rather than approximation-theoretic. In May 2023, Bo Peng and a large open-source collective released "RWKV: Reinventing RNNs for the Transformer Era" (arXiv:2305.13048) at EMNLP 2023 Findings. RWKV (Receptance Weight Key Value) took the linear-attention-is-an-RNN observation and designed an architecture from scratch around it. The model is attention-free in the softmax sense — no <Code>{"Q \\cdot K^T"}</Code> at all. Instead, each layer is a time-mix block that computes a weighted sum of past values with exponentially decaying weights, plus a channel-mix block that mixes within a token using a gated MLP. The result: a model that is literally an RNN at inference (<Code>O(1)</Code> memory per token regardless of context length) and parallelizable at training (a custom CUDA kernel computes the recurrence as a prefix scan). RWKV-4 was released with models up to 14B parameters and came within a few percent of transformer-equivalent models on LM benchmarks.
-      </Prose>
-
-      <Prose>
-        The architecture iterated quickly. RWKV-5 "Eagle" (late 2023) and RWKV-6 "Finch" (2024) were published by Peng et al. in "Eagle and Finch: RWKV with Matrix-Valued States and Dynamic Recurrence" (arXiv:2404.05892). Eagle replaced the scalar time-mixing state with a matrix-valued state, dramatically increasing model capacity without changing training cost. Finch added dynamic (data-dependent) recurrence: the time-decay weights themselves depend on the input, closing some of the expressivity gap with softmax attention. RWKV-7 "Goose" (2025) introduced further architectural refinements including delta-rule updates on the hidden state. By early 2026, RWKV-7 Goose at 14B parameters matches or exceeds LLaMA-2-13B on many downstream benchmarks, though a quality gap remains on tasks that require long-range exact recall.
-      </Prose>
-
-      <Prose>
-        Parallel to RWKV, Microsoft Research Asia explored a cousin architecture. In July 2023 Yutao Sun and colleagues published "Retentive Network: A Successor to Transformer for Large Language Models" (arXiv:2307.08621). RetNet introduced the "retention" mechanism: a linear attention where the key-value state is decayed by a fixed per-head exponential factor <Code>{"\\gamma^{i-j}"}</Code>, giving three equivalent computation forms — parallel (for training), recurrent (for inference), and chunkwise parallel (for long-context training). RetNet's key claim: competitive quality with transformers, linear inference, and constant memory. The paper was influential within research but did not ship a comparably strong production model family.
-      </Prose>
-
-      <Prose>
-        In December 2023, Songlin Yang and colleagues published "Gated Linear Attention Transformers with Hardware-Efficient Training" (arXiv:2312.06635, ICML 2024). GLA generalized RetNet's retention mechanism to a data-dependent gate — each key-value contribution to the hidden state is modulated by a learned, input-conditional gating vector — and provided a hardware-aware training kernel. GLA closed the quality gap to transformers further on LM benchmarks at matched compute. Then in May 2024 Tri Dao and Albert Gu published "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality" (arXiv:2405.21060), which showed that a particular form of state-space model (Mamba-2 with scalar-identity structure) is formally equivalent to a masked linear attention. The "SSM-attention duality" unified the two previously separate research threads and gave us a common vocabulary: all of these models — linear attention, RWKV, RetNet, GLA, Mamba — are different parameterizations of a recurrence on a dxd hidden state, with different choices of how the state is updated and read out.
-      </Prose>
-
-      <Prose>
-        By 2026 the picture is: the "RWKV-family" of architectures (including Mamba-2, GLA, RetNet, and RWKV-7) occupies a stable niche at very long context (100K+ tokens), where quadratic attention is simply impossible on affordable hardware. For the mainstream LLM regime of 2K-32K context, quadratic attention with FlashAttention optimizations remains dominant because its quality is marginally higher and the infrastructure is more mature. But the research trajectory has been unambiguous: every generation of linear-attention models has narrowed the quality gap, and hardware vendors are now building kernels specifically for these architectures. The future of sequence modeling is probably some hybrid where most layers are linear and a few are full attention — exactly the direction that models like Jamba and Samba already represent.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+// Generated from the complete current prepared manuscript by render-rwkv-memory-lesson.mjs.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { RwkvFigure, RwkvSummaryLab, RwkvWeightedLab, RwkvDeltaLab, RwkvTrajectoryLab, RwkvProgram } from '../../components/lesson-labs/RwkvMemoryLabs.jsx';
+import '../../components/lesson-labs/neural-lesson-neutral.css';
+export default {
+  title: 'RWKV & Linear Attention Models',
+  readTime: '~100 min read + experiments and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="neural-lesson neural-lesson-neutral rwkv-memory-lesson"><LessonIntro prerequisites="Vector products and a recurrent update. Query/key/value, matrix orientation and stable normalization are refreshed locally." sections={[["1-what-must-the-memory-answer","1. What must the memory answer?"],["2-a-running-summary-that-really-equals-its-attention-rule","2. A running summary that really equals its attention rule"],["3-parallel-training-and-streamed-inference-are-two-computations-of-one-operator","3. Parallel training and streamed inference are two computations of one operator"],["4-rwkv-4-weighted-memories-with-several-forgetting-timescales","4. RWKV-4: weighted memories with several forgetting timescales"],["5-from-one-memory-channel-to-a-trainable-sequence-model","5. From one memory channel to a trainable sequence model"],["6-when-a-summary-needs-an-editable-address","6. When a summary needs an editable address"],["7-nearby-models-shared-algebra-and-different-choices","7. Nearby models, shared algebra and different choices"],["8-train-a-real-movement-classifier-then-interrupt-its-stream","8. Train a real movement classifier, then interrupt its stream"],["9-troubleshooting-by-locating-the-broken-assumption","9. Troubleshooting by locating the broken assumption"],["10-practice-change-the-task-not-just-the-numbers-on-a-trace","10. Practice: change the task, not just the numbers on a trace"],["references-and-other-ways-to-learn","References and other ways to learn"]]}>Choose what a stream must remember: a weighted summary, individual records, or associations that can be corrected.</LessonIntro>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit keys/queries/values, decay, current-token bonus, memory write/correction inputs and real stream interruptions. Update summary matrices/denominators, present output versus stored history and chronological state together. Compare a continued stream with an explicit reset. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose the correct current-read and future-memory semantics and see what compact state cannot retain."}</Prose>
 
-      <Prose>
-        The entire family of linear attention models — including RWKV — is a single mathematical idea applied in several syntactically different ways. The idea: softmax attention is a specific kernel; if you replace it with a kernel that factorizes as an inner product of feature maps, attention becomes a running sum, which is an RNN. Everything else is engineering on top of that one substitution.
-      </Prose>
+<Prose>{"A conversation can be remembered in two quite different ways. You can keep a transcript and consult individual lines. Or you can maintain a working summary: who is speaking, what they want, which facts changed, and what remains unresolved. A transcript grows. A fixed-size summary must decide what deserves its limited space."}</Prose>
 
-      <Prose>
-        <strong>Standard attention is a weighted sum over past values.</strong> At position <Code>t</Code>, the attention output is <Code>{"O_t = \\sum_i \\alpha_{t,i} V_i"}</Code> where <Code>{"\\alpha_{t,i} = \\text{softmax}_i(Q_t \\cdot K_i^T / \\sqrt{d})"}</Code>. Reading the formula left to right: for each query position <Code>t</Code>, compare the query to every key in the past, softmax to get a probability distribution, and take the expectation of values under that distribution. The softmax normalization is what forces the cost to <Code>{"O(L^2)"}</Code>, because you need all pairwise <Code>{"Q_t \\cdot K_i"}</Code> scores to form the denominator <Code>{"\\sum_j \\exp(Q_t \\cdot K_j)"}</Code>.
-      </Prose>
+<Prose>{"Sequence models face the same choice. An attention model can retain past keys and values and compare a new query with them. A recurrent model updates a state and carries that state forward. "}<strong>{"Linear attention and RWKV investigate how much useful memory we can build without repeatedly searching an ever-growing list of past vectors."}</strong>{" Their versions differ in what they store, how they forget, and whether they can replace a particular remembered association."}</Prose>
 
-      <Prose>
-        <strong>The decomposition trick.</strong> Suppose instead of <Code>{"\\exp(Q \\cdot K^T)"}</Code> we use a similarity of the form <Code>{"\\text{sim}(q, k) = \\phi(q) \\cdot \\phi(k)"}</Code> for some feature map <Code>{"\\phi: \\mathbb{R}^d \\to \\mathbb{R}^{d'}"}</Code> where <Code>{"\\phi(x) \\ge 0"}</Code> elementwise (non-negativity ensures the output is well-defined). Then:
-      </Prose>
+<Prose>{"Suppose a device receives updates: “sensor A reads 2,” “sensor B reads 7,” and later “sensor A now reads 5.” An average, a running sum and an editable key–value memory produce different answers. That small example will help us understand language-model memory, streamed movement classification and the compromises behind efficient sequence processing."}</Prose>
 
-      <MathBlock>
-        {"O_t = \\frac{\\sum_i \\phi(Q_t) \\cdot \\phi(K_i) \\cdot V_i}{\\sum_i \\phi(Q_t) \\cdot \\phi(K_i)} = \\frac{\\phi(Q_t) \\cdot \\left( \\sum_i \\phi(K_i) V_i^T \\right)}{\\phi(Q_t) \\cdot \\left( \\sum_i \\phi(K_i) \\right)}"}
-      </MathBlock>
+<Prose>{"The "}<a href={"/learn/path/full-curriculum/state-space-models-s4-mamba-mamba-2?module=deep-learning-fundamentals"}>{"preceding state-space lesson"}</a>{" explained how input-dependent coefficients update a state. Here we examine memory as weighted aggregation and as a small associative map. You need vectors, matrix multiplication and the idea of a learned projection; we refresh the attention operation locally."}</Prose>
 
-      <Prose>
-        Look at the parenthesized sums. They are independent of the query <Code>{"Q_t"}</Code>. They are aggregates over the past alone. Call them the numerator state <Code>{"S_t = \\sum_{i \\le t} \\phi(K_i) V_i^T"}</Code> (shape <Code>{"d' \\times d_v"}</Code>) and the denominator state <Code>{"z_t = \\sum_{i \\le t} \\phi(K_i)"}</Code> (shape <Code>{"d'"}</Code>). Both states can be updated recurrently: <Code>{"S_t = S_{t-1} + \\phi(K_t) V_t^T"}</Code> and <Code>{"z_t = z_{t-1} + \\phi(K_t)"}</Code>. Output at step <Code>t</Code> is then one matrix-vector multiply: <Code>{"O_t = \\phi(Q_t) \\cdot S_t / (\\phi(Q_t) \\cdot z_t)"}</Code>. The entire attention mechanism is now an RNN with state size <Code>{"d' \\cdot d_v + d'"}</Code> independent of sequence length.
-      </Prose>
+<Prose>{""}<strong>{"A useful first route:"}</strong>{" read sections 1–5, do the summary and weighted-memory investigations, and then run the real-data example in section 8. Sections6–7 explain the newer architectures and hardware choices; take them after you can trace one update. The optional derivations and later exercises provide a deeper pass. By the end you should be able to derive a causal summary, distinguish an exact reformulation from a different attention operator, preserve state across chunks, and explain what an efficiency claim does—and does not—measure."}</Prose>
 
-      <Prose>
-        <strong>This works if and only if the causal mask commutes with the feature map.</strong> The decomposition above uses <Code>{"\\sum_i"}</Code> over all positions, but for causal attention we need <Code>{"\\sum_{i \\le t}"}</Code>. The prefix sum is exactly the causal mask — it commutes with any feature map <Code>{"\\phi"}</Code> because the sum order does not matter. For softmax this is not true: <Code>{"\\exp(Q_t \\cdot K_i)"}</Code> has no finite-dimensional feature map <Code>{"\\phi"}</Code> that makes this factorization exact; you need an infinite-dimensional kernel, which is why random-features methods (Performers) provide only an unbiased <em>estimator</em>. The mathematical elegance of linear attention is that causal masking is <em>free</em>: a running sum is the causal mask.
-      </Prose>
+<H2>{"1. What must the memory answer?"}</H2>
 
-      <Prose>
-        <strong>RWKV: attention-free from a different starting point.</strong> RWKV is not presented as "linear attention with feature map <Code>{"\\phi"}</Code>." Its derivation starts from a time-decay: at step <Code>t</Code>, aggregate past values weighted by <Code>{"\\exp(w \\cdot (t - i - 1) + k_i)"}</Code>, where <Code>w</Code> is a per-channel learned decay and <Code>{"k_i"}</Code> is the key for position <Code>i</Code>. This is almost identical to linear attention with feature map <Code>{"\\phi(k) = \\exp(k)"}</Code> plus an explicit time-decay factor on the state. The difference: RWKV treats the decay as a first-class architectural parameter, uses a custom softmax-style normalization for numerical stability, and gates the output with a learned "receptance" vector. The formula <Code>{"wkv_t = \\sum \\exp(w \\cdot (t - i - 1) + k_i) \\cdot v_i / \\sum \\exp(w \\cdot (t - i - 1) + k_i)"}</Code> is the WKV (Weight-Key-Value) core; the receptance <Code>r</Code> is applied at output: <Code>{"\\text{out}_t = r_t \\odot wkv_t"}</Code>. R-W-K-V, the four projections of the input token, give the architecture its name.
-      </Prose>
+<Prose>{"Think of a "}<strong>{"key"}</strong>{" as an address or description, a "}<strong>{"value"}</strong>{" as information stored with that address, and a "}<strong>{"query"}</strong>{" as a request to retrieve information. These are learned numeric vectors, not necessarily readable words. The same token can produce all three through different learned matrices. A projection takes an input vector x and computes, for example, q=Wq x. Its weights are learned from a downstream objective."}</Prose>
 
-      <Prose>
-        <strong>Time-mix and channel-mix.</strong> RWKV organizes each layer as two halves. The <em>time-mix</em> block is the WKV recurrence — it moves information across time. The <em>channel-mix</em> block is a position-wise gated MLP — it mixes information within a single token across channels. This is exactly the transformer layout (attention + FFN) but with the attention replaced by a linear recurrence. The gates in both blocks use a token-shift operation: each input is a mix of the current token and the previous token, <Code>{"x_t' = \\mu \\odot x_t + (1 - \\mu) \\odot x_{t-1}"}</Code>, giving the network cheap access to 1-step lookback without full attention. This simple mechanism carries a surprising amount of weight in practice; ablating it drops quality measurably.
-      </Prose>
+<Prose>{"A dot product q·k is large when the two vectors align in the directions the model has learned to use. It is not automatically a semantic similarity score: training gives those directions their job. A value can contain negative numbers and several channels even when the weight used to combine values is positive."}</Prose>
 
-      <Prose>
-        <strong>RetNet: retention as principled linear attention.</strong> RetNet writes attention as <Code>{"Y_t = Q_t \\cdot \\sum_{i \\le t} \\gamma^{t - i} K_i^T V_i"}</Code> where <Code>{"\\gamma < 1"}</Code> is a fixed per-head decay. This is linear attention with feature map <Code>{"\\phi = \\text{identity}"}</Code> and an exponential time-decay. The key insight: RetNet proves this admits three equivalent forms — a parallel (transformer-like) form computed as <Code>{"Y = (QK^T \\odot D) V"}</Code> with a <Code>{"D_{ij} = \\gamma^{i-j}"}</Code> mask, a recurrent form with state <Code>{"S_t = \\gamma S_{t-1} + K_t V_t^T"}</Code>, and a chunkwise parallel form that interpolates between the two. All three compute the same output; training uses the parallel form, inference uses the recurrent form, long-context training uses chunkwise.
-      </Prose>
+<Prose>{"For one attention head, let q and k have d coordinates and let v have p coordinates. At sequence position t, causal softmax attention computes"}</Prose>
 
-      <Prose>
-        <strong>Gated linear attention: data-dependent decay.</strong> GLA replaces the fixed <Code>{"\\gamma"}</Code> of RetNet with a learned, input-conditional gate <Code>{"G_t = \\text{sigmoid}(W_g x_t)"}</Code>, giving the recurrence <Code>{"S_t = G_t \\odot S_{t-1} + K_t V_t^T"}</Code>. The gate decides per-channel how much of the past to carry forward as a function of the current input. This is the missing expressivity: fixed decay is too restrictive (can't suppress noise conditionally); softmax is too expensive (full pairwise). GLA sits between them and is currently the leading non-softmax formulation.
-      </Prose>
+<Prose>{"y_t = Σ_{i≤t} a_{ti} v_i, a_{ti} = exp(q_t·k_i / √d) / Σ_{j≤t} exp(q_t·k_j / √d)."}</Prose>
 
-      <Callout accent="gold">
-        Mental model: linear attention rewrites the <Code>{"L \\times L"}</Code> attention matrix as a product of two rank-<Code>d</Code> matrices, which lets causal masking become a prefix sum. Every variant in this family — Katharopoulos's elu+1, Performers' random features, RetNet's retention, RWKV's WKV, GLA's gated recurrence, Mamba-2's selective SSM — is a different choice of feature map, decay, and gate on the same underlying recurrence. The recurrence is an RNN at inference and a prefix scan at training. The trade-off is always: quality (better with expressive gates) vs. hardware efficiency (better with simple, fixed recurrences). RWKV chose attention-free-RNN-as-core-architecture rather than attention-replacement-inside-a-transformer, which is the cleanest demonstration of the idea but not necessarily the highest-quality realization.
-      </Callout>
+<Prose>{"The weights are nonnegative and sum to one. The word "}<strong>{"causal"}</strong>{" means that the answer at t uses only positions through t. The √d factor controls the scale of the dot products; it does not change which keys are stored. For numerical evaluation, subtract the largest permitted score before exponentiating."}</Prose>
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<RwkvFigure kind="transcript" />
 
-      <H3>3.1 Standard softmax attention</H3>
+<Prose>{"For scores [0, log(2), 0] and values [2,8,−1], the normalized weights are [1/4,1/2,1/4] and the output is 4.25. An attention output is usually a mixture, not a command to select one original token. A later query can assign a different mixture to the same stored history."}</Prose>
 
-      <Prose>
-        Given queries <Code>{"Q \\in \\mathbb{R}^{L \\times d}"}</Code>, keys <Code>{"K \\in \\mathbb{R}^{L \\times d}"}</Code>, values <Code>{"V \\in \\mathbb{R}^{L \\times d_v}"}</Code>, standard scaled dot-product attention computes:
-      </Prose>
+<Prose>{"Now imagine replacing that history with two running totals. If the new query can use those totals to obtain the answer, we have a bounded recurrent memory. The question is not merely whether its output looks similar once. It is "}<strong>{"which weighting rule those totals exactly represent"}</strong>{"."}</Prose>
 
-      <MathBlock>
-        {"A_{t,i} = \\frac{\\exp(Q_t \\cdot K_i / \\sqrt{d})}{\\sum_{j} \\exp(Q_t \\cdot K_j / \\sqrt{d})}, \\qquad O_t = \\sum_i A_{t,i} V_i"}
-      </MathBlock>
+<Prose>{"A useful distinction throughout this lesson:"}</Prose>
 
-      <Prose>
-        The attention matrix <Code>A</Code> has shape <Code>{"L \\times L"}</Code>; this is the quadratic cost in memory and time. The causal variant sets <Code>{"A_{t,i} = 0"}</Code> for <Code>{"i > t"}</Code>, equivalently adds <Code>{"-\\infty"}</Code> to the unnormalized scores in the upper triangle before softmax.
-      </Prose>
+<NeuralTable caption={"1. What must the memory answer?"} headers={[<>{"Object"}</>,<>{"Changes when a new sequence arrives?"}</>,<>{"Learned by ordinary training?"}</>]} rows={[[<>{"Projection and block weights"}</>,<>{"Normally fixed during evaluation"}</>,<>{"Yes, using many training examples"}</>],[<>{"Sequence state"}</>,<>{"Yes, at each position"}</>,<>{"Its update rule is learned; its current contents depend on this sequence"}</>],[<>{"Stored transcript keys/values"}</>,<>{"Appended as tokens arrive"}</>,<>{"Their generating projections are learned"}</>],[<>{"A delta-rule memory matrix"}</>,<>{"Updated inside the forward computation"}</>,<>{"Its update parameters are learned; the matrix itself is the current fast state"}</>]]} />
 
-      <H3>3.2 Linear attention via feature maps</H3>
+<Prose>{"Updating a state at inference does not, by itself, mean changing the pretrained model weights."}</Prose>
 
-      <Prose>
-        Replace the softmax kernel with a factorizable kernel <Code>{"\\text{sim}(q, k) = \\phi(q)^T \\phi(k)"}</Code>. The attention output becomes:
-      </Prose>
+<RwkvFigure kind="parameters" />
 
-      <MathBlock>
-        {"O_t = \\frac{\\sum_{i \\le t} \\phi(Q_t)^T \\phi(K_i) V_i}{\\sum_{i \\le t} \\phi(Q_t)^T \\phi(K_i)} = \\frac{\\phi(Q_t)^T \\left( \\sum_{i \\le t} \\phi(K_i) V_i^T \\right)}{\\phi(Q_t)^T \\left( \\sum_{i \\le t} \\phi(K_i) \\right)}"}
-      </MathBlock>
+<H2>{"2. A running summary that really equals its attention rule"}</H2>
 
-      <Prose>
-        Define the numerator state <Code>{"S_t = \\sum_{i \\le t} \\phi(K_i) V_i^T \\in \\mathbb{R}^{d' \\times d_v}"}</Code> and the denominator state <Code>{"z_t = \\sum_{i \\le t} \\phi(K_i) \\in \\mathbb{R}^{d'}"}</Code>. The recurrence is:
-      </Prose>
+<Prose>{"First change the weighting rule. Choose a feature map φ that maps a query or key to m features. Define κ(q,k)=φ(q)·φ(k), and use this kernel in place of the exponential score:"}</Prose>
 
-      <MathBlock>
-        {"S_t = S_{t-1} + \\phi(K_t) V_t^T, \\qquad z_t = z_{t-1} + \\phi(K_t), \\qquad O_t = \\frac{\\phi(Q_t)^T S_t}{\\phi(Q_t)^T z_t}"}
-      </MathBlock>
+<Prose>{"y_t = [Σ_{i≤t} κ(q_t,k_i)v_i] / [Σ_{i≤t} κ(q_t,k_i)]."}</Prose>
 
-      <Prose>
-        Cost: <Code>{"O(d' \\cdot d_v)"}</Code> per step for the state update, <Code>{"O(d' \\cdot d_v + d')"}</Code> per step for the output. Over a sequence of length <Code>L</Code>, total cost is <Code>{"O(L \\cdot d' \\cdot d_v)"}</Code> — linear in <Code>L</Code>. For typical settings <Code>{"d' = d = d_v"}</Code>, this is <Code>{"O(L \\cdot d^2)"}</Code>, vs. softmax's <Code>{"O(L^2 \\cdot d)"}</Code>. The crossover at which linear becomes cheaper: <Code>{"L \\approx d"}</Code>. For <Code>{"d = 128"}</Code>, linear wins starting at <Code>{"L > 128"}</Code>. For modern LLMs with <Code>{"d = 4096"}</Code>, linear only wins at <Code>{"L > 4096"}</Code> — but that is exactly the regime where quadratic attention runs out of GPU memory.
-      </Prose>
+<Prose>{"We will assume nonnegative weights and a positive denominator. Nonnegative features alone permit a zero vector or disjoint support, so that last condition must actually hold. A zero total weight makes this normalized expression undefined; returning an arbitrary answer would silently invent a different rule."}</Prose>
 
-      <H3>3.3 Feature map choices</H3>
+<Prose>{"For readability, write q̄=φ(q), k̄=φ(k). Let columns represent coordinates in the equations below. A state S_t of shape m×p and a vector z_t of length m are sufficient:"}</Prose>
 
-      <Prose>
-        The simplest non-negative feature map is <Code>{"\\phi(x) = \\text{elu}(x) + 1"}</Code>, proposed by Katharopoulos et al. 2020. This guarantees elementwise non-negativity and is differentiable. It works but the kernel it induces is only weakly related to softmax.
-      </Prose>
+<Prose>{"S_t = S_{t−1} + k̄_t v_tᵀ, z_t = z_{t−1} + k̄_t, y_t = S_tᵀ q̄_t / (q̄_tᵀ z_t),"}</Prose>
 
-      <Prose>
-        Performers (Choromanski et al. 2021) use random features to approximate the exact softmax kernel. The result <Code>{"\\exp(q \\cdot k) = \\mathbb{E}_{w}[\\exp(w \\cdot q - \\|q\\|^2 / 2) \\cdot \\exp(w \\cdot k - \\|k\\|^2 / 2)]"}</Code> gives the FAVOR+ feature map with <Code>m</Code> random directions <Code>{"w_i"}</Code>:
-      </Prose>
+<Prose>{"starting from S_0=0 and z_0=0. The outer product k̄_t v_tᵀ writes one weighted copy of the value into each feature row. The query then combines those rows. The denominator combines the corresponding total weights."}</Prose>
 
-      <MathBlock>
-        {"\\phi(x) = \\frac{1}{\\sqrt{m}} \\exp\\left(-\\frac{\\|x\\|^2}{2}\\right) \\cdot \\left[\\exp(w_1 \\cdot x), \\ldots, \\exp(w_m \\cdot x)\\right]"}
-      </MathBlock>
+<Prose>{"Why is this exact? Expand the numerator:"}</Prose>
 
-      <Prose>
-        This is an unbiased estimator of <Code>{"\\exp(q \\cdot k)"}</Code> in expectation. Choromanski proved the approximation error is <Code>{"O(1/\\sqrt{m})"}</Code>, independent of sequence length. In practice <Code>{"m = 256"}</Code> gives very tight approximations to softmax, and the cost is then <Code>{"O(L \\cdot m \\cdot d)"}</Code> which is linear in <Code>L</Code>.
-      </Prose>
+<Prose>{"S_tᵀq̄_t = (Σ_i k̄_i v_iᵀ)ᵀq̄_t           = Σ_i v_i(k̄_iᵀq̄_t)."}</Prose>
 
-      <H3>3.4 RWKV-4 time-mix (WKV)</H3>
+<Prose>{"The same distributive law changes the denominator into Σ_i k̄_iᵀq̄_t. We have regrouped the arithmetic of the "}<strong>{"chosen kernel"}</strong>{". We have not proved that an arbitrary kernel equals softmax."}</Prose>
 
-      <Prose>
-        The RWKV time-mix block computes, for a per-channel time decay <Code>w</Code> (which is learned and typically constrained to be non-positive) and a per-channel bonus <Code>u</Code>:
-      </Prose>
+<RwkvFigure kind="outer" />
 
-      <MathBlock>
-        {"wkv_t = \\frac{\\sum_{i < t} \\exp(w \\cdot (t - i - 1) + k_i) \\cdot v_i + \\exp(u + k_t) \\cdot v_t}{\\sum_{i < t} \\exp(w \\cdot (t - i - 1) + k_i) + \\exp(u + k_t)}"}
-      </MathBlock>
+<H3>{"A complete four-update example"}</H3>
 
-      <Prose>
-        The <Code>u</Code> bonus gives the current token a different weight than the past — the standard RWKV-4 choice bumps the current token to compensate for the missing time-decay penalty. The output of the time-mix block is then <Code>{"r_t \\odot wkv_t"}</Code>, where <Code>r</Code> is the receptance, a learned gate applied elementwise.
-      </Prose>
+<Prose>{"Use the following already-mapped features and scalar values. Zeros are allowed here because every actual query still has positive overlap with the accumulated keys."}</Prose>
 
-      <Prose>
-        This admits a compact recurrent form. Define running accumulators <Code>{"a_t = \\sum_{i \\le t} \\exp(w \\cdot (t - i) + k_i) \\cdot v_i"}</Code> and <Code>{"b_t = \\sum_{i \\le t} \\exp(w \\cdot (t - i) + k_i)"}</Code>. Then <Code>{"a_{t+1} = \\exp(w) \\cdot a_t + \\exp(k_{t+1}) \\cdot v_{t+1}"}</Code> and <Code>{"b_{t+1} = \\exp(w) \\cdot b_t + \\exp(k_{t+1})"}</Code>. Numerical stability requires log-space tracking: RWKV maintains a running per-channel maximum <Code>{"p_t"}</Code> and stores <Code>{"a_t, b_t"}</Code> relative to it. The custom CUDA kernel does exactly this.
-      </Prose>
+<NeuralTable caption={"A complete four-update example"} headers={[<>{"t"}</>,<>{"q̄_t"}</>,<>{"k̄_t"}</>,<>{"v_t"}</>,<>{"output"}</>]} rows={[[<>{"1"}</>,<>{"[1,1]"}</>,<>{"[1,0]"}</>,<>{"2"}</>,<>{"2"}</>],[<>{"2"}</>,<>{"[2,1]"}</>,<>{"[0,1]"}</>,<>{"8"}</>,<>{"4"}</>],[<>{"3"}</>,<>{"[1,2]"}</>,<>{"[1,1]"}</>,<>{"−1"}</>,<>{"2.5"}</>],[<>{"4"}</>,<>{"[3,1]"}</>,<>{"[2,1]"}</>,<>{"5"}</>,<>{"3"}</>]]} />
 
-      <H3>3.5 RWKV channel-mix</H3>
+<Prose>{"After the first two writes, S=[2,8]ᵀ and z=[1,1]ᵀ. The second query produces (2×2+1×8)/(2×1+1×1)=4. At the third write, S becomes [1,7]ᵀ and z=[2,2]ᵀ; the query returns 15/6=2.5. At the end S=[11,12]ᵀ and z=[4,3]ᵀ, so the final answer is 45/15=3."}</Prose>
 
-      <Prose>
-        The channel-mix block is a position-wise gated MLP. Given input <Code>{"x_t"}</Code>, the token-shifted input <Code>{"x_t' = \\mu_r \\odot x_t + (1 - \\mu_r) \\odot x_{t-1}"}</Code> is passed through:
-      </Prose>
+<RwkvFigure kind="ledger" />
 
-      <MathBlock>
-        {"\\text{channel-mix}(x_t) = \\sigma(R \\cdot x_t') \\odot \\left( V \\cdot \\text{ReLU}^2(K \\cdot x_t' + b_k) \\right)"}
-      </MathBlock>
+<Prose>{"Two summaries contain all the information this particular operator needs. They do not contain an individually recoverable copy of every original pair. If two histories have the same S and z, every future query with no intervening write receives the same answer."}</Prose>
 
-      <Prose>
-        Here <Code>{"\\sigma"}</Code> is sigmoid, <Code>{"\\text{ReLU}^2"}</Code> is squared ReLU (a nonlinearity chosen empirically), and <Code>R, K, V</Code> are learned projections. The <Code>{"\\sigma(R \\cdot x_t')"}</Code> factor is a receptance gate — it controls how much of the channel-mix output is admitted to the residual stream. The squared ReLU is similar to the GLU variants used in transformer FFNs but without an explicit gate variable.
-      </Prose>
+<RwkvSummaryLab />
 
-      <H3>3.6 RetNet retention</H3>
+<Prose>{"This example also reveals a limitation: an ungated summary retains all writes. Repeating an address can accumulate conflicting values. Normalization may average them, but it does not know that a later measurement was meant to replace an earlier one."}</Prose>
 
-      <Prose>
-        RetNet's retention mechanism is linear attention with an exponential time-decay. Define <Code>{"D_{i,j} = \\gamma^{i - j}"}</Code> for <Code>{"i \\ge j"}</Code> and <Code>{"D_{i,j} = 0"}</Code> otherwise. Then:
-      </Prose>
+<H3>{"“Linear” describes scaling, not the whole network"}</H3>
 
-      <MathBlock>
-        {"Y = (Q K^T \\odot D) V \\quad \\text{(parallel form)}"}
-      </MathBlock>
+<Prose>{"For fixed feature dimension m and value width p, these updates take O(Tmp) work over T positions and O(mp+m) persistent state per head. Computing the learned projections and feature map adds its own cost. The full model has nonlinearities, normalization and input-dependent features; it is not a linear function of the original sequence."}</Prose>
 
-      <MathBlock>
-        {"S_t = \\gamma S_{t-1} + K_t^T V_t, \\qquad Y_t = Q_t S_t \\quad \\text{(recurrent form)}"}
-      </MathBlock>
+<Prose>{"One common map is φ(x)=ELU(x)+1, applied coordinatewise. For x≥0 it is x+1, and for x<0 it is exp(x), so it is strictly positive in exact arithmetic. This chooses a useful kernel. It is "}<strong>{"not an exact softmax factorization"}</strong>{"."}</Prose>
 
-      <Prose>
-        The two forms produce identical outputs. The chunkwise form processes <Code>C</Code> tokens at a time with a quadratic within-chunk computation (efficient on GPU) and a decayed carry between chunks, giving a cost of <Code>{"O(L \\cdot C)"}</Code> for compute and <Code>{"O(C^2)"}</Code> for activation memory within a chunk. This is the core of every modern long-context training setup for linear-attention models: chunkwise parallel to get GPU-friendly BMMs, recurrent state carry to get unbounded context.
-      </Prose>
+<Prose>{"Take one-dimensional keys [0,1], values [0,10], and query 2. Softmax gives 10exp(2)/(1+exp(2)), about 8.807971. ELU+1 gives feature-query 3 and feature-keys [1,2], hence weights proportional to [3,6] and output 6.666667. Both are correct evaluations of different operators. A resemblance on one random tensor cannot establish equivalence or downstream quality."}</Prose>
 
-      <H3>3.7 Gated linear attention</H3>
+<RwkvFigure kind="kernels" />
 
-      <Prose>
-        GLA generalizes retention by replacing the fixed scalar <Code>{"\\gamma"}</Code> with a learned, data-dependent gating matrix <Code>{"G_t \\in \\mathbb{R}^{d \\times d}"}</Code>. The recurrence is:
-      </Prose>
-
-      <MathBlock>
-        {"S_t = G_t \\odot S_{t-1} + K_t^T V_t, \\qquad Y_t = Q_t S_t"}
-      </MathBlock>
-
-      <Prose>
-        The gate is typically parameterized as <Code>{"G_t = \\text{sigmoid}(W_g x_t)"}</Code> (if broadcast to <Code>{"d \\times d"}</Code>) or as a low-rank decomposition <Code>{"G_t = \\alpha_t \\beta_t^T"}</Code> for efficiency. The key property: <Code>{"G_t"}</Code> depends on <Code>{"x_t"}</Code>, giving the model input-conditional "forgetting" of the state. This is precisely the mechanism that lets GLA selectively retain or discard information — the same role played by softmax's ability to weight past tokens arbitrarily.
-      </Prose>
-
-      <H3>3.8 Mamba-2 and the SSM-attention duality</H3>
-
-      <Prose>
-        Dao and Gu (2024) showed that state-space models of the form <Code>{"h_t = A_t h_{t-1} + B_t x_t"}</Code>, <Code>{"y_t = C_t h_t"}</Code>, when <Code>{"A_t = a_t I"}</Code> is a scalar-times-identity, are formally equivalent to a masked linear attention with a specific structure. The mapping: <Code>{"K = B, V = x, Q = C"}</Code>, and the diagonal decay is <Code>{"D_{i,j} = \\prod_{k=j+1}^{i} a_k"}</Code>. This means Mamba-2's "selective SSM" and GLA's "gated linear attention" are the same algorithm written in different notation; both are specific instantiations of a generalized linear attention with time-varying gates. The duality unified a previously-divided literature and gave vendors a common interface for hardware kernels.
-      </Prose>
-
-      <H3>3.9 Cost comparison</H3>
-
-      <Prose>
-        Training cost for a sequence of length <Code>L</Code> with model dimension <Code>d</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{softmax attention: } O(L^2 \\cdot d), \\quad \\text{linear attention: } O(L \\cdot d^2), \\quad \\text{chunkwise: } O(L \\cdot C \\cdot d + (L/C) \\cdot d^2)"}
-      </MathBlock>
-
-      <Prose>
-        Crossover: softmax becomes more expensive than linear when <Code>{"L > d"}</Code>. For a 7B model with <Code>{"d = 4096"}</Code>, linear attention is cheaper in theory for <Code>{"L > 4096"}</Code>. In practice, softmax attention has heavily optimized GPU kernels (FlashAttention) with constants small enough that the crossover in wall time is closer to <Code>{"L \\approx 8 \\cdot d"}</Code>. At <Code>{"L = 100{","}000"}</Code>, linear attention is unambiguously faster — and also the only option that fits in memory.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        The four snippets below were run locally on PyTorch 2.6. Outputs are verbatim stdout from those runs.
-      </Prose>
-
-      <H3>4a. Linear attention via elu+1 feature map vs softmax</H3>
-
-      <Prose>
-        This snippet implements causal linear attention with Katharopoulos's <Code>{"\\phi(x) = \\text{elu}(x) + 1"}</Code> feature map and compares its output to standard causal softmax attention on a toy sequence. The two agree in direction on most tokens but not exactly — linear attention is a lossy approximation to softmax, and the discrepancy shows what you pay for the asymptotic speed-up.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-
-torch.manual_seed(0)
-
-def softmax_attention(Q, K, V, causal=True):
-    L, d = Q.shape
-    scores = Q @ K.T / (d ** 0.5)
-    if causal:
-        mask = torch.triu(torch.ones(L, L), diagonal=1).bool()
-        scores = scores.masked_fill(mask, float("-inf"))
-    w = F.softmax(scores, dim=-1)
-    return w @ V
-
-def phi(x):
-    return F.elu(x) + 1.0
-
-def linear_attention_causal(Q, K, V):
-    L, d = Q.shape
-    dv = V.shape[1]
-    phiQ = phi(Q); phiK = phi(K)
-    S = torch.zeros(d, dv)          # numerator state
-    z = torch.zeros(d)              # denominator state
-    out = torch.zeros(L, dv)
-    for t in range(L):
-        S = S + torch.outer(phiK[t], V[t])
-        z = z + phiK[t]
-        num = phiQ[t] @ S
-        den = phiQ[t] @ z + 1e-6
-        out[t] = num / den
-    return out
-
-L, d, dv = 8, 16, 16
-Q = torch.randn(L, d); K = torch.randn(L, d); V = torch.randn(L, dv)
-
-out_softmax = softmax_attention(Q, K, V, causal=True)
-out_linear  = linear_attention_causal(Q, K, V)
-
-print("softmax causal attention vs linear attention (elu+1)")
-print(f"  L={L}, d={d}, dv={dv}")
-print(f"  softmax output norm: {out_softmax.norm().item():.4f}")
-print(f"  linear  output norm: {out_linear.norm().item():.4f}")
-print("  cosine similarity per token:")
-for t in range(L):
-    cs = F.cosine_similarity(out_softmax[t], out_linear[t], dim=0).item()
-    print(f"    t={t}: cos_sim={cs:+.4f}")
-avg = F.cosine_similarity(out_softmax, out_linear, dim=1).mean().item()
-print(f"  mean cosine similarity: {avg:+.4f}")
-
-# Output:
-# softmax causal attention vs linear attention (elu+1)
-#   L=8, d=16, dv=16
-#   softmax output norm: 7.1675
-#   linear  output norm: 6.5640
-#   cosine similarity per token:
-#     t=0: cos_sim=+1.0000
-#     t=1: cos_sim=+0.9284
-#     t=2: cos_sim=+0.9986
-#     t=3: cos_sim=+0.9301
-#     t=4: cos_sim=+0.8353
-#     t=5: cos_sim=+0.8704
-#     t=6: cos_sim=+0.9278
-#     t=7: cos_sim=+0.7155
-#   mean cosine similarity: +0.9008`}
-      </CodeBlock>
-
-      <Prose>
-        Mean cosine similarity of 0.90 between softmax and linear attention outputs on the same <Code>Q, K, V</Code> is a realistic measurement of the approximation quality. Some tokens agree nearly exactly (position 0 is a forced agreement — the first token's attention has only one term); others drop to 0.72. The feature map <Code>{"\\text{elu}(x) + 1"}</Code> is not a faithful approximation to the softmax kernel; it is a <em>different</em> kernel that happens to be factorizable. Newer variants (Performers, RWKV, RetNet) close this gap dramatically via better feature maps, random features, or gating — but the basic tension is visible right here at <Code>L = 8</Code>. Note that at position <Code>t = 0</Code> the cosine is exactly 1: with a single past token, any attention reduces to "copy that token", and both methods give the same answer.
-      </Prose>
-
-      <H3>4b. RWKV WKV kernel: naive O(L^2) vs recurrent O(L)</H3>
-
-      <Prose>
-        The RWKV time-mix kernel can be evaluated two equivalent ways: as a direct double sum over all past tokens (which is quadratic and used for verification), or as a running recurrence (which is linear and used at inference). The recurrent form requires log-space numerical stability because <Code>{"\\exp(w \\cdot (t - i - 1) + k_i)"}</Code> can overflow for large <Code>{"t - i"}</Code>. This implementation tracks a per-channel running maximum to keep everything well-scaled.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-
-torch.manual_seed(0)
-
-def rwkv_wkv_naive(w, u, k, v):
-    """O(L^2) reference — used only for verification."""
-    L, C = k.shape
-    out = torch.zeros(L, C)
-    for t in range(L):
-        num = torch.zeros(C); den = torch.zeros(C)
-        for i in range(t):
-            weight = torch.exp(w * (t - i - 1) + k[i])
-            num = num + weight * v[i]
-            den = den + weight
-        cur = torch.exp(u + k[t])
-        num = num + cur * v[t]
-        den = den + cur
-        out[t] = num / (den + 1e-6)
-    return out
-
-def rwkv_wkv_recurrent(w, u, k, v):
-    """O(L) recurrent form with log-space numerical stability."""
-    L, C = k.shape
-    out = torch.zeros(L, C)
-    a = torch.zeros(C)
-    b = torch.zeros(C)
-    p = torch.full((C,), -1e30)   # running max, for stability
-    for t in range(L):
-        # output using current-token bonus 'u'
-        q = torch.maximum(p, u + k[t])
-        e1 = torch.exp(p - q); e2 = torch.exp(u + k[t] - q)
-        out[t] = (e1 * a + e2 * v[t]) / (e1 * b + e2 + 1e-6)
-        # update decayed running state
-        q2 = torch.maximum(w + p, k[t])
-        e1 = torch.exp(w + p - q2); e2 = torch.exp(k[t] - q2)
-        a = e1 * a + e2 * v[t]
-        b = e1 * b + e2
-        p = q2
-    return out
-
-L, C = 6, 8
-w = -torch.exp(torch.randn(C) * 0.5)   # learned decay, constrained <= 0
-u = torch.randn(C) * 0.3               # per-channel current-token bonus
-k = torch.randn(L, C); v = torch.randn(L, C)
-
-out_naive = rwkv_wkv_naive(w, u, k, v)
-out_recur = rwkv_wkv_recurrent(w, u, k, v)
-
-print("RWKV WKV: naive O(L^2) vs recurrent O(L)")
-print(f"  L={L}, C={C}")
-print(f"  naive     norm: {out_naive.norm().item():.6f}")
-print(f"  recurrent norm: {out_recur.norm().item():.6f}")
-diff = (out_naive - out_recur).abs().max().item()
-print(f"  max abs diff:   {diff:.2e}")
-print()
-print("per-token output (first 3 channels):")
-for t in range(L):
-    n = out_naive[t, :3].tolist()
-    r = out_recur[t, :3].tolist()
-    print(f"  t={t}: naive={[f'{x:+.3f}' for x in n]}  recur={[f'{x:+.3f}' for x in r]}")
-
-# Output:
-# RWKV WKV: naive O(L^2) vs recurrent O(L)
-#   L=6, C=8
-#   naive     norm: 4.606184
-#   recurrent norm: 4.606183
-#   max abs diff:   8.94e-07
-#
-# per-token output (first 3 channels):
-#   t=0: naive=['-0.093', '+0.687', '-0.838']  recur=['-0.093', '+0.687', '-0.838']
-#   t=1: naive=['-0.181', '+1.745', '-1.366']  recur=['-0.181', '+1.745', '-1.366']
-#   t=2: naive=['+0.326', '+0.525', '-0.264']  recur=['+0.326', '+0.525', '-0.264']
-#   t=3: naive=['+0.827', '-0.157', '+0.135']  recur=['+0.827', '-0.157', '+0.135']
-#   t=4: naive=['+0.130', '-0.976', '+0.119']  recur=['+0.130', '-0.976', '+0.119']
-#   t=5: naive=['-0.240', '-1.424', '+0.199']  recur=['-0.240', '-1.424', '+0.199']`}
-      </CodeBlock>
-
-      <Prose>
-        Max abs diff between the O(L^2) reference and the O(L) recurrent implementation is 9e-7 — float32 accumulation noise. The recurrent form is exact, not an approximation. This is the critical structural property: RWKV's training graph <em>is</em> a recurrence, and the loss is identical whether you unroll it step-by-step (slow) or use the prefix-scan CUDA kernel (fast). Most RNN-style architectures do not have this property — typical RNNs have a hidden-state-dependent nonlinearity that prevents parallel unrolling.
-      </Prose>
-
-      <H3>4c. Benchmark: softmax vs linear attention at growing sequence length</H3>
-
-      <Prose>
-        This benchmark compares vectorized softmax attention against vectorized (parallel-form) linear attention at sequence lengths 256, 512, 1024, 2048, 4096, 8192 on CPU. The expectation: at short <Code>L</Code>, softmax wins because its highly optimized matmul kernels beat the overhead of the linear-attention implementation. At long <Code>L</Code>, linear attention wins because the <Code>{"L^2"}</Code> cost of softmax catches up. The crossover is exactly what we predicted from the math: around <Code>{"L \\approx d"}</Code>, scaled by the implementation's constants.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-import time
-
-torch.manual_seed(0)
-d = 64
-
-def softmax_attn(Q, K, V):
-    L, d = Q.shape
-    scores = Q @ K.T / (d ** 0.5)
-    mask = torch.triu(torch.ones(L, L), diagonal=1).bool()
-    scores = scores.masked_fill(mask, float("-inf"))
-    return F.softmax(scores, dim=-1) @ V
-
-def linear_attn_parallel(Q, K, V):
-    # Vectorized causal linear attention via cumulative sum of outer products.
-    phiQ = F.elu(Q) + 1.0
-    phiK = F.elu(K) + 1.0
-    L, d = phiQ.shape
-    dv = V.shape[1]
-    outer_kv = phiK.unsqueeze(-1) * V.unsqueeze(-2)  # [L, d, dv]
-    S = outer_kv.cumsum(dim=0)                        # running numerator state
-    z = phiK.cumsum(dim=0)                            # running denominator
-    num = torch.einsum("ld,ldv->lv", phiQ, S)
-    den = (phiQ * z).sum(dim=-1, keepdim=True) + 1e-6
-    return num / den
-
-def bench(fn, L, n_warm=2, n_run=3):
-    Q = torch.randn(L, d); K = torch.randn(L, d); V = torch.randn(L, d)
-    for _ in range(n_warm): _ = fn(Q, K, V)
-    t0 = time.perf_counter()
-    for _ in range(n_run): _ = fn(Q, K, V)
-    return (time.perf_counter() - t0) / n_run * 1e3
-
-print(f"attention throughput (d={d}, CPU, ms per forward)")
-print(f"{'L':>6}  {'softmax':>10}  {'linear':>10}  {'ratio':>8}")
-for L in [256, 512, 1024, 2048, 4096, 8192]:
-    t_sm = bench(softmax_attn, L)
-    t_ln = bench(linear_attn_parallel, L)
-    print(f"{L:>6}  {t_sm:>9.2f}ms  {t_ln:>9.2f}ms  {t_sm/t_ln:>7.2f}x")
-
-print()
-print("attention matrix / state memory (KB):")
-print(f"{'L':>6}  {'softmax LxL':>14}  {'linear dxd':>14}")
-for L in [256, 1024, 4096, 16384, 65536]:
-    sm_kb = (L * L * 4) / 1024
-    ln_kb = (d * d * 4) / 1024
-    print(f"{L:>6}  {sm_kb:>14.1f}  {ln_kb:>14.1f}")
-
-# Output:
-# attention throughput (d=64, CPU, ms per forward)
-#      L     softmax      linear     ratio
-#    256       1.10ms       4.62ms    0.24x
-#    512       2.58ms      12.74ms    0.20x
-#   1024       9.11ms      34.45ms    0.26x
-#   2048      29.69ms      85.75ms    0.35x
-#   4096     110.07ms     222.85ms    0.49x
-#   8192     630.96ms     410.04ms    1.54x
-#
-# attention matrix / state memory (KB):
-#      L     softmax LxL      linear dxd
-#    256           256.0            16.0
-#   1024          4096.0            16.0
-#   4096         65536.0            16.0
-#  16384       1048576.0            16.0
-#  65536      16777216.0            16.0`}
-      </CodeBlock>
-
-      <Prose>
-        At <Code>L = 256</Code>, softmax is 4× faster than our unoptimized linear attention — the constant factor of torch matmul is hard to beat on small sizes. At <Code>L = 8192</Code>, linear wins by 1.54× and the gap continues to widen. More striking is the memory: the softmax attention matrix grows from 256KB at <Code>L = 256</Code> to 16GB at <Code>L = 65K</Code>, while the linear state stays at 16KB regardless of <Code>L</Code>. In practice no one actually materializes the <Code>L × L</Code> matrix for long contexts — FlashAttention streams it — but the linear-attention state is genuinely constant-memory, which is the property that matters for deploying long-context models on limited hardware. The linear cost advantage at sequence length also scales with <Code>d</Code>: for real LLMs with <Code>d = 4096</Code> and modern FlashAttention kernels, the wall-clock crossover is closer to <Code>{"L \\approx 8{","}000"}</Code> to <Code>{"L \\approx 16{","}000"}</Code>.
-      </Prose>
-
-      <H3>4d. Chunked parallel linear attention (GLA-style training kernel)</H3>
-
-      <Prose>
-        The pure recurrent form of linear attention is <Code>O(L)</Code> but slow in practice because each step is a matrix-vector operation that does not use GPU BMMs efficiently. The GLA paper (Yang 2024) introduced a hardware-aware training kernel: break the sequence into chunks of size <Code>C</Code>, do a quadratic within-chunk attention (friendly to BMMs), and carry a <Code>{"d \\times d"}</Code> state between chunks. Cost is <Code>{"O(L \\cdot C + (L/C) \\cdot d^2)"}</Code>; with <Code>{"C \\approx d"}</Code> this gives the theoretical minimum <Code>{"O(L \\cdot d)"}</Code>. This snippet verifies the chunked form matches the recurrent reference bit-exactly and measures the speedup.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-import time
-
-torch.manual_seed(0)
-d = 64
-
-def linear_attn_recurrent(Q, K, V):
-    phiQ = F.elu(Q) + 1.0; phiK = F.elu(K) + 1.0
-    L = Q.shape[0]; dv = V.shape[1]
-    S = torch.zeros(d, dv); z = torch.zeros(d)
-    out = torch.zeros(L, dv)
-    for t in range(L):
-        S = S + torch.outer(phiK[t], V[t])
-        z = z + phiK[t]
-        out[t] = (phiQ[t] @ S) / (phiQ[t] @ z + 1e-6)
-    return out
-
-def linear_attn_chunked(Q, K, V, chunk_size=64):
-    phiQ = F.elu(Q) + 1.0; phiK = F.elu(K) + 1.0
-    L, d = phiQ.shape; dv = V.shape[1]
-    out = torch.zeros(L, dv)
-    S = torch.zeros(d, dv)    # inter-chunk numerator state
-    z = torch.zeros(d)        # inter-chunk denominator state
-    for start in range(0, L, chunk_size):
-        end = min(start + chunk_size, L)
-        qc = phiQ[start:end]; kc = phiK[start:end]; vc = V[start:end]
-        c = qc.shape[0]
-        # within-chunk: quadratic BMM on cxc (cheap for small chunks)
-        inner = qc @ kc.T
-        mask = torch.triu(torch.ones(c, c), diagonal=1).bool()
-        inner = inner.masked_fill(mask, 0.0)
-        num_in = inner @ vc
-        den_in = inner.sum(dim=-1, keepdim=True)
-        # cross-chunk: use carried state S, z
-        num_cross = qc @ S
-        den_cross = (qc @ z).unsqueeze(-1)
-        out[start:end] = (num_in + num_cross) / (den_in + den_cross + 1e-6)
-        # update inter-chunk state by adding the chunk's full contribution
-        S = S + kc.T @ vc
-        z = z + kc.sum(dim=0)
-    return out
-
-# Verify chunked == recurrent
-L = 256
-Q = torch.randn(L, d); K = torch.randn(L, d); V = torch.randn(L, d)
-out_rec  = linear_attn_recurrent(Q, K, V)
-out_c16  = linear_attn_chunked(Q, K, V, chunk_size=16)
-out_c64  = linear_attn_chunked(Q, K, V, chunk_size=64)
-out_c256 = linear_attn_chunked(Q, K, V, chunk_size=256)
-print("chunked parallel linear attention vs recurrent reference")
-print(f"  chunk=16  max abs diff: {(out_rec - out_c16 ).abs().max().item():.2e}")
-print(f"  chunk=64  max abs diff: {(out_rec - out_c64 ).abs().max().item():.2e}")
-print(f"  chunk=256 max abs diff: {(out_rec - out_c256).abs().max().item():.2e}")
-
-# Speed at L=4096
-L = 4096
-Q = torch.randn(L, d); K = torch.randn(L, d); V = torch.randn(L, d)
-def bench(fn, n=3):
-    for _ in range(2): _ = fn()
-    t0 = time.perf_counter()
-    for _ in range(n): _ = fn()
-    return (time.perf_counter() - t0) / n * 1e3
-t_rec  = bench(lambda: linear_attn_recurrent(Q, K, V))
-t_c16  = bench(lambda: linear_attn_chunked(Q, K, V, 16))
-t_c64  = bench(lambda: linear_attn_chunked(Q, K, V, 64))
-t_c256 = bench(lambda: linear_attn_chunked(Q, K, V, 256))
-print(f"\\nspeed at L={L} (ms per forward, CPU):")
-print(f"  pure recurrent O(L):         {t_rec:>7.1f}")
-print(f"  chunked parallel, chunk=16:  {t_c16:>7.1f}")
-print(f"  chunked parallel, chunk=64:  {t_c64:>7.1f}")
-print(f"  chunked parallel, chunk=256: {t_c256:>7.1f}")
-
-# Output:
-# chunked parallel linear attention vs recurrent reference
-#   chunk=16  max abs diff: 4.77e-07
-#   chunk=64  max abs diff: 4.77e-07
-#   chunk=256 max abs diff: 4.77e-07
-#
-# speed at L=4096 (ms per forward, CPU):
-#   pure recurrent O(L):           813.4
-#   chunked parallel, chunk=16:    138.2
-#   chunked parallel, chunk=64:     59.9
-#   chunked parallel, chunk=256:    30.9`}
-      </CodeBlock>
-
-      <Prose>
-        Chunked parallel is a 26× speedup over the pure recurrent form at <Code>L = 4096</Code>, with chunk size 256. Correctness is exact to float precision — not an approximation. The sweet spot of chunk size is architecture-specific: small chunks waste time on tiny BMMs; large chunks reduce the BMM parallelism advantage by growing the within-chunk <Code>c × c</Code> matrix. In production GLA and Mamba-2 kernels, chunk sizes between 64 and 256 are standard. This is the training trick that made linear-attention models actually fast: without chunked parallelism, linear attention is linear-time in theory but slower than softmax in wall-clock because of poor GPU utilization.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5.1 RWKV-4 and RWKV-5 checkpoints on HuggingFace</H3>
-
-      <Prose>
-        The RWKV project (led by Bo Peng at BlinkDL) publishes checkpoints on HuggingFace. The canonical "Raven" line is an instruction-tuned RWKV-4 model; the non-instruction-tuned base models follow the <Code>RWKV/rwkv-4-</Code>* naming scheme. Inference works through HuggingFace <Code>transformers</Code>:
-      </Prose>
-
-      <CodeBlock language="python">
-{`from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
-
-# RWKV-4 Raven 14B: instruction-tuned
-tok = AutoTokenizer.from_pretrained("RWKV/rwkv-raven-14b")
-model = AutoModelForCausalLM.from_pretrained(
-    "RWKV/rwkv-raven-14b",
-    torch_dtype=torch.float16,
-    device_map="auto",
-)
-
-prompt = "Explain linear attention in one paragraph:"
-inputs = tok(prompt, return_tensors="pt").to(model.device)
-
-# At inference, RWKV is literally an RNN: each new token is O(1) memory
-# regardless of the context length built up before it.
-with torch.no_grad():
-    out = model.generate(**inputs, max_new_tokens=200)
-
-print(tok.decode(out[0], skip_special_tokens=True))`}
-      </CodeBlock>
-
-      <Prose>
-        At inference, the HuggingFace implementation of RWKV uses the recurrent formulation — a learned <Code>state</Code> is carried from token to token and updated in <Code>O(C)</Code> time per step (where <Code>C</Code> is the channel dimension, not sequence length). Because there is no KV cache growing with context, the memory footprint is fixed; you can push context to arbitrary length without memory blowing up. This is the property that makes RWKV attractive for streaming applications and edge deployment. RWKV-5 Eagle and RWKV-6 Finch checkpoints are available under <Code>RWKV/rwkv-5-world-</Code>* and <Code>RWKV/v5-Eagle-</Code>* variants on HuggingFace; RWKV-7 Goose (2025) is distributed primarily through BlinkDL's own releases on HuggingFace with names like <Code>BlinkDL/rwkv-7-world</Code>.
-      </Prose>
-
-      <H3>5.2 Flash Linear Attention (fla-org) library</H3>
-
-      <Prose>
-        The <Code>fla-org/flash-linear-attention</Code> library (maintained by Songlin Yang and collaborators) provides CUDA-optimized kernels for the entire linear-attention family: GLA, RetNet, RWKV variants, Mamba-2, DeltaNet, and more. It is the de facto reference for high-performance linear-attention training and inference. Usage:
-      </Prose>
-
-      <CodeBlock language="python">
-{`# pip install flash-linear-attention
-
-from fla.layers import GatedLinearAttention, RetNet, RWKV6Attention
-import torch
-
-# GLA layer: data-dependent gating + linear attention
-layer = GatedLinearAttention(
-    hidden_size=1024,
-    num_heads=4,
-    expand_ratio=1.0,
-).cuda().to(torch.bfloat16)
-
-x = torch.randn(2, 4096, 1024, device="cuda", dtype=torch.bfloat16)
-y = layer(x)[0]        # returns (output, cache); cache is the recurrent state
-print(y.shape)         # [2, 4096, 1024]
-
-# RetNet layer
-retnet = RetNet(hidden_size=1024, num_heads=4).cuda().to(torch.bfloat16)
-y = retnet(x)[0]
-
-# RWKV-6 attention block
-rwkv_attn = RWKV6Attention(hidden_size=1024, num_heads=4).cuda().to(torch.bfloat16)
-y = rwkv_attn(x)[0]
-
-# All three share the same interface — drop-in replacements for torch.nn.MultiheadAttention`}
-      </CodeBlock>
-
-      <Prose>
-        The library uses Triton kernels internally, which makes it portable across GPU architectures. For the chunked parallel path it implements the three-form decomposition described in section 3.6 — training uses the chunkwise form, inference uses the recurrent form, and a small "parallel within chunk" kernel handles the BMM within each chunk. Benchmarks on A100 and H100 show the fla kernels within 2x of FlashAttention-2 for softmax attention at short sequence lengths, and significantly faster at <Code>{"L > 16K"}</Code>.
-      </Prose>
-
-      <H3>5.3 A minimal RWKV block in PyTorch</H3>
-
-      <Prose>
-        The block below is a readable RWKV-4 time-mix + channel-mix pair. Production RWKV uses a custom CUDA kernel for the time-mix recurrence, but the pure-PyTorch version shown here is correct and faithful to the published paper; it is what you would use for prototyping on CPU or for pedagogy.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class RWKVTimeMix(nn.Module):
-    def __init__(self, n_embd):
-        super().__init__()
-        # token-shift mixers for R, K, V (elementwise interpolation weights)
-        self.time_mix_r = nn.Parameter(torch.ones(n_embd) * 0.5)
-        self.time_mix_k = nn.Parameter(torch.ones(n_embd) * 0.5)
-        self.time_mix_v = nn.Parameter(torch.ones(n_embd) * 0.5)
-        # per-channel time decay (learned; constrained to be non-positive in practice)
-        self.time_decay = nn.Parameter(-torch.ones(n_embd))   # "w"
-        # per-channel current-token bonus (learned)
-        self.time_first = nn.Parameter(torch.zeros(n_embd))    # "u"
-        # projections
-        self.receptance = nn.Linear(n_embd, n_embd, bias=False)
-        self.key        = nn.Linear(n_embd, n_embd, bias=False)
-        self.value      = nn.Linear(n_embd, n_embd, bias=False)
-        self.output     = nn.Linear(n_embd, n_embd, bias=False)
-
-    def forward(self, x):
-        # x : [B, L, C]
-        # token shift: prev-token mix
-        x_prev = F.pad(x[:, :-1, :], (0, 0, 1, 0))             # [B, L, C]
-        xr = x * self.time_mix_r + x_prev * (1 - self.time_mix_r)
-        xk = x * self.time_mix_k + x_prev * (1 - self.time_mix_k)
-        xv = x * self.time_mix_v + x_prev * (1 - self.time_mix_v)
-        r = torch.sigmoid(self.receptance(xr))
-        k = self.key(xk)
-        v = self.value(xv)
-        # WKV recurrence (recurrent form, per-batch scan)
-        B, L, C = x.shape
-        wkv = torch.zeros_like(x)
-        a = torch.zeros(B, C, device=x.device)
-        b = torch.zeros(B, C, device=x.device)
-        p = torch.full((B, C), -1e30, device=x.device)
-        w = self.time_decay; u = self.time_first
-        for t in range(L):
-            q = torch.maximum(p, u + k[:, t])
-            e1 = torch.exp(p - q); e2 = torch.exp(u + k[:, t] - q)
-            wkv[:, t] = (e1 * a + e2 * v[:, t]) / (e1 * b + e2 + 1e-6)
-            q2 = torch.maximum(w + p, k[:, t])
-            e1 = torch.exp(w + p - q2); e2 = torch.exp(k[:, t] - q2)
-            a = e1 * a + e2 * v[:, t]; b = e1 * b + e2; p = q2
-        return self.output(r * wkv)
-
-class RWKVChannelMix(nn.Module):
-    def __init__(self, n_embd, n_hidden=None):
-        super().__init__()
-        n_hidden = n_hidden or 4 * n_embd
-        self.time_mix_r = nn.Parameter(torch.ones(n_embd) * 0.5)
-        self.time_mix_k = nn.Parameter(torch.ones(n_embd) * 0.5)
-        self.key        = nn.Linear(n_embd, n_hidden, bias=False)
-        self.receptance = nn.Linear(n_embd, n_embd, bias=False)
-        self.value      = nn.Linear(n_hidden, n_embd, bias=False)
-
-    def forward(self, x):
-        x_prev = F.pad(x[:, :-1, :], (0, 0, 1, 0))
-        xr = x * self.time_mix_r + x_prev * (1 - self.time_mix_r)
-        xk = x * self.time_mix_k + x_prev * (1 - self.time_mix_k)
-        k  = F.relu(self.key(xk)).pow(2)        # ReLU-squared nonlinearity
-        kv = self.value(k)
-        return torch.sigmoid(self.receptance(xr)) * kv
-
-class RWKVBlock(nn.Module):
-    def __init__(self, n_embd):
-        super().__init__()
-        self.ln1 = nn.LayerNorm(n_embd); self.ln2 = nn.LayerNorm(n_embd)
-        self.time_mix    = RWKVTimeMix(n_embd)
-        self.channel_mix = RWKVChannelMix(n_embd)
-    def forward(self, x):
-        x = x + self.time_mix(self.ln1(x))
-        x = x + self.channel_mix(self.ln2(x))
-        return x`}
-      </CodeBlock>
-
-      <Prose>
-        Three structural details are worth noting. First, <em>token shift</em> (the <Code>{"x_t' = \\mu \\odot x_t + (1 - \\mu) \\odot x_{t-1}"}</Code> mix) is applied before computing R, K, V — this gives the network a cheap one-step lookback without paying for full attention, and ablations in the RWKV-4 paper show this is critical (removing it loses 1-2 points of downstream accuracy). Second, the receptance gate <Code>{"\\sigma(r)"}</Code> multiplies the attention output before the final linear — it is the "admit to residual stream" gate, analogous to an LSTM's output gate. Third, the channel-mix uses <Code>{"\\text{ReLU}^2"}</Code> (squared ReLU) rather than GELU or SwiGLU; this was found empirically to work well but is not theoretically motivated.
-      </Prose>
-
-      <H3>5.4 Deployment considerations</H3>
-
-      <Callout accent="gold">
-        Production rules-of-thumb for 2026: (1) For inference on CPU or edge, RWKV is currently the best supported linear-attention family — there are <Code>rwkv.cpp</Code> and <Code>web-rwkv</Code> projects with int8/int4 quantization that run 7B+ models interactively on a phone. (2) For training and server inference, use <Code>flash-linear-attention</Code> (<Code>fla-org</Code>) — it has the most mature Triton kernels and covers GLA, RetNet, Mamba-2, and RWKV-6+. (3) For long-context tasks ({">"}32K tokens), hybrid architectures (a few full-attention layers plus many linear-attention layers) like Jamba or Samba give the best quality-for-cost. (4) RetNet checkpoints exist but the production model ecosystem is thin — RetNet is a research baseline more than a deployment target. (5) Never expect linear-attention models to match softmax on exact-recall tasks (passkey retrieval, needle-in-a-haystack past 32K); the compressive state has a fundamental capacity limit set by <Code>{"d \\times d"}</Code>, and large contexts will exhaust it.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. RWKV time-mix forward pass — StepTrace</H3>
-
-      <StepTrace
-        label="RWKV-4 time-mix forward pass over 5 tokens"
-        steps={[
-          {
-            label: "Step 1 — Token shift",
-            render: () => (
-              <Prose>
-                {"At each position t, we mix the current input with the previous input: x_t' = mu * x_t + (1 - mu) * x_{t-1}. This is done independently for the three projections R, K, V, each with its own learned mix vector (time_mix_r, time_mix_k, time_mix_v). The purpose: give the R/K/V computation a small amount of one-step lookback without paying for full attention. At t=0 there is no previous token, so x_prev is zero-padded and the effective mix is x_0' = mu * x_0."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Compute R, K, V projections",
-            render: () => (
-              <Prose>
-                {"r_t = sigmoid(W_R @ x_t') — the receptance gate, used at the end to scale the block's output. k_t = W_K @ x_t' — the key, a per-channel log-weight on how much this token should contribute to the running state. v_t = W_V @ x_t' — the value, what gets aggregated. The sigmoid on r is critical; without it, the output gating cannot suppress channels and quality drops."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Initialize state at t=0",
-            render: () => (
-              <Prose>
-                {"The WKV recurrence maintains three accumulators per channel: a (weighted sum of values), b (sum of weights), and p (log-space running maximum for stability). Initial values: a = 0, b = 0, p = -infinity. At t=0 we compute the output using only the current-token bonus exp(u + k_0): wkv_0 = v_0 (since only one term). Then update the running state with decayed contributions."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — Step t=1: current + decayed past",
-            render: () => (
-              <Prose>
-                {"Compute q = max(p, u + k_1). Rescale: e1 = exp(p - q), e2 = exp(u + k_1 - q). Output: wkv_1 = (e1 * a + e2 * v_1) / (e1 * b + e2). This is the weighted sum of the current token (with bonus u) and the accumulated decayed past. Then update running state with time decay w: new a = exp(w) * old_a + exp(k_1) * v_1 (log-space rescaled). Each element of w is learned and typically constrained to be negative — closer to zero means longer memory, more negative means faster forgetting."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — Decay compounds over t=2,3,4",
-            render: () => (
-              <Prose>
-                {"At each subsequent step, the running state is multiplied by exp(w) and a new contribution exp(k_t) * v_t is added. After T steps, the contribution from position i has weight exp(w * (t - i - 1) + k_i). Channels with w close to 0 retain information for many steps; channels with very negative w forget almost immediately. The learned w is per-channel, so some channels specialize in short-range features and others in long-range. This is the 'time-decay' pattern that replaces softmax's pairwise attention — no O(L^2) computation, but the expressivity is limited by the fixed exponential schedule."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 6 — Apply receptance and output projection",
-            render: () => (
-              <Prose>
-                {"At each step, the output of the time-mix block is out_t = W_out @ (r_t * wkv_t). The receptance r_t (a sigmoid gate) decides per-channel how much of the wkv signal to pass through. Channels where r_t is close to 0 are suppressed; channels where r_t is near 1 pass unaltered. The final projection W_out mixes across channels to produce the output that gets added to the residual stream. The block is complete — one token, one recurrence step, one O(d^2) update; no attention matrix was ever formed."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6b. Throughput vs sequence length</H3>
-
-      <Prose>
-        Approximate reported throughput (tokens per second) for three model families at a common 7B parameter scale on an A100 80GB, varying context length. Transformer numbers from FlashAttention-2 benchmarks; RWKV-6 from BlinkDL's reported numbers; Mamba-2 from the state-spaces paper. All figures are inference tokens/sec at batch size 1 — the regime where linear attention's constant-memory property matters most.
-      </Prose>
-
-      <Plot
-        label="inference throughput vs sequence length (tokens/sec, 7B models on A100, higher is better)"
-        xLabel="sequence length"
-        yLabel="tokens / sec"
-        series={[
-          {
-            name: "Transformer (FlashAttention-2)",
-            color: "#f87171",
-            points: [
-              [1024, 180],
-              [2048, 170],
-              [4096, 140],
-              [8192, 95],
-              [16384, 55],
-              [32768, 28],
-              [65536, 12],
-            ],
-          },
-          {
-            name: "RWKV-6 Finch",
-            color: colors.gold,
-            points: [
-              [1024, 150],
-              [2048, 148],
-              [4096, 147],
-              [8192, 145],
-              [16384, 143],
-              [32768, 140],
-              [65536, 138],
-            ],
-          },
-          {
-            name: "Mamba-2",
-            color: colors.green,
-            points: [
-              [1024, 145],
-              [2048, 145],
-              [4096, 144],
-              [8192, 143],
-              [16384, 142],
-              [32768, 140],
-              [65536, 138],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The transformer starts faster at short contexts (FlashAttention's optimized kernels beat the linear-attention constants up to about 4K), then decays rapidly as the KV cache grows and memory bandwidth becomes the bottleneck. At 64K tokens the transformer is at ~12 tok/sec — essentially unusable for interactive applications. RWKV-6 and Mamba-2 are nearly flat across the range: linear time and constant memory mean throughput barely depends on context length. The crossover sits around 6K-8K tokens. This is the regime where linear attention actually wins in wall-clock performance, not just asymptotically.
-      </Prose>
-
-      <H3>6c. Memory usage vs sequence length</H3>
-
-      <Plot
-        label="inference memory footprint vs sequence length (GB, 7B model, fp16)"
-        xLabel="sequence length"
-        yLabel="GB"
-        series={[
-          {
-            name: "Transformer (KV cache)",
-            color: "#f87171",
-            points: [
-              [1024, 14.5],
-              [4096, 16.0],
-              [16384, 22.0],
-              [65536, 46.0],
-              [262144, 142.0],
-            ],
-          },
-          {
-            name: "RWKV-6 (constant state)",
-            color: colors.gold,
-            points: [
-              [1024, 14.0],
-              [4096, 14.0],
-              [16384, 14.0],
-              [65536, 14.0],
-              [262144, 14.0],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        Transformer memory grows linearly with context: the KV cache at each layer stores <Code>{"2 \\cdot L \\cdot d"}</Code> float16s, which at 32 layers and <Code>{"d = 4096"}</Code> is about 500KB per token. At 64K tokens the cache alone is 32GB; at 256K it is 128GB — more than a single A100 can hold. RWKV's memory is flat: the recurrent state is <Code>{"O(d^2)"}</Code> regardless of context, measured in MB, not GB. This is why RWKV and other linear-attention architectures are the natural choice for applications that need long context on limited hardware — streaming agents, on-device assistants, long-document analysis.
-      </Prose>
-
-      <H3>6d. RWKV time-decay heatmap (w over channels × time)</H3>
-
-      <Prose>
-        The heatmap below shows <Code>{"\\exp(w \\cdot \\Delta t)"}</Code> — the effective weight of a past contribution as a function of how far in the past it was (<Code>{"\\Delta t"}</Code>) and which channel we are looking at. Channels with <Code>w</Code> close to zero (top rows) retain contributions for many steps; channels with very negative <Code>w</Code> (bottom rows) forget within 2-3 steps. This separation is learned during training and is one of RWKV's key expressive resources — different channels handle different time scales.
-      </Prose>
-
-      <Heatmap
-        label="rwkv time-decay weight exp(w*dt) for 8 channels (rows) vs lookback dt (cols). brighter = longer memory"
-        rowLabels={[
-          "chan 0 (slow)",
-          "chan 1",
-          "chan 2",
-          "chan 3",
-          "chan 4",
-          "chan 5",
-          "chan 6",
-          "chan 7 (fast)",
-        ]}
-        colLabels={["dt=1", "dt=2", "dt=4", "dt=8", "dt=16", "dt=32", "dt=64", "dt=128"]}
-        matrix={[
-          [0.99, 0.98, 0.96, 0.92, 0.85, 0.72, 0.52, 0.27],
-          [0.97, 0.94, 0.88, 0.78, 0.60, 0.36, 0.13, 0.02],
-          [0.95, 0.90, 0.81, 0.66, 0.44, 0.19, 0.04, 0.00],
-          [0.90, 0.81, 0.66, 0.43, 0.19, 0.04, 0.00, 0.00],
-          [0.82, 0.67, 0.45, 0.20, 0.04, 0.00, 0.00, 0.00],
-          [0.70, 0.49, 0.24, 0.06, 0.00, 0.00, 0.00, 0.00],
-          [0.50, 0.25, 0.06, 0.00, 0.00, 0.00, 0.00, 0.00],
-          [0.30, 0.09, 0.01, 0.00, 0.00, 0.00, 0.00, 0.00],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        Channel 0 (top row) has a very slow decay — exp(-0.01) per step, so a contribution from 128 steps ago still has weight 0.27. This channel specializes in long-range features (maintaining subject of a paragraph, tracking narrative context). Channel 7 (bottom row) has fast decay — exp(-1.2) per step, so a contribution from just 4 steps ago is down to 0.01. This channel specializes in short-range syntactic features (agreement, local word-order). The per-channel learnable decay is what lets RWKV handle mixed time-scale dependencies within a single recurrence — no softmax-style adaptive mechanism needed, just different learned <Code>w</Code> values per channel.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <StepTrace
-        label="when to choose linear attention / RWKV / transformer"
-        steps={[
-          {
-            label: "Extreme long context (100K+ tokens) — linear attention family",
-            render: () => (
-              <Prose>
-                {"If your task needs context beyond 64K tokens on a single GPU, standard transformers are not an option — the KV cache alone exceeds GPU memory. Use RWKV-6/7, Mamba-2, or a hybrid (Jamba, Samba) that mixes linear-attention layers with a few sparse full-attention layers. Quality will be 1-3 points below a full-attention model at the same parameter count, but the capability is real: you can process book-length inputs or large codebases without splitting. Passkey-retrieval and needle-in-a-haystack benchmarks favor attention-full architectures even at long context, but for tasks with dense rather than sparse information use (summarization, translation, chat over long documents) linear attention is often indistinguishable from full attention at the top end."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Mainstream LLM (2K-8K context, 1-70B params) — transformer with FlashAttention",
-            render: () => (
-              <Prose>
-                {"For most production LLMs of 2026, context lengths sit in the 2K-32K range and compute is dominated by the matmul in the FFN, not the attention. Here the transformer still wins slightly on quality (1-2 points on MMLU/GSM8K benchmarks at matched parameters), the training infrastructure is more mature, and FlashAttention-2/3 make the attention cost negligible. Unless you have a specific long-context reason, use a transformer. The dominance of this regime is what has kept linear-attention adoption in research rather than production."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Embedded/edge real-time inference — RWKV",
-            render: () => (
-              <Prose>
-                {"For on-device inference (smartphones, embedded AI chips, browser via WebAssembly), RWKV is currently the leading choice. The constant-memory recurrent inference fits in 4-8GB RAM for 7B models at int4 quantization. There are production deployments of RWKV for mobile chat assistants and real-time transcription captioning. Projects like rwkv.cpp (C++ inference) and web-rwkv (browser) have matured significantly. Transformers can run on-device too (LLaMA-2 7B at int4), but the KV cache grows with session length, which is a real limitation for agents with persistent memory."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Research: RNN-transformer hybrids — very active area",
-            render: () => (
-              <Prose>
-                {"A large body of research in 2024-2026 studies architectures that interleave attention and SSM/linear-attention layers: Jamba (AI21), Samba (Microsoft), Hymba (NVIDIA), Granite-4 (IBM), Zamba (Zyphra). Empirically these hybrids capture most of the recall capability of full attention with most of the efficiency of linear attention. As of 2026 the typical recipe is 1 attention layer for every 4-7 SSM/linear layers, plus a global mixer layer. If you are starting a new language model project with efficiency concerns, a hybrid architecture is likely the right default by 2026."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Quality loss tolerance — when linear is 'good enough'",
-            render: () => (
-              <Prose>
-                {"Rule of thumb: linear attention is a drop-in replacement when the acceptable quality loss is 1-3% and the sequence length is 16K+. Below 16K you are paying a quality tax without getting meaningful speedup. Above 16K the quality tax is fixed but the speedup compounds. For tasks where the input is routinely 50K+ tokens (e.g., code repositories, long documents, video transcripts), linear attention is nearly always the right answer. For chat with 4K-8K context it is almost never the right answer today, though the gap closes yearly."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Avoid — applying linear attention without long context or constant memory needs",
-            render: () => (
-              <Prose>
-                {"Don't use linear attention just because it sounds modern. At 2K context with transformer infrastructure, softmax is faster, higher quality, and uses less memory (activations, not just weights). Linear attention is worth the quality hit only when (a) you need very long context, (b) you need constant memory inference, or (c) you are doing research on architecture. Applying it to a short-context task is a straightforward quality regression with no compensating benefit."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Linear vs quadratic: the crossover math</H3>
-
-      <Prose>
-        Standard softmax attention has training cost <Code>{"O(L^2 \\cdot d)"}</Code>; linear attention has <Code>{"O(L \\cdot d^2)"}</Code>. The crossover at which linear is cheaper is <Code>{"L = d"}</Code>. For typical model dimensions (<Code>{"d = 1024"}</Code> for a small model, <Code>{"d = 4096"}</Code> for a 7B model, <Code>{"d = 12288"}</Code> for GPT-3-scale), the crossover is at <Code>{"L = 1024, 4096, 12288"}</Code> respectively. In practice constant factors matter: FlashAttention's softmax implementation is 2-4× faster than a naive linear-attention kernel at equal FLOPs, so the wall-clock crossover sits a few factors above the theoretical <Code>L = d</Code>. At <Code>{"L = 100{","}000"}</Code> the advantage is unambiguous regardless of implementation quality.
-      </Prose>
-
-      <H3>8.2 Quality gap has narrowed from 5-10% to 1-3%</H3>
-
-      <Prose>
-        In 2020, Katharopoulos's linear attention was 5-10 percent worse in perplexity than softmax at matched parameters. By 2024, GLA and RWKV-6 sit at 1-3 percent perplexity gap, depending on the benchmark. RWKV-7 Goose at 14B parameters claims parity with or slight improvement over LLaMA-2-13B on several downstream benchmarks. The progression is driven by architectural enrichment: <em>fixed</em> feature maps (2020) gave way to <em>random</em> feature maps (Performers, 2021) gave way to <em>data-dependent</em> decay (GLA, RWKV-6 dynamic, 2023-2024) gave way to <em>matrix-valued state</em> + <em>delta rule</em> updates (RWKV-7, 2025). Each step added expressivity at the cost of training kernel complexity. The remaining gap is attributed to softmax's ability to do exact indexed retrieval — linear attention's compressive <Code>{"d \\times d"}</Code> state can only store a finite amount of information, so long contexts eventually saturate it.
-      </Prose>
-
-      <H3>8.3 Chunked parallel training is the scaling enabler</H3>
-
-      <Prose>
-        Before chunked parallel kernels, linear attention was faster than softmax in theory but slower in practice — the recurrent form is linear-cost but sequential, which wastes GPU parallelism. Yang et al. 2024 (GLA) introduced the chunkwise parallel form: within a chunk of size <Code>C</Code>, compute attention as a <Code>{"C \\times C"}</Code> BMM (GPU-friendly); across chunks, carry a <Code>{"d \\times d"}</Code> state (a small sequential loop). This gave linear attention the same GPU utilization as softmax, eliminating the constant-factor penalty that had kept it research-only. The same trick applies to RWKV (from RWKV-5 onwards) and Mamba-2 (which has its own selective-scan kernel). By 2026, any production-scale linear-attention training uses chunkwise parallelism at <Code>C</Code> between 64 and 256.
-      </Prose>
-
-      <H3>8.4 State size determines information capacity</H3>
-
-      <Prose>
-        The recurrent state in a linear-attention layer is <Code>{"d \\times d"}</Code> (the numerator) plus <Code>{"d"}</Code> (the denominator). This state is a <em>fixed-size compression</em> of the entire past. Information theory gives a bound: the entropy of the past cannot exceed <Code>{"d^2 \\cdot 16"}</Code> bits for fp16. For <Code>{"d = 4096"}</Code> this is ~256Mbit, or roughly 32MB — plenty for most tasks but a hard wall for tasks requiring exact retrieval over very long contexts. This capacity limit explains why linear-attention models systematically underperform softmax on passkey/needle benchmarks past 32K tokens: once the state is saturated, new information overwrites old. RWKV-7's "delta rule" update and matrix-valued states (Eagle) both try to mitigate this by using the state more efficiently, but the fundamental capacity remains <Code>{"O(d^2)"}</Code>.
-      </Prose>
-
-      <H3>8.5 Hardware trajectory: kernels are catching up</H3>
-
-      <Prose>
-        In 2021 there was no Triton kernel for linear attention. By 2024 the <Code>fla-org</Code> library and Mamba's selective-scan had production-grade kernels. By 2026 NVIDIA and AMD both provide first-party kernels for gated linear attention in cuBLAS-LT and ROCm-BLAS. Inference vendors (Together, Fireworks, Lambda) list RWKV and Mamba endpoints alongside transformers, priced similarly on a tokens-per-second basis. The infrastructure story has converged enough that "use linear attention" no longer means "commit to a research-grade toolchain." This catch-up is what has made RWKV-7 and Mamba-2 practical options in 2026, where three years ago they would have been niche.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Wrong feature map dramatically hurts quality</H3>
-
-      <Prose>
-        The feature map <Code>{"\\phi"}</Code> in linear attention determines what kernel you are computing. Poor choices give poor results. For example, using <Code>{"\\phi(x) = x"}</Code> (identity) without non-negativity produces a kernel that can be negative, which breaks the softmax-like normalization: the denominator can be zero or negative, producing NaN outputs. Using <Code>{"\\phi(x) = \\text{ReLU}(x)"}</Code> enforces non-negativity but collapses information from the negative half-space. The <Code>{"\\text{elu}(x) + 1"}</Code> map used in Katharopoulos 2020 is the minimal choice that is non-negative and differentiable; Performers's random features are asymptotically optimal for approximating softmax. Fix: always use a validated feature map (elu+1 for simplicity, random features for higher fidelity) and verify output non-negativity after the feature map.
-      </Prose>
-
-      <H3>9.2 Missing or incorrect causal mask</H3>
-
-      <Prose>
-        Linear attention gets its causality from the running sum <Code>{"S_t = \\sum_{i \\le t} \\phi(K_i) V_i^T"}</Code>. If you accidentally compute <Code>{"S = \\sum_i \\phi(K_i) V_i^T"}</Code> (no upper bound on <Code>i</Code>), you have leaked future information and the model will memorize the training data but fail on generation. The bug is silent during training because the loss still decreases; it only shows up at inference when the model produces gibberish. Symptom: perfect training loss, catastrophic generation. Fix: always use <Code>cumsum</Code> or a chunked/recurrent implementation; never materialize a <em>non-masked</em> sum over all positions.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# BUG: no cumsum — sums over the full sequence, leaking future into past
-S = (phiK.unsqueeze(-1) * V.unsqueeze(-2)).sum(dim=0)   # [d, dv], shared!
-out = torch.einsum("ld,dv->lv", phiQ, S)                # every token sees future
-
-# FIX: cumsum — running sum, respects causality
-running = (phiK.unsqueeze(-1) * V.unsqueeze(-2)).cumsum(dim=0)   # [L, d, dv]
-out = torch.einsum("ld,ldv->lv", phiQ, running)`}
-      </CodeBlock>
-
-      <H3>9.3 RWKV pure-PyTorch is slow — needs custom CUDA for training speed</H3>
-
-      <Prose>
-        The RWKV time-mix kernel, naively implemented in PyTorch, runs as a Python-level for-loop over the sequence dimension. At inference with batch size 1 this is fine; at training on an A100 at batch size 64, sequence 2048, it is 10-50× slower than the custom CUDA kernel. The reason: PyTorch's operator-level dispatch overhead dominates when each op is small. The fix is one of (a) the <Code>rwkv-kernel</Code> CUDA package, which implements the whole time-mix recurrence as one fused kernel; (b) the <Code>fla-org/flash-linear-attention</Code> library, which provides a Triton kernel for RWKV-6; or (c) <Code>torch.compile</Code> with the <Code>mode="max-autotune"</Code> option, which can fuse the Python loop into a single kernel in favorable cases. Symptom: "my RWKV training is 50× slower than my transformer baseline." Fix: use the proper kernel, or prototype at small scale on CPU and scale up only after you have the kernel set up.
-      </Prose>
-
-      <H3>9.4 Quality ceiling differs sharply by task</H3>
-
-      <Prose>
-        Linear attention models have a distinctive quality profile across tasks. On language modeling perplexity: close to softmax (1-3% gap). On multi-task reasoning (MMLU, GSM8K): close to softmax at 7B+ scale. On exact recall tasks (passkey retrieval at 32K+, needle-in-a-haystack): systematically worse, often dramatically — the compressive <Code>{"d \\times d"}</Code> state cannot store arbitrary long-range indexed information. On in-context learning (few-shot accuracy): worse than softmax, particularly for tasks where the model needs to attend to specific few-shot examples. On structured output (JSON, code): comparable. Symptom: "my RWKV agent fails on tasks where it needs to copy something from 20K tokens ago." Fix: use a hybrid architecture with some full-attention layers, or accept that long-range exact recall is not linear attention's strength and route those queries to a softmax model.
-      </Prose>
-
-      <H3>9.5 Hallucination rate higher than matched-scale transformer</H3>
-
-      <Prose>
-        As of 2024 evaluations, linear-attention models at matched parameter count show higher hallucination rates on factuality benchmarks (TruthfulQA, FactScore) than equivalently-sized transformers. Specifically, RWKV-4-14B's TruthfulQA score was ~5 points below LLaMA-2-13B. The hypothesis: the compressive state averages rather than indexes past information, making it easier for the model to confabulate plausible-but-false details rather than retrieve accurate ones. Fix: apply retrieval augmentation (RAG) to ground generations, use instruction-tuning on factual datasets, or use hybrid architectures. The gap has narrowed with RWKV-6 and RWKV-7 but remains observable.
-      </Prose>
-
-      <H3>9.6 Fine-tuning methodology differs from transformers</H3>
-
-      <Prose>
-        Linear-attention models respond differently to fine-tuning than transformers. The learned time-decay parameter <Code>w</Code> in RWKV can be destabilized by aggressive learning rates — fine-tuning typically uses 5-10× lower LR than would be appropriate for a transformer of the same size. LoRA adapters on RWKV should target the R, K, V, and time-decay parameters (not just Q/K/V as in transformers); naive LoRA configs miss the time-decay and get inferior adaptation. Symptom: "my RWKV fine-tune is unstable or produces worse results than the base model on held-out data." Fix: use RWKV-specific fine-tuning recipes from the RWKV community (e.g., the <Code>rwkv-lm-tune</Code> or <Code>RWKV-LM-LoRA</Code> repos), which include the extra modules and lower LR defaults.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        Read in roughly chronological order to follow the development from Katharopoulos's original linear-attention observation through the RWKV architecture line and the SSM-attention duality.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Katharopoulos et al. 2020 — Linear attention / Transformers are RNNs (arXiv:2006.16236)",
-            render: () => (
-              <Prose>
-                Katharopoulos, A., Vyas, A., Pappas, N., and Fleuret, F. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention." ICML 2020. arXiv:2006.16236. Available at arxiv.org/abs/2006.16236. The foundational paper for the linear-attention family. Section 3 gives the derivation: softmax attention with a factorizable kernel becomes a running sum, which is an RNN. Section 4 proposes the elu+1 feature map and compares against standard softmax on image generation and speech recognition. The experimental gains are modest but the framing — "autoregressive transformers are a specific kind of RNN" — reshaped subsequent architecture research. Cited by every subsequent linear-attention paper.
-              </Prose>
-            ),
-          },
-          {
-            label: "Wang et al. 2020 — Linformer (arXiv:2006.04768)",
-            render: () => (
-              <Prose>
-                Wang, S., Li, B.Z., Khabsa, M., Fang, H., and Ma, H. (2020). "Linformer: Self-Attention with Linear Complexity." arXiv:2006.04768. Available at arxiv.org/abs/2006.04768. An alternative route to linear attention: low-rank projection of K and V along the sequence axis, producing a <Code>{"L \\times k"}</Code> attention matrix where <Code>k</Code> is fixed. Cost is <Code>{"O(L \\cdot k \\cdot d)"}</Code>. Limitation: the learned projection is per-length, so the model only works at the sequence length it was trained on. Useful for fixed-length encoder tasks (sentence-pair classification, document embedding) but not autoregressive generation. Less influential than Katharopoulos but an important contemporaneous data point.
-              </Prose>
-            ),
-          },
-          {
-            label: "Choromanski et al. 2021 — Performers (arXiv:2009.14794)",
-            render: () => (
-              <Prose>
-                Choromanski, K., Likhosherstov, V., Dohan, D., Song, X., Gane, A., Sarlos, T., Hawkins, P., Davis, J., Mohiuddin, A., Kaiser, L., Belanger, D., Colwell, L., and Weller, A. (2021). "Rethinking Attention with Performers." ICLR 2021. arXiv:2009.14794. Available at arxiv.org/abs/2009.14794. Proves that the softmax kernel <Code>{"\\exp(q \\cdot k)"}</Code> can be approximated by random features (FAVOR+) with variance <Code>{"O(1/m)"}</Code> in the number of random features <Code>m</Code>. First linear-attention method to come within 1-2% of softmax at matched scale on Wikitext-103. Section 2 gives the theoretical derivation; section 3 presents the FAVOR+ algorithm; section 4 empirically validates. The paper also introduced the "positive random features" trick that ensures non-negativity without biasing the estimator.
-              </Prose>
-            ),
-          },
-          {
-            label: "Peng et al. 2023 — RWKV-4 (arXiv:2305.13048)",
-            render: () => (
-              <Prose>
-                Peng, B., Alcaide, E., Anthony, Q., Albalak, A., Arcadinho, S., Cao, H., Cheng, X., Chung, M., Grella, M., GV, K.K., He, X., Hou, H., Kazienko, P., Kocoń, J., Kong, J., Koptyra, B., Lau, H., Mantri, K.S.I., Mom, F., Saito, A., Tang, X., Wang, B., Wind, J.S., Woźniak, S., Zhang, R., Zhang, Z., Zhao, Q., Zhou, P., Zhu, J., and Zhu, R.-J. (2023). "RWKV: Reinventing RNNs for the Transformer Era." EMNLP 2023 Findings. arXiv:2305.13048. Available at arxiv.org/abs/2305.13048. The RWKV-4 paper. Section 3 describes the time-mix (WKV) and channel-mix blocks; section 4 gives training details including the custom CUDA kernel; section 5 reports benchmarks on Pile perplexity and downstream tasks. RWKV-4-14B was the first linear-attention model to be trained at 10B+ scale. The paper is notable for being led by an independent community effort (BlinkDL) rather than a major lab, and for open-sourcing all checkpoints.
-              </Prose>
-            ),
-          },
-          {
-            label: "Peng et al. 2024 — Eagle and Finch / RWKV-5/6 (arXiv:2404.05892)",
-            render: () => (
-              <Prose>
-                Peng, B., Goldstein, D., Anthony, Q., Albalak, A., Alcaide, E., Biderman, S., Cheah, E., Du, X., Ferdinan, T., Hou, H., Kazienko, P., GV, K.K., Kocoń, J., Koptyra, B., Krishna, S., McClelland, R., Muennighoff, N., Obeid, F., Saito, A., Song, G., Tu, H., Woźniak, S., Zhang, R., Zhao, B., Zhao, Q., Zhou, P., Zhu, J., and Zhu, R.-J. (2024). "Eagle and Finch: RWKV with Matrix-Valued States and Dynamic Recurrence." arXiv:2404.05892. Available at arxiv.org/abs/2404.05892. Two architectural upgrades in one paper. Eagle (RWKV-5) replaces RWKV-4's scalar time-decay with a matrix-valued state, increasing capacity without changing training cost. Finch (RWKV-6) adds data-dependent (dynamic) time decay, closing part of the expressivity gap with softmax attention. The paper shows Eagle-7B and Finch-7B matching or exceeding LLaMA-2-7B on several benchmarks.
-              </Prose>
-            ),
-          },
-          {
-            label: "Sun et al. 2023 — RetNet / Retentive Network (arXiv:2307.08621)",
-            render: () => (
-              <Prose>
-                Sun, Y., Dong, L., Huang, S., Ma, S., Xia, Y., Xue, J., Wang, J., and Wei, F. (2023). "Retentive Network: A Successor to Transformer for Large Language Models." arXiv:2307.08621. Available at arxiv.org/abs/2307.08621. Introduces the retention mechanism: linear attention with a fixed per-head exponential decay <Code>{"\\gamma"}</Code>. The key contribution is showing three equivalent computational forms — parallel (for training), recurrent (for inference), and chunkwise parallel (for long-context training) — all producing identical outputs. Section 4 benchmarks against transformers at 2.7B parameters and reports comparable perplexity on The Pile with 7× higher inference throughput. RetNet has remained influential as a research baseline but the production ecosystem (open checkpoints, community fine-tunes) is thinner than RWKV's.
-              </Prose>
-            ),
-          },
-          {
-            label: "Yang et al. 2024 — Gated Linear Attention (arXiv:2312.06635)",
-            render: () => (
-              <Prose>
-                Yang, S., Wang, B., Shen, Y., Panda, R., and Kim, Y. (2024). "Gated Linear Attention Transformers with Hardware-Efficient Training." ICML 2024. arXiv:2312.06635. Available at arxiv.org/abs/2312.06635. Generalizes RetNet's fixed retention to a data-dependent gate — each key-value pair's contribution to the state is modulated by a learned, input-conditional gating vector. Equally important, the paper provides a Triton kernel for chunkwise parallel training that matches FlashAttention's wall-clock efficiency at short sequences and dominates at long sequences. GLA is the leading pure-linear-attention architecture as of 2026 and is the basis for the <Code>fla-org/flash-linear-attention</Code> library.
-              </Prose>
-            ),
-          },
-          {
-            label: "Dao & Gu 2024 — Mamba-2 / Transformers are SSMs (arXiv:2405.21060)",
-            render: () => (
-              <Prose>
-                Dao, T. and Gu, A. (2024). "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality." ICML 2024. arXiv:2405.21060. Available at arxiv.org/abs/2405.21060. Unifies state-space models (Mamba line) and linear attention (Katharopoulos/RetNet/GLA line) through the observation that selective SSMs with scalar-times-identity state transitions are formally equivalent to masked linear attention. This duality explains why the two research threads had been converging independently and provides a common framework for analysis. The paper also introduces Mamba-2, which uses the duality to provide a faster selective-scan kernel than Mamba-1. The SSM-attention duality has become a standard conceptual tool; any paper on linear-attention or SSMs in 2025+ will cite it.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        Attempt all five before reading the answers. Exercises 1-2 test the math of linear attention; 3 tests the RWKV time-mix kernel; 4 tests architecture judgment; 5 tests debugging.
-      </Prose>
-
-      <H3>Exercise 1 (linear attention cost derivation)</H3>
-      <Prose>
-        A transformer has <Code>d = 2048</Code> model dimension and attention is applied over sequences of length <Code>L</Code>. Compute (a) the FLOP cost of softmax attention as a function of <Code>L</Code>, (b) the FLOP cost of linear attention, (c) the sequence length at which linear becomes cheaper. What happens to the crossover if we use multi-query attention (shared K/V across heads) with <Code>h = 16</Code> query heads and 1 KV head?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 1.</strong> (a) Softmax cost per layer: <Code>{"O(L^2 \\cdot d)"}</Code>. Specifically, <Code>{"Q K^T"}</Code> is <Code>{"L^2 \\cdot d"}</Code> FLOPs, softmax is <Code>{"L^2"}</Code> (negligible), and <Code>{"A V"}</Code> is <Code>{"L^2 \\cdot d"}</Code> FLOPs. Total: <Code>{"\\sim 2 L^2 d"}</Code> FLOPs. (b) Linear cost: the running <Code>{"S_t = S_{t-1} + \\phi(K_t) V_t^T"}</Code> is <Code>{"d^2"}</Code> per step; <Code>{"O_t = \\phi(Q_t)^T S_t"}</Code> is <Code>{"d^2"}</Code> per step. Total: <Code>{"\\sim 2 L d^2"}</Code> FLOPs. (c) Crossover when <Code>{"2 L^2 d = 2 L d^2"}</Code>, i.e., <Code>{"L = d = 2048"}</Code>. (d) Multi-query attention with <Code>{"h = 16"}</Code> query heads and 1 KV head reduces softmax's <Code>{"Q K^T"}</Code> cost by a factor of <Code>h</Code> on the KV side, but the dominant cost <Code>{"L^2"}</Code> is unchanged. Softmax still scales as <Code>{"O(L^2 \\cdot d)"}</Code>; linear still scales as <Code>{"O(L \\cdot d^2)"}</Code>. The crossover moves slightly — softmax's constant improves, so linear now wins only at larger <Code>L</Code>, maybe <Code>{"L = 2 \\cdot d = 4096"}</Code> in practice. But asymptotically, linear still wins.
-      </Callout>
-
-      <H3>Exercise 2 (feature map and causality)</H3>
-      <Prose>
-        You have access to two feature maps: (i) <Code>{"\\phi(x) = \\text{elu}(x) + 1"}</Code>, (ii) <Code>{"\\phi(x) = \\text{ReLU}(x)"}</Code>. Which one can be used as-is for causal linear attention? What goes wrong with the other? Write the running-sum update for causal linear attention with feature map <Code>{"\\phi"}</Code> applied to <Code>Q, K</Code>.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 2.</strong> Both can be used in principle because both produce non-negative outputs. ReLU has a subtle problem: if many <Code>{"K_i"}</Code> values are negative in all coordinates after projection, <Code>{"\\phi(K_i) = 0"}</Code> and those positions contribute nothing to the state, which equates to the model "not storing" those tokens at all — a non-smooth information bottleneck that hurts training stability. elu+1 is strictly positive everywhere, which is why it's the default. The running-sum update is: <Code>{"S_t = S_{t-1} + \\phi(K_t) V_t^T"}</Code> (numerator, shape <Code>{"d \\times d_v"}</Code>) and <Code>{"z_t = z_{t-1} + \\phi(K_t)"}</Code> (denominator, shape <Code>d</Code>); output is <Code>{"O_t = \\phi(Q_t)^T S_t / (\\phi(Q_t)^T z_t + \\epsilon)"}</Code>. Causality is automatic because the sums only include positions <Code>{"i \\le t"}</Code>.
-      </Callout>
-
-      <H3>Exercise 3 (RWKV time-decay interpretation)</H3>
-      <Prose>
-        In RWKV-4's time-mix, the weight applied to the contribution from position <Code>i</Code> at time <Code>t</Code> (for <Code>{"i < t"}</Code>) is <Code>{"\\exp(w \\cdot (t - i - 1) + k_i)"}</Code>. (a) If <Code>{"w = -0.05"}</Code> per channel (a "slow" channel), what fraction of the original contribution remains after 100 steps? After 1000 steps? (b) If <Code>{"w = -1.0"}</Code> (a "fast" channel), what fraction remains after 5 steps? (c) What is the role of the per-channel <Code>{"u"}</Code> bonus? Why not simply treat the current token the same as past tokens?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 3.</strong> (a) <Code>{"\\exp(-0.05 \\cdot 100) = \\exp(-5) = 0.0067"}</Code>, so 0.67% after 100 steps; <Code>{"\\exp(-0.05 \\cdot 1000) = \\exp(-50) \\approx 2 \\cdot 10^{-22}"}</Code>, negligible after 1000 steps. (b) <Code>{"\\exp(-1 \\cdot 5) = \\exp(-5) = 0.0067"}</Code>, so the fast channel also hits 0.67% but after only 5 steps. Different channels have different memory horizons, all governed by <Code>w</Code>. (c) The bonus <Code>u</Code> gives the current token a <em>different</em> multiplicative weight than past tokens. Without it, the current token's weight would be <Code>{"\\exp(w \\cdot (t - t - 1) + k_t) = \\exp(-w + k_t)"}</Code> — which for <Code>{"w < 0"}</Code> makes the current token's weight <em>larger</em> than a 1-step-past token, but not under the same functional form as past tokens. RWKV-4 instead uses <Code>{"\\exp(u + k_t)"}</Code> for the current token and a separate formula for past tokens, treating them asymmetrically. The role of <Code>u</Code>: compensate for the fact that the current token has <em>zero</em> time-decay (no <Code>{"\\exp(w \\cdot \\Delta t)"}</Code> factor to apply), so it needs an explicit per-channel learnable weight to be comparable with the past. In RWKV-5 onwards this is simplified by treating the current token with <Code>{"\\Delta t = 0"}</Code> uniformly.
-      </Callout>
-
-      <H3>Exercise 4 (architecture selection)</H3>
-      <Prose>
-        You are asked to build a language model for a production chat assistant with the following requirements: (a) context up to 200K tokens (for long-document QA), (b) interactive latency ({"<"}200ms first-token latency), (c) 14B parameter budget, (d) deployable on a single A100-80GB. Which architecture do you choose and why? What are the known trade-offs of your choice?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 4.</strong> Choose a linear-attention architecture — RWKV-7 Goose (14B), Mamba-2, or a hybrid like Jamba. Rationale: 200K tokens on a 14B transformer would need a KV cache of roughly <Code>{"2 \\cdot 200{","}000 \\cdot 5120 \\cdot 40 \\cdot 2"}</Code> bytes ~= 160GB, impossible on a single A100-80GB. A linear-attention model has constant state size (<Code>{"\\sim 100"}</Code> MB) regardless of context, comfortably fitting. Interactive latency at 200ms first-token: transformers suffer here because the initial forward pass is <Code>{"O(L^2)"}</Code>; at 200K tokens this is slow. Linear attention has <Code>{"O(L)"}</Code> first-token cost, so you can prefill a 200K context in seconds. Trade-offs: (i) 1-3% quality gap vs. softmax 14B — acceptable for chat, measurable on benchmarks. (ii) Poorer exact-recall over very long contexts (passkey at 200K fails more often). (iii) Less mature ecosystem — fewer fine-tuning recipes, fewer instruction-tuned checkpoints. (iv) If you need perfect factuality with precise citations from anywhere in the 200K context, full attention might still be preferable and you'd instead use retrieval to pre-filter the context. The hybrid answer (e.g., Jamba) often gives the best quality-per-cost: ~10% of layers are full attention (for exact recall), rest are linear. That's the current 2026 production sweet spot for this kind of spec.
-      </Callout>
-
-      <H3>Exercise 5 (debugging RWKV training instability)</H3>
-      <Prose>
-        You are training a 1.5B RWKV-6 model from scratch. Around step 5000, training loss becomes NaN. Re-starting from the last checkpoint with a smaller learning rate fixes it temporarily, but NaN returns after another 2000 steps. What are three likely causes, and how would you diagnose each?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 5.</strong> Three likely causes:
-        <br />
-        (1) <strong>Time-decay parameter <Code>w</Code> escaped its constraint.</strong> RWKV requires <Code>{"w \\le 0"}</Code> (non-positive) for the running sum to be bounded. If <Code>w</Code> drifts positive during training, the accumulator <Code>a</Code> grows unboundedly and overflows. Typical parameterization: <Code>{"w = -\\exp(\\text{learnable})"}</Code>, so the "learnable" parameter is unconstrained but <Code>w</Code> is automatically non-positive. Diagnose: print <Code>max(w)</Code> after every step; it should stay below zero. Fix: if the parameterization is <Code>{"w = -\\text{softplus}(\\text{learnable})"}</Code> or similar, your training just drifted beyond the intended range; use a tighter reparameterization.
-        <br />
-        (2) <strong>Gradient explosion in the WKV kernel.</strong> The log-space running max trick keeps the <em>forward</em> pass stable, but the backward pass still has a product of <Code>{"\\exp(w \\cdot \\Delta t)"}</Code> terms that can underflow to zero for very long sequences. Vanishing gradients show up as tiny updates, not NaN — but if you have <em>explosion</em> you likely have an unstable softmax-like computation somewhere in your implementation. Diagnose: check per-parameter gradient norms; look for individual parameters with norm &gt; 100x the running average. Fix: gradient clipping at norm 1.0 (standard for RWKV training), or reduce max sequence length until you can debug the kernel.
-        <br />
-        (3) <strong>Bad data sample.</strong> NaN losses often trace to malformed training samples: tokens out of vocabulary, extremely long sequences that trigger numerical issues, or content that confuses the tokenizer. Diagnose: save a copy of the training batch just before the NaN step; replay it in isolation to reproduce. Fix: filter the training data, add NaN-check-and-skip logic, or use bfloat16 instead of float16 (bfloat16 has the same exponent range as float32 and is much more forgiving of poor scaling).
-      </Callout>
-
-    </div>
-  ),
+<H3>{"Optional: approximating the exponential kernel"}</H3>
+
+<Prose>{"Performer approaches the problem differently. For x=q/d^(1/4), y=k/d^(1/4), the desired score kernel is exp(x·y). If ω is a standard Gaussian vector,"}</Prose>
+
+<Prose>{"E[exp(ω·x−||x||²/2) exp(ω·y−||y||²/2)] = exp(x·y)."}</Prose>
+
+<Prose>{"The identity follows from E exp(ω·s)=exp(||s||²/2), with s=x+y. Average m samples, dividing each feature by √m, to estimate that kernel with positive features. FAVOR+ additionally uses a carefully constructed orthogonal sampling scheme to reduce variance. It is not the ordinary sine/cosine random-feature approximation to a Gaussian distance kernel."}</Prose>
+
+<RwkvFigure kind="random" />
+
+<Prose>{"The kernel estimate can be unbiased while the "}<strong>{"ratio"}</strong>{" forming normalized attention is biased: in general E[A/B]≠E[A]/E[B]. Feature count, norm scales and numerical stabilization matter. The later "}<a href={"/learn/path/full-curriculum/sparse-linear-attention-variants?module=deep-learning-fundamentals"}>{"Sparse & Linear Attention Variants"}</a>{" lesson owns the detailed approximation comparison. Here the essential distinction is exact regrouping for one kernel versus approximate recovery of another. See the "}<a href={"https://proceedings.mlr.press/v119/katharopoulos20a.html"}>{"Linear Transformer paper"}</a>{" and "}<a href={"https://arxiv.org/abs/2009.14794"}>{"Performer, §2"}</a>{"."}</Prose>
+
+<H2>{"3. Parallel training and streamed inference are two computations of one operator"}</H2>
+
+<Prose>{"During autoregressive generation, the next token is not known until the current step produces it. The model must advance sequentially. During training, the input sequence is already available, so projections for all positions can be computed together, and structured sums or chunk operations can expose parallel work."}</Prose>
+
+<RwkvFigure kind="timeline" />
+
+<Prose>{"For an ungated positive kernel, divide the sequence into a chunk of c rows. Let Q,K,V denote the already-mapped queries, keys and values in that chunk; let S_in,z_in summarize earlier chunks. Define L as a lower-triangular matrix of ones. The chunk numerator is"}</Prose>
+
+<Prose>{"N = Q S_in + [(QKᵀ) ⊙ L] V."}</Prose>
+
+<Prose>{"The denominator for each row is the corresponding element of"}</Prose>
+
+<Prose>{"d = Q z_in + [(QKᵀ) ⊙ L] 1."}</Prose>
+
+<Prose>{"Divide each numerator row by its own denominator. Then advance the carried state once:"}</Prose>
+
+<Prose>{"S_out = S_in + KᵀV, z_out = z_in + Σ_rows K."}</Prose>
+
+<Prose>{"There are two sources of context: earlier chunks through the carried state, and earlier/current positions inside this chunk through the triangular mask. Omitting the second mask leaks future information. Omitting the first term forgets earlier chunks. Including the entire updated S_out when calculating every within-chunk output also leaks future writes."}</Prose>
+
+<RwkvFigure kind="chunk" />
+
+<Prose>{"Our four-update example produces exactly[2,4,2.5,3] for chunk sizes1,2,3,4 and 8 in the small NumPy calculation. Size3 deliberately leaves a shorter final chunk; size 8 contains the whole example. That agreement is an algebra check, not evidence that all chunk sizes run equally quickly."}</Prose>
+
+<Prose>{"Here is a complete short program for the causal operator. Q and K contain features, so this program does not secretly apply another map:"}</Prose>
+
+<CodeBlock language={"python"}>{"import numpy as np\n\ndef stream_by_chunks(Q, K, V, size):\n    state = np.zeros((K.shape[1], V.shape[1]))\n    weights = np.zeros(K.shape[1])\n    outputs = []\n    for start in range(0, len(Q), size):\n        q, k, v = [a[start:start+size] for a in (Q, K, V)]\n        local = np.tril(q @ k.T)\n        numerator = q @ state + local @ v\n        denominator = q @ weights + local.sum(axis=1)\n        if np.any(denominator <= 0):\n            raise ValueError(\"A query has zero total kernel weight.\")\n        outputs.append(numerator / denominator[:, None])\n        state += k.T @ v\n        weights += k.sum(axis=0)\n    return np.concatenate(outputs)\n\nQ = np.array([[1., 1.], [2., 1.], [1., 2.], [3., 1.]])\nK = np.array([[1., 0.], [0., 1.], [1., 1.], [2., 1.]])\nV = np.array([[2.], [8.], [-1.], [5.]])\nprint(stream_by_chunks(Q, K, V, 3).ravel())\n# [2.  4.  2.5 3. ]"}</CodeBlock>
+
+<Prose>{"For large chunks, forming c×c local scores costs more temporary space and work. For small chunks, there are more state transitions and smaller matrix multiplications. A useful schematic work count per sequence is O(Tmp + Tc(m+p)), excluding projections, when each chunk uses dense local scores. This is linear in T if c,m,p are held fixed. The best c depends on implementation and hardware."}</Prose>
+
+<Prose>{"Training memory is a separate question from persistent inference memory. Naive autograd can retain a state matrix for every time step; fused kernels, recomputation and custom backward passes change that tradeoff. “Constant-size recurrent state” does not mean an entire differentiable training run has constant memory."}</Prose>
+
+<Prose>{"When processing a real model in pieces, the carried state may also include token-shift inputs, convolution history, normalization-related state if the architecture has any, or a readout accumulator. Saving only the central matrix is insufficient when other operations cross the chunk boundary. We will test a complete block's continuation in section 8."}</Prose>
+
+<H2>{"4. RWKV-4: weighted memories with several forgetting timescales"}</H2>
+
+<Prose>{"RWKV stands for "}<strong>{"Receptance Weighted Key Value"}</strong>{". Its early published architecture, commonly called RWKV-4, is especially useful for understanding a stable recurrent memory without starting from a full matrix state. Each channel maintains a decaying weighted numerator and denominator. Different channels can learn different retention rates."}</Prose>
+
+<Prose>{"Use λ∈(0,1] for retention, u for a learned current-token log bonus, k_t for a key-derived log weight, and v_t for a value. All of these operations are per channel. Before reading token t, let A_{t−1},B_{t−1} contain earlier writes. The current read is"}</Prose>
+
+<Prose>{"wkv_t = (A_{t−1}+exp(u+k_t)v_t)/(B_{t−1}+exp(u+k_t))."}</Prose>
+
+<Prose>{"After that read, store the token for future positions:"}</Prose>
+
+<Prose>{"A_t = λ A_{t−1}+exp(k_t)v_t, B_t = λ B_{t−1}+exp(k_t)."}</Prose>
+
+<Prose>{"The two operations have different jobs. "}<strong>{"The current-token bonus changes this read; it does not become a permanent bonus on the stored write."}</strong>{" Also notice the indexing: at t, the most recent earlier write has not yet been decayed by the update for t. Expanding the history gives weight λ^(t−1−i)exp(k_i) for i<t."}</Prose>
+
+<Prose>{"A retention of .5 halves an old contribution on each later state update; a retention near1 decays it slowly. Its half-life is log(.5)/logλ updates when0<λ<1. Half-life describes the decay factor, not a guaranteed lifespan of semantic information after nonlinear layers and later writes."}</Prose>
+
+<RwkvFigure kind="retention" />
+
+<RwkvFigure kind="circuit" />
+
+<H3>{"One channel, fully worked"}</H3>
+
+<Prose>{"Set λ=.5, exp(u)=2, key weights exp(k)=[1,2,1,4] and values [2,8,−1,5]."}</Prose>
+
+<NeuralTable caption={"One channel, fully worked"} headers={[<>{"t"}</>,<>{"A before read"}</>,<>{"B before read"}</>,<>{"Current weight exp(u+k_t)"}</>,<>{"wkv_t"}</>,<>{"A after write"}</>,<>{"B after write"}</>]} rows={[[<>{"1"}</>,<>{"0"}</>,<>{"0"}</>,<>{"2"}</>,<>{"2"}</>,<>{"2"}</>,<>{"1"}</>],[<>{"2"}</>,<>{"2"}</>,<>{"1"}</>,<>{"4"}</>,<>{"34/5=6.8"}</>,<>{"17"}</>,<>{"2.5"}</>],[<>{"3"}</>,<>{"17"}</>,<>{"2.5"}</>,<>{"2"}</>,<>{"15/4.5=3.333333"}</>,<>{"7.5"}</>,<>{"2.25"}</>],[<>{"4"}</>,<>{"7.5"}</>,<>{"2.25"}</>,<>{"8"}</>,<>{"47.5/10.25=4.634146"}</>,<>{"23.75"}</>,<>{"5.125"}</>]]} />
+
+<Prose>{"Without the current bonus, the outputs become [2,6,4.571429,4.4], but the stored A,B sequence stays exactly the same. This is a useful diagnostic: if changing u alters stored history for these fixed keys/values, the implementation has confused the two branches."}</Prose>
+
+<Prose>{"The output of the time-mixing sublayer is W_o[σ(r_t)⊙wkv_t]. The receptance gate σ(r_t) selects how much of each channel's mixture to use. In this RWKV-4 core it does not recompute a different q_t·k_i score for every old token. Across multiple context-dependent channels and layers the full network is still expressive, but the core differs from ordinary query-dependent attention."}</Prose>
+
+<H3>{"Stable arithmetic without changing the answer"}</H3>
+
+<Prose>{"Computing exp(k) directly fails for very large keys even when the final normalized answer is modest. If we add1000 to all keys in this example, every numerator and denominator is multiplied by exp(1000), so the exact outputs should remain unchanged. Raw float64 exponentials overflow; a rescaled calculation changes the answer by only about 1.1×10^−13 in our probe."}</Prose>
+
+<Prose>{"Represent A=exp(p)a and B=exp(p)b. Store a,b and the log scale p, rather than enormous A,B. Initially a=b=0 and p=−∞. For the read choose q=max(p,u+k), so"}</Prose>
+
+<Prose>{"wkv = [exp(p−q)a + exp(u+k−q)v] /       [exp(p−q)b + exp(u+k−q)]."}</Prose>
+
+<Prose>{"For the stored update, choose p_new=max(p+logλ,k) and compute"}</Prose>
+
+<Prose>{"a_new = exp(p+logλ−p_new)a + exp(k−p_new)v, b_new = exp(p+logλ−p_new)b + exp(k−p_new)."}</Prose>
+
+<Prose>{"Both exponential arguments are nonpositive. One competing exponential equals1; with valid finite keys, the normalization remains meaningful. Crucially, a may be negative because values may be negative. p tracks the scale of "}<strong>{"weights"}</strong>{", not log(a). This method works for signed values."}</Prose>
+
+<RwkvFigure kind="scale" />
+
+<Prose>{"Adding the same small ε to the raw and rescaled denominators does not preserve equivalence: ε has a different effective scale in the two formulas. Diagnose invalid inputs or insufficient precision explicitly rather than treating arbitrary ε as an exact algebraic identity."}</Prose>
+
+<Prose>{"The complete "}<a href={"/learn-code/rwkv-linear-attention-models/linear_memory_mechanisms.py"}>{"linear_memory_mechanisms.py"}</a>{" implements direct log-weight enumeration, the stable recurrence, chunked positive-kernel attention and the later memory updates. Run "}<code>{"python linear_memory_mechanisms.py"}</code>{" with NumPy installed. It writes "}<a href={"/learn-code/rwkv-linear-attention-models/mechanism-results.json"}>{"mechanism-results.json"}</a>{"; the direct and recurrent outputs above agree, and the large key-shift test remains finite."}</Prose>
+
+<RwkvProgram file="linear_memory_mechanisms.py" title="Read the complete scratch memory operators" />
+
+<RwkvWeightedLab />
+
+<H2>{"5. From one memory channel to a trainable sequence model"}</H2>
+
+<Prose>{"A useful memory operator is only part of a neural network. The model must learn how to encode input, what to write, how to read, and how to turn that read into a task prediction."}</Prose>
+
+<Prose>{"RWKV-4 alternates a time-mixing sublayer with a channel-mixing sublayer. “Time mixing” combines information from different positions; “channel mixing” transforms the feature coordinates at one position. Pre-normalization and residual additions provide stable paths through a stack of blocks."}</Prose>
+
+<Prose>{"First form shifted inputs. For the key branch, for example,"}</Prose>
+
+<Prose>{"x̂_t^k = μ_k⊙x_t + (1−μ_k)⊙x_{t−1}, k_t = W_k x̂_t^k."}</Prose>
+
+<Prose>{"Separate mixing coefficients and projections produce receptance and value. The previous-position input makes a local change—such as movement direction or a transition between characters—available before the long-memory update. These learned coefficients need not be constrained to a convex interpolation in every original implementation. Our teaching model explicitly uses sigmoid-parameterized coefficients in [0,1]."}</Prose>
+
+<Prose>{"The channel sublayer forms a projected feature, squares its positive part and projects it back:"}</Prose>
+
+<Prose>{"c_t = σ(W_r' x̂_t^r) ⊙ W_v' [ReLU(W_k' x̂_t^k)]²."}</Prose>
+
+<Prose>{"Squaring is elementwise. The hidden projection expands the width, allowing a richer transformation, and W_v' returns to the residual width. This sublayer has its own previous normalized input for token shifting. Reusing the time-mixing previous input would be a different model."}</Prose>
+
+<RwkvFigure kind="block" />
+
+<Prose>{"For language modeling, token IDs become embedding vectors; the final hidden vector becomes one logit per vocabulary token. Softmax converts logits into probabilities. With training text x_1,...,x_T, the loss predicts the following token from each prefix:"}</Prose>
+
+<Prose>{"L = −Σ_{t=1}^{T−1} log p_θ(x_{t+1}|x_{≤t})."}</Prose>
+
+<Prose>{"A causal state update processes x_t before predicting x_{t+1}. Shifting labels incorrectly can ask the model to reproduce an already visible token and create an artificially easy training task. Backpropagation adjusts projections, mixing coefficients, decay and readout weights to reduce this loss. The a,b,p values from one training sequence are not a permanent collection of learned model parameters."}</Prose>
+
+<RwkvFigure kind="objective" />
+
+<Prose>{"When training across chunks, passing a state carries context forward. "}<strong>{"Detaching"}</strong>{" that state from the gradient graph preserves its numerical value while truncating credit assignment across the boundary. Resetting it discards context. These two choices can have very different learning consequences. Unrelated documents or movement examples normally start from their designated initial state; state reuse across shuffled examples causes information contamination."}</Prose>
+
+<Prose>{"The original RWKV-4 CUDA kernel assigns parallel work across batch/channel coordinates and runs a serial loop through time inside each such computation. Its projections are parallel over known training tokens. Other implementations can use scan or chunk methods, but “parallelizable training” does not identify one universal prefix-scan algorithm. The "}<a href={"https://aclanthology.org/2023.findings-emnlp.936/"}>{"paper's architecture and Appendix D"}</a>{" and its "}<a href={"https://github.com/BlinkDL/RWKV-LM/blob/main/RWKV-v4/cuda/wkv_cuda.cu"}>{"forward kernel"}</a>{" make that distinction concrete."}</Prose>
+
+<H2>{"6. When a summary needs an editable address"}</H2>
+
+<Prose>{"Return to the sensor updates. If the current task asks for the newest reading of A, adding2 and 5 gives 7, while averaging them gives 3.5. Neither operation performs replacement."}</Prose>
+
+<Prose>{"A matrix can act as a small associative memory. For this section use the "}<strong>{"transposed orientation"}</strong>{" M∈R^(p×d): a key is a column of length d, a value has length p, and retrieval is M k. This is the transpose of the key-by-value state S used earlier. Stating the orientation prevents a surprisingly common implementation error when comparing papers."}</Prose>
+
+<H3>{"Adding and overwriting are different learning rules"}</H3>
+
+<Prose>{"An additive memory writes M_new=M_old+v kᵀ. If k_A=[1,0]ᵀ and k_B=[0,1]ᵀ, writes A→2, B→7, A→5 produce"}</Prose>
+
+<Prose>{"M_add=[7,7]."}</Prose>
+
+<Prose>{"A "}<strong>{"delta rule"}</strong>{" first asks what the memory currently predicts for this key, computes a residual and writes a correction:"}</Prose>
+
+<Prose>{"prediction=M_old k, error=v−prediction, M_new=M_old+β error kᵀ."}</Prose>
+
+<Prose>{"This is one gradient-descent step on the local loss ½||M k−v||². Its gradient is (M k−v)kᵀ. With unit-norm keys and β=1, retrieval at that key becomes exactly the new value. With 0<β<1, it moves part of the way. If keys are not unit norm, the effective step on the retrieved value is multiplied by ||k||²; normalization is substantive."}</Prose>
+
+<Prose>{"For the same three writes and β=1, the states are [2,0], then [2,7], then [5,7]. A's outdated reading is replaced while B survives. At the final write the residual is 5−2=3, so we add[3,0], not[5,0]."}</Prose>
+
+<RwkvFigure kind="correction" />
+
+<Prose>{"The gradient interpretation is real arithmetic, not a metaphor. Starting from M=[2,7], key [1,0] and target 5, loss=4.5, gradient=[−3,0], and a step β=.5 produces M=[3.5,7]. Our NumPy and autograd calculations agree. It is "}<strong>{"fast state adaptation inside the forward pass"}</strong>{", while the outer training process learns the projections and update parameters."}</Prose>
+
+<Prose>{"Keys interfere when they are not orthogonal. Replace B's key by [.6,.8]. After the first two delta writes the memory is [5.48,4.64]. It retrieves B as7, but it no longer retrieves A as2. Updating A to 5 produces [5,4.64], after which B retrieves 6.712. A finite vector space cannot provide arbitrarily many mutually orthogonal address directions."}</Prose>
+
+<RwkvFigure kind="interference" />
+
+<RwkvDeltaLab />
+
+<H3>{"RWKV-5 and 6: a matrix state with structured forgetting"}</H3>
+
+<Prose>{"RWKV-5, named Eagle, replaces the earlier per-channel weighted average with multi-head matrix states. In key-by-value orientation, a head reads"}</Prose>
+
+<Prose>{"R_t = S_{t−1}+diag(u) k_t v_tᵀ,"}</Prose>
+
+<Prose>{"and stores"}</Prose>
+
+<Prose>{"S_t = diag(w_t)S_{t−1}+k_t v_tᵀ."}</Prose>
+
+<Prose>{"The receptance vector reads rows of R_t; per-head normalization, a SiLU gate and an output projection follow. This core is not the normalized positive-kernel operator of section 2, and its keys/values need not be positive. The current-token contribution still has special treatment; removing it would lose a useful original mechanism."}</Prose>
+
+<Prose>{"For RWKV-5, the retention vector is learned but fixed over sequence positions, with w=exp(−expω). RWKV-6, Finch, makes both retention and token-shift mixing depend on current/previous input through small low-rank networks. Its retention is w_t=exp(−exp d_t), so it lies in(0,1) in exact arithmetic. This is a constrained parameterization; its unconstrained precursor is not itself the retention factor."}</Prose>
+
+<Prose>{"An important practical consequence is the state shape: a head of width d now carries d×d entries, rather than one weighted numerator/denominator per channel. Sequence-length independence is preserved, but the constant can grow substantially. More address interactions cost more memory and arithmetic."}</Prose>
+
+<RwkvFigure kind="versions" />
+
+<H3>{"RWKV-7: decay, targeted removal, then a fresh write"}</H3>
+
+<Prose>{"RWKV-7, Goose, uses a generalized delta-like update. Its paper switches to a value-by-key state M, which is the orientation used for our correction example. Per head,"}</Prose>
+
+<Prose>{"M_t = M_{t−1}[diag(w_t)−κ̂_t(a_t⊙κ̂_t)ᵀ] + v_t k̃_tᵀ."}</Prose>
+
+<Prose>{"Here κ̂ is a normalized removal key, a is a vector controlling removal, w is the retention vector, and k̃ is the replacement key. The dense-looking update can be evaluated as"}</Prose>
+
+<Prose>{"M_t = M_{t−1}diag(w_t)       − (M_{t−1}κ̂_t)(a_t⊙κ̂_t)ᵀ       + v_t k̃_tᵀ."}</Prose>
+
+<Prose>{"The second line needs a matrix–vector read and an outer product, not a generic multiplication of two dense d×d matrices. This is why a "}<strong>{"diagonal plus rank-one transition"}</strong>{" can provide richer state evolution without paying generic cubic work per token."}</Prose>
+
+<Prose>{"The ordinary delta rule is a special case: choose w=1, a=β1, κ̂=k with unit norm, and k̃=βk. RWKV-7 decouples removal, write strength and decay. Therefore its full learned update should not be presented as exactly one ordinary SGD step on that same simple loss for arbitrary parameters."}</Prose>
+
+<Prose>{"Consider"}</Prose>
+
+<Prose>{"M_old=[[2,7],[-1,3]], w=[.8,.9], a=[.6,.2], κ̂=[1,0], k̃=[1,0], v=[5,2]."}</Prose>
+
+<Prose>{"The transition is diag([.2,.9]), and the new memory is [[5.4,6.3],[1.8,2.7]]. First columns undergo targeted removal and replacement; second columns only decay. If κ̂ becomes [.6,.8], the transition becomes"}</Prose>
+
+<Prose>{"[[.584,−.096],[-.288,.772]],"}</Prose>
+
+<Prose>{"and M_new=[[4.152,5.212],[.552,2.412]]. Off-diagonal entries now couple key directions. A set of independent scalar forget gates cannot express that same cross-direction transition."}</Prose>
+
+<RwkvFigure kind="goose" />
+
+<Prose>{"The full model learns those vectors from token-shifted input using projections and small low-rank branches. It normalizes κ per head; uses a sigmoid to keep a in(0,1); constrains w via exp[−exp(−.5)σ(d)]; and mixes a value precursor from the first layer with the current layer's precursor. The readout applies receptance to the updated matrix, normalizes within the head, adds a separately weighted current-token value term, then gates and projects the combined heads. Its feed-forward branch retains squared ReLU but removes the earlier receptance gate. Thus “change the recurrence” alone does not recreate a released RWKV-7 block."}</Prose>
+
+<Prose>{"These architectural details and their ablations are in "}<a href={"https://arxiv.org/abs/2503.14456"}>{"RWKV-7, §§3–4"}</a>{". The exact two-dimensional calculation above isolates its state update; it is not a measurement of a pretrained language model."}</Prose>
+
+<H3>{"Optional: what the expressivity and stability claims actually establish"}</H3>
+
+<Prose>{"A diagonal transition rescales coordinate directions independently. A rank-one correction can mix them, enabling richer state tracking. For example, I−2nnᵀ with n=[1,−1]/√2 swaps two coordinates. A product of such transitions can track ordered transformations that an elementwise decay cannot express in the same way."}</Prose>
+
+<RwkvFigure kind="reflection" />
+
+<Prose>{"That reflection is an explanatory extension, not the precise parameter choice of the released RWKV-7 core. The paper's stronger constructions introduce an additional factor c=2 and boundary parameter values; the implemented core uses c=1. Its complexity-class claims also make formal assumptions about precision, depth and standard complexity conjectures. They do not mean a small trained checkpoint solves every finite-state task or is universally better at reasoning."}</Prose>
+
+<Prose>{"Similarly, stable eigenvalues of individual transitions do not automatically bound every product of changing transitions. Appendix C's product bound assumes a time-independent a vector; time-varying a is evaluated empirically. Normalization and constrained updates provide useful structure, while actual long-stream state norms, gradients and task behavior still need examination. This is an opportunity to distinguish a theorem's conditions from a model family's headline description."}</Prose>
+
+<H2>{"7. Nearby models, shared algebra and different choices"}</H2>
+
+<Prose>{"RWKV is one architecture family in a larger design space. Related methods often share state equations without sharing every gate, positional mechanism, normalization or objective."}</Prose>
+
+<Prose>{""}<strong>{"RetNet"}</strong>{" uses a decayed unnormalized associative state. Ignoring its positional rotations for a moment,"}</Prose>
+
+<Prose>{"S_t=γS_{t−1}+k_t v_tᵀ, y_t=S_tᵀq_t."}</Prose>
+
+<Prose>{"It assigns different fixed retention rates to heads. The full retention layer includes relative positional rotations, per-head/group normalization and a nonlinear gate. Its parallel, recurrent and chunkwise forms compute the same chosen retention mechanism; they are not three different models. A fixed scalar γ applies one timescale per head."}</Prose>
+
+<Prose>{""}<strong>{"Gated Linear Attention, GLA"}</strong>{", makes forgetting input-dependent. In the paper's adopted parameterization,"}</Prose>
+
+<Prose>{"S_t=diag(α_t)S_{t−1}+k_t v_tᵀ, y_t=S_tᵀq_t."}</Prose>
+
+<Prose>{"The key rows decay separately, using a low-rank input projection and a sigmoid-derived gate. The more general expression G_t⊙S_{t−1} allows a full matrix of elementwise gates, but the paper deliberately chooses a structured row gate for efficient computation. Naming that restriction matters when comparing implementations."}</Prose>
+
+<Prose>{"Using the section 2 queries, keys and values with every row gate equal to .5 gives unnormalized outputs [2,10,5.5,35.75]. Change only the third retention vector to [.1,.9] and the outputs become [2,10,11.5,36.75]. At that step, one address direction forgets faster while another preserves more. These values are not weighted averages constrained to the range of the input values."}</Prose>
+
+<RwkvFigure kind="forgetting" />
+
+<Prose>{"The "}<a href={"https://arxiv.org/abs/2307.08621"}>{"RetNet paper, §2"}</a>{" and "}<a href={"https://arxiv.org/abs/2312.06635"}>{"GLA paper, §§2–4"}</a>{" derive these relationships and their chunked algorithms. A global cumulative product of tiny gates can underflow, while dividing by that product can overflow. GLA's hardware work therefore uses chunking and log-space treatment where needed; an algebraically convenient quotient is not automatically a stable GPU implementation."}</Prose>
+
+<Prose>{"The preceding Mamba-2/SSD construction has a scalar transition per head with matrix-valued state. That brings it close to a gated linear-attention equation. The parameter generators, block structure and normalization still differ. Conversely, "}<strong>{"Linformer"}</strong>{" compresses the sequence axis of keys/values into a smaller set before attention; it is not simply a feature-map prefix sum. A global sequence projection can mix future positions, so autoregressive use needs a genuinely causal construction. See "}<a href={"https://arxiv.org/abs/2006.04768"}>{"Linformer, §4"}</a>{"."}</Prose>
+
+<Prose>{"This family map continues to evolve. The RWKV project's history page, inspected 13 September 2026, discusses experimental RWKV-8 directions including token-indexed DeepEmbed modulation and a suffix-automaton retrieval mechanism called ROSA. An external table or growing automaton changes the memory accounting: offloading parameters or history to RAM/SSD does not make their storage and access free. The established4–7 mechanisms taught here remain the core; treat new branches through their explicit operator, available code and evidence, not a version number alone."}</Prose>
+
+<H3>{"Count the state before comparing speed"}</H3>
+
+<Prose>{"For one sequence and 12 layers of width 512:"}</Prose>
+
+<NeuralTable caption={"Count the state before comparing speed"} headers={[<>{"Stored object"}</>,<>{"Explicit assumptions"}</>,<>{"Bytes"}</>]} rows={[[<>{"RWKV-4 recurrent slots"}</>,<>{"Five width 512 vectors/layer, all float32"}</>,<>{"122,880 =120 KiB"}</>],[<>{"A matrix-memory core"}</>,<>{"Eight 64×64 heads/layer, float32; excludes extra shift/readout slots"}</>,<>{"1,572,864 =1.5 MiB"}</>],[<>{"Full MHA key/value cache"}</>,<>{"4,096 tokens, eight KV heads, width 64, float16"}</>,<>{"100,663,296 =96 MiB"}</>],[<>{"GQA key/value cache"}</>,<>{"Same, but two KV heads"}</>,<>{"25,165,824 =24 MiB"}</>]]} />
+
+<Prose>{"These are calculated storage inventories, excluding parameters, activations, temporary buffers, allocator overhead and serving replicas. Mixed state dtypes alter the totals. The "}<a href={"/learn/path/full-curriculum/grouped-query-attention-gqa-multi-query-attention-mqa?module=deep-learning-fundamentals"}>{"GQA/MQA lesson"}</a>{" explains why sharing KV heads reduces cache storage without proportionally eliminating all query-head attention arithmetic."}</Prose>
+
+<RwkvFigure kind="cache" />
+
+<Prose>{"For an attention head, cached decoding at position t reads t keys and values: the per-token attention work grows roughly linearly with t. Generating an entire length-T continuation from scratch can sum to quadratic attention work. Full-sequence training also has quadratic dense attention arithmetic. FlashAttention avoids storing a full T×T score matrix in high-bandwidth memory while computing exact attention; “quadratic score arithmetic” and “must allocate a quadratic score matrix” are different claims."}</Prose>
+
+<Prose>{"For recurrent memory, persistent state and per-step memory work are bounded with respect to T, at fixed widths. Projections, feed-forward networks and output vocabulary operations can dominate at small T. Chunk size, precision, batch size, head dimensions, hardware and kernel fusion decide actual timing. There is no architecture-independent crossover where T happens to equal the model width."}</Prose>
+
+<Prose>{"A fair deployment measurement separates "}<strong>{"prefill"}</strong>{" from "}<strong>{"decode"}</strong>{", records the exact checkpoint/tokenizer/kernel revision, reports latency distribution and peak memory, warms up and synchronizes the accelerator, and compares equivalent task quality. Equal parameter count alone does not imply equal training data or ability. The "}<a href={"https://github.com/fla-org/flash-linear-attention"}>{"FLA implementation project"}</a>{" provides current kernels, model layers and benchmark examples; its API and backend requirements should be pinned when running them."}</Prose>
+
+<Prose>{"Fixed state is useful for long-running sensor streams, locally processed interactions and predictable per-request memory. It also creates interference and forgetting pressure. A model may accept another million tokens without retaining an arbitrary exact fact from the beginning. An external retrieval system or occasional attention layer can address different requirements; the later "}<a href={"/learn/path/full-curriculum/hybrid-ssm-transformer-architectures-jamba?module=deep-learning-fundamentals"}>{"hybrid architecture lesson"}</a>{" explores that combination."}</Prose>
+
+<H2>{"8. Train a real movement classifier, then interrupt its stream"}</H2>
+
+<Prose>{"The "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"Libras Movement dataset"}</a>{" gives us a small real sequence task: classify a two-dimensional hand trajectory into one of 15 recorded movement classes. A row contains 45 ordered x/y coordinate pairs and a class label. Unlike the address examples, the useful keys, values and readout must now be learned."}</Prose>
+
+<Prose>{"This continues the real-data thread from the preceding lessons while changing the mechanism. Keeping the raw task and partition visible helps us ask whether the model has learned anything useful, rather than judging an architecture by a decorative synthetic trace."}</Prose>
+
+<H3>{"Data and a declared evaluation protocol"}</H3>
+
+<Prose>{"Download "}<a href={"/learn-code/rwkv-linear-attention-models/movement_libras.data"}>{"movement_libras.data"}</a>{", "}<a href={"/learn-code/rwkv-linear-attention-models/movement_libras.names"}>{"movement_libras.names"}</a>{", "}<a href={"/learn-code/rwkv-linear-attention-models/trajectory_memory_models.py"}>{"trajectory_memory_models.py"}</a>{" and "}<a href={"/learn-code/rwkv-linear-attention-models/data-provenance.md"}>{"data-provenance.md"}</a>{" into one directory. Credit Daniel Dias, Sarajane Peres and Helton Bíscaro, University of São Paulo; UCI provides the dataset under CC BY 4.0. The provenance file preserves attribution, source hashes and transformations."}</Prose>
+
+<Prose>{"The source has 360 rows and 30 exact duplicate copies, with consistent labels. Retain the first occurrence of each exact coordinate row, giving330 unique trajectories. Within each class, use NumPy's default_rng(73) to permute those retained source IDs; put the first floor(2n/3) in fitting, the last 4 in assessment, and the middle rows in validation. Totals are 220/50/60. The saved "}<a href={"/learn-code/rwkv-linear-attention-models/trajectory-results.json"}>{"trajectory-results.json"}</a>{" records every one-based source ID and duplicate group."}</Prose>
+
+<Prose>{"Coordinates are mapped by the fixed rule 2x−1 and processed in their original order. There is no fitted preprocessing that can learn from validation or assessment rows. The dataset records four performers in two sessions but omits row-level performer/session IDs. This partition measures row-level behavior on this small corpus; it cannot establish new-performer transfer. Its 45 sampled points are not a physical velocity trace or a complete sign-language utterance."}</Prose>
+
+<Prose>{"Our baseline is multinomial logistic regression on all 90 ordered coordinates, with C=1. It has access to the whole trajectory and to positional information through the feature order. It is a meaningful simple competitor, not a deliberately weak mean-coordinate straw model."}</Prose>
+
+<H3>{"What exactly are we fitting?"}</H3>
+
+<Prose>{"The teaching networks share this route:"}</Prose>
+
+<Prose>{"45×2 coordinates → learned 2-to 16 projection → two residual memory blocks → mean over 45 feature vectors → linear 16-to 15 logits."}</Prose>
+
+<Prose>{"Each block has pre-layer normalization, a memory mixer, a residual connection and a gated squared-ReLU channel branch. The RWKV-4-style mixer uses the stable weighted recurrence from section 4. The positive-kernel mixer uses ELU+1 queries/keys and the normalized matrix summary from section 2. Both use a one-position shift before projections, so local transitions are available."}</Prose>
+
+<Prose>{"The code deliberately specifies its own small configuration: width 16, two blocks, channel expansion 2, sigmoid-parameterized input mixing, and a classification readout. It is a faithful small investigation of the stated operators inside trainable blocks, not a reproduction of the initialization, scale or training recipe of a published language checkpoint."}</Prose>
+
+<Prose>{"For a trajectory with class c, the loss is"}</Prose>
+
+<Prose>{"−log[exp(ℓ_c)/Σ_{j=1}^{15} exp(ℓ_j)],"}</Prose>
+
+<Prose>{"where ℓ are its 15 logits. The program uses the library's stable cross-entropy operation, backpropagates through the time steps, and updates the model weights with Adam. Model state starts fresh for every trajectory; the batch dimension holds independent examples."}</Prose>
+
+<RwkvFigure kind="pipeline" />
+
+<Prose>{"The following loop is the central training operation, already included in the complete program:"}</Prose>
+
+<RwkvProgram file="trajectory_memory_models.py" title="Read the complete trainable PyTorch model and study" />
+
+<CodeBlock language={"python"}>{"optimizer.zero_grad()\nlogits = model(x[fit])\nloss = torch.nn.functional.cross_entropy(logits, labels[fit])\nloss.backward()\noptimizer.step()"}</CodeBlock>
+
+<Prose>{"Validation chooses which epoch to retain, not which assessment labels to fit. We predeclared 100 full-batch epochs, learning rate .003, seeds 17 and 41 and the two model configurations. Each run retains the epoch with lowest validation cross-entropy. The assessment set is evaluated after that choice. We retain both seeds rather than selecting the one with the prettiest assessment result."}</Prose>
+
+<Prose>{"To reproduce in a separate Python environment:"}</Prose>
+
+<CodeBlock language={"text"}>{"python -m pip install numpy torch scikit-learn\npython linear_memory_mechanisms.py\npython trajectory_memory_models.py\npython author_calculations.py"}</CodeBlock>
+
+<Prose>{"The last command uses "}<a href={"/learn-code/rwkv-linear-attention-models/author_calculations.py"}>{"author_calculations.py"}</a>{" for the fixed continuation and perturbation checks. The author executed these programs with Python 3.12.14, NumPy 2.3.5, PyTorch 2.14.0+cpu and scikit-learn 1.9.1, two CPU threads and deterministic algorithms. Full source is included; no GPU, remote checkpoint or external training service is required. A different library/platform can produce small numerical differences."}</Prose>
+
+<H3>{"The observed result"}</H3>
+
+<NeuralTable caption={"The observed result"} headers={[<>{"Model and seed"}</>,<>{"Parameters"}</>,<>{"Selected epoch"}</>,<>{"Fit errors/220"}</>,<>{"Validation errors/50"}</>,<>{"Assessment errors/60"}</>]} rows={[[<>{"Ordered logistic baseline"}</>,<>{"1,365"}</>,<>{"Single fit"}</>,<>{"35"}</>,<>{"17"}</>,<>{"22"}</>],[<>{"RWKV-4-style,17"}</>,<>{"5,263"}</>,<>{"67"}</>,<>{"31"}</>,<>{"18"}</>,<>{"19"}</>],[<>{"RWKV-4-style,41"}</>,<>{"5,263"}</>,<>{"61"}</>,<>{"46"}</>,<>{"23"}</>,<>{"23"}</>],[<>{"Positive kernel,17"}</>,<>{"5,199"}</>,<>{"54"}</>,<>{"70"}</>,<>{"31"}</>,<>{"34"}</>],[<>{"Positive kernel,41"}</>,<>{"5,199"}</>,<>{"69"}</>,<>{"34"}</>,<>{"22"}</>,<>{"23"}</>]]} />
+
+<Prose>{"One RWKV-style run has fewer assessment errors than the baseline; the other does not. The positive-kernel runs vary considerably. This is evidence about these small fits and this protocol. It does not rank full RWKV, Performer, Transformer or Mamba architectures, nor isolate a single causal reason for the performance differences."}</Prose>
+
+<Prose>{"Validation error count and cross-entropy can prefer different epochs: cross-entropy also measures how much probability is assigned to the correct class. For example, RWKV-style seed 41 has 23 validation errors but lower selected validation cross-entropy than seed 17's18 errors. The selection rule was cross-entropy for both."}</Prose>
+
+<RwkvFigure kind="outcomes" />
+
+<H3>{"Carry the whole state, including the small forgotten pieces"}</H3>
+
+<Prose>{"Take the predetermined first validation example, source row 7, labeled curved swing. For RWKV-style seed 17, its class 1 probability is about .753939. Process 22 points, carry every block's memory and previous-input slots, then process the remaining 23 points. Combine the feature sums and counts for the final temporal mean. The carried computation agrees with the uninterrupted logits within 2.4×10^−7 for this example."}</Prose>
+
+<Prose>{"Now deliberately reset the block states at that boundary but keep the same 45 points and final pooling rule. Class1 probability falls to .047025 and the predicted class becomes 10, vertical zigzag. Merely splitting an input should not change a computation; discarding its history does."}</Prose>
+
+<RwkvFigure kind="continuation" />
+
+<Prose>{"The positive-kernel seed 17 model already predicts class 10 on the original row, with class 1 probability.251896. Carrying its state preserves the computation; resetting midway changes its prediction to class 7. This contrast separates "}<strong>{"implementation equivalence"}</strong>{" from "}<strong>{"prediction correctness"}</strong>{". A model can consistently compute the wrong classification."}</Prose>
+
+<Prose>{"For all four fits, a separate continuation through chunk lengths 1,12,16,16 agrees with the full-sequence features on the first five source rows within 7.7×10^−6. These are floating-point agreements, not bit-identical guarantees."}</Prose>
+
+<RwkvTrajectoryLab />
+
+<Prose>{"For the fixed row 7 contrast, reflecting the23rd normalized x coordinate from +.249520 to−.249520 barely changes RWKV-style class 1 probability, from .753939 to .753752, while reversing the entire order changes it to .580592. The same operations affect the kernel model differently. A small visual edit need not produce a large class change; a null or weak response is informative."}</Prose>
+
+<Prose>{"Changing point31 leaves earlier per-position features unchanged in the bounded probe. The final mean-pooled classifier uses the complete trajectory, so its final prediction can change. “Causal internal features” does not mean “a whole-sequence classification is available without seeing the whole sequence.”"}</Prose>
+
+<H3>{"Where these mechanisms are useful"}</H3>
+
+<Prose>{"A streamed classifier can process a long observation in pieces without retaining every intermediate input in its model state. On a local sensor device, predictable state size can simplify resource planning. The receiving application still needs to decide when a sequence starts and ends, how missing observations are represented, and whether its training data matches deployment."}</Prose>
+
+<Prose>{"A more unusual use of the delta view is "}<strong>{"online calibration of associations"}</strong>{": a compact learned state can revise a mapping when a recurring address receives a new value. The sensor A/B example makes the requirement explicit. With nonorthogonal learned keys, revisions interfere, so a practical system must assess both the new answer and answers it should have preserved. This is a mechanism-based design possibility, not a claimed deployment result from the movement dataset."}</Prose>
+
+<Prose>{"For language generation, select a compatible checkpoint, tokenizer, numerical backend and state format together. A “RWKV checkpoint” does not identify a version-independent tensor layout. Prefill a prompt, pass the returned state into subsequent steps, and reset or branch state deliberately between conversations. A shared mutable state across unrelated users is both a correctness and information-isolation problem. The project's maintained inference examples are better starting points than assuming an old Transformers class supports every new RWKV variant."}</Prose>
+
+<H3>{"Carry the same contract into a released model"}</H3>
+
+<Prose>{"The small "}<code>{"TrajectoryMemoryClassifier"}</code>{" above is the ordinary trainable PyTorch route: its time state, shift state, channel state and parameters are visible. For an existing language model, use the model's own inference implementation and tokenizer instead of assuming our classroom block has its checkpoint layout. The optional "}<a href={"/learn-code/rwkv-linear-attention-models/rwkv_checkpoint_state.py"}>{"complete checkpoint-continuation program"}</a>{" uses the official "}<code>{"rwkv"}</code>{" API on a local checkpoint. Its parameters choose generation 4 or 7, matching tokenizer and CPU float32; it requests no model download."}</Prose>
+
+<RwkvProgram file="rwkv_checkpoint_state.py" title="Read the optional official-checkpoint continuation route" />
+
+<Prose>{"Install the official "}<code>{"rwkv"}</code>{" package in a separate compatible environment and record its version. A World checkpoint uses the matching packaged "}<code>{"rwkv_vocab_v20230424"}</code>{"; a Pile checkpoint needs its matching local tokenizer JSON. For example: "}<code>{"python rwkv_checkpoint_state.py --checkpoint ./model.pth --generation 7 --tokenizer rwkv_vocab_v20230424"}</code>{". Provide a checkpoint that fits available memory; this is not a promise that a large language model is economical on a CPU."}</Prose>
+
+<Prose>{"The program computes final-prefix logits three ways: one full call, two chunks, and one token at a time after the split. "}<code>{"None"}</code>{" starts a fresh state; later calls carry the returned state. It deep-copies the prefix state before branching because the package may update it in place. This is the same continuation invariant used by our scratch model, but not a parameter-equivalence claim between different models. The "}<a href={"https://github.com/BlinkDL/ChatRWKV/blob/main/API_DEMO.py"}>{"official API example"}</a>{" was inspected for this interface on 22 September 2026. This optional code is "}<strong>{"written, not executed"}</strong>{" in the content revision; printed logits and speed results are deliberately absent."}</Prose>
+
+<Prose>{""}<strong>{"Take control:"}</strong>{" run a different split point, then replace the carried state with "}<code>{"None"}</code>{" for the suffix. "}<strong>{"Hint:"}</strong>{" chunk boundaries are an execution choice; forgetting the prefix changes available information. "}<strong>{"Solution:"}</strong>{" the correctly carried final logits should agree within the declared tolerance; resetting need not. Reuse a cached state only for the same token prefix, checkpoint, tokenizer and numerical configuration. A successful continuation check does not test language-model quality."}</Prose>
+
+<H2>{"9. Troubleshooting by locating the broken assumption"}</H2>
+
+<Prose>{"Use one diagnostic chain rather than adding numerical patches everywhere:"}</Prose>
+
+<NeuralTable caption={"9. Troubleshooting by locating the broken assumption"} headers={[<>{"Symptom"}</>,<>{"First useful question"}</>,<>{"Specific check"}</>]} rows={[[<>{"A past output changes after a future edit"}</>,<>{"Did a mask, sequence projection or within-chunk summary include future inputs?"}</>,<>{"Perturb one later token and compare the full earlier feature prefix"}</>],[<>{"Splitting the same input changes outputs"}</>,<>{"Which state or boundary input was lost?"}</>,<>{"Compare all recurrent slots and readout sums/counts at the cut"}</>],[<>{"A normalized kernel returns NaN"}</>,<>{"Is its total query weight positive and finite?"}</>,<>{"Inspect feature values and denominator before changing the operator"}</>],[<>{"RWKV-4 changes under a common large key shift"}</>,<>{"Were numerator and denominator rescaled together?"}</>,<>{"Compare direct log-weight enumeration and the stable update"}</>],[<>{"Current-bonus edits change future stored writes"}</>,<>{"Was the bonus incorrectly stored?"}</>,<>{"Separate read and write equations"}</>],[<>{"New associations damage older answers"}</>,<>{"Are keys correlated, or is forgetting applied too broadly?"}</>,<>{"Measure retrieval before and after each write, including untouched keys"}</>],[<>{"Tiny kernels look slower than dense attention"}</>,<>{"What dominates this workload?"}</>,<>{"Separate projections, Python overhead, fused kernels, prefill and decode"}</>],[<>{"A long stream runs but fails recall"}</>,<>{"Is the needed information recoverable from bounded state?"}</>,<>{"Change delay, number of competing associations and distractor structure"}</>]]} />
+
+<Prose>{"A key outside a vocabulary is normally an indexing/tokenization error, not an explanation for every numerical failure. Likewise, a constrained retention factor cannot simply become positive growth because its raw parameter moved: inspect the actual transformed value. Keep the failing example and find its mechanism before silently replacing invalid values or dropping difficult training batches."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice: change the task, not just the numbers on a trace"}</H2>
+
+<Prose>{"Try each problem before opening its hint or solution. The early tasks test the core route; later ones require the optional matrix and systems sections."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Build the summary"}</H3>
+
+<Prose>{"Use key features [1,0] and [1,2], values 3 and 9, then query [2,1]. What are S,z and the normalized answer after both writes?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Write each outer product separately. The query combines stored rows and also combines their total weights."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"S=[3,0]ᵀ+[9,18]ᵀ=[12,18]ᵀ, z=[2,2]ᵀ. The numerator is 2×12+18=42, denominator 2×2+2=6, and answer 7. Direct key scores are 2 and 4, giving(2×3+4×9)/6=7."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A summary cannot distinguish these histories"}</H3>
+
+<Prose>{"History A writes key 1,value 2 and key 1,value 8. History B writes key 1,value 5 twice. With the normalized positive kernel and no forgetting, can any later nonzero scalar query distinguish them before another write?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Compare both the value total and weight total."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Both produce S=10 and z=2, so every valid positive scalar query returns 5. The histories differ, but this state deliberately loses that distinction. Increasing computation at read time cannot recover information absent from the state."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Place the current bonus correctly"}</H3>
+
+<Prose>{"One-channel RWKV has λ=.25, exp(u)=3. The first two writes have key weights 2 and 1, values 4 and −2. Compute both reads and the stored state after the second write."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Read the second token from the previous state before applying its storage update."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The first read is 4 and stored A=8,B=2. The second read is(8+3×(−2))/(2+3)=.4. The stored state becomes A=.25×8−2=0 and B=.25×2+1=1.5. Including the bonus in this stored write would incorrectly give A=−4 and B=3.5."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Does forgetting change a constant value?"}</H3>
+
+<Prose>{"All RWKV values equal−3. Keys vary and λ=.9. Does changing the current bonus alter the output? What if the initial numerator and denominator represent an earlier different value?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"From empty state, A is always−3B. Decide whether that invariant holds for the changed initial condition."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Starting empty, every weighted average is −3, regardless of positive key strengths, retention and current bonus. With a nonempty initial history having another average, the output can differ and the bonus changes the balance with the new value. The constant-value result depends on the state as well as the visible inputs."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Repair one address"}</H3>
+
+<Prose>{"Start with M=[6,−2], a unit key [0,1], target 4 and β=.25. Find the loss, gradient and updated memory. Does retrieval of key [1,0] change?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The current prediction is the second coordinate, and the correction goes along the selected key."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Prediction−2, residual 6 and loss 18. The gradient is [0,−6]. The update is M=[6,−.5]. The first key still retrieves 6. Only one quarter of the error is corrected, leaving a second-key residual 4.5."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. A nonunit key changes the effective step"}</H3>
+
+<Prose>{"M=[0,0], key [2,0], target 3 and β=1. Does one delta step make retrieval equal3?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The write is an outer product with the key, and retrieval multiplies by that key again."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"M_new=[6,0], so retrieval is 12. The effective correction is multiplied by ||k||²=4. Normalizing the key or choosing β=.25 gives retrieval3 in this example. A step-size claim stated only for unit keys cannot be reused unchanged."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Separate memory from its readout"}</H3>
+
+<Prose>{"A sequence is split after 10 points. Every block state is carried correctly. The application averages the mean of the first 10 feature vectors with the mean of the remaining 35 vectors. Is that the original classifier?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The two chunks have unequal lengths."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"No. The original mean is(10m_1+35m_2)/45, not(m_1+m_2)/2. Carry a sum and a count, or weight chunk means by their lengths. Correct central recurrence state does not excuse an incorrect aggregation outside it."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Compare storage with the assumptions visible"}</H3>
+
+<Prose>{"A matrix-memory core has 6 layers, four 32×32 heads per layer, float32 state. A cached attention model has the same 6 layers, two KV heads of width 32, float16 keys/values and 2,048 cached tokens. Count bytes, excluding everything else."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"For the cache count both keys and values. A matrix head stores32² numbers."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Matrix core:6×4×32×32×4=98,304 bytes=96 KiB. Cache:6×2,048×2×2×32×2=3,145,728 bytes=3 MiB. Extra state, model parameters and runtime buffers remain uncounted, and the numbers alone do not establish equivalent quality or latency."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Design a test that can contradict your favorite model"}</H3>
+
+<Prose>{"You want to claim that a delta memory preserves old facts when updating one address. Specify inputs and measurements that could refute it."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Testing only the newly updated address misses interference."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Write at least two different keys and values, measure both retrievals, then update only one address. Use an orthogonal-key control and a correlated-key contrast, and measure errors for both addresses after the update. Include a zero-rate null, a repeated identical write and changed update strength. A method that fixes the new address while damaging the other has not established the claim. For a learned model, add unseen key/value combinations and preserve a held-out protocol."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"10. Read a speed headline critically"}</H3>
+
+<Prose>{"A graph says “linear attention is 8×faster” but gives no sequence length, kernel, hardware, precision, batch size, model quality or prefill/decode distinction. What conclusion can you draw, and what measurement would you request?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Asymptotic scaling specifies how a cost grows under fixed dimensions. It does not supply an absolute runtime."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The graph is insufficient to select a deployment method. Request exact model/operator and kernel revisions, input and output lengths, batch/concurrency, head sizes, dtype, hardware, warmup/synchronization, latency statistics, memory and relevant task quality. Separate prompt processing from per-token generation. Reproduce a representative workload before extrapolating its result."}</Prose>
+
+</details>
+
+<Prose>{""}<strong>{"Ready to move on:"}</strong>{" you can trace a weighted read and stored write separately, derive S and z, explain why a different kernel is not exact softmax, and identify which state crosses a chunk boundary. The advanced readiness test is explaining additive versus corrective writes and the assumptions behind a claimed memory or stability advantage."}</Prose>
+
+<Prose>{"The next lesson in the actual module sequence is "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention & Multi-Head Attention"}</a>{". It develops the query-based operator and multiple heads systematically. Having seen the alternative memory choices first, you can now ask precisely what retaining individual keys/values buys."}</Prose></div></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and other ways to learn"}</H2>
+
+<ul><li>{""}<a href={"https://proceedings.mlr.press/v119/katharopoulos20a.html"}>{"Katharopoulos et al., Transformers are RNNs"}</a>{": start with§3 for the feature-map rearrangement, causal state and backward-memory discussion. Match its tensor orientation to the equations here."}</li><li>{""}<a href={"https://aclanthology.org/2023.findings-emnlp.936/"}>{"RWKV-4 paper and supplemental material"}</a>{":§3 and Appendix D explain the block and stable recurrence; the "}<a href={"https://github.com/BlinkDL/RWKV-LM/blob/main/RWKV-v4/cuda/wkv_cuda.cu"}>{"official forward kernel"}</a>{" makes read-versus-write order explicit. Best after section 4."}</li><li>{""}<a href={"https://arxiv.org/abs/2404.05892"}>{"Eagle and Finch"}</a>{":§§3–4 distinguish matrix state, input-dependent retention and token shifting. Useful for seeing why version changes affect more than model size."}</li><li>{""}<a href={"https://arxiv.org/abs/2503.14456"}>{"RWKV-7 Goose"}</a>{":§§3–4 define the generalized correction; Appendices C–D state the conditions behind stability and expressivity claims. Advanced follow-up rather than a substitute for the worked matrix example."}</li><li>{""}<a href={"https://arxiv.org/abs/2009.14794"}>{"Performer"}</a>{":§§2.3–2.4 explain positive and orthogonal random features. Read alongside the local expectation identity, then continue to the later attention-variants lesson."}</li><li>{""}<a href={"https://arxiv.org/abs/2307.08621"}>{"RetNet"}</a>{" and "}<a href={"https://arxiv.org/abs/2312.06635"}>{"GLA"}</a>{": mechanism papers for fixed decay, dynamic row gating and chunked computation. Their benchmark figures describe particular setups, not universal rankings."}</li><li>{""}<a href={"https://arxiv.org/abs/2006.04768"}>{"Linformer"}</a>{":§4 gives a different form of compression along the sequence axis. Useful for separating several ideas that are sometimes all called “linear attention.”"}</li><li>{""}<a href={"https://wiki.rwkv.com/basic/architecture.html"}>{"RWKV Architecture History"}</a>{": a project-maintained visual history, version notes and links to inference/training guides. Use it to locate actual implementations; treat experimental features and broad performance language as claims to inspect."}</li><li>{""}<a href={"https://www.oxen.ai/blog/how-rwkv-7-goose-works-notes-from-the-author"}>{"Oxen Arxiv Dive: How RWKV-7 Goose Works"}</a>{": an illustrated article with an embedded YouTube discussion involving RWKV contributor Eugene Cheah. The article's memory and correction walkthrough offers another entry point after section 6. Its broad attention-complexity shorthand needs the prefill/decode and storage distinctions in section 7. The article and embedded-video identity were inspected; the recording was not watched."}</li><li>{""}<a href={"https://github.com/fla-org/flash-linear-attention"}>{"Flash Linear Attention"}</a>{": maintained code, supported model layers and current benchmark/integration examples. Best for moving from the small programs to an actual accelerated implementation; pin the backend and revision."}</li><li>{""}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{": the original task description and data license. Use the local provenance file when reproducing the duplicate-safe partition."}</li></ul>
+
+<Prose>{"The "}<a href={"/learn-code/rwkv-linear-attention-models/linear_memory_mechanisms.py"}>{"complete mechanism program"}</a>{", "}<a href={"/learn-code/rwkv-linear-attention-models/trajectory_memory_models.py"}>{"complete training program"}</a>{", "}<a href={"/learn-code/rwkv-linear-attention-models/trajectory-results.json"}>{"checked results"}</a>{" and "}<a href={"/learn-code/rwkv-linear-attention-models/investigation-checks.json"}>{"perturbation/continuation evidence"}</a>{" let you reproduce the examples without relying on screenshots of someone else's benchmark."}</Prose></section>
+  </div>,
 };
-
-export default rwkvLinearAttentionContent;

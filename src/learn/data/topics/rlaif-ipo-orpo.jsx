@@ -927,32 +927,32 @@ trainer.train()
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — show DPO gradient divergence on certain preferences</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — show DPO gradient divergence on certain preferences</H3>
       <Prose>
         Consider a preference pair where the human preference is perfectly certain: <Code>P(y_w ≻ y_l) = 1</Code>. Under the Bradley-Terry model, this corresponds to the reward difference approaching infinity. Write out the gradient of the DPO loss with respect to the implicit reward margin <Code>h_θ</Code> as this certainty increases. Show formally that the gradient never reaches zero — that for any finite margin, the gradient is strictly negative, always pushing the margin wider. Now repeat the analysis for IPO: write out the IPO gradient and show that it is exactly zero at <Code>h_θ = 1/(2τ)</Code> and reverses sign above it. What property of the squared loss produces the zero-gradient point that the log-sigmoid loss lacks?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — derive ORPO's SFT-preference coupling</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — derive ORPO's SFT-preference coupling</H3>
       <Prose>
         The ORPO loss has two terms: the SFT cross-entropy on chosen responses and the odds-ratio penalty on rejected responses. Write out the gradient of the total ORPO loss with respect to a single weight matrix in the language model. Show how the gradient depends on both the SFT term and the odds-ratio term. Under what condition do the two gradient components point in the same direction (reinforcing each other)? Under what condition do they point in opposite directions (competing)? What does competition between the two terms imply for the choice of <Code>λ</Code>, and how would you detect competition in a real training run?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — when does RLAIF underperform RLHF</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — when does RLAIF underperform RLHF</H3>
       <Prose>
         RLAIF matches human labeling quality on summarization and helpful dialogue. Propose three categories of alignment tasks where you would expect RLAIF to underperform human labeling, and for each category, explain the mechanism of failure — what specifically does the AI judge get wrong that a human would get right? For one of these categories, design a hybrid annotation scheme that uses AI labels when they are reliable and falls back to human labels when they are not, specifying how you would detect which regime each pair falls into at labeling time.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — ablation to isolate preference-loss shape from data quality</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — ablation to isolate preference-loss shape from data quality</H3>
       <Prose>
         You want to know whether IPO actually outperforms DPO on your specific dataset, or whether any observed improvement is attributable to differences in effective learning rate or hyperparameter sensitivity rather than the loss shape itself. Design an ablation experiment that controls for everything except the loss function. Specifically: what training configurations would you run, what metrics would you record, what would a result of "the loss shape genuinely matters" look like versus "the loss shape doesn't matter, hyperparameters explain everything," and how many GPU-hours is this ablation worth running before you commit to a production decision?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — one-stage vs two-stage tradeoffs</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — one-stage vs two-stage tradeoffs</H3>
       <Prose>
         ORPO's one-stage pipeline eliminates the SFT stage. But the SFT stage in the standard pipeline serves multiple purposes: it produces the reference model for DPO, it adapts the base model to instruction-following format, and it initializes the policy in a regime where preference optimization is stable. ORPO handles all of these implicitly through its combined loss. Construct a scenario — a specific model family, dataset type, and compute budget — where you would expect ORPO to outperform two-stage DPO, and a different scenario where you would expect it to underperform. For each scenario, identify the single most important factor driving the difference in expected performance.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

@@ -1,1318 +1,591 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const xlstmContent = {
-  title: "xLSTM (Extended LSTM)",
-  readTime: "~38 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In November 2017 the transformer ate the recurrent neural network's lunch, and for six years almost nobody who cared about scoring well on language benchmarks bothered with an RNN. The story would have ended there if not for a curious reversal in late 2023 and 2024: linear-time sequence models started winning at very long context, and several groups began proposing transformer-replacement architectures derived not from attention but from older ideas. Albert Gu and Tri Dao published Mamba (arXiv:2312.00752) in December 2023; Bo Peng's RWKV line was already in motion (arXiv:2305.13048, EMNLP 2023). The recurrent renaissance was real. Conspicuously absent from the early entries was the family that started it all: gated RNNs, and specifically the Long Short-Term Memory cell that Sepp Hochreiter and Jürgen Schmidhuber published in 1997.
-      </Prose>
-
-      <Prose>
-        That changed in May 2024 when Maximilian Beck, Korbinian Pöppel, Markus Spanring, Andreas Auer, Oleksandra Prudnikova, Michael Kopp, Günter Klambauer, Johannes Brandstetter, and Sepp Hochreiter himself published "xLSTM: Extended Long Short-Term Memory" (arXiv:2405.04517). The author list matters: this is not a third-party tribute paper. It is the original LSTM co-inventor, twenty-seven years later, writing a careful argument for what would have to change about the LSTM cell to make it competitive with Mamba and the transformer at the 2024 frontier. Beck is Hochreiter's PhD student at JKU Linz; the rest of the author list is the JKU machine-learning group plus collaborators at NXAI, the spin-off Hochreiter co-founded to commercialize the architecture. The paper is Hochreiter's reply to "RNNs are dead": <em>they are not, but the 1997 design needs two specific surgeries to compete on modern hardware at modern scale.</em>
-      </Prose>
-
-      <Prose>
-        The two surgeries name two new cells. The first is sLSTM (scalar LSTM): the classical LSTM with the input and forget gates moved from sigmoid to exponential activation, plus a new normalizer state that keeps the hidden output bounded despite the unbounded gates, plus a stabilizer state that prevents the exponential from overflowing. sLSTM remains a sequential, scalar-state architecture; it is the high-quality drop-in replacement for the 1997 cell. The second is mLSTM (matrix LSTM): the cell state is upgraded from a vector to a <Code>{"d \\times d"}</Code> matrix, the update rule becomes an outer-product write <Code>{"C_t = f_t C_{t-1} + i_t v_t k_t^T"}</Code>, and the readout becomes a query against the matrix memory. This recurrence is linear in the state, which means it can be parallelized at training time with a chunkwise scan exactly the way Mamba-2 and gated linear attention are parallelized. The mLSTM is not a faster LSTM; it is the same family of objects as the Mamba-2 SSD layer or GLA, derived from a different starting point and dressed up in LSTM gate vocabulary.
-      </Prose>
-
-      <Prose>
-        The xLSTM block alternates these two cells with residual connections and layer normalization in roughly the layout of a transformer block (sLSTM/mLSTM in the role of attention; a feedforward in the role of FFN). The xLSTM-7B paper (Beck et al., late 2024 / early 2025 technical report) reports a 7-billion-parameter model trained on roughly 1 trillion tokens, competitive with Llama-2-7B and Mamba-7B on standard language modeling benchmarks. The model is shipped on HuggingFace as <Code>NX-AI/xLSTM-7b</Code>. Like Mamba, it requires custom CUDA kernels to hit its theoretical throughput; without them, the parallel scan falls back to a slow Python loop. Like Mamba in 2024, it is not yet in mainline <Code>transformers</Code>; you install the <Code>xlstm</Code> pip package from NXAI to use it.
-      </Prose>
-
-      <Prose>
-        The motivation that ties the surgery to the recurrent renaissance is exactly the same as Mamba's motivation: at sequence lengths above a few thousand tokens, the transformer's <Code>{"O(L^2 \\cdot d)"}</Code> attention and linearly growing KV cache become the dominant cost on GPU memory and bandwidth. A recurrent model with a constant-sized state pays <Code>{"O(L \\cdot d^2)"}</Code> at training and <Code>{"O(d^2)"}</Code> per generated token at inference, both independent of context length. The question Hochreiter asks in xLSTM is sharper than "can we beat the transformer on long context": he asks "given all we have learned since 1997, is the LSTM cell competitive after the gates are exponentialized and the cell state is matrixified?" The answer the paper argues for is yes, with the caveat that the resulting object is closer in spirit to a gated linear attention than to a 1997 LSTM. Many of the key innovations — exponential gating, normalizer states, parallel scan training — were known in pieces from Performers, RWKV, and Mamba; xLSTM's contribution is putting them together in a cell-and-block design that descends cleanly from the LSTM lineage.
-      </Prose>
-
-      <Prose>
-        The reception in 2024-2026 was warm but skeptical. xLSTM-7B is a credible language model but not a leap past Mamba-2 or transformer at matched scale, and the custom-kernel infrastructure is more nascent than mamba-ssm's. The deeper question — whether the architecture has structural advantages that emerge only at 70B+ parameters and 10T+ tokens — remains open as of early 2026. What is certain is that xLSTM completes the picture of the "RNN revival": Mamba came from state-space models, RWKV came from kernelized linear attention, and xLSTM came from gated RNNs. All three converge on the same basic object — a recurrence on a fixed-size state with linear update rule, gated by data-dependent factors, parallelizable at training via a scan — and they differ mainly in how the gates and state are parameterized.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        Three things are wrong with the 1997 LSTM cell from a 2024 perspective. xLSTM identifies them, names a fix for each, and packages the fixes into two new cells (sLSTM, mLSTM) that share an architectural skeleton. To follow the design, walk through the three problems in order.
-      </Prose>
-
-      <Prose>
-        <strong>Problem 1: sigmoid gates have a saturation ceiling.</strong> The classical LSTM input gate is <Code>{"i_t = \\sigma(W_i x_t + R_i h_{t-1} + b_i)"}</Code>, with output bounded in <Code>{"(0, 1)"}</Code>. To strongly favor "write the new value into memory," <Code>{"i_t"}</Code> needs to push close to 1, but <Code>{"\\sigma"}</Code> approaches 1 only asymptotically. To strongly favor "ignore the new value," <Code>{"i_t"}</Code> needs to be close to 0, again only asymptotic. The same goes for the forget gate. The practical effect: when one input is much more important than the others (the canonical problem an LSTM is supposed to handle), the sigmoid cannot give it disproportionate weight. The LSTM has to learn to "tilt" the gate via large pre-activation magnitudes, and then it has to cancel out that tilt for other inputs. This is the gate-revision problem the xLSTM authors point at: in long sequences with many hard decisions about what to remember, the sigmoid is structurally unable to make sharp choices.
-      </Prose>
-
-      <Prose>
-        <strong>Fix 1: exponential gates.</strong> Replace <Code>{"\\sigma"}</Code> with <Code>{"\\exp"}</Code> for the input and forget gates. Now <Code>{"i_t = \\exp(W_i x_t + R_i h_{t-1} + b_i)"}</Code> is unbounded above; the model can give one input arbitrarily large weight relative to its neighbors. The output gate stays sigmoid because it is a multiplicative gain on the readout and unbounded gain is not what you want there. This is the same intuition behind the softmax kernel in attention: <Code>{"\\exp"}</Code> is what gives attention the ability to focus sharply on one token among many. Hochreiter is borrowing the idea back from attention and applying it inside the LSTM gate.
-      </Prose>
-
-      <Prose>
-        <strong>Problem 2: unbounded gates make the state explode.</strong> If <Code>{"i_t"}</Code> and <Code>{"f_t"}</Code> are unbounded, then the cell state <Code>{"c_t = f_t c_{t-1} + i_t z_t"}</Code> can grow without bound across long sequences, and the hidden output <Code>{"h_t = o_t \\tanh(c_t)"}</Code> saturates the <Code>{"\\tanh"}</Code> nonlinearity to <Code>{"\\pm 1"}</Code>. You have replaced one saturation problem with another.
-      </Prose>
-
-      <Prose>
-        <strong>Fix 2: a normalizer state.</strong> Carry an additional scalar state per channel, <Code>{"n_t"}</Code>, with the same recurrence as the cell but without the <Code>{"z_t"}</Code> input: <Code>{"n_t = f_t n_{t-1} + i_t"}</Code>. This is the running sum of how much "input mass" has been written into the cell, decayed by the forget gates. The hidden output is then <Code>{"h_t = o_t \\cdot c_t / n_t"}</Code>. The ratio is bounded because <Code>{"c_t"}</Code> and <Code>{"n_t"}</Code> grow proportionally — every input that contributed to <Code>{"c_t"}</Code> also added <Code>{"i_t"}</Code> to <Code>{"n_t"}</Code>. This is exactly the normalizer in linear attention (where <Code>{"y_t = (Q_t S_t) / (Q_t z_t)"}</Code> uses <Code>{"z_t = \\sum_i \\phi(K_i)"}</Code> as the denominator) and in Performers. In xLSTM language it is the "normalizer state."
-      </Prose>
+// Generated from the complete prepared manuscript by scripts/generate-xlstm-lesson.mjs.
+import {Prose,H2,H3,CodeBlock} from '../../components/content';
+import {Math as InlineMath,MathBlock} from '../../components/content/Math.jsx';
+import {LessonIntro} from '../../components/lesson-labs/LessonElements.jsx';
+import {NeuralTable} from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import {XOpeningFigure,OrdinaryCellFigure,ScalarWorkedFigure,ScalarMixingFigure,ScalarScaleFigure,GateLearningFigure,OuterProductFigure,MatrixWorkedFigure,SignedReadFigure,MatrixFloorFigure,CausalWorkedFigure,ChunkWorkedFigure,ReaderBlockFigure,DigitScanFigure,RowDataRolesFigure,RowMetricsFigure,WorkedDigitTraceFigure,VersionBlocksFigure,StateAccountingFigure,ApplicationFlowsFigure,SigmoidVariantFigure} from '../../components/lesson-labs/XlstmFigures.jsx';
+import {ScalarLedgerLab,MatrixAddressLab,CausalChunkLab} from '../../components/lesson-labs/XlstmMechanismLabs.jsx';
+import {RowReaderLab,RowLearningCurve,XlstmProgram} from '../../components/lesson-labs/XlstmStudy.jsx';
+export default {title:"xLSTM (Extended LSTM)",readTime:"~75 min read + investigations and practice",hasIntegratedGuide:true,content:()=> <div className="neural-lesson neural-lesson-neutral xlstm-lesson"><LessonIntro prerequisites="Weighted sums, vectors and basic neural networks; the cell mechanics and state invariants are developed here." sections={[["1-start-with-an-ordinary-memory-cell","1. Start with an ordinary memory cell"],["2-slstm-as-a-weighted-ledger","2. sLSTM as a weighted ledger"],["3-stabilization-changes-the-representation-not-the-answer","3. Stabilization changes the representation, not the answer"],["4-mlstm-gives-memory-an-address-space","4. mLSTM gives memory an address space"],["5-one-matrix-operation-several-execution-schedules","5. One matrix operation, several execution schedules"],["6-put-the-cell-inside-a-trainable-network","6. Put the cell inside a trainable network"],["7-read-real-handwritten-digits-one-row-at-a-time","7. Read real handwritten digits one row at a time"],["8-distinguish-a-cell-family-from-a-published-model","8. Distinguish a cell family from a published model"],["9-useful-applications-beyond-a-text-decoder","9. Useful applications beyond a text decoder"],["10-diagnose-the-failure-at-the-right-level","10. Diagnose the failure at the right level"],["11-practice-transfer-the-mechanism","11. Practice: transfer the mechanism"],["12-references-and-another-way-to-learn","12. References and another way to learn"]]}>Decide what a recurrent memory stores, how a query reads it, and which state a chunk must preserve.</LessonIntro>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Change the evidence written into a scalar memory, move matrix addresses, and regroup a sequence into chunks. Follow the resulting state, normalization and read. Then edit real handwriting pixels and compare the evidence preserved by three trained recurrent models."}</Prose>
 
-      <Prose>
-        <strong>Problem 3: <Code>{"\\exp"}</Code> overflows in floating point.</strong> If a pre-activation is 88 in fp32, <Code>{"\\exp(88)"}</Code> is at the top of the float range; 100 is past it. Across a deep, long sequence those values will appear sometimes and the cell will produce <Code>{"+\\infty"}</Code> and <Code>{"\\text{NaN}"}</Code>.
-      </Prose>
+<Prose>{"A handwritten digit can be read one horizontal strip at a time. After the first strip, the model has a few strokes. After the fourth, it has more evidence. After the eighth, it must classify the complete image. If the original strips are no longer available, what should the model carry forward?"}</Prose>
 
-      <Prose>
-        <strong>Fix 3: a log-domain stabilizer.</strong> Carry yet another scalar state, <Code>{"m_t"}</Code>, defined as the running maximum of the log-gates: <Code>{"m_t = \\max(\\log f_t + m_{t-1}, \\log i_t)"}</Code>. Then the actual gates used in the recurrence are stabilized: <Code>{"\\tilde i_t = \\exp(\\log i_t - m_t)"}</Code> and <Code>{"\\tilde f_t = \\exp(\\log f_t + m_{t-1} - m_t)"}</Code>. Both quantities are bounded by 1 (because <Code>{"m_t"}</Code> is by construction <Code>{"\\ge"}</Code> the larger of the two log-gates). The trick is the same as the standard log-sum-exp stabilization: subtract the max in log-space before taking the exp. The cell state becomes <Code>{"c_t = \\tilde f_t c_{t-1} + \\tilde i_t z_t"}</Code>, the normalizer becomes <Code>{"n_t = \\tilde f_t n_{t-1} + \\tilde i_t"}</Code>, and the output <Code>{"h_t = o_t \\cdot c_t / n_t"}</Code> is invariant to the rescaling because <Code>{"m_t"}</Code> divides both numerator and denominator in proportion.
-      </Prose>
+<Prose>{"In "}<a href={"/learn/path/full-curriculum/modern-hopfield-networks?module=deep-learning-fundamentals"}>{"Modern Hopfield Networks"}</a>{", a query could inspect an explicit bank of patterns. xLSTM explores a different storage choice: continually combine incoming information into a fixed-size state, and learn the rules for writing, retaining and reading that state. One variant maintains normalized scalar memories. Another maintains matrices of associations between keys and values."}</Prose>
 
-      <Prose>
-        <strong>That is the sLSTM cell.</strong> Per channel, four gates (i, f, o, z), three additional state variables (c, n, m), exponential input/forget plus sigmoid output. The recurrence stays sequential — each step depends on the previous step's state — so sLSTM trains and infers with the same scan as a classical LSTM. There is no parallelizing it across the sequence; the scalar update is fundamentally serial. What you get for the trouble is a cell with sharper gating decisions than the 1997 LSTM and rigorous numerical stability on sequences of 100k+ tokens. Empirically it improves quality on long-range tasks where the original LSTM saturates.
-      </Prose>
+<Prose>{"The name means "}<strong>{"extended long short-term memory"}</strong>{". It identifies a family of recurrent cells and the residual network blocks built around them. It does not mean that every cell is an LSTM with a larger hidden vector, or that every published xLSTM model uses both variants."}</Prose>
 
-      <Prose>
-        <strong>Now the matrix surgery.</strong> Even with exponential gates, sLSTM has a hard ceiling on memory capacity: the cell state <Code>{"c_t"}</Code> is a single scalar per channel. Across <Code>D</Code> channels you have <Code>D</Code> scalars total to summarize the past, which is why classical LSTMs memorize so few earlier tokens precisely. mLSTM raises the ceiling by replacing the scalar cell state with a matrix <Code>{"C_t \\in \\mathbb{R}^{d_{qk} \\times d_v}"}</Code>. The update is a covariance-style outer-product write: at each step compute a key vector <Code>{"k_t"}</Code> and a value vector <Code>{"v_t"}</Code>, then add their outer product to the matrix, scaled by the input gate.
-      </Prose>
+<Prose opening="route">{""}<strong>{"Your route through the lesson."}</strong>{" First follow the scalar ledger, then the matrix address grid, then the row-by-row digit reader. By the end of that core route you should be able to calculate a write and a read, explain why numerical rescaling must preserve the whole formula, train a small model, and distinguish memory efficiency from successful remembering. The marked deeper branches cover parallel/chunk computation, current large-model variants and hardware tradeoffs. You can return to their derivations after completing the core experiment."}</Prose>
 
-      <MathBlock>
-        {"C_t = f_t \\cdot C_{t-1} + i_t \\cdot k_t v_t^T"}
-      </MathBlock>
+<XOpeningFigure />
 
-      <Prose>
-        Read the matrix back with a query vector <Code>{"q_t"}</Code>: the output is <Code>{"C_t^T q_t"}</Code> (matrix-vector multiply against the transposed memory). The intuition: <Code>{"C_t"}</Code> stores a sum of associative pairs, like a key-addressable memory. When you read with a query that resembles one of the stored keys, the corresponding value comes back. That is exactly how attention works (queries against keys retrieve values), and indeed the mLSTM update <Code>{"C_t = f_t C_{t-1} + i_t k_t v_t^T"}</Code> is mathematically the same recurrence as gated linear attention with an exponential decay gate — Mamba-2 with scalar transitions, Beck et al.'s formulation, and Songlin Yang's GLA all live in this equivalence class.
-      </Prose>
+<H2>{"1. Start with an ordinary memory cell"}</H2>
 
-      <Prose>
-        The crucial property of the matrix update is that it is <em>linear in the state</em>: <Code>{"C_t"}</Code> appears on the right with at most multiplication by <Code>{"f_t"}</Code> and addition of an external term. Linear recurrences are parallelizable. Specifically you can chunk the sequence into blocks of length <Code>B</Code>, compute each block's contribution to <Code>{"C_t"}</Code> as a matmul (intra-chunk), and propagate the running state across chunks via the scalar gate (inter-chunk). This is the same SSD chunked-scan algorithm Mamba-2 uses, and it gives mLSTM training cost <Code>{"O(L \\cdot d^2)"}</Code> with hardware utilization comparable to attention, while inference stays at <Code>{"O(d^2)"}</Code> per token regardless of context length. The serial sLSTM cannot be parallelized this way because its update <Code>{"c_t = f_t c_{t-1} + i_t z_t"}</Code> depends on <Code>{"z_t = \\tanh(...)"}</Code> which depends on <Code>{"h_{t-1}"}</Code>, an explicitly nonlinear coupling.
-      </Prose>
+<Prose>{"A recurrent model receives an input vector "}<code>{"x_t"}</code>{" and a previous state. It produces a new state and an output. The index "}<code>{"t"}</code>{" can mean a text token, a sensor sample, or, in our experiment, an image row. It need not mean one second."}</Prose>
 
-      <Prose>
-        <strong>The xLSTM block.</strong> The architecture stacks alternating sLSTM and mLSTM cells, with residual connections and layer norm wrapping each, in the layout of a transformer block. A typical 7B xLSTM has ~24 such blocks. In some configurations all blocks are mLSTM (called xLSTM[0:1] or "pure mLSTM"); in others a fraction are sLSTM to capture the sharper sequential reasoning sLSTM provides. The empirical finding from Beck et al. is that pure-mLSTM is fastest and competitive; mixing in some sLSTM yields a small quality gain at the cost of training speed because sLSTM blocks are sequential.
-      </Prose>
+<Prose>{"A classical LSTM has a cell vector "}<code>{"c_t"}</code>{", which carries information, and a hidden vector "}<code>{"h_t"}</code>{", which is exposed to the surrounding network and used to compute later gates. For one coordinate, suppressing its index:"}</Prose>
 
-      <Callout accent="gold">
-        Mental model: xLSTM is the LSTM cell rebuilt with two specific changes — (1) exponential gates with a normalizer and a log-domain stabilizer (sLSTM); (2) matrix-valued cell state with outer-product writes (mLSTM). The first sharpens gating decisions while staying sequential. The second trades scalar memory for matrix memory and gains the parallel-scan training of Mamba-2 / GLA. The xLSTM block alternates them. The whole construction is Hochreiter's argument that the RNN family, properly modernized, deserves a seat at the 2026 architecture table.
-      </Callout>
+<div className="neural-equation"><MathBlock>{"c_t=f_t c_{t-1}+i_t z_t,\\qquad h_t=o_t\\tanh(c_t)."}</MathBlock></div>
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"The candidate "}<code>{"z_t"}</code>{" is commonly a tanh of a learned affine transformation of the input and previous hidden vector. The input, forget and output gates are commonly sigmoids of similar transformations. A sigmoid maps a real number into "}<code>{"(0,1)"}</code>{". The forget gate controls how much old cell content survives; the input gate controls the new contribution; the output gate controls what is exposed."}</Prose>
 
-      <H3>3.1 Classical LSTM (1997 + forget gate)</H3>
+<Prose>{"For example, with old content "}<code>{"0.8"}</code>{", retention "}<code>{"0.5"}</code>{", new candidate "}<code>{"−0.4"}</code>{" and write gate "}<code>{"0.25"}</code>{", the next cell is "}<code>{"0.5×0.8 + 0.25×(−0.4) = 0.3"}</code>{". This update contains both multiplication and addition. A forget gate is not a switch that removes an entire old token from a list: it scales a mixed numerical state."}</Prose>
 
-      <Prose>
-        Reference for what xLSTM modifies. With input <Code>{"x_t"}</Code>, hidden <Code>{"h_t"}</Code>, cell state <Code>{"c_t"}</Code>:
-      </Prose>
+<OrdinaryCellFigure />
 
-      <MathBlock>
-        {"\\begin{aligned} i_t &= \\sigma(W_i x_t + R_i h_{t-1} + b_i) \\\\ f_t &= \\sigma(W_f x_t + R_f h_{t-1} + b_f) \\\\ o_t &= \\sigma(W_o x_t + R_o h_{t-1} + b_o) \\\\ z_t &= \\tanh(W_z x_t + R_z h_{t-1} + b_z) \\\\ c_t &= f_t \\odot c_{t-1} + i_t \\odot z_t \\\\ h_t &= o_t \\odot \\tanh(c_t) \\end{aligned}"}
-      </MathBlock>
+<Prose>{"These gates are learned from the task loss. We hand-set them first so that the mechanism is visible. Later, a neural network will produce them from pixels and state."}</Prose>
 
-      <Prose>
-        Four gates per channel, all sigmoid except <Code>{"z_t"}</Code> which is <Code>{"\\tanh"}</Code>. The cell update <Code>{"c_t"}</Code> is additive (good — gradient through <Code>{"c"}</Code> is multiplicative by <Code>{"f_t \\in (0, 1)"}</Code>), the readout uses <Code>{"\\tanh(c_t)"}</Code> to squash the cell into the bounded range. This is the cell that ran every machine-translation system from 2014-2017 and powers most production speech-recognition stacks even today.
-      </Prose>
+<Prose>{"A sigmoid can make a sharp decision: a write gate near one and a forget gate near zero can replace old information strongly. xLSTM is therefore not motivated by an inability of sigmoids to overwrite anything. The useful question is more specific: "}<strong>{"which parameterization of write weights, state normalization and associative storage makes a desired memory operation easier to learn and scale?"}</strong>{""}</Prose>
 
-      <H3>3.2 sLSTM cell (xLSTM, scalar memory with exp gating)</H3>
+<Prose>{"The original xLSTM family investigates two answers:"}</Prose>
 
-      <Prose>
-        The sLSTM cell keeps the same channel-wise scalar state <Code>{"c_t \\in \\mathbb{R}^d"}</Code> but introduces three modifications: exponential input/forget gates, a normalizer state <Code>{"n_t"}</Code>, and a stabilizer state <Code>{"m_t"}</Code>. Compute the gate pre-activations as before:
-      </Prose>
+<NeuralTable caption={"1. Start with an ordinary memory cell"} headers={[<>{"Cell"}</>,<>{"Stored information"}</>,<>{"What determines the next gates?"}</>,<>{"Main mechanism to understand"}</>]} rows={[[<>{"sLSTM"}</>,<>{"Scalar content and normalization mass in each channel"}</>,<>{"Input and previous hidden state, with mixing within a head"}</>,<>{"Normalize a learned history of writes"}</>],[<>{"mLSTM"}</>,<>{"A key-by-value association matrix, plus normalization state in the exponential variant"}</>,<>{"Current layer input, without the same hidden-to-gate recurrence"}</>,<>{"Write outer products and read with a query"}</>]]} />
 
-      <MathBlock>
-        {"\\begin{aligned} \\tilde i_t &= W_i x_t + R_i h_{t-1} + b_i \\\\ \\tilde f_t &= W_f x_t + R_f h_{t-1} + b_f \\\\ o_t &= \\sigma(W_o x_t + R_o h_{t-1} + b_o) \\\\ z_t &= \\tanh(W_z x_t + R_z h_{t-1} + b_z) \\end{aligned}"}
-      </MathBlock>
+<Prose>{"A "}<strong>{"channel"}</strong>{" is one numerical coordinate. A "}<strong>{"head"}</strong>{" is a group of coordinates with its own memory operation. A matrix head has a key width and a value width, which need not be equal."}</Prose>
 
-      <Prose>
-        The stabilizer state runs the log-domain max:
-      </Prose>
+<H2>{"2. sLSTM as a weighted ledger"}</H2>
 
-      <MathBlock>
-        {"m_t = \\max\\bigl(\\tilde f_t + m_{t-1}, \\; \\tilde i_t\\bigr)"}
-      </MathBlock>
+<Prose>{"Imagine that each observation contributes a signed estimate and a nonnegative amount of evidence. Keep two totals: a weighted content total "}<code>{"c"}</code>{", and the total weight "}<code>{"n"}</code>{". Their ratio is the current estimate. Forgetting scales both totals; a new write adds to both."}</Prose>
 
-      <Prose>
-        Then the stabilized gates are:
-      </Prose>
+<Prose>{"For one scalar memory, begin with "}<code>{"c_0=n_0=0"}</code>{" and define"}</Prose>
 
-      <MathBlock>
-        {"i_t = \\exp(\\tilde i_t - m_t), \\qquad f_t = \\exp(\\tilde f_t + m_{t-1} - m_t)"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"i_t=e^{a_t},\\qquad f_t=\\sigma(b_t),\\qquad\nc_t=f_t c_{t-1}+i_t z_t,\\qquad\nn_t=f_t n_{t-1}+i_t,\\qquad\nh_t=o_t\\frac{c_t}{n_t}."}</MathBlock></div>
 
-      <Prose>
-        Note <Code>{"i_t \\le 1"}</Code> and <Code>{"f_t \\le 1"}</Code> by construction (one of the two log-arguments equals <Code>{"m_t"}</Code> and so the corresponding ratio is exactly 1). The state updates are:
-      </Prose>
+<Prose>{"Here "}<code>{"a_t"}</code>{" is the write "}<strong>{"log-weight"}</strong>{", "}<code>{"b_t"}</code>{" is a forget preactivation, and "}<code>{"o_t"}</code>{" is an output gate. The original family also considers exponential forget gates. We use sigmoid forgetting in the worked core and executable model. It makes the raw retention factor lie between zero and one."}</Prose>
 
-      <MathBlock>
-        {"\\begin{aligned} c_t &= f_t \\odot c_{t-1} + i_t \\odot z_t \\\\ n_t &= f_t \\odot n_{t-1} + i_t \\\\ h_t &= o_t \\odot \\bigl(c_t / (n_t + \\varepsilon)\\bigr) \\end{aligned}"}
-      </MathBlock>
+<Prose>{"The write weight can be larger than one. What matters to the normalized estimate is its size relative to the surviving old mass. With a tanh candidate and a sigmoid output gate, this scalar output remains bounded by the largest magnitude among the candidates written so far. Its internal totals need not be small."}</Prose>
 
-      <Prose>
-        Why does this preserve the sharpening behavior of <Code>{"\\exp"}</Code> when the stabilization caps the gates at 1? Because the <em>relative</em> magnitudes are preserved. If the model needs to write input <Code>j</Code> ten times more aggressively than input <Code>{"j+1"}</Code>, it sets <Code>{"\\tilde i_j - \\tilde i_{j+1} = \\log 10"}</Code>; after stabilization, <Code>{"i_j / i_{j+1} = 10"}</Code> still holds. The sigmoid gate of the classical LSTM cannot achieve a 10x ratio at the high end (both <Code>{"\\sigma(2)"}</Code> and <Code>{"\\sigma(3)"}</Code> are within 0.05 of each other) — that is the expressivity gap the exponential gate fixes.
-      </Prose>
+<H3>{"Work through three observations"}</H3>
 
-      <Prose>
-        Memory mixing: in the full sLSTM cell, the cell state <Code>{"c_t \\in \\mathbb{R}^d"}</Code> is split into multiple "heads" (similar to multi-head attention) and the recurrent matrix <Code>{"R"}</Code> is block-diagonal across heads, with within-head mixing. This lets the model spread information across head dimensions — the "memory mixing" referenced in the paper. The simplification we use throughout this topic treats <Code>{"d"}</Code> as a single head; the multi-head extension is a routine reshape.
-      </Prose>
+<Prose>{"Use candidates "}<code>{"[0.2, −0.6, 0.8]"}</code>{", write weights "}<code>{"[1, 3, 9]"}</code>{", retention "}<code>{"0.5"}</code>{" on every step, and output gate "}<code>{"0.75"}</code>{"."}</Prose>
 
-      <H3>3.3 mLSTM cell (xLSTM, matrix memory)</H3>
+<NeuralTable caption={"Work through three observations"} headers={[<>{"Step"}</>,<>{"Surviving old content"}</>,<>{"New content"}</>,<>{""}<code>{"c_t"}</code>{""}</>,<>{""}<code>{"n_t"}</code>{""}</>,<>{""}<code>{"h_t"}</code>{""}</>]} rows={[[<>{"1"}</>,<>{"0"}</>,<>{"0.2"}</>,<>{"0.2"}</>,<>{"1"}</>,<>{"0.150000"}</>],[<>{"2"}</>,<>{"0.1"}</>,<>{"−1.8"}</>,<>{"−1.7"}</>,<>{"3.5"}</>,<>{"−0.364286"}</>],[<>{"3"}</>,<>{"−0.85"}</>,<>{"7.2"}</>,<>{"6.35"}</>,<>{"10.75"}</>,<>{"0.443023"}</>]]} />
 
-      <Prose>
-        The mLSTM cell upgrades the cell state from a scalar per channel to a matrix <Code>{"C_t \\in \\mathbb{R}^{d_{qk} \\times d_v}"}</Code> and the normalizer from a scalar per channel to a vector <Code>{"n_t \\in \\mathbb{R}^{d_{qk}}"}</Code>. Compute query, key, value, and the same scalar gate pre-activations <Code>{"\\tilde i_t, \\tilde f_t"}</Code> as in sLSTM:
-      </Prose>
+<Prose>{"At step three, the surviving weights on the original candidates are "}<code>{"[0.25, 1.5, 9]"}</code>{". Their sum is "}<code>{"10.75"}</code>{". The latest candidate supplies about "}<code>{"83.72%"}</code>{" of that mass. The estimate before the output gate is "}<code>{"6.35/10.75 ≈ 0.590698"}</code>{", between the smallest and largest candidates. The output gate then scales it to "}<code>{"0.443023"}</code>{"."}</Prose>
 
-      <MathBlock>
-        {"q_t = W_q x_t, \\quad k_t = W_k x_t / \\sqrt{d_{qk}}, \\quad v_t = W_v x_t"}
-      </MathBlock>
+<ScalarWorkedFigure />
 
-      <Prose>
-        Stabilize as before with <Code>{"m_t = \\max(\\tilde f_t + m_{t-1}, \\tilde i_t)"}</Code> (now <Code>{"m_t"}</Code> is a per-token scalar, not a per-channel vector), then <Code>{"i_t = \\exp(\\tilde i_t - m_t)"}</Code>, <Code>{"f_t = \\exp(\\tilde f_t + m_{t-1} - m_t)"}</Code>. The matrix update is:
-      </Prose>
+<Prose>{"This picture explains revision. A large new write can dominate surviving evidence without requiring the raw candidate itself to be large. It also explains interference: one scalar remembers a weighted aggregate, not a recoverable list of all individual observations."}</Prose>
 
-      <MathBlock>
-        {"\\begin{aligned} C_t &= f_t \\, C_{t-1} + i_t \\, k_t v_t^T \\\\ n_t &= f_t \\, n_{t-1} + i_t \\, k_t \\\\ h_t &= o_t \\odot \\frac{C_t^T q_t}{\\max\\!\\bigl(\\lvert n_t^T q_t\\rvert, \\, 1\\bigr)} \\end{aligned}"}
-      </MathBlock>
+<Prose>{"Expanding the recurrence makes the history explicit:"}</Prose>
 
-      <Prose>
-        The numerator <Code>{"C_t^T q_t"}</Code> is a <Code>{"d_v"}</Code>-dimensional vector — read out the matrix memory at the position the query points to. The denominator <Code>{"\\max(|n_t^T q_t|, 1)"}</Code> normalizes by the running mass at that query, with a clamp at 1 to avoid division by tiny numbers when <Code>{"q_t"}</Code> happens to be approximately orthogonal to all stored keys (the original paper's choice; some implementations use a small <Code>{"\\varepsilon"}</Code> instead).
-      </Prose>
+<div className="neural-equation"><MathBlock>{"w_{t,j}=i_j\\prod_{\\ell=j+1}^{t}f_\\ell,\\qquad\n\\frac{c_t}{n_t}=\\frac{\\sum_{j=1}^{t}w_{t,j}z_j}{\\sum_{j=1}^{t}w_{t,j}}."}</MathBlock></div>
 
-      <H3>3.4 Equivalence to gated linear attention</H3>
+<Prose>{"The empty product for "}<code>{"j=t"}</code>{" equals one. A new write is not immediately multiplied by its own step's forget gate; that gate affects what was already stored. The nonnegative normalized weights sum to one. This convex-average interpretation applies to this scalar recurrence with empty initialization; it will not transfer unchanged to the signed matrix read."}</Prose>
 
-      <Prose>
-        Expand the matrix recurrence. Starting from <Code>{"C_0 = 0"}</Code> and unrolling, the state at time <Code>t</Code> is:
-      </Prose>
+<H3>{"Where learning enters"}</H3>
 
-      <MathBlock>
-        {"C_t = \\sum_{j=1}^{t} \\Bigl(\\prod_{l=j+1}^{t} f_l\\Bigr) \\cdot i_j \\cdot k_j v_j^T"}
-      </MathBlock>
+<Prose>{"For a vector of channels, learned matrices produce candidates and gate preactivations from "}<code>{"x_t"}</code>{" and "}<code>{"h_{t−1}"}</code>{". Within a scalar-memory head, these transformations can mix channels: one hidden coordinate can affect another coordinate's next write or retention. Different heads restrict this recurrent mixing to their own groups. Pointwise multiplication in the state update does not imply that the whole cell treats every feature independently."}</Prose>
 
-      <Prose>
-        Define the cumulative gate <Code>{"G_{t,j} = i_j \\prod_{l=j+1}^{t} f_l"}</Code>. The output before the output gate is:
-      </Prose>
+<ScalarMixingFigure />
 
-      <MathBlock>
-        {"\\frac{C_t^T q_t}{n_t^T q_t} = \\frac{\\sum_{j \\le t} G_{t,j} \\, (q_t \\cdot k_j) \\, v_j}{\\sum_{j \\le t} G_{t,j} \\, (q_t \\cdot k_j)}"}
-      </MathBlock>
-
-      <Prose>
-        That is masked linear attention with kernel <Code>{"\\phi(x) = x"}</Code>, masked by the lower-triangular gate matrix <Code>{"G_{t,j}"}</Code>. The mask itself has a structured (semi-separable) form because <Code>{"G_{t,j} = G_{t-1,j} \\cdot f_t"}</Code> for <Code>{"j < t"}</Code> — exactly the structure that admits the SSD chunked algorithm of Mamba-2. The mLSTM is therefore not "an LSTM with bigger memory" in any architectural sense distinct from gated linear attention; it is the same mathematical object, with the gate parameterized in LSTM-style language (<Code>{"i_t, f_t"}</Code>) rather than RetNet-style language (<Code>{"\\gamma_t"}</Code>) or Mamba-style language (<Code>{"\\Delta_t, A_t"}</Code>).
-      </Prose>
+<Prose>{"The next gates depend on a hidden state that depends on previous gates. That dependency matters when we discuss parallel training. It also enables input-conditioned state transitions beyond a fixed decay of past input projections."}</Prose>
 
-      <H3>3.5 Parallel chunked training</H3>
+<H2>{"3. Stabilization changes the representation, not the answer"}</H2>
 
-      <Prose>
-        For training, materializing the recurrence step-by-step is wasteful: the matmul <Code>{"q_t \\cdot k_j"}</Code> can be done as a single batched <Code>{"L \\times L"}</Code> matrix multiply for all <Code>{"t, j"}</Code>, and the gate mask <Code>{"G_{t,j}"}</Code> can be precomputed in <Code>{"O(L \\log L)"}</Code> via cumulative log-sums. The full forward pass is then:
-      </Prose>
-
-      <MathBlock>
-        {"Y = \\bigl(M \\odot (Q K^T)\\bigr) V \\, / \\, D"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>{"M_{t,j} = G_{t,j}"}</Code> for <Code>{"j \\le t"}</Code> else 0, and <Code>{"D"}</Code> is the row-wise normalizer. This is an <Code>{"O(L^2 d)"}</Code> computation in the dense form — the same cost as quadratic attention. To recover linear cost, partition the sequence into chunks of length <Code>B</Code> (typically 64-256). Within a chunk, compute <Code>{"Y_{\\text{intra}} = (M_{\\text{local}} \\odot (Q K^T)) V"}</Code> at <Code>{"O(B^2 d + B d^2)"}</Code> per chunk; across chunks, propagate the running matrix state <Code>{"C"}</Code> via a recurrence at the chunk granularity, costing <Code>{"O((L/B) \\cdot d^2)"}</Code>. Total: <Code>{"O(L \\cdot B \\cdot d + L \\cdot d^2 / B)"}</Code>. Choose <Code>B</Code> to balance the two terms; for typical <Code>d</Code>, <Code>{"B = 64"}</Code> is a reasonable default. This is the SSD-style chunked algorithm; the xLSTM paper's Algorithm 2 is the mLSTM-specific version, structurally identical to Mamba-2's <Code>mamba_chunk_scan_combined</Code>.
-      </Prose>
-
-      <H3>3.6 Cost summary</H3>
-
-      <Prose>
-        Per layer, with sequence length <Code>L</Code>, model dim <Code>D</Code>, head dim <Code>d</Code>:
-      </Prose>
-
-      <Prose>
-        sLSTM training: <Code>{"O(L \\cdot D^2)"}</Code> sequential. Cannot be parallelized across <Code>L</Code>. Wall-clock dominated by the serial scan.
-      </Prose>
-
-      <Prose>
-        sLSTM inference: <Code>{"O(D^2)"}</Code> per token, constant in <Code>L</Code>. Just the gate projections plus scalar updates.
-      </Prose>
-
-      <Prose>
-        mLSTM training (chunked): <Code>{"O(L \\cdot d \\cdot D)"}</Code> for the linear-attention term plus <Code>{"O(L \\cdot d^2)"}</Code> for the projections. Tensor-Core friendly — runs at high GPU utilization.
-      </Prose>
-
-      <Prose>
-        mLSTM inference: <Code>{"O(d^2 \\cdot D / d_v)"}</Code> per token, constant in <Code>L</Code>. State size <Code>{"d_{qk} \\cdot d_v"}</Code> scalars per head.
-      </Prose>
-
-      <Prose>
-        Compare to transformer training <Code>{"O(L^2 D + L D^2)"}</Code> and inference <Code>{"O(L \\cdot D)"}</Code> (KV cache attended once per token). The mLSTM matches Mamba-2/GLA on these axes; sLSTM is slower per token but cheaper than full attention for long contexts.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        We implement the sLSTM cell, the mLSTM cell in both recurrent and parallel forms, an xLSTM block that alternates them, and a tiny character-level language model that compares xLSTM against a baseline classical LSTM. All code below was run; outputs labeled <Code>{"# Output:"}</Code> are real stdout from the runs.
-      </Prose>
-
-      <H3>4.1 sLSTM cell with exponential gating + stabilizer</H3>
-
-      <Prose>
-        The cell carries four states (<Code>{"h, c, n, m"}</Code>) and four gate projections. The forget-gate bias is initialized to 0 here for visibility; in practice xLSTM uses a small positive bias to favor memory retention at init.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-
-torch.manual_seed(0)
-
-class sLSTMCell(nn.Module):
-    """Single sLSTM cell (Beck et al. 2024, eq. 4-9)."""
-    def __init__(self, input_size, hidden_size):
-        super().__init__()
-        self.input_size = input_size
-        self.hidden_size = hidden_size
-        self.W = nn.Linear(input_size, 4 * hidden_size, bias=False)
-        self.R = nn.Linear(hidden_size, 4 * hidden_size, bias=False)
-        self.b = nn.Parameter(torch.zeros(4 * hidden_size))
-        with torch.no_grad():
-            # Forget-gate bias init to 0 (paper uses negative log-uniform)
-            self.b[hidden_size:2 * hidden_size].fill_(0.0)
-
-    def forward(self, x, state):
-        h_prev, c_prev, n_prev, m_prev = state
-        gates = self.W(x) + self.R(h_prev) + self.b
-        i_pre, f_pre, o_pre, z_pre = gates.chunk(4, dim=-1)
-
-        # Stabilizer state: m_t = max(log f_t + m_{t-1}, log i_t)
-        m_t = torch.maximum(f_pre + m_prev, i_pre)
-        i_t = torch.exp(i_pre - m_t)               # stabilized exp(input gate)
-        f_t = torch.exp(f_pre + m_prev - m_t)      # stabilized exp(forget gate)
-        o_t = torch.sigmoid(o_pre)
-        z_t = torch.tanh(z_pre)
-
-        c_t = f_t * c_prev + i_t * z_t
-        n_t = f_t * n_prev + i_t                   # normalizer state
-        h_t = o_t * (c_t / (n_t + 1e-6))           # bounded output via division
-        return h_t, (h_t, c_t, n_t, m_t)
-
-    def init_state(self, batch_size, device=None):
-        h = torch.zeros(batch_size, self.hidden_size, device=device)
-        c = torch.zeros_like(h)
-        n = torch.ones_like(h)                     # n=1 avoids div-by-zero at t=0
-        m = torch.zeros_like(h)
-        return (h, c, n, m)
-
-
-B, T, D, H = 2, 8, 4, 6
-cell = sLSTMCell(D, H)
-x_seq = torch.randn(B, T, D)
-state = cell.init_state(B)
-hs = []
-for t in range(T):
-    h, state = cell(x_seq[:, t], state)
-    hs.append(h)
-out = torch.stack(hs, dim=1)
-print(f"sLSTM forward: in shape={tuple(x_seq.shape)}, out shape={tuple(out.shape)}")
-print(f"  finite={torch.isfinite(out).all().item()}")
-print(f"  hidden mean={out.mean().item():+.4f}  std={out.std().item():.4f}")
-
-gates = cell.W(x_seq[:, -1]) + cell.R(state[0]) + cell.b
-i_pre, f_pre, o_pre, z_pre = gates.chunk(4, dim=-1)
-m_t = torch.maximum(f_pre + state[3], i_pre)
-i_t = torch.exp(i_pre - m_t)
-f_t = torch.exp(f_pre + state[3] - m_t)
-print(f"\\nGate stats at final step:")
-print(f"  i_t (exp input gate): min={i_t.min().item():.3f}, max={i_t.max().item():.3f}, mean={i_t.mean().item():.3f}")
-print(f"  f_t (exp forget gate): min={f_t.min().item():.3f}, max={f_t.max().item():.3f}, mean={f_t.mean().item():.3f}")
-print(f"  m_t (stabilizer): min={m_t.min().item():+.3f}, max={m_t.max().item():+.3f}")
-print(f"\\nsLSTM cell parameters: {sum(p.numel() for p in cell.parameters())}")
-
-# Output:
-# sLSTM forward: in shape=(2, 8, 4), out shape=(2, 8, 6)
-#   finite=True
-#   hidden mean=+0.0087  std=0.0908
-#
-# Gate stats at final step:
-#   i_t (exp input gate): min=0.014, max=1.000, mean=0.307
-#   f_t (exp forget gate): min=0.383, max=1.000, mean=0.934
-#   m_t (stabilizer): min=-0.626, max=+4.100
-#
-# sLSTM cell parameters: 264`}
-      </CodeBlock>
-
-      <Prose>
-        Two things to notice in the output. First, every step has at least one of <Code>{"i_t"}</Code> or <Code>{"f_t"}</Code> equal to 1.0 — that is the stabilization invariant: <Code>{"m_t"}</Code> equals the larger of the two log-arguments, so the corresponding ratio is exactly 1. Second, the stabilizer <Code>{"m_t"}</Code> grows over time (max +4.1 after 8 steps with forget-bias 0). With a positive forget-bias, <Code>{"m_t"}</Code> grows linearly; the math is fine but you must ensure your implementation keeps <Code>{"m_t"}</Code> in fp32 even if the rest of the model is fp16 (otherwise it overflows fp16's max of 65504 in a few hundred steps).
-      </Prose>
-
-      <H3>4.2 mLSTM cell with matrix memory: recurrent and parallel forms</H3>
-
-      <Prose>
-        The recurrent form is the canonical inference path, one step at a time. The parallel form computes the same outputs in a single batched matmul over the full sequence — this is what training uses. Critical: <em>both forms must produce the same numbers</em>. We implement both and assert numerical equality, which catches the most common mLSTM bugs.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-torch.manual_seed(0)
-
-class mLSTMCell(nn.Module):
-    def __init__(self, d_model, d_qk=None, d_v=None):
-        super().__init__()
-        self.d_model = d_model
-        self.d_qk = d_qk or d_model
-        self.d_v = d_v or d_model
-        self.W_q = nn.Linear(d_model, self.d_qk, bias=False)
-        self.W_k = nn.Linear(d_model, self.d_qk, bias=False)
-        self.W_v = nn.Linear(d_model, self.d_v, bias=False)
-        self.W_i = nn.Linear(d_model, 1, bias=True)
-        self.W_f = nn.Linear(d_model, 1, bias=True)
-        self.W_o = nn.Linear(d_model, self.d_v, bias=True)
-        with torch.no_grad():
-            self.W_f.bias.fill_(3.0)               # init f_t close to 1 (preserve memory)
-
-    def forward_recurrent(self, x):
-        B, T, D = x.shape
-        scale = self.d_qk ** 0.5
-        q = self.W_q(x) / scale
-        k = self.W_k(x) / scale
-        v = self.W_v(x)
-        i_pre = self.W_i(x).squeeze(-1)
-        f_pre = self.W_f(x).squeeze(-1)
-
-        C = torch.zeros(B, self.d_qk, self.d_v, device=x.device)
-        n = torch.zeros(B, self.d_qk, device=x.device)
-        m = torch.zeros(B, device=x.device)
-
-        ys = []
-        for t in range(T):
-            m_new = torch.maximum(f_pre[:, t] + m, i_pre[:, t])
-            i_t = torch.exp(i_pre[:, t] - m_new)
-            f_t = torch.exp(f_pre[:, t] + m - m_new)
-            kt, vt = k[:, t], v[:, t]
-            # Outer-product update: C_t = f_t * C_{t-1} + i_t * (k_t v_t^T)
-            C = f_t.view(B, 1, 1) * C + i_t.view(B, 1, 1) * (kt.unsqueeze(-1) * vt.unsqueeze(1))
-            n = f_t.view(B, 1) * n + i_t.view(B, 1) * kt
-            m = m_new
-            qt = q[:, t]
-            num = (C * qt.unsqueeze(-1)).sum(dim=1)             # C^T q_t
-            den = (n * qt).sum(dim=-1).abs().clamp(min=1.0)
-            h_t = num / den.unsqueeze(-1)
-            o_t = torch.sigmoid(self.W_o(x[:, t]))
-            ys.append(o_t * h_t)
-        return torch.stack(ys, dim=1), (C, n, m)
-
-    def forward_parallel(self, x):
-        """Parallel form: y = (M * (Q K^T)) V / D."""
-        B, T, D = x.shape
-        scale = self.d_qk ** 0.5
-        q = self.W_q(x) / scale
-        k = self.W_k(x) / scale
-        v = self.W_v(x)
-        i_pre = self.W_i(x).squeeze(-1)
-        f_pre = self.W_f(x).squeeze(-1)
-
-        # Replicate the recurrent stabilizer schedule m_t
-        m_seq = torch.zeros(B, T, device=x.device)
-        m_run = torch.zeros(B, device=x.device)
-        for t in range(T):
-            m_run = torch.maximum(f_pre[:, t] + m_run, i_pre[:, t])
-            m_seq[:, t] = m_run
-        m_prev = torch.cat([torch.zeros(B, 1, device=x.device), m_seq[:, :-1]], dim=1)
-        log_f = f_pre + m_prev - m_seq
-        log_i = i_pre - m_seq
-        F_cum = torch.cumsum(log_f, dim=1)
-        # gate_log[t,j] = log_i[j] + sum_{l=j+1..t} log_f[l]
-        gate_log = log_i.unsqueeze(1) + F_cum.unsqueeze(2) - F_cum.unsqueeze(1)
-        idx = torch.arange(T, device=x.device)
-        causal = (idx.unsqueeze(1) >= idx.unsqueeze(0)).float()  # lower-triangular mask
-        gate = torch.exp(gate_log) * causal.unsqueeze(0)
-
-        sim = (q @ k.transpose(-1, -2)) * gate                    # [B, T, T]
-        denom = sim.sum(dim=-1).abs().clamp(min=1.0).unsqueeze(-1)
-        num = sim @ v
-        return torch.sigmoid(self.W_o(x)) * (num / denom)
-
-
-B, T, D = 2, 8, 6
-mlstm = mLSTMCell(d_model=D, d_qk=4, d_v=4)
-x = torch.randn(B, T, D)
-y_rec, (C_final, n_final, m_final) = mlstm.forward_recurrent(x)
-
-print(f"mLSTM recurrent forward: in={tuple(x.shape)}, out={tuple(y_rec.shape)}")
-print(f"  finite={torch.isfinite(y_rec).all().item()}")
-print(f"  hidden mean={y_rec.mean().item():+.4f}  std={y_rec.std().item():.4f}")
-print(f"\\nFinal matrix memory C shape: {tuple(C_final.shape)}")
-print(f"  C Frobenius norm: {C_final.norm().item():.4f}")
-print(f"  n state norm: {n_final.norm().item():.4f}")
-print(f"  stabilizer m: {m_final.tolist()}")
-
-y_par = mlstm.forward_parallel(x)
-diff = (y_rec - y_par).abs().max().item()
-print(f"\\nNumerical check: max|y_recurrent - y_parallel| = {diff:.2e}")
-print(f"  match={diff < 1e-4}")
-print(f"\\nmLSTM parameters: {sum(p.numel() for p in mlstm.parameters())}")
-
-# Output:
-# mLSTM recurrent forward: in=(2, 8, 6), out=(2, 8, 4)
-#   finite=True
-#   hidden mean=-0.0000  std=0.0005
-#
-# Final matrix memory C shape: (2, 4, 4)
-#   C Frobenius norm: 0.0136
-#   n state norm: 0.0254
-#   stabilizer m: [25.620901107788086, 25.048282623291016]
-#
-# Numerical check: max|y_recurrent - y_parallel| = 1.75e-10
-#   match=True
-#
-# mLSTM parameters: 114`}
-      </CodeBlock>
-
-      <Prose>
-        The numerical check is the centerpiece of any mLSTM implementation: if your parallel form drifts from your recurrent form by more than float32 noise (around 1e-6 to 1e-9 for the cumulative sums), you have a sign bug somewhere — most often in the lower-triangular causal mask, where it is shockingly easy to flip rows and columns and produce an upper-triangular mask that silently corrupts training. We catch <Code>1.75e-10</Code> here, which is float32 round-off; the implementation is consistent.
-      </Prose>
-
-      <Prose>
-        The hidden output mean is essentially zero and the std is tiny (0.0005) because the forget-bias init of +3.0 makes <Code>{"f_t \\approx 1"}</Code>, so the cell preserves every input nearly perfectly and the normalizer grows as fast as the cell — they cancel almost completely. This is correct behavior at init: the model has not learned to forget anything, so every query reads back a heavily averaged value. Training teaches the W_f and W_i projections to differentiate inputs.
-      </Prose>
-
-      <H3>4.3 xLSTM block: sLSTM + mLSTM with residuals</H3>
-
-      <Prose>
-        An xLSTM block alternates an sLSTM and an mLSTM cell, each preceded by LayerNorm and wrapped in a residual connection (transformer-block layout). For brevity we omit the conventional FFN layer; production xLSTM blocks include a gated MLP after the sequence mixer.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class xLSTMBlock(nn.Module):
-    def __init__(self, d):
-        super().__init__()
-        self.norm1 = nn.LayerNorm(d)
-        self.slstm = sLSTMCell(d, d)
-        self.norm2 = nn.LayerNorm(d)
-        self.mlstm = mLSTMCell(d)
-
-    def forward(self, x):
-        # sLSTM: scan step by step
-        h, state = x.new_zeros(x.size(0), self.slstm.hidden_size), self.slstm.init_state(x.size(0), x.device)
-        s_out = []
-        u = self.norm1(x)
-        for t in range(x.size(1)):
-            h, state = self.slstm(u[:, t], state)
-            s_out.append(h)
-        x = x + torch.stack(s_out, dim=1)
-        # mLSTM: parallel form
-        x = x + self.mlstm.forward_parallel(self.norm2(x))
-        return x`}
-      </CodeBlock>
-
-      <H3>4.4 Train xLSTM vs classical LSTM on character-level LM</H3>
-
-      <Prose>
-        A small benchmark: a hand-rolled LSTM model (using PyTorch's optimized <Code>nn.LSTM</Code> for the baseline, which calls cuDNN's fused kernel) versus an xLSTM model with one sLSTM+mLSTM block. Train both for 300 steps on a tiny tongue-twister corpus; compare loss and inference throughput. The point is not to win a benchmark — it is to verify both architectures train cleanly and to expose the wall-clock cost of the from-scratch xLSTM scan vs cuDNN's LSTM.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import math, time, torch, torch.nn as nn, torch.nn.functional as F
-
-class LSTMModel(nn.Module):
-    def __init__(self, V, d, n_layers=1):
-        super().__init__()
-        self.emb = nn.Embedding(V, d)
-        self.lstm = nn.LSTM(d, d, num_layers=n_layers, batch_first=True)
-        self.head = nn.Linear(d, V)
-
-    def forward(self, x):
-        h = self.emb(x)
-        out, _ = self.lstm(h)
-        return self.head(out)
-
-
-class xLSTMModel(nn.Module):
-    def __init__(self, V, d, n_blocks=1):
-        super().__init__()
-        self.emb = nn.Embedding(V, d)
-        self.blocks = nn.ModuleList([xLSTMBlock(d) for _ in range(n_blocks)])
-        self.norm = nn.LayerNorm(d)
-        self.head = nn.Linear(d, V)
-
-    def forward(self, x):
-        h = self.emb(x)
-        for blk in self.blocks:
-            h = blk(h)
-        return self.head(self.norm(h))
-
-
-text = (
-    "the quick brown fox jumps over the lazy dog. " * 50 +
-    "she sells sea shells by the sea shore. " * 50 +
-    "how much wood would a woodchuck chuck. " * 50 +
-    "peter piper picked a peck of pickled peppers. " * 50
-)
-vocab = sorted(set(text))
-V = len(vocab); stoi = {c: i for i, c in enumerate(vocab)}
-data = torch.tensor([stoi[c] for c in text], dtype=torch.long)
-
-
-def get_batch(seq_len=64, batch=16):
-    ix = torch.randint(0, len(data) - seq_len - 1, (batch,))
-    x = torch.stack([data[i:i + seq_len] for i in ix])
-    y = torch.stack([data[i + 1:i + seq_len + 1] for i in ix])
-    return x, y
-
-
-def train(model, name, n_steps=300, lr=3e-3):
-    opt = torch.optim.Adam(model.parameters(), lr=lr)
-    losses = []
-    print(f"\\nTraining {name} ({sum(p.numel() for p in model.parameters())} params):")
-    print(f"  {'step':>5}  {'loss':>7}  {'ppl':>7}")
-    t0 = time.time()
-    for step in range(n_steps):
-        x, y = get_batch()
-        logits = model(x)
-        loss = F.cross_entropy(logits.reshape(-1, V), y.reshape(-1))
-        opt.zero_grad(); loss.backward(); opt.step()
-        if step % 50 == 0 or step == n_steps - 1:
-            print(f"  {step:>5}  {loss.item():>7.4f}  {math.exp(loss.item()):>7.2f}")
-        losses.append(loss.item())
-    print(f"  wall time: {time.time() - t0:.1f}s")
-    return losses
-
-
-d = 32
-torch.manual_seed(42)
-lstm = LSTMModel(V, d)
-xlstm = xLSTMModel(V, d, n_blocks=1)
-l_lstm = train(lstm, "Classical LSTM")
-l_xlstm = train(xlstm, "xLSTM (sLSTM+mLSTM block)")
-
-print(f"\\nFinal-100-step mean loss:")
-print(f"  LSTM     : {sum(l_lstm[-100:]) / 100:.4f}  ppl={math.exp(sum(l_lstm[-100:]) / 100):.2f}")
-print(f"  xLSTM    : {sum(l_xlstm[-100:]) / 100:.4f}  ppl={math.exp(sum(l_xlstm[-100:]) / 100):.2f}")
-
-# Output:
-# vocab size V=28, corpus length=8450
-#
-# Training Classical LSTM (10268 params):
-#    step     loss      ppl
-#       0   3.3558    28.67
-#      50   1.9511     7.04
-#     100   1.0478     2.85
-#     150   0.5027     1.65
-#     200   0.2814     1.33
-#     250   0.1809     1.20
-#     299   0.1295     1.14
-#   wall time: 2.5s
-#
-# Training xLSTM (sLSTM+mLSTM block) (14526 params):
-#    step     loss      ppl
-#       0   3.4298    30.87
-#      50   1.4811     4.40
-#     100   0.4389     1.55
-#     150   0.1782     1.20
-#     200   0.0916     1.10
-#     250   0.0707     1.07
-#     299   0.0535     1.05
-#   wall time: 34.0s
-#
-# Final-100-step mean loss:
-#   LSTM     : 0.1917  ppl=1.21
-#   xLSTM    : 0.0732  ppl=1.08`}
-      </CodeBlock>
-
-      <Prose>
-        On this tiny task xLSTM converges to a noticeably lower perplexity (1.08 vs 1.21) but takes 13.6x the wall time. The wall-time cost is entirely from the sLSTM scan: it runs a Python for-loop over 64 timesteps per batch, with the 5x overhead of the sLSTM's stabilizer computations plus PyTorch op-launch latency, while cuDNN's LSTM fuses the entire scan into one kernel call. This is the central engineering reality of xLSTM: <em>the architecture's quality advantage shows up only after you have a fused CUDA kernel for the scan</em>. With the official <Code>xlstm</Code> package and its kernels, the wall-time gap closes to ~2x and quality stays ahead. With this from-scratch implementation, you pay a 14x penalty for a 12% perplexity gain.
-      </Prose>
-
-      <H3>4.5 Inference throughput vs sequence length</H3>
-
-      <Prose>
-        Run the trained models in eval mode at sequence lengths 64 to 1024, batch size 4, and measure tokens/second of forward computation.
-      </Prose>
-
-      <CodeBlock language="python">
-{`lstm.eval(); xlstm.eval()
-print(f"\\nInference throughput (forward-only, batch=4, d={d}):")
-print(f"  {'L':>6}  {'LSTM tok/s':>12}  {'xLSTM tok/s':>14}")
-with torch.no_grad():
-    for L in [64, 128, 256, 512, 1024]:
-        x = torch.randint(0, V, (4, L))
-        _ = lstm(x); _ = xlstm(x)              # warmup
-        t = time.time()
-        for _ in range(5): _ = lstm(x)
-        lstm_tps = (5 * 4 * L) / (time.time() - t)
-        t = time.time()
-        for _ in range(5): _ = xlstm(x)
-        xlstm_tps = (5 * 4 * L) / (time.time() - t)
-        print(f"  {L:>6}  {lstm_tps:>10.0f}    {xlstm_tps:>12.0f}")
-
-# Output:
-# Inference throughput (forward-only, batch=4, d=32):
-#       L    LSTM tok/s     xLSTM tok/s
-#       64      353437           13197
-#      128      454686           13515
-#      256      491314           12666
-#      512      607870           11499
-#     1024      752777           10832`}
-      </CodeBlock>
-
-      <Prose>
-        The cuDNN LSTM throughput rises with sequence length (better amortization of kernel-launch overhead); the from-scratch xLSTM throughput stays roughly constant — limited by the Python scan loop. With proper fused kernels (NXAI's <Code>xlstm</Code> package supplies them via Triton), the from-scratch curve flips: xLSTM stays constant while a transformer's KV-cache attention degrades quadratically. Without those kernels, you should expect roughly the numbers shown here: a Python-implemented xLSTM is for understanding and prototyping, not for production.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5.1 The xlstm package (NXAI / Hochreiter group)</H3>
-
-      <Prose>
-        The reference implementation lives at <Code>github.com/NX-AI/xlstm</Code>, maintained by the JKU Linz group and NXAI. Install with <Code>pip install xlstm</Code>. The package provides composable building blocks (<Code>sLSTMBlock</Code>, <Code>mLSTMBlock</Code>, <Code>xLSTMBlock</Code>) and a fused Triton kernel for the chunked parallel scan, plus a CUDA fallback. The kernel auto-compiles on first use, similar to FlashAttention; expect a 30-90s compile pause.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# pip install xlstm
-from xlstm import xLSTMBlockStack, xLSTMBlockStackConfig
-from xlstm import sLSTMBlockConfig, sLSTMLayerConfig
-from xlstm import mLSTMBlockConfig, mLSTMLayerConfig
-from xlstm import FeedForwardConfig
-
-cfg = xLSTMBlockStackConfig(
-    mlstm_block=mLSTMBlockConfig(
-        mlstm=mLSTMLayerConfig(
-            num_heads=4,
-            qkv_proj_blocksize=4,
-            conv1d_kernel_size=4,
-        ),
-    ),
-    slstm_block=sLSTMBlockConfig(
-        slstm=sLSTMLayerConfig(
-            num_heads=4,
-            backend="cuda",          # 'cuda' (fused), 'vanilla' (python ref)
-            conv1d_kernel_size=4,
-            bias_init="powerlaw_blockdependent",
-        ),
-        feedforward=FeedForwardConfig(proj_factor=1.3, act_fn="gelu"),
-    ),
-    context_length=1024,
-    num_blocks=24,
-    embedding_dim=512,
-    slstm_at=[3, 8, 13, 18],         # which block indices use sLSTM (rest are mLSTM)
-)
-
-model = xLSTMBlockStack(cfg).cuda()
-x = torch.randn(2, 1024, 512, device="cuda")
-y = model(x)                          # [2, 1024, 512]`}
-      </CodeBlock>
-
-      <Prose>
-        The <Code>slstm_at</Code> list is the standard knob: which block indices use sLSTM (the rest are mLSTM). Beck et al. report that placing 4-6 sLSTM blocks among 24 mLSTM blocks gives the best quality-throughput tradeoff for 7B-class models. Pure-mLSTM stacks (<Code>{"slstm_at = []"}</Code>) train fastest but lose ~1% perplexity; pure-sLSTM stacks are far too slow at scale. Quality scaling matches Mamba-2 closely at 7B; the xLSTM-7B technical report shows it within noise of Mamba-2 on Lambada, HellaSwag, ARC, PIQA.
-      </Prose>
-
-      <H3>5.2 xLSTM-7B on HuggingFace</H3>
-
-      <Prose>
-        NXAI publishes the pretrained <Code>NX-AI/xLSTM-7b</Code> model on HuggingFace Hub, trained on roughly 1 trillion tokens from the SlimPajama mix. As of early 2026 it is not in mainline <Code>transformers</Code>; you load it via the <Code>xlstm</Code> package's HuggingFace integration:
-      </Prose>
-
-      <CodeBlock language="python">
-{`# pip install xlstm transformers
-from xlstm import xLSTMLargeConfig, xLSTMLarge
-from transformers import AutoTokenizer
-
-tok = AutoTokenizer.from_pretrained("NX-AI/xLSTM-7b")
-model = xLSTMLarge.from_pretrained("NX-AI/xLSTM-7b", torch_dtype=torch.bfloat16, device_map="auto")
-
-prompt = "Recurrent neural networks store information across time by"
-inputs = tok(prompt, return_tensors="pt").to(model.device)
-
-# Inference uses the recurrent form: state size constant in context length
-with torch.no_grad():
-    out = model.generate(**inputs, max_new_tokens=100, do_sample=True, top_p=0.9, temperature=0.8)
-print(tok.decode(out[0], skip_special_tokens=True))`}
-      </CodeBlock>
-
-      <Prose>
-        Memory footprint: xLSTM-7B's recurrent state is roughly <Code>{"d_{qk} \\cdot d_v \\cdot \\text{n\\_heads} \\cdot \\text{n\\_blocks} \\cdot 4"}</Code> bytes (fp32 scan). For the published config with 4 heads, 32 blocks, head dims around 128 each, that is ~256 MB total — independent of context length. Compare to a 7B Llama whose KV cache at 64K context is ~16 GB. For very long context, the difference is the difference between running at all and running out of memory.
-      </Prose>
-
-      <H3>5.3 xLSTM serving and the kernel question</H3>
-
-      <Prose>
-        Like Mamba in 2024, xLSTM is not a drop-in for any inference engine that does not know about it. As of early 2026 vLLM has experimental xLSTM support; TensorRT-LLM does not; SGLang has it on the roadmap. For self-hosted serving the practical path is the NXAI reference server, which uses the package's Triton kernels directly. The custom-kernel ecosystem matters because the linear-time advantage at long context only realizes if the scan kernel runs on Tensor Cores; the pure-PyTorch scan is 5-20x slower than the Triton fused scan and effectively pointless at production scale.
-      </Prose>
-
-      <H3>5.4 Comparison to mamba-ssm and gla-pytorch</H3>
-
-      <Prose>
-        At the kernel level, mLSTM is mathematically the same recurrence as Mamba-2 (with different gate parameterization) and the same as gated linear attention (with Mamba-style stabilization). All three projects have converged kernels for the chunked parallel scan. NXAI's xLSTM Triton kernel, state-spaces' mamba-ssm CUDA kernel, and Songlin Yang's <Code>flash-linear-attention</Code> Triton kernel all implement chunked SSD with the same algorithmic skeleton; numerical results are identical up to floating-point order-of-summation. Performance is within 30% of each other on H100. Choose by which API and pretrained weights you prefer rather than by raw kernel speed.
-      </Prose>
-
-      <H3>5.5 Long-context fine-tuning workflow</H3>
-
-      <Prose>
-        A common production task: fine-tune xLSTM-7B for 64K context on domain documents. Because the state is constant-size, the GPU memory cost of the long-context fine-tune is bounded by the activations (the scan does materialize per-chunk activations during backward), not by a KV cache. The xlstm package supports this via gradient checkpointing on the chunk boundaries — set <Code>{"chunkwise_kernel='checkpointed'"}</Code> in the kernel config. Training at 64K context fits in 80 GB H100 for a 7B xLSTM where the equivalent Llama-7B fine-tune would require multi-GPU KV-cache sharding.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <Prose>
-        Four visualizations: (1) a 5-step trace of the sLSTM update; (2) a 4-step trace of the mLSTM matrix-memory accumulation; (3) a throughput comparison vs sequence length across LSTM, transformer, Mamba, xLSTM; (4) heatmaps of the mLSTM matrix memory <Code>{"C"}</Code> at four checkpoints showing the outer-product structure.
-      </Prose>
-
-      <StepTrace
-        label="sLSTM update over 5 timesteps"
-        steps={[
-          {
-            label: "Step 0: state initialized",
-            render: () => (
-              <Prose>
-                State <Code>{"(h, c, n, m) = (0, 0, 1, 0)"}</Code> per channel. The normalizer <Code>{"n_0 = 1"}</Code> rather than 0 to avoid division by zero on the first timestep. The stabilizer <Code>{"m_0 = 0"}</Code>. No input has been written yet; <Code>{"h_0 = 0"}</Code>.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 1: first input arrives, gates fire",
-            render: () => (
-              <Prose>
-                Input <Code>{"x_1"}</Code> arrives. Pre-activations: say <Code>{"\\tilde i_1 = +0.5"}</Code>, <Code>{"\\tilde f_1 = +0.2"}</Code>. Stabilizer: <Code>{"m_1 = \\max(\\tilde f_1 + m_0, \\tilde i_1) = \\max(0.2, 0.5) = 0.5"}</Code>. Stabilized gates: <Code>{"i_1 = \\exp(0.5 - 0.5) = 1.0"}</Code>, <Code>{"f_1 = \\exp(0.2 + 0 - 0.5) = \\exp(-0.3) = 0.741"}</Code>. The input gate fully opens (its log was the maximum so it normalizes to 1); the forget gate stays around 0.74. State updates: <Code>{"c_1 = 0.741 \\cdot 0 + 1.0 \\cdot z_1 = z_1"}</Code>; <Code>{"n_1 = 0.741 \\cdot 1 + 1.0 = 1.741"}</Code>; <Code>{"h_1 = o_1 \\cdot z_1 / 1.741"}</Code>.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2: state carries forward, new input added",
-            render: () => (
-              <Prose>
-                Pre-activations: <Code>{"\\tilde i_2 = -0.3"}</Code>, <Code>{"\\tilde f_2 = +0.1"}</Code>. Stabilizer: <Code>{"m_2 = \\max(0.1 + 0.5, -0.3) = 0.6"}</Code>. Stabilized: <Code>{"i_2 = \\exp(-0.3 - 0.6) = 0.407"}</Code>, <Code>{"f_2 = \\exp(0.1 + 0.5 - 0.6) = 1.0"}</Code> — now the forget gate is at the maximum and the input gate is suppressed. State: <Code>{"c_2 = 1.0 \\cdot c_1 + 0.407 \\cdot z_2"}</Code> (memory preserved, mild new write); <Code>{"n_2 = 1.0 \\cdot n_1 + 0.407"}</Code>.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3: a sharp gate decision",
-            render: () => (
-              <Prose>
-                Suppose the model has learned that <Code>{"x_3"}</Code> carries strong signal (a sentence-final delimiter, say). Pre-activations: <Code>{"\\tilde i_3 = +3.0"}</Code> (very large), <Code>{"\\tilde f_3 = -1.0"}</Code> (favor forgetting). Stabilizer: <Code>{"m_3 = \\max(-1.0 + 0.6, 3.0) = 3.0"}</Code>. Stabilized: <Code>{"i_3 = \\exp(3.0 - 3.0) = 1.0"}</Code>, <Code>{"f_3 = \\exp(-1.0 + 0.6 - 3.0) = \\exp(-3.4) = 0.033"}</Code>. The forget gate slammed nearly closed (kept ~3% of memory) while the input gate fired at full. State <Code>{"c_3"}</Code> is dominated by <Code>{"z_3"}</Code>; the past has been mostly cleared. <em>This is the sharpening that exponential gating provides — sigmoid gates cannot make this kind of multiplicative-100x decision in one step.</em>
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4: output via normalized division",
-            render: () => (
-              <Prose>
-                After step 3 the cell <Code>{"c_3"}</Code> has reset and the normalizer <Code>{"n_3 \\approx 1.0"}</Code> proportionally. The output <Code>{"h_3 = o_3 \\cdot c_3 / n_3"}</Code> is bounded by <Code>{"o_3 \\cdot |z_3|"}</Code> regardless of how aggressively the input gate fired. The normalizer is the trick that lets exponential gating coexist with bounded outputs — the same trick attention uses with its softmax denominator. The model can decide-sharply without blowing up the hidden activations downstream.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <Prose>
-        Now the matrix-memory analog. We feed a sequence of orthogonal-ish keys into the mLSTM and watch the matrix cell state <Code>{"C \\in \\mathbb{R}^{8 \\times 8}"}</Code> grow as outer products accumulate. With <Code>{"i_t = 0.6"}</Code> and <Code>{"f_t = 0.7"}</Code> held constant, key <Code>{"k_t = e_t"}</Code> (the t-th standard basis vector), value <Code>{"v_t"}</Code> a small mix centered on position <Code>t</Code>, the matrix accumulates a lower-triangular pattern with each row recording where one key wrote its value.
-      </Prose>
-
-      <StepTrace
-        label="mLSTM matrix memory accumulation (d_qk = d_v = 8)"
-        steps={[
-          {
-            label: "Step 0: first outer product written",
-            render: () => (
-              <>
-                <Prose>
-                  At <Code>t = 0</Code>, the matrix state is empty, then an outer product <Code>{"i_0 \\cdot k_0 v_0^T"}</Code> is added. With <Code>{"k_0 = e_0"}</Code> and <Code>{"v_0 = (1, 0.5, 0.25, 0, 0, 0, 0, 0)"}</Code>, only row 0 of the matrix is populated — exactly with the value vector scaled by <Code>{"i_0 = 0.6"}</Code>.
-                </Prose>
-                <Heatmap
-                  label="C after step 0"
-                  matrix={[
-                    [+0.60, +0.30, +0.15, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                  ]}
-                  rowLabels={["e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7"]}
-                  colLabels={["d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"]}
-                  colorScale="gold"
-                />
-              </>
-            ),
-          },
-          {
-            label: "Step 2: three outer products, decayed by f",
-            render: () => (
-              <>
-                <Prose>
-                  After step 2, three keys have written. Each row's contribution is decayed by <Code>{"f^{t - j}"}</Code>: row 0 has been multiplied by <Code>{"0.7^2 = 0.49"}</Code> and is now <Code>{"(0.29, 0.15, 0.07, ...)"}</Code>. Row 2 was just written at full <Code>{"i = 0.6"}</Code>. The matrix is filling diagonally, each row offset by the value vector's pattern.
-                </Prose>
-                <Heatmap
-                  label="C after step 2"
-                  matrix={[
-                    [+0.29, +0.15, +0.07, 0, 0, 0, 0, 0],
-                    [0, +0.42, +0.21, +0.11, 0, 0, 0, 0],
-                    [0, 0, +0.60, +0.30, +0.15, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                  ]}
-                  rowLabels={["e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7"]}
-                  colLabels={["d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"]}
-                  colorScale="gold"
-                />
-              </>
-            ),
-          },
-          {
-            label: "Step 4: five rows populated, oldest most decayed",
-            render: () => (
-              <>
-                <Prose>
-                  By step 4 five rows are populated. Row 4 is bright (just written, scale 0.6); row 0 is dim (decayed by <Code>{"0.7^4 = 0.24"}</Code>). The matrix is now an associative store: querying with <Code>{"q = e_2"}</Code> would read row 2 and return its stored value pattern, scaled by the cumulative gate at the time of the query.
-                </Prose>
-                <Heatmap
-                  label="C after step 4"
-                  matrix={[
-                    [+0.14, +0.07, +0.04, 0, 0, 0, 0, 0],
-                    [0, +0.21, +0.10, +0.05, 0, 0, 0, 0],
-                    [0, 0, +0.29, +0.15, +0.07, 0, 0, 0],
-                    [0, 0, 0, +0.42, +0.21, +0.11, 0, 0],
-                    [0, 0, 0, 0, +0.60, +0.30, +0.15, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0],
-                  ]}
-                  rowLabels={["e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7"]}
-                  colLabels={["d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"]}
-                  colorScale="gold"
-                />
-              </>
-            ),
-          },
-          {
-            label: "Step 7: full sequence written, exponential decay visible",
-            render: () => (
-              <>
-                <Prose>
-                  After all 8 keys have written, the matrix is fully populated but with strong intensity gradient: recent rows (6, 7) are bright; old rows (0, 1) are dim. Row 0 has decayed by <Code>{"0.7^7 \\approx 0.082"}</Code> from its initial value. The exponential decay is the constant-gate analog of the trainable gate <Code>{"f_t"}</Code>; in a real trained mLSTM, the model would learn to make <Code>{"f_t"}</Code> close to 1 for important keys (preserving them long-term) and small for unimportant ones (faster decay).
-                </Prose>
-                <Heatmap
-                  label="C after step 7"
-                  matrix={[
-                    [+0.05, +0.02, +0.01, 0, 0, 0, 0, 0],
-                    [0, +0.07, +0.04, +0.02, 0, 0, 0, 0],
-                    [0, 0, +0.10, +0.05, +0.03, 0, 0, 0],
-                    [0, 0, 0, +0.14, +0.07, +0.04, 0, 0],
-                    [0, 0, 0, 0, +0.21, +0.10, +0.05, 0],
-                    [0, 0, 0, 0, 0, +0.29, +0.15, +0.07],
-                    [+0.11, 0, 0, 0, 0, 0, +0.42, +0.21],
-                    [+0.30, +0.15, 0, 0, 0, 0, 0, +0.60],
-                  ]}
-                  rowLabels={["e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7"]}
-                  colLabels={["d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7"]}
-                  colorScale="gold"
-                />
-              </>
-            ),
-          },
-        ]}
-      />
-
-      <Prose>
-        Throughput comparison across architectures, normalized to the 1024-token regime. LSTM scales linearly with batched cuDNN; transformer drops quadratically as sequence length grows; Mamba and xLSTM stay flat. Numbers are approximate, taken from a 7B-class model on H100.
-      </Prose>
-
-      <Plot
-        label="inference throughput vs sequence length (tokens/sec, 7B model on H100)"
-        series={[
-          {
-            name: "LSTM (cuDNN, scalar state)",
-            color: "#8b5cf6",
-            points: [[1024, 4500], [2048, 4400], [4096, 4300], [8192, 4200], [16384, 4000], [32768, 3700]],
-          },
-          {
-            name: "Transformer (FlashAttention)",
-            color: "#60a5fa",
-            points: [[1024, 12000], [2048, 8500], [4096, 5200], [8192, 2400], [16384, 950], [32768, 260]],
-          },
-          {
-            name: "Mamba (selective scan)",
-            color: "#34d399",
-            points: [[1024, 11000], [2048, 10500], [4096, 10000], [8192, 9500], [16384, 9100], [32768, 8700]],
-          },
-          {
-            name: "xLSTM (mLSTM chunked scan)",
-            color: "#e2b55a",
-            points: [[1024, 9500], [2048, 9300], [4096, 9000], [8192, 8700], [16384, 8400], [32768, 8000]],
-          },
-        ]}
-        xLabel="sequence length L"
-        yLabel="tokens / sec"
-        width={520}
-      />
-
-      <Prose>
-        Three observations. First, the transformer dominates at short context but collapses past 8K — the quadratic attention term overtakes everything. Second, Mamba and xLSTM track each other closely; the mLSTM's chunked scan and Mamba-2's SSD scan share the same algorithmic structure and similar kernel quality. Third, classical LSTM (with cuDNN) is competitive at long context — it never had a quadratic cost — but it loses to transformer at short context because cuDNN's LSTM is slower than FlashAttention per token, and it loses to Mamba/xLSTM because its scalar state gives lower quality at matched parameter count. The xLSTM's design is explicitly to keep LSTM's flat scaling curve while raising the quality ceiling via the matrix memory.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing xLSTM in 2026 depends on context length, model scale, deployment ecosystem, and what alternatives you have already invested in. Decide by quadrant.
-      </Prose>
-
-      <H3>7.1 By model scale</H3>
-
-      <Prose>
-        <strong>Sub-1B research / prototyping:</strong> xLSTM is a fine choice; the <Code>xlstm</Code> package is mature enough for small-scale experiments. At this scale, transformer baselines are also cheap to run, so use both and compare. xLSTM's quality lead over a transformer at &lt;1B is small; the win is mainly to learn the architecture.
-      </Prose>
-
-      <Prose>
-        <strong>1B-13B production language model:</strong> xLSTM-7B is a credible candidate. Mamba-2 is also credible. Transformer (with grouped-query attention) is still the safe default. If you have a long-context requirement (32K+) and a tight memory budget, choose xLSTM or Mamba-2; else Llama-style transformer.
-      </Prose>
-
-      <Prose>
-        <strong>30B+ frontier model:</strong> Pure xLSTM is not validated at this scale as of early 2026 — neither is pure Mamba. The mainstream frontier (GPT, Claude, Gemini, Llama 3+) remains transformer-based, sometimes with hybrid Mamba layers in cost-sensitive deployments. Recommend transformer or hybrid; xLSTM is research-grade at this scale.
-      </Prose>
-
-      <H3>7.2 By context length</H3>
-
-      <Prose>
-        <strong>Short (≤4K):</strong> Transformer wins on quality and the KV cache fits. xLSTM offers no advantage; do not use it.
-      </Prose>
-
-      <Prose>
-        <strong>Medium (4K-32K):</strong> Coin flip on quality between xLSTM, Mamba-2, and transformer with FlashAttention. xLSTM/Mamba-2 win on memory and inference cost. Hybrid architectures (Jamba-style) are the practical sweet spot.
-      </Prose>
-
-      <Prose>
-        <strong>Long (32K-128K):</strong> xLSTM is competitive with Mamba-2 here and beats transformer decisively on cost. Either xLSTM or Mamba-2 is a reasonable production choice depending on which ecosystem you already use.
-      </Prose>
-
-      <Prose>
-        <strong>Very long (128K+):</strong> SSM-family (Mamba-2, xLSTM, RWKV-7) is the only choice on a single GPU. Constant-state recurrent models do not care about context length; transformers run out of memory.
-      </Prose>
-
-      <H3>7.3 By task domain</H3>
-
-      <Prose>
-        <strong>General language modeling:</strong> Transformer is still the default. xLSTM is a competitive alternative, not a clear win; choose by ecosystem.
-      </Prose>
-
-      <Prose>
-        <strong>Time series forecasting:</strong> xLSTM (specifically the mLSTM variant) is novel here — the matrix memory captures multivariate temporal patterns better than a vector-state RNN. The xLSTM time-series follow-up paper (Beck et al., late 2024) reports state-of-the-art on M4 and several other benchmarks. Worth trying.
-      </Prose>
-
-      <Prose>
-        <strong>Speech / audio:</strong> S4/Mamba and xLSTM are roughly equivalent. xLSTM has less published audio work as of 2026; default to Mamba unless you have a specific reason.
-      </Prose>
-
-      <Prose>
-        <strong>Vision:</strong> Transformer (ViT) dominates. xLSTM-Vision exists (NXAI, 2024) but is not competitive yet with DINOv2 or vit-large at standard image resolutions.
-      </Prose>
-
-      <Prose>
-        <strong>Reasoning / chain-of-thought:</strong> Inconclusive. The xLSTM-7B technical report shows competitive performance on GSM8K and other reasoning benchmarks but not a leap. Transformer with strong post-training (DPO, RLHF) is still the safe bet for reasoning-heavy applications.
-      </Prose>
-
-      <H3>7.4 By deployment constraint</H3>
-
-      <Prose>
-        <strong>Edge / mobile:</strong> Mamba and RWKV have more mature mobile-export tooling than xLSTM. Default to those for edge. Note that pure Mamba-1 has lower wall-clock cost than xLSTM at small batch sizes because its kernel is more aggressively optimized for low-batch decoding.
-      </Prose>
-
-      <Prose>
-        <strong>Single-GPU long-context server:</strong> xLSTM and Mamba-2 are the right answer. Choose by which pretrained weights you want.
-      </Prose>
-
-      <Prose>
-        <strong>Multi-GPU production stack with vLLM/TensorRT-LLM:</strong> Transformer remains the safest because the inference engines have invested most effort there. xLSTM support is experimental in vLLM as of early 2026; Mamba-2 has slightly better support; transformer is fully supported everywhere.
-      </Prose>
-
-      <H3>7.5 Quick-pick summary</H3>
-
-      <Prose>
-        <strong>Default:</strong> transformer with FlashAttention-3 and grouped-query attention. <strong>For long context (32K+):</strong> xLSTM or Mamba-2 (your choice — they perform similarly). <strong>For time series:</strong> xLSTM (the matrix memory is a real fit). <strong>For frontier-scale LMs:</strong> still transformer in 2026; reconsider if a credible 70B+ recurrent model emerges. <strong>For research into post-transformer architectures:</strong> xLSTM is one of the three serious entries (alongside Mamba-2 and RWKV-7); learn all three.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <Prose>
-        Scaling an architecture is asking: as model dimension <Code>D</Code>, sequence length <Code>L</Code>, and dataset size <Code>N</Code> grow, what dominates time, memory, and quality? For xLSTM the answer factors cleanly into the two cells.
-      </Prose>
-
-      <H3>8.1 Training compute</H3>
-
-      <Prose>
-        mLSTM training (chunked SSD): <Code>{"O(L \\cdot d \\cdot D + L \\cdot D^2)"}</Code> per layer. The first term is the SSM/linear-attention work, the second is the feedforward and projection work. For typical <Code>{"d \\ll D"}</Code>, the second dominates and the architecture scales like a transformer-without-attention. Wall-clock matches a transformer at short context and beats it at long context because the linear-attention term grows linearly while transformer attention grows quadratically. The mLSTM kernel runs at 60-80% of H100 peak throughput in the chunked form, comparable to FlashAttention-3.
-      </Prose>
-
-      <Prose>
-        sLSTM training: <Code>{"O(L \\cdot D^2)"}</Code> per layer, but <em>sequential</em> — each step depends on the previous. The walk-clock cost of sLSTM is dominated by the scan latency, not by FLOPs. At a 7B scale, the published xLSTM-7B uses 4 sLSTM blocks among 28 mLSTM blocks; sLSTM contributes ~25-30% of training wall-clock for ~15% of the parameters. This is the trade-off Beck et al. accept: sLSTM's quality gain costs throughput. Pure-mLSTM stacks train ~30% faster but lose ~1% perplexity.
-      </Prose>
-
-      <H3>8.2 Inference compute and memory</H3>
-
-      <Prose>
-        Per generated token: mLSTM costs <Code>{"O(d \\cdot D + D^2)"}</Code> — the matrix-vector readout plus the projection MLPs. sLSTM costs <Code>{"O(D^2)"}</Code> — the scalar update plus projections. Both are constant in <Code>L</Code>. Compare to transformer's <Code>{"O(L \\cdot D + D^2)"}</Code> per token at decode (KV cache attended once). For <Code>{"L > D"}</Code>, the recurrent models win on per-token compute.
-      </Prose>
-
-      <Prose>
-        State memory at inference: mLSTM stores <Code>{"d_{qk} \\cdot d_v \\cdot \\text{n\\_heads} \\cdot \\text{n\\_blocks}"}</Code> floats per sequence in the batch. For xLSTM-7B with 4 heads, ~28 blocks, head dims around 128, that is ~470K floats per sequence, ~1.9 MB at fp32. Compare to Llama-7B KV cache at 32K context: 16 GB per sequence. Three-to-four orders of magnitude difference for long context.
-      </Prose>
-
-      <H3>8.3 Quality scaling with parameters</H3>
-
-      <Prose>
-        At matched parameter count and matched training data, xLSTM is within 1-2% perplexity of Mamba-2 and within 1-3% of a transformer on the Pile and SlimPajama benchmarks (Beck et al. 2024 and the xLSTM-7B technical report). The xLSTM authors argue the gap closes at larger scales but the published evidence stops at 7B parameters. Anyone betting on xLSTM at frontier scale is betting on extrapolation of a small trend, not on a verified result. Mamba-2 is in the same boat.
-      </Prose>
-
-      <H3>8.4 What the matrix dimension d_qk costs</H3>
-
-      <Prose>
-        The mLSTM has a tunable knob the transformer does not have a clean analog of: the matrix-state dimension <Code>{"d_{qk}"}</Code>. State storage is <Code>{"d_{qk} \\cdot d_v"}</Code> per head. Increasing <Code>{"d_{qk}"}</Code> raises capacity (more keys storable) at cost of state size and inference compute (the readout is <Code>{"O(d_{qk} \\cdot d_v)"}</Code> per token). xLSTM-7B uses <Code>{"d_{qk} \\sim 128"}</Code>, comparable to Mamba-2's state dim of 64-256. Doubling <Code>{"d_{qk}"}</Code> roughly doubles state storage and increases inference cost by 2x; quality gain past 256 is small.
-      </Prose>
-
-      <H3>8.5 Larger-scale unknowns</H3>
-
-      <Prose>
-        Three open questions as of early 2026. (1) Does xLSTM scale to 70B+ parameters with similar trends, or does it diverge? No 70B xLSTM has been published. (2) Does the mLSTM matrix memory remain expressive enough at 1M+ context, or does the constant-size state become a binding capacity constraint? Empirical evidence at 100K is encouraging; at 1M unverified. (3) Can xLSTM-style architectures support effective in-context learning the way transformer attention does? The mathematical equivalence to gated linear attention suggests yes (linear attention does support in-context learning, just less efficiently per parameter than softmax attention), but the empirical gap on few-shot benchmarks is real.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Forgetting the stabilizer state m_t</H3>
-
-      <Prose>
-        The most catastrophic failure mode: implementing exponential gates without the stabilizer. <Code>{"\\exp"}</Code> overflows fp32 around input 89 and fp16 around input 11. The pre-activation of an unstabilized exponential gate can easily reach those magnitudes during training. Without <Code>{"m_t"}</Code>, the cell state goes to <Code>{"+\\infty"}</Code> within tens of steps, then to NaN, then loss is NaN forever. Diagnostic: run a forward pass with random init; if any element of <Code>{"c_t"}</Code> exceeds 1e6 in fp32, you have forgotten the stabilizer. Fix: implement the <Code>{"m_t"}</Code> recurrence and use the stabilized <Code>{"i_t, f_t"}</Code> in the cell update. This is the single most important sanity check for an sLSTM/mLSTM implementation.
-      </Prose>
-
-      <H3>9.2 Missing the normalizer state n_t</H3>
-
-      <Prose>
-        Even with stabilization, the unnormalized output <Code>{"h_t = o_t \\tanh(c_t)"}</Code> (LSTM-style) misbehaves with exponential gates: after the stabilizer rescaling, <Code>{"c_t"}</Code> can grow without bound in absolute value (the rescaling preserves ratios but not magnitudes across long sequences). Without dividing by <Code>{"n_t"}</Code>, the hidden state saturates the <Code>{"\\tanh"}</Code> to <Code>{"\\pm 1"}</Code> for every channel and every step, killing the gradient signal. Diagnostic: print <Code>{"|c_t|"}</Code> statistics over a long sequence; if they grow monotonically and the hidden std is plastered at 1.0, you have missed <Code>{"n_t"}</Code>. Fix: use <Code>{"h_t = o_t \\cdot c_t / n_t"}</Code> with the normalizer recurrence.
-      </Prose>
-
-      <H3>9.3 Treating xLSTM gates like classical LSTM gates</H3>
-
-      <Prose>
-        A natural mistake when reading the xLSTM paper after years of LSTM experience is to write the cell update with <Code>{"i_t = \\sigma(...)"}</Code> habitually. The <Code>{"\\exp"}</Code> is the entire point. Symptom: model trains but never matches Mamba-2 or transformer baselines. Diagnostic: print the gate values in a forward pass. If they are all in <Code>{"(0, 1)"}</Code>, you have a sigmoid not an exp. Fix: use <Code>{"\\exp"}</Code> for input and forget gates (with stabilization); keep <Code>{"\\sigma"}</Code> for the output gate.
-      </Prose>
-
-      <H3>9.4 Lower-triangular vs upper-triangular causal mask</H3>
-
-      <Prose>
-        In the parallel form of mLSTM, the gate matrix <Code>{"M_{t,j}"}</Code> must be lower-triangular: position <Code>t</Code> reads positions <Code>{"j \\le t"}</Code>. PyTorch broadcasting tricks with <Code>{"\\text{idx}.unsqueeze(0) \\ge \\text{idx}.unsqueeze(1)"}</Code> can silently produce the upper triangle if you get the broadcast direction wrong. Symptom: training loss does not decrease; or the model "trains" but is uninterpretable. Diagnostic: print the mask and verify it is lower-triangular. Fix: use <Code>{"\\text{idx}.unsqueeze(1) \\ge \\text{idx}.unsqueeze(0)"}</Code>, or simply <Code>{"\\text{torch.tril}(\\text{ones}(L, L))"}</Code>. The recurrent and parallel forms must agree numerically; assert this in tests with a small example.
-      </Prose>
-
-      <H3>9.5 Trying to parallelize sLSTM</H3>
-
-      <Prose>
-        Engineers familiar with parallel scans for SSMs sometimes assume the same trick works for sLSTM. It does not. The sLSTM update <Code>{"c_t = f_t c_{t-1} + i_t z_t"}</Code> has <Code>{"z_t = \\tanh(W_z x_t + R_z h_{t-1} + b_z)"}</Code>, and <Code>{"h_{t-1}"}</Code> depends on <Code>{"c_{t-1} / n_{t-1}"}</Code> nonlinearly. The recurrence is not associative; no parallel scan exists for it. If you want parallelism, use mLSTM. The xLSTM block design is explicitly a hybrid because of this asymmetry. Trying to write a "parallel sLSTM kernel" wastes weeks for no result.
-      </Prose>
-
-      <H3>9.6 Poor positional handling at very long context</H3>
-
-      <Prose>
-        Recurrent models do not have positional encodings — position is implicit in the order of the recurrence. But that means the recurrent state has to encode position information, and it has finite capacity. At very long context (100K+) the model can lose track of absolute position; a token at position 50,000 looks much like a token at position 60,000 if the matrix memory has saturated. Transformers handle this with explicit position encodings (RoPE) that scale; xLSTM does not have a clean RoPE-equivalent. The empirical fix is training at the deployment context length so the model learns to use its state efficiently at that length; a researcher's open question is whether some positional augmentation can help.
-      </Prose>
-
-      <H3>9.7 fp16 in the matrix memory C</H3>
-
-      <Prose>
-        The matrix memory <Code>{"C_t"}</Code> accumulates outer products over the entire sequence. In fp16, the cumulative scaling by <Code>{"\\prod_t f_t"}</Code> products with stabilizer rescaling can underflow or lose precision. Mamba-2's reference kernel runs the scan in fp32 even when the rest of the model is fp16; xLSTM's kernel does the same. If you write a custom mLSTM kernel: do not run the matrix-update in fp16. Use bf16 (which has fp32 exponent range) or fp32. Symptom of getting this wrong: training is fine for a few thousand steps then loss spikes to NaN; diagnostic: print the running max of <Code>{"|C_t|"}</Code>; if it diverges, your accumulator precision is too low.
-      </Prose>
-
-      <H3>9.8 Initializing the forget bias too high</H3>
-
-      <Prose>
-        The xLSTM paper recommends a forget-bias initialization that makes <Code>{"f_t \\approx 1"}</Code> at start (preserve memory by default). If you set the bias too high (e.g., +5 instead of +3), the model effectively never forgets, the matrix memory <Code>{"C_t"}</Code> averages all inputs uniformly, and the model degenerates to bag-of-tokens behavior. Symptom: training loss decreases extremely slowly, hidden activations are tiny (because <Code>{"C_t / n_t"}</Code> averages to a small value when both grow linearly). Diagnostic: print the average <Code>{"f_t"}</Code> at step 100; if it is &gt;0.99, lower the forget bias init. The published default is around +3, giving <Code>{"f_t \\approx 0.95"}</Code> initially.
-      </Prose>
-
-      <H3>9.9 Naive Python scan instead of fused kernel</H3>
-
-      <Prose>
-        Like Mamba in 2024, xLSTM's PyTorch reference scan is 5-20x slower than the Triton fused kernel. If you import the <Code>xlstm</Code> package and find it slower than a transformer, verify the kernel compiled successfully (look for "Compiled xlstm Triton kernel" log lines). On systems without a working CUDA toolchain, the package falls back to the Python reference and produces correct outputs at glacial speed. This is the most common new-user complaint: "xLSTM is slow." Almost always the answer is the kernel did not compile. Fix: install <Code>triton</Code>, ensure CUDA matches the PyTorch build, and run on an NVIDIA GPU; AMD and CPU are not supported by the fused kernel.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        Read in chronological order to follow the line from the 1997 LSTM through the 2024 xLSTM proposal and its parallel/contemporary rivals (Mamba, RWKV).
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Hochreiter & Schmidhuber 1997 — LSTM",
-            render: () => (
-              <Prose>
-                Hochreiter, S., and Schmidhuber, J. (1997). "Long Short-Term Memory." Neural Computation 9(8), 1735-1780. The foundational paper. Introduces the cell state, the input gate, and the output gate; the forget gate was added in Gers, Schmidhuber, Cummins (2000), "Learning to Forget: Continual Prediction with LSTM," Neural Computation 12(10). Together these form the modern LSTM that everyone teaches. Read sections 3-4 for the cell mechanics. The xLSTM paper assumes you know this paper; many of its design choices are exactly the LSTM design with two specific surgeries.
-              </Prose>
-            ),
-          },
-          {
-            label: "Beck et al. 2024 — xLSTM (arXiv:2405.04517)",
-            render: () => (
-              <Prose>
-                Beck, M., Pöppel, K., Spanring, M., Auer, A., Prudnikova, O., Kopp, M., Klambauer, G., Brandstetter, J., and Hochreiter, S. (2024). "xLSTM: Extended Long Short-Term Memory." arXiv:2405.04517. Available at arxiv.org/abs/2405.04517. The xLSTM paper. Introduces sLSTM (Section 2.2: exponential gates + normalizer + stabilizer), mLSTM (Section 2.3: matrix memory, parallel form), and the xLSTM block (Section 3). Section 4 reports language modeling, Long Range Arena, and time-series benchmarks at scales up to 1.3B parameters. Read sections 2.2-2.3 carefully — the equations of motion for sLSTM and mLSTM are dense and the paper's notation evolves through the section. The appendix has the parallel-form derivation; this is essential if you want to implement the chunked scan correctly.
-              </Prose>
-            ),
-          },
-          {
-            label: "Beck et al. 2025 — xLSTM-7B Technical Report",
-            render: () => (
-              <Prose>
-                Beck, M., Pöppel, K., Lippert, P., Auer, A., Prudnikova, O., Kopp, M., Klambauer, G., Brandstetter, J., and Hochreiter, S. (2024-2025). "xLSTM-7B: A Recurrent LLM for Fast and Efficient Inference." Technical report from NXAI, available at nx-ai.com and the project's HuggingFace page (NX-AI/xLSTM-7b). Documents the 7-billion-parameter pretraining run (~1T tokens), the kernel infrastructure, the head/block configuration, and benchmark results vs Llama-2-7B, Mamba-7B, RWKV-5-7B. Practical reading for anyone deploying xLSTM at scale: contains hyperparameter choices, learning-rate schedule, and serving-throughput numbers.
-              </Prose>
-            ),
-          },
-          {
-            label: "Gu & Dao 2023 — Mamba (arXiv:2312.00752)",
-            render: () => (
-              <Prose>
-                Gu, A., and Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces." arXiv:2312.00752. Available at arxiv.org/abs/2312.00752. Concurrent rival to xLSTM. Different formulation (state-space model with selective input dependence), same goal (linear-time recurrent LM that beats LSTM and competes with transformer). Mamba was published December 2023; xLSTM was published May 2024. Read to understand how the two architectures arrived at structurally similar objects from different starting points.
-              </Prose>
-            ),
-          },
-          {
-            label: "Dao & Gu 2024 — Mamba-2 / SSD (arXiv:2405.21060)",
-            render: () => (
-              <Prose>
-                Dao, T., and Gu, A. (2024). "Transformers Are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality." ICML 2024. arXiv:2405.21060. Proves the equivalence of certain selective SSMs and masked linear attention. Mamba-2's chunked SSD algorithm is structurally identical to xLSTM's mLSTM chunked scan — read this paper to understand the algorithm both architectures use under different names. Published the same month as xLSTM (May 2024); the convergence is not coincidence.
-              </Prose>
-            ),
-          },
-          {
-            label: "Peng et al. 2023 — RWKV-4 (arXiv:2305.13048)",
-            render: () => (
-              <Prose>
-                Peng, B., et al. (2023). "RWKV: Reinventing RNNs for the Transformer Era." EMNLP 2023 Findings. arXiv:2305.13048. The third member of the recurrent revival trio (RWKV, Mamba, xLSTM). RWKV starts from a kernelized linear-attention reformulation; Mamba from state-space models; xLSTM from gated RNNs. All three converge on linear-time recurrent LMs. RWKV-4 was the first 7B-class recurrent LM to be competitive with transformers; RWKV-5 (Eagle) and RWKV-6 (Finch) iterated, and RWKV-7 (Goose, 2025) extends with delta-rule updates. Read for the RWKV-specific gating and the time-mix / channel-mix block layout.
-              </Prose>
-            ),
-          },
-          {
-            label: "Yang et al. 2024 — Gated Linear Attention (arXiv:2312.06635)",
-            render: () => (
-              <Prose>
-                Yang, S., Wang, B., Zhang, Y., Shen, Y., and Kim, Y. (2024). "Gated Linear Attention Transformers with Hardware-Efficient Training." ICML 2024. arXiv:2312.06635. Develops the chunked-scan training kernel for gated linear attention — the same algorithm xLSTM's mLSTM uses, derived from a different motivation. Yang's <Code>flash-linear-attention</Code> repo at github.com/sustcsonglin/flash-linear-attention is a high-quality reference for the kernels and is often cited alongside the xlstm package. Useful for understanding the kernel implementation independently of the xLSTM-specific gate parameterization.
-              </Prose>
-            ),
-          },
-          {
-            label: "Katharopoulos et al. 2020 — Linear Attention as RNN",
-            render: () => (
-              <Prose>
-                Katharopoulos, A., Vyas, A., Pappas, N., and Fleuret, F. (2020). "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention." ICML 2020. arXiv:2006.16236. The paper that first observed that linear attention is an RNN at inference. The mathematical framework xLSTM's mLSTM lives in. Ten pages, no equations more complex than a sum, and it explains the entire reason mLSTM is parallelizable. Read first if you want to understand <em>why</em> the matrix-cell-state update can be both an RNN and a parallel matmul.
-              </Prose>
-            ),
-          },
-          {
-            label: "NX-AI/xlstm — Reference repository",
-            render: () => (
-              <Prose>
-                The official xLSTM implementation, maintained by Beck and the JKU Linz / NXAI team. Available at github.com/NX-AI/xlstm. Contains the Triton kernels, the model classes (sLSTMBlock, mLSTMBlock, xLSTMBlockStack), and example training scripts. The README has installation instructions and a minimum-working-example. The <Code>xlstm/blocks/mlstm</Code> subdirectory has the chunked-scan kernel; reading it alongside Mamba-2's <Code>mamba_chunk_scan_combined</Code> shows the algorithmic similarity in concrete form.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        Five exercises. Try all before reading the answers. Exercises 1-2 test the cell math; 3 tests the equivalence between mLSTM and gated linear attention; 4 tests architecture selection; 5 tests debugging.
-      </Prose>
-
-      <H3>Exercise 1 (sLSTM stabilizer arithmetic)</H3>
-      <Prose>
-        Given pre-activations <Code>{"\\tilde i_t = +2.0"}</Code>, <Code>{"\\tilde f_t = +0.5"}</Code> at step <Code>t</Code> with <Code>{"m_{t-1} = +1.0"}</Code>, compute <Code>{"m_t, i_t, f_t"}</Code>. Then verify that with <Code>{"c_{t-1} = 4, n_{t-1} = 5, z_t = 0.6, o_t = 0.7"}</Code>, the hidden output <Code>{"h_t"}</Code> is the same whether you stabilize or not (in exact arithmetic).
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 1.</strong> <Code>{"m_t = \\max(\\tilde f_t + m_{t-1}, \\tilde i_t) = \\max(0.5 + 1.0, 2.0) = 2.0"}</Code>. Stabilized: <Code>{"i_t = \\exp(2.0 - 2.0) = 1.0"}</Code>; <Code>{"f_t = \\exp(0.5 + 1.0 - 2.0) = \\exp(-0.5) = 0.6065"}</Code>. State updates: <Code>{"c_t = 0.6065 \\cdot 4 + 1.0 \\cdot 0.6 = 3.026"}</Code>; <Code>{"n_t = 0.6065 \\cdot 5 + 1.0 = 4.033"}</Code>; <Code>{"h_t = 0.7 \\cdot 3.026 / 4.033 = 0.5253"}</Code>. Without stabilization: <Code>{"i_t' = e^{2.0} = 7.389"}</Code>, <Code>{"f_t' = e^{0.5} = 1.649"}</Code>; <Code>{"c_t' = 1.649 \\cdot 4 + 7.389 \\cdot 0.6 = 11.03"}</Code>; <Code>{"n_t' = 1.649 \\cdot 5 + 7.389 = 15.63"}</Code>; <Code>{"h_t' = 0.7 \\cdot 11.03 / 15.63 = 0.4937"}</Code>. The two answers differ (0.5253 vs 0.4937)! The difference is because the stabilizer division is applied at <em>every step</em>, not just one — to verify equivalence you need the unstabilized recurrence with <em>unstabilized</em> <Code>{"c_{t-1}, n_{t-1}"}</Code> as well, not the stabilized values. The stabilizer is invariant only when applied consistently along the whole trajectory. This subtlety is exactly why a partial implementation of the stabilizer (e.g., applied to the gates but not the state updates) silently produces wrong outputs.
-      </Callout>
-
-      <H3>Exercise 2 (mLSTM outer product)</H3>
-      <Prose>
-        Initialize an mLSTM matrix state <Code>{"C_0 = 0 \\in \\mathbb{R}^{2 \\times 2}"}</Code>. With constant gates <Code>{"f = 0.5, i = 1.0"}</Code> at every step, write keys <Code>{"k_1 = (1, 0), k_2 = (0, 1), k_3 = (1, 1)/\\sqrt{2}"}</Code> and values <Code>{"v_1 = (0.5, 0.5), v_2 = (1.0, 0.0), v_3 = (0.0, 1.0)"}</Code>. Compute <Code>{"C_3"}</Code>. Then read with query <Code>{"q = (1, 0)"}</Code> (no normalization, just <Code>{"C_3^T q"}</Code>) and check the answer corresponds to a decayed mix of <Code>{"v_1"}</Code> and the <Code>{"k_1"}</Code>-component of <Code>{"v_3"}</Code>.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 2.</strong> Each step: <Code>{"C_t = 0.5 \\cdot C_{t-1} + 1.0 \\cdot k_t v_t^T"}</Code>. <br />
-        <Code>{"k_1 v_1^T = \\begin{pmatrix}0.5 & 0.5\\\\0 & 0\\end{pmatrix}"}</Code>, so <Code>{"C_1 = \\begin{pmatrix}0.5 & 0.5\\\\0 & 0\\end{pmatrix}"}</Code>. <br />
-        <Code>{"k_2 v_2^T = \\begin{pmatrix}0 & 0\\\\1 & 0\\end{pmatrix}"}</Code>, so <Code>{"C_2 = 0.5 \\cdot C_1 + k_2 v_2^T = \\begin{pmatrix}0.25 & 0.25\\\\1 & 0\\end{pmatrix}"}</Code>. <br />
-        <Code>{"k_3 v_3^T = (1/\\sqrt{2})\\begin{pmatrix}0 & 1\\\\0 & 1\\end{pmatrix} \\approx \\begin{pmatrix}0 & 0.707\\\\0 & 0.707\\end{pmatrix}"}</Code>, so <Code>{"C_3 = 0.5 \\cdot C_2 + k_3 v_3^T \\approx \\begin{pmatrix}0.125 & 0.832\\\\0.5 & 0.707\\end{pmatrix}"}</Code>. <br />
-        Readout: <Code>{"C_3^T q = C_3^T (1, 0) = (0.125, 0.832)"}</Code> — first component matches the decayed <Code>{"v_1[0] = 0.5"}</Code> times <Code>{"0.5^2 = 0.25"}</Code> giving 0.125; second component is decayed <Code>{"v_1[1] = 0.5"}</Code> times 0.25 giving 0.125 plus <Code>{"v_3[1]/\\sqrt 2 = 0.707"}</Code> giving 0.832. Both match. The matrix memory is acting as an associative store: query <Code>{"e_1"}</Code> selects the row corresponding to keys aligned with <Code>{"e_1"}</Code> and reads back a decayed sum of the values associated with those keys.
-      </Callout>
-
-      <H3>Exercise 3 (equivalence to gated linear attention)</H3>
-      <Prose>
-        Write the mLSTM output (before the output gate) as a sum over past positions, and identify which kernel feature map <Code>{"\\phi"}</Code> and which gate schedule it corresponds to in the gated-linear-attention formulation <Code>{"y_t = \\sum_{j \\le t} G_{t, j} \\phi(q_t)^T \\phi(k_j) v_j"}</Code>. State the precise correspondence.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 3.</strong> Unrolling <Code>{"C_t = f_t C_{t-1} + i_t k_t v_t^T"}</Code> from <Code>{"C_0 = 0"}</Code>: <Code>{"C_t = \\sum_{j \\le t} (\\prod_{l=j+1}^{t} f_l) \\cdot i_j \\cdot k_j v_j^T"}</Code>. The output (numerator only) is <Code>{"C_t^T q_t = \\sum_{j \\le t} (\\prod_{l=j+1}^{t} f_l) \\cdot i_j \\cdot (q_t \\cdot k_j) \\cdot v_j"}</Code>. Comparing to <Code>{"y_t = \\sum_{j \\le t} G_{t,j} \\phi(q_t)^T \\phi(k_j) v_j"}</Code>: the feature map is the identity <Code>{"\\phi(x) = x"}</Code>, and the gate is <Code>{"G_{t,j} = i_j \\prod_{l=j+1}^{t} f_l"}</Code>. This is gated linear attention with an exponential decay schedule and a per-position write-strength <Code>{"i_j"}</Code>. It is also the SSD form of Mamba-2 with the per-step decay equal to <Code>{"f_l"}</Code>. The three architectures (mLSTM, GLA, Mamba-2) differ only in (a) how <Code>{"i_j, f_l"}</Code> are parameterized as functions of the input and (b) the surrounding block layout — they are mathematically the same recurrence.
-      </Callout>
-
-      <H3>Exercise 4 (architecture selection)</H3>
-      <Prose>
-        You are building a server that processes legal contracts. Average document is 50K tokens, max 200K. You must run on a single 80GB H100 with batch size 4 (concurrent users). Latency budget is 200 ms for first token, then sustained throughput. Quality target: GPT-3.5-class reasoning on legal language. Pick an architecture and justify in concrete terms.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 4.</strong> Choose xLSTM-7B or Mamba-2-7B. Specifically:
-        <br />
-        (a) <strong>Memory budget.</strong> A 7B Llama-2 with KV cache at 50K context per sequence: ~12 GB; at batch 4: 48 GB; at 200K context per sequence: ~50 GB; at batch 4: <em>200 GB</em> — does not fit. xLSTM-7B's recurrent state is ~200 MB total at batch 4 regardless of context. The transformer fails on memory before quality matters.
-        <br />
-        (b) <strong>Throughput.</strong> Decoding at 50K context for transformer: each token attends over 50K KV entries, ~5x slower than at 1K context. xLSTM/Mamba-2: same per-token cost regardless of context. At 200K context, xLSTM is ~30x faster per token than transformer.
-        <br />
-        (c) <strong>Quality.</strong> At 7B, xLSTM and Mamba-2 are within 1-2% of Llama-2-7B perplexity. For legal-document understanding, that gap is unlikely to be the binding constraint; document-length and recall are more important. Both xLSTM and Mamba-2 can absorb the full 50K context with no quality degradation from chunking.
-        <br />
-        (d) <strong>Latency.</strong> First-token latency requires processing the full prefix (prefill). For a 50K prefix, xLSTM's chunked scan runs in ~2-4 seconds on H100; transformer prefill at 50K with FlashAttention-3 is ~5-8 seconds. Both overrun the 200 ms budget at this context length, so prompt streaming or speculative prefill is needed regardless. xLSTM has no inherent latency disadvantage and a small advantage at long context.
-        <br />
-        (e) <strong>Choice between xLSTM and Mamba-2.</strong> Coin flip on quality. Pick by which pretrained checkpoint better matches your domain (NXAI's xLSTM-7B vs state-spaces' Mamba-7B-base, both available on HuggingFace). Mamba-2 has more mature inference tooling as of early 2026; xLSTM has the time-series advantage that may not matter here. Recommendation: start with Mamba-2 for the better tooling, switch to xLSTM if your legal-domain fine-tuning shows clearly better numbers (which is plausible given xLSTM's slightly more expressive sLSTM blocks for sequential reasoning).
-        <br />
-        Transformer-7B is wrong for this problem on hardware grounds. xLSTM or Mamba-2 are the realistic choices.
-      </Callout>
-
-      <H3>Exercise 5 (debugging)</H3>
-      <Prose>
-        You are training an xLSTM-1.3B model. Training proceeds normally for 5000 steps, then loss spikes from 2.6 to 12.7 in three steps and stays there. You restart from the previous checkpoint with half the learning rate; loss spikes again at step 5300. You suspect xLSTM-specific failure modes. List three Mamba/xLSTM-specific things to check and a diagnostic for each.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 5.</strong> Three xLSTM-specific failure modes to check:
-        <br />
-        (1) <strong>Stabilizer state m_t in fp16.</strong> If the entire model runs in fp16/bf16 and the stabilizer accumulator <Code>{"m_t"}</Code> is in fp16, then <Code>{"m_t"}</Code> can drift outside fp16's representable range (max ~65504) over a long training session. The drift is monotonic for typical inputs, so the model trains fine until <Code>{"m_t"}</Code> hits the ceiling, after which one of the stabilized exponentials goes to <Code>{"\\exp(-65504) = 0"}</Code> (gate becomes exactly zero) and the cell loses all dynamic range. Diagnostic: print <Code>{"\\max(|m_t|)"}</Code> per step; if it grows monotonically and is approaching 30 in fp16 or 80 in fp32, there is a problem. Fix: keep <Code>{"m_t"}</Code> in fp32 even if everything else is in lower precision; the xlstm package's reference kernel does this by default but custom implementations sometimes break it. Alternatively, periodically reset <Code>{"m_t"}</Code> to 0 at chunk boundaries (this is what the chunked scan does in production).
-        <br />
-        (2) <strong>Forget bias drift.</strong> If the forget-bias initialization is in a regime where <Code>{"f_t"}</Code> is very close to 1 (e.g., bias init +5), the model's gradient through the forget gate is tiny (because <Code>{"\\sigma'(5) \\approx 0.007"}</Code> and the exp's derivative at the saturated value is also small). The model effectively cannot learn to forget; the matrix memory <Code>{"C_t"}</Code> grows without effective bound and at some point overflows or saturates the normalizer. Diagnostic: print <Code>{"\\text{mean}(f_t)"}</Code> per step; if it is &gt;0.99 throughout training, the forget gate is stuck. Fix: lower the forget bias init to ~+3, or use the per-block heterogeneous init (<Code>{"\\text{powerlaw\\_blockdependent}"}</Code>) the published config uses.
-        <br />
-        (3) <strong>Matrix memory C_t accumulator precision.</strong> Even with stabilization, the per-step outer-product accumulation in <Code>{"C_t"}</Code> can drift in low precision. Mamba-2 and xLSTM both keep <Code>{"C_t"}</Code> in fp32 internally even when the model is in bf16. If you wrote a custom kernel that uses bf16 throughout, the accumulation error compounds and at some point a chunk-boundary state transfer produces a NaN. Diagnostic: print the running max of <Code>{"|C_t|"}</Code> per chunk; if it grows past 1e4 (typical xLSTM <Code>{"|C_t|"}</Code> stays under 1e2), something is accumulating wrong. Fix: ensure the matrix-state accumulator is fp32 in the kernel.
-        <br />
-        Bonus: gradient clipping at norm 1.0 (standard for both Mamba and xLSTM) catches most aggregate instabilities. If you do not have it on, that is the first fix to try before any of the above.
-      </Callout>
-
-    </div>
-  ),
-};
-
-export default xlstmContent;
+<Prose>{"Exponential write weights are convenient mathematically but dangerous to form directly when their log-weights are very large. We can preserve the answer while storing rescaled totals."}</Prose>
+
+<Prose>{"Let "}<code>{"c'_t=e^(−m_t)c_t"}</code>{" and "}<code>{"n'_t=e^(−m_t)n_t"}</code>{". The shared scale cancels in "}<code>{"c'_t/n'_t"}</code>{". Choose a new log-scale"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"m_t=\\max\\{\\log f_t+m_{t-1},\\ a_t\\},"}</MathBlock></div>
+
+<Prose>{"then compute"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"f'_t=e^{\\log f_t+m_{t-1}-m_t},\\qquad\ni'_t=e^{a_t-m_t},"}</MathBlock></div>
+
+<div className="neural-equation"><MathBlock>{"c'_t=f'_t c'_{t-1}+i'_t z_t,\\qquad\nn'_t=f'_t n'_{t-1}+i'_t,\\qquad\nh_t=o_t c'_t/n'_t."}</MathBlock></div>
+
+<Prose>{"Each exponent used for a stabilized gate is nonpositive. At least one of the two stabilized gate factors is one, except at limiting or invalid inputs. This avoids constructing a huge common multiplier. A stabilized write equal to one does not mean that the underlying raw write was one or that the model secretly replaced exponential gating with sigmoid gating."}</Prose>
+
+<Prose>{"For the three-step example, the stabilized states are:"}</Prose>
+
+<NeuralTable caption={"3. Stabilization changes the representation, not the answer"} headers={[<>{"Step"}</>,<>{""}<code>{"m_t"}</code>{""}</>,<>{""}<code>{"i'_t"}</code>{""}</>,<>{""}<code>{"f'_t"}</code>{""}</>,<>{""}<code>{"c'_t"}</code>{""}</>,<>{""}<code>{"n'_t"}</code>{""}</>,<>{"Output"}</>]} rows={[[<>{"1"}</>,<>{"0"}</>,<>{"1"}</>,<>{"0.5"}</>,<>{"0.2"}</>,<>{"1"}</>,<>{"0.150000"}</>],[<>{"2"}</>,<>{""}<code>{"ln 3"}</code>{""}</>,<>{"1"}</>,<>{""}<code>{"1/6"}</code>{""}</>,<>{"−0.566667"}</>,<>{"1.166667"}</>,<>{"−0.364286"}</>],[<>{"3"}</>,<>{""}<code>{"ln 9"}</code>{""}</>,<>{"1"}</>,<>{""}<code>{"1/6"}</code>{""}</>,<>{"0.705556"}</>,<>{"1.194444"}</>,<>{"0.443023"}</>]]} />
+
+<Prose>{"At step two, divide both raw totals by three. At step three, divide both raw totals by nine. Comparing "}<code>{"i'_2"}</code>{" and "}<code>{"i'_3"}</code>{" directly would compare numbers expressed under different scales. Their equality does not erase the original write-weight ratio."}</Prose>
+
+<ScalarScaleFigure />
+
+<Prose>{"The max state need not increase monotonically: sufficiently strong forgetting and a smaller new write can lower the relevant scale. It must travel with the memory across a sequence boundary. Resetting only "}<code>{"m"}</code>{", or only "}<code>{"n"}</code>{", produces a different state."}</Prose>
+
+<Prose>{"Starting with "}<code>{"n_0=1"}</code>{" would insert a zero-valued unit of prior mass if "}<code>{"c_0=0"}</code>{". That can be an intentional model, but it is not the empty ledger. With finite positive first write, the empty ledger acquires a positive denominator immediately. An implementation still needs a defined response to nonfinite inputs; adding arbitrary epsilon to every formula is not a substitute for choosing the intended operator."}</Prose>
+
+<H3>{"Try it: a write-weight ledger"}</H3>
+
+<Prose>{"As a second worked comparison, use candidates "}<code>{"[-0.4, 0.7, −0.2]"}</code>{", weights "}<code>{"[2,1,5]"}</code>{", retention "}<code>{"[0.8,0.6,0.4]"}</code>{" and output gate "}<code>{"0.8"}</code>{". Compare the final output before and after weakening the last write from five to "}<code>{"0.5"}</code>{"."}</Prose>
+
+<Prose>{"The original final output is about "}<code>{"−0.124082"}</code>{"; after that edit it is about "}<code>{"−0.006957"}</code>{". Earlier positive content has more influence. Now set every candidate to "}<code>{"0.6"}</code>{". Changing positive write weights and retention does not change the normalized estimate; with output gate "}<code>{"0.8"}</code>{", every output is "}<code>{"0.48"}</code>{". This is a useful null experiment: the weights changed, but all the available evidence agreed."}</Prose>
+
+<Prose>{"The investigation starts with a separate four-observation problem. Edit its candidates or gate inputs and follow the current result and contributing evidence."}</Prose>
+
+<ScalarLedgerLab />
+
+<Prose>{"The scale shift null is a property of this normalized scalar read from an empty ledger. It is not a blanket invariance of every downstream architecture or of the matrix read's fixed floor."}</Prose>
+
+<H3>{"A learned write, one gradient step at a time"}</H3>
+
+<Prose>{"Suppose the two candidates are "}<code>{"−0.2"}</code>{" and "}<code>{"0.8"}</code>{", the first write is one, retention at step two is "}<code>{"0.5"}</code>{", and the second write is "}<code>{"e^θ"}</code>{". Expose the normalized output directly and ask it to approach target "}<code>{"0.7"}</code>{":"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"y(\\theta)=\\frac{-0.1+0.8e^\\theta}{0.5+e^\\theta},\\qquad\nL=\\tfrac12(y-0.7)^2."}</MathBlock></div>
+
+<Prose>{"At "}<code>{"θ=0"}</code>{", "}<code>{"y=0.466667"}</code>{". Differentiating the quotient gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{dy}{d\\theta}=\\frac{0.5e^\\theta}{(0.5+e^\\theta)^2},\\qquad\n\\frac{dL}{d\\theta}=(y-0.7)\\frac{dy}{d\\theta}\\approx-0.051852."}</MathBlock></div>
+
+<Prose>{"A gradient-descent step with learning rate "}<code>{"0.5"}</code>{" raises "}<code>{"θ"}</code>{" to "}<code>{"0.025926"}</code>{", raises the prediction to "}<code>{"0.472403"}</code>{", and lowers the loss from "}<code>{"0.027222"}</code>{" to "}<code>{"0.025900"}</code>{". The target has encouraged a stronger write of the second candidate. In a trained network the same chain rule reaches the matrices that produced the candidates and gates. Stabilization should preserve that calculation; it does not replace optimization or gradient clipping."}</Prose>
+
+<GateLearningFigure />
+
+<H2>{"4. mLSTM gives memory an address space"}</H2>
+
+<Prose>{"A scalar ledger combines evidence along one coordinate. A matrix memory can associate a "}<strong>{"key"}</strong>{" with a "}<strong>{"value"}</strong>{". A key is a learned address vector; a value is the information to retrieve. A "}<strong>{"query"}</strong>{" asks the memory for values whose keys align with that query."}</Prose>
+
+<Prose>{"Use one matrix head. Keys and queries have "}<code>{"d_k"}</code>{" coordinates; values have "}<code>{"d_v"}</code>{". Throughout this lesson, "}<code>{"C"}</code>{" has "}<strong>{"key rows and value columns"}</strong>{", shape "}<code>{"d_k × d_v"}</code>{". Writing a key and value forms their outer product:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C_t=f_t C_{t-1}+i_t k_t v_t^\\top,\\qquad\nn_t=f_t n_{t-1}+i_t k_t."}</MathBlock></div>
+
+<Prose>{"The outer product contains one product for every key-coordinate/value-coordinate pair. For key "}<code>{"[1,0]"}</code>{" and value "}<code>{"[2,−1]"}</code>{", it is "}<code>{"[[2,−1],[0,0]]"}</code>{". The write changes the first key row. For a general key, it spreads information across rows."}</Prose>
+
+<OuterProductFigure />
+
+<Prose>{"Before output gating and the surrounding normalization layer, read"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"r_t=\\frac{C_t^\\top q_t}{\\max\\{|n_t^\\top q_t|,1\\}}."}</MathBlock></div>
+
+<Prose>{"The numerator has "}<code>{"d_v"}</code>{" coordinates. The dot product in the denominator is a scalar. In a learned model we scale a projected query by "}<code>{"1/√d_k"}</code>{" before this formula, exactly once. The hand examples use already-scaled queries so that the arithmetic is transparent."}</Prose>
+
+<Prose>{"Why does a query retrieve anything? Substituting the accumulated writes gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C_t^\\top q_t=\\sum_{j\\le t}w_{t,j}v_j(k_j^\\top q_t)."}</MathBlock></div>
+
+<Prose>{"The alignment "}<code>{"k_j^T q_t"}</code>{" multiplies the contribution of the associated value. An orthogonal key contributes zero to that query's numerator. Similar keys can interfere because their values contribute together. The matrix keeps an aggregate of outer products, not a slot for every original item."}</Prose>
+
+<H3>{"Three writes, then read an earlier address"}</H3>
+
+<Prose>{"Start empty; let every retention factor be "}<code>{"0.5"}</code>{"."}</Prose>
+
+<NeuralTable caption={"Three writes, then read an earlier address"} headers={[<>{"Step"}</>,<>{"Key"}</>,<>{"Value"}</>,<>{"Write weight"}</>,<>{"Query"}</>]} rows={[[<>{"1"}</>,<>{""}<code>{"[1,0]"}</code>{""}</>,<>{""}<code>{"[2,−1]"}</code>{""}</>,<>{"1"}</>,<>{""}<code>{"[1,0]"}</code>{""}</>],[<>{"2"}</>,<>{""}<code>{"[0,1]"}</code>{""}</>,<>{""}<code>{"[0,3]"}</code>{""}</>,<>{"1"}</>,<>{""}<code>{"[0,1]"}</code>{""}</>],[<>{"3"}</>,<>{""}<code>{"[1,0]"}</code>{""}</>,<>{""}<code>{"[4,1]"}</code>{""}</>,<>{"2"}</>,<>{""}<code>{"[1,0]"}</code>{""}</>]]} />
+
+<Prose>{"The first read returns "}<code>{"[2,−1]"}</code>{". The second matrix is "}<code>{"[[1,−0.5],[0,3]]"}</code>{", with "}<code>{"n=[0.5,1]"}</code>{". Query "}<code>{"[0,1]"}</code>{" selects its second key row and returns "}<code>{"[0,3]"}</code>{"."}</Prose>
+
+<Prose>{"At step three,"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C_3=\\begin{bmatrix}8.5&1.75\\\\0&1.5\\end{bmatrix},\\qquad\nn_3=\\begin{bmatrix}2.25\\\\0.5\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"The query reads the first row: numerator "}<code>{"[8.5,1.75]"}</code>{", denominator "}<code>{"2.25"}</code>{", output approximately "}<code>{"[3.777778,0.777778]"}</code>{". The newer "}<code>{"[4,1]"}</code>{" dominates, but the older value has not been deleted. Its surviving weight is "}<code>{"0.25"}</code>{"; the latest weight is two."}</Prose>
+
+<MatrixWorkedFigure />
+
+<Prose>{"This is an additive association update. It is not a dictionary assignment, and it is not a delta-rule update that explicitly subtracts the current prediction at an address before writing a correction. One scalar forget gate per head also scales every old association in that head together. It cannot retain one old key and erase another at that same step merely by changing this scalar."}</Prose>
+
+<H3>{"Signed retrieval is not softmax attention"}</H3>
+
+<Prose>{"A dot product can be negative. Consider two keys "}<code>{"[1,0]"}</code>{" and "}<code>{"[-1,0]"}</code>{", scalar values "}<code>{"2"}</code>{" and "}<code>{"−1"}</code>{", unit writes and no forgetting. Query "}<code>{"[1,0]"}</code>{" gives coefficients "}<code>{"+1"}</code>{" and "}<code>{"−1"}</code>{". The numerator is "}<code>{"2−(−1)=3"}</code>{"; the signed normalizer sum is zero. The denominator floor makes the read equal three."}</Prose>
+
+<Prose>{"That result is outside the interval "}<code>{"[−1,2]"}</code>{". It could not be a convex mixture of these two values. Calling these signed coefficients attention probabilities would hide exactly the behavior the learner needs to see."}</Prose>
+
+<SignedReadFigure />
+
+<Prose>{"The denominator prevents division by a signed sum near zero, but it does not make the read universally bounded by the stored value magnitudes. An outer-product memory is sometimes called a covariance-style memory; it is not automatically an empirical centered covariance matrix. Learned projections and biases matter."}</Prose>
+
+<H3>{"The stabilization detail that changes the answer"}</H3>
+
+<Prose>{"For the exponential variant, use the same "}<code>{"m"}</code>{", "}<code>{"i'"}</code>{" and "}<code>{"f'"}</code>{" idea as before, storing "}<code>{"C'=e^(−m)C"}</code>{" and "}<code>{"n'=e^(−m)n"}</code>{". Now the correct read is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"r=\\frac{C'^\\top q}{\\max\\{|n'^\\top q|,e^{-m}\\}}."}</MathBlock></div>
+
+<Prose>{"Both the variable normalizer and the fixed raw floor must be represented in the new scale. Keeping a floor of one after rescaling changes the operator."}</Prose>
+
+<Prose>{"A one-dimensional counterexample makes the error visible. Take "}<code>{"q=0.5"}</code>{", "}<code>{"k=0.25"}</code>{", "}<code>{"v=4"}</code>{", and write log-weight two. The raw numerator is "}<code>{"e²/2 ≈ 3.694528"}</code>{"; the raw signed mass is "}<code>{"e²/8 ≈ 0.923632"}</code>{", so the denominator is one. The answer is "}<code>{"3.694528"}</code>{"."}</Prose>
+
+<Prose>{"In the stabilized representation, "}<code>{"m=2"}</code>{", "}<code>{"C'=1"}</code>{", "}<code>{"n'=0.25"}</code>{", numerator "}<code>{"0.5"}</code>{", and the correct denominator is "}<code>{"max(0.125,e^(−2))=e^(−2)"}</code>{". The answer is unchanged. A floor of one would instead produce "}<code>{"0.5"}</code>{"."}</Prose>
+
+<MatrixFloorFigure />
+
+<Prose>{"This is why two implementations agreeing with each other is not sufficient if both copied the same formula error. Compare each to the intended mathematical operator on a case where the floor actually controls the answer."}</Prose>
+
+<H3>{"Try it: change the address, keep the value"}</H3>
+
+<Prose>{"The matrix investigation begins with fresh keys, values and queries. Reverse the last key while keeping its value unchanged and inspect the resulting read. Inspect both the numerator and the normalizer before interpreting the final read. You can edit a key, a value, a query or a write weight independently."}</Prose>
+
+<Prose>{"Then zero every value. Reads must be zero although keys, normalizer and gate history can remain nonzero. Restore the values and try a zero query: its numerator is zero and its denominator is the floor. These null cases distinguish stored address geometry from the information it points to."}</Prose>
+
+<MatrixAddressLab />
+
+<H2>{"5. One matrix operation, several execution schedules"}</H2>
+
+<Prose>{""}<strong>{"Deeper branch."}</strong>{" You can proceed to the digit reader after understanding that a memory must be carried across chunks. This derivation explains why matrix-memory training can use large parallel operations while incremental inference updates a state."}</Prose>
+
+<Prose>{"For a head whose keys, values, queries and gates have already been computed from the layer input, define the causal write influence"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"g_{t,j}=\\begin{cases}i_j\\prod_{\\ell=j+1}^{t}f_\\ell,&j\\le t,\\\\0,&j>t.\\end{cases}"}</MathBlock></div>
+
+<Prose>{"Collect queries, keys and values into row matrices "}<code>{"Q"}</code>{", "}<code>{"K"}</code>{", "}<code>{"V"}</code>{". If "}<code>{"A=(QK^T)⊙G"}</code>{", row "}<code>{"t"}</code>{" of "}<code>{"AV"}</code>{" is the raw read numerator. The raw denominator for that row is "}<code>{"max(|Σ_j A_tj|,1)"}</code>{". A triangular causal mask prevents future writes from contributing. This is a dense sequence formulation of the same recurrence, not ordinary row-softmax attention."}</Prose>
+
+<CausalWorkedFigure />
+
+<Prose>{"For stability, form logarithmic influences with prefix sums of log retention:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\log g_{t,j}=a_j+F_t-F_j,\\qquad F_t=\\sum_{\\ell=1}^{t}\\log f_\\ell."}</MathBlock></div>
+
+<Prose>{"The diagonal has no retention factor because "}<code>{"F_t−F_t=0"}</code>{". Mask future entries to negative infinity, subtract the largest valid log influence in each row, and exponentiate. The denominator's unit floor becomes "}<code>{"exp(−row_scale)"}</code>{", just as in the recurrent formulation."}</Prose>
+
+<Prose>{"This dense form materializes a "}<code>{"T×T"}</code>{" matrix. It is a useful mathematical reference, but defeats the memory goal for very long sequences. A third schedule uses chunks."}</Prose>
+
+<H3>{"A chunk has old memory and new local writes"}</H3>
+
+<Prose>{"Suppose a chunk begins after time "}<code>{"s"}</code>{". For a time "}<code>{"t"}</code>{" inside it, define incoming retention "}<code>{"p_t=∏_(ℓ=s+1)^t f_ℓ"}</code>{". The raw numerator is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C_s^\\top q_t\\,p_t+\\sum_{j=s+1}^{t}g_{t,j}v_j(k_j^\\top q_t)."}</MathBlock></div>
+
+<Prose>{"The first term reads memory from before the chunk. The second performs a small causal comparison within the chunk. The signed normalizer combines the corresponding old and new contributions "}<strong>{"before"}</strong>{" applying the absolute value and floor. Normalizing each part separately and then adding would be a different operation."}</Prose>
+
+<Prose>{"At the chunk's end, update its boundary state in one aggregate write:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C_{s+b}=\\left(\\prod_{\\ell=s+1}^{s+b}f_\\ell\\right)C_s\n+\\sum_{j=s+1}^{s+b}g_{s+b,j}k_jv_j^\\top,"}</MathBlock></div>
+
+<Prose>{"with the analogous formula for "}<code>{"n"}</code>{". A final shorter chunk uses its actual length. Stabilized implementations align the scales of incoming and local quantities before combining them."}</Prose>
+
+<ChunkWorkedFigure />
+
+<Prose>{"The supplied "}<code>{"memory_mechanisms.py"}</code>{" includes a recurrent operator, a stabilized dense operator and an explicit chunk operator for moderate unscaled inputs. A seven-token checked example with key width three and value width two agrees across chunk sizes "}<code>{"1,2,3,4,7,9"}</code>{" to less than "}<code>{"3×10^−15"}</code>{". A nonzero incoming-state case also agrees. Editing the final three values leaves the first four outputs unchanged."}</Prose>
+
+<Prose>{"The chunk program is a teaching reference for the decomposition. Its unscaled moderate-input arithmetic is not a safe replacement for a production stabilized kernel on arbitrary large log-weights."}</Prose>
+
+<H3>{"Try it: move the boundary without changing the story"}</H3>
+
+<Prose>{"Edit the seven-write sequence and compare whole-sequence, recurrent and chunk views with a boundary after the third write. Move the chunk size to two, four or larger than the sequence. Outputs should agree to rounding when state carry is correct."}</Prose>
+
+<Prose>{"Now deliberately reset the state at a boundary. The later outputs can change; this is a changed input history, not a faster execution of the same history. Finally edit a future value and check an earlier output. That earlier output must remain unchanged."}</Prose>
+
+<CausalChunkLab />
+
+<Prose>{"Why does sLSTM not get the same simple schedule? In sLSTM, this layer's gates depend on "}<code>{"h_(t−1)"}</code>{", which itself depends on the previous gates. Those gate values cannot all be precomputed from the layer input alone. This prevents the same direct input-precomputed affine scan. It does not prevent parallelism over batch, channels or heads, or efficient fused sequential kernels. In stacked mLSTM networks, layer inputs already contain learned context from earlier layers; precomputability within one layer does not mean the network is context-free."}</Prose>
+
+<H2>{"6. Put the cell inside a trainable network"}</H2>
+
+<Prose>{"A cell describes sequence mixing. A useful neural block also needs transformations around it. Our small experiment uses this complete path:"}</Prose>
+
+<Prose>{""}<code>{"8 pixels in one row → learned 8-to-16 projection → RMS normalization → sequence cell → residual addition → RMS normalization → gated feed-forward network → residual addition → ten class logits"}</code>{"."}</Prose>
+
+<Prose>{"A "}<strong>{"residual addition"}</strong>{" gives information a path around a transformation. "}<strong>{"RMS normalization"}</strong>{" divides a vector by the square root of its mean squared coordinate plus epsilon, then applies learned coordinate scales. Our feed-forward branch multiplies a SiLU-transformed projection by another projection before contracting back to width 16; this is a SwiGLU-style gated transformation. These operations are applied at each row. Only the final row's logits contribute to the training loss."}</Prose>
+
+<ReaderBlockFigure />
+
+<Prose>{"A logit is an unconstrained class score. To turn the final vector "}<code>{"ℓ"}</code>{" into class probabilities, use "}<code>{"p_c=exp(ℓ_c)/Σ_j exp(ℓ_j)"}</code>{" with a stable softmax. For correct class "}<code>{"y"}</code>{", cross-entropy is "}<code>{"−log p_y"}</code>{". A high probability on the wrong digit incurs a large loss. Backpropagation differentiates this objective through the classifier, feed-forward block, every recurrent step and the learned projections. Adam updates the parameters."}</Prose>
+
+<Prose>{"The scalar cell produces its four groups of preactivations from the current normalized input plus a learned transformation of the previous hidden vector. Its stored state is "}<code>{"(h,c,n,m)"}</code>{", each width 16. The matrix cell uses one key width of eight and a value width of 16. Its stored recurrent state is "}<code>{"(C,n,m)"}</code>{", with shapes "}<code>{"8×16"}</code>{", "}<code>{"8"}</code>{" and scalar. Its query is scaled once, and its read is normalized and output-gated. We cap its gate preactivations smoothly with "}<code>{"15 tanh(raw/15)"}</code>{" to bound the range in this instructional model."}</Prose>
+
+<Prose>{"These are deliberately small one-head blocks. They expose the actual mechanisms without reproducing every projection, head arrangement, convolution or training recipe of a published large model."}</Prose>
+
+<H3>{"Run the complete programs"}</H3>
+
+<Prose>{"Download "}<a href={"/learn-code/xlstm-extended-lstm/row_sequence_models.py"}>{"row_sequence_models.py"}</a>{", "}<a href={"/learn-code/xlstm-extended-lstm/memory_mechanisms.py"}>{"memory_mechanisms.py"}</a>{", "}<a href={"/learn-code/xlstm-extended-lstm/author_calculations.py"}>{"author_calculations.py"}</a>{" and the attributed "}<a href={"/learn-code/xlstm-extended-lstm/optdigits.tra"}>{"optdigits.tra"}</a>{", "}<a href={"/learn-code/xlstm-extended-lstm/optdigits.tes"}>{"optdigits.tes"}</a>{", "}<a href={"/learn-code/xlstm-extended-lstm/optdigits.names"}>{"optdigits.names"}</a>{" files. "}<a href={"/learn-code/xlstm-extended-lstm/data-provenance.md"}>{"Data provenance"}</a>{" records the exact roles and attribution. Keep those files in one directory. Use a Python environment with NumPy and a CPU-capable PyTorch installation. The author run used Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu; the bundle records those versions for reproduction."}</Prose>
+
+<Prose>{"From that directory:"}</Prose>
+
+<CodeBlock language={"bash"}>{"python memory_mechanisms.py\npython row_sequence_models.py\npython author_calculations.py"}</CodeBlock>
+
+<Prose>{"The first command produces the exact cell traces and comparison checks. The second trains the six predeclared small models, writes per-epoch loss curves and confusion matrices to "}<code>{"row-sequence-results.json"}</code>{", and saves selected parameters and inspection arrays to "}<code>{"row-sequence-fits.npz"}</code>{". The third loads those saved fits to calculate edited-image investigation fixtures; it does not train again. Everything uses the local data; no model download or network call occurs in these programs."}</Prose>
+
+<Prose>{"The complete source is included with this lesson. Start by reading "}<code>{"ScalarMemory.forward"}</code>{", "}<code>{"MatrixMemory.forward"}</code>{", and "}<code>{"DigitReader.forward"}</code>{"; then follow "}<code>{"main"}</code>{" through fitting, checkpoint selection and held-out assessment. The source uses descriptive state names and explicit loops so that each formula above can be located. It is not presented as a high-performance GPU kernel."}</Prose>
+
+<XlstmProgram filename="memory_mechanisms.py" /><XlstmProgram filename="row_sequence_models.py" /><XlstmProgram filename="author_calculations.py" /><p>To inspect the retained experiment without refitting, download the <a href="/learn-code/xlstm-extended-lstm/row-sequence-fits.npz">six selected fits and inspection arrays</a> and <a href="/learn-code/xlstm-extended-lstm/row-sequence-results.json">complete measured curves and confusion matrices</a>. The calculation program reads the fit archive; the training program generates it.</p>
+
+<Prose>{"Here is a small standalone scalar trace to reproduce the first calculation before running training:"}</Prose>
+
+<CodeBlock language={"python"}>{"import math\n\nvalues = [0.2, -0.6, 0.8]\nwrite_logs = [math.log(weight) for weight in [1.0, 3.0, 9.0]]\ncell = normalizer = log_scale = 0.0\nfor value, write_log in zip(values, write_logs):\n    forget_log = math.log(0.5)\n    new_scale = max(forget_log + log_scale, write_log)\n    retain = math.exp(forget_log + log_scale - new_scale)\n    write = math.exp(write_log - new_scale)\n    cell = retain * cell + write * value\n    normalizer = retain * normalizer + write\n    hidden = 0.75 * cell / normalizer\n    log_scale = new_scale\n    print(f\"{hidden:.6f}\")"}</CodeBlock>
+
+<Prose>{"Expected output:"}</Prose>
+
+<CodeBlock language={"text"}>{"0.150000\n-0.364286\n0.443023"}</CodeBlock>
+
+<Prose>{"This little program computes a mechanism with hand-chosen gates. The training program learns its gates from labeled examples. Keeping those two activities separate helps you identify whether a failure comes from the mathematics, an implementation, or a learned model's behavior."}</Prose>
+
+<H2>{"7. Read real handwritten digits one row at a time"}</H2>
+
+<Prose>{"The UCI Optical Recognition of Handwritten Digits data contain 8×8 grids of integer values from zero to 16. Each cell counts on-pixels in a 4×4 block of an original normalized bitmap. The 64 input values are followed by a class label from zero to nine. Our model divides inputs by 16 and treats the eight horizontal rows as eight sequence steps. This scan order is a modeling decision; these are not measured time-series samples. "}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"Dataset, acquisition and license"}</a>{"."}</Prose>
+
+<DigitScanFigure />
+
+<Prose>{"The source has 3,823 training images from 30 writers and 1,797 test images from 13 different writers. Per-writer identifiers are not included in the retained rows, so our internal fitting/validation split is a row split within the original training data. All 5,620 feature vectors are distinct."}</Prose>
+
+<Prose>{"For each class, a fixed random permutation selects 100 fitting images and the next 30 validation images: 1,000 fit, 300 validation. The remaining 2,523 training-file rows are unused. The 1,797 original test rows form the final assessment. Full source IDs and file hashes are saved. No labels are passed into inference."}</Prose>
+
+<RowDataRolesFigure />
+
+<Prose>{"All three models use Adam at learning rate "}<code>{"0.003"}</code>{", 150 full-batch updates, and gradient-norm clipping at one. Each run saves the epoch with lowest clean validation cross-entropy. Seeds 19 and 43 were specified before evaluating their results. Every model is also assessed after reversing the order of its eight input rows, while retaining the same final digit label. This is a fixed stress test of order dependence; no model is trained on reversed images here."}</Prose>
+
+<NeuralTable caption={"7. Read real handwritten digits one row at a time"} headers={[<>{"Model"}</>,<>{"Seed"}</>,<>{"Parameters"}</>,<>{"Selected epoch"}</>,<>{"Validation errors / 300"}</>,<>{"Clean test errors / 1,797"}</>,<>{"Reversed-row test errors / 1,797"}</>]} rows={[[<>{"LSTM"}</>,<>{"19"}</>,<>{"4,138"}</>,<>{"85"}</>,<>{"36"}</>,<>{"267"}</>,<>{"1,173"}</>],[<>{"LSTM"}</>,<>{"43"}</>,<>{"4,138"}</>,<>{"111"}</>,<>{"29"}</>,<>{"156"}</>,<>{"1,048"}</>],[<>{"sLSTM"}</>,<>{"19"}</>,<>{"4,074"}</>,<>{"138"}</>,<>{"22"}</>,<>{"123"}</>,<>{"1,136"}</>],[<>{"sLSTM"}</>,<>{"43"}</>,<>{"4,074"}</>,<>{"142"}</>,<>{"22"}</>,<>{"137"}</>,<>{"1,136"}</>],[<>{"mLSTM"}</>,<>{"19"}</>,<>{"2,828"}</>,<>{"104"}</>,<>{"67"}</>,<>{"419"}</>,<>{"921"}</>],[<>{"mLSTM"}</>,<>{"43"}</>,<>{"2,828"}</>,<>{"93"}</>,<>{"65"}</>,<>{"402"}</>,<>{"865"}</>]]} />
+
+<Prose>{"These are executed CPU results for the supplied program, not values copied from a paper. In this setup the scalar variant performs well, while the narrow single-head matrix variant makes substantially more clean errors. The LSTM's two seeds also differ noticeably. The matrix model has fewer parameters, different state geometry and a particular initialization; this experiment does not isolate one universally superior cell design. Increasing its dimensions or changing training would be a new experiment with its own validation protocol."}</Prose>
+
+<Prose>{"Reversing the rows hurts all three. In a causal reader, later evidence is processed after earlier evidence through learned transitions. Fixed-size state does not make the function invariant to order. The matrix model's smaller additional reverse penalty does not establish better overall robustness: its clean performance is already weaker."}</Prose>
+
+<RowMetricsFigure /><RowLearningCurve />
+
+<H3>{"Watch evidence arrive, and change it yourself"}</H3>
+
+<Prose>{"For the worked image at training-file source ID 3451, the true digit is one. The selected seed-19 scalar model's per-row predicted classes are "}<code>{"[1,2,2,1,1,1,1,1]"}</code>{". After three rows it favors two; by the fourth it favors one. If rows six through eight are replaced by zeros, the first five predictions remain identical, then the trace becomes "}<code>{"[7,9,9]"}</code>{". The final class is wrong."}</Prose>
+
+<Prose>{"These intermediate predictions come from applying the classifier at each prefix. The model was trained only on final-row loss. A changing prefix score is a view of its computation, not a separately validated early-exit classifier or a calibrated measure of understanding."}</Prose>
+
+<WorkedDigitTraceFigure />
+
+<Prose>{"The fresh investigation starts from a different image, source ID 187. Alter selected rows and compare both the final class and intermediate scores. Edit the actual 0–16 pixel values, not just a decorative corruption slider. Compare a scalar-state trace with the matrix state's changing key-by-value grid. These learned channels do not have inherent names such as “loop detector”; any such interpretation would require separate evidence."}</Prose>
+
+<RowReaderLab />
+
+<Prose>{"A useful computational null is to process rows one through three, retain the complete recurrent state, and continue with rows four through eight. The logits should match processing all eight at once to floating-point tolerance. An intentional reset before row four can change them. A blank image need not produce uniform scores because the model has learned biases and its transitions still run; in seed 19, the scalar model predicts nine on the blank fixture. That is a model output without digit evidence, not a genuine recognition success."}</Prose>
+
+<Prose>{"For a practical extension, define an occlusion or scan-order augmentation using fitting data, select any new settings with validation, and assess once on a reserved test protocol. Do not tune an augmentation on the test errors in the table and then call the same table an untouched final test."}</Prose>
+
+<H3>{"Choose the implementation that owns the promised operation"}</H3>
+
+<Prose>{"The scratch source "}<a href={"/learn-code/xlstm-extended-lstm/memory_mechanisms.py"}>{"memory_mechanisms.py"}</a>{" supplies scalar and matrix scans, the dense parallel form and an explicitly moderate-input chunk form. These are complete operators, not pseudocode pointing to an unspecified package. The practical tensor route is "}<a href={"/learn-code/xlstm-extended-lstm/row_sequence_models.py"}>{"row_sequence_models.py"}</a>{": "}<code>{"ScalarMemory"}</code>{" learns its input/recurrent gates; "}<code>{"MatrixMemory"}</code>{" learns Q/K/V and gates while carrying C, n and m; "}<code>{"DigitReader"}</code>{" supplies projections, normalization, residual/FFN composition, logits and the loss/optimizer loop. Autograd is reused from the earlier "}<a href={"/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals"}>{"implemented differentiation lesson"}</a>{", whose actual engine and library bridge are available there. Rebuilding that engine inside a memory cell would obscure the new recurrence."}</Prose>
+
+<Prose>{"Map the two sources before changing them. The NumPy C has key rows and value columns, so the batched Torch read is "}<code>{"einsum(\"bkv,bk->bv\", C, q)"}</code>{". Query scaling belongs in one place; the Torch network also applies an output gate and RMS normalization that the bare memory oracle does not. "}<code>{"MatrixMemory"}</code>{" bounds its learned gate preactivations with a tanh transform, a declared architectural choice for this experiment. The scalar model carries the previous hidden output as well as c/n/m because it affects later gates. Its full-versus-carried execution comparisons therefore need every state component and the same fitted weights."}</Prose>
+
+<Prose>{"The output of a bare NumPy cell is not supposed to equal the full network's logits. First compare the matching cell equations, then carry those cell outputs through the same added projections and readout. The retained raw/stabilized, dense/recurrent, chunk-carry and gradient calculations in "}<code>{"memory_mechanisms.py"}</code>{" and "}<code>{"author_calculations.py"}</code>{" make these comparisons explicit. Recurrent matrix work is O(T d_k d_v), with O(d_k d_v+d_k) carried state per head. The dense form stores O(T²) coefficient information. Chunking balances retained matrix state and local chunk scores; the supplied unscaled chunk oracle is restricted to moderate log-gates, so use the stabilized recurrent route for the extreme-log investigation."}</Prose>
+
+<Prose>{""}<strong>{"Control the state boundary."}</strong>{" Change the split of an eight-row input from 3/5 to 5/3 without changing weights. Compare every prefix logit and every returned state component with an unsplit pass. Then deliberately reset only n at the boundary."}</Prose>
+
+<details><summary>Hint and reasoned solution</summary>
+
+<Prose>{"For the valid continuation, pass the complete returned state into the suffix and concatenate outputs along time. In evaluation mode with fixed preprocessing this changes execution grouping, not the mathematical recurrence. Resetting n while retaining C/c changes normalization and therefore the read; it is not a harmless cache optimization. For the scalar cell retain h as well: resetting it can alter later gates even if c/n/m were preserved. Compare state tensors as well as class predictions, because a classifier can keep the same winning class despite a changed internal function. This construction is a complete small trainable sLSTM/mLSTM route; it is not a port of every released xLSTM block or checkpoint."}</Prose>
+
+</details>
+
+<H2>{"8. Distinguish a cell family from a published model"}</H2>
+
+<Prose>{""}<strong>{"Deeper branch."}</strong>{" The term xLSTM spans more than one architecture revision. Use the cell equations, block arrangement, gate choices and checkpoint configuration when identifying a model."}</Prose>
+
+<Prose>{"The original 2024 work combines scalar and matrix blocks in different proportions. Its scalar block includes recurrent memory mixing and a feed-forward expansion after the sequence operation. Its original matrix block expands before the memory, with local convolution/projection details and gating around the matrix read. A notation such as "}<code>{"xLSTM[a:b]"}</code>{" describes the ratio of matrix to scalar blocks; it does not require both cell types inside every block. "}<a href={"https://arxiv.org/html/2405.04517v2"}>{"Original paper and cell/block diagrams"}</a>{"."}</Prose>
+
+<Prose>{"The March 2025 xLSTM-7B release uses 32 matrix-memory blocks, not a mixed stack with a few scalar blocks. Its post-expansion block design uses RMS normalization and a SwiGLU feed-forward branch. The released configuration has embedding width 4,096, eight matrix heads, key width 256 and value width 512 per head. It uses a sigmoid forget gate and an exponential write gate, with other gate/normalization choices specified in the model. The paper reports pretraining on 2.3 trillion tokens at an 8,192-token context. These are characteristics of that release, not requirements for every xLSTM. "}<a href={"https://arxiv.org/html/2503.13427v1"}>{"xLSTM-7B paper"}</a>{", "}<a href={"https://huggingface.co/NX-AI/xLSTM-7b/blob/main/config.json"}>{"released configuration"}</a>{"."}</Prose>
+
+<VersionBlocksFigure />
+
+<Prose>{"There is also a later sigmoid-input matrix variant. It updates "}<code>{"C=σ(b)C_old+σ(a)kv^T"}</code>{", reads "}<code>{"C^T(q/√d_k)"}</code>{", and applies a normalization layer and output gate. It drops the exponential variant's "}<code>{"n"}</code>{" and "}<code>{"m"}</code>{" states. For very negative inputs, sigmoid and exponential write activations are close, but the two full operators are not universally identical. Normalization can reduce sensitivity to overall scale, while its epsilon matters for very small inputs. This is a purposeful architectural variant, not permission to silently substitute sigmoid into a checkpoint trained with different equations. "}<a href={"https://arxiv.org/html/2503.14376v2"}>{"Tiled Flash Linear Attention, §§4.1–4.2"}</a>{"."}</Prose>
+
+<SigmoidVariantFigure />
+
+<H3>{"Count state before claiming it is small"}</H3>
+
+<Prose>{"For "}<code>{"L"}</code>{" layers, "}<code>{"H"}</code>{" heads and float32 state, the matrix storage is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"4LHd_kd_v\\ \\text{bytes per sequence}."}</MathBlock></div>
+
+<Prose>{"For the stated 7B configuration, that is "}<code>{"4×32×8×256×512 = 134,217,728"}</code>{" bytes, or "}<strong>{"128 MiB"}</strong>{". Adding one key-width normalizer and one scale value per head gives about "}<strong>{"128.251 MiB"}</strong>{". Model weights, surrounding activations, training gradients, batching and implementation workspaces are additional allocations."}</Prose>
+
+<Prose>{"This state does not grow with the number of already-processed tokens. It can nevertheless be substantial, especially across many concurrent sequences. An attention key/value cache grows with cached length and its own head configuration. A comparison must specify both configurations and dtype; the word “constant” alone gives no crossover point."}</Prose>
+
+<StateAccountingFigure />
+
+<H3>{"Why chunks and kernels still matter"}</H3>
+
+<Prose>{"For fixed head dimensions, recurrent matrix updates and reads cost on the order of "}<code>{"T d_k d_v"}</code>{" over a sequence. Dense causal comparison costs on the order of "}<code>{"T²(d_k+d_v)"}</code>{" and stores quadratic intermediates if materialized. A chunked schedule with chunk length "}<code>{"b"}</code>{" combines approximately "}<code>{"T b(d_k+d_v)"}</code>{" local comparison work with matrix-state read/write work on the order of "}<code>{"T d_k d_v"}</code>{". It does not divide every matrix-memory cost by the chunk size."}</Prose>
+
+<Prose>{"Wall-clock speed also depends on where data live and which operations the hardware performs efficiently. Processing one token at a time provides little parallel sequence work. Chunking can use matrix multiplications, while storing too many boundary states consumes memory bandwidth. Tiled Flash Linear Attention separates larger logical chunks from smaller hardware tiles and handles rescaling as contributions are accumulated. Its reported speedups belong to its particular kernels, hardware and shapes; our CPU teaching loop measures none of them. "}<a href={"https://arxiv.org/html/2503.14376v2"}>{"TFLA algorithm and implementation"}</a>{", "}<a href={"https://github.com/NX-AI/mlstm_kernels"}>{"official kernels"}</a>{"."}</Prose>
+
+<Prose>{"A cached attention decode step attends to "}<code>{"T"}</code>{" existing keys and is linear in that cached length for that step; full-sequence dense attention is quadratic in sequence length. These are different workloads. Fixed recurrent state gives an attractive decode memory pattern, but projections, feed-forward work, batching and kernel launch overhead still matter."}</Prose>
+
+<Prose>{"A subsequent scaling-law study compares dense Llama-2-style models and xLSTM across a stated range of model sizes and token budgets. It fits both equal-compute profiles and a parametric loss surface, accounting for context-dependent sequence-mixing cost. Its reported favorable frontier for xLSTM is evidence for that controlled recipe and range. It does not prove superiority over every transformer variant, task or serving deployment, or guarantee that a fitted curve remains valid arbitrarily far beyond the experiments. "}<a href={"https://arxiv.org/html/2510.02228v2"}>{"Study methodology and released runs"}</a>{"."}</Prose>
+
+<H2>{"9. Useful applications beyond a text decoder"}</H2>
+
+<Prose>{"The shared design question is how inputs become a sequence and what the state must preserve for the output task. Three adaptations make that question concrete."}</Prose>
+
+<Prose>{""}<strong>{"Images: scan patches in more than one direction."}</strong>{" VisionLSTM turns image patches into vectors and uses matrix-memory blocks with alternating scan directions. Because the entire image is available for classification, later blocks may read it in the reverse spatial order without violating a future-prediction requirement. This changes which patches influence each representation. Our eight-row digit reader illustrates order sensitivity but is not a reproduction of that patch architecture. A useful transfer question is whether the task needs a global image label or a representation at every location; the readout must match. "}<a href={"https://arxiv.org/abs/2406.04303"}>{"VisionLSTM paper"}</a>{", "}<a href={"https://nx-ai.github.io/vision-lstm/"}>{"author project"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Forecasts: tell the model what is missing."}</strong>{" TiRex uses scalar-memory blocks on patches of normalized time-series values. Its input includes a presence mask; future patches are represented as missing inputs while the state continues forward. Training includes contiguous masked patches, and the output predicts quantiles rather than only one number. The interesting mechanism is the alignment between a training-time missing interval and an inference-time future interval. It is not equivalent to inserting a plausible-looking point forecast as if it had been observed. Quantiles still need empirical coverage and forecasting validation. "}<a href={"https://arxiv.org/html/2505.23719v2"}>{"TiRex architecture and masking method"}</a>{"."}</Prose>
+
+<Prose>{"A different adaptation, xLSTM-Mixer, begins with shared linear forecasts and uses a scalar-memory mixer on encoded variate information. It demonstrates that the recurrent axis itself is a design choice: recurrence can mix related series rather than simply scan raw time samples. The forecast objective, available covariates and normalization boundary remain essential. "}<a href={"https://arxiv.org/html/2410.16928v3"}>{"xLSTM-Mixer method"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Offline control: keep the episode boundary meaningful."}</strong>{" Large Recurrent Action Models encode observations and conditioning information, process the history recurrently, and predict actions from offline trajectories. In the cited design, observations, desired returns and previous rewards are available before the current action; the current action's future reward is not an input. The model can carry a bounded state during an episode and reset it for a new episode. A recurrent architecture does not make an offline policy safe under unfamiliar states or turn a benchmark action score into a real-robot deployment result. "}<a href={"https://arxiv.org/html/2410.22391v2"}>{"LRAM method"}</a>{"."}</Prose>
+
+<ApplicationFlowsFigure />
+
+<Prose>{"These applications do not establish that one memory variant is best everywhere. They show how changing the input representation, recurrence axis, loss and readout can make the same underlying memory idea useful in a different setting."}</Prose>
+
+<H2>{"10. Diagnose the failure at the right level"}</H2>
+
+<Prose>{"When a result looks wrong, locate the layer of the problem before changing the model size."}</Prose>
+
+<NeuralTable caption={"10. Diagnose the failure at the right level"} headers={[<>{"Symptom"}</>,<>{"First useful check"}</>,<>{"What the check distinguishes"}</>]} rows={[[<>{"Raw and stabilized scalar outputs differ"}</>,<>{"Rescale content and normalization together; check empty-state initialization"}</>,<>{"Representation error versus a different prior"}</>],[<>{"Matrix outputs differ only for small query alignment"}</>,<>{"Compare the raw unit floor with the scaled "}<code>{"exp(−m)"}</code>{" floor"}</>,<>{"An operator change hidden by ordinary examples"}</>],[<>{"A matrix is being displayed transposed"}</>,<>{"Label key and value dimensions and trace one outer product/read"}</>,<>{"Shape convention versus incorrect multiplication"}</>],[<>{"A future edit changes an earlier output"}</>,<>{"Check causal masks, input projections and sequence indexing"}</>,<>{"Leakage versus legitimate later-state change"}</>],[<>{"Splitting a sequence changes its answer"}</>,<>{"Carry every state component and preserve step order"}</>,<>{"A boundary reset versus the same computation"}</>],[<>{"Matrix training is worse than a scalar baseline"}</>,<>{"Inspect dimensions, normalization, gradients, fit/validation curves and objective"}</>,<>{"A poor configuration versus an architecture theorem"}</>],[<>{"A blank input gives a confident class"}</>,<>{"Inspect biases and the decision rule; assess calibration separately"}</>,<>{"A model preference versus actual input evidence"}</>],[<>{"A long input runs but retrieval fails"}</>,<>{"Measure the task at that length with controlled distractors"}</>,<>{"Executability versus usable memory"}</>]]} />
+
+<Prose>{"Finite-precision arithmetic, denominator branches and bounded gates deserve targeted tests. They do not justify inventing universally safe numerical thresholds. The supplied programs use controlled float32 training and float64 mechanism checks; a mixed-precision GPU implementation needs its own affected numerical checks."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"11. Practice: transfer the mechanism"}</H2>
+
+<Prose>{"Try each problem before opening its hint or solution. The first four check calculation and representation. The next three check model and sequence reasoning. The final three ask you to design or diagnose a realistic experiment."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. A different scalar history"}</H3>
+
+<Prose>{"Start with an empty ledger, candidates "}<code>{"[-0.5,0.25,1]"}</code>{", writes "}<code>{"[2,1,4]"}</code>{", retention "}<code>{"[0.5,0.5,0.25]"}</code>{", and output gate one. Calculate the final content, mass and output. Which candidate has the greatest final influence?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"At each step, multiply both old totals by that step's retention before adding the new content and weight. Alternatively compute each write's surviving weight at the final step."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"After the first write, "}<code>{"c=−1,n=2"}</code>{". After the second, "}<code>{"c=−0.25,n=2"}</code>{". After the third, "}<code>{"c=3.9375,n=4.5"}</code>{", so the output is "}<code>{"0.875"}</code>{". Final write weights are "}<code>{"[0.25,0.25,4]"}</code>{". The latest candidate supplies "}<code>{"4/4.5"}</code>{" of the mass and has the greatest influence. Its value is not multiplied by the step-three forget gate because it was not in the old state."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A normalization prior"}</H3>
+
+<Prose>{"For one candidate "}<code>{"0.8"}</code>{" with unit write, unit retention and output gate one, compare initialization "}<code>{"(c_0,n_0)=(0,0)"}</code>{" with "}<code>{"(0,1)"}</code>{". Are the different answers numerical errors?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Interpret the second initialization as an extra piece of zero-valued evidence."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The empty ledger returns "}<code>{"0.8/1=0.8"}</code>{". The second returns "}<code>{"0.8/2=0.4"}</code>{". Both follow their stated recurrences, but the second contains a zero-valued prior with unit mass. They implement different memory semantics. A programmer must not insert "}<code>{"n_0=1"}</code>{" while claiming exact equivalence to an empty ledger."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Stabilize a matrix floor"}</H3>
+
+<Prose>{"A one-step memory has key "}<code>{"0.2"}</code>{", value three, query "}<code>{"0.5"}</code>{", and write log-weight "}<code>{"ln 5"}</code>{". Compute its raw read and its correctly stabilized read. What does a stabilized floor of one incorrectly produce?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The raw matrix equals three and its normalizer equals one. After rescaling by five, the fixed raw floor must be divided by five too."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Raw numerator is "}<code>{"3×0.5=1.5"}</code>{"; signed mass is "}<code>{"1×0.5=0.5"}</code>{"; denominator is one, giving "}<code>{"1.5"}</code>{". Scaled "}<code>{"C'=0.6,n'=0.2,m=ln 5"}</code>{" gives numerator "}<code>{"0.3"}</code>{" and denominator "}<code>{"max(0.1,0.2)=0.2"}</code>{", again "}<code>{"1.5"}</code>{". Keeping a floor of one would give "}<code>{"0.3"}</code>{". This case deliberately activates the floor, which a large-alignment test might miss."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Can a head forget only one address?"}</H3>
+
+<Prose>{"A matrix head contains two orthogonal keys with useful values. At the next step you want to halve the old contribution for key A while leaving the old contribution for key B unchanged. Can the head's single scalar forget gate do this by itself? Propose a meaningful architectural or input change."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Write the old-state term as one scalar multiplying the entire matrix."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"No: "}<code>{"f C_old"}</code>{" scales both old contributions by the same factor. Separate heads could place them under different scalar gates if the learned representation supports that separation. A structured/vector forget operator or a targeted corrective write would be another mechanism, but changes the operation or relies on knowing the needed correction. The matrix's addressability at read time is not selective deletion at write time."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. A chunk-normalization trap"}</H3>
+
+<Prose>{"At one output, the old-state numerator is two with signed mass two, and the local numerator is three with signed mass negative one. Compare normalizing the combined result with normalizing the two parts separately. Use a raw denominator floor of one."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Absolute value and the maximum are nonlinear. They cannot be distributed across a sum."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Correct combination gives numerator five, signed mass one and output five. Separate normalization gives "}<code>{"2/max(2,1)+3/max(1,1)=1+3=4"}</code>{". A chunk boundary must not change where normalization occurs. Align old/local scales, combine their numerator and signed mass, and then apply the shared denominator."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. What can an early prediction see?"}</H3>
+
+<Prose>{"A digit reader has processed rows one through five. You edit row eight, rerun from the beginning, and see its row-three logits change. Name two possible implementation errors. Would reversing every input row be a valid null test for those logits?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Check both the recurrent computation and preprocessing that might combine rows before the recurrence."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"A noncausal mixing operation or an incorrect future mask could leak row eight. Preprocessing that recomputes a per-image statistic using all eight rows could also change earlier inputs. Our fixed division by 16 avoids that particular dependency. Reversing all rows is not a null: it changes which evidence arrives in the first three steps. Editing only a future row under fixed causal preprocessing is the appropriate prefix-invariance check."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Count two different states"}</H3>
+
+<Prose>{"A model has 12 matrix-memory layers, four heads per layer, key width 32, value width 64, and float32 state. Calculate matrix bytes per sequence and then add "}<code>{"n"}</code>{" and "}<code>{"m"}</code>{" for the exponential variant. Does processing twice as many tokens double this persistent state?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"There are "}<code>{"12×4"}</code>{" heads. Each stores "}<code>{"32×64"}</code>{" matrix values, 32 normalizer values and one scale value."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Matrix storage is "}<code>{"12×4×32×64×4=393,216"}</code>{" bytes, or "}<code>{"384 KiB"}</code>{". Adding normalization and scale gives "}<code>{"12×4×(2048+32+1)×4=399,552"}</code>{" bytes, or "}<code>{"390.1875 KiB"}</code>{". Persistent recurrent state does not double with processed length at fixed dimensions. Training activations and other execution buffers are separate and may depend on sequence length."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Improve the weak matrix digit model honestly"}</H3>
+
+<Prose>{"You want to try a larger matrix head and row-order augmentation after reading the result table. Specify which data roles make decisions, which outcome you will optimize, and how you will avoid presenting this development process as an untouched new test."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Distinguish fitting parameters, selecting settings and estimating final performance. Previously inspected test outcomes cannot become unseen again."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Fit candidate models on fitting images, including augmentation generated only from those images. Choose the head sizes, augmentation policy and stopping epoch with a declared validation objective, such as clean validation cross-entropy plus a separately declared stress requirement. Keep all candidate and selection decisions recorded. Because the published test table has already informed this development, describe the result as follow-up analysis on that benchmark; use a genuinely new reserved assessment set or a predeclared external protocol for a fresh final generalization claim. Report parameter counts and clean/stress performance together."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Design a memory test instead of a speed claim"}</H3>
+
+<Prose>{"Two models can process 100,000 tokens. One has fixed recurrent state and the other a growing cache. Design a small controlled retrieval task that tests useful memory without confusing it with execution success."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Vary one demand on memory at a time: delay, distractors, number of associations or updates to an address."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Generate sequences that introduce random key/value pairs and later query a specified key. Keep key/value distributions and output scoring fixed. Vary delay separately from the number of intervening unrelated pairs, then add a condition where a key receives a new value and the correct answer is its latest value. Prevent accidental answer cues in position or token frequency. Report retrieval accuracy by condition and length, alongside any measured memory/latency under explicit hardware and batch settings. A model finishing the input is not evidence that it retrieved the association correctly; a small random-key task is still not every long-context application."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"10. A forecast mask and an episode boundary"}</H3>
+
+<Prose>{"A forecasting system inserts zeros for unknown future values but has no presence mask. A control system carries its recurrent state from one independent episode into the next. Explain the information problem in each, and propose a corrected contract."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Ask whether a zero was observed and whether previous state belongs to the same causal history."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Without a mask, a forecast model cannot directly distinguish an observed zero from an unknown value represented by zero. Provide presence information and train the model under the missing-input pattern used during forecasting, while fitting normalization on information available at forecast time. For independent control episodes, reset every required state component and any other cache at the episode boundary. Carrying state is appropriate only when the task explicitly defines a continuous history; otherwise it introduces irrelevant prior-episode information and can invalidate evaluation."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"12. References and another way to learn"}</H2>
+
+<Prose>{"Use these resources for their different teaching roles. The calculations and small experiments above are self-contained; no video is required to understand an equation."}</Prose>
+
+<ul><li>{""}<a href={"https://arxiv.org/html/2405.04517v2"}>{"Original xLSTM paper, Beck and colleagues"}</a>{". Advanced primary reference for both cell families. After the scalar and matrix examples, inspect the main cell equations, then Appendix A's vector forms and block diagrams. Its benchmark settings and architecture variants should not be silently transferred to later releases."}</li><li>{""}<a href={"https://arxiv.org/html/2503.13427v1"}>{"xLSTM-7B paper"}</a>{". Read the architecture changes alongside the "}<a href={"https://huggingface.co/NX-AI/xLSTM-7b/blob/main/config.json"}>{"released configuration"}</a>{"; this is the best route for understanding why a family diagram and a specific checkpoint may differ."}</li><li>{""}<a href={"https://github.com/NX-AI/xlstm"}>{"Official xLSTM repository"}</a>{" and "}<a href={"https://huggingface.co/NX-AI/xLSTM-7b"}>{"7B model card"}</a>{". Practical integration references with current backend and loading instructions. The model card provides a Transformers loading route as checked in September 2026. Check the exact package revision and checkpoint license before using it; the released weights have the NXAI Community License. No pretrained-model execution is needed for this lesson's offline program."}</li><li>{""}<a href={"https://arxiv.org/html/2503.14376v2"}>{"Tiled Flash Linear Attention"}</a>{" and "}<a href={"https://github.com/NX-AI/mlstm_kernels"}>{"kernel repository"}</a>{". Read the recurrent/chunk equations first, then the two-level tiling and sigmoid-variant sections. GPU kernel details are an optional branch after the mathematical operator is clear."}</li><li>{""}<a href={"https://www.youtube.com/watch?v=KjvCtslDJv0"}>{"Maximilian Beck's author presentation"}</a>{", with "}<a href={"https://maxbeck.ai/resources/talks/2026-03-PhD_Defense_Beck_share_selected.pdf"}>{"selected 2026 defense slides"}</a>{" and "}<a href={"https://maxbeck.ai/talks/"}>{"author talks index"}</a>{". An alternate visual route through recurrent memories, kernels and the later work. The author-linked recording was identified and selected slide text was reviewed for this lesson; the recording was not watched and no unverified timestamps are supplied."}</li><li>{""}<a href={"https://arxiv.org/html/2510.02228v2"}>{"xLSTM scaling-law study"}</a>{" and "}<a href={"https://github.com/NX-AI/xlstm_scaling_laws"}>{"released analysis materials"}</a>{". Useful for practicing critical reading of equal-compute comparisons. Separate fitted curves, measured training runs and extrapolations; the notebooks are optional and were not run for this lesson."}</li><li>{""}<a href={"https://nx-ai.github.io/vision-lstm/"}>{"VisionLSTM author project"}</a>{", "}<a href={"https://arxiv.org/html/2505.23719v2"}>{"TiRex method"}</a>{", "}<a href={"https://arxiv.org/html/2410.16928v3"}>{"xLSTM-Mixer method"}</a>{", and "}<a href={"https://arxiv.org/html/2410.22391v2"}>{"LRAM method"}</a>{". These are application-specific readings. Focus on the sequence axis, what information is available at a step, the task loss and the readout before looking at benchmark tables."}</li><li>{""}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"UCI Optical Recognition of Handwritten Digits"}</a>{". Original source and attribution for the executable experiment. The lesson's row-scanning protocol, split assignments, trained models and stress results are its own derived work."}</li></ul>
+
+<Prose>{"You are ready to move on when you can trace one scalar and one matrix update, explain the changed-scale denominator, distinguish a computational schedule from an architectural change, and interpret the real experiment's success and failure without overclaiming."}</Prose>
+
+<Prose>{"The next topic in this module is "}<a href={"/learn/path/full-curriculum/hyena-long-convolution-models?module=deep-learning-fundamentals"}>{"Hyena: Long-Convolution Models"}</a>{". It asks how long filters and input-dependent gates can mix a sequence without either an explicit all-pairs attention matrix or this particular recurrent memory cell. For comparison, revisit the earlier "}<a href={"/learn/path/full-curriculum/rwkv-linear-attention-models?module=deep-learning-fundamentals"}>{"RWKV and linear-attention models"}</a>{" and "}<a href={"/learn/path/full-curriculum/state-space-models-s4-mamba-mamba-2?module=deep-learning-fundamentals"}>{"state-space models"}</a>{"; their state updates share some computational ideas while retaining different operators."}</Prose></section>
+</div>};

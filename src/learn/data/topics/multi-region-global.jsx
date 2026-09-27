@@ -1273,9 +1273,9 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — availability math</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — availability math</H3>
       <Prose>
         Your service has a 99.5% SLA commitment. Each of your three regions has independent
         availability of 99.5%. What is the composite availability? Does it meet your SLA?
@@ -1292,9 +1292,9 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
         primarily protect against correlated failures, not independent ones, and why the
         cloud provider's track record for correlated incidents (not per-region availability)
         is the metric that matters most for multi-region SLA math.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2 — design a residency-compliant routing policy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — design a residency-compliant routing policy</H3>
       <Prose>
         You are building a medical-records summarization API used by hospitals in Germany,
         France, Canada, Australia, and the US. GDPR applies to EU users; PIPEDA applies to
@@ -1315,9 +1315,9 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
         with a <Code>Retry-After</Code> header. Never route EU medical data to a non-EU
         region regardless of load or failover pressure. Document this behavior explicitly in
         the SLA so customers understand the tradeoff they are accepting.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 3 — cost model for multi-region expansion</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — cost model for multi-region expansion</H3>
       <Prose>
         You are currently running 32 H100 GPUs in us-east-1 at $8/hr each, and your monthly
         GPU spend is $187,136. You want to add EU and APAC regions at identical provisioning
@@ -1337,9 +1337,9 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
         32, plus 20% headroom for failover absorption). In practice, always round up to the
         nearest instance type boundary and maintain headroom for eu-west-1 to absorb a
         secondary EU region failure.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 4 — diagnose a mystery latency regression</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — diagnose a mystery latency regression</H3>
       <Prose>
         After adding a third region (ap-east-1), your EU users report that P99 TTFT
         increased from 280 ms to 520 ms. The inference workers in eu-west-1 show normal
@@ -1360,9 +1360,9 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
         from the new ap-east-1 region is being preferred by some EU ISPs due to route
         leakage — unlikely but not impossible. Check: traceroute from EU client IPs to the
         API endpoint to see which PoP they are hitting.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 5 — model rollout strategy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — model rollout strategy</H3>
       <Prose>
         You are rolling out a new model version to a five-region active-active fleet. The
         new model has passed eval in a staging environment. You estimate each regional
@@ -1390,8 +1390,8 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
 
       {/* ======================================================================
           SECTION CLOSER — THE SYSTEM DESIGN ARC
-          ====================================================================== */}
-      <H2>Closing: the Inference System Design arc</H2>
+          ====================================================================== */}</div></section>
+      <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>Closing: the Inference System Design arc</H2>
 
       <Prose>
         This topic closes the Inference System Design section, and it is worth pausing at the
@@ -1552,7 +1552,7 @@ Capacity overflow pooling  | Non-residency traffic; batch work;   | Any residenc
 
       <Callout accent="gold">
         System design is the layer where LLM economics become product reality.
-      </Callout>
+      </Callout></section>
 
     </div>
   ),

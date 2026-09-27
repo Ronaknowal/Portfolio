@@ -1,0 +1,7 @@
+.formulation-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; }
+.formulation-selection-total { color: #e8b44a; padding: .75rem; text-align: center; border-bottom: 1px solid #777; }
+.formulation-selection-branches { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; }
+.formulation-selection-branches > div { display: grid; gap: .65rem; border-left: 2px solid #777; margin-top: 1rem; padding-left: 1rem; }
+.formulation-selection-branches strong { color: #e8b44a; }
+.formulation-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }
+@media(max-width: 600px) { .formulation-selection-branches { grid-template-columns: 1fr; } }

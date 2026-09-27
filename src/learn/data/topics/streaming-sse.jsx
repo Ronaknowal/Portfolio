@@ -1081,7 +1081,7 @@ export function Chat() {
       {/* ======================================================================
           11. EXERCISES
           ====================================================================== */}
-      <H2>11. Exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Exercises</H2>
 
       <Prose>
         <strong>Exercise 1 — Wire format audit.</strong> Open your browser's DevTools Network
@@ -1137,7 +1137,7 @@ export function Chat() {
         client automatically reconnects and receives the remaining events from the cache
         without restarting generation. Measure the reconnect latency (time from server restart
         to resumed token delivery) and the gap in token delivery the user would observe.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

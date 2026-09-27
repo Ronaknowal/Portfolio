@@ -1,0 +1,54 @@
+{
+  "topicId": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+  "passed": true,
+  "environment": {
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "maximumThreads": 2,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "checks": [
+    {
+      "name": "Complete arithmetic program executes native AdamW parity, finite estimator enumeration, Prodigy expanded histories, stateful real edits and nulls",
+      "passed": true
+    },
+    {
+      "name": "Actual lion API: 8 updates, checkpoint/RNG/mode resume, matching final logits",
+      "passed": true
+    },
+    {
+      "name": "Actual sophia API: 8 updates, checkpoint/RNG/mode resume, matching final logits",
+      "passed": true
+    },
+    {
+      "name": "Actual prodigy API: 8 updates, checkpoint/RNG/mode resume, matching final logits",
+      "passed": true
+    },
+    {
+      "name": "Actual schedule_free API: 8 updates, checkpoint/RNG/mode resume, matching final logits",
+      "passed": true
+    },
+    {
+      "name": "All 12 saved final models reproduce validation/assessment loss and correctness; all24 candidates retain validation-only selection",
+      "passed": true
+    },
+    {
+      "name": "All12 new pixel/label gradients match independent torch autograd; full stateful diagnostic updates exported",
+      "passed": true
+    },
+    {
+      "name": "Official Lion skips absent gradient but uses retained momentum for zero gradient",
+      "passed": true
+    }
+  ],
+  "bridgeOutputs": {
+    "lion": "lion evaluation loss: 0.8761122276914053\nState keys: ['exp_avg']\nUninterrupted/resumed evaluation maximum error: 0.0\n",
+    "sophia": "sophia evaluation loss: 0.8761122276914053\nState keys: ['exp_avg', 'hessian', 'step']\nUninterrupted/resumed evaluation maximum error: 0.0\n",
+    "prodigy": "prodigy evaluation loss: 0.9517085309046524\nState keys: ['exp_avg', 'exp_avg_sq', 'p0', 's', 'step']\nUninterrupted/resumed evaluation maximum error: 0.0\n",
+    "schedule_free": "schedule_free evaluation loss: 0.9106840649959747\nState keys: ['exp_avg_sq', 'z']\nUninterrupted/resumed evaluation maximum error: 0.0\n"
+  },
+  "limitations": [
+    "Historical24 fits reused; no new model fitting or hardware timing.",
+    "Paper Prodigy/Schedule-Free rules and maintained package variants are not falsely equated."
+  ]
+}

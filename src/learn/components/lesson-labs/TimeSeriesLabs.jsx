@@ -67,8 +67,8 @@ export function SeasonalDonorLab() {
 
   return <Investigation title="Investigation 1 — which observation feeds this forecast?"
     onReset={state.reset}
-    question={'Edit the six historical values, choose a season length and a horizon count, then say which '
-      + 'history position supplies the seasonal forecast at the horizon you select — and what number it gives.'}
+    question={'Edit the six historical values, choose a season length and a horizon count, and follow which '
+      + 'history position supplies the seasonal forecast at the selected horizon and how its value changes.'}
     role={{ kind: 'constructed', text: 'A constructed six-day operating cycle and a constructed continuation. '
       + 'These are not rental counts; the real series is investigation 3.' }}
     note={'The four rules occupy separate rows with their own dependency. Horizons past the supplied outcomes '

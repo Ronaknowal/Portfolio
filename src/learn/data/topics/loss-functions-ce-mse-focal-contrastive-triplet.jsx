@@ -5,19 +5,19 @@ import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
 import { LossUpdateFigure, RegressionInfluenceLab, FocalContributionLab, LossDecisionLab, TripletGeometryLab, InfoNceLab, LossScalingFigure } from '../../components/lesson-labs/LossFunctionsLabs.jsx';
 import NeuralProgram from '../../components/lesson-labs/NeuralProgram.jsx';
+import { QuantileBalanceFigure, AngularMarginFigure } from '../../components/lesson-labs/LossIntuitionFigures.jsx';
 export default {
   title: 'Loss Functions (CE, MSE, Focal, Contrastive, Triplet)',
   readTime: '~65 min read + experiments and practice',
   hasIntegratedGuide: true,
   content: () => <div className="neural-lesson loss-functions-lesson">
   <LessonIntro prerequisites="A model maps inputs to outputs; backpropagation propagates derivatives. Residuals, probabilities and embedding coordinates are introduced locally." sections={[["from-a-prediction-to-an-update","From a prediction to an update"],["regression-what-should-a-typical-answer-mean","Regression: what should “a typical answer” mean?"],["classification-confidence-is-part-of-the-answer","Classification: confidence is part of the answer"],["imbalance-inspect-contributions-before-changing-the-objective","Imbalance: inspect contributions before changing the objective"],["one-real-experiment-recognize-a-nine","One real experiment: recognize a nine"],["when-the-output-is-a-location-pair-and-triplet-losses","When the output is a location: pair and triplet losses"],["infonce-finding-the-correct-candidate-is-classification","InfoNCE: finding the correct candidate is classification"],["practical-reductions-scaling-and-diagnosis","Practical reductions, scaling, and diagnosis"],["build-the-objectives-then-control-the-library","Build the objectives, then control the library"],["practice-change-the-problem-then-explain-the-consequence","Practice: change the problem, then explain the consequence"],["another-way-to-learn-and-the-next-connection","Another way to learn, and the next connection"]]}>Choose what errors should change, trace their gradients, then judge the decisions produced by a real model.</LessonIntro>
-  <Prose>{""}<strong>{"Explore as you read."}</strong>{" Move observations, change the loss and focal gamma, drag decision thresholds, edit pair/triplet coordinates and change InfoNCE temperature. Update loss, signed gradients, fitted location, confusion counts, eligible negatives and candidate probabilities together. Keep score-based metrics distinct from threshold decisions. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an objective or operating threshold from the error tradeoff rather than from a single loss number."}</Prose>
 
 <Prose>{"A learning algorithm needs more than examples of correct answers. It needs a way to say how an imperfect answer should change. Predicting a delivery ten minutes late, assigning a wrong label with 99% confidence, and retrieving the wrong photograph are different failures. A "}<strong>{"loss function"}</strong>{" assigns a numerical penalty to a prediction and its target. Its derivatives tell backpropagation how that penalty responds to changes in the model."}</Prose>
 
 <Prose>{"The preceding lesson explained how to compute those derivatives. Here we choose what to differentiate. A small loss is useful only when the objective represents the behavior we need."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow the prediction-to-update map, work the regression and probability examples, investigate focal loss, then build the pair→triplet→candidate-selection connection. Run the small digit experiment and attempt the practice before its solutions. The likelihood, angular-margin, and mutual-information branches add depth; their derivations are not prerequisites for the first experiment."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow the prediction-to-update map, work the regression and probability examples, investigate focal loss, then build the pair→triplet→candidate-selection connection. Run the small digit experiment and attempt the practice before its solutions. The likelihood, angular-margin, and mutual-information branches add depth; their derivations are not prerequisites for the first experiment."}</Prose>
 
 <H2>{"From a prediction to an update"}</H2>
 
@@ -61,6 +61,8 @@ export default {
 
 <Prose>{"For a practical nonstandard application, a service can predict the 90th percentile of demand to plan reserve capacity. That prediction is deliberately above the median. A quantile of 0.9 corresponds to nine times the local penalty slope for underprediction as for overprediction. The operational cost ratio, not a desire for uniformly high predictions, motivates that choice."}</Prose>
 
+<QuantileBalanceFigure />
+
 <H2>{"Classification: confidence is part of the answer"}</H2>
 
 <Prose>{"For a binary label "}<InlineMath>{"y\\in\\{0,1\\}"}</InlineMath>{", the model produces a real "}<strong>{"logit"}</strong>{" "}<InlineMath>{"z"}</InlineMath>{". The sigmoid "}<InlineMath>{"p=1/(1+e^{-z})"}</InlineMath>{" converts it into a number between zero and one. Binary cross-entropy is"}</Prose>
@@ -77,6 +79,8 @@ export default {
 
 <Prose>{"Cross-entropy is also negative log likelihood for the observed categorical outcome. At a population level, expected cross-entropy decomposes as "}<InlineMath>{"H(q,p)=H(q)+D_{\\mathrm{KL}}(q\\Vert p)"}</InlineMath>{", where "}<InlineMath>{"q"}</InlineMath>{" is the target distribution. The irreducible entropy "}<InlineMath>{"H(q)"}</InlineMath>{" remains even when probabilities are correct. Extra expected coding cost from using the wrong distribution is the KL term. "}<a href={"https://cs231n.github.io/linear-classify/#softmax"}>{"Stanford CS231n's softmax discussion"}</a>{" provides an alternate derivation."}</Prose>
 
+<Prose>Entropy is the uncertainty that remains even with the correct probabilities. Suppose otherwise indistinguishable examples are positive one quarter of the time. Reporting .25 yields expected log loss <InlineMath>{"-.25\\log(.25)-.75\\log(.75)\\approx.56234"}</InlineMath>. Reporting .5 gives .69315. The extra .13081 is the KL term: a penalty for the wrong probability distribution, in addition to the uncertainty the inputs cannot resolve. This population target differs from the one-hot label of a single observed example.</Prose>
+
 <H3>{"Stable logits and explicit targets"}</H3>
 
 <Prose>{"Avoid calculating a tiny softmax probability and then taking its logarithm. For logits "}<InlineMath>{"[1000,-1000]"}</InlineMath>{" and correct index one, the loss is approximately 2000, not infinity. Compute log-sum-exp with a maximum shift. Binary CE has the stable form "}<InlineMath>{"\\max(z,0)-yz+\\log(1+e^{-|z|})"}</InlineMath>{"."}</Prose>
@@ -88,6 +92,8 @@ export default {
 <Prose>{"Multilabel classification is different from multiclass classification: an image can have both “outdoors” and “vehicle.” Use independent binary targets and logits for those labels when that matches the task, not one softmax that forces exactly one category. Neither output format by itself guarantees calibrated probabilities."}</Prose>
 
 <Prose>{"With a probability target "}<InlineMath>{"t_c"}</InlineMath>{", CE becomes "}<InlineMath>{"-\\sum_ct_c\\log p_c"}</InlineMath>{", with gradient "}<InlineMath>{"p_c-t_c"}</InlineMath>{" for a normalized unweighted target. PyTorch label smoothing uses "}<InlineMath>{"t=(1-\\epsilon)\\,\\text{one-hot}+\\epsilon/C"}</InlineMath>{"; a different convention allocates smoothing only to incorrect classes. State the convention. For "}<InlineMath>{"C=3,\\epsilon=.1"}</InlineMath>{", PyTorch's target is "}<InlineMath>{"[.93333,.03333,.03333]"}</InlineMath>{" when class zero is correct, not "}<InlineMath>{"[.9,.05,.05]"}</InlineMath>{". Smoothing changes the desired probabilities; its effect on measured calibration depends on the model and evaluation. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.CrossEntropyLoss.html"}>{"CrossEntropyLoss's API contract"}</a>{" specifies targets, shapes, weights, and reductions."}</Prose>
+
+<Prose>Think of smoothing as replacing the training target before comparing probabilities. For the three-class target above, a model with probabilities [.8,.1,.1] has gradient [−.2,.1,.1] against a hard label, but approximately [−.13333,.06667,.06667] against the smoothed target. The force toward certainty is smaller. At [.99,.005,.005], the smoothed target actually asks the correct logit to decrease. That is the changed goal, not a numerical shortcut for evaluating the old goal.</Prose>
 
 <H2>{"Imbalance: inspect contributions before changing the objective"}</H2>
 
@@ -205,6 +211,9 @@ export default {
 
 <Prose>{"When multiple items really are positive, one option is supervised contrastive learning: average the negative log probability assigned to each positive within the candidate set. Keep self-comparisons out and define what happens when an anchor has no positive. An average of log probabilities differs from taking the log of the summed positive probability. "}<a href={"https://arxiv.org/pdf/2004.11362"}>{"Khosla et al., §3.2"}</a>{" compares these formulations."}</Prose>
 
+<NeuralTable caption="Two positive candidates: rewarding their total versus rewarding each one" headers={['Positive probabilities', '−log(sum of positives)', 'Mean of −log for each positive']} rows={[[ '[.8, .1]', '.10536', '1.26286'], ['[.45, .45]', '.10536', '.79851']]} />
+<Prose>Both rows reserve .9 probability for positives, so the aggregate objective is indifferent. Averaging the two log penalties cares about the neglected positive and prefers the balanced second row. The remaining .1 belongs to negatives. This distinction helps choose whether any one matching item is enough or every designated positive should receive support.</Prose>
+
 <H3>{"Deeper connections and useful boundaries"}</H3>
 
 <Prose>{"For exact nonzero unit vectors, "}<InlineMath>{"\\|a-b\\|^2=2-2a^\\top b"}</InlineMath>{". Therefore squared-triplet constraints can be written with cosine similarities. They do not become identical to CE over candidates: margins, candidate weighting, and gradients still differ. As "}<InlineMath>{"\\tau\\to0"}</InlineMath>{", "}<strong>{""}<InlineMath>{"\\tau L"}</InlineMath>{""}</strong>{" tends to "}<InlineMath>{"\\max_j s_j-s_+"}</InlineMath>{". The unscaled loss can diverge when a negative wins, or retain a log-tie penalty. Temperature is not an explicit triplet margin."}</Prose>
@@ -212,6 +221,8 @@ export default {
 <Prose>{"The CPC derivation connects expected InfoNCE with a mutual-information lower bound "}<InlineMath>{"I\\ge\\log N-L_N"}</InlineMath>{", under its joint-positive and marginal-negative sampling assumptions. "}<InlineMath>{"N"}</InlineMath>{" counts all candidates, including the positive. Increasing "}<InlineMath>{"N"}</InlineMath>{" also changes "}<InlineMath>{"L_N"}</InlineMath>{"; simply adding "}<InlineMath>{"\\log2"}</InlineMath>{" to a claimed bound without reevaluating the loss is unjustified. "}<a href={"https://arxiv.org/pdf/1807.03748"}>{"CPC §2.3"}</a>{" gives the assumptions and density-ratio interpretation. Useful representations should still be assessed on retrieval or downstream prediction."}</Prose>
 
 <Prose>{"An angular-margin classifier such as ArcFace normalizes features and class weights, scales their cosine logits, and modifies the target logit to "}<InlineMath>{"s\\cos(\\theta_y+m)"}</InlineMath>{" during training. This directly shapes angular separation; the scalar "}<InlineMath>{"m"}</InlineMath>{" is an angle, unlike a squared-triplet margin. The purpose is an embedding useful beyond the training class head, not a guarantee that any cosine margin wins. The "}<a href={"https://arxiv.org/pdf/1801.07698v3"}>{"ArcFace paper"}</a>{" is a deeper application, after the pair and candidate geometry are secure."}</Prose>
+
+<AngularMarginFigure />
 
 <H2>{"Practical reductions, scaling, and diagnosis"}</H2>
 
@@ -265,7 +276,7 @@ export default {
 
 </details>
 
-<H2>{"Practice: change the problem, then explain the consequence"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"Practice: change the problem, then explain the consequence"}</H2>
 
 <section className="neural-practice"><Prose>{""}<strong>{"Different measurement units."}</strong>{" Delivery errors change from minutes to seconds. How do squared loss, absolute loss, and a Huber threshold change if the intended behavior should remain the same?"}</Prose><details><summary>Hint</summary><Prose>{"write "}<InlineMath>{"r'=60r"}</InlineMath>{"."}</Prose></details><details><summary>Worked solution</summary><Prose>{"squared loss multiplies by 3600, absolute by 60. Scale Huber's threshold by 60; its numerical loss then scales by 3600. An optimizer or a combined objective may need corresponding scale adjustments."}</Prose></details></section>
 
@@ -279,15 +290,15 @@ export default {
 
 <section className="neural-practice"><Prose>{""}<strong>{"Run a changed objective."}</strong>{" Add "}<code>{"focal_gamma_0"}</code>{" to the program with no class weighting, resetting seeds exactly as before. Predict its relationship to BCE, then inspect losses, parameters, and validation probabilities with floating-point tolerances."}</Prose><details><summary>Worked solution</summary><Prose>{"the formulas are identical; differences should be limited to implementation/numerical effects. Adding the balanced "}<InlineMath>{"\\alpha=.25"}</InlineMath>{" convention would change the objective and invalidate this null comparison."}</Prose></details></section>
 
-<section className="neural-practice"><Prose>{""}<strong>{"Diagnose a gradient."}</strong>{" Two identical embeddings designated negative have positive pair loss but no useful update under the library's zero-distance convention. Explain why displaying only the loss misses the problem."}</Prose><details><summary>Worked solution</summary><Prose>{"the loss value says the constraint is violated; the norm's derivative direction at coincidence is not defined. Inspect representation initialization, symmetry, nonzero variations, and the actual gradient instead of treating positive loss as proof of movement."}</Prose></details></section>
+<section className="neural-practice"><Prose>{""}<strong>{"Diagnose a gradient."}</strong>{" Two identical embeddings designated negative have positive pair loss but no useful update under the library's zero-distance convention. Explain why displaying only the loss misses the problem."}</Prose><details><summary>Worked solution</summary><Prose>{"the loss value says the constraint is violated; the norm's derivative direction at coincidence is not defined. Inspect representation initialization, symmetry, nonzero variations, and the actual gradient instead of treating positive loss as proof of movement."}</Prose></details></section></section>
 
-<H2>{"Another way to learn, and the next connection"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"Another way to learn, and the next connection"}</H2>
 
 <Prose>{"Start with "}<a href={"https://cs231n.github.io/linear-classify/"}>{"Stanford CS231n's linear-classification notes"}</a>{" if a second worked softmax explanation helps; its score→loss→probability diagrams complement the local regression view. "}<a href={"https://www.youtube.com/watch?v=h7iBpEHGVNc"}>{"Stanford Lecture 3: Loss Functions and Optimization"}</a>{" provides a spoken explanation of classification objectives and how optimization uses them. Watch it after the probability example; it does not replace the later focal and metric-learning sections. The official channel description was checked; the video itself was not watched for this packet."}</Prose>
 
 <Prose>{"For paper reading, use focal §3 after the contribution lab, FaceNet §3 after the mining exercise, and SimCLR Algorithm 1 after drawing the candidate mask. Read CPC's information-theory branch only after candidate CE is comfortable. The articles are alternate routes and sources; the local explanation and program stand on their own."}</Prose>
 
 <Prose>{"The next topic is "}<strong>{"Batch, Layer, Group, and RMS Normalization"}</strong>{". We now know how scores are judged. Next we examine the intermediate numbers entering those scores: which collections of activations are rescaled, how that changes dependence between examples, and why training and inference sometimes use different statistics."}</Prose>
-  <p><a href="/learn/path/full-curriculum/batch-layer-group-rms-normalization?module=deep-learning-fundamentals">Continue to Batch, Layer, Group and RMS Normalization</a></p>
+  <p><a href="/learn/path/full-curriculum/batch-layer-group-rms-normalization?module=deep-learning-fundamentals">Continue to Batch, Layer, Group and RMS Normalization</a></p></section>
   </div>
 };

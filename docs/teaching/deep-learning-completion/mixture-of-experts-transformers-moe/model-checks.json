@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Native float64 selected/full gates, weighted vectors and autograd router derivatives",
+      "passed": true
+    },
+    {
+      "name": "Selection boundaries, common offsets, constant vectors and coordinate finite differences",
+      "passed": true
+    },
+    {
+      "name": "Capacity slot identity, dropped assignments versus tokens, weighted scatter, policy and reorder null",
+      "passed": true
+    },
+    {
+      "name": "Global/group balance, z scale, auxiliary gradient, selection bias and row/column choices",
+      "passed": true
+    },
+    {
+      "name": "Resource units, matching coarse/fine matrices, shared additions and largest safe controls",
+      "passed": true
+    },
+    {
+      "name": "22 native full-model inputs: logits, all attention rows, all gates, inputs and expert outputs",
+      "passed": true
+    },
+    {
+      "name": "Observed real contrast, input null, unused expert null and temperature ranking",
+      "passed": true
+    },
+    {
+      "name": "Complete JSX parses and deployed downloads exactly match canonical packet bytes",
+      "passed": true
+    }
+  ],
+  "comparisons": 36491,
+  "maximumPortError": 0.0000015974993405887261,
+  "nativeFixtures": 22
+}

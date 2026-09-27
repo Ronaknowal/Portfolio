@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "htmlCharacters": 282297,
+  "checks": [
+    "Complete ten-section manuscript, engine bridge, all five changed exercises, four investigations and two complete-code controls render",
+    "No render exception, React warnings, or nonfinite numerical outputs",
+    "KaTeX equations render and every practice solution is initially closed",
+    "Diagrams and axes keep native label size in focusable bounded scrolling; topic-local selects have explicit labels"
+  ],
+  "limitations": [
+    "SSR does not establish painted geometry, browser controls, keyboard focus, or network recovery."
+  ]
+}

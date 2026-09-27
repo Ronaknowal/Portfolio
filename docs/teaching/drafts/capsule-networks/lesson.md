@@ -3,7 +3,7 @@
 **Explore as you read.** Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Show coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result.
 
 
-A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A **capsule network** tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts inspect a compatible whole.
+A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A **capsule network** tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts support a compatible whole.
 
 In [ConvNeXt](/learn/path/full-curriculum/convnext-modern-cnn-designs?module=deep-learning-fundamentals), we changed how a convolutional network mixes spatial and channel information. Here the question changes: **can the network decide, for this particular input, which higher-level entity should receive each part's evidence?** We will build that computation, train a small classifier and test what the computation does and does not establish.
 
@@ -308,9 +308,13 @@ Both approach zero at the origin and at very large radius, at different rates. C
 
 For \(s=(.3,.4)\), \(r=.5\), radial sensitivity is .64 and tangent sensitivity .4. For \(s=(3,4)\), \(r=5\), they are approximately .01479 and .19231. A very long vector is much harder to lengthen than to rotate locally.
 
+Derive the two directions separately. Along the unit arrow \(q\), changing input radius changes output length \(g(r)=r^2/(1+r^2)\), so the multiplier is \(g'(r)=2r/(1+r^2)^2\). A tiny perpendicular displacement has zero first-order effect on radius, so it is multiplied by the existing scale \(r/(1+r^2)\). These are the two eigen-directions of the Jacobian: one scalar cannot describe the layer's sensitivity. At radius 5, even though the output is nearly saturated in length, a directional correction is about 13 times as responsive as an equal radial correction.
+
 The [mechanics program](capsule-mechanics.py) computes the analytical Jacobian and checks it by central differences. At zero the exact derivative is zero; a finite difference has a small step-dependent residual. This is a numerical approximation, not a contradictory derivative.
 
 For the three-step routing fixture, differentiating the full computation agrees with central differences to about \(1.2\times10^{-10}\). Detaching earlier routing calculations gives the same scalar loss but a gradient differing by up to .03752. Both can be coded; only the full derivative matches the stated full forward function's derivative.
+
+The missing path under detachment is easy to locate. The final parent receives a direct vote contribution, but an earlier vote also changes agreement, which changes the next coupling, which changes the final sum. If \(s(u)=c(u)u\) in a scalar illustration, its derivative is \(c(u)+u c'(u)\). Detaching the coupling keeps the first term and removes the second. For \(c(u)=\operatorname{sigmoid}(u)\) at \(u=1\), both forward values are .73106, but the derivatives are .92767 and .73106. This illustrates the computation-graph choice; it is not a substitute for the full routing calculation above.
 
 ### Why explicit matrices can help—and what they do not guarantee
 
@@ -375,6 +379,8 @@ R_{ij}=\operatorname{softmax}_j\left[
 
 It fixes \(\beta_u=\beta_a=0\), variance floor .01 and inverse temperatures .5, .75 and 1. These are declared illustration settings; a trained matrix-capsule model learns cost parameters and uses a chosen schedule.
 
+Why does tighter agreement raise activation in this expression? Consider one coordinate, effective mass 2, zero cost parameters and \(\lambda=1\). With standard deviation .5 the cost is \(2\log(.5)=-1.3863\), giving activation .8; with standard deviation 2 it is \(2\log2=1.3863\), giving .2. A tight group is cheaper to describe under the Gaussian model. Negative log-density costs can be negative because a continuous density can exceed one; they are not negative probabilities. The same incentive can make an almost-zero spread spuriously attractive, explaining the variance floor and the interest in uncertainty-aware alternatives. This comparison fixes mass and all other terms; it is not a universal monotonic rule when assignments also change.
+
 For three children with activations \(1,1,.5\), parent-A first coordinates \(0,.2,2\) and parent-B first coordinates \(0,3,3.2\), uniform responsibilities give mass 1.25 per parent. The first means are .48 and 1.84. After three rounds they are approximately .10881 and 2.81927. The second coordinate is zero for every vote, so its variance hits the stated floor. Making the third child inactive makes edits to its votes irrelevant to the estimated means.
 
 The resemblance to [Gaussian-mixture EM](/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml) is useful, but each capsule parent sees a differently transformed version of the children, and parent activations do not sum to one. It is not ordinary maximum-likelihood fitting of one common observed dataset. The matrix-capsule paper discusses the change-of-variables issue when comparing densities in different transformed spaces. [Matrix Capsules with EM Routing](https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf)
@@ -425,6 +431,8 @@ Naively expanding the original valid-convolution topology to \(224\times224\) gi
 
 Matrix multiplication of a \(4\times4\) pose by a learned \(4\times4\) relation uses 16 learned parameters per relation. An unrestricted linear map of a flattened 16-vector to another 16-vector uses 256. That parameter reduction imposes structure; it is not a free replacement for every arbitrary vector map.
 
+To see the restriction, take one row of the pose matrix. Right multiplication applies the same 4×4 relation to that row as to every other row; it does not arbitrarily mix entries from different pose rows. Likewise, sharing a type-to-type transformation across image positions reduces learned parameters, while every position still produces its own votes. Sharing alone does not eliminate the vote tensor's memory cost. Restricting each child to nearby parents is a separate change that also reduces the number of materialized connections.
+
 Three alternative directions answer different shortcomings:
 
 | Direction | Mechanism | What to examine |
@@ -435,11 +443,17 @@ Three alternative directions answer different shortcomings:
 
 The [AAAI 2020 variational-routing paper](https://ojs.aaai.org/index.php/AAAI/article/view/5785) and [NeurIPS 2019 STAR-Caps paper](https://karim-ahmed.github.io/publications/starcaps.pdf) are distinct algorithms, not extra loop counts for the vector-routing function above. STAR-Caps includes ImageNet experiments, so “capsules have never been tried on ImageNet” is incorrect. Historical results should be read with their architecture, data and training conditions, not used as an undated ranking.
 
+Two short bridges make those alternatives easier to approach. A point estimate can become overconfident about a parent supported by almost no mass; a distribution over its parameters can retain uncertainty and let a prior matter more when evidence is scarce. As a separate Gaussian illustration, a mean with prior \(N(0,1)\), known observation variance 1 and one observed vote 2 has posterior mean 1 and variance .5. Nine identical observed votes 2 move those to 1.8 and .1. This is not the complete variational capsule algorithm; it shows the role that posterior uncertainty adds beyond one fitted mean and spread. Read the variational paper for its actual priors and factorization.
+
+A binary gate has a different problem: its hard forward decision has derivative zero away from its threshold and no ordinary derivative at the jump. A **straight-through estimator** deliberately supplies a surrogate backward derivative so parameters can change. For example, a forward rule \(1[s>0]\) at \(s=1\) returns 1; using a sigmoid derivative in backpropagation supplies about .1966 even though the hard rule's true derivative there is 0. That is a generic illustration, not a claim that STAR-Caps uses precisely this surrogate. When reading its estimator, keep three questions separate: which routes are active, which gradient is used to train them, and whether the runtime actually skips inactive work.
+
 For matrix capsules, **spread loss** is another objective:
 \[
 L=\sum_{i\ne t}\max(0,m-(a_t-a_i))^2.
 \]
 It asks the true activation to exceed each wrong activation by a margin \(m\), often increased during training. Unlike the earlier independent thresholds .9 and .1, it penalizes a relative activation gap.
+
+For \(m=.2\), true/wrong activations (.6,.3) have gap .3 and zero spread penalty, while (.9,.8) have gap .1 and penalty .01. A high true score is therefore insufficient if a competitor is nearly as high. Adding the same .1 to both activations leaves this pairwise penalty unchanged whenever the values remain in range. The earlier separate .9/.1 targets do not have that translation property.
 
 Applications involving geometric structure or overlapping instances can justify capsule experiments. They still need matched baselines, valid splits and a specific failure hypothesis. Neither an attractive reconstruction nor resistance to one attack proves general robustness. A 3D viewpoint change can reveal or hide surfaces; it is not always an invertible 2D image transform.
 

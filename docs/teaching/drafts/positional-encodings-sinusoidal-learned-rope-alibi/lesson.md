@@ -383,7 +383,7 @@ The sinusoidal classifier's predicted class stays 9, but its logits change subst
 
 ### A visual workspace that exposes the mechanism
 
-**Investigation — reattach a trajectory to its slots.** The main view shows the path with direction arrows, frame numbers and a linked time strip. The learner can reverse the path, jointly reorder records or drag a single point. Choosing a point reveals its actual Q/K features, rotated pair where applicable, selected query's attention weights and final 15-class probabilities. An current comparison asks whether the **logits**, not merely the winning class, should remain unchanged. Reveal ting the prediction, then compare the predicted change with the actual result.
+**Investigation — reattach a trajectory to its slots.** The main view shows the path with direction arrows, frame numbers and a linked time strip. Reverse the path, jointly reorder records or edit a single point. Choosing a point reveals its actual Q/K features, rotated pair where applicable, selected query's attention weights and final 15-class probabilities. Every valid edit immediately updates the **logits**, not merely the winning class. Compare the current result with the unchanged source record and use the position assignment to explain the difference.
 
 The coordinate edit is also real computation: reflect frame 23's x coordinate from $x$ to $1-x$. On this example it changes the maximum logit by 2.890378 in the no-position model and 3.264872 in symmetric ALiBi. Reversal invariance does not mean these models ignore the coordinates. In the ALiBi run this edit even changes the winning class 9→4; an artificially edited sample still has no newly established ground-truth label.
 

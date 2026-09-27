@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "versions": {
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu"
+  },
+  "frozenRowModelCases": 1440,
+  "maxSavedLogitError": 0.0,
+  "maxPermutationPaddingError": 6.67572021484375e-06,
+  "checks": [
+    "trailing-segment scratch/SDPA parity",
+    "latent projected output and all gradient parity",
+    "cache masks and short lengths",
+    "all four saved models on all 360 source rows",
+    "paired record and masked padding invariance",
+    "first-point contrast",
+    "RG-LRU reset and upstream gradient isolation"
+  ],
+  "optionalRecurrentGemma": "not executed; explicit optional package boundary retained",
+  "training": "retained original selected fits reused; no new tuning or retraining",
+  "reviewedFiles": {
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/sequence_mechanisms.py": "0d3fa896742624cbb20130c89aba5d135506132e6f529d1626b27a6df63274ef",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/memory_library_bridge.py": "968a272efbe44f41ac9bc3876890e033f17b4a35b07af336bf4fb62b319ed528",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/latent_trajectory_classifier.py": "c810abe34f5060d04f7df2f0b4797200c734e21ef954d494da9a062b86482b5d",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/small-fits.npz": "b8984b1ac51391d982546f39c7d254211dcfbcbcb7de5c7630336ac1e38dac3f"
+  }
+}

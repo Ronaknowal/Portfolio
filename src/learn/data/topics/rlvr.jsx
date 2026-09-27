@@ -997,9 +997,9 @@ trainer.train()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Write a verifier for simple arithmetic</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Write a verifier for simple arithmetic</H3>
 
       <Prose>
         Implement a math verifier that handles all of: integer answers, decimal answers (tolerance 1e-4), fraction answers expressed as "p/q", and answers expressed in scientific notation ("3.14e2"). Test it against a suite of 10 ground truths covering each format. What happens when the model outputs "3/4" but the ground truth is "0.75"? How do you handle this without penalizing correct answers?
@@ -1007,31 +1007,31 @@ trainer.train()`}
 
       <Callout accent="green">
         Hint: normalize all answers to a canonical float before comparison. Use Python's <Code>fractions.Fraction</Code> for exact rational parsing. Scientific notation can be handled by <Code>float()</Code> directly. The tricky case is symbolic answers like "π" or "√2" — for those, reject or use a separate symbolic equality check.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2 — Why binary rewards need group sampling more than scalar rewards</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Why binary rewards need group sampling more than scalar rewards</H3>
 
       <Prose>
         Consider two reward signals: (A) a continuous reward model that outputs scores in [0, 1] with standard deviation ~0.3 across responses to the same prompt; and (B) a binary verifier that outputs exactly 0 or 1. For a policy with 20% pass rate on a given problem, compute the expected gradient variance for a single-sample REINFORCE estimator under each reward type. Now compute the variance reduction factor from using G=8 samples with group normalization. Show that the variance reduction is larger for case (B) than case (A). Why does binary reward make group sampling more essential?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Synthetic amplification vs RLVR-only for bootstrap</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Synthetic amplification vs RLVR-only for bootstrap</H3>
 
       <Prose>
         You have a 7B base model with 5% pass rate on your target math problems. You have a budget of 100 GPU-hours for training. Compare two strategies: (A) pure RLVR for 100 hours; (B) 20 hours of SFT on rollouts from the base model, then 80 hours of RLVR. Describe what you expect to happen in the first 10 steps of each strategy in terms of exploration rate and gradient magnitude. Under what conditions would strategy (A) outperform (B)? (Hint: consider the quality of the SFT data when the base model is very weak.)
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Detect verifier gaming from rollout statistics</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Detect verifier gaming from rollout statistics</H3>
 
       <Prose>
         Design a set of automatic statistics to detect verifier gaming without running a human evaluation. Specifically: (a) a statistic to detect "answer without reasoning" — the model outputs <Code>{String.raw`\boxed{42}`}</Code> but the response length is below 20 tokens; (b) a statistic to detect "test-case hardcoding" in code — the generated function contains hardcoded if-statements matching the test input values; (c) a statistic to detect "format collapse" — nearly all responses follow the exact same template structure. For each, describe how you would compute it from rollout data and the threshold at which you would intervene.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Design a curriculum scheduler</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Design a curriculum scheduler</H3>
 
       <Prose>
         You have a dataset of 10,000 math problems, each with a difficulty score computed as the base model's pass rate (0 to 1). Design a curriculum scheduler that: (a) starts with problems in the difficulty range [0.3, 0.7] (problems where the base model sometimes succeeds); (b) adapts the difficulty window based on the current exploration rate — expand toward harder problems when easy-bucket exploration rate exceeds 90%; (c) never drops a problem entirely — occasionally sample from all difficulty levels to prevent catastrophic forgetting; (d) emits a warning when the hard-bucket exploration rate falls below 20% for more than 5 consecutive steps. Write the scheduler as a Python class with a <Code>sample(batch_size, current_metrics)</Code> method.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

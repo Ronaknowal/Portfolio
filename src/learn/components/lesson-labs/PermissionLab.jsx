@@ -86,8 +86,8 @@ export default function PermissionLab() {
     </div>
     <p className="lesson-note">This is a browser model of an existing regular file and ordinary group permissions. <code>/</code> and <code>/project</code> remain searchable. Name listing means entries alone, not an <code>ls -l</code> metadata listing. No root/capabilities, ACLs, symlinks, special mode bits, security modules or mount restrictions are modeled. The controls do not change your computer's files.</p>
 
-    <details className="permission-lab__advanced">
-      <summary>Deeper: read an ordinary permission mode</summary>
+    <section className="permission-lab__advanced lesson-teaching-section" data-lesson-teaching="">
+      <h4 className="lesson-teaching-section__title">Deeper: read an ordinary permission mode</h4>
       <p>Each object stores three groups of bits: owner, group, other. Select exactly one class for the current user on that object: owner first; otherwise matching group; otherwise other. A denied owner cannot fall back to group or other.</p>
       <p>Within each class, <code>r = 4</code>, <code>w = 2</code>, <code>x = 1</code>. Add the allowed values to get one octal digit: <code>rw− = 4 + 2 = 6</code>. These digits describe permission bits; the meaning of each bit still depends on whether the object is a file or directory.</p>
       <div className="lesson-controls">
@@ -104,6 +104,6 @@ export default function PermissionLab() {
         <LessonTable caption="Operations allowed by these bits" headers={["Operation", "Allowed?", "Interpretation"]} rows={rows.map(([name, allowed, note]) => [name, allowed ? "Yes" : "No", note])} />
       </div>
       <p className="lesson-note">Test the class rule: choose <code>047</code> and compare owner, group and other. The owner has no access bits; the group can read but does not inherit the other class's write or execute bits. Creating/removing directory entries normally needs both write and search; sticky-bit rules can restrict removal further.</p>
-    </details>
+    </section>
   </section>;
 }

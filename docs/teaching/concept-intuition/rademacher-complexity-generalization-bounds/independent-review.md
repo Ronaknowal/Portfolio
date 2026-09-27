@@ -1,0 +1,7 @@
+# Independent concept-level review
+
+Read all eleven sections, all eight practice solutions, retained scratch/library excerpts and experiments, references and new figure/CSS. The lesson progresses from a complete three-input sign game to definitions, loss class, risk theorem, ghost-sample derivation, norm geometry, margins, honest estimation and measured use. New advanced explanations introduce covering distance and correction size before chaining, solve a qualified local-envelope fixed point, show positive ReLU rescaling, and compute KL for equal-mean distributions. These fill actual later transitions, preserving the first-pass route and full technical qualifications.
+
+Independent calculations checked RMS cover radii for all three grids over 1001 t values, the exact four-term decomposition of .68, local envelope balance c²/n and both sides of it, ReLU function equality at negative/zero/positive inputs, and KL ln(3/2) versus ln3. Formula conventions, loss ranges and the distinction between inner-optimization lower evidence and upper certification were read explicitly.
+
+Resolved one confusing existing sentence claiming the theorem constants were 'the same number': the explanation now separately traces coefficient 2 to the ghost-sample split and coefficient 3 to two empirical-complexity deviations plus one sample deviation. No numerical behavior changed. Author verifier refreshed; JSX parses and source identities agree. Historical native fits remain unchanged; browser layout/controls are separately checked by integration.

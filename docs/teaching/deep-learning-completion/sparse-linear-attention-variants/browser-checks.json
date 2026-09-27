@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "topicId": "sparse-linear-attention-variants",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T19:39:48.836Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T19-31-54-781Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/sparse-linear-attention-variants.jsx": "6ee35425e163b70b3c775f5524ad1b8b8227211731281dde05064f8fe1416abf",
+    "src/learn/data/sparse-attention-models.js": "2d6b885e95e0a3be5a7725f69be97ced90be0ede208a6920ceee8081f8c94b8c",
+    "src/learn/data/sparse-attention-examples.json": "f0129f7c80933e293f10791b5038450c5ba5fe3f8ab62cbe1f9d519d4e4c284c",
+    "src/learn/components/lesson-labs/SparseAttentionFigures.jsx": "e4b587e6d9815d07765bfbe5cc7077ba38b2d3246601c52b40cabaee9e96ccf1",
+    "src/learn/components/lesson-labs/SparseAttentionLabs.jsx": "af8ac6024fc9110ac289608f14f80a147d509e1258c9e698308fc06b1a835e04",
+    "src/learn/components/lesson-labs/sparse-attention.css": "d28b962ffc83fe3dd16e537a4b8e9cd2ab5b34549c2e8dbe6d41125c70fdc1c4",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-assets/sparse-linear-attention-variants/dense-forecast.json": "e1d6766fdf9a863f89e122b6504d7eed41a6481e5966431cc1ae0403236e51b5",
+    "public/learn-assets/sparse-linear-attention-variants/window-forecast.json": "d18239e03f9ac380607e18d1128968dca6c0440a2456189293c6b79805051baf",
+    "public/learn-assets/sparse-linear-attention-variants/kernel-forecast.json": "c99032fe57e6c775f07c082b7c30d40f7743bc506a716c3c335e0de41dbdf9f8",
+    "public/learn-code/sparse-linear-attention-variants/attention_compression_bridges.py": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699",
+    "public/learn-code/sparse-linear-attention-variants/author-calculations.py": "4ef246b18bda80a485ba15fd1b9f1a578887ea71e78b0351f84f820ff2425489",
+    "public/learn-code/sparse-linear-attention-variants/author-checks.py": "1ab2ac8c106ff0ee18ccb728dc60defcf6abe1fb9016bbe9120f0c9d3a24bc14",
+    "public/learn-code/sparse-linear-attention-variants/author-results.json": "c61e87d8042ecf0c5178dfc9511f08b665d2b86f49c2f5398fcab35b3b08e7ef",
+    "public/learn-code/sparse-linear-attention-variants/forecast-models.json": "88df8b8a043421f2fad9464d7f88b3fd09903962ab5fada111b53572897e0e46",
+    "public/learn-code/sparse-linear-attention-variants/fresh-controls.json": "3d0b388c7afdc4b057ebd968b937844c70fd6ba2e3de28e1d8e4eb8c9b5bfb42",
+    "public/learn-code/sparse-linear-attention-variants/mechanism-calculations.py": "c051e46623dff472db194066ee87b08b8c54516ebcfb6570318274ed4d771d7a",
+    "public/learn-code/sparse-linear-attention-variants/mechanism-results.json": "28ad1267aa3382e30984d55421db7a450bc273e72930d3051b17d3f90a3b19b7",
+    "public/learn-code/sparse-linear-attention-variants/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/sparse-linear-attention-variants/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-code/sparse-linear-attention-variants/provenance.md": "450269fa8cf65fefc42f0f95d115592ec3e630d935599334a19acffe79bfc42d",
+    "public/learn-code/sparse-linear-attention-variants/random-feature-results.json": "f12d8c5859d042d9290f5471c9765fe0db8c2fb20b570a9d15d0240b360a5448",
+    "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/browser-review.md": "a8cc607ad7ae5d2468c298b061a2caaf1f9e51f58310dda1c64e902c9991bcde"
+  },
+  "checks": [
+    "Six live mechanisms with actual change, invariance, undefined, keyboard and reset observations",
+    "All three retained models: older-frame window null and inside-window sensitivity, actual state and forecast zoom",
+    "Desktop and 320px screenshots; no page overflow, accessible local scroll, code and solution disclosures",
+    "No observed console or KaTeX error"
+  ],
+  "findings": [],
+  "limitations": "Representative UI coverage; no GPU benchmark. See narrative and independent numerical review."
+}

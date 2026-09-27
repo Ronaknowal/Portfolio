@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { useId, useState } from "react";
 import { referenceTrace, selectionTrace, functionTrace, loopReadings } from "../../data/python-foundations-model";
 import "./python-foundations.css";
@@ -83,7 +84,7 @@ export function PythonCallLab() {
       <div className="pyf-call-arrow"><span>{state.stage === "call" || state.stage === "calculate" || state.stage === "print" ? "argument →" : step >= 3 ? "← call result" : "call →"}</span><strong>{step >= 3 && state.stage !== "print" ? py(state.returned) : `${celsius} °C`}</strong></div>
       <div className={`pyf-frame ${state.frame ? "is-active" : ""}`}><small>LOCAL CALL FRAME · convert</small>{state.frame ? <><p><code>celsius = {celsius}</code></p><p><code>fahrenheit = {state.fahrenheit === undefined ? "not assigned" : `${state.fahrenheit} °F`}</code></p></> : <p>{step === 0 ? "Created when called" : "Invocation ended; local names no longer available to this caller"}</p>}</div>
     </div>
-    <div className="pyf-output"><span>CONSOLE · TEXT OUTPUT ONLY</span><pre>{state.output.length ? state.output.map(v => v === null ? "None" : `${v}.0`).join("\n") : "(nothing printed yet)"}</pre></div>
+    <div className="pyf-output"><span>CONSOLE · TEXT OUTPUT ONLY</span><CodeBlock language="text" kind="output" filename="python-generator-output.txt">{state.output.length ? state.output.map(v => v === null ? "None" : `${v}.0`).join("\n") : "(nothing printed yet)"}</CodeBlock></div>
     <Steps step={step} setStep={setStep} length={states.length} />
     <p className="pyf-feedback" role="status">{state.explanation}</p>
     <p className="pyf-transfer"><strong>Transfer:</strong> choose 100 °C. After the call, could the caller calculate <code>result + 1</code>? Compare the return value and console for both modes.</p>

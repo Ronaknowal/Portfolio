@@ -1,0 +1,25 @@
+.neuron-intuition { margin: 2rem 0; padding: 1.25rem 0; border-block: 1px solid #35322c; color: #ddd9d0; container-type: inline-size; }
+.neuron-intuition figcaption { color: #e8c36f; font-weight: 650; font-size: 1rem; line-height: 1.5; margin-bottom: 1rem; }
+.neuron-intuition h4 { font: inherit; font-weight: 600; margin: .7rem 0; }
+.neuron-intuition p { line-height: 1.75; overflow-wrap: anywhere; }
+.neuron-update-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(11rem, 1fr); gap: 1rem; align-items: center; padding: .7rem 0; }
+.neuron-update-row > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.neuron-update-row span, .neuron-matrix > span { background: #141414; border: 1px solid #39352d; padding: .65rem .35rem; text-align: center; color: #eee4ca; font-variant-numeric: tabular-nums; }
+.neuron-intuition small { display: block; color: #aaa79f; font-size: .8rem; }
+.neuron-calculation { border-top: 1px solid #35322c; padding-top: 1rem; }
+.neuron-matrix-layout, .neuron-matrix-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-block: 1rem; }
+.neuron-matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-inline: 2px solid #a99976; padding-inline: .25rem; gap: .2rem; }
+.neuron-share-example { margin: 1rem 0 1.5rem; }
+.neuron-share-strip { display: flex; height: 1.5rem; border: 1px solid #8b7953; }
+.neuron-share-strip > span { flex-basis: 0; min-width: 0; background: #e8c36f; }
+.neuron-share-strip > span:nth-child(1) { background: #786c50; }
+.neuron-share-strip > span:nth-child(2) { background: #ac9766; }
+.neuron-share-labels { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; font-size: .875rem; margin-top: .5rem; }
+.neuron-gate-row { display: grid; grid-template-columns: 3.5rem minmax(3rem, 1fr) minmax(10rem, 1.4fr); gap: .75rem; align-items: center; margin: .7rem 0; font-size: .9rem; }
+.neuron-gate-track { background: #292929; height: .7rem; }
+.neuron-gate-track > span { display: block; height: 100%; background: #e8c36f; }
+@container (max-width: 470px) {
+  .neuron-update-row, .neuron-matrix-layout, .neuron-matrix-results { grid-template-columns: 1fr; gap: .5rem; }
+  .neuron-gate-row { grid-template-columns: 3.5rem minmax(0, 1fr); }
+  .neuron-gate-row > span:last-child { grid-column: 2; }
+}

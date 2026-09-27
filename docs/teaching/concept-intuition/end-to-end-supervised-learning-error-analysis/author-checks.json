@@ -1,0 +1,37 @@
+{
+  "topicId": "end-to-end-supervised-learning-error-analysis",
+  "date": "2026-09-26T15:50:35.623Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+    "src/learn/components/lesson-labs/EndToEndIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/endtoend-intuition.css",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "afcd606885eb0956c94427dd6bb477968cb9e62515a89d9f862485eee21d42a3",
+    "src/learn/components/lesson-labs/EndToEndIntuitionFigures.jsx": "6e5eb9d54e7fa155257972d2bd06df8bd726ef937ad35efc03c77e5b76610b6b",
+    "src/learn/components/lesson-labs/endtoend-intuition.css": "1a3cffcb0b49bfcaa42aff9235e35ac42c41800fbf0a7d800548dfc721d7a132",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "862111f0af25531b242ae6e684ad81eff6cbcc388be6fdf3eb9451a217116cd7"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Unit/schema mismatch through a frozen scaler",
+    "Perfect-sample Wilson endpoint satisfies score inversion",
+    "Paired row resampling preserves repair differences",
+    "Exact four-outcome selection optimism",
+    "Expected deferral-cost boundary",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/endtoend-models.js",
+    "src/learn/data/endtoend-examples.js",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

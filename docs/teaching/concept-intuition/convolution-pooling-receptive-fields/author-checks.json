@@ -1,0 +1,39 @@
+{
+  "topicId": "convolution-pooling-receptive-fields",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+    "src/learn/components/lesson-labs/ConvolutionOperatorIntuition.jsx",
+    "src/learn/components/lesson-labs/convolution-operator-intuition.css",
+    "docs/teaching/drafts/convolution-pooling-receptive-fields/lesson.md",
+    "scripts/generate-convolution-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/convolution-pooling-receptive-fields.jsx": "d7cad201cd33f4c13a6d98bfb25910712d86c2e7b8c29b24b01fcd6775d90367",
+    "src/learn/components/lesson-labs/ConvolutionOperatorIntuition.jsx": "415207682f0f26a7552b640dc67139c7b84f8747410aad997d1c65b7262bbe9b",
+    "src/learn/components/lesson-labs/convolution-operator-intuition.css": "c33170e735986aa23b07c1696ba6bf20f7b4f24cbdc30b4998dfb8757b200854",
+    "docs/teaching/drafts/convolution-pooling-receptive-fields/lesson.md": "96767131c2a81193e4b750e0fe103ab9b98afbdeaa3d6d5aec16873bd946770f",
+    "scripts/generate-convolution-lesson.mjs": "38d3440eed3dda6d0e8aa203ba09de3ab55d65a436c26895e62debaf6f43dad2"
+  },
+  "scope": "Full thirteen-section reading; adaptive bin geometry lab, frozen-BN folding figure, receptive-field recurrence and transpose-size bridges. Complete existing scratch/library code and measured fits retained.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "All 28 adaptive bins across seven settings have correct native-formula boundaries; default means match",
+      "passed": true
+    },
+    {
+      "name": "BN folding checked for positive, zero and negative gamma and three patches; transpose ambiguity checked",
+      "passed": true
+    },
+    {
+      "name": "Canonical generator reproduces topic byte for byte",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

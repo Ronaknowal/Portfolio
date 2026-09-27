@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { useState } from "react";
 import { LessonTable } from "./LessonElements";
 import { gitTrace } from "../../data/system-lesson-models";
@@ -16,9 +17,9 @@ export default function GitIndexLab() {
     </div>
     <div className="lesson-results" aria-live="polite" aria-atomic="true">
       <p>Step {index + 1} of {gitTrace.length}</p>
-      <pre className="python-trace__code">{step.command}</pre>
+      <CodeBlock language="bash" filename="git-index-step.sh">{step.command}</CodeBlock>
       <LessonTable caption="report.txt after this step" headers={["Location", "Stored content"]} rows={["HEAD commit", "Index (staging)", "Working file"].map((label, i) => [label, "version " + step.versions[i]])} />
-      <p>Status (two columns before the path):</p><pre className="python-trace__code">{step.status}</pre>
+      <p>Status (two columns before the path):</p><CodeBlock language="text" kind="output" filename="git-status.txt">{step.status}</CodeBlock>
       <p>{step.note}</p>
     </div>
   </section>;

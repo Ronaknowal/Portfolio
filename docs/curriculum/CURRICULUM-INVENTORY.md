@@ -2,9 +2,9 @@
 
 Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.
 
-**1461 unique topics · 29 modules · 231 registered published lessons · 636 topic-specific briefs · 10 guided paths.**
+**1461 unique topics · 29 modules · 234 registered published lessons · 639 topic-specific briefs · 10 guided paths.**
 
-**825 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 742 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
+**822 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 745 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
 See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
@@ -14,7 +14,7 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | --- | ---: | ---: | ---: | ---: |
 | Mathematical & Statistical Foundations | 57 | 57 | 57 | 57 |
 | Classical Machine Learning | 39 | 39 | 39 | 39 |
-| Deep Learning Fundamentals & Architectures | 42 | 39 | 17 | 20 |
+| Deep Learning Fundamentals & Architectures | 42 | 42 | 20 | 23 |
 | Large Language Models — Architecture, Training & Inference | 62 | 57 | 5 | 7 |
 | Reinforcement Learning | 33 | 0 | 2 | 3 |
 | Generative Models | 24 | 0 | 2 | 4 |
@@ -46,7 +46,7 @@ Counts within modules may include shared topics. The headline counts each stable
 
 ## Delivery phases
 
-**177 current content checkpoints complete · 150 current implementations complete.**
+**81 current content checkpoints complete · 81 current implementations complete.**
 
 [The delivery ledger](../teaching/lesson-delivery-progress.json) preserves historical completion and tracks the current revision's content and implementation separately. Source changes can make a recorded completion stale; these counts do not silently approve changed versions. Publication and user acceptance remain separate. Use the topic CLI's delivery field before continuing a phase.
 
@@ -203,9 +203,9 @@ Counts within modules may include shared topics. The headline counts each stable
 | Capsule Networks | advanced | published | brief |
 | RNNs, LSTMs & GRUs | foundation | published | brief |
 | Sequence-to-Sequence & Encoder-Decoder | intermediate | published | brief |
-| Attention Mechanism (Bahdanau, Luong) | intermediate | published | design needed |
-| Long-Context Sequence Models (Transformer-XL, Griffin, Perceiver) | advanced | planned | design needed |
-| State Space Models (S4, Mamba, Mamba-2) | advanced | published | design needed |
+| Attention Mechanism (Bahdanau, Luong) | intermediate | published | brief |
+| Long-Context Sequence Models (Transformer-XL, Griffin, Perceiver) | advanced | published | brief |
+| State Space Models (S4, Mamba, Mamba-2) | advanced | published | brief |
 | RWKV & Linear Attention Models | frontier | published | design needed |
 | Self-Attention & Multi-Head Attention | foundation | published | design needed |
 | Transformer Block Architecture | foundation | published | design needed |
@@ -228,8 +228,8 @@ Counts within modules may include shared topics. The headline counts each stable
 | Neural ODE & Continuous-Depth Models | advanced | published | design needed |
 | Hybrid SSM-Transformer Architectures (Jamba) | frontier | published | design needed |
 | Titans (Multi-Memory Architecture) | frontier | published | design needed |
-| Mini-Batches, Training Loops & Gradient Accumulation | foundation | planned | brief |
-| Neural Training Diagnostics & Reproducible Experiments | intermediate | planned | brief |
+| Mini-Batches, Training Loops & Gradient Accumulation | foundation | published | brief |
+| Neural Training Diagnostics & Reproducible Experiments | intermediate | published | brief |
 
 ### Large Language Models — Architecture, Training & Inference
 

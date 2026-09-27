@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T21:12:38.583Z",
+  "topicId": "neural-ode-continuous-depth-models",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T21-08-02-718Z.json",
+  "buildReceiptHash": "4abb1146ab65bf2b7afa38ed2c9f9fcb2d451ec9a61fe7f719f1ac132fc3ccf9",
+  "publicationMapping": "./topics/neural-ode-continuous-depth-models.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

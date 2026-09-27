@@ -53,7 +53,7 @@ function EdgeTable({
   directed = true,
   weighted = true
 }) {
-  return <details><summary>Read the exact edge list</summary><div className="weighted-graph-scroll"><table><thead><tr><th>Edge ID</th><th>Connection</th>{weighted && <th>Weight</th>}</tr></thead><tbody>{edges.map(edge => <tr key={edge.id}><td>{edge.id}</td><td>{label(edge.u)} {directed ? '→' : '—'} {label(edge.v)}</td>{weighted && <td>{edge.weight}</td>}</tr>)}</tbody></table>{!edges.length && <p>No edges. All six vertices still exist.</p>}</div></details>;
+  return <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read the exact edge list</h4><div className="weighted-graph-scroll"><table><thead><tr><th>Edge ID</th><th>Connection</th>{weighted && <th>Weight</th>}</tr></thead><tbody>{edges.map(edge => <tr key={edge.id}><td>{edge.id}</td><td>{label(edge.u)} {directed ? '→' : '—'} {label(edge.v)}</td>{weighted && <td>{edge.weight}</td>}</tr>)}</tbody></table>{!edges.length && <p>No edges. All six vertices still exist.</p>}</div></section>;
 }
 function Steps({
   step,
@@ -170,10 +170,10 @@ export function BellmanFordPassLab() {
     <div className="weighted-graph-split"><GraphDrawing edges={editor.edges} vertexStates={state.distances.map(value => value === -Infinity ? 'unbounded' : value === Infinity ? 'unreached' : state.pass === 6 ? 'finite' : 'candidate')} title="Directed graph with candidate, unreached and final negative-cycle classifications" />
       <div><h4>Distance generations</h4><div className="weighted-graph-scroll weighted-graph-generations" tabIndex="0" aria-label="Distance generations, scroll horizontally if needed"><table><thead><tr><th>Budget</th>{GRAPH_LABELS.map(name => <th key={name}>{name}</th>)}</tr></thead><tbody>{trace.slice(0, step + 1).map(row => <tr key={row.pass} className={row.pass === state.pass ? 'is-current-row' : ''}><th>{row.pass === 6 ? 'detect' : `≤${row.pass}`}</th>{row.distances.map((value, vertex) => <td key={vertex}>{cost(value)}</td>)}</tr>)}</tbody></table></div>
         <p className="weighted-graph-small">≤k means at most k edges. Before detection, a number is a budgeted candidate and ∞ means no route within that budget. The detection row classifies unrestricted walks: ∞ is unreachable; −∞ means arbitrarily low costs, not an attained path length.</p>
-        {state.previous && <details><summary>Inspect this pass's edge candidates</summary><table><thead><tr><th>Edge</th><th>Previous + weight</th><th>Candidate</th></tr></thead><tbody>{state.candidates.map(candidate => {
+        {state.previous && <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect this pass's edge candidates</h4><table><thead><tr><th>Edge</th><th>Previous + weight</th><th>Candidate</th></tr></thead><tbody>{state.candidates.map(candidate => {
                 const edge = editor.edges[candidate.edgeId];
                 return <tr key={edge.id}><td>{label(edge.u)}→{label(edge.v)}</td><td>{cost(candidate.fromCost)} + ({edge.weight})</td><td>{cost(candidate.cost)}</td></tr>;
-              })}</tbody></table><p>Each destination keeps the minimum of its carried value and every incoming candidate. Candidates do not read newly written cells.</p></details>}
+              })}</tbody></table><p>Each destination keeps the minimum of its carried value and every incoming candidate. Candidates do not read newly written cells.</p></section>}
       </div></div>
     <p className="weighted-graph-small">Dashed rings mark unbounded-below destinations after detection. Read all vertex values in the generation table; diagram coordinates never determine costs.</p>
     <p className="weighted-graph-event" role="status">{state.message}</p><Steps step={step} length={trace.length} onChange={setStep} />
@@ -246,7 +246,7 @@ export function TopologicalDependencyLab() {
       editor.reset();
       setOrder([]);
     }} />
-    <details><summary>Why does the blocked example matter?</summary><p>With E→C added, C→E→C is a cycle and F is blocked downstream. F need not lie on any cycle. The native DFS program returns actual active-stack vertices, rather than labelling the entire Kahn residual a cycle.</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Why does the blocked example matter?</h4><p>With E→C added, C→E→C is a cycle and F is blocked downstream. F need not lie on any cycle. The native DFS program returns actual active-stack vertices, rather than labelling the entire Kahn residual a cycle.</p></section>
   </section>;
 }
 export function RouteVersusNetworkFigure() {

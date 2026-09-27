@@ -3,6 +3,7 @@ import { Math, MathBlock } from '../../components/content/Math.jsx';
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { WeightedEvidenceFigure, GeometryLab, XorWorkedFigure, XorLab, ActivationLab } from '../../components/lesson-labs/PerceptronLabs.jsx';
+import { MistakeCorrectionFigure, BatchNeuronCorrespondence, SoftmaxCompetitionFigure, SmoothGateDecomposition } from '../../components/lesson-labs/PerceptronIntuitionFigures.jsx';
 import { DigitFigure, DigitComparisonFigure, SwiGluFigure, TriangleFigure } from '../../components/lesson-labs/PerceptronFigures.jsx';
 import { perceptronExamples } from '../perceptron-examples.js';
 import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
@@ -13,10 +14,11 @@ const lesson = {
   hasIntegratedGuide: true,
   content: () => <div className="perceptron-lesson">
  <LessonIntro prerequisites={<>Read weighted sums and matrix shapes; review <a href="/learn/math-foundations/vectors-matrices-tensor-operations">vectors and matrices</a> and <a href="/learn/math-foundations/algebra-functions-exponentials-logarithms">functions and exponentials</a>. Derivatives are introduced locally as slopes.</>} sections={[['1-a-neuron-is-a-weighted-question', 'Trace a neuron'], ['2-a-perceptron-learns-a-boundary-from-mistakes', 'Learn from mistakes'], ['3-hidden-neurons-change-what-the-model-can-express', 'Construct XOR'], ['4-activation-functions-shape-values-and-sensitivities', 'Inspect local sensitivity'], ['5-train-a-small-network-on-real-handwriting', 'Compare real digit fits'], ['7-deeper-branches-smooth-gates-expressive-capacity-and-cost', 'Deeper branches'], ['8-practice-explain-compute-diagnose', 'Independent practice']]}>Trace a pixel pattern into a score, build hidden features that solve XOR, and compare activation choices in one controlled real-data experiment.</LessonIntro>
-<Prose><strong>{"Explore as you read."}</strong>{" Edit input coordinates, weights, bias and common scale; move the activation operating point and incoming weight; edit XOR hidden bias and output coefficient. Synchronize contribution bars, boundary distance, hard/smooth outputs, activation value/slope and all four XOR rows. Compare a shared coefficient rescaling with a moved input, and a repaired corner with the remaining corners. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose whether the decision boundary, smooth confidence or local sensitivity needs to change; a one-row repair need not solve the whole task."}</Prose>
+
 <Prose>{"A handwriting recognizer receives numbers, not the idea of a “7.” It must turn a pattern of pixel intensities into evidence for different digits. A neural network does this with many small calculations: combine some inputs, transform the result, and pass it to other calculations. Training adjusts those combinations."}</Prose>
 <Prose>{"One such calculation is an "}<strong>{"artificial neuron"}</strong>{". The biological name is an analogy; the object we will build is an ordinary mathematical function. Understanding it lets you read a network diagram, construct a model that a single straight boundary cannot express, and judge what changing an activation actually changes."}</Prose>
-<Prose><strong>{"First pass:"}</strong>{" follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand and train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes."}</Prose>
+<Prose opening="route"><strong>{"First pass:"}</strong>{" follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand and train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes."}</Prose>
+<Prose>At each step, use the local diagram or investigation to connect a change to its cause: a weight changes a contribution, a hidden feature changes what can be expressed, and an activation changes both an output and its sensitivity. The full programs and changed practice let you test these connections beyond the illustrated case.</Prose>
 <H2>{"1. A neuron is a weighted question"}</H2>
 <Prose>{"Suppose two measured inputs are "}<Math>{"x_1=2"}</Math>{" and "}<Math>{"x_2=-1"}</Math>{". A neuron gives the first input weight 1.5, the second weight −2, and adds an offset −1:"}</Prose>
 <MathBlock>{"z=w_1 x_1+w_2 x_2+b=(1.5)(2)+(-2)(-1)-1=4."}</MathBlock>
@@ -37,6 +39,8 @@ const lesson = {
 <Prose>{"Use labels "}<Math>{"y\\in\\{-1,+1\\}"}</Math>{". A positive label should have a positive score and a negative label a negative score. The product "}<Math>{"yz"}</Math>{" is positive when their signs agree. We update when "}<Math>{"yz\\le 0"}</Math>{", including a point exactly on the boundary:"}</Prose>
 <MathBlock>{"w\\leftarrow w+\\eta yx,\\qquad b\\leftarrow b+\\eta y."}</MathBlock>
 <Prose>{"The positive number "}<Math>{"\\eta"}</Math>{" is the step size. Why this direction? On that same example, its signed score increases by "}<Math>{"\\eta(\\|x\\|^2+1)"}</Math>{" because the bias also moves. Other examples can improve or worsen; the rule is not a promise that every update improves the whole dataset. "}<a href="https://www.cs.cornell.edu/courses/cs4780/2022sp/notes/LectureNotes06.html">{"Cornell's perceptron notes"}</a>{" derive this rule and its separable-data guarantee."}</Prose>
+<MistakeCorrectionFigure />
+<Prose>The added constant input 1 is bookkeeping with a useful meaning: its weight is the bias, so it contributes an offset even when every measured input is zero. Keeping it in the same vector lets one dot product and one update handle both the slopes and the offset.</Prose>
 <Prose>{"Consider AND: an alarm should trigger only if "}<strong>{"both"}</strong>{" binary indicators are 1. Four rows suffice to define the complete constructed task."}</Prose>
 <div className="perceptron-table" role="region" tabIndex={0} aria-label="Comparison: Inputs"><table><thead><tr><th scope="col">{"Inputs"}</th><th scope="col">{"AND label"}</th><th scope="col">{"XOR label"}</th></tr></thead><tbody><tr><th scope="row">{"(0, 0)"}</th><td>{"−1"}</td><td>{"−1"}</td></tr><tr><th scope="row">{"(0, 1)"}</th><td>{"−1"}</td><td>{"+1"}</td></tr><tr><th scope="row">{"(1, 0)"}</th><td>{"−1"}</td><td>{"+1"}</td></tr><tr><th scope="row">{"(1, 1)"}</th><td>{"+1"}</td><td>{"−1"}</td></tr></tbody></table></div>
 <Prose>{"Here XOR means exactly one indicator is 1. The distinction will expose a representational limit."}</Prose>
@@ -50,7 +54,9 @@ const lesson = {
 <MathBlock>{"w_1+b>0,\\qquad w_2+b>0."}</MathBlock>
 <Prose>{"Adding gives "}<Math>{"w_1+w_2+2 b>0"}</Math>{". But the two negative examples require "}<Math>{"b\\le 0"}</Math>{" and "}<Math>{"w_1+w_2+b\\le 0"}</Math>{", which imply "}<Math>{"w_1+w_2+2 b\\le b\\le 0"}</Math>{". The demands contradict one another."}</Prose>
 <Prose>{"The perceptron convergence theorem applies when a strict separating boundary exists and inputs are bounded. It does not promise convergence for XOR, noisy labels, or contradictory duplicate examples. It also does not say the final separator has maximum margin."}</Prose>
+<Prose><strong>Why a finite update bound is plausible.</strong> Imagine a direction that would classify every training row correctly. Each mistaken-row update makes some minimum progress toward that direction. At the same time, the vector’s overall length cannot grow fast enough to permit that progress forever. The proof compares these two growth rates; it does not need the algorithm to know the successful direction.</Prose>
 <Prose><strong>{"Deeper proof checkpoint."}</strong>{" Absorb the bias into augmented inputs, suppose their lengths are at most "}<Math>{"R"}</Math>{", and suppose a unit vector "}<Math>{"u"}</Math>{" separates them with "}<Math>{"y_i u^\\top x_i\\ge\\gamma>0"}</Math>{". With step size 1 and zero initialization, after "}<Math>{"M"}</Math>{" updates, "}<Math>{"w^\\top u\\ge M\\gamma"}</Math>{", whereas "}<Math>{"\\|w\\|^2\\le MR^2"}</Math>{". The latter follows because the cross term at an update is nonpositive. Cauchy–Schwarz gives "}<Math>{"M\\gamma\\le\\sqrt M R"}</Math>{", hence "}<Math>{"M\\le(R/\\gamma)^2"}</Math>{". This counts updates under these assumptions, not fixed passes for every implementation."}</Prose>
+<Prose>In that proof, the projection toward the successful unit direction grows at least like M, while the vector length grows at most like √M. A projection cannot exceed the vector’s length. Eventually those demands conflict, so updates must stop. A small margin γ permits a much larger bound: examples nearly touching a separating boundary are harder to distinguish by these corrections.</Prose>
 <H2>{"3. Hidden neurons change what the model can express"}</H2>
 <Prose>{"A "}<strong>{"hidden layer"}</strong>{" constructs intermediate features. “Hidden” means it is neither the input nor the final output; it does not mean its values are inaccessible."}</Prose>
 <Prose>{"Let "}<Math>{"s=x_1+x_2"}</Math>{", and construct two ReLU features:"}</Prose>
@@ -68,6 +74,8 @@ const lesson = {
 <Prose>{"For code, we use "}<strong>{"rows as examples"}</strong>{". A batch "}<Math>{"X"}</Math>{" with shape "}<Math>{"(N,d)"}</Math>{", a layer weight matrix "}<Math>{"W"}</Math>{" with shape "}<Math>{"(m,d)"}</Math>{", and a bias vector with shape "}<Math>{"(m,)"}</Math>{" produce"}</Prose>
 <MathBlock>{"Z=XW^\\top+b,\\qquad A=\\phi(Z),"}</MathBlock>
 <Prose>{"with shape "}<Math>{"(N,m)"}</Math>{". The same bias vector is added to every row. The activation usually acts separately on each entry. "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html">{"PyTorch Linear"}</a>{" uses this weight orientation. A batch of 5 images with 64 inputs through 32 hidden neurons becomes a 5×32 activation matrix. An arrow in a network diagram represents a weight; a row in a batch is not an extra neuron."}</Prose>
+<BatchNeuronCorrespondence />
+<Prose>Read a batch result in two directions: a row answers all neuron questions for one example; a column answers one neuron question for every example. This is why adding examples changes the output’s row count without adding learned parameters. Practice 4 asks you to carry that distinction into a larger shape.</Prose>
 <H2>{"4. Activation functions shape values and sensitivities"}</H2>
 <Prose>{"An activation controls both the forward signal and how sensitive the output is to small changes. The derivative "}<Math>{"\\phi'(z)"}</Math>{" is the local slope: near the current score, a small change "}<Math>{"\\Delta z"}</Math>{" produces approximately "}<Math>{"\\phi'(z)\\Delta z"}</Math>{". Backpropagation, the next topic, will combine these local sensitivities throughout a graph."}</Prose>
 <Prose>{"Three useful starting shapes are:"}</Prose>
@@ -97,6 +105,8 @@ const lesson = {
 <Prose>{"A multiclass model often ends with one "}<strong>{"logit"}</strong>{", or unrestricted score, for each class. Softmax turns the vector into nonnegative values summing to 1:"}</Prose>
 <MathBlock>{"p_k=\\frac{e^{z_k-c}}{\\sum_j e^{z_j-c}},\\qquad c=\\max_j z_j."}</MathBlock>
 <Prose>{"Subtracting the same constant preserves the result and avoids positive exponential overflow for finite logits. Very negative differences can still underflow numerically. Softmax combines coordinates; it is not a pointwise hidden activation. For logits (1, 2, 3), the probabilities are approximately (0.0900, 0.2447, 0.6652). Adding 1000 to every logit preserves them when the stable formula is used."}</Prose>
+<SoftmaxCompetitionFigure />
+<Prose>Subtracting the maximum is a numerical rescaling, not a new probability model. It divides every exponential by the same positive factor, which cancels between numerator and denominator. By contrast, changing only one score changes its share of the common total. That coupling is the reason to use softmax for competing classes rather than treating them as independent yes/no outputs.</Prose>
 <Prose>{"A binary probability output often uses sigmoid. Independent labels can use separate sigmoids; mutually exclusive multiclass labels commonly use softmax. A real-valued regression target may need an unrestricted output. Choose the output from the target and loss, not because a hidden activation was fashionable. Our classifier below passes raw logits to cross-entropy; that library loss already performs the stable log-probability calculation."}</Prose>
 <H2>{"5. Train a small network on real handwriting"}</H2>
 <Prose>{"The previous Classical ML capstone separated fitting, model choice and final reporting. Keep that discipline here. A neural model is another candidate function class; moving to this module does not imply that it will beat a good classical model on every dataset."}</Prose>
@@ -104,6 +114,7 @@ const lesson = {
 <DigitFigure />
 <Prose>{"The question is narrow: "}<strong>{"under the same small training protocol, how much does hidden activation choice change training loss and validation mistakes?"}</strong>{" We predeclare six activations and three initialization seeds. For each seed, resetting before model construction gives each activation the same initial affine parameters. We keep the data split, width, optimizer and number of updates fixed. That controls several confounders; it does not tune each activation to its own best configuration."}</Prose>
 <Prose>{"The loss used here is mean cross-entropy: for each image, take the negative natural logarithm of the probability assigned to its actual digit, then average over images. A correct-label probability of 0.5 contributes about 0.693; a probability of 0.9 contributes about 0.105. The loss rewards confident correct predictions and penalizes confident wrong ones. The library computes these probabilities stably from logits inside the loss."}</Prose>
+<Prose>Why also inspect loss when we already count correct digits? If the true class wins with probability 0.51 or 0.99, both cases count as correct, but they contribute about 0.673 and 0.010 to cross-entropy. The loss sees that difference in assigned probability; a correct-count metric discards it. The experiment below measures both because they answer different questions.</Prose>
 <Prose>{"Training repeats five operations:"}</Prose>
 <ol><li>{"Compute logits for the training images."}</li><li>{"Compare logits with the correct labels using a loss."}</li><li>{"Differentiate that scalar loss with respect to weights and biases."}</li><li>{"Update those parameters using the optimizer."}</li><li>{"Clear old gradients before the next calculation."}</li></ol>
 <Prose>{"A "}<strong>{"gradient"}</strong>{" lists how the loss changes with each parameter. Adam is the optimizer used here; you do not need its internal moment equations to follow the forward model. The next lesson opens the differentiation step, and the Loss Functions lesson explains the objective in detail."}</Prose>
@@ -129,6 +140,8 @@ const lesson = {
 <Prose>{"Leaky ReLU keeps slope "}<Math>{"\\alpha>0"}</Math>{" below zero:"}</Prose>
 <MathBlock>{"\\phi(z)=\\begin{cases}z,&z\\ge 0\\\\ \\alpha z,&z<0.\\end{cases}"}</MathBlock>
 <Prose>{"At "}<Math>{"\\alpha=0.1"}</Math>{" and "}<Math>{"z=-2"}</Math>{", output is −0.2 and slope 0.1. ELU instead uses "}<Math>{"\\alpha(e^z-1)"}</Math>{" on its negative branch and "}<Math>{"z"}</Math>{" on its positive branch; for "}<Math>{"\\alpha=1"}</Math>{", it approaches −1 in the negative tail. Saturating negative values and a constant negative slope are different choices."}</Prose>
+<Prose>ReLU’s zero-or-one multiplier makes an abrupt decision at zero. A smooth alternative can preserve a fraction that changes continuously with the score. First separate the <em>fraction retained</em> from the <em>signed value being multiplied</em>; then the formulas below describe how to choose the fraction.</Prose>
+<SmoothGateDecomposition />
 <Prose>{"GELU weights its input by a normal cumulative probability:"}</Prose>
 <MathBlock>{"\\operatorname{GELU}(z)=z\\Phi(z),\n\\qquad\n\\operatorname{GELU}'(z)=\\Phi(z)+z\\varphi(z),"}</MathBlock>
 <Prose>{"where "}<Math>{"\\Phi"}</Math>{" is the standard-normal CDF and "}<Math>{"\\varphi"}</Math>{" its density. The CDF is a mathematical weighting rule; actual preactivations need not be normally distributed for the function to be defined. The original motivation relates "}<Math>{"z\\Phi(z)"}</Math>{" to the expected value of an input-dependent binary mask. The usual implemented GELU is deterministic, not random dropout. "}<a href="https://arxiv.org/html/1606.08415v5">{"GELU formulation, §2"}</a>{"."}</Prose>
@@ -136,7 +149,9 @@ const lesson = {
 <MathBlock>{"\\frac z 2\\left[1+\\tanh\\left(\\sqrt{2/\\pi}(z+0.044715 z^3)\\right)\\right]."}</MathBlock>
 <Prose>{"Exact and approximate are distinct functions. At 1, their values are about 0.841345 and 0.841192. "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.GELU.html">{"PyTorch's GELU documentation"}</a>{" exposes "}<Code>{"approximate=\"none\""}</Code>{" and "}<Code>{"\"tanh\""}</Code>{" explicitly."}</Prose>
 <Prose>{"SiLU is "}<Math>{"z\\sigma(z)"}</Math>{", also called Swish with fixed scale parameter 1; generalized Swish uses "}<Math>{"z\\sigma(\\beta z)"}</Math>{". Its derivative is "}<Math>{"\\sigma(z)+z\\sigma(z)(1-\\sigma(z))"}</Math>{". At −2, SiLU is approximately −0.2384 with derivative −0.0908. A negative input can therefore have a negative local slope. GELU also has a small negative-slope region. Smooth does not mean monotone, and neither function guarantees a nonzero derivative at every point. "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.SiLU.html">{"SiLU API"}</a>{", "}<a href="https://arxiv.org/abs/1710.05941">{"Swish paper"}</a>{"."}</Prose>
+<Prose>For SiLU, increasing a negative input has two competing effects: the value becomes less negative, but the sigmoid multiplier grows. Near −2, the growing multiplier initially wins and the product becomes slightly more negative. That explains the negative derivative rather than treating it as a surprising exception to a curve name. The activation investigation lets you inspect that operating region.</Prose>
 <Prose>{"Mish is another smooth option, "}<Math>{"z\\tanh(\\operatorname{softplus}(z))"}</Math>{", where "}<Math>{"\\operatorname{softplus}(z)=\\log(1+e^z)"}</Math>{" should be computed with a stable library function. It illustrates a broader design space; learning its name is less useful than reading its value and derivative curves. It is optional here rather than another candidate silently added to the six-function experiment."}</Prose>
+<Prose>Mish uses the same “value × smooth fraction” reading as the preceding figure: softplus is a smooth version of the positive ramp, and tanh maps that positive quantity into (0, 1). Unlike SiLU, its fraction is tanh(softplus(z)). At z = 0 the fraction is positive but the product is still zero. Inspect its implemented value and slope together rather than inferring one from the other.</Prose>
 <Prose>{"A "}<strong>{"gated layer"}</strong>{" combines two learned projections. One produces values and the other modulates them. For a row vector "}<Math>{"x"}</Math>{", a bias-free SwiGLU block can be written"}</Prose>
 <MathBlock>{"h=\\operatorname{SiLU}(xW_g)\\odot(xW_v),\\qquad o=hW_o."}</MathBlock>
 <Prose>{"The symbol "}<Math>{"\\odot"}</Math>{" means coordinatewise multiplication. If projected gate inputs are (1, −1) and values are (2, 3), the product is approximately (1.4621, −0.8068). These gates are not bounded probabilities. A gate can reverse the sign of a value."}</Prose>
@@ -158,75 +173,75 @@ const lesson = {
 <MathBlock>{"8\\cdot 4096\\cdot 16384=536{,}870{,}912"}</MathBlock>
 <Prose>{"elements. At two bytes per element, its raw storage is 1, 073, 741, 824 bytes, exactly 1 GiB. This is one tensor, not the total training footprint. Saved backward intermediates, additional gated branches, parameters, gradients, optimizer state and temporary kernels add storage; fusion or recomputation may avoid retaining some intermediates."}</Prose>
 <Prose>{"For a block with input/output feature width d = 4096 and hidden width h = 16384, a plain bias-free two-projection block has 134,217,728 weights. The feature width d happens to equal the preceding sequence length, but they are separate tensor axes: parameter count depends on feature widths, not sequence length. Exact equal-budget gated width would be 10922⅔, which is not an integer. Rounding to 11008 as an illustrative multiple of 256 gives 135,266,304 weights, slightly more. Hardware-friendly rounding is a configuration decision, not exact budget equality or a universal performance guarantee. Benchmark the actual shapes and implementation if runtime matters; there is no measured speed ranking in this lesson."}</Prose>
-<H2>{"8. Practice: explain, compute, diagnose"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"8. Practice: explain, compute, diagnose"}</H2>
 <Prose>{"Try each problem before opening its hint or solution."}</Prose>
-<H3>{"1. A changed boundary"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. A changed boundary"}</H3>
 <Prose>{"For "}<Math>{"w=(2,-1)"}</Math>{", "}<Math>{"b=-1"}</Math>{", classify "}<Math>{"x=(1,3)"}</Math>{" with the hard "}<Math>{"z>0"}</Math>{" rule. Find signed distance. Then multiply "}<Math>{"w"}</Math>{" and "}<Math>{"b"}</Math>{" by 3. Which results change?"}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"Compute the two contributions before the bias. Distance divides the score by the weight-vector length."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose>{"Score is 2−3−1=−2, so the output is 0. Distance is "}<Math>{"-2/\\sqrt 5\\approx-0.8944"}</Math>{". Rescaling gives score −6 and weight length "}<Math>{"3\\sqrt 5"}</Math>{", so distance and hard output stay unchanged. Sigmoid decreases from about 0.1192 to 0.00247. Rescaling confidence is not moving the boundary."}</Prose>
-</details>
-<H3>{"2. Update the model, then check a different example"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Update the model, then check a different example"}</H3>
 <Prose>{"Start "}<Math>{"w=(0,0),b=0"}</Math>{". Present "}<Math>{"x=(2,-1)"}</Math>{" with label +1 and step size 0.5. What changes? What score does the updated model assign to the previously unseen point (0, 2)?"}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"The current margin is 0, so the rule updates. Include the bias update."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose>{"The new weights are (1, −0.5), and bias 0.5. The training point's score is 3; the unseen point's score is −0.5. Improving the presented example is not a claim that every other point becomes positive or correct."}</Prose>
-</details>
-<H3>{"3. Repair a shifted XOR feature"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Repair a shifted XOR feature"}</H3>
 <Prose>{"Keep "}<Math>{"h_1=\\max(0,x_1+x_2)"}</Math>{", but replace "}<Math>{"h_2"}</Math>{" by "}<Math>{"\\max(0,x_1+x_2-0.5)"}</Math>{". Can an output "}<Math>{"q=h_1+vh_2"}</Math>{" match all four XOR labels by changing only "}<Math>{"v"}</Math>{"?"}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"Write the equations for sums 1 and 2. They must use the same "}<Math>{"v"}</Math>{"."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose>{"At sum 1, matching 1 requires "}<Math>{"1+0.5 v=1"}</Math>{", so "}<Math>{"v=0"}</Math>{". At sum 2, matching 0 requires "}<Math>{"2+1.5 v=0"}</Math>{", so "}<Math>{"v=-4/3"}</Math>{". No single value satisfies both. Repairing one highlighted row is insufficient; change the hidden bias or allow other parameters to change."}</Prose>
-</details>
-<H3>{"4. Follow tensor shapes"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Follow tensor shapes"}</H3>
 <Prose>{"A network receives 7 examples with 12 features, uses 5 hidden neurons, and outputs 3 logits. Give both weight shapes, both bias shapes, and the number of learned scalars."}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"Use the PyTorch convention: output features first in a weight matrix."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose>{"Weights are 5×12 and 3×5; biases are 5 and 3. Total is 60+5+15+3=83. Intermediate batches are 7×5 and 7×3. The batch size changes computation and activation storage, not the parameter count."}</Prose>
-</details>
-<H3>{"5. Diagnose an activation claim"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Diagnose an activation claim"}</H3>
 <Prose>{"A colleague says, “ReLU has derivative 1, so a ten-layer positive scalar ReLU chain cannot shrink gradients.” Each affine weight in the chain is 0.5. What is the input sensitivity? What extra fact would you need for a real vector network?"}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"Multiply the weight and activation slope at each layer."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose>{"Along this all-positive path, the product is "}<Math>{"0.5^{10}=1/1024"}</Math>{". The activation contributes 1 each time, but the weights shrink the signal. For a vector network, use the actual weight matrices, activation masks and directions; a single scalar derivative slogan is insufficient."}</Prose>
-</details>
-<H3>{"6. Allocate a gated width"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Allocate a gated width"}</H3>
 <Prose>{"A plain bias-free block uses width 24 and hidden width 60. Find an exactly equal-weight SwiGLU hidden width and both counts."}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"Compare two projections with three projections."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose>{"Plain count is "}<Math>{"2(24)(60)=2880"}</Math>{". Gated width 40 gives "}<Math>{"3(24)(40)=2880"}</Math>{". Keeping hidden width 60 would give 4320, not an equal-budget comparison. Biases or differently shaped projections would require a new count."}</Prose>
-</details>
-<H3>{"7. Build a tent somewhere else"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Build a tent somewhere else"}</H3>
 <Prose>{"Construct a piecewise-linear pulse that is 0 at 0 and 2, reaches 2 at 1, and stays 0 outside [0, 2]. Use three ReLUs and verify at −1, 0.5, 1, 1.5, 3."}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"Scale the triangle in §7. Its slope changes at 0, 1 and 2."}</Prose>
 </details>
 <details><summary>{"Solution"}</summary>
 <Prose><Math>{"2\\operatorname{ReLU}(x)-4\\operatorname{ReLU}(x-1)+2\\operatorname{ReLU}(x-2)"}</Math>{" gives 0, 1, 2, 1, 0 at those inputs. The last term restores the slope to 0 beyond 2; omitting it would create a descending line, not a bounded pulse."}</Prose>
-</details>
-<H3>{"8. Extend the experiment without rewriting its conclusion"}</H3>
+</details></div>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Extend the experiment without rewriting its conclusion"}</H3>
 <Prose>{"Change hidden width 32 to 8 for all six activations, keep the split and seeds, and report training losses and paired validation errors. Explain which differences the controlled comparison can resolve. What would count as a supported conclusion?"}</Prose>
 <details><summary>{"Hint"}</summary>
 <Prose>{"The experiment changes capacity and keeps a single learning-rate protocol. It still has no untouched final test."}</Prose>
 </details>
 <details><summary>{"Solution and evaluation criteria"}</summary>
 <Prose>{"A good report identifies the changed width, all three seeds, all candidates, training loss and validation denominators. It compares which image IDs were repaired or broken, and distinguishes the proposed explanation from the observed result. A supported conclusion is limited to this width, dataset and protocol; it may report ties or a reversed comparison. Reporting only the winning seed, labeling validation as test, or claiming that one activation is always superior fails the task. There is no prewritten accuracy result for this unexecuted extension."}</Prose>
-</details>
-<H2>{"9. References and another way to learn"}</H2>
+</details></div></section>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"9. References and another way to learn"}</H2>
 <ul><li><a href="https://www.3blue1brown.com/lessons/neural-networks/">{"3Blue1Brown: But what is a Neural Network?"}</a>{" — creator-hosted video with a substantial text companion. Use it after §1 to connect handwritten pixels, weighted sums and layers. The text companion was reviewed; the video was not independently watched. Its bounded-neuron imagery is especially natural for sigmoid, while our ReLU outputs can exceed 1."}</li><li><a href="https://www.cs.cornell.edu/courses/cs4780/2022sp/notes/LectureNotes06.html">{"Cornell CS 4780: Perceptron"}</a>{" — lecture notes with accompanying videos. Use after §2 for bias augmentation and the convergence proof; it is an alternate mathematical route, not required background."}</li><li><a href="https://www.deeplearningbook.org/contents/mlp.html">{"Deep Learning, chapter 6: Deep Feedforward Networks"}</a>{" — textbook route through XOR, hidden units and architecture. The chapter section list was audited for coverage; the full web chapter could not be retrieved during preparation. Start with the XOR section, and save its backpropagation section for the next lesson."}</li><li><a href="https://arxiv.org/html/1606.08415v5">{"GELU paper"}</a>{" and "}<a href="https://arxiv.org/html/2002.05202v1">{"GLU Variants Improve Transformer"}</a>{" — original definitions and particular experiments. Read the formulation and parameter-budget sections before interpreting experimental rankings."}</li><li><a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html">{"PyTorch Linear"}</a>{", "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.GELU.html">{"GELU"}</a>{", and "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.SiLU.html">{"SiLU"}</a>{" — exact shape and function contracts used by the programs."}</li><li><a href="https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+">{"UCI Optical Recognition of Handwritten Digits"}</a>{" — E. Alpaydin and C. Kaynak, 1998, CC BY 4.0, DOI 10.24432/C50P49. The accompanying provenance describes our subset and its limitations."}</li></ul>
-<Prose>{"You can now trace a network forward and separate its expressive capacity from how it learns. The next topic, "}<strong>{"Backpropagation & Automatic Differentiation"}</strong>{", follows the loss backward through those same operations and explains how a library obtains parameter gradients."}</Prose>
+<Prose>{"You can now trace a network forward and separate its expressive capacity from how it learns. The next topic, "}<strong>{"Backpropagation & Automatic Differentiation"}</strong>{", follows the loss backward through those same operations and explains how a library obtains parameter gradients."}</Prose></section>
  </div>
 };
 export default lesson;

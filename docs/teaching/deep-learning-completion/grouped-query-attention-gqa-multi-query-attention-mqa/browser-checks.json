@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "topicId": "grouped-query-attention-gqa-multi-query-attention-mqa",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T19:21:18.935Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T19-16-57-506Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx": "992302c4cab60ee42974a75f7dbd257a2ecf2610b9fe0397fe593fcb2b8318c5",
+    "src/learn/data/grouped-query-models.js": "fdc3da4a8e09985fe1d789332ec4d1538571bbc8a240e26ddadff58b51f4b3db",
+    "src/learn/data/grouped-query-study.js": "fe038f4bfc206927dc9406fb183e9d28530500cf15c2ae4e28595ae75d3b5188",
+    "src/learn/components/lesson-labs/GroupedQueryLabs.jsx": "f9da8a3df522897770dbaa156db606c8014cd82a6738bcbdfbf1ae253dd7d969",
+    "src/learn/components/lesson-labs/grouped-query-labs.css": "af14807c99093500588260d0e61a3fd765c68bd6375737383509b9bd0efd7dca",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json": "a69e6e932bd11d6bf7a0323a10ee875623e94f39ee1b7ec074875d5d8da435f7",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md": "5bdd2638d5d44e66377f864a8be873da74d1efeb7abbb49d74450b49361e8fdc",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json": "e844d4f22e958eaed49aeccb6be4ccc47147849279ebcb96ab0b45f9ea354247",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json": "3166b2234c2bbed981b0d6a8dc6c6002752aa04eff65471ed73cc0756edb72f5",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-1.json": "6a70c5281f4ac00541433f9c20cc5e85412cfa4a65afaa954cf5587943cb0936",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-2.json": "a31f71318a91aa3874c196ee80e27cf3b6d1ed5f27620b991f61bb852e40df53",
+    "public/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/runtime-4.json": "ff270c9aa33c0f4eaff3acf734648ada57dcb63247a345ba4f6fe27e635f6ba4",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/GroupedQueryDiagrams.jsx": "0efa3c94a918ec1c96488c5b226966edaa9bf2b04e7f2b9a9780ab1897c9d4b2",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/browser-review.md": "722953209108e599f6908caaf71faa5ee8808cc2ea4d6bbd37a8ce4216d796dd"
+  },
+  "checks": [
+    "Six live investigations: changed/null/invalid/reset states with actual observed values recorded in browser-review.md",
+    "Actual retained MQA/GQA inference, compact payload, causal earlier null, full/incremental equality, generated continuation",
+    "Local missing-model failure and successful Retry; friendly-copy source review; latest-built MQA reproduced",
+    "1280/390/320px review, nominal-width diagrams, no horizontal page overflow, keyboard scroll, source/program and independent solution disclosure",
+    "No observed final console warnings/errors or KaTeX errors"
+  ],
+  "findings": [
+    {
+      "issue": "Painted diagrams too small",
+      "status": "closed"
+    },
+    {
+      "issue": "Logical-ID and query-row editing insufficient",
+      "status": "closed"
+    },
+    {
+      "issue": "Conversion proximity not inspectable",
+      "status": "closed"
+    },
+    {
+      "issue": "Raw model-load exception",
+      "status": "closed"
+    }
+  ],
+  "limitations": "Representative live control coverage; error-copy change source-reviewed, actual recovery tested before copy change. No GPU benchmark or learner study."
+}

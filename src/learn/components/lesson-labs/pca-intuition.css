@@ -1,0 +1,7 @@
+.pca-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; color: #e3e3e3; }
+.pca-intuition-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.25rem; }
+.pca-intuition-panels > div { min-width: 0; }
+.pca-intuition svg { display: block; width: 100%; max-width: 330px; height: auto; margin-inline: auto; }
+.pca-intuition svg text { fill: #d4d4d4; font: 13px ui-monospace, monospace; }
+.pca-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }
+.pca-intuition-panels p { font-size: .95rem; line-height: 1.6; }

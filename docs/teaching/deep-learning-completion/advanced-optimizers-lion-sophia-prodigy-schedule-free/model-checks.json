@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scalarComparisons": 35758,
+  "maximumError": 8.881784197001252e-16,
+  "checks": [
+    "All12 fresh stateful digit updates versus native NumPy with torch-verified gradients, every stored state array",
+    "Label-independent before probabilities and changed gradients",
+    "Cosine update401 exact frozen-parameter null",
+    "Lion magnitude reversal and exact zero-history null",
+    "Independent model-label outcome expectation and true-label contrast",
+    "Hutchinson negative sample from PSD matrix",
+    "Full Prodigy altered-scale native histories and stationary null",
+    "Schedule-Free native traces at beta0/.9/1",
+    "Rotated bowl matrix and update endpoints",
+    "Every deployed model and explicit learner download equals its canonical source",
+    "Lossless measured histories and all JSX source parse"
+  ]
+}

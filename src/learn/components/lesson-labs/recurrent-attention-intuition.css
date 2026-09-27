@@ -1,0 +1,57 @@
+.attention-intuition { border-block: 1px solid #48433a; padding-block: 1.25rem; color: #dedede; }
+.attention-intuition h3 { color: #f0cd7c; font-size: 1rem; line-height: 1.5; margin: 0 0 .8rem; }
+.attention-intuition p { line-height: 1.8; margin: .6rem 0 1rem; }
+.attention-intuition figcaption { margin-top: 1.2rem; font-size: .9rem; color: #bdbdbd; }
+.attention-intuition strong { color: #f0cd7c; }
+.attention-intuition svg { width: 100%; height: auto; display: block; }
+.attention-intuition svg text { font: 13px monospace; fill: #dedede; }
+.attention-intuition .attention-svg-label { paint-order: stroke; stroke: #080808; stroke-width: 5px; stroke-linejoin: round; }
+.attention-intuition-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.attention-route p { font-size: .9rem; }
+.attention-records { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-block: 1rem 1.5rem; }
+.attention-records > div { display: grid; text-align: center; gap: .5rem; padding: .7rem .25rem; border-block: 1px solid #69604c; }
+.attention-records span { font-size: .8rem; }
+.attention-records strong { font: 1.1rem monospace; }
+.attention-record-link { color: #aaa; }
+.attention-lookup-read { display: grid; grid-template-columns: 12rem 1fr; gap: .5rem 1rem; margin-top: 1.5rem; }
+.attention-lookup-read > p { grid-column: 2; font: .9rem/1.8 monospace; }
+.attention-mixture-strip { display: flex; gap: 3px; min-height: 56px; }
+.attention-mixture-strip > span { display: grid; min-width: 0; gap: .25rem; align-content: center; text-align: center; background: #241e14; border-top: 3px solid #e2b55a; font: .85rem/1.4 monospace; }
+.attention-softmax-lanes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.attention-softmax-lanes dl { margin: 0; font-size: .9rem; }
+.attention-softmax-lanes dt { margin: .8rem 0 .25rem; color: #bdbdbd; }
+.attention-softmax-lanes dd { margin: 0; font: 1rem monospace; }
+.attention-softmax-lanes p { font-size: .8rem; }
+.attention-softmax-lanes strong { font: .9rem monospace; }
+.attention-mass-track { height: 15px; background: #292929; margin-top: .8rem; }
+.attention-mass-track > span { display: block; background: #e2b55a; height: 100%; }
+.attention-denominator { border-block: 1px solid #6b6250; padding: .8rem; margin-block: 1.2rem; font: .9rem/1.8 monospace; text-align: center; overflow-wrap: anywhere; }
+.attention-projection-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.attention-projection-inputs > div { display: grid; gap: .7rem; border-bottom: 2px solid #e2b55a; padding-bottom: 1rem; }
+.attention-projection-inputs span { font-size: .9rem; }
+.attention-comparison-spine { border-left: 2px solid #e2b55a; margin: 1rem 0 1rem 1rem; padding-left: 1rem; }
+.attention-comparison-spine p { display: grid; gap: .6rem; padding-block: .5rem; }
+.attention-intuition code { white-space: normal; overflow-wrap: anywhere; }
+.attention-value-bypass { border-left: 2px dashed #bbb; padding-left: 1rem; }
+.attention-padding-shares { display: flex; gap: .3rem; }
+.attention-padding-shares > div { min-width: 3.5rem; display: grid; padding: .6rem .25rem; text-align: center; gap: .5rem; background: #221d15; border-top: 3px solid #e2b55a; }
+.attention-padding-shares > .attention-padding-slot { background: #151515; border: 1px dashed #888; min-width: 4.7rem; }
+.attention-padding-shares span { font-size: 1.1rem; }
+.attention-padding-shares .attention-padding-slot span { font-size: .8rem; }
+.attention-padding-shares strong { font-size: .85rem; }
+.attention-learning-direction svg { max-width: 540px; margin-inline: auto; }
+@container recurrent-attention (max-width: 650px) {
+  .attention-intuition-pair { grid-template-columns: 1fr; }
+  .attention-route svg { max-width: 440px; margin-inline: auto; }
+  .attention-lookup-read { grid-template-columns: 1fr; }
+  .attention-lookup-read > p { grid-column: 1; }
+  .attention-softmax-lanes { grid-template-columns: 1fr; }
+  .attention-softmax-lanes > div { border-bottom: 1px solid #333; padding-bottom: .8rem; }
+  .attention-softmax-lanes dl { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .5rem; }
+  .attention-softmax-lanes dt { margin: 0; }
+  .attention-projection-inputs { grid-template-columns: 1fr; }
+}
+@container recurrent-attention (max-width: 450px) {
+  .attention-route svg text { font-size: 16px; }
+  .attention-learning-direction svg text { font-size: 21px; }
+}

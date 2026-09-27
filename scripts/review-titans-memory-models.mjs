@@ -1,0 +1,40 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import * as m from '../src/learn/data/titans-memory-models.js';
+const id='titans-multi-memory-architecture',dir=`docs/teaching/deep-learning-completion/${id}`,read=p=>JSON.parse(fs.readFileSync(p,'utf8')),clone=structuredClone,flat=a=>[a].flat(Infinity),sum=a=>a.reduce((s,v)=>s+v,0),dot=(a,b)=>sum(a.map((v,i)=>v*b[i]));
+let comparisons=0,maxNative=0,maxGradient=0;
+function near(a,b,tolerance=1e-10,label='comparison'){const x=flat(a),y=flat(b);assert.equal(x.length,y.length,label+' shape');for(let i=0;i<x.length;i++){const error=Math.abs(x[i]-y[i]);assert.ok(Number.isFinite(x[i])&&error<=tolerance,`${label}[${i}] ${x[i]} vs ${y[i]} error ${error}`);comparisons++;}return Math.max(0,...x.map((v,i)=>Math.abs(v-y[i])));}
+const fixtures=read(`${dir}/independent-native-fixtures.json`);
+function runChain(c,parameters=c.initial,rate=c.rate){let momentum=clone(c.initialMomentum);for(let i=0;i<3;i++){const r=m.neuralMemoryWrite(parameters,momentum,c.keys[i],c.targets[i],{rate,retention:c.retention,decay:c.decay});parameters=r.parameters;momentum=r.momentum;}const output=m.neuralMemoryRead(parameters,c.query).output;return {output,loss:.5*(output+.4)**2,parameters,momentum};}
+for(const c of fixtures.chains){let parameters=clone(c.initial),momentum=clone(c.initialMomentum);for(let i=0;i<3;i++){const r=m.neuralMemoryWrite(parameters,momentum,c.keys[i],c.targets[i],c);for(const field of ['parameters','momentum','loss','gradient'])maxNative=Math.max(maxNative,near(r[field],c.steps[i][field],1e-12,'chained native '+field));parameters=r.parameters;momentum=r.momentum;}
+ near(runChain(c).output,c.output);near(runChain(c).loss,c.loss);
+ const eps=1e-5,rateFD=(runChain(c,c.initial,c.rate+eps).loss-runChain(c,c.initial,c.rate-eps).loss)/(2*eps);maxGradient=Math.max(maxGradient,near(rateFD,c.rateGradient,2e-8,'three-write outer rate'));
+ // Full initial-parameter derivative includes each later gradient's Hessian path.
+ const paths=[];function visit(a,path=[]){if(Array.isArray(a))a.forEach((v,i)=>visit(v,[...path,i]));else paths.push(path);}visit(c.initial);
+ for(const path of paths){const up=clone(c.initial),down=clone(c.initial);let u=up,d=down,g=c.initialGradient;for(const index of path.slice(0,-1)){u=u[index];d=d[index];g=g[index];}const j=path.at(-1);u[j]+=eps;d[j]-=eps;const fd=(runChain(c,up).loss-runChain(c,down).loss)/(2*eps);maxGradient=Math.max(maxGradient,near(fd,g[j],2e-8,'three-write initial gradient'));}
+ // Hidden-unit relabeling must preserve the complete multiwrite trajectory.
+ const permutation=c.initial[1].map((_,i)=>(i+1)%c.initial[1].length),permute=p=>[permutation.map(i=>p[0][i]),permutation.map(i=>p[1][i]),[permutation.map(i=>p[2][0][i])],p[3]],p={...c,initial:permute(c.initial),initialMomentum:permute(c.initialMomentum)};
+ const original=runChain(c),relabel=runChain(p);near(relabel.output,original.output);near(relabel.parameters,permute(original.parameters));near(relabel.momentum,permute(original.momentum));
+}
+const saved=read(`docs/teaching/drafts/${id}/rental-results.json`),lines=fs.readFileSync(`docs/teaching/drafts/${id}/bike-sharing-daily.csv`,'utf8').trim().split(/\r?\n/),header=lines[0].split(','),dateColumn=header.indexOf('dteday'),countColumn=header.indexOf('cnt'),rows=lines.slice(1).map(x=>x.split(',')),dates=rows.map(x=>x[dateColumn]),counts=rows.map(x=>+x[countColumn]),settings={mean:saved.mean,scale:saved.scale};
+const baselines=Object.fromEntries(['3','7','19'].map(seed=>[seed,m.rentalMemoryReplay(saved.seeds[seed],dates,counts,settings)]));
+for(const oracle of fixtures.arrivals){const edited=[...counts];edited[oracle.day]=oracle.value;const snapshot=saved.seeds[oracle.seed],a=m.rentalMemoryReplay(snapshot,dates,edited,settings),base=baselines[oracle.seed];
+ maxNative=Math.max(maxNative,near(a.trace.map(r=>r.prediction_z),oracle.predictions,2e-11,'arrival prediction'));near(a.parameters,oracle.parameters,2e-11);near(a.momentum,oracle.momentum,2e-11);
+ near(a.trace.filter(r=>r.index<=oracle.day).map(r=>r.adaptive),base.trace.filter(r=>r.index<=oracle.day).map(r=>r.adaptive),0,'future target cannot affect scored forecast');
+ for(let j=0;j<a.trace.length;j++){const index=a.trace[j].index;if(index<=oracle.day||index>oracle.day+7)near(a.trace[j].frozen,base.trace[j].frozen,0,'frozen seven-day key horizon');}
+ if(oracle.day<730){assert.notEqual(a.trace[oracle.day-365+1].adaptive,base.trace[oracle.day-365+1].adaptive);comparisons++;}
+ const first=m.rentalMemoryReplay(snapshot,dates,edited,{...settings,stop:548}),second=m.rentalMemoryReplay(snapshot,dates,edited,{...settings,start:548,parameters:first.parameters,momentum:first.momentum});near([...first.trace,...second.trace].map(r=>r.adaptive),a.trace.map(r=>r.adaptive),0,'edited split carries full state');near(second.parameters,a.parameters,0);
+}
+let seed=932041;const random=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/2**32),value=()=>random()*2-1;
+for(let trial=0;trial<80;trial++){
+ const angle=random()*Math.PI*2,c=Math.cos(angle),s=Math.sin(angle),rotate=v=>[c*v[0]-s*v[1],s*v[0]+c*v[1]],weight=[[value(),value()]],momentum=[[value(),value()]],key=[value(),value()],query=[value(),value()],target=[value()],settings={rate:random(),retention:random(),decay:random()},a=m.linearMemoryWrite(weight,momentum,key,target,settings),b=m.linearMemoryWrite(weight.map(rotate),momentum.map(rotate),rotate(key),target,settings);
+ near(b.before,a.before);near(b.weight,a.weight.map(rotate));near(b.momentum,a.momentum.map(rotate));near(b.gradient,a.gradient.map(rotate));near(dot(a.update[0],query),settings.retention*dot(momentum[0],query)-settings.rate*a.residual[0]*dot(key,query)-settings.decay*dot(weight[0],query));
+ const tokens=Array.from({length:5+trial%3},()=>[value(),value()]),options={prefix:false,rate:.2,retention:.3,decay:.01},full=m.gatedMemorySequence(tokens,options),negative=m.gatedMemorySequence(tokens.map(v=>v.map(x=>-x)),options),swap=m.gatedMemorySequence(tokens.map(v=>[v[1],v[0]]),options);
+ near(negative.outputs,full.outputs,1e-12,'sign-even identity-QKV multiplicative gate');near(swap.outputs,full.outputs.map(v=>[v[1],v[0]]),1e-12,'coordinate relabeling');
+ for(let cut=1;cut<tokens.length;cut++){const first=m.gatedMemorySequence(tokens.slice(0,cut),options),savedState=clone(first.state),tail=m.gatedMemorySequence(tokens.slice(cut),{...options,state:first.state});near([...first.outputs,...tail.outputs],full.outputs,0,'all chunk splits');assert.deepEqual(first.state,savedState);comparisons++;}
+ const n=1+trial%12,k=[value()*2,value()*2],norm=dot(k,k),rate=random()*.5,v=value(),cards=[{key:k,value:v}],trace=m.associativeMemoryTrace(cards,Array(n).fill(0),k,{rate});near(dot(trace.weight[0],k)-v,-v*(1-rate*norm)**n,1e-9,'fixed key stability polynomial');
+}
+const extreme=m.associativeMemoryTrace([{key:[2,2],value:5}],[...Array(12)].map(()=>0),[1,0],{rate:.5});assert.ok(Number.isFinite(extreme.read)&&Math.abs(extreme.read)>100000);comparisons++;
+const author=read(`${dir}/implementation-checks.json`);for(const path of author.sourceFiles){assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex'),author.sourceHashes[path],`changed author source: ${path}`);comparisons++;}
+const report={passed:true,comparisons,freshNativeChains:4,chainedWrites:12,fullInitialGradientCoordinates:flat(fixtures.chains.map(x=>x.initial)).length,changedRealArrivalCases:9,realForecasts:9*366,metamorphicCases:80,maxNativeError:maxNative,maxChainedGradientError:maxGradient,sourceFilesVerified:author.sourceFiles.length,reusedAuthorComparisons:11995,scope:'Three-write full higher-order derivative; independent boundary-date arrival oracles; seven-day frozen-input horizon; edited split carry; hidden/key-coordinate relabeling; all gated splits and input isolation; analytic stable/unstable residual trajectory. No fitting or browser claims.'};fs.writeFileSync(`${dir}/independent-model-checks.json`,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

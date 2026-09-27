@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "comparisons": 4905,
+  "maximumError": 3.552713678800501e-15,
+  "networkCases": 12,
+  "groups": [
+    "100 independent sparse renormalization/oracle, shift, constant, bound and empty-set cases",
+    "100 direct feature pair/state, rescaling, permutation and evicted outer-product cases",
+    "100 set-propagation causal graph/path and exact window-count cases",
+    "35 fixed-projection direct exponential product oracles plus future-key invariance",
+    "35 masks at four block sizes against occupied-coordinate set counts",
+    "12 new bounded network inputs: three-token chunk equality, future intervention and window remote null"
+  ],
+  "limitations": "Complementary arithmetic/structural probes; author native PyTorch parity remains the separate network oracle. No fresh fits or GPU benchmark."
+}

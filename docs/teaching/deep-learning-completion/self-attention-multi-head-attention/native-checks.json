@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu"
+  },
+  "checks": [
+    "Both complete displayed Python programs executed, including all-parameter gradients and one equal update",
+    "Frozen model inferred under six meaningful changed conditions"
+  ],
+  "displayedOutputs": [
+    "torch.Size([2, 4, 8]) torch.Size([2, 2, 4, 4])\nmaximum output difference: 5.551115123125783e-17\nTrue\nTrue\ninput/parameter gradients and one equal update: True\n",
+    "tensor([[[[1., 1.]]]])\n"
+  ],
+  "scope": "No training rerun; original 12-fit evidence preserved."
+}

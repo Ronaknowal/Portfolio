@@ -1,0 +1,2217 @@
+{
+  "schemaVersion": 1,
+  "retainedOn": "2026-09-28",
+  "references": {
+    "sourceReview": "lab-source-review.json",
+    "summary": "lab-review.md"
+  },
+  "verification": {
+    "checkedAt": "2026-09-27T19:47:50.084Z",
+    "files": [
+      {
+        "file": "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx",
+        "function": "OptimizerProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "08f4a6df6f8720b4f76a55e5b5b90674795161bdb14576cfbd898c24fd08fb48",
+        "currentFunctionHash": "0b8e7ac2e28b88e2abbd3f96c3f9306f3e9c5174f06f8b801cbafca02e2a6829"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+        "function": "CapsuleProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "2504809c627b21182d1e09c483e6d6d5911ce0c3d05950113862288e42a17045",
+        "currentFunctionHash": "461028592644d64a2371462adfe508a02372ec089a1bf6aa509e9bb1029e76b7"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/ConvNeXtLabs.jsx",
+        "function": "ConvNeXtProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "9fc9a8e0817b0e6f3c25e7d02d55ec187e1628a7034a8327e93e48d2da6a80e4",
+        "currentFunctionHash": "2a1a40c1bdd5671ccddaeba132314d8bd66bbf1e6a955cd2cc765db60582c4cd"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+        "function": "ConvolutionProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "30ef91332eb8719f545479caec265e76e4d689480a46c683c617653710917bc8",
+        "currentFunctionHash": "54e63cd605a12207b454e01398935935d65341fce1c52c4abc31fc72766b14b9"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+        "function": "DepthwiseProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "e30ff50c1299cb25245862f337f78c1fe7856da7690c376ec62391ec97275126",
+        "currentFunctionHash": "6fa44509aeaece8592faf3a30661c9e363554e437c0a66971c115e84c9d8a698"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/DropoutLabs.jsx",
+        "function": "DropoutProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "1b4ceaeb09a7a4a79d90e70316114befc4c4c32ac8dd5774ab788d928c94242d",
+        "currentFunctionHash": "78ba3d37796c6b70e96c766398d0467b0575fb02e034e5353dc8a8ea0925117f"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/GroupedQueryLabs.jsx",
+        "function": "GqaProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "9870de881ac18ea2a4b38e46082b84ccca2986c673e90979e7b48ed25cf9e666",
+        "currentFunctionHash": "89cbad6bed1bffb04adc5c82db08cf5d7a67f300b9c298733bfc35a2cc1e13cb"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/HybridJambaStudy.jsx",
+        "function": "JambaProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "541cba87e3a9df8d70cbe39acb8820300250e427a71c3a3c94c3eeeae3bb1356",
+        "currentFunctionHash": "e143d1aa4b8963d0331f63990d689335f49c75ece16f56a0c63ba8ec826314d5"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+        "function": "LandmarkProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "611b75ef5b94bdc95839257fed1a15b242e7cdf2c2a6bcbf18e4b07ba92f14ad",
+        "currentFunctionHash": "ce5c123e9f8f155a4787c9543796613af0896776abc4f463be383a455bebe15f"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/LatentAttentionLabs.jsx",
+        "function": "LatentProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "38c4a81b849b38b27676af7656164bd449e4dce59beef5db4e41465607fe9ae4",
+        "currentFunctionHash": "b73ab328e58854036c977e8117660e0f59d7c533b3ac50f6d9e88e899f30e3f9"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/LongContextLabs.jsx",
+        "function": "LongContextProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "6fc6d08a10f3bcef6460000219099adacd7d82071c69492f13dcac0fcd9bb001",
+        "currentFunctionHash": "194bccfd3ef051704776fee260789dad7a6e4d772cee332ddc6a9354c5e6029e"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx",
+        "function": "MinibatchProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "4628dcfa390398ee75df730f60869f5abfd0c5ba9de6adca67e4cc02310f4df6",
+        "currentFunctionHash": "599dca63313fccca704295c65bf8370b6cb8388f99273416f41b8db762814acf"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/NeuralOdeStudy.jsx",
+        "function": "OdeProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "f0670597a11fd21b72aea64cb59e05ffe32f119d2ee67c78a223c197d882ec24",
+        "currentFunctionHash": "35e85b96e4e8ea1fa28d18760bd1cafb306ec017cfa101252cae8fdcc6bffb49"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/NeuralProgram.jsx",
+        "function": "NeuralProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "1ba5cd71f39a53a93f377a910dde45043c9f292fb4757caa63c7dc1a34f1dacb",
+        "currentFunctionHash": "3b2d4213e2808545c295ed79418603a36729dd05433ba44ceb56652a5e8a0370"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/RbmElements.jsx",
+        "function": "RbmProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "c132b48607e890a68b80a82060d676105a8a3f772d9d8baf2893c0c96a59e44b",
+        "currentFunctionHash": "fe1060caa4d270811c62ed0dd4759d3d293fc3d479b517a3778cf60588bcd78f"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+        "function": "AttentionProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "0eea3d565329b6c07cfea30aa8ba6ee08e0195e7ff88f00170f5d040d6c1fcfe",
+        "currentFunctionHash": "b7fe7c50d9a6844f5d63fc8d1c4f42c9c23dd443c07d46690e715718a29b4dc3"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/RecurrentLabs.jsx",
+        "function": "RecurrentProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "dcd75b5aff4a63277c55ea8de0e1e06223d57daf99841c1effc76b3a1237235e",
+        "currentFunctionHash": "bd6c3d4a08c802327506a43904fc042b517d1c55ae0f2f552474b50057dda50d"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+        "function": "Seq2SeqProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "c542cb6a919dc4fd2c1819b133b2e8112448d2a2772f6ae49ad1a2ae121b0ce2",
+        "currentFunctionHash": "d8ec9c2752df9c420e5049235d3b90e2cb6fa0c5a8841001c981104a8a92cb74"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx",
+        "function": "SpectralProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "182e0a4cf64c48a19d4196d42bc96fda19d2e8448922acdf50c92732785a2adb",
+        "currentFunctionHash": "bda51d6595174b8090df0c7952b1f973fdc44661744ed553e1b676968e8520c1"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+        "function": "StateSpaceProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "591ed199293b63c9338ec714c6bdccd5fdec1037d458c966cf11ed50a44fdfc4",
+        "currentFunctionHash": "a6e32b24574e3d8d67c91f45c86e18bd22d59e1cd86473b1de0905c629b1dff8"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/TitansMemoryStudy.jsx",
+        "function": "TitansProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "18108462e24aa590f7d6c6b0e42885b75b13115720b8e22cffc7457b848d2357",
+        "currentFunctionHash": "bac3e53d6d206e1a825e256894f53be2dfd2c84c2f54c790d9976edf78d99ef9"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+        "function": "DiagnosticsProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "82d62e702c6dc7948cf295e7323011370976ac80dde937d5f7b4111432229392",
+        "currentFunctionHash": "90d7f4677a9aa52bef80043e063889079fdc0403c64e5d70eb922c17d8d066bc"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/WeightInitializationLabs.jsx",
+        "function": "InitializationProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "7b515d990023d7c55e9da18b2aa32337474c4cdb2e72295d020f813502ca2684",
+        "currentFunctionHash": "58c7080d707ea5b9ea6dc54b4abe155168a1b605cd1f9195339e4448a9b56ef6"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/XlstmStudy.jsx",
+        "function": "XlstmProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "19bc30de31fef9b4e3b9635c11554f58a8566b95a27e7b7ac499e561e46280d8",
+        "currentFunctionHash": "f3b8939d963c68535725113d9a117df48d6a50e950beee3ee06f296e30c8861e"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/HopfieldDigitLab.jsx",
+        "function": "HopfieldProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "ac96b3e8469fa56be142bb4aa5456b5cea2955fdd2056380def3b59f43ea488d",
+        "currentFunctionHash": "31673e465ec0b3c2b29d740d4017914b5ab3391fcaccfdc77a56e4c50aae59b4"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/HyenaStudy.jsx",
+        "function": "HyenaProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "4341f92720bb6dc10ec4fb8a4c7d2f0874c0462b548a0633cec1207b5d75d289",
+        "currentFunctionHash": "bb937e46ff2d5839cc9896a5bc05e8ad0bff8d993dd46d1634ba62580cc67615"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+        "function": "CrossProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "51dac8f45d934063d91e5075bb080576c6cffa1471d886b8a21ed42e6390c203",
+        "currentFunctionHash": "ab61326d61f2f66572cda76d1d3a86d48951fd8cb51d7ac108de0193a96bc820"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+        "function": "GeoProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "4a84557ef081ed2664a6a1d24d3401fae22f325362e15bc3729a3af03b83c812",
+        "currentFunctionHash": "f48d4456614676909f40f5f3ae9bb3739d78096e587746572a10d11e820a1202"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/MessagePassingStudy.jsx",
+        "function": "MessageProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "f2f96bcfedd1706353a4c2479cf17f3225c00807de805ad3b816701d762b0602",
+        "currentFunctionHash": "c3e5246b62a17dec702cbc00ffb46cce82c8d277248bbacc4a07e1b9a16dfbbf"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/MoeLabs.jsx",
+        "function": "MoeProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "c734ba133aa2ca28978efe41719e9c33b84fc820c4c76bc361134ca3cfdddb78",
+        "currentFunctionHash": "a5b01431cd8cb6c9fa12527a41924bb64777e4251c611bd293117197f165da35"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/RingAttentionStudy.jsx",
+        "function": "RingProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "9bc93b3e5f645ec7dfcfcc00bfc7536a7918513092bfe7b0ed1a91d2715ebd7b",
+        "currentFunctionHash": "6f2487fbe79fdf8718cd9784b2900ee02801fbe23130831a1eb0f11ff42e0ac4"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx",
+        "function": "RwkvProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "0a21b3634c6523553d2da6b3b2b1d34a887b3dd66e2d71bccb83be202d375013",
+        "currentFunctionHash": "31bd0a52bd74fa026f4fa8d4b3d9abfad5b8447180ff07c6f033071bed9cd356"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/SelfAttentionLabs.jsx",
+        "function": "SelfAttentionProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "2f18b1e9a8c51338b7f06d00c3583b962387be96f026807ace5add9ad1e65b3c",
+        "currentFunctionHash": "ae92a55a8f48c42bec6eca0ee1f69bd062984cf4248e5f76babebcc5ab7b93ad"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+        "function": "SparseProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "623cc8677bafd769b485e7c13eaa270e4e3251abe1ccd257bcf369f103feea04",
+        "currentFunctionHash": "6e953e2e864deb2370eb6745383c1b6a2d37625ed8a3073777ef066818e64e5a"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/TransferLearningLabs.jsx",
+        "function": "TransferProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "8f020e03f7ace5d5a908be12ef17a922612baa7c2a4766dbe078892354fe4eb0",
+        "currentFunctionHash": "a8f86e41f27e74e8c9fc2581bcac9cc89bfa092bcdba37da4fc477fe041f94b8"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/VisionTransformerLabs.jsx",
+        "function": "VisionProgram",
+        "parses": true,
+        "noDisclosure": true,
+        "noRawPre": true,
+        "baselineFunctionHash": "f3fc8d25053cce718651eeecc6ab3a2c923aa36941f69ee26cdccd6bbd1abdce",
+        "currentFunctionHash": "b1722495c122be8322cb43b5c72d422a4f1820a346b5f41a5827e3c1942c1a8d"
+      }
+    ],
+    "programUses": [
+      {
+        "caller": "src/learn/data/topics/attention.jsx",
+        "line": 329,
+        "component": "AttentionProgram",
+        "props": {
+          "file": "attentive-inflection.py",
+          "title": "Read the complete CPU training and generation program"
+        },
+        "source": "/learn-code/attention-mechanism-bahdanau-luong/attentive-inflection.py",
+        "sourceSha256": "0b006def11a1bac2a8f30b5ed43da3f31b1f06dbd0cba95cb267fc89e76dc05a",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/attention-mechanism-bahdanau-luong/attentive-inflection.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+        "line": 148,
+        "component": "NeuralProgram",
+        "props": {
+          "title": "Read the complete CPU program",
+          "topic": "loss"
+        },
+        "source": "src/learn/data/loss-functions-program.js",
+        "sourceSha256": "e382e1864d539d801c348ae09134a44a8b58ec8bac221793c9f717ab5d0f36be",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "src/learn/data/loss-functions-program.js",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+        "line": 261,
+        "component": "NeuralProgram",
+        "props": {
+          "title": "Read the scratch objectives and matched library checks",
+          "topic": "loss-mechanisms"
+        },
+        "source": "src/learn/data/loss-mechanisms-program.js",
+        "sourceSha256": "b5d4ba0f81b04621ffc062240235804e141df3fe37e7f269400ba81b770fd034",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "src/learn/data/loss-mechanisms-program.js",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+        "line": 156,
+        "component": "NeuralProgram",
+        "props": {
+          "title": "Read the complete CPU program",
+          "topic": "normalization"
+        },
+        "source": "src/learn/data/normalization-program.js",
+        "sourceSha256": "63d07c44ca95972f54b2f9fc9685ee79313b0157dbd46c8ae75db9e83cebe5c6",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "src/learn/data/normalization-program.js",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+        "line": 236,
+        "component": "NeuralProgram",
+        "props": {
+          "title": "Read the manual normalization derivatives and library checks",
+          "topic": "normalization-backward"
+        },
+        "source": "src/learn/data/normalization-backward-program.js",
+        "sourceSha256": "036c6a2b2dc98170adf71351c0a79bc4e4311770a213e575e51a7a8b63df26e7",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "src/learn/data/normalization-backward-program.js",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+        "line": 167,
+        "component": "DropoutProgram",
+        "props": {
+          "file": "dropout-experiments.py",
+          "title": "Read the scratch mask and its axis contract",
+          "start": "def mask_values",
+          "end": "def fixtures"
+        },
+        "source": "/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py",
+        "sourceSha256": "0dff958da650e87ae821620665ab3c860b4747076a466cfdce2bfde94d9e19ce",
+        "baselineSourceHash": null,
+        "excerptSha256": "5877846bafd738d96cbfc6e5f553cf78bdaa655ec28ea40e278fac96db69bc99",
+        "currentSource": "/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+        "line": 175,
+        "component": "DropoutProgram",
+        "props": {
+          "file": "dropout-library-checks.py",
+          "title": "Read the matched library checks and locked-feature solution"
+        },
+        "source": "/learn-assets/dropout-droppath-stochastic-depth/dropout-library-checks.py",
+        "sourceSha256": "33137b7bbfba287ba74b3f571bc988e1d4240fad578666e46e5b048381ca9c28",
+        "baselineSourceHash": null,
+        "excerptSha256": "33137b7bbfba287ba74b3f571bc988e1d4240fad578666e46e5b048381ca9c28",
+        "currentSource": "/learn-assets/dropout-droppath-stochastic-depth/dropout-library-checks.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+        "line": 203,
+        "component": "DropoutProgram",
+        "props": {
+          "file": "dropout-experiments.py",
+          "title": "Read the complete experiment program"
+        },
+        "source": "/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py",
+        "sourceSha256": "0dff958da650e87ae821620665ab3c860b4747076a466cfdce2bfde94d9e19ce",
+        "baselineSourceHash": null,
+        "excerptSha256": "0dff958da650e87ae821620665ab3c860b4747076a466cfdce2bfde94d9e19ce",
+        "currentSource": "/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+        "line": 88,
+        "component": "TransferProgram",
+        "props": {},
+        "source": "src/learn/assets/transfer-learning/transfer-experiments.py",
+        "sourceSha256": "f6d2d0adb4b3b273724add5918fac937dae925e71a19784d63c5312e76d58700",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "src/learn/assets/transfer-learning/transfer-experiments.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+        "line": 145,
+        "component": "InitializationProgram",
+        "props": {
+          "file": "initialization_library_bridge.py",
+          "title": "Read the complete orthogonal and μP library bridge"
+        },
+        "source": "/learn-assets/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py",
+        "sourceSha256": "6b48fdd5163f59cbcbfd762f5c23b636cc8ecfda04f7a98362f8956b77c9becd",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+        "line": 193,
+        "component": "InitializationProgram",
+        "props": {
+          "file": "initialization-experiments.py",
+          "title": "Read the complete CPU experiment"
+        },
+        "source": "/learn-assets/weight-initialization-xavier-kaiming-p/initialization-experiments.py",
+        "sourceSha256": "ebbda7c930adebd9fffc1688071d3b4d0a0eb82f4be0cc7420a511e3403422e7",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/weight-initialization-xavier-kaiming-p/initialization-experiments.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+        "line": 172,
+        "component": "ConvolutionProgram",
+        "props": {
+          "file": "convolution-experiments.py",
+          "title": "Read the complete convolution and digit experiment program"
+        },
+        "source": "/learn-code/convolution-pooling-receptive-fields/convolution-experiments.py",
+        "sourceSha256": "333a5282adb0c69cc432fc08b09d7737f1e880c65eb65d3d6eec20ae7f524f45",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/convolution-pooling-receptive-fields/convolution-experiments.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+        "line": 288,
+        "component": "ConvolutionProgram",
+        "props": {
+          "file": "convolution_pullbacks.py",
+          "title": "Read the complete vectorized convolution and pooling pullbacks"
+        },
+        "source": "/learn-code/convolution-pooling-receptive-fields/convolution_pullbacks.py",
+        "sourceSha256": "5b090d9d0e18db8ef105db06c9bb9f01926cd2665e8b40beeab72657397e62ab",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/convolution-pooling-receptive-fields/convolution_pullbacks.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+        "line": 243,
+        "component": "LandmarkProgram",
+        "props": {
+          "file": "landmark_builders.py",
+          "title": "Read all five explicit architecture builders and the library comparison"
+        },
+        "source": "/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py",
+        "sourceSha256": "e7d6f297112e55a7fb5944941d9aecf339b9b6b56e778cd88030085de52e2363",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+        "line": 345,
+        "component": "LandmarkProgram",
+        "props": {
+          "file": "architecture-experiments.py",
+          "title": "Read the complete small architecture experiment"
+        },
+        "source": "/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py",
+        "sourceSha256": "553ed8083880c241c50d0fb0c9876c03d2599248b2aaef3cd87b633fa521312c",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+        "line": 187,
+        "component": "DepthwiseProgram",
+        "props": {
+          "file": "author-checks.py",
+          "title": "Read the direct-loop spatial operator and verification program"
+        },
+        "source": "/learn-code/depthwise-separable-dilated-convolutions/author-checks.py",
+        "sourceSha256": "f1b060cc258dc4968fbf9f07a1efacfc51b06eeed5b242ee4f9c9fb04f16c281",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/depthwise-separable-dilated-convolutions/author-checks.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+        "line": 253,
+        "component": "DepthwiseProgram",
+        "props": {
+          "file": "context-blocks.py",
+          "title": "Read the inverted residual and parallel-context program"
+        },
+        "source": "/learn-code/depthwise-separable-dilated-convolutions/context-blocks.py",
+        "sourceSha256": "cd3030bae2584c9ff74aa677fc43b6b2e2b6de4cdc335b6ccf9d6af7633716df",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/depthwise-separable-dilated-convolutions/context-blocks.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+        "line": 283,
+        "component": "DepthwiseProgram",
+        "props": {
+          "file": "convolution-factorization.py",
+          "title": "Read the complete training and SVD factorization program"
+        },
+        "source": "/learn-code/depthwise-separable-dilated-convolutions/convolution-factorization.py",
+        "sourceSha256": "d4b0b0c3101f55bc9f127f5a14ec237453eccea261eccbd37684179acb180e0e",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/depthwise-separable-dilated-convolutions/convolution-factorization.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+        "line": 113,
+        "component": "ConvNeXtProgram",
+        "props": {
+          "file": "convnext-blocks.py",
+          "title": "Read the complete V1/V2 block, hierarchy, initialization and shape checks"
+        },
+        "source": "/learn-assets/convnext-modern-cnn-designs/convnext-blocks.py",
+        "sourceSha256": "68f3903dfdd21652afe6067a4e1213a4abb5f1db60bb60c51788220d2c7227ce",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/convnext-modern-cnn-designs/convnext-blocks.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+        "line": 209,
+        "component": "ConvNeXtProgram",
+        "props": {
+          "file": "masked-reconstruction.py",
+          "title": "Read the complete masked learning, evaluation and probe program"
+        },
+        "source": "/learn-assets/convnext-modern-cnn-designs/masked-reconstruction.py",
+        "sourceSha256": "232a5f6092c89019664de0ce3cc8285395fd6d2d7fa02a3218789abb4844aab2",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/convnext-modern-cnn-designs/masked-reconstruction.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+        "line": 301,
+        "component": "ConvNeXtProgram",
+        "props": {
+          "file": "convnext_library_bridge.py",
+          "title": "Read the matched-state library bridge and optional pretrained photograph route"
+        },
+        "source": "/learn-assets/convnext-modern-cnn-designs/convnext_library_bridge.py",
+        "sourceSha256": "63618cc69044a8b4974dbf0cc411780f71bb9dd90467d1fb0c33e32b3253e958",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/convnext-modern-cnn-designs/convnext_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/capsule-networks.jsx",
+        "line": 159,
+        "component": "CapsuleProgram",
+        "props": {
+          "file": "capsule-learning.py",
+          "title": "Read the complete trainable capsule program"
+        },
+        "source": "/learn-assets/capsule-networks/capsule-learning.py",
+        "sourceSha256": "b1b66fa28e10828a41cff20a9acc8037d7e3558c416bc0a260718349e3da5648",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/capsule-networks/capsule-learning.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/capsule-networks.jsx",
+        "line": 309,
+        "component": "CapsuleProgram",
+        "props": {
+          "file": "capsule-mechanics.py",
+          "title": "Read the complete NumPy routing, derivative, geometry and EM program"
+        },
+        "source": "/learn-assets/capsule-networks/capsule-mechanics.py",
+        "sourceSha256": "8837b425e43c09bb72064091108cdf07b50fd637fdc0f073e4ec81f12e69b039",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/capsule-networks/capsule-mechanics.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/capsule-networks.jsx",
+        "line": 317,
+        "component": "CapsuleProgram",
+        "props": {
+          "file": "author-checks.py",
+          "title": "Read the independent NumPy encoder and saved-state comparison"
+        },
+        "source": "/learn-assets/capsule-networks/author-checks.py",
+        "sourceSha256": "a7ab6cc2fc9d63b73de13e05c809d1e31162f7371bcea2846b1c7a772cbaac2a",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/capsule-networks/author-checks.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rnns-lstms-grus.jsx",
+        "line": 202,
+        "component": "RecurrentProgram",
+        "props": {
+          "file": "pen-sequence-learning.py",
+          "title": "Read the complete real-data training and evaluation program"
+        },
+        "source": "/learn-assets/rnns-lstms-grus/pen-sequence-learning.py",
+        "sourceSha256": "03e93d983b2c2a45f59619028a805f05852a518bda8846c224abe3a482c038ef",
+        "baselineSourceHash": null,
+        "excerptSha256": "c014471b1de46f1824aaddacf47c38c96b744c5b83c7d6a077dc439daa07ea22",
+        "currentSource": "/learn-assets/rnns-lstms-grus/pen-sequence-learning.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rnns-lstms-grus.jsx",
+        "line": 294,
+        "component": "RecurrentProgram",
+        "props": {
+          "file": "recurrent-mechanics.py",
+          "title": "Read the explicit NumPy RNN, LSTM and GRU cell equations",
+          "start": "def manual_sequence",
+          "end": "def scalar_credit"
+        },
+        "source": "/learn-assets/rnns-lstms-grus/recurrent-mechanics.py",
+        "sourceSha256": "064b62ec4e4e9bc6e3ca02d7305db09bc4dea9bd1d070ce7c916c958008ef657",
+        "baselineSourceHash": null,
+        "excerptSha256": "7f3df54e67962940df884567018b4ab1bbdcac1db1138e15b80603e8e96b5677",
+        "currentSource": "/learn-assets/rnns-lstms-grus/recurrent-mechanics.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rnns-lstms-grus.jsx",
+        "line": 298,
+        "component": "RecurrentProgram",
+        "props": {
+          "file": "recurrent-mechanics.py",
+          "title": "Read the scratch temporal gradient and matched autograd check",
+          "start": "def scalar_credit",
+          "end": "def state_and_padding"
+        },
+        "source": "/learn-assets/rnns-lstms-grus/recurrent-mechanics.py",
+        "sourceSha256": "064b62ec4e4e9bc6e3ca02d7305db09bc4dea9bd1d070ce7c916c958008ef657",
+        "baselineSourceHash": null,
+        "excerptSha256": "6081efb835cb1d6d2ec96801c122204f74d48b778459c7074de4c3d6e8c8e17c",
+        "currentSource": "/learn-assets/rnns-lstms-grus/recurrent-mechanics.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rnns-lstms-grus.jsx",
+        "line": 302,
+        "component": "RecurrentProgram",
+        "props": {
+          "file": "recurrent-mechanics.py",
+          "title": "Read all native parity, chunk, padding and derivative checks"
+        },
+        "source": "/learn-assets/rnns-lstms-grus/recurrent-mechanics.py",
+        "sourceSha256": "064b62ec4e4e9bc6e3ca02d7305db09bc4dea9bd1d070ce7c916c958008ef657",
+        "baselineSourceHash": null,
+        "excerptSha256": "6e16f09bfda9f9bfeef3d13c13f5196f69fe74864caffdb34aa0c01a51cd30b8",
+        "currentSource": "/learn-assets/rnns-lstms-grus/recurrent-mechanics.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+        "line": 231,
+        "component": "Seq2SeqProgram",
+        "props": {
+          "file": "inflection-seq2seq.py",
+          "title": "Read the complete runnable inflection model"
+        },
+        "source": "/learn-code/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py",
+        "sourceSha256": "42f8a721ade20402cb1e985b6a94262b958fbf5f592914ede34295eec99b168f",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+        "line": 261,
+        "component": "Seq2SeqProgram",
+        "props": {
+          "file": "sequence-mechanics.py",
+          "title": "Read the scalar joint derivative, manual GRU protocol and exact search checks"
+        },
+        "source": "/learn-code/sequence-to-sequence-encoder-decoder/sequence-mechanics.py",
+        "sourceSha256": "889a64002f5ab243bd5ee74ce1c3e3eec450c21cca80bf20e3c1418e43fe7966",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/sequence-to-sequence-encoder-decoder/sequence-mechanics.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+        "line": 540,
+        "component": "StateSpaceProgram",
+        "props": {
+          "file": "trajectory_state_models.py",
+          "title": "Read the complete trainable diagonal and selective classifiers"
+        },
+        "source": "/learn-code/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py",
+        "sourceSha256": "088d36df510c9d0a223530399d44c010ee6c236ef8a221be2b7576484efdfeea",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+        "line": 555,
+        "component": "StateSpaceProgram",
+        "props": {
+          "file": "state_space_mechanisms.py",
+          "title": "Read the complete recurrence, discretization, convolution and SSD program"
+        },
+        "source": "/learn-code/state-space-models-s4-mamba-mamba-2/state_space_mechanisms.py",
+        "sourceSha256": "e8f7c83bd9acc617dc9628047fe33c510a2e5bfde8ff10ce32e165fe43bbcb03",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/state-space-models-s4-mamba-mamba-2/state_space_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+        "line": 627,
+        "component": "StateSpaceProgram",
+        "props": {
+          "file": "state_space_library_bridge.py",
+          "title": "Read the ordinary Mamba scan and complete-block training route"
+        },
+        "source": "/learn-code/state-space-models-s4-mamba-mamba-2/state_space_library_bridge.py",
+        "sourceSha256": "18b2938b069996a522d90fd808c0f25418b5e9556e662c1c89dacabbb2e6c847",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/state-space-models-s4-mamba-mamba-2/state_space_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+        "line": 195,
+        "component": "RwkvProgram",
+        "props": {
+          "file": "linear_memory_mechanisms.py",
+          "title": "Read the complete scratch memory operators"
+        },
+        "source": "/learn-code/rwkv-linear-attention-models/linear_memory_mechanisms.py",
+        "sourceSha256": "ce8505c18962b925152b5a133488e9063bd6cf102dc637788b60b442fdda8e49",
+        "baselineSourceHash": "ce8505c18962b925152b5a133488e9063bd6cf102dc637788b60b442fdda8e49",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/rwkv-linear-attention-models/linear_memory_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+        "line": 399,
+        "component": "RwkvProgram",
+        "props": {
+          "file": "trajectory_memory_models.py",
+          "title": "Read the complete trainable PyTorch model and study"
+        },
+        "source": "/learn-code/rwkv-linear-attention-models/trajectory_memory_models.py",
+        "sourceSha256": "a966ae1b5378e73fd85326f3a25a70d1fb571cd353769b697f2a23881c0af344",
+        "baselineSourceHash": "a966ae1b5378e73fd85326f3a25a70d1fb571cd353769b697f2a23881c0af344",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/rwkv-linear-attention-models/trajectory_memory_models.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+        "line": 451,
+        "component": "RwkvProgram",
+        "props": {
+          "file": "rwkv_checkpoint_state.py",
+          "title": "Read the optional official-checkpoint continuation route"
+        },
+        "source": "/learn-code/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+        "sourceSha256": "e26716574f0fe08bfdac0e8c06fe55c5e5693abe160b4160af69b7c1fe6c334c",
+        "baselineSourceHash": "e26716574f0fe08bfdac0e8c06fe55c5e5693abe160b4160af69b7c1fe6c334c",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/self-attention-multi-head-attention.jsx",
+        "line": 249,
+        "component": "SelfAttentionProgram",
+        "props": {},
+        "source": "/learn-code/self-attention-multi-head-attention/author-calculations.py",
+        "sourceSha256": "62bf46fd8b2c97173c5cb2cf5bfa39e9e629e2834391c33286f80e231f978fc1",
+        "baselineSourceHash": "62bf46fd8b2c97173c5cb2cf5bfa39e9e629e2834391c33286f80e231f978fc1",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/self-attention-multi-head-attention/author-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+        "line": 209,
+        "component": "GqaProgram",
+        "props": {
+          "file": "mechanism-calculations.py"
+        },
+        "source": "/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+        "sourceSha256": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+        "baselineSourceHash": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+        "line": 321,
+        "component": "GqaProgram",
+        "props": {
+          "file": "author-calculations.py"
+        },
+        "source": "/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+        "sourceSha256": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+        "baselineSourceHash": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+        "line": 198,
+        "component": "LatentProgram",
+        "props": {
+          "file": "mechanism-calculations.py"
+        },
+        "source": "/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py",
+        "sourceSha256": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+        "baselineSourceHash": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+        "line": 262,
+        "component": "LatentProgram",
+        "props": {
+          "file": "mla_sdpa_bridge.py"
+        },
+        "source": "/learn-assets/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+        "sourceSha256": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+        "baselineSourceHash": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+        "line": 346,
+        "component": "LatentProgram",
+        "props": {
+          "file": "author-calculations.py"
+        },
+        "source": "/learn-assets/multi-head-latent-attention-mla/author-calculations.py",
+        "sourceSha256": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+        "baselineSourceHash": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/multi-head-latent-attention-mla/author-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+        "line": 328,
+        "component": "SparseProgram",
+        "props": {
+          "file": "author-calculations.py",
+          "title": "Read the complete trainable PyTorch models and retained study"
+        },
+        "source": "/learn-code/sparse-linear-attention-variants/author-calculations.py",
+        "sourceSha256": "4ef246b18bda80a485ba15fd1b9f1a578887ea71e78b0351f84f820ff2425489",
+        "baselineSourceHash": "4ef246b18bda80a485ba15fd1b9f1a578887ea71e78b0351f84f820ff2425489",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/sparse-linear-attention-variants/author-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+        "line": 328,
+        "component": "SparseProgram",
+        "props": {
+          "file": "mechanism-calculations.py",
+          "title": "Read the independent numerical mechanisms and samplers"
+        },
+        "source": "/learn-code/sparse-linear-attention-variants/mechanism-calculations.py",
+        "sourceSha256": "c051e46623dff472db194066ee87b08b8c54516ebcfb6570318274ed4d771d7a",
+        "baselineSourceHash": "c051e46623dff472db194066ee87b08b8c54516ebcfb6570318274ed4d771d7a",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/sparse-linear-attention-variants/mechanism-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+        "line": 340,
+        "component": "SparseProgram",
+        "props": {
+          "file": "attention_compression_bridges.py",
+          "title": "Read the complete scratch and SDPA compression bridges"
+        },
+        "source": "/learn-code/sparse-linear-attention-variants/attention_compression_bridges.py",
+        "sourceSha256": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699",
+        "baselineSourceHash": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/sparse-linear-attention-variants/attention_compression_bridges.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+        "line": 120,
+        "component": "VisionProgram",
+        "props": {
+          "file": "vision-mechanisms.py",
+          "title": "Read the complete scratch mechanisms: windows, patch merging, resizing and self-distillation"
+        },
+        "source": "/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py",
+        "sourceSha256": "d4b873d5dd7d07d27f4921f472a67607e4d9efc725d1c120cb4d20a58f000e56",
+        "baselineSourceHash": "d4b873d5dd7d07d27f4921f472a67607e4d9efc725d1c120cb4d20a58f000e56",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+        "line": 204,
+        "component": "VisionProgram",
+        "props": {
+          "file": "vision_library_bridge.py",
+          "title": "Read the complete executed torchvision bridge"
+        },
+        "source": "/learn-code/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+        "sourceSha256": "d46afd3f2752860737b94358215eedb03c912e60bc625d180181a0bc79988fd9",
+        "baselineSourceHash": "d46afd3f2752860737b94358215eedb03c912e60bc625d180181a0bc79988fd9",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+        "line": 330,
+        "component": "VisionProgram",
+        "props": {
+          "file": "vision-study.py",
+          "title": "Read the complete trainable image models, data split and retained study"
+        },
+        "source": "/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-study.py",
+        "sourceSha256": "f8adbeb6d36e99108647422256e087caed3db309d01b65fc04f6fd45f78f41f6",
+        "baselineSourceHash": "f8adbeb6d36e99108647422256e087caed3db309d01b65fc04f6fd45f78f41f6",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+        "line": 410,
+        "component": "VisionProgram",
+        "props": {
+          "file": "inspect-pretrained-features.py",
+          "title": "Read the optional local-checkpoint feature extractor (not executed here)"
+        },
+        "source": "/learn-code/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py",
+        "sourceSha256": "88dd5ac7916805f4b41fa93c0534b9450bb9c5dcb0b0ed8d94ab2e01654e0401",
+        "baselineSourceHash": "88dd5ac7916805f4b41fa93c0534b9450bb9c5dcb0b0ed8d94ab2e01654e0401",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+        "line": 312,
+        "component": "MoeProgram",
+        "props": {
+          "file": "moe_study.py",
+          "title": "Complete executed CPU training and evaluation program"
+        },
+        "source": "/learn-code/mixture-of-experts-transformers-moe/moe_study.py",
+        "sourceSha256": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3",
+        "baselineSourceHash": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/mixture-of-experts-transformers-moe/moe_study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+        "line": 318,
+        "component": "MoeProgram",
+        "props": {
+          "file": "moe_calculations.py",
+          "title": "Complete executed scratch calculations and dense-reference gradient checks"
+        },
+        "source": "/learn-code/mixture-of-experts-transformers-moe/moe_calculations.py",
+        "sourceSha256": "cac5dc8f449333c6572eaa78157998627c6f5a130c7a98a1adc60f2c6df08d08",
+        "baselineSourceHash": "cac5dc8f449333c6572eaa78157998627c6f5a130c7a98a1adc60f2c6df08d08",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/mixture-of-experts-transformers-moe/moe_calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+        "line": 182,
+        "component": "CrossProgram",
+        "props": {
+          "file": "cross-attention-study.py",
+          "title": "Complete executed CPU training and evaluation program"
+        },
+        "source": "/learn-code/interleaved-cross-attention-architectures/cross-attention-study.py",
+        "sourceSha256": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+        "baselineSourceHash": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/interleaved-cross-attention-architectures/cross-attention-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+        "line": 236,
+        "component": "CrossProgram",
+        "props": {
+          "file": "cross_attention_cache.py",
+          "title": "Complete executed native memory-cache bridge"
+        },
+        "source": "/learn-code/interleaved-cross-attention-architectures/cross_attention_cache.py",
+        "sourceSha256": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+        "baselineSourceHash": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/interleaved-cross-attention-architectures/cross_attention_cache.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+        "line": 177,
+        "component": "MessageProgram",
+        "props": {
+          "file": "message-passing-study.py",
+          "title": "Complete executed offline graph study and scratch layers"
+        },
+        "source": "/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py",
+        "sourceSha256": "9c851659a8eac177518a9fdf4f047e3a05cc124c9b89dc54075e31b6e89b9e83",
+        "baselineSourceHash": "9c851659a8eac177518a9fdf4f047e3a05cc124c9b89dc54075e31b6e89b9e83",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+        "line": 213,
+        "component": "MessageProgram",
+        "props": {
+          "file": "graph_library_bridge.py",
+          "title": "Complete executed sparse tensor and PyG value/gradient/update bridge"
+        },
+        "source": "/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+        "sourceSha256": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590",
+        "baselineSourceHash": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+        "line": 195,
+        "component": "GeoProgram",
+        "props": {
+          "file": "geometry-calculations.py",
+          "title": "Complete executed geometry, walks, eigenbasis and finite-action calculations"
+        },
+        "source": "/learn-code/graph-transformers-geometric-deep-learning/geometry-calculations.py",
+        "sourceSha256": "40f133ae7196d77d460a22127808bf483135df18880a67347c65e8f5ada4ad92",
+        "baselineSourceHash": "40f133ae7196d77d460a22127808bf483135df18880a67347c65e8f5ada4ad92",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/graph-transformers-geometric-deep-learning/geometry-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+        "line": 219,
+        "component": "GeoProgram",
+        "props": {
+          "file": "graph-transformer-study.py",
+          "title": "Complete executed offline graph transformer and GCN study"
+        },
+        "source": "/learn-code/graph-transformers-geometric-deep-learning/graph-transformer-study.py",
+        "sourceSha256": "95fd8386ea8aa62c2ba8bd64e002f489af39fa832f8a274546ec548f255a8ee7",
+        "baselineSourceHash": "95fd8386ea8aa62c2ba8bd64e002f489af39fa832f8a274546ec548f255a8ee7",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/graph-transformers-geometric-deep-learning/graph-transformer-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+        "line": 249,
+        "component": "GeoProgram",
+        "props": {
+          "file": "gps_library_bridge.py",
+          "title": "Complete executed manual/PyG GPS composition, gradients and batching"
+        },
+        "source": "/learn-code/graph-transformers-geometric-deep-learning/gps_library_bridge.py",
+        "sourceSha256": "068df250860779853851b5b6163cff678769a3d73d5cda4aeedf835c01a2f0ce",
+        "baselineSourceHash": "068df250860779853851b5b6163cff678769a3d73d5cda4aeedf835c01a2f0ce",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/graph-transformers-geometric-deep-learning/gps_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+        "line": 249,
+        "component": "GeoProgram",
+        "props": {
+          "file": "graph_library_bridge.py",
+          "title": "Required sparse GCN/SAGE/GAT helper from the preceding lesson"
+        },
+        "source": "/learn-code/graph-transformers-geometric-deep-learning/graph_library_bridge.py",
+        "sourceSha256": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590",
+        "baselineSourceHash": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/graph-transformers-geometric-deep-learning/graph_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx",
+        "line": 235,
+        "component": "RbmProgram",
+        "props": {
+          "file": "rbm-study.py"
+        },
+        "source": "/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py",
+        "sourceSha256": "f57facd7f4aa07452c255f67ed1e320096cca37d7f1a77822161e57a3919baee",
+        "baselineSourceHash": "f57facd7f4aa07452c255f67ed1e320096cca37d7f1a77822161e57a3919baee",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx",
+        "line": 333,
+        "component": "RbmProgram",
+        "props": {
+          "file": "bernoulli_rbm_bridge.py"
+        },
+        "source": "/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py",
+        "sourceSha256": "623453c29a018ef4ab3152282246d44f2ad25d0263a6f8faafc4bd766d17125e",
+        "baselineSourceHash": "623453c29a018ef4ab3152282246d44f2ad25d0263a6f8faafc4bd766d17125e",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/spectral-normalization-gradient-penalty.jsx",
+        "line": 118,
+        "component": "SpectralProgram",
+        "props": {
+          "filename": "sensitivity-calculations.py"
+        },
+        "source": "/learn-code/spectral-normalization-gradient-penalty/sensitivity-calculations.py",
+        "sourceSha256": "fcb66168467c6c1519c91702cd3712d75db9d04c47040e0ccf2fc74831561801",
+        "baselineSourceHash": "fcb66168467c6c1519c91702cd3712d75db9d04c47040e0ccf2fc74831561801",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/spectral-normalization-gradient-penalty/sensitivity-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/spectral-normalization-gradient-penalty.jsx",
+        "line": 236,
+        "component": "SpectralProgram",
+        "props": {
+          "filename": "critic-regularization-study.py"
+        },
+        "source": "/learn-code/spectral-normalization-gradient-penalty/critic-regularization-study.py",
+        "sourceSha256": "f5e6e7ffc02d95598034a8599e92e86a4709f88cec84d70d49f2f456cfcf975f",
+        "baselineSourceHash": "f5e6e7ffc02d95598034a8599e92e86a4709f88cec84d70d49f2f456cfcf975f",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/spectral-normalization-gradient-penalty/critic-regularization-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/modern-hopfield-networks.jsx",
+        "line": 304,
+        "component": "HopfieldProgram",
+        "props": {
+          "filename": "associative_memory.py"
+        },
+        "source": "/learn-code/modern-hopfield-networks/associative_memory.py",
+        "sourceSha256": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+        "baselineSourceHash": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/modern-hopfield-networks/associative_memory.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/modern-hopfield-networks.jsx",
+        "line": 304,
+        "component": "HopfieldProgram",
+        "props": {
+          "filename": "digit_memory.py"
+        },
+        "source": "/learn-code/modern-hopfield-networks/digit_memory.py",
+        "sourceSha256": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+        "baselineSourceHash": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/modern-hopfield-networks/digit_memory.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+        "line": 292,
+        "component": "XlstmProgram",
+        "props": {
+          "filename": "memory_mechanisms.py"
+        },
+        "source": "/learn-code/xlstm-extended-lstm/memory_mechanisms.py",
+        "sourceSha256": "538752b266ac151392bfecd53f37d00d2f0464f1c70a466d5b4c5dd2672394cf",
+        "baselineSourceHash": "538752b266ac151392bfecd53f37d00d2f0464f1c70a466d5b4c5dd2672394cf",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/xlstm-extended-lstm/memory_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+        "line": 292,
+        "component": "XlstmProgram",
+        "props": {
+          "filename": "row_sequence_models.py"
+        },
+        "source": "/learn-code/xlstm-extended-lstm/row_sequence_models.py",
+        "sourceSha256": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2",
+        "baselineSourceHash": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/xlstm-extended-lstm/row_sequence_models.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+        "line": 292,
+        "component": "XlstmProgram",
+        "props": {
+          "filename": "author_calculations.py"
+        },
+        "source": "/learn-code/xlstm-extended-lstm/author_calculations.py",
+        "sourceSha256": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87",
+        "baselineSourceHash": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/xlstm-extended-lstm/author_calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+        "line": 84,
+        "component": "HyenaProgram",
+        "props": {
+          "filename": "convolution_mechanisms.py"
+        },
+        "source": "/learn-code/hyena-long-convolution-models/convolution_mechanisms.py",
+        "sourceSha256": "499a1af14787c65e0d056baba4ba8efbd3d51609b59edc414ce593296ed31ce5",
+        "baselineSourceHash": "499a1af14787c65e0d056baba4ba8efbd3d51609b59edc414ce593296ed31ce5",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/hyena-long-convolution-models/convolution_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+        "line": 212,
+        "component": "HyenaProgram",
+        "props": {
+          "filename": "splice_models.py"
+        },
+        "source": "/learn-code/hyena-long-convolution-models/splice_models.py",
+        "sourceSha256": "b3157678c6594094e9a6d7f87df9f682ab9eca80d113752ca5451a9d8d3c1476",
+        "baselineSourceHash": "b3157678c6594094e9a6d7f87df9f682ab9eca80d113752ca5451a9d8d3c1476",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/hyena-long-convolution-models/splice_models.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+        "line": 212,
+        "component": "HyenaProgram",
+        "props": {
+          "filename": "author_calculations.py"
+        },
+        "source": "/learn-code/hyena-long-convolution-models/author_calculations.py",
+        "sourceSha256": "afc03ab280a25e3ec589cba60ed9449aa9d5f7e4c10b67e128ece5b6599d9b43",
+        "baselineSourceHash": "afc03ab280a25e3ec589cba60ed9449aa9d5f7e4c10b67e128ece5b6599d9b43",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/hyena-long-convolution-models/author_calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+        "line": 268,
+        "component": "HyenaProgram",
+        "props": {
+          "filename": "blocked_convolution.py"
+        },
+        "source": "/learn-code/hyena-long-convolution-models/blocked_convolution.py",
+        "sourceSha256": "e57f23494187c37a294d21d51737b72f533f84245815407c13c96abc7e565c7f",
+        "baselineSourceHash": "e57f23494187c37a294d21d51737b72f533f84245815407c13c96abc7e565c7f",
+        "excerptSha256": null,
+        "currentSource": "/learn-code/hyena-long-convolution-models/blocked_convolution.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+        "line": 282,
+        "component": "RingProgram",
+        "props": {
+          "file": "ring-attention-reference.py",
+          "title": "Read the complete scratch reference: stable forward and recomputed backward"
+        },
+        "source": "/learn-assets/ring-attention-sequence-parallelism/ring-attention-reference.py",
+        "sourceSha256": "f28aad941b105046a5e51d0ab8ce9bb1dde88b560211498325a1513214c0f34c",
+        "baselineSourceHash": "f28aad941b105046a5e51d0ab8ce9bb1dde88b560211498325a1513214c0f34c",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/ring-attention-sequence-parallelism/ring-attention-reference.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+        "line": 282,
+        "component": "RingProgram",
+        "props": {
+          "file": "attention-partition-study.py",
+          "title": "Read the complete real-input and derivative study"
+        },
+        "source": "/learn-assets/ring-attention-sequence-parallelism/attention-partition-study.py",
+        "sourceSha256": "f9efea1d0b93ac632a14dfb265c8cd40f480f354effc54eb4fc4a0cc4ccfe9f1",
+        "baselineSourceHash": "f9efea1d0b93ac632a14dfb265c8cd40f480f354effc54eb4fc4a0cc4ccfe9f1",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/ring-attention-sequence-parallelism/attention-partition-study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+        "line": 282,
+        "component": "RingProgram",
+        "props": {
+          "file": "systems-calculations.py",
+          "title": "Read the complete ownership, work and resource calculations"
+        },
+        "source": "/learn-assets/ring-attention-sequence-parallelism/systems-calculations.py",
+        "sourceSha256": "b759da93dc2fdbd799b3f6676faf904cee17137ccc9aaf34fc5447276c6a1364",
+        "baselineSourceHash": "b759da93dc2fdbd799b3f6676faf904cee17137ccc9aaf34fc5447276c6a1364",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/ring-attention-sequence-parallelism/systems-calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+        "line": 300,
+        "component": "RingProgram",
+        "props": {
+          "file": "distributed_ring.py",
+          "title": "Read the complete ordinary PyTorch CPU/Gloo multi-process program"
+        },
+        "source": "/learn-assets/ring-attention-sequence-parallelism/distributed_ring.py",
+        "sourceSha256": "ec48dcaceeb572531112545ed4af0414916cd28d41439f3021f167dffa99c17a",
+        "baselineSourceHash": "ec48dcaceeb572531112545ed4af0414916cd28d41439f3021f167dffa99c17a",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/ring-attention-sequence-parallelism/distributed_ring.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+        "line": 311,
+        "component": "OptimizerProgram",
+        "props": {
+          "file": "optimizer_rules.py"
+        },
+        "source": "/learn-assets/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py",
+        "sourceSha256": "5a11ed8a9de5728ceb1e6c36b4f84126a434893433c967b09e9f5002fa745f1c",
+        "baselineSourceHash": "5a11ed8a9de5728ceb1e6c36b4f84126a434893433c967b09e9f5002fa745f1c",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+        "line": 311,
+        "component": "OptimizerProgram",
+        "props": {
+          "file": "optimizer_study.py"
+        },
+        "source": "/learn-assets/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py",
+        "sourceSha256": "fdc7fa01cb133e3d9baa2f35eeb89b25583b6f8971ab268ca4c9539e2c53bf74",
+        "baselineSourceHash": "fdc7fa01cb133e3d9baa2f35eeb89b25583b6f8971ab268ca4c9539e2c53bf74",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+        "line": 311,
+        "component": "OptimizerProgram",
+        "props": {
+          "file": "optimizer_calculations.py"
+        },
+        "source": "/learn-assets/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py",
+        "sourceSha256": "fcb3cf3c8679d2e44d3e2b91200cc3d9f50501890c149b6942b122502e899b61",
+        "baselineSourceHash": "fcb3cf3c8679d2e44d3e2b91200cc3d9f50501890c149b6942b122502e899b61",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+        "line": 624,
+        "component": "OdeProgram",
+        "props": {
+          "file": "ode_calculations.py"
+        },
+        "source": "/learn-assets/neural-ode-continuous-depth-models/ode_calculations.py",
+        "sourceSha256": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0",
+        "baselineSourceHash": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/neural-ode-continuous-depth-models/ode_calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+        "line": 127,
+        "component": "TitansProgram",
+        "props": {
+          "file": "neural_memory.py"
+        },
+        "source": "/learn-assets/titans-multi-memory-architecture/neural_memory.py",
+        "sourceSha256": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258",
+        "baselineSourceHash": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/titans-multi-memory-architecture/neural_memory.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+        "line": 229,
+        "component": "TitansProgram",
+        "props": {
+          "file": "rental_memory_study.py"
+        },
+        "source": "/learn-assets/titans-multi-memory-architecture/rental_memory_study.py",
+        "sourceSha256": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037",
+        "baselineSourceHash": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/titans-multi-memory-architecture/rental_memory_study.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+        "line": 251,
+        "component": "TitansProgram",
+        "props": {
+          "file": "memory_mechanisms.py"
+        },
+        "source": "/learn-assets/titans-multi-memory-architecture/memory_mechanisms.py",
+        "sourceSha256": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6",
+        "baselineSourceHash": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/titans-multi-memory-architecture/memory_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+        "line": 478,
+        "component": "TitansProgram",
+        "props": {
+          "file": "check_author_packet.py"
+        },
+        "source": "/learn-assets/titans-multi-memory-architecture/check_author_packet.py",
+        "sourceSha256": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604",
+        "baselineSourceHash": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/titans-multi-memory-architecture/check_author_packet.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+        "line": 276,
+        "component": "JambaProgram",
+        "props": {
+          "file": "stroke_models.py"
+        },
+        "source": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/stroke_models.py",
+        "sourceSha256": "bda2789c50ae1bb246c4c60ed6e300ca1e121119f91f676210ebe67bc5040785",
+        "baselineSourceHash": "bda2789c50ae1bb246c4c60ed6e300ca1e121119f91f676210ebe67bc5040785",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/stroke_models.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+        "line": 276,
+        "component": "JambaProgram",
+        "props": {
+          "file": "inspect_stroke.py"
+        },
+        "source": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/inspect_stroke.py",
+        "sourceSha256": "ec1a4290f35da91a2940b78ab310221e8e8ed1da4a31c7764418b2c7f4c6c79f",
+        "baselineSourceHash": "ec1a4290f35da91a2940b78ab310221e8e8ed1da4a31c7764418b2c7f4c6c79f",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/inspect_stroke.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+        "line": 338,
+        "component": "JambaProgram",
+        "props": {
+          "file": "deployment_example.py"
+        },
+        "source": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/deployment_example.py",
+        "sourceSha256": "fe01f649636a705ecc5c08d2aad5a0408d251f669605e89cef924df896aa43ab",
+        "baselineSourceHash": "fe01f649636a705ecc5c08d2aad5a0408d251f669605e89cef924df896aa43ab",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/deployment_example.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+        "line": 569,
+        "component": "JambaProgram",
+        "props": {
+          "file": "hybrid_mechanisms.py"
+        },
+        "source": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/hybrid_mechanisms.py",
+        "sourceSha256": "c449a8b2733ec6ca3c1211e4b75358142eba2e3d1f2f726fb89cb30f82a73c6b",
+        "baselineSourceHash": "c449a8b2733ec6ca3c1211e4b75358142eba2e3d1f2f726fb89cb30f82a73c6b",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/hybrid-ssm-transformer-architectures-jamba/hybrid_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+        "line": 326,
+        "component": "LongContextProgram",
+        "props": {
+          "file": "sequence_mechanisms.py",
+          "title": "Read the complete scratch attention, cache, recurrence and latent program"
+        },
+        "source": "/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/sequence_mechanisms.py",
+        "sourceSha256": "0d3fa896742624cbb20130c89aba5d135506132e6f529d1626b27a6df63274ef",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/sequence_mechanisms.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+        "line": 368,
+        "component": "LongContextProgram",
+        "props": {
+          "file": "latent_trajectory_classifier.py",
+          "title": "Read the complete trainable classifier, baselines and evaluation program"
+        },
+        "source": "/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/latent_trajectory_classifier.py",
+        "sourceSha256": "c810abe34f5060d04f7df2f0b4797200c734e21ef954d494da9a062b86482b5d",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/latent_trajectory_classifier.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+        "line": 410,
+        "component": "LongContextProgram",
+        "props": {
+          "file": "memory_library_bridge.py",
+          "title": "Read the matched library operators, RG-LRU reference and gradient comparisons"
+        },
+        "source": "/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/memory_library_bridge.py",
+        "sourceSha256": "968a272efbe44f41ac9bc3876890e033f17b4a35b07af336bf4fb62b319ed528",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/memory_library_bridge.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/mini-batches-training-loops-gradient-accumulation.jsx",
+        "line": 161,
+        "component": "MinibatchProgram",
+        "props": {
+          "file": "train_iris.py"
+        },
+        "source": "/learn-assets/mini-batches-training-loops-gradient-accumulation/train_iris.py",
+        "sourceSha256": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798",
+        "baselineSourceHash": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/mini-batches-training-loops-gradient-accumulation/train_iris.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/mini-batches-training-loops-gradient-accumulation.jsx",
+        "line": 384,
+        "component": "MinibatchProgram",
+        "props": {
+          "file": "trace_update.py"
+        },
+        "source": "/learn-assets/mini-batches-training-loops-gradient-accumulation/trace_update.py",
+        "sourceSha256": "1087dc17806584c6f08bf97c3e523f25ba7d882735165e36da4d6aa23c9ca432",
+        "baselineSourceHash": "1087dc17806584c6f08bf97c3e523f25ba7d882735165e36da4d6aa23c9ca432",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/mini-batches-training-loops-gradient-accumulation/trace_update.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+        "line": 133,
+        "component": "DiagnosticsProgram",
+        "props": {
+          "file": "calculations.py"
+        },
+        "source": "/learn-assets/neural-training-diagnostics-reproducible-experiments/calculations.py",
+        "sourceSha256": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+        "baselineSourceHash": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/neural-training-diagnostics-reproducible-experiments/calculations.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+        "line": 189,
+        "component": "DiagnosticsProgram",
+        "props": {
+          "file": "wine_diagnostics.py"
+        },
+        "source": "/learn-assets/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py",
+        "sourceSha256": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d",
+        "baselineSourceHash": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+        "line": 265,
+        "component": "DiagnosticsProgram",
+        "props": {
+          "file": "checkpoint_replay.py"
+        },
+        "source": "/learn-assets/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+        "sourceSha256": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+        "baselineSourceHash": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+        "excerptSha256": null,
+        "currentSource": "/learn-assets/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+        "line": 208,
+        "component": "AttentionProgram",
+        "props": {
+          "file": "attention-inference.py",
+          "title": "Read the complete NumPy mechanism and saved-model inference"
+        },
+        "source": "/learn-code/attention-mechanism-bahdanau-luong/attention-inference.py",
+        "sourceSha256": "6b2cbfd4c0b9fc651bcb4f2b3bbe55602e272005a5e115a89968515a20362848",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/attention-mechanism-bahdanau-luong/attention-inference.py",
+        "sourceRouteConserved": true
+      },
+      {
+        "caller": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+        "line": 208,
+        "component": "AttentionProgram",
+        "props": {
+          "file": "attention-calculations.py",
+          "title": "Read the exact attention-gradient, window and copy calculations"
+        },
+        "source": "/learn-code/attention-mechanism-bahdanau-luong/attention-calculations.py",
+        "sourceSha256": "54615f3153dd52e703b728f2932b33c9d472d8f978a593f715597df54766cd1a",
+        "baselineSourceHash": null,
+        "excerptSha256": null,
+        "currentSource": "/learn-code/attention-mechanism-bahdanau-luong/attention-calculations.py",
+        "sourceRouteConserved": true
+      }
+    ],
+    "specialChecks": {
+      "dropoutExactSlice": true,
+      "recurrentExactSlice": true
+    },
+    "counts": {
+      "files": 36,
+      "programUses": 98,
+      "uniqueSources": 95,
+      "excerptUses": 7,
+      "baselineHashMatches": 60,
+      "sourceRouteMatches": 98
+    }
+  },
+  "functions": [
+    {
+      "file": "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx",
+      "function": "OptimizerProgram",
+      "originalFunction": "export function OptimizerProgram({ file }) {\r\n  const [open, setOpen] = useState(false), [source, setSource] = useState(''), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => { if (!open || source) return undefined; const controller = new AbortController(); setFailed(false); fetch(base + file, { signal: controller.signal }).then(r => { if (!r.ok) throw new Error('Unavailable code'); return r.text(); }).then(text => { if (!controller.signal.aborted) setSource(text); }).catch(() => { if (!controller.signal.aborted) setFailed(true); }); return () => controller.abort(); }, [open, source, file, attempt]);\r\n  return <details onToggle={e => setOpen(e.currentTarget.open)}><summary>Read complete {file}</summary>{source ? <pre className=\"optimizer-code\" tabIndex={0}><code>{source}</code></pre> : failed ? <p>The program could not be loaded. <button onClick={() => setAttempt(n => n + 1)}>Retry code</button></p> : open && <p role=\"status\">Loading the complete program…</p>}</details>;\r\n}",
+      "finalFunction": "export function OptimizerProgram({ file }) {\r\n  return <>\r\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={\"Read complete \" + (file)} />\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "1451fe8e97c762364bb88b311ce18bfafc06a6e65f0d90c8e89c654b02ef91ee",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read complete \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+      "function": "CapsuleProgram",
+      "originalFunction": "export function CapsuleProgram({ file = 'capsule-learning.py', title = 'Read the complete trainable capsule program' }) {\r\n  const [open, setOpen] = useState(false), [source, setSource] = useState(null), [error, setError] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || source) return;\r\n    const controller = new AbortController(); setError(false);\r\n    fetch(capsuleAsset + file, { signal: controller.signal }).then(response => { if (!response.ok) throw new Error('Source failed'); return response.text(); }).then(setSource).catch(reason => { if (reason.name !== 'AbortError') setError(true); });\r\n    return () => controller.abort();\r\n  }, [open, source, file, attempt]);\r\n  return <details className=\"neural-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>{open && (source ? <pre className=\"neural-program-source\" tabIndex={0} role=\"region\" aria-label={`${file}; scroll code horizontally`}><code>{source}</code></pre> : error ? <p role=\"alert\">Source could not load. <button onClick={() => setAttempt(value => value + 1)}>Retry source</button></p> : <p role=\"status\">Loading source…</p>)}<p><a href={capsuleAsset + file} download={file}>Download {file}</a></p></details>;\r\n}",
+      "finalFunction": "export function CapsuleProgram({ file = 'capsule-learning.py', title = 'Read the complete trainable capsule program' }) {\r\n  return <>\r\n    <RemoteCodeBlock source={capsuleAsset + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={capsuleAsset + file} download={file}>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "c72a09207eaa825bcebb801b5848b6d6949242d4cf97bf4c882b7832705a78b7",
+      "sourceExpression": "capsuleAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={capsuleAsset + file} download={file}>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvNeXtLabs.jsx",
+      "function": "ConvNeXtProgram",
+      "originalFunction": "export function ConvNeXtProgram({ file, title }) {\r\n  const [open, setOpen] = useState(false), [source, setSource] = useState(null), [error, setError] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || source) return;\r\n    const controller = new AbortController(); setError(false);\r\n    fetch(convnextAsset + file, { signal: controller.signal }).then(response => { if (!response.ok) throw new Error('Source unavailable'); return response.text(); }).then(setSource).catch(reason => { if (reason.name !== 'AbortError') setError(true); });\r\n    return () => controller.abort();\r\n  }, [open, source, file, attempt]);\r\n  return <details className=\"neural-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>{open && (source ? <pre className=\"neural-program-source\" tabIndex={0} role=\"region\" aria-label={`${file}, scroll code horizontally`}><code>{source}</code></pre> : error ? <p role=\"alert\">Source could not load. <button onClick={() => setAttempt(value => value + 1)}>Retry source</button></p> : <p role=\"status\">Loading source…</p>)}<p><a href={convnextAsset + file} download={file}>Download {file}</a></p></details>;\r\n}",
+      "finalFunction": "export function ConvNeXtProgram({ file, title }) {\r\n  return <>\r\n    <RemoteCodeBlock source={convnextAsset + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={convnextAsset + file} download={file}>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "01f2a68e5047f54c5e9f58eb3fdf028403e246bab6716fc161ef7f66aef1c8bf",
+      "sourceExpression": "convnextAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={convnextAsset + file} download={file}>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+      "function": "ConvolutionProgram",
+      "originalFunction": "export function ConvolutionProgram({ file, title }) {\r\n  const [open, setOpen] = useState(false);\r\n  return <details className=\"convolution-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={assetRoot + file} download>Download {file}</a></p>{open && <RemoteContent file={file}>{source => <pre tabIndex={0} role=\"region\" aria-label={title}><code>{source}</code></pre>}</RemoteContent>}</details>;\r\n}",
+      "finalFunction": "export function ConvolutionProgram({ file, title }) {\r\n  return <>\r\n    <RemoteCodeBlock source={assetRoot + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={assetRoot + file} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "2e422b424689d1958766c20b38675b65d385e64678ce368c2643209f161f4330",
+      "sourceExpression": "assetRoot + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={assetRoot + file} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+      "function": "DepthwiseProgram",
+      "originalFunction": "export function DepthwiseProgram({ file, title }) {\r\n  const [open, setOpen] = useState(false), resource = useDeferredText(file, open);\r\n  return <details className=\"depthwise-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={depthwiseAsset + file} download>Download {file}</a></p>{open && (resource.error ? <p role=\"alert\">{resource.error} <button onClick={resource.retry}>Retry source</button></p> : resource.data ? <pre tabIndex={0} role=\"region\" aria-label={title}><code>{resource.data}</code></pre> : <p role=\"status\">Loading source…</p>)}</details>;\r\n}",
+      "finalFunction": "export function DepthwiseProgram({ file, title }) {\r\n  return <>\r\n    <RemoteCodeBlock source={depthwiseAsset + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={depthwiseAsset + file} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "8d94e7dcf5c6df01071f6d7d698d927e9a874963da1f4a90d853ebaec55efd23",
+      "sourceExpression": "depthwiseAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={depthwiseAsset + file} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GroupedQueryLabs.jsx",
+      "function": "GqaProgram",
+      "originalFunction": "export function GqaProgram({\r\n  file = 'author-calculations.py'\r\n}) {\r\n  const [open, setOpen] = useState(false),\r\n    [source, setSource] = useState(null),\r\n    [failed, setFailed] = useState(false),\r\n    [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || source) return;\r\n    const controller = new AbortController();\r\n    setFailed(false);\r\n    fetch(assetBase + file, {\r\n      signal: controller.signal\r\n    }).then(r => {\r\n      if (!r.ok) throw new Error('Download failed');\r\n      return r.text();\r\n    }).then(setSource).catch(e => {\r\n      if (e.name !== 'AbortError') setFailed(true);\r\n    });\r\n    return () => controller.abort();\r\n  }, [open, source, attempt, file]);\r\n  return <details onToggle={e => setOpen(e.currentTarget.open)}><summary>Read the complete {file} program</summary>{source ? <pre className=\"gqa-code\" tabIndex={0}><code>{source}</code></pre> : failed ? <p>Code view could not load. <button onClick={() => setAttempt(v => v + 1)}>Retry code view</button></p> : open && <p role=\"status\">Loading program…</p>}</details>;\r\n}",
+      "finalFunction": "export function GqaProgram({\r\n  file = 'author-calculations.py'\r\n}) {\r\n  return <>\r\n    <RemoteCodeBlock source={assetBase + file} language=\"python\" filename={file} title={\"Read the complete \" + (file) + \" program\"} />\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "bd8a47f80c989d3efa9f140cecacd138a0383d2836ba2fe9c8046dde9a6d7fc2",
+      "sourceExpression": "assetBase + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read the complete \" + (file) + \" program\"",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HybridJambaStudy.jsx",
+      "function": "JambaProgram",
+      "originalFunction": "export function JambaProgram({file}){const[open,setOpen]=useState(false),[text,setText]=useState(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);useEffect(()=>{if(!open||text)return;const controller=new AbortController();setFailed(false);fetch(base+file,{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error();return r.text();}).then(value=>{if(!controller.signal.aborted)setText(value);}).catch(()=>{if(!controller.signal.aborted)setFailed(true);});return()=>controller.abort();},[open,text,file,attempt]);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>Read the complete {file}</summary>{text?<pre className=\"jamba-source\" tabIndex={0}><code>{text}</code></pre>:failed?<p>Program loading failed. <button onClick={()=>setAttempt(v=>v+1)}>Retry program</button></p>:open&&<p role=\"status\">Loading the complete source…</p>}</details>;}",
+      "finalFunction": "export function JambaProgram({file}){\r\n  return <>\r\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={\"Read the complete \" + (file)} />\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "06ffb7df407b3172bf39fa54211e14dd5cd9dfc7958b5b47b4648480ae230677",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read the complete \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+      "function": "LandmarkProgram",
+      "originalFunction": "export function LandmarkProgram({ file = 'architecture-experiments.py', title = 'Read the complete small architecture experiment' }) {\r\n  const [open, setOpen] = useState(false), [source, setSource] = useState(null), [error, setError] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || source) return;\r\n    const controller = new AbortController(); setError(false);\r\n    fetch(landmarkAsset + file, { signal: controller.signal }).then(response => { if (!response.ok) throw new Error('Source unavailable'); return response.text(); }).then(setSource).catch(reason => { if (reason.name !== 'AbortError') setError(true); });\r\n    return () => controller.abort();\r\n  }, [open, source, file, attempt]);\r\n  return <details className=\"neural-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>{open && (source ? <pre className=\"neural-program-source\" tabIndex={0} role=\"region\" aria-label={`${file}; scroll code horizontally`}><code>{source}</code></pre> : error ? <p role=\"alert\">Source could not load. <button onClick={() => setAttempt(value => value + 1)}>Retry code</button></p> : <p role=\"status\">Loading source…</p>)}<p><a href={landmarkAsset + file} download={file}>Download {file}</a></p></details>;\r\n}",
+      "finalFunction": "export function LandmarkProgram({ file = 'architecture-experiments.py', title = 'Read the complete small architecture experiment' }) {\r\n  return <>\r\n    <RemoteCodeBlock source={landmarkAsset + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={landmarkAsset + file} download={file}>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "b7f909ca82daebe4bb8984998ad37c022f66c3abc1f32fff35b33a59dcef3b67",
+      "sourceExpression": "landmarkAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={landmarkAsset + file} download={file}>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LatentAttentionLabs.jsx",
+      "function": "LatentProgram",
+      "originalFunction": "export function LatentProgram({\r\n  file\r\n}) {\r\n  const [open, setOpen] = useState(false),\r\n    [source, setSource] = useState(null),\r\n    [failed, setFailed] = useState(false),\r\n    [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || source) return;\r\n    const controller = new AbortController();\r\n    setFailed(false);\r\n    fetch(assetBase + file, {\r\n      signal: controller.signal\r\n    }).then(r => {\r\n      if (!r.ok) throw new Error('Code download failed');\r\n      return r.text();\r\n    }).then(setSource).catch(e => {\r\n      if (e.name !== 'AbortError') setFailed(true);\r\n    });\r\n    return () => controller.abort();\r\n  }, [open, source, file, attempt]);\r\n  return <details onToggle={e => setOpen(e.currentTarget.open)}><summary>Read complete {file}</summary>{source ? <pre className=\"mla-code\" tabIndex={0}><code>{source}</code></pre> : failed ? <p>Code view could not load. <button onClick={() => setAttempt(v => v + 1)}>Retry code view</button></p> : open && <p role=\"status\">Loading complete program…</p>}</details>;\r\n}",
+      "finalFunction": "export function LatentProgram({\r\n  file\r\n}) {\r\n  return <>\r\n    <RemoteCodeBlock source={assetBase + file} language=\"python\" filename={file} title={\"Read complete \" + (file)} />\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "e62be3900ff5facb49fa4899387e97ee0c604babecdab8ed2ae517a713d35a15",
+      "sourceExpression": "assetBase + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read complete \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextLabs.jsx",
+      "function": "LongContextProgram",
+      "originalFunction": "export function LongContextProgram({ file, title }) {\n  const [open, setOpen] = useState(false), resource = useLongContextResource(file, open);\n  return <details className=\"long-context-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={longContextAsset + file} download>Download {file}</a></p>{open && (resource.error ? <p role=\"alert\">{resource.error} <button onClick={resource.retry}>Retry source</button></p> : resource.data ? <pre tabIndex={0} role=\"region\" aria-label={title}><code>{resource.data}</code></pre> : <p role=\"status\">Loading source…</p>)}</details>;\n}",
+      "finalFunction": "export function LongContextProgram({ file, title }) {\n  return <>\n    <RemoteCodeBlock source={longContextAsset + file} language=\"python\" filename={file} title={(title)} />\n    <p><a href={longContextAsset + file} download>Download {file}</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "5534ccedd2ad2847faf57b5e829eeb126036fd94102a14c64e768dbd48b312e4",
+      "sourceExpression": "longContextAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={longContextAsset + file} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx",
+      "function": "MinibatchProgram",
+      "originalFunction": "export function MinibatchProgram({file}){const[open,setOpen]=useState(false),[text,setText]=useState(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);useEffect(()=>{if(!open||text)return;const controller=new AbortController();setFailed(false);fetch(base+file,{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error();return r.text();}).then(value=>{if(!controller.signal.aborted)setText(value);}).catch(()=>{if(!controller.signal.aborted)setFailed(true);});return()=>controller.abort();},[open,text,file,attempt]);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>Read the complete {file}</summary>{text?<pre className=\"loop-source\" tabIndex={0}><code>{text}</code></pre>:failed?<p>The source could not be loaded. <button onClick={()=>setAttempt(v=>v+1)}>Retry program</button></p>:open&&<p role=\"status\">Loading complete source…</p>}</details>;}",
+      "finalFunction": "export function MinibatchProgram({file}){\n  return <>\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={\"Read the complete \" + (file)} />\n  </>;\n}",
+      "finalFunctionSHA256": "e6e19bd04620927a311495351c3fca008fe1cf9b1f595e0b2de7f362ca8b1850",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read the complete \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NeuralOdeStudy.jsx",
+      "function": "OdeProgram",
+      "originalFunction": "export function OdeProgram({file}){const[open,setOpen]=useState(false),[text,setText]=useState(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);useEffect(()=>{if(!open||text)return;const controller=new AbortController();setFailed(false);fetch(base+file,{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error();return r.text();}).then(setText).catch(()=>{if(!controller.signal.aborted)setFailed(true);});return()=>controller.abort();},[open,text,file,attempt]);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>Read the complete {file}</summary>{text?<pre className=\"ode-program\" tabIndex={0}><code>{text}</code></pre>:failed?<p>The program could not be loaded. <button onClick={()=>setAttempt(v=>v+1)}>Retry program</button></p>:open&&<p role=\"status\">Loading complete source…</p>}</details>;}",
+      "finalFunction": "export function OdeProgram({file}){\n  return <>\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={\"Read the complete \" + (file)} />\n  </>;\n}",
+      "finalFunctionSHA256": "540808ba7a25aef17e992f2ebebe2e0fa5172205f36f093ee13eadb532007627",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read the complete \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmElements.jsx",
+      "function": "RbmProgram",
+      "originalFunction": "export function RbmProgram({\n  file\n}) {\n  const [open, setOpen] = useState(false),\n    [code, setCode] = useState(null),\n    [error, setError] = useState(false),\n    [attempt, setAttempt] = useState(0);\n  useEffect(() => {\n    if (!open || code) return;\n    const controller = new AbortController();\n    setError(false);\n    fetch(rbmAssetBase + file, {\n      signal: controller.signal\n    }).then(r => {\n      if (!r.ok) throw Error('download');\n      return r.text();\n    }).then(setCode).catch(e => {\n      if (e.name !== 'AbortError') setError(true);\n    });\n    return () => controller.abort();\n  }, [open, code, file, attempt]);\n  return <details onToggle={e => setOpen(e.currentTarget.open)}><summary>Read the complete {file} program</summary>{code ? <pre className=\"rbm-code\" tabIndex={0}><code>{code}</code></pre> : error ? <p>Program could not load. <button onClick={() => setAttempt(n => n + 1)}>Retry program</button></p> : open ? <p role=\"status\">Loading complete source…</p> : null}<p><a href={rbmAssetBase + file} download>Download {file}</a></p></details>;\n}",
+      "finalFunction": "export function RbmProgram({\n  file\n}) {\n  return <>\n    <RemoteCodeBlock source={rbmAssetBase + file} language=\"python\" filename={file} title={\"Read the complete \" + (file) + \" program\"} />\n    <p><a href={rbmAssetBase + file} download>Download {file}</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "3d96b2570869bcd46c0571c58fdda23f53ff1200919fea845306cb16e42ea0d3",
+      "sourceExpression": "rbmAssetBase + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read the complete \" + (file) + \" program\"",
+      "preservedProse": [
+        "<p><a href={rbmAssetBase + file} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+      "function": "AttentionProgram",
+      "originalFunction": "export function AttentionProgram({ file, title }) {\n  const [open, setOpen] = useState(false);\n  const resource = useAttentionAsset(file, open);\n  return <details className=\"attention-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={assetBase + file} download={file}>Download {file}</a>. The source shown here is the exact downloadable file.</p>{resource.error ? <p role=\"alert\">{resource.error} <button onClick={resource.retry}>Retry source</button></p> : resource.data ? <pre tabIndex={0} aria-label={title}><code>{resource.data}</code></pre> : open ? <p role=\"status\">Loading program…</p> : null}</details>;\n}",
+      "finalFunction": "export function AttentionProgram({ file, title }) {\n  return <>\n    <RemoteCodeBlock source={assetBase + file} language=\"python\" filename={file} title={(title)} />\n    <p><a href={assetBase + file} download={file}>Download {file}</a>. The source shown here is the exact downloadable file.</p>\n  </>;\n}",
+      "finalFunctionSHA256": "89d660e7358b019e483ef68f4368f7a594b93f11a2c8f7d75d65382ca35ce159",
+      "sourceExpression": "assetBase + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={assetBase + file} download={file}>Download {file}</a>. The source shown here is the exact downloadable file.</p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "function": "Seq2SeqProgram",
+      "originalFunction": "export function Seq2SeqProgram({ file, title }) {\r\n  const [open, setOpen] = useState(false), resource = useSequenceResource(file, open);\r\n  return <details className=\"seq-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={seq2seqAsset + file} download>Download {file}</a></p>{open && (resource.error ? <p role=\"alert\">{resource.error} <button onClick={resource.retry}>Retry source</button></p> : resource.data ? <pre tabIndex={0} role=\"region\" aria-label={title}><code>{resource.data}</code></pre> : <p role=\"status\">Loading source…</p>)}</details>;\r\n}",
+      "finalFunction": "export function Seq2SeqProgram({ file, title }) {\r\n  return <>\r\n    <RemoteCodeBlock source={seq2seqAsset + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={seq2seqAsset + file} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "01c9799984fccbcfe667eecb3aad603caad1526bd4e2a17287b968ab11041955",
+      "sourceExpression": "seq2seqAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={seq2seqAsset + file} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx",
+      "function": "SpectralProgram",
+      "originalFunction": "export function SpectralProgram({\r\n  filename = \"critic-regularization-study.py\"\r\n}) {\r\n  const [opened, setOpened] = useState(false);\r\n  const r = useResource(filename, opened, 'text');\r\n  return <details onToggle={event => {\r\n    if (event.currentTarget.open) setOpened(true);\r\n  }}><summary>Read the complete executed {filename === 'critic-regularization-study.py' ? 'training' : 'sensitivity'} program</summary><p><a href={base + filename} download>Download this exact program</a> with <a href={base + 'digits-400.csv'} download>the CSV</a>{filename === 'sensitivity-calculations.py' && <> and <a href={base + 'calculated-inputs.json'} download>its required saved-fit results</a></>} and <a href={base + 'data-provenance.md'}>data attribution and reproduction notes</a>. Its native run and saved fits are described above.</p>{r.error ? <p role=\"alert\">{r.error}<button onClick={r.retry}>Retry program</button></p> : r.data ? <pre className=\"spectral-code\" tabIndex={0}><code>{r.data}</code></pre> : <p role=\"status\">Loading program…</p>}</details>;\r\n}",
+      "finalFunction": "export function SpectralProgram({\r\n  filename = \"critic-regularization-study.py\"\r\n}) {\r\n  return <>\r\n    <RemoteCodeBlock source={base + filename} language=\"python\" filename={filename} title={\"Read the complete executed \" + (filename === 'critic-regularization-study.py' ? 'training' : 'sensitivity') + \" program\"} />\r\n    <p><a href={base + filename} download>Download this exact program</a> with <a href={base + 'digits-400.csv'} download>the CSV</a>{filename === 'sensitivity-calculations.py' && <> and <a href={base + 'calculated-inputs.json'} download>its required saved-fit results</a></>} and <a href={base + 'data-provenance.md'}>data attribution and reproduction notes</a>. Its native run and saved fits are described above.</p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "d90a68a90a83792cb68853caa1a4267fbc0bfc6d27b82af370c56547992b8e5c",
+      "sourceExpression": "base + filename",
+      "filenameExpression": "filename",
+      "titleExpression": "\"Read the complete executed \" + (filename === 'critic-regularization-study.py' ? 'training' : 'sensitivity') + \" program\"",
+      "preservedProse": [
+        "<p><a href={base + filename} download>Download this exact program</a> with <a href={base + 'digits-400.csv'} download>the CSV</a>{filename === 'sensitivity-calculations.py' && <> and <a href={base + 'calculated-inputs.json'} download>its required saved-fit results</a></>} and <a href={base + 'data-provenance.md'}>data attribution and reproduction notes</a>. Its native run and saved fits are described above.</p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+      "function": "StateSpaceProgram",
+      "originalFunction": "export function StateSpaceProgram({ file, title }) {\n  const [open, setOpen] = useState(false), resource = useStateResource(file, open);\n  return <details className=\"ssm-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={stateSpaceAsset + file} download>Download {file}</a></p>{open && (resource.error ? <p role=\"alert\">{resource.error} <button onClick={resource.retry}>Retry source</button></p> : resource.data ? <pre tabIndex={0} role=\"region\" aria-label={title}><code>{resource.data}</code></pre> : <p role=\"status\">Loading source…</p>)}</details>;\n}",
+      "finalFunction": "export function StateSpaceProgram({ file, title }) {\n  return <>\n    <RemoteCodeBlock source={stateSpaceAsset + file} language=\"python\" filename={file} title={(title)} />\n    <p><a href={stateSpaceAsset + file} download>Download {file}</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "f21637d1f812e3b5de8efba07de12118955e64baaab38728a48b2678a1a79bd1",
+      "sourceExpression": "stateSpaceAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={stateSpaceAsset + file} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TitansMemoryStudy.jsx",
+      "function": "TitansProgram",
+      "originalFunction": "export function TitansProgram({file}){const[open,setOpen]=useState(false),[text,setText]=useState(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);useEffect(()=>{if(!open||text)return;const controller=new AbortController();setFailed(false);fetch(base+file,{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error();return r.text();}).then(value=>{if(!controller.signal.aborted)setText(value);}).catch(()=>{if(!controller.signal.aborted)setFailed(true);});return()=>controller.abort();},[open,text,file,attempt]);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>Read the complete {file}</summary>{text?<pre className=\"titans-source\" tabIndex={0}><code>{text}</code></pre>:failed?<p>The program could not be loaded. <button onClick={()=>setAttempt(v=>v+1)}>Retry program</button></p>:open&&<p role=\"status\">Loading complete source…</p>}</details>;}",
+      "finalFunction": "export function TitansProgram({file}){\r\n  return <>\r\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={\"Read the complete \" + (file)} />\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "e86914d07cf48227b2f5fe8184d0c3abd85959543543d633ccf59561d2ca2722",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Read the complete \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+      "function": "DiagnosticsProgram",
+      "originalFunction": "export function DiagnosticsProgram({file}){const[source,setSource]=useState(null),[failed,setFailed]=useState(false),[pending,setPending]=useState(false);async function load(){setPending(true);setFailed(false);try{const r=await fetch(base+file);if(!r.ok)throw new Error();setSource(await r.text());}catch{setFailed(true);}finally{setPending(false);}}return <section><h3>Complete runnable source: {file}</h3><button disabled={pending} onClick={()=>source?setSource(null):load()}>{pending?'Loading source…':source?'Close complete source':'Read complete source'}</button> <a href={base+file} download>Download {file}</a>{failed&&<p role=\"alert\">The program could not be loaded. <button onClick={load}>Retry source loading</button></p>}{source&&<pre className=\"diagnostic-source\" tabIndex={0}><code>{source}</code></pre>}</section>;}",
+      "finalFunction": "export function DiagnosticsProgram({file}){\r\n  return <>\r\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={\"Complete runnable source: \" + (file)} />\r\n    <p><a href={base + file} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "3287eccf8405776153d061591f7c9a33faf9e9bb72c95701c162dc6452fc0244",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "\"Complete runnable source: \" + (file)",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightInitializationLabs.jsx",
+      "function": "InitializationProgram",
+      "originalFunction": "export function InitializationProgram({ file = 'initialization-experiments.py', title = 'Read the complete CPU experiment' }) {\r\n  const [open, setOpen] = useState(false), [source, setSource] = useState(null), [error, setError] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || source) return;\r\n    const controller = new AbortController();\r\n    setError(false);\r\n    fetch(initializationAsset + file, { signal: controller.signal }).then(response => { if (!response.ok) throw new Error('Source request failed'); return response.text(); }).then(setSource).catch(reason => { if (reason.name !== 'AbortError') setError(true); });\r\n    return () => controller.abort();\r\n  }, [open, source, file, attempt]);\r\n  return <details className=\"neural-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>\r\n    {open && (source ? <pre className=\"neural-program-source\" tabIndex={0} role=\"region\" aria-label={`${file}; scroll code horizontally`}><code>{source}</code></pre> : error ? <p role=\"alert\">The source could not load. <button onClick={() => setAttempt(value => value + 1)}>Retry source</button></p> : <p role=\"status\">Loading source…</p>)}\r\n    <p><a href={initializationAsset + file} download={file}>Download {file}</a></p>\r\n  </details>;\r\n}",
+      "finalFunction": "export function InitializationProgram({ file = 'initialization-experiments.py', title = 'Read the complete CPU experiment' }) {\r\n  return <>\r\n    <RemoteCodeBlock source={initializationAsset + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={initializationAsset + file} download={file}>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "44c31f22119d95fc4ce7d812f5c86cec6155438c5e63317da3c523a85a87d069",
+      "sourceExpression": "initializationAsset + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={initializationAsset + file} download={file}>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmStudy.jsx",
+      "function": "XlstmProgram",
+      "originalFunction": "export function XlstmProgram({\n  filename\n}) {\n  const [open, setOpen] = useState(false),\n    [state, setState] = useState({}),\n    [retry, setRetry] = useState(0);\n  useEffect(() => {\n    if (!open) return;\n    const controller = new AbortController();\n    setState({});\n    fetch(base + filename, {\n      signal: controller.signal\n    }).then(r => {\n      if (!r.ok) throw Error('source');\n      return r.text();\n    }).then(code => setState({\n      code\n    })).catch(error => {\n      if (error.name !== 'AbortError') setState({\n        error: true\n      });\n    });\n    return () => controller.abort();\n  }, [open, filename, retry]);\n  return <details className=\"xl-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>Read the complete {filename} program</summary><p><a href={base + filename} download>Download {filename}</a></p>{state.error ? <p role=\"alert\">The source could not be loaded. <button onClick={() => setRetry(n => n + 1)}>Retry source</button></p> : state.code ? <CodeBlock language=\"python\">{state.code}</CodeBlock> : <p role=\"status\">Loading the full program…</p>}</details>;\n}",
+      "finalFunction": "export function XlstmProgram({\n  filename\n}) {\n  return <>\n    <RemoteCodeBlock source={base + filename} language=\"python\" filename={filename} title={\"Read the complete \" + (filename) + \" program\"} />\n    <p><a href={base + filename} download>Download {filename}</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "481820be859c8ff74488231c09addb889f52b24c56488317e3df604555589aa4",
+      "sourceExpression": "base + filename",
+      "filenameExpression": "filename",
+      "titleExpression": "\"Read the complete \" + (filename) + \" program\"",
+      "preservedProse": [
+        "<p><a href={base + filename} download>Download {filename}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldDigitLab.jsx",
+      "function": "HopfieldProgram",
+      "originalFunction": "export function HopfieldProgram({\n  filename\n}) {\n  const [open, setOpen] = useState(false),\n    [source, setSource] = useState(null),\n    [error, setError] = useState(false),\n    [retry, setRetry] = useState(0);\n  useEffect(() => {\n    if (!open) return;\n    const controller = new AbortController();\n    setError(false);\n    fetch(base + filename, {\n      signal: controller.signal\n    }).then(r => {\n      if (!r.ok) throw Error('program');\n      return r.text();\n    }).then(setSource).catch(e => {\n      if (e.name !== 'AbortError') setError(true);\n    });\n    return () => controller.abort();\n  }, [filename, open, retry]);\n  return <details className=\"hm-program\" onToggle={e => setOpen(e.currentTarget.open)}><summary>Read the complete explained program: {filename}</summary><p><a href={base + filename} download>Download {filename}</a>. Save required source data beside the program as described above.</p>{source ? <CodeBlock language=\"python\">{source}</CodeBlock> : error ? <><p>The program could not load.</p><button onClick={() => setRetry(x => x + 1)}>Retry program</button></> : open ? <p>Loading complete source…</p> : null}</details>;\n}",
+      "finalFunction": "export function HopfieldProgram({\n  filename\n}) {\n  return <>\n    <RemoteCodeBlock source={base + filename} language=\"python\" filename={filename} title={\"Read the complete explained program: \" + (filename)} />\n    <p><a href={base + filename} download>Download {filename}</a>. Save required source data beside the program as described above.</p>\n  </>;\n}",
+      "finalFunctionSHA256": "168e26b7cf9cb1a5c2aec5036fe5ca4cb60c5aca6d8a64a77c8f4ca02626e59c",
+      "sourceExpression": "base + filename",
+      "filenameExpression": "filename",
+      "titleExpression": "\"Read the complete explained program: \" + (filename)",
+      "preservedProse": [
+        "<p><a href={base + filename} download>Download {filename}</a>. Save required source data beside the program as described above.</p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaStudy.jsx",
+      "function": "HyenaProgram",
+      "originalFunction": "export function HyenaProgram({\n  filename\n}) {\n  const [open, setOpen] = useState(false),\n    [text, setText] = useState(null),\n    [error, setError] = useState(false),\n    [retry, setRetry] = useState(0);\n  useEffect(() => {\n    if (!open || text !== null) return;\n    const controller = new AbortController();\n    setError(false);\n    fetch(base + filename, {\n      signal: controller.signal\n    }).then(r => {\n      if (!r.ok) throw Error('source');\n      return r.text();\n    }).then(setText).catch(e => {\n      if (e.name !== 'AbortError') setError(true);\n    });\n    return () => controller.abort();\n  }, [open, filename, retry, text]);\n  return <details className=\"hy-program\" open={open} onToggle={e => setOpen(e.currentTarget.open)}><summary>Complete program: {filename}</summary><p><a href={base + filename} download>Download {filename}</a></p>{text !== null ? <CodeBlock language=\"python\">{text}</CodeBlock> : error ? <><p role=\"alert\">The program could not load. Retry or use its download link.</p><button onClick={() => setRetry(v => v + 1)}>Retry program source</button></> : <p role=\"status\">Loading complete source…</p>}</details>;\n}",
+      "finalFunction": "export function HyenaProgram({\n  filename\n}) {\n  return <>\n    <RemoteCodeBlock source={base + filename} language=\"python\" filename={filename} title={\"Complete program: \" + (filename)} />\n    <p><a href={base + filename} download>Download {filename}</a></p>\n    <p role=\"alert\">The program could not load. Retry or use its download link.</p>\n  </>;\n}",
+      "finalFunctionSHA256": "93759e39c5a21320395dfdda9a5adbf43fe453036f36564fc45e0abf532635c7",
+      "sourceExpression": "base + filename",
+      "filenameExpression": "filename",
+      "titleExpression": "\"Complete program: \" + (filename)",
+      "preservedProse": [
+        "<p><a href={base + filename} download>Download {filename}</a></p>",
+        "<p role=\"alert\">The program could not load. Retry or use its download link.</p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+      "function": "CrossProgram",
+      "originalFunction": "export function CrossProgram({file,title}){const[open,setOpen]=useState(false);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}</summary><p><a href={`/learn-code/${ID}/${file}`} download>Download {file}</a></p>{open&&<Resource url={`/learn-code/${ID}/${file}`} text>{source=><CodeBlock language=\"python\">{source}</CodeBlock>}</Resource>}</details>;}",
+      "finalFunction": "export function CrossProgram({file,title}){\r\n  return <>\r\n    <RemoteCodeBlock source={`/learn-code/${ID}/${file}`} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={`/learn-code/${ID}/${file}`} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "c732576eeac10e1d9d7b459104cc5c09e2e16164e56b62539d516f2c083cb5cc",
+      "sourceExpression": "`/learn-code/${ID}/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={`/learn-code/${ID}/${file}`} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+      "function": "GeoProgram",
+      "originalFunction": "export function GeoProgram({file,title}){const[open,setOpen]=useState(false);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}</summary><p><a href={`/learn-code/${id}/${file}`} download>Download {file}</a></p>{open&&<GeoResource url={`/learn-code/${id}/${file}`} text>{source=><CodeBlock language=\"python\">{source}</CodeBlock>}</GeoResource>}</details>;}",
+      "finalFunction": "export function GeoProgram({file,title}){\r\n  return <>\r\n    <RemoteCodeBlock source={`/learn-code/${id}/${file}`} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={`/learn-code/${id}/${file}`} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "3f967731eae6d1402bc42465d638972f97abc3c4fb219cc1827da78fe04139f4",
+      "sourceExpression": "`/learn-code/${id}/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={`/learn-code/${id}/${file}`} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MessagePassingStudy.jsx",
+      "function": "MessageProgram",
+      "originalFunction": "export function MessageProgram({file,title}){const[open,setOpen]=useState(false);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}</summary><p><a href={`/learn-code/${id}/${file}`} download>Download {file}</a></p>{open&&<MessageResource url={`/learn-code/${id}/${file}`} text>{source=><CodeBlock language=\"python\">{source}</CodeBlock>}</MessageResource>}</details>;}",
+      "finalFunction": "export function MessageProgram({file,title}){\r\n  return <>\r\n    <RemoteCodeBlock source={`/learn-code/${id}/${file}`} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={`/learn-code/${id}/${file}`} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "2b232c630d681cf079aa04cdcebfff294756c4f7bd6d64bd509cfe072790e78b",
+      "sourceExpression": "`/learn-code/${id}/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={`/learn-code/${id}/${file}`} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MoeLabs.jsx",
+      "function": "MoeProgram",
+      "originalFunction": "export function MoeProgram({file,title}){const[open,setOpen]=useState(false);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}</summary>{open&&<Resource url={`/learn-code/${TOPIC}/${file}`} text>{source=><><p><a href={`/learn-code/${TOPIC}/${file}`} download>Download {file}</a></p><CodeBlock language=\"python\">{source}</CodeBlock></>}</Resource>}</details>;}",
+      "finalFunction": "export function MoeProgram({file,title}){\r\n  return <>\r\n    <RemoteCodeBlock source={`/learn-code/${TOPIC}/${file}`} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={`/learn-code/${TOPIC}/${file}`} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "4ccf12ed58f16d9b27488ac4c7f75c21331ad57f496195d4dbb45f02cb8b8cdd",
+      "sourceExpression": "`/learn-code/${TOPIC}/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={`/learn-code/${TOPIC}/${file}`} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionStudy.jsx",
+      "function": "RingProgram",
+      "originalFunction": "export function RingProgram({file,title}){const[open,setOpen]=useState(false),r=useRingResource(base+file,open,true);return <details onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}</summary><p><a href={base+file} download>Download the complete {file}</a></p>{open&&(r.value?<CodeBlock language=\"python\">{r.value}</CodeBlock>:<RingResourceStatus resource={r}/>)}</details>;}",
+      "finalFunction": "export function RingProgram({file,title}){\r\n  return <>\r\n    <RemoteCodeBlock source={base + file} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={base+file} download>Download the complete {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "11d38a880c6adaf51d112846587d430ff5cac73692e546ce118d2734849d34d9",
+      "sourceExpression": "base + file",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={base+file} download>Download the complete {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx",
+      "function": "RwkvProgram",
+      "originalFunction": "export function RwkvProgram({ file, title }) {\n  const [open, setOpen] = useState(false), url = `/learn-code/rwkv-linear-attention-models/${file}`;\n  return <details onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={url} download>Download {file}</a></p>{open && <LazyResource url={url} render={code => <CodeBlock language=\"python\">{code}</CodeBlock>} />}</details>;\n}",
+      "finalFunction": "export function RwkvProgram({ file, title }) {\n  return <>\n    <RemoteCodeBlock source={`/learn-code/rwkv-linear-attention-models/${file}`} language=\"python\" filename={file} title={(title)} />\n    <p><a href={url} download>Download {file}</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "c4c2d8f38d20b77cdedd7d5cd8613bf961f369ad41c97b2b498ab18841bccd0f",
+      "sourceExpression": "`/learn-code/rwkv-linear-attention-models/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={url} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SelfAttentionLabs.jsx",
+      "function": "SelfAttentionProgram",
+      "originalFunction": "export function SelfAttentionProgram() {\n  const [open, setOpen] = useState(false), file = '/learn-code/self-attention-multi-head-attention/author-calculations.py';\n  return <details onToggle={e => setOpen(e.currentTarget.open)}><summary>Read the complete data, model, fitting and verification program</summary><a href={file} download>Download the complete program</a>{open && <SelfAttentionResource file={file} render={code => <CodeBlock language=\"python\">{code}</CodeBlock>} />}</details>;\n}",
+      "finalFunction": "export function SelfAttentionProgram() {\n  return <>\n    <RemoteCodeBlock source={'/learn-code/self-attention-multi-head-attention/author-calculations.py'} language=\"python\" filename={'author-calculations.py'} title={\"Read the complete data, model, fitting and verification program\"} />\n    <p><a href=\"/learn-code/self-attention-multi-head-attention/author-calculations.py\" download>Download the complete program</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "911ce67eb0d9a1bb438a8f4128b666bc0301ee6efd6e1f7c248717330827520b",
+      "sourceExpression": "'/learn-code/self-attention-multi-head-attention/author-calculations.py'",
+      "filenameExpression": "'author-calculations.py'",
+      "titleExpression": "\"Read the complete data, model, fitting and verification program\"",
+      "preservedProse": []
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+      "function": "SparseProgram",
+      "originalFunction": "export function SparseProgram({ file, title }) {\n  const [open, setOpen] = useState(false), path = `/learn-code/sparse-linear-attention-variants/${file}`;\n  return <details onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={path} download>Download {file}</a></p>{open && <Resource paths={[path]} render={values => <CodeBlock language=\"python\">{values[0]}</CodeBlock>} />}</details>;\n}",
+      "finalFunction": "export function SparseProgram({ file, title }) {\n  return <>\n    <RemoteCodeBlock source={`/learn-code/sparse-linear-attention-variants/${file}`} language=\"python\" filename={file} title={(title)} />\n    <p><a href={path} download>Download {file}</a></p>\n  </>;\n}",
+      "finalFunctionSHA256": "9836137f5751793c3209a88976e346dacb12b0b38dd9f869734560eb8a875a01",
+      "sourceExpression": "`/learn-code/sparse-linear-attention-variants/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={path} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VisionTransformerLabs.jsx",
+      "function": "VisionProgram",
+      "originalFunction": "export function VisionProgram({ file, title }) {\r\n  const [open, setOpen] = useState(false), path = `/learn-code/vision-transformers-vit-deit-swin-dinov2/${file}`;\r\n  return <details onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={path} download>Download {file}</a></p>{open && <Resource path={path} render={program => <CodeBlock language=\"python\">{program}</CodeBlock>} />}</details>;\r\n}",
+      "finalFunction": "export function VisionProgram({ file, title }) {\r\n  return <>\r\n    <RemoteCodeBlock source={`/learn-code/vision-transformers-vit-deit-swin-dinov2/${file}`} language=\"python\" filename={file} title={(title)} />\r\n    <p><a href={path} download>Download {file}</a></p>\r\n  </>;\r\n}",
+      "finalFunctionSHA256": "48109829f813b2bcc6a6ec12a62db745e9dd8199808ad5ca3f2b387f1b692872",
+      "sourceExpression": "`/learn-code/vision-transformers-vit-deit-swin-dinov2/${file}`",
+      "filenameExpression": "file",
+      "titleExpression": "(title)",
+      "preservedProse": [
+        "<p><a href={path} download>Download {file}</a></p>"
+      ]
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DropoutLabs.jsx",
+      "function": "DropoutProgram",
+      "originalFunction": "export function DropoutProgram({ file = 'dropout-experiments.py', title = 'Read the complete experiment program', start, end }) {\r\n  const [source, setSource] = useState(null);\r\n  const [failed, setFailed] = useState(false);\r\n  const [loading, setLoading] = useState(false);\r\n  const url = '/learn-assets/dropout-droppath-stochastic-depth/' + file;\r\n  async function load() {\r\n    setLoading(true); setFailed(false);\r\n    try {\r\n      const response = await fetch(url);\r\n      if (!response.ok) throw new Error('Source unavailable');\r\n      const text = await response.text();\r\n      const first = start ? text.indexOf(start) : 0;\r\n      const last = end ? text.indexOf(end, first + (start?.length || 0)) : text.length;\r\n      if (first < 0 || last < first) throw new Error('Source boundary missing');\r\n      setSource(text.slice(first, last));\r\n    } catch { setFailed(true); }\r\n    finally { setLoading(false); }\r\n  }\r\n  return <details className=\"neural-program\" onToggle={event => { if (event.currentTarget.open && source === null && !loading && !failed) load(); }}><summary>{title}</summary>\r\n    {loading && <p role=\"status\">Loading the canonical source…</p>}\r\n    {failed && <p role=\"alert\">The source could not load. <button type=\"button\" onClick={load}>Retry source</button></p>}\r\n    {source !== null && <pre className=\"neural-program-source\" tabIndex={0} aria-label={title}><code>{source}</code></pre>}\r\n    <p><a href={url} download>Download {file}</a></p>\r\n  </details>;\r\n}",
+      "finalFunction": "export function DropoutProgram({ file = 'dropout-experiments.py', title = 'Read the complete experiment program', start, end }) {\r\n  const [container, ready] = useLessonViewport();\r\n  const [source, setSource] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);\r\n  const url = '/learn-assets/dropout-droppath-stochastic-depth/' + file;\r\n  useEffect(() => {\r\n    if (!ready) return undefined;\r\n    const controller = new AbortController();\r\n    setSource(null); setFailed(false);\r\n    fetch(url, { signal: controller.signal }).then(response => {\r\n      if (!response.ok) throw new Error('Source unavailable');\r\n      return response.text();\r\n    }).then(text => {\r\n      const first = start ? text.indexOf(start) : 0;\r\n      const last = end ? text.indexOf(end, first + (start?.length || 0)) : text.length;\r\n      if (first < 0 || last < first) throw new Error('Source boundary missing');\r\n      if (!controller.signal.aborted) setSource(text.slice(first, last));\r\n    }).catch(() => { if (!controller.signal.aborted) setFailed(true); });\r\n    return () => controller.abort();\r\n  }, [ready, url, start, end, attempt]);\r\n  return <section ref={container} className=\"lesson-teaching-section\" data-lesson-teaching=\"code\">\r\n    <h4 className=\"lesson-teaching-section__title\">{title}</h4>\r\n    {failed ? <p role=\"alert\">The source could not load. <button type=\"button\" onClick={() => setAttempt(value => value + 1)}>Retry source</button></p>\r\n      : source !== null ? <CodeBlock language=\"python\" filename={start || end ? file.replace(/\\.py$/, '-excerpt.py') : file}>{source}</CodeBlock>\r\n        : <p role=\"status\">Loading the canonical source…</p>}\r\n    <p><a href={url} download>Download {file}</a></p>\r\n  </section>;\r\n}",
+      "finalFunctionSHA256": "fab1535f5223dd2d5d483459e2b488775beda42a7f7141c3d2f9a8c352560a95"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentLabs.jsx",
+      "function": "RecurrentProgram",
+      "originalFunction": "export function RecurrentProgram({ file = 'recurrent-mechanics.py', title = 'Read the complete scratch recurrent mechanism', start, end }) {\r\n  const [open, setOpen] = useState(false), [code, setCode] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || code) return;\r\n    const controller = new AbortController();\r\n    setFailed(false);\r\n    fetch(assetBase + file, { signal: controller.signal }).then(response => {\r\n      if (!response.ok) throw new Error('Source unavailable');\r\n      return response.text();\r\n    }).then(value => { if (!controller.signal.aborted) setCode(value); }).catch(() => { if (!controller.signal.aborted) setFailed(true); });\r\n    return () => controller.abort();\r\n  }, [open, code, attempt, file]);\r\n  const from = code && start ? code.indexOf(start) : 0;\r\n  const to = code && end ? code.indexOf(end, from + 1) : code?.length;\r\n  const excerpt = code && from >= 0 && to > from ? code.slice(from, to).trim() : null;\r\n  return <details className=\"neural-program\" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>\r\n    <p><a href={assetBase + file} download>Download {file}</a> · This view comes from that exact program.</p>\r\n    {open && (excerpt ? <pre className=\"neural-program-source\" tabIndex={0} role=\"region\" aria-label={title}><code>{excerpt}</code></pre> : failed || code ? <p role=\"alert\">This source view is unavailable. <button onClick={() => { setCode(null); setAttempt(value => value + 1); }}>Retry source</button></p> : <p role=\"status\">Loading source…</p>)}\r\n  </details>;\r\n}",
+      "finalFunction": "export function RecurrentProgram({ file = 'recurrent-mechanics.py', title = 'Read the complete scratch recurrent mechanism', start, end }) {\r\n  const [container, ready] = useLessonViewport();\r\n  const [code, setCode] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!ready) return undefined;\r\n    const controller = new AbortController();\r\n    setCode(null); setFailed(false);\r\n    fetch(assetBase + file, { signal: controller.signal }).then(response => {\r\n      if (!response.ok) throw new Error('Source unavailable');\r\n      return response.text();\r\n    }).then(value => { if (!controller.signal.aborted) setCode(value); }).catch(() => { if (!controller.signal.aborted) setFailed(true); });\r\n    return () => controller.abort();\r\n  }, [ready, attempt, file]);\r\n  const from = code && start ? code.indexOf(start) : 0;\r\n  const to = code && end ? code.indexOf(end, from + 1) : code?.length;\r\n  const excerpt = code && from >= 0 && to > from ? code.slice(from, to).trim() : null;\r\n  return <section ref={container} className=\"lesson-teaching-section\" data-lesson-teaching=\"code\">\r\n    <h4 className=\"lesson-teaching-section__title\">{title}</h4>\r\n    <p><a href={assetBase + file} download>Download {file}</a> · This view comes from that exact program.</p>\r\n    {excerpt ? <CodeBlock language=\"python\" filename={start || end ? file.replace(/\\.py$/, '-excerpt.py') : file}>{excerpt}</CodeBlock>\r\n      : failed || code ? <p role=\"alert\">This source view is unavailable. <button onClick={() => { setCode(null); setAttempt(value => value + 1); }}>Retry source</button></p>\r\n        : <p role=\"status\">Loading source…</p>}\r\n  </section>;\r\n}",
+      "finalFunctionSHA256": "51da2800769d819ae03a74717f71834f1e31a416aefa18f0a3e0690e9e07ab62"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NeuralProgram.jsx",
+      "function": "NeuralProgram",
+      "originalFunction": "export default function NeuralProgram({ topic, title = 'Read the complete CPU program' }) {\r\n  const [open, setOpen] = useState(false);\r\n  const [code, setCode] = useState(null);\r\n  const [failed, setFailed] = useState(false);\r\n  const [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || code) return;\r\n    let current = true;\r\n    setFailed(false);\r\n    loaders[topic]().then(module => { if (current) setCode(module.default); })\r\n      .catch(() => { if (current) setFailed(true); });\r\n    return () => { current = false; };\r\n  }, [topic, open, code, attempt]);\r\n  return <details className=\"neural-program\" onToggle={event => setOpen(event.currentTarget.open)}>\r\n    <summary>{title}</summary>\r\n    {open && (code ? <pre className=\"neural-program-source\" tabIndex={0} role=\"region\" aria-label=\"Complete Python program; scroll horizontally when needed\" style={{ fontFamily: fonts.mono }}><code>{code}</code></pre> : failed ? <p role=\"alert\">The code view could not load. The program download remains available. <button onClick={() => setAttempt(value => value + 1)}>Retry code view</button></p> : <p role=\"status\">Loading complete program…</p>)}\r\n  </details>;\r\n}",
+      "finalFunction": "export default function NeuralProgram({ topic, title = 'Read the complete CPU program' }) {\r\n  const [container, ready] = useLessonViewport();\r\n  const [code, setCode] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);\r\n  const filenames = { loss: 'loss-experiments.py', normalization: 'normalization-experiments.py', 'loss-mechanisms': 'loss-mechanisms.py', 'normalization-backward': 'normalization-backward.py' };\r\n  useEffect(() => {\r\n    if (!ready) return undefined;\r\n    let current = true;\r\n    setCode(null); setFailed(false);\r\n    loaders[topic]().then(module => { if (current) setCode(module.default); })\r\n      .catch(() => { if (current) setFailed(true); });\r\n    return () => { current = false; };\r\n  }, [topic, ready, attempt]);\r\n  return <section ref={container} className=\"lesson-teaching-section\" data-lesson-teaching=\"code\">\r\n    <h4 className=\"lesson-teaching-section__title\">{title}</h4>\r\n    {code ? <CodeBlock language=\"python\" filename={filenames[topic]}>{code}</CodeBlock>\r\n      : failed ? <p role=\"alert\">The code view could not load. The program download remains available. <button onClick={() => setAttempt(value => value + 1)}>Retry code view</button></p>\r\n        : <p role=\"status\">Loading complete program…</p>}\r\n  </section>;\r\n}",
+      "finalFunctionSHA256": "07d4cb521bd00f47df5e7948d41bcef1752b187d337145e752e675f8afe9d959"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransferLearningLabs.jsx",
+      "function": "TransferProgram",
+      "originalFunction": "export function TransferProgram() {\r\n  const [open, setOpen] = useState(false);\r\n  const [code, setCode] = useState(null);\r\n  const [failed, setFailed] = useState(false);\r\n  const [attempt, setAttempt] = useState(0);\r\n  useEffect(() => {\r\n    if (!open || code) return;\r\n    let active = true; setFailed(false);\r\n    import('../../assets/transfer-learning/transfer-experiments.py?raw').then(module => { if (active) setCode(module.default); }).catch(() => { if (active) setFailed(true); });\r\n    return () => { active = false; };\r\n  }, [open, code, attempt]);\r\n  return <section className=\"transfer-downloads\" aria-label=\"Complete reproducible transfer experiment\">\r\n    <h3>Run the complete experiment</h3><p><a href={programUrl} download=\"transfer-experiments.py\">Download complete Python program</a> · <a href={dataUrl} download=\"digits-400.csv\">Download all 400 digit rows</a> · <a href={provenanceUrl} download=\"data-provenance.md\">Dataset provenance and license</a></p>\r\n    <p>Keep the program and CSV together. The program performs all 18 target fits, all source fits, the predeclared selection and the one test report. Browser labs use saved observations or exact small arithmetic; they do not run these fits.</p>\r\n    <details onToggle={event => setOpen(event.currentTarget.open)}><summary>Read the full executable Python program</summary>{open && (code ? <div className=\"transfer-code\" role=\"region\" tabIndex={0} aria-label=\"Complete Python program; scroll horizontally when needed\"><CodeBlock language=\"python\">{code}</CodeBlock></div> : failed ? <p role=\"alert\">The in-page program could not load. The download remains available. <button onClick={() => setAttempt(value => value + 1)}>Retry code view</button></p> : <p role=\"status\">Loading full program…</p>)}</details>\r\n  </section>;\r\n}",
+      "finalFunction": "export function TransferProgram() {\r\n  return <section className=\"transfer-downloads\" aria-label=\"Complete reproducible transfer experiment\">\r\n    <h3>Run the complete experiment</h3><p><a href={programUrl} download=\"transfer-experiments.py\">Download complete Python program</a> · <a href={dataUrl} download=\"digits-400.csv\">Download all 400 digit rows</a> · <a href={provenanceUrl} download=\"data-provenance.md\">Dataset provenance and license</a></p>\r\n    <p>Keep the program and CSV together. The program performs all 18 target fits, all source fits, the predeclared selection and the one test report. Browser labs use saved observations or exact small arithmetic; they do not run these fits.</p>\r\n    <RemoteCodeBlock source={programUrl} language=\"python\" filename=\"transfer-experiments.py\" title=\"Read the full executable Python program\" />\r\n  </section>;\r\n}",
+      "finalFunctionSHA256": "8d36e7c94a5907cb839ecdc49ef43d7598bdee355a057bfa65b0532ad1864b1d",
+      "sourceExpression": "programUrl"
+    }
+  ],
+  "note": "Recorded source-route and excerpt checks are retained unchanged. Final function snapshots and hashes additionally capture subsequent heading-class cleanup; they do not imply a new native program execution."
+}

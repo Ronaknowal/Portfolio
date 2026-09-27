@@ -1,0 +1,280 @@
+{
+  "finite_difference": {
+    "loss": 0.3125,
+    "autograd": 0.75,
+    "estimates": [
+      {
+        "step": 0.01,
+        "finite_difference": 0.7500000000000007
+      },
+      {
+        "step": 0.0001,
+        "finite_difference": 0.7499999999999174
+      },
+      {
+        "step": 1e-06,
+        "finite_difference": 0.7499999999938112
+      }
+    ]
+  },
+  "mode_probe": [
+    {
+      "training": true,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": 0.2,
+      "running_variance": 1.1,
+      "output": [
+        -0.9999950000374997,
+        0.9999950000374995
+      ]
+    },
+    {
+      "training": true,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": 0.2,
+      "running_variance": 1.1,
+      "output": [
+        -0.9999950000374997,
+        0.9999950000374995
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": 0.0,
+      "running_variance": 1.0,
+      "output": [
+        0.9999950000374997,
+        2.999985000112499
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": 0.0,
+      "running_variance": 1.0,
+      "output": [
+        0.9999950000374997,
+        2.999985000112499
+      ]
+    }
+  ],
+  "mode_fresh_input": [
+    {
+      "training": true,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": 1.1,
+      "running_variance": 6.800000000000001,
+      "output": [
+        -0.9999996875001465,
+        0.9999996875001465
+      ]
+    },
+    {
+      "training": true,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": 1.1,
+      "running_variance": 6.800000000000001,
+      "output": [
+        -0.9999996875001465,
+        0.9999996875001465
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": 1.0,
+      "running_variance": 4.0,
+      "output": [
+        -1.4999981250035157,
+        2.4999968750058597
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": 1.0,
+      "running_variance": 4.0,
+      "output": [
+        -1.4999981250035157,
+        2.4999968750058597
+      ]
+    }
+  ],
+  "mode_linear_null": [
+    {
+      "training": true,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": null,
+      "running_variance": null,
+      "output": [
+        3.0,
+        7.0
+      ]
+    },
+    {
+      "training": true,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": null,
+      "running_variance": null,
+      "output": [
+        3.0,
+        7.0
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": null,
+      "running_variance": null,
+      "output": [
+        3.0,
+        7.0
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": null,
+      "running_variance": null,
+      "output": [
+        3.0,
+        7.0
+      ]
+    }
+  ],
+  "mode_matching_buffers_null": [
+    {
+      "training": true,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": 0.5,
+      "running_variance": 0.5,
+      "output": [
+        -0.9999800005999799,
+        0.9999800005999799
+      ]
+    },
+    {
+      "training": true,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": 0.5,
+      "running_variance": 0.5,
+      "output": [
+        -0.9999800005999799,
+        0.9999800005999799
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": true,
+      "output_requires_grad": true,
+      "running_mean": 0.5,
+      "running_variance": 0.5,
+      "output": [
+        -0.7070997102248,
+        0.7070997102248
+      ]
+    },
+    {
+      "training": false,
+      "grad_enabled": false,
+      "output_requires_grad": false,
+      "running_mean": 0.5,
+      "running_variance": 0.5,
+      "output": [
+        -0.7070997102248,
+        0.7070997102248
+      ]
+    }
+  ],
+  "paired_practice": {
+    "mean": "1/100",
+    "sample_variance": "1/625"
+  },
+  "paired_fresh_loss_fixture": {
+    "differences": [
+      "-1/10",
+      "1/20",
+      "-1/20"
+    ],
+    "mean": "-1/30",
+    "sample_variance": "7/1200"
+  },
+  "scalar_fault_fixtures": [
+    {
+      "case": "mechanics_bridge",
+      "omitted_step": false,
+      "gradient": "-5/3",
+      "weight_after": "1/6"
+    },
+    {
+      "case": "mechanics_bridge",
+      "omitted_step": true,
+      "gradient": "-5/3",
+      "weight_after": "0"
+    },
+    {
+      "case": "fresh_input",
+      "omitted_step": false,
+      "gradient": "3/4",
+      "weight_after": "17/40"
+    },
+    {
+      "case": "fresh_input",
+      "omitted_step": true,
+      "gradient": "3/4",
+      "weight_after": "1/2"
+    },
+    {
+      "case": "independent_case_a",
+      "omitted_step": false,
+      "gradient": "-19/8",
+      "weight_after": "29/40"
+    },
+    {
+      "case": "independent_case_a",
+      "omitted_step": true,
+      "gradient": "-19/8",
+      "weight_after": "1/4"
+    },
+    {
+      "case": "stationary_null",
+      "omitted_step": false,
+      "gradient": "0",
+      "weight_after": "1"
+    },
+    {
+      "case": "stationary_null",
+      "omitted_step": true,
+      "gradient": "0",
+      "weight_after": "1"
+    }
+  ],
+  "restart_example": {
+    "after_first": "6/5",
+    "continued": "37/25",
+    "reset": "69/50"
+  },
+  "restart_practice": {
+    "continued": "13/4",
+    "reset": "23/8"
+  },
+  "nulls": {
+    "zero_gradient_hides_omitted_step": true,
+    "zero_momentum_hides_reset_velocity": true
+  }
+}

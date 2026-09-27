@@ -1,0 +1,9 @@
+import fs from 'node:fs';
+import {createRequire} from 'node:module';
+import {build} from 'esbuild';
+const figures=['block','normalizers','gradient','dispatch','overflow','balance','cost','choice','image','results','upcycling','communication'],labs=['MoeRoutingLab','MoeCapacityLab','MoeBalanceLab','MoeCostLab','MoeImageLab'];
+const result=await build({stdin:{contents:`import {createElement} from 'react';import {renderToString} from 'react-dom/server';import {MoeFigure} from './src/learn/components/lesson-labs/MoeFigures.jsx';import * as labs from './src/learn/components/lesson-labs/MoeLabs.jsx';import topic from './src/learn/data/topics/mixture-of-experts-transformers-moe.jsx';import state from './public/learn-assets/mixture-of-experts-transformers-moe/moe-001-17.json';export const lengths=[...${JSON.stringify(figures)}.map(kind=>renderToString(createElement(MoeFigure,{kind})).length),...${JSON.stringify(labs)}.map(name=>renderToString(createElement(labs[name])).length),renderToString(createElement(labs.MoeImageWorkspace,{state})).length,renderToString(createElement(topic.content)).length];`,resolveDir:process.cwd(),loader:'jsx'},write:false,bundle:true,format:'cjs',platform:'node',jsx:'automatic',loader:{'.css':'empty'},external:['react','react-dom/server']});
+const module={exports:{}};new Function('require','module','exports',result.outputFiles[0].text)(createRequire(import.meta.url),module,module.exports);
+if(module.exports.lengths.some(x=>x<100))throw Error('Empty required representation');
+const receipt={passed:true,figures,labs,wholeLessonRendered:true,nonemptyMarkupLengths:module.exports.lengths,scope:'Author server render smoke; browser/network/keyboard separate'};
+fs.writeFileSync('docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/static-checks.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));

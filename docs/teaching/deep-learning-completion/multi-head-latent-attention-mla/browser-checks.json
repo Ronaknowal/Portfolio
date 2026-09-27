@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "topicId": "multi-head-latent-attention-mla",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T20:12:40.866Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T20-07-57-572Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/multi-head-latent-attention-mla.jsx": "446fecabdb663620e2d7a12762bdac3910a09b099e36323c1bbf2191542a48bf",
+    "src/learn/data/latent-attention-models.js": "e0abebd487622765c2d08734723e2a6c6d9bdee6b277a083e6c439c949f6dc54",
+    "src/learn/data/grouped-query-models.js": "fdc3da4a8e09985fe1d789332ec4d1538571bbc8a240e26ddadff58b51f4b3db",
+    "src/learn/components/lesson-labs/LatentAttentionLabs.jsx": "0acd8631b31c7549ef01bc40af1577743766bf301ae77ff265cdb3bf4dc5a7dc",
+    "src/learn/components/lesson-labs/latent-attention-labs.css": "d2dc5275481f3f87d0f1118f73ce25d6239f8c63dafdb9edbe8c33a2df3fc177",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "public/learn-assets/multi-head-latent-attention-mla/author-calculations.py": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+    "public/learn-assets/multi-head-latent-attention-mla/author-results.json": "ae90f897e3773387e874df3d4ff74ec0dc5da3bfdd964b3dd081ae814587d07d",
+    "public/learn-assets/multi-head-latent-attention-mla/data-provenance.md": "1a52d8b0c8897ae2ef2798a299ff233653f6df17f1987d943cfda2143f2d265c",
+    "public/learn-assets/multi-head-latent-attention-mla/forecast-model.json": "a516d590c4119511dbc965a4eb1832d750402ecf77569f8d5b0f0fe875745baa",
+    "public/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+    "public/learn-assets/multi-head-latent-attention-mla/mechanism-fixtures.json": "da2a73b801bc891d9e0a3b5d6eedfb4a60ee880746afd98a60d8b57ad3ae3fc0",
+    "public/learn-assets/multi-head-latent-attention-mla/mla_sdpa_bridge.py": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+    "public/learn-assets/multi-head-latent-attention-mla/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-assets/multi-head-latent-attention-mla/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-assets/multi-head-latent-attention-mla/runtime.json": "d00c9fde37f8bd18dd324c367dbc8a82b12ca07a1145bbf9bdae846a6b7be4e2",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/browser-review.md": "b10078a9387aa5184948e8f461e02b5ab0e16495e8681c0f62baefa782246596"
+  },
+  "checks": [
+    "Rotation-order contrast and null; transformed basis, nonlinear mismatch and masked route",
+    "Exact payload/work comparisons, arbitrary output-map editing and rank controls",
+    "Retained model inference, rank/basis/logical-shift/scale interventions and visible signed cache",
+    "Desktop and320px diagrams, local scroll, invalid-first-reset and repaired editor geometry",
+    "Complete library bridge and independent practice solution accessible"
+  ],
+  "findings": [
+    {
+      "issue": "Missing nonlinear route labels",
+      "status": "closed"
+    },
+    {
+      "issue": "Invisible forecast perturbation on full-scale graph",
+      "status": "closed"
+    },
+    {
+      "issue": "Plots shrank below nominal label size on phone",
+      "status": "closed"
+    },
+    {
+      "issue": "Four-column output editor overflowed320px",
+      "status": "closed"
+    }
+  ],
+  "limitations": "No new fit/GPU performance claim; local browser coverage and independent numerical evidence have distinct scopes."
+}

@@ -757,7 +757,7 @@ high-stakes accuracy:       hybrid + rerank         best result quality;
       {/* ======================================================================
           11. EXERCISES
           ====================================================================== */}
-      <H2>11. Exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Exercises</H2>
 
       <Prose>
         <strong>Exercise 1.</strong> Take the BM25 implementation from section 4a and add stemming using the NLTK Porter stemmer before indexing and before query tokenization. Build a corpus of 50 documents from Wikipedia on a topic of your choice, index it, and measure recall@10 on 20 hand-written queries with and without stemming. Report the difference and discuss which query types benefit most.
@@ -781,8 +781,8 @@ high-stakes accuracy:       hybrid + rerank         best result quality;
 
       {/* ======================================================================
           TRACK CLOSER
-          ====================================================================== */}
-      <H2>Closing — the full Large Language Models track</H2>
+          ====================================================================== */}</section>
+      <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>Closing — the full Large Language Models track</H2>
 
       <Prose>
         This topic closes the Long Context and Retrieval section, and with it the Large Language Models track. It is worth pausing to see what the arc looks like from start to finish, because the pieces connect tightly and the connections are not always visible when each topic is read in isolation.
@@ -814,7 +814,7 @@ high-stakes accuracy:       hybrid + rerank         best result quality;
 
       <Prose>
         Deep Learning Fundamentals will revisit backpropagation, attention, and normalization not as LLM components but as mathematical objects in their own right — what the theory actually says about why they work, where they fail, and what the optimization landscape looks like. Classical ML will trace the lineage of supervised and unsupervised learning that preceded transformers, the techniques that still dominate tabular and structured-data problems, and the statistical foundations that the deep learning era has sometimes obscured. Reinforcement Learning will take the RL signal that shows up in post-training as a black box and open it: Markov decision processes, policy gradients, value functions, and the connection from Q-learning to the GRPO and RLVR techniques the LLM track described in passing. Each track is a different angle on the same underlying substrate. The depth compounds across them.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

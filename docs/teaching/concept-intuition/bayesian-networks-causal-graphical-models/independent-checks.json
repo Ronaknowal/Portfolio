@@ -1,0 +1,37 @@
+{
+  "topicId": "bayesian-networks-causal-graphical-models",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:23:08.783Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+    "src/learn/components/lesson-labs/BayesNetIntuition.jsx",
+    "src/learn/components/lesson-labs/bayesnet-intuition.css",
+    "docs/teaching/concept-intuition/bayesian-networks-causal-graphical-models/independent-review.md",
+    "scripts/review-probabilistic-learning-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx": "7f61b2fff88eaa5818f1959d373031091e224521c87114da4a70046447ff1004",
+    "src/learn/components/lesson-labs/BayesNetIntuition.jsx": "4908370ad439fb32c8408c7f41819ad6734988df77264efd3016bc2ec1154efe",
+    "src/learn/components/lesson-labs/bayesnet-intuition.css": "d76c42a580cfd77f7e845d543542784e992cd44700ed2b6a02704f35bef7062a",
+    "docs/teaching/concept-intuition/bayesian-networks-causal-graphical-models/independent-review.md": "f2fd5c0b0d8233355374be509d92daed4f756fa5c16544874d58b2a239ff9c78",
+    "scripts/review-probabilistic-learning-intuition.mjs": "a49b42abfdb91cae81d578068628788f50b5b4f6e825ddca795e29ff19b4f106"
+  },
+  "checks": [
+    {
+      "name": "Changed separator factors agree with exhaustive joint enumeration",
+      "status": "passed"
+    },
+    {
+      "name": "Changed collider fixture creates dependence after observing common effect",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/bayesian-networks-causal-graphical-models/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new model-fitting claim."
+}

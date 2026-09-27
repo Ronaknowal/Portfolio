@@ -348,11 +348,11 @@ export function FiniteDifferenceLab() {
         {state.roundedInput && <p>At least one perturbed input rounded back to x. This check has lost the intended step.</p>}
       </div>
       <p>Readouts round to six decimal places, using scientific notation for tiny values. Errors are calculated before display rounding, so a slope printed as 12 can still have a small nonzero error.</p>
-      <details><summary>Inspect every tested step</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect every tested step</h4>
         <div className="calculus-matrix-region" role="region" tabIndex={0} aria-label="All finite difference values">
           <table className="calculus-differences"><thead><tr><th>h</th><th>Forward</th><th>Central</th><th>Central error</th></tr></thead><tbody>{rows.map(row => <tr key={row.step}><td>{number(row.step)}</td><td>{number(row.forward)}</td><td>{number(row.central)}</td><td>{number(row.centralError)}</td></tr>)}</tbody></table>
         </div>
-      </details>
+      </section>
       <button type="button" onClick={reset}>Reset difference check</button>
       <details><summary>Transfer: why can |x| fail away from its kink?</summary><p>At x=0.3 the true derivative is 1. A large h=1 samples opposite sides of the kink, so its central slope is 0.3. Reduce h below the distance to the kink and the check samples the local branch. At extremely tiny h, rounding can still spoil it.</p></details>
     </Investigation>;

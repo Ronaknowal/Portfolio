@@ -138,7 +138,7 @@ export function BatchPredictionLab() {
     </figure>
     <Readout values={[['Expected count, both models', number(state.mean, 6)], ['Integrated / plug-in variance', `${number(state.variance, 6)} / ${number(state.pluginVariance, 6)}`], ['Integrated selected tail', number(state.integratedTail, 6)], ['Plug-in selected tail', number(state.pluginTail, 6)]]} />
     <p className="bayesian-result" aria-live="polite">Correlation between two distinct future outcomes: {number(state.correlation, 6)}. {size === 1 ? 'For one future visitor, the two count distributions agree.' : 'A shared uncertain rate changes the joint distribution, even though each visitor has the same marginal success chance.'}</p>
-    <details><summary>Inspect every count probability</summary><LessonTable caption="Calculated count masses" headers={['K', 'Integrated', 'Plug-in']} rows={state.points.map(point => [point.k, number(point.integrated, 6), number(point.plugin, 6)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect every count probability</h4><LessonTable caption="Calculated count masses" headers={['K', 'Integrated', 'Plug-in']} rows={state.points.map(point => [point.k, number(point.integrated, 6), number(point.plugin, 6)])} /></section>
   </Investigation>;
 }
 export function GammaExposureLab() {
@@ -221,7 +221,7 @@ export function NormalPrecisionLab() {
     </figure>
     <Readout values={[['Posterior mean', number(state.mean, 6)], ['Posterior variance of mean', number(state.variance, 6)], ['Variance of next reading', number(state.variance + noiseSd ** 2, 6)]]} />
     <p className="bayesian-result" aria-live="polite">More independent readings can reduce uncertainty in μ. Prediction still includes the known observation variance {number(noiseSd ** 2)}. Changing n here compares hypothetical datasets with the displayed mean; it does not duplicate existing measurements.</p>
-    <details><summary>Inspect interval endpoints</summary><LessonTable caption="Equal-tailed normal intervals" headers={['Quantity', 'Lower', 'Upper']} rows={state.intervals.map(item => [item.name, number(item.low, 6), number(item.high, 6)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect interval endpoints</h4><LessonTable caption="Equal-tailed normal intervals" headers={['Quantity', 'Lower', 'Upper']} rows={state.intervals.map(item => [item.name, number(item.low, 6), number(item.high, 6)])} /></section>
   </Investigation>;
 }
 export function PredictivePatternLab() {
@@ -247,6 +247,6 @@ export function PredictivePatternLab() {
     </figure>
     <p className="bayesian-result" aria-live="polite">Selected lower-tail probability: <strong>{number(state.lowerTail, 6)}</strong>. {conditioning === 'same-count' ? 'Conditioning on the total removes θ and compares orderings. This is a different reference question.' : 'A predictive diagnostic is conditional on the chosen model and prior. It is not a classical uniformly calibrated p-value.'}</p>
     <p>Choosing this statistic after noticing a pattern changes the assessment context. A small tail is a reason to investigate time drift or dependence; neither this single check nor a comfortable value proves the model correct.</p>
-    <details><summary>Inspect run probabilities</summary><LessonTable caption="Exact finite reference distribution" headers={['Runs', 'Probability']} rows={state.masses.map(item => [item.runs, number(item.mass, 6)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect run probabilities</h4><LessonTable caption="Exact finite reference distribution" headers={['Runs', 'Probability']} rows={state.masses.map(item => [item.runs, number(item.mass, 6)])} /></section>
   </Investigation>;
 }

@@ -1,0 +1,1783 @@
+{
+  "topicId": "positional-encodings-sinusoidal-learned-rope-alibi",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md",
+    "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+    "src/learn/data/positional-encoding-models.js",
+    "src/learn/data/sequence-tensor-operations.js",
+    "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+    "src/learn/components/lesson-labs/positional-encoding-labs.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "scripts/generate-positional-encoding-lesson.mjs",
+    "scripts/check-positional-encoding-models.mjs",
+    "scripts/check_positional_encoding_native.py",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-alibi.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-learned.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-none.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-rope.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-sinusoidal.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/PositionMechanismFigures.jsx",
+    "src/learn/components/lesson-labs/PositionApplicationsDiagrams.jsx",
+    "src/learn/data/position-convention-models.js",
+    "scripts/check-position-conventions.mjs",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/convention-checks.json"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json": "c8e7329e2348a6040d6588167ed0f531dbfe915b7317f78ce1892e67088f90f0",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md": "365ce409e2d3ce2609ce9928b0a47fb4e2d20ebb50d65ff2a033868e6275f479",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md": "0c2b1e670401d337908f012be3d40626c1d22de259afc770a066f1ea9837c33e",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md": "179d6005d9b06f41e26948235aad3a89d70fa50a27b8298d6ae6f97f43aef4ab",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json": "2cfd90c591fa862d3ec991f436c6219197801757c04818554b46f75dae7e3f95",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json": "b2efd301b3c51ef9b24462a3f9c2c0e2bc679b973eeefb623c376adb429a73de",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md": "e40b2bc4db51b72213f8cea7e9cb02da69cb0a036e4b6b5bf87e41ae382bcf19",
+    "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx": "29aae805bee9e287cb1f7e74ba0a32f0a96b5a396235d15b0a7960860f80da96",
+    "src/learn/data/positional-encoding-models.js": "6758eebff8184bca9a293859af0a5c1da73dfd7dc9b41ae927b7f3371829da6b",
+    "src/learn/data/sequence-tensor-operations.js": "d9bb0a81927032a6e76beff864e5df8fa548fd59e12cd7158e5d49a07e16a21f",
+    "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx": "80f1b4d3099dba718186ade7c3b7f9b35b67a22d0b9ef73482dd8bb5174b2c93",
+    "src/learn/components/lesson-labs/positional-encoding-labs.css": "272a5c8b6055eda3212dfaa1a9131c0b05ec29b87b131240194a980458ca95cf",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "scripts/generate-positional-encoding-lesson.mjs": "91fda8cdd8469fa2a4a1207bab3f5394d87d7dc76e88215c320e011802de1d3c",
+    "scripts/check-positional-encoding-models.mjs": "db89b5c52cd8f8c487825cd6b031a539f09a9baaa2ad3b5fe77591ab036e2e31",
+    "scripts/check_positional_encoding_native.py": "2e3dff484e6e3d9bf954155d254569a1280341524150475aabba842eb5f6f57e",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/design.md": "e7e23707c5bab5754cf56441e565ac96d6c234150cb49527064633a3e0e7a0ee",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json": "c8e7329e2348a6040d6588167ed0f531dbfe915b7317f78ce1892e67088f90f0",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md": "365ce409e2d3ce2609ce9928b0a47fb4e2d20ebb50d65ff2a033868e6275f479",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json": "2cfd90c591fa862d3ec991f436c6219197801757c04818554b46f75dae7e3f95",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-alibi.json": "4ac353826ece7ebcdd27a7315ea598442318eaa73d8d861950c098b1360da8a8",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-learned.json": "ec486768dbdb80d3b5354387d630abd5929056e05a6e2fbd35f4f9ce585bd272",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-none.json": "126a799dce285ea12db9862eb54e8796c292354fa812ddb02ac0b6ea8dce756a",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-rope.json": "e4747694ae44f4a1eb705179136a0cfe01fe438d186b250615b67fe5b32feca4",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-sinusoidal.json": "799063d77a95ebd5931b0ec5002bc3976a4e1bbd734cf3772a555ac1f469b678",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json": "b2efd301b3c51ef9b24462a3f9c2c0e2bc679b973eeefb623c376adb429a73de",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/PositionMechanismFigures.jsx": "68c3e6bef339286dbf5661c5b2bf4e77a5d65e77542c75d6caf0e1bf2ca3916f",
+    "src/learn/components/lesson-labs/PositionApplicationsDiagrams.jsx": "54531f94d7ff56487ebc3616031e6e70a8b270db652e16405ada46c8e1be12dd",
+    "src/learn/data/position-convention-models.js": "8666d05f4273bf549533052928ab0724cbd58510a143aa2d8dbe023f109c13db",
+    "scripts/check-position-conventions.mjs": "d75e64a2d8ba147b23cf2170e7c3fd06e92b96cfdb9d9300cb7e571dc1447b66",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/convention-checks.json": "7cf732e281746c901b56f708ee89da51af41ec07800690c8e7442602e80aa5a5"
+  },
+  "productionPath": "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/model-checks.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/native-checks.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/convention-checks.json"
+  ],
+  "checks": [
+    {
+      "name": "All sinusoidal entries width 8",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "All sinusoidal entries width 32",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE rotated query",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE rotated key",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE shared shift 0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE shared shift 100",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE shared shift -120",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE constant content",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE changed content",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Original ALiBi three-head schedule",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi competition",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi no-penalty control",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi equal-content",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "T5 signed buckets",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "rope cached last",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "rope common-ID shift",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "rope cache storage permutation",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "alibi cached last",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "alibi common-ID shift",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "alibi cache storage permutation",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Wrong query rotation with correct legal mask",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Mixed-frequency cache",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Consistent new frequencies",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension original",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension pi",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension yarn",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 4 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 4 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 4 yarn",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 8 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 8 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 8 yarn",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 64 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 64 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 64 yarn",
+      "passed": true,
+      "maxAbsoluteError": 1.734723475976807e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 128 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 128 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 128 yarn",
+      "passed": true,
+      "maxAbsoluteError": 1.734723475976807e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "none saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.000001092476451525215,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010292806937872712,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010292806937872712,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none point_edit",
+      "passed": true,
+      "maxAbsoluteError": 0.0000014679023321306772,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 4.928388874780865e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.00000128050140713043,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 7.782888840068836e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 8.95169995906997e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head query",
+      "passed": true,
+      "maxAbsoluteError": 7.782888840068836e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head key",
+      "passed": true,
+      "maxAbsoluteError": 8.95169995906997e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head value",
+      "passed": true,
+      "maxAbsoluteError": 4.7065401620471903e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000006401878827944074,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 1.224429575646946e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none pooled features",
+      "passed": true,
+      "maxAbsoluteError": 6.371418699302467e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.000001094376016474996,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.0000016081875693352288,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 5.25192564992949e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal point_edit",
+      "passed": true,
+      "maxAbsoluteError": 8.468123047222775e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010015655060868767,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 6.551067333049332e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 0.00000114653776517315,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 6.804650611869079e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head query",
+      "passed": true,
+      "maxAbsoluteError": 0.00000114653776517315,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head key",
+      "passed": true,
+      "maxAbsoluteError": 6.804650611869079e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head value",
+      "passed": true,
+      "maxAbsoluteError": 7.087154370033488e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000003222123124757559,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 2.3969521339983757e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal pooled features",
+      "passed": true,
+      "maxAbsoluteError": 7.058460074205186e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.0000014926189235708875,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.000001605884104138866,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 6.724089975929104e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned point_edit",
+      "passed": true,
+      "maxAbsoluteError": 0.0000015910277566533182,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010409276181011506,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.000001575859592595208,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 0.000001695790733613478,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 8.217127440701688e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head query",
+      "passed": true,
+      "maxAbsoluteError": 0.000001695790733613478,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head key",
+      "passed": true,
+      "maxAbsoluteError": 8.217127440701688e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head value",
+      "passed": true,
+      "maxAbsoluteError": 4.319156956533732e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000006955629402227714,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 8.103018235283699e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned pooled features",
+      "passed": true,
+      "maxAbsoluteError": 7.351110982156683e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 7.270356578992221e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 6.874985976068615e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010324806503092532,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope point_edit",
+      "passed": true,
+      "maxAbsoluteError": 6.22411252759747e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 7.270356578992221e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 4.419472290351223e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 9.094003416976193e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 8.303352898586525e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head query",
+      "passed": true,
+      "maxAbsoluteError": 8.771175767918749e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head key",
+      "passed": true,
+      "maxAbsoluteError": 9.255912822858647e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head value",
+      "passed": true,
+      "maxAbsoluteError": 3.5601714176713983e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000004230211882116919,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 2.1076244410833667e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope pooled features",
+      "passed": true,
+      "maxAbsoluteError": 3.998118298653708e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 9.923500194908286e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.000001946024336119123,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 0.000001946024336119123,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi point_edit",
+      "passed": true,
+      "maxAbsoluteError": 0.000002840968995165838,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000012903217265769484,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000012210642368337687,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 0.0000013471634012773848,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010468299525001612,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head query",
+      "passed": true,
+      "maxAbsoluteError": 0.0000013471634012773848,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head key",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010468299525001612,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head value",
+      "passed": true,
+      "maxAbsoluteError": 4.274393594627668e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000012046740046400828,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 0.000002010342996183745,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi pooled features",
+      "passed": true,
+      "maxAbsoluteError": 5.222311618702236e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "JSX parse src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed NumPy position/cache program",
+      "passed": true
+    },
+    {
+      "name": "SDPA direct/library output and input-gradient parity for RoPE/ALiBi; repeated Embedding gradients",
+      "passed": true
+    },
+    {
+      "name": "Original data hash, duplicate groups and all split rows",
+      "passed": true
+    },
+    {
+      "name": "none checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.2865983247756958,
+        "correct": 33,
+        "total": 60,
+        "macro_f1": 0.5276719576719577
+      }
+    },
+    {
+      "name": "sinusoidal checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.0388890504837036,
+        "correct": 42,
+        "total": 60,
+        "macro_f1": 0.6893506493506493
+      }
+    },
+    {
+      "name": "learned checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.0166045427322388,
+        "correct": 40,
+        "total": 60,
+        "macro_f1": 0.6560846560846562
+      }
+    },
+    {
+      "name": "rope checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.1202930212020874,
+        "correct": 40,
+        "total": 60,
+        "macro_f1": 0.632029822029822
+      }
+    },
+    {
+      "name": "alibi checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.2887177467346191,
+        "correct": 39,
+        "total": 60,
+        "macro_f1": 0.6236792836792837
+      }
+    },
+    {
+      "name": "Half-split restored 10,0,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,0,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,0,0,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,0,0,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,0,0,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,0,0,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,3,7,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,3,7,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,3,7,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,3,7,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,3,7,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,3,7,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,-128,256,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,-128,256,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,-128,256,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,-128,256,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,-128,256,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,-128,256,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,512,129,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,512,129,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,512,129,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,512,129,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10,512,129,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10,512,129,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,0,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,0,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,0,0,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,0,0,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,0,0,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,0,0,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,3,7,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,3,7,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,3,7,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,3,7,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,3,7,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,3,7,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,-128,256,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,-128,256,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,-128,256,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,-128,256,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,-128,256,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,-128,256,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,512,129,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,512,129,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,512,129,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,512,129,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 10000,512,129,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 10000,512,129,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,0,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,0,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,0,0,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,0,0,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,0,0,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,0,0,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,3,7,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,3,7,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,3,7,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,3,7,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,3,7,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,3,7,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,-128,256,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,-128,256,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,-128,256,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,-128,256,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,-128,256,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,-128,256,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,512,129,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,512,129,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,512,129,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,512,129,1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Half-split restored 1000000,512,129,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Partial contribution 1000000,512,129,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 0,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 0,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 0,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 0,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 0,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 0,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 0,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 0,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 0,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1,512",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1,1024",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 128,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 128,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 128,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 128,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 128,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 128,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 128,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 128,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 128,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 128,1024",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 128,1024",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 128,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 512,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 512,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 512,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 512,128",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 512,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 512,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 512,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 512,512",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 512,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 512,1024",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 512,1024",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 512,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1024,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1024,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1024,0",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1024,128",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1024,128",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1024,128",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1024,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1024,512",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1024,512",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos relative product 1024,1024",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos dot relative angle 1024,1024",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "XPos changed norms 1024,1024",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache normalized rope,3",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache record reversal rope,3",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache normalized alibi,3",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache record reversal alibi,3",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi final components 3",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache normalized rope,4",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache record reversal rope,4",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache normalized alibi,4",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache record reversal alibi,4",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi final components 4",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache normalized rope,8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache record reversal rope,8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache normalized alibi,8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Expanded cache record reversal alibi,8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi final components 8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Selected equal-content pair odds",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Full lesson SSR: Pin current clock as reference",
+      "passed": true
+    },
+    {
+      "name": "Full lesson SSR: Half-split output",
+      "passed": true
+    },
+    {
+      "name": "Full lesson SSR: Equalize selected",
+      "passed": true
+    },
+    {
+      "name": "Full lesson SSR: Add cache record",
+      "passed": true
+    },
+    {
+      "name": "Full lesson SSR: Distance bias",
+      "passed": true
+    },
+    {
+      "name": "Full lesson SSR: XPos query ID",
+      "passed": true
+    },
+    {
+      "name": "Full lesson SSR: cached positions and key coordinates",
+      "passed": true
+    },
+    {
+      "name": "Independent representation findings addressed; complete source restored and UTF-8 parse checked",
+      "passed": true
+    }
+  ],
+  "controls": [
+    "position-additive: content/table entries, complete-record move, slot reassignment/reset",
+    "position-sinusoidal: width/base/position/pair/reset",
+    "position-rotary: q/k vectors, positions/sharedshift/base, independent matrix content/reset",
+    "position-alibi: keyIDs/scores/query/slope/offset/competitors/headcount/reset",
+    "position-cache: separate rotation/mask/logicalIDs, Q/K/V, raw/currentbase, recordpermutation/reset",
+    "position-extension: width/base/context/factor/pair/offset/q/k/reset",
+    "position-movement: selected model/frame/x/y/ID/padding/head/key, reversal/reset",
+    "Pinned sinusoidal state and surrounding span; selected ALiBi odds records/equalization; partial rotary head0/1/2; cache3–8records; XPos query/keyIDs/reset"
+  ],
+  "figures": [
+    "same points and different journeys",
+    "multiscale clocks and signed coordinate matrices",
+    "two-plane rotations and signed dot contributions",
+    "content-controlled Toeplitz and nonmonotone counterexample",
+    "legal-key score competition and original-head odds curves",
+    "signed buckets and relation-vector comparison",
+    "real45point trajectory and actual attention weights",
+    "physical cache slot versus logical ID rails",
+    "base/PI/YaRN wavelength, phase and score geometry",
+    "physical time and patch-grid coordinates",
+    "Signed content + bias = score → weight with zero-slope reference",
+    "Rotary coordinate permutation edges and partial-head contribution sum",
+    "Linked trajectory attention disks and selected-key curve marker",
+    "Unequal-time axes, separate x/y rotary planes, cache tensor axis ownership",
+    "Reciprocal XPos amplitude vectors at the local explanation"
+  ],
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limits": [
+    "Historical five-fit campaign retained; all five selected checkpoints re-evaluated on original60testrows.",
+    "Numeric coordinate controls provide full movement-edit path; no pointer drag implementation.",
+    "No large-model context extension, latency or universal quality claim."
+  ]
+}

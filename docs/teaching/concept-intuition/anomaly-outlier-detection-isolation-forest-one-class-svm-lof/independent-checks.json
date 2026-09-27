@@ -1,0 +1,40 @@
+{
+  "topicId": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+  "reviewer": "/root/classical_structure_intuition",
+  "reviewedAt": "2026-09-26T15:30:03.442Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx",
+    "docs/teaching/concept-intuition/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/review.md",
+    "scripts/verify-representation-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": "a0cf3f762b6e22d28049c66dcad488a78df9d57d231aace1a409aa8697a0e591",
+    "docs/teaching/concept-intuition/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/review.md": "0715e5d7654261b3f63113e7d3d8c82919174a88fe7322210ed2a26067d57acf",
+    "scripts/verify-representation-concept-intuition.mjs": "665d4e670b6977ebc15815db6b352af7cf6f7d95ceb51ee7f98692ff3fd4d14d"
+  },
+  "checks": [
+    {
+      "name": "Independent complete lesson reading and concept-transition assessment",
+      "passed": true
+    },
+    {
+      "name": "Current author source bindings and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Isolation score scaling and cap feasibility",
+      "passed": true
+    },
+    {
+      "name": "Independent two-anchor RBF decision and scale invariance",
+      "passed": true
+    },
+    {
+      "name": "Reported evaluation populations partition correctly",
+      "passed": true
+    }
+  ],
+  "findings": [],
+  "limits": "Independent content, arithmetic and source review. Browser paint/interaction checks are owned by root; unchanged fits were not rerun."
+}

@@ -1,0 +1,15 @@
+import './loss-intuition.css';
+
+export function QuantileBalanceFigure() {
+  const observations = [1, 2, 3, 4, 10];
+  return <figure className="loss-intuition-figure" aria-label="A quantile balances asymmetric slope contributions"><h3>A high quantile puts a stronger pull on underestimates</h3><p>Five measurements: 1, 2, 3, 4, 10. Quantile q = .75. Each measurement above the estimate contributes −.75 to its derivative; each below contributes +.25.</p>
+    {[3.5, 4.5].map(estimate => <div key={estimate} className="loss-quantile-case"><h4>Current estimate {estimate}</h4><div className="loss-quantile-votes">{observations.map(value => <div key={value}><span>y = {value}</span><span className="loss-quantile-arrow" aria-hidden="true">{value > estimate ? '→' : '←'}</span><strong>{value > estimate ? '−.75' : '+.25'}</strong></div>)}</div><p>{estimate === 3.5 ? 'Total derivative −.75: subtracting it moves the estimate upward.' : 'Total derivative +.25: subtracting it moves the estimate downward.'}</p></div>)}
+    <figcaption>Arrows show gradient-descent direction for the estimate, not positions on a number line. The optimum is the kink at 4: a valid subgradient there includes zero. We sum here; averaging divides every derivative by five without moving the optimum.</figcaption></figure>;
+}
+
+export function AngularMarginFigure() {
+  const point = degrees => [150 + 100 * Math.cos(degrees * Math.PI / 180), 150 - 100 * Math.sin(degrees * Math.PI / 180)];
+  const [x30, y30] = point(30), [x40, y40] = point(40);
+  return <figure className="loss-intuition-figure" aria-label="Angular margin lowers the target score without moving the feature"><h3>Ask for extra angular agreement with the correct class</h3><svg viewBox="0 0 310 205" role="img" aria-label="True-class direction at zero degrees, feature at thirty degrees, scoring angle at forty degrees"><path d="M 250 150 A 100 100 0 0 0 150 50" fill="none" stroke="#817868" /><line x1="150" y1="150" x2="260" y2="150" stroke="#d4d0c8" /><line x1="150" y1="150" x2={x30} y2={y30} stroke="#e4b752" strokeWidth="3" /><line x1="150" y1="150" x2={x40} y2={y40} stroke="#e4b752" strokeDasharray="5 4" /><path d="M 205 150 A 55 55 0 0 0 197.63 122.5" stroke="#d4d0c8" fill="none" /><circle cx={x30} cy={y30} r="4" fill="#e4b752" /><text x="149" y="177">Class direction · 0°</text><text x="16" y="40">Solid: feature θ = 30°</text><text x="16" y="61">Dashed: score at θ + m = 40°</text></svg>
+    <p>With margin 10° (π/18 radians) and logit scale 10: the ordinary target logit is 10 cos 30° ≈ <strong>8.6603</strong>; the margin target logit is 10 cos 40° ≈ <strong>7.6604</strong>. Other class logits stay fixed.</p><figcaption>The feature remains on the solid ray. The dashed ray visualizes the angle used to score the true class, not a transformed embedding. On this decreasing-cosine branch, recovering the old target score requires stronger alignment. This local geometric example is not a complete ArcFace boundary-policy implementation.</figcaption></figure>;
+}

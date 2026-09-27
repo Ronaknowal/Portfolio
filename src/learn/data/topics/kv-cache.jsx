@@ -872,9 +872,9 @@ Prefix caching  | Long system prompts repeated across  | Short or highly variabl
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Compute KV cache memory for Llama 3 70B at 128k context</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Compute KV cache memory for Llama 3 70B at 128k context</H3>
 
       <Prose>
         Using the formula from section 3: Llama 3 70B has L=80 layers, H_kv=8 KV heads, d_h=128. Compute the KV cache size in GB for a single sequence at 128k context in (a) BF16, (b) FP8, and (c) INT4. Then compute how many concurrent 128k-context sequences would fit on a single H100 80GB after accounting for the model weights (approximately 35 GB for the KV-cache portion of an H100 when the 70B model is split across two H100s in tensor-parallel configuration, leaving ~45 GB for cache).
@@ -885,31 +885,31 @@ Prefix caching  | Long system prompts repeated across  | Short or highly variabl
 # Expected: BF16 ~ 42.95 GB (one seq fills the H100),
 #           FP8  ~ 21.47 GB (two seqs fit),
 #           INT4 ~ 10.74 GB (four seqs fit, with quality caveats).`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2: Derive when GQA's savings outweigh its quality loss</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Derive when GQA's savings outweigh its quality loss</H3>
 
       <Prose>
         GQA at group size g reduces the KV cache by g× but reduces the effective KV representational capacity by g× per layer. Ainslie et al. show that quality degradation is negligible at g≤8 and measurable at g≥16. Given a serving system with a fixed memory budget M_cache, model weights W, and a requirement for at minimum B concurrent users at context length S: write the inequality that determines the minimum g required to fit the system on one GPU. For Llama 3 70B parameters, what is the minimum g for B=32 concurrent users at 8k context on an H100 80GB? Does this violate the quality threshold?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Why does PagedAttention use 16-token blocks specifically?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Why does PagedAttention use 16-token blocks specifically?</H3>
 
       <Prose>
         Block size is a tradeoff between internal fragmentation, attention kernel overhead, and allocator granularity. With block_size=16: (a) what is the average internal fragmentation (wasted token slots) per sequence? (b) what is the fragmentation at block_size=1 and block_size=256? (c) how does block size affect the attention kernel's memory access pattern — specifically, why do larger blocks improve GPU memory coalescing? (d) at what context length does the page table overhead itself become significant, and how does block_size affect this threshold?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Design a cache quantization strategy for a real deployment</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Design a cache quantization strategy for a real deployment</H3>
 
       <Prose>
         You are deploying Llama 3 70B on a cluster of H100 80GB GPUs for a customer service application. The expected workload is: 64 concurrent sessions, average context 12k tokens, peak context 32k tokens, SLA requires less than 5% quality degradation on MMLU-style benchmarks. Design a quantization strategy for the KV cache that (a) fits the average workload on the fewest possible GPUs, (b) handles peak context without OOM, and (c) stays within the quality SLA. Justify each choice with the memory accounting from section 4b.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: When does MLA beat GQA at frontier scale?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: When does MLA beat GQA at frontier scale?</H3>
 
       <Prose>
         DeepSeek-V2 reports that MLA achieves 93.3% KV cache reduction versus MHA while matching or exceeding MHA quality — better than GQA on both axes. But MLA requires training a model from scratch with the MLA architecture. Given a team starting a new 100B-parameter model training run: (a) at what context length does MLA's cache advantage over GQA-8× become decisive for a 1,000-GPU H100 cluster? (b) what is the per-GPU throughput increase in tokens/second from the memory savings, assuming decode is memory-bandwidth-bound? (c) what implementation complexity does MLA add versus GQA, and what are the engineering tradeoffs that might still favor GQA for a resource-constrained team?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

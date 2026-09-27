@@ -754,85 +754,6 @@
   max-width: 760px;
 }
 
-.lesson-guide {
-  display: grid;
-  grid-template-columns: 140px minmax(0, 1fr);
-  gap: 18px;
-  max-width: 760px;
-  margin: 0 0 34px;
-  padding: 18px 0;
-  border-top: 1px solid #2a261c;
-  border-bottom: 1px solid #2a261c;
-}
-
-.lesson-guide__label {
-  color: #b99a58;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-}
-
-.lesson-guide__body {
-  color: #a5a19a;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.lesson-guide__body p {
-  margin: 0;
-}
-
-.lesson-guide__lead {
-  margin-bottom: 5px !important;
-  color: #e1d5bb;
-  font-weight: 550;
-}
-
-.lesson-guide__steps {
-  grid-column: 2;
-  display: grid;
-  gap: 7px;
-  margin: 0;
-  padding: 0;
-  color: #92908b;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 14px;
-  line-height: 1.55;
-  list-style: none;
-}
-
-.lesson-guide__steps li {
-  position: relative;
-  padding-left: 14px;
-}
-
-.lesson-guide__steps li::before {
-  position: absolute;
-  left: 0;
-  color: #d3aa56;
-  content: "·";
-}
-
-.lesson-guide__steps strong {
-  color: #d4d0c8;
-  font-weight: 550;
-}
-
-.lesson-guide__jump {
-  grid-column: 2;
-  width: fit-content;
-  color: #e2b55a;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-}
-
-.lesson-guide__jump:hover {
-  color: #ffe0a0;
-}
-
 .programming-reference details {
   border-top: 1px solid #242424;
 }
@@ -1016,18 +937,7 @@
     width: 100%;
   }
 
-  .lesson-guide {
-    grid-template-columns: 1fr;
-  }
-
-  .lesson-guide__steps {
-    grid-column: 1;
-  }
-
-  .lesson-guide__jump {
-    grid-column: 1;
-  }
-  .programming-reference__functions { grid-template-columns:1fr; }
+.programming-reference__functions { grid-template-columns:1fr; }
 }
 
 @media (max-width: 440px) {

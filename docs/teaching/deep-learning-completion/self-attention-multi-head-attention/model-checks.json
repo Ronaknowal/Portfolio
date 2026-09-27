@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Independent native message fixtures, key/value separation, common-offset invariance, empty-row policy",
+      "passed": true
+    },
+    {
+      "name": "One/two-head independent expected outputs and zero-value null",
+      "passed": true
+    },
+    {
+      "name": "Equal-mixture construction and exact storage scaling/nulls",
+      "passed": true
+    },
+    {
+      "name": "Six native PyTorch frozen-input conditions; all15 logits and both selected head rows",
+      "passed": true,
+      "maximumPortError": 0.000004598558987822798
+    },
+    {
+      "name": "Topic and component JSX syntax",
+      "passed": true
+    }
+  ],
+  "maximumPortError": 0.000004598558987822798
+}

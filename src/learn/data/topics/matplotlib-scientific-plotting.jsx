@@ -104,8 +104,8 @@ export default {
     ]} />
     <Prose>Test numbers before pixels: pairing, series count, finite inputs, histogram totals, units, interval definition and limits. Then inspect the saved file for clipping, unreadable labels and legend overlap. Pixel snapshots can change with fonts or renderers; they complement numerical checks. These images were generated from the displayed code, not drawn separately to resemble its output.</Prose>
 
-    <H2>10. Practise a complete report</H2>
-    <H3>A chart can help find what the model misses</H3>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Practise a complete report</H2>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>A chart can help find what the model misses</H3>
     <Prose>A residual is an observed value minus its predicted value. Plotting only observations and predictions can hide small systematic departures on a wide axis. In this invented experiment, a proposed model predicts response = 1 + input. A second panel gives those departures their own scale while retaining the same x positions.</Prose>
     <PythonExample example={plottingPracticeExamples.residual}><Prose>Positive residuals mean underprediction; negative ones mean overprediction. The last observation is two units above the proposed model. A mean residual of 0.4 alone hides where this happens. The pattern suggests checking the model and measurement process; five invented points do not prove a scientific cause or validate a replacement model.</Prose></PythonExample>
     <PlotOutput example={plottingPracticeExamples.residual} alt="Observed values versus a straight-line prediction, with residuals 0, -0.5, 0, 0.5 and 2 in an aligned lower panel.">The zero reference line means exact agreement. Both panels preserve observation pairing.</PlotOutput>
@@ -117,15 +117,15 @@ export default {
     </Checkpoint>
     <Checkpoint prompt="Build a two-panel report: training/validation curves and regional revenue. What makes it ready?">
       <Prose>Use separate Axes without sharing y: loss and cents are different units. Include line labels, integer epochs, zero-baseline bars and exclusions. Save before closing, inspect the export and check that plotted arrays match the source examples.</Prose>
-    </Checkpoint>
-    <H3>Independent investigation: localize a timing discrepancy</H3>
+    </Checkpoint></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Independent investigation: localize a timing discrepancy</H3>
     <Prose>At distances 1, 2, 3 and 4 m, measured times are 2, 4, 7 and 8 ms. A proposed prediction is twice the distance. Before writing code, find the residuals and the distance with the largest absolute discrepancy. Build aligned measured/predicted and residual panels, label units, include a zero residual line, and export a readable figure. Keep distance/time pairs together.</Prose>
     <details><summary>Hint: share x, not the meaning of y</summary><Prose>The top panel contains actual times; the lower contains their differences from prediction. Both use milliseconds but answer different questions. Compute measured − predicted once, then plot that array; absolute values are only needed to find the largest discrepancy.</Prose></details>
     <details><summary>Worked solution and expected result</summary><PythonExample example={plottingPracticeExamples.transfer}/><PlotOutput example={plottingPracticeExamples.transfer} alt="A distance/time report with a single positive residual of 1 ms at distance 3 m.">Investigate the discrepancy at 3 m instead of silently deleting that observation.</PlotOutput></details>
     <Checkpoint prompt="Change the final measured time from 8 to 10 ms. What should change in the chart and conclusion?">
       <Prose>Residuals become 0, 0, 1, 2; the largest is now at 4 m. Recompute the array and annotation, inspect the limits, and explain the new pattern. Changing only the caption disconnects the story from the marks.</Prose>
     </Checkpoint>
-    <Prose>This covers a core plotting workflow; animation, maps, 3D and statistical model checking have deeper owners. Next in this module, <a href="/learn/topic/reproducible-notebooks-experiment-structure">Reproducible Notebooks &amp; Experiment Structure</a> makes the inputs, execution state and environment behind a figure inspectable and rerunnable. Documentation and Git follow with public contracts and change history. The reader's named Next link follows the selected topics on your route.</Prose>
+    <Prose>This covers a core plotting workflow; animation, maps, 3D and statistical model checking have deeper owners. Next in this module, <a href="/learn/topic/reproducible-notebooks-experiment-structure">Reproducible Notebooks &amp; Experiment Structure</a> makes the inputs, execution state and environment behind a figure inspectable and rerunnable. Documentation and Git follow with public contracts and change history. The reader's named Next link follows the selected topics on your route.</Prose></div></section>
     <Sources alternatives={<LearningResources>
       <li><a href="https://www.youtube.com/watch?v=6gdNUDs6QPc">Benjamin Root &amp; Hannah Aizenman — Anatomy of Matplotlib, SciPy 2018</a> · A beginner video workshop on plot types, vocabulary and the object hierarchy. Follow the <a href="https://github.com/matplotlib/AnatomyOfMatplotlib">companion notebooks</a> after the coordinate investigation. The recording is older; check current APIs and layout options against the reference links.</li>
       <li><a href="https://matplotlib.org/stable/users/explain/quick_start.html">Matplotlib quick-start article</a> · A written guide to Figure/Axes/Artist ownership and common plots; useful when translating an intended picture into code.</li>

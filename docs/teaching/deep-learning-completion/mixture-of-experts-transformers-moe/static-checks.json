@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "figures": [
+    "block",
+    "normalizers",
+    "gradient",
+    "dispatch",
+    "overflow",
+    "balance",
+    "cost",
+    "choice",
+    "image",
+    "results",
+    "upcycling",
+    "communication"
+  ],
+  "labs": [
+    "MoeRoutingLab",
+    "MoeCapacityLab",
+    "MoeBalanceLab",
+    "MoeCostLab",
+    "MoeImageLab"
+  ],
+  "wholeLessonRendered": true,
+  "nonemptyMarkupLengths": [
+    3269,
+    4591,
+    1884,
+    4932,
+    2791,
+    1743,
+    3075,
+    2297,
+    9248,
+    10651,
+    2462,
+    1073,
+    8487,
+    7949,
+    5530,
+    4802,
+    495,
+    24529,
+    351914
+  ],
+  "scope": "Author server render smoke; browser/network/keyboard separate"
+}

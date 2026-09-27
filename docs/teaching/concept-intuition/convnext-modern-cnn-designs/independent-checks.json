@@ -1,0 +1,45 @@
+{
+  "topicId": "convnext-modern-cnn-designs",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:44:08.071Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+    "src/learn/components/lesson-labs/ConvNeXtIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/convnext-intuition.css",
+    "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+    "scripts/generate-convnext-lesson.mjs",
+    "docs/teaching/concept-intuition/convnext-modern-cnn-designs/independent-review.md",
+    "scripts/review-convolution-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx": "8f6a32297452b54656296075dbbb5a3c1d2619be7bf82a29aff65bc245435799",
+    "src/learn/components/lesson-labs/ConvNeXtIntuitionFigures.jsx": "f581a43af1f57718930d8502ba2f229fcb3017000aebb34fd86cf4e7d3bda17d",
+    "src/learn/components/lesson-labs/convnext-intuition.css": "1215d206995dbd34284be49872e17008d08db2bf3a33eb90286ed2a2cfef10f4",
+    "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md": "2d3bbfeedb3288dc8f0fcbc469217c5731f657087466de4e193905912c16fa63",
+    "scripts/generate-convnext-lesson.mjs": "9b315ffb6f3436751cec37d356553c792f1844b1223d08bf9e482c32dc184531",
+    "docs/teaching/concept-intuition/convnext-modern-cnn-designs/independent-review.md": "33d0ee0d89cd5ce928262529e60910a9f2a3ee7a4a1f036ec295e1386ca0be37",
+    "scripts/review-convolution-sequence-intuition.mjs": "4b0e76a35ef4ecc4904244361dd2b381bf93f18b90168612d7ba41e4c7b3ce06"
+  },
+  "checks": [
+    {
+      "name": "Changed three-channel head proves pooling and channel normalization do not commute",
+      "status": "passed"
+    },
+    {
+      "name": "Changed GRN identity-start scale gradient checked by finite differences",
+      "status": "passed"
+    },
+    {
+      "name": "Changed patch brightness invariance and global pair-count ratio",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/convnext-modern-cnn-designs/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged scientific campaigns retained; no new native fit or library-execution claim."
+}

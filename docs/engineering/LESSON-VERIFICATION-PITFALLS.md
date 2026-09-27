@@ -29,6 +29,15 @@ or verifier change, not an instruction to reopen all completed lessons. The
   and practice inputs against the actual artifact. A named hatch must be drawn; a
   practice value must be enterable; constructed cases are not validation evidence
   from a real dataset. Keep an honest real-data investigation where the topic needs it.
+- Format plot ticks for the visible numerical span, including tiny nonzero and
+  signed values. Distinct ticks must not all round to zero. Give scientific notation
+  enough measured label space and retain exact values nearby. Equally spaced powers
+  of two need a logarithmic-axis label; uniform spacing must not imply a linear axis.
+- Reserve separate space for a mark's value and its position/index label. A negative
+  stem can reach a fixed bottom index row even when both labels individually fit
+  inside the SVG. Inspect the actual positive, negative and zero extrema, label
+  collisions and active-path connections; extending the viewBox alone may not fix
+  the explanation. Use a local scrollable figure rather than shrinking labels away.
 
 ## Make the verification independent and capable of failing
 
@@ -73,6 +82,12 @@ must not silently replace broader receipts or delete another lesson's captures.
 Record hashes and byte sizes for important screenshots, not only filenames.
 Corrections to past claims should be explicit; do not falsify frozen evidence to
 make it look as though a different check ran.
+
+When a receipt includes hashes of other evidence files, check those attachments as
+well as the lesson source. A later valid scoped render can leave an older nested
+hash behind. Confirm the actual execution and independent binding, then record a
+narrow bookkeeping correction with old/new identities. Do not rerun unchanged
+science or imply a new execution merely to refresh that reference.
 
 Isolate optional Python libraries when their resolved versions differ from the
 shared teaching environment. Record actual versions and distinguish tested adapters

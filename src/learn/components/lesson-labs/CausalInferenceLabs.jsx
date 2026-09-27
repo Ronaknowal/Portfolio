@@ -27,13 +27,13 @@ function DataTable({
   headings,
   rows
 }) {
-  return <details className="causal-table"><summary>{caption}</summary>
+  return <section className="causal-table lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{caption}</h4>
     <div role="region" aria-label={caption} tabIndex={0}><table><thead><tr>
       {headings.map(heading => <th key={heading} scope="col">{heading}</th>)}
     </tr></thead><tbody>{rows.map((row, rowIndex) => <tr key={rowIndex}>
       {row.map((value, index) => index === 0 ? <th scope="row" key={index}>{value}</th> : <td key={index}>{value}</td>)}
     </tr>)}</tbody></table></div>
-  </details>;
+  </section>;
 }
 function CausalGraph({
   graph,

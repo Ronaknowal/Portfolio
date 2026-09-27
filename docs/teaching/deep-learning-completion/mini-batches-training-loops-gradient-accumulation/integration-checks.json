@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:36:38.205Z",
+  "topicId": "mini-batches-training-loops-gradient-accumulation",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-31-04-111Z.json",
+  "buildReceiptHash": "8a815425fa84d104bbf20b86dcd78f49df8b314054349142d4dad1345f1e74f1",
+  "publicationMapping": "./topics/mini-batches-training-loops-gradient-accumulation.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

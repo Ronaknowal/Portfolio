@@ -118,8 +118,8 @@ python -m ipykernel install --sys-prefix --name python3 --display-name "Experime
     ]} />
     <Prose>Large outputs can slow notebooks and obscure meaningful changes. Keep compact representative outputs with useful captions and link large artifacts. Clearing an output may reduce noise but removes visible evidence; preserve an executed artifact separately where appropriate. If a secret was exposed, deleting the visible cell is not enough—rotate it and address stored history.</Prose>
 
-    <H2>11. Practise a handoff</H2>
-    <H3>Independent investigation: identical answer, different evidence</H3>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Practise a handoff</H2>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Independent investigation: identical answer, different evidence</H3>
     <Prose>Create a replay package for the trusted [10,20,30] millisecond fixture with offset 5. It must preserve the raw bytes, the actual source bytes and a JSON manifest containing their hashes, configuration, Python version, result and completion status. Recompute the identity from the saved ingredients, then rerun the calculation. Expected result: count 3 and mean_ms 15.0.</Prose>
     <Prose>Now replace the input by [9,20,31]. Show that the answer remains 15 but the data identity changes. A correct solution must not claim those are the same run merely because their result dictionaries compare equal. Explain what you would add if the calculation depended on a package, operating-system library or external service.</Prose>
     <details><summary>Hint: preserve evidence separately from its digest</summary><Prose>Hash exact bytes with sha256; keep the bytes too, because a digest cannot reconstruct them. Encode configuration with a stable key order. Read your script through __file__ in this standalone program. A manifest should describe a completed result only after calculation succeeds.</Prose></details>
@@ -133,7 +133,7 @@ python -m ipykernel install --sys-prefix --name python3 --display-name "Experime
     <Checkpoint prompt="A colleague can run every cell but gets a different random split. What should you investigate first?">
       <Prose>Check the actual kernel/interpreter, package versions, seed and generator, the call order, and the ordering of input rows before splitting. For a fixed benchmark, compare saved split IDs rather than only regenerating from a seed. Then inspect hardware or nondeterministic framework behaviour if relevant.</Prose>
     </Checkpoint>
-    <Prose>You now have a small reproducible analysis, not a full experiment-tracking platform. Distributed orchestration, remote storage, dataset governance and GPU determinism need additional design. Next, <a href="/learn/topic/code-documentation-type-hints-api-design">document and type the boundaries</a> so another person can use the reusable parts correctly.</Prose>
+    <Prose>You now have a small reproducible analysis, not a full experiment-tracking platform. Distributed orchestration, remote storage, dataset governance and GPU determinism need additional design. Next, <a href="/learn/topic/code-documentation-type-hints-api-design">document and type the boundaries</a> so another person can use the reusable parts correctly.</Prose></div></section>
     <Sources alternatives={<LearningResources>
       <li><a href="https://swcarpentry.github.io/python-novice-gapminder/01-run-quit.html">Software Carpentry: running Python in a notebook</a> — beginner walkthrough of cells, execution and the interface; use it if the kernel/document distinction is new.</li>
       <li><a href="https://nbconvert.readthedocs.io/en/latest/execute_api.html">nbconvert: execute notebooks programmatically</a> — hands-on follow-on for clean execution, explicit directories, errors and saved artifacts. Requires the local environment introduced in this lesson.</li>

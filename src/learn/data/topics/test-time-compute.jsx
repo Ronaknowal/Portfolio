@@ -1177,9 +1177,9 @@ python -m vllm.entrypoints.openai.api_server \\
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1</H3>
 
       <Prose>
         Derive the best-of-N accuracy formula for a perfect verifier from first principles
@@ -1192,9 +1192,9 @@ python -m vllm.entrypoints.openai.api_server \\
         Answer: P(at least one correct) = 1 - (1-p)^N. For p=0.3, N=10:
         1 - 0.7^10 = 1 - 0.0282 = 0.9718. For 99%: solve 0.7^N &lt; 0.01 →
         N &gt; log(0.01)/log(0.7) = 12.9, so N = 13.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2</H3>
 
       <Prose>
         Why does verifier quality bound the accuracy gain from test-time compute at large
@@ -1208,9 +1208,9 @@ python -m vllm.entrypoints.openai.api_server \\
         shifts entirely to the verifier's precision. Maximum accuracy = verifier precision
         = 0.92. Even with N = 1,000,000 samples, 8% of returned answers are wrong. The
         selection step, not the generation step, becomes the binding constraint.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 3</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3</H3>
 
       <Prose>
         Design a test-time compute strategy for a general-purpose chat assistant. The
@@ -1226,9 +1226,9 @@ python -m vllm.entrypoints.openai.api_server \\
         (d) No — no verifier for quality. (e) Yes — serial CoT (long deliberation) or
         beam search with a math PRM. Routing signal: classify intent (verifiable vs
         open-ended) and complexity (simple vs multi-step) at the system prompt level.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 4</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4</H3>
 
       <Prose>
         Compare self-consistency (majority voting over CoT chains, no verifier) and
@@ -1246,9 +1246,9 @@ python -m vllm.entrypoints.openai.api_server \\
         on long multi-step problems where early error detection is valuable. Self-
         consistency dominates on tasks where all-or-nothing final answer generation
         is feasible and latency is a concern.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 5</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5</H3>
 
       <Prose>
         Predict what happens when you apply test-time compute scaling to a non-verifiable
@@ -1266,7 +1266,7 @@ python -m vllm.entrypoints.openai.api_server \\
         the model produces a long internal deliberation that circles around stylistic choices
         without a signal to distinguish better from worse, then returns an answer not
         meaningfully different from its first attempt.
-      </Callout>
+      </Callout></div></section>
 
     </div>
   ),

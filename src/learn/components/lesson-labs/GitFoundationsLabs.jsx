@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { useId, useState } from "react";
 import { Investigation, Stepper } from "./LessonInvestigation.jsx";
 import { stagingTrace, branchTrace, remoteTrace, conflictVersions, conflictTrace } from "../../data/git-foundations-model";
@@ -13,7 +14,7 @@ export function GitStagingLab() {
           setRestage(e.target.value === 'true');
           setStep(0);
         }}><option value="false">Inspect without staging again</option><option value="true">Stage version 3 again</option></select></label></div>
-    <pre className="nt-code">{state.command}</pre><div className="nt-snapshots">{['HEAD snapshot', 'Index: proposed snapshot', 'Working file'].map((label, i) => <div className={'nt-snapshot ' + (i === 2 && state.transfer.startsWith('Edit') || i === 1 && state.transfer.includes('→ index') || i === 0 && state.transfer.includes('→ new') ? 'is-active' : '')} key={label}><h4>{label}</h4><pre>version {state.versions[i]}</pre><small>{i === 0 ? 'Last committed content' : i === 1 ? 'What a normal commit will record' : 'What your editor currently shows'}</small></div>)}</div>
+    <CodeBlock language="bash" filename="git-staging-step.sh">{state.command}</CodeBlock><div className="nt-snapshots">{['HEAD snapshot', 'Index: proposed snapshot', 'Working file'].map((label, i) => <div className={'nt-snapshot ' + (i === 2 && state.transfer.startsWith('Edit') || i === 1 && state.transfer.includes('→ index') || i === 0 && state.transfer.includes('→ new') ? 'is-active' : '')} key={label}><h4>{label}</h4><CodeBlock language="text" kind="output" filename="git-file-version.txt">{`version ${state.versions[i]}`}</CodeBlock><small>{i === 0 ? 'Last committed content' : i === 1 ? 'What a normal commit will record' : 'What your editor currently shows'}</small></div>)}</div>
     <p className="nt-transfer">{state.transfer}</p><p className="nt-feedback" aria-live="polite">{state.note}</p><p>Short status: <code>{state.status === '  ' ? '(clean)' : JSON.stringify(state.status) + ' report.txt'}</code>. First column: index vs HEAD. Second: working file vs index.</p>
     <Stepper step={step} count={trace.length} setStep={setStep} /><p className="lesson-note">This fixed model contains one already-tracked file and ordinary commits. It does not model untracked files, partial hunks or operate on your repository.</p>
   </Investigation>;
@@ -37,7 +38,7 @@ export function GitBranchLab() {
     <div className="nt-controls"><label>Main branch activity<select value={String(diverged)} onChange={e => {
           setDiverged(e.target.value === 'true');
           setStep(0);
-        }}><option value="false">Main stays at A</option><option value="true">Main makes its own commit C</option></select></label></div><pre className="nt-code">{state.command}</pre>
+        }}><option value="false">Main stays at A</option><option value="true">Main makes its own commit C</option></select></label></div><CodeBlock language="bash" filename="git-branch-step.sh">{state.command}</CodeBlock>
     <svg className="nt-diagram" viewBox="0 0 360 295" role="img" aria-label={`${state.nodes.length} commits. main at ${state.main}; feature at ${state.feature ?? 'not created'}; HEAD names ${state.head}. Arrows point to parents.`}>
       <defs><marker id={uid} markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#a99260" /></marker></defs>
       {state.nodes.flatMap(n => n.parents.map(parent => {
@@ -67,7 +68,7 @@ export function GitRemoteLab() {
     <div className="nt-controls"><label>Your local work<select value={String(localChange)} onChange={e => {
           setLocalChange(e.target.value === 'true');
           setStep(0);
-        }}><option value="false">No new local commit</option><option value="true">Commit a local note as C</option></select></label></div><pre className="nt-code">{state.command}</pre>
+        }}><option value="false">No new local commit</option><option value="true">Commit a local note as C</option></select></label></div><CodeBlock language="bash" filename="git-remote-step.sh">{state.command}</CodeBlock>
     <GitRemotePicture state={state} step={step} localChange={localChange} />
     <p className="nt-feedback" aria-live="polite">{state.note}</p><Stepper step={step} count={trace.length} setStep={setStep} /><p className="lesson-note">This model assumes the usual origin fetch mapping; custom refspecs, shallow/partial clones and hosting permissions need separate treatment.</p>
   </Investigation>;
@@ -83,7 +84,7 @@ export function GitConflictLab() {
           setResolution(e.target.value);
           setStep(0);
         }}><option value="combined">Describe model and region</option><option value="ours">Keep only the model wording</option></select></label></div>
-    <div className="nt-snapshots">{Object.entries(conflictVersions).map(([name, text]) => <div className="nt-snapshot" key={name}><h4>{name === 'base' ? 'Common base' : name === 'ours' ? 'Ours: main' : 'Theirs: feature'}</h4><pre>{text}</pre></div>)}</div>
-    <p className="nt-transfer">{state.phase}</p><h4>Working title.txt</h4><pre className="nt-code">{state.working}</pre><p>Index: <strong>{state.unmerged ? 'unmerged stages (base, ours, theirs)' : step === 0 ? 'ordinary base snapshot' : 'ordinary resolved entry'}</strong> · merge committed: <strong>{state.committed ? 'yes' : 'no'}</strong></p><p className="nt-feedback" aria-live="polite">{state.note}</p><Stepper step={step} count={trace.length} setStep={setStep} /><p className="lesson-note">These “ours/theirs” labels describe a normal merge while on main. Rebase can change their intuitive meaning. This example models one textual conflict, not every merge driver or rename case.</p>
+    <div className="nt-snapshots">{Object.entries(conflictVersions).map(([name, text]) => <div className="nt-snapshot" key={name}><h4>{name === 'base' ? 'Common base' : name === 'ours' ? 'Ours: main' : 'Theirs: feature'}</h4><CodeBlock language="text" kind="output" filename={`git-${name}-title.txt`}>{text}</CodeBlock></div>)}</div>
+    <p className="nt-transfer">{state.phase}</p><h4>Working title.txt</h4><CodeBlock language="text" kind="output" filename="git-working-title.txt">{state.working}</CodeBlock><p>Index: <strong>{state.unmerged ? 'unmerged stages (base, ours, theirs)' : step === 0 ? 'ordinary base snapshot' : 'ordinary resolved entry'}</strong> · merge committed: <strong>{state.committed ? 'yes' : 'no'}</strong></p><p className="nt-feedback" aria-live="polite">{state.note}</p><Stepper step={step} count={trace.length} setStep={setStep} /><p className="lesson-note">These “ours/theirs” labels describe a normal merge while on main. Rebase can change their intuitive meaning. This example models one textual conflict, not every merge driver or rename case.</p>
   </Investigation>;
 }

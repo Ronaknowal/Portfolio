@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "htmlCharacters": 265338,
+  "checks": [
+    "Complete eleven-section manuscript, references, four case files, synthesis and all source controls render",
+    "Four investigations and two recorded-evidence explorers render without exceptions, React warnings or nonfinite outputs",
+    "Equation rendering and initially closed practice preserved; no unresolved mathematical delimiters",
+    "Native-size local diagram/plot scrolling, explicit select labels and honest selected-data loading state present"
+  ],
+  "limitations": [
+    "SSR cannot establish painted geometry, actual keyboard/mobile controls, network recovery or asynchronous-state continuity."
+  ]
+}

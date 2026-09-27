@@ -1,0 +1,41 @@
+{
+  "topicId": "cross-validation-hyperparameter-tuning",
+  "reviewedAt": "2026-09-26T14:34:50.884Z",
+  "sourceFiles": [
+    "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx",
+    "docs/teaching/concept-intuition/cross-validation-hyperparameter-tuning/review.md",
+    "scripts/verify-representation-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx": "8cb9526317b7c948e7cf2114a9611658e6a6457eeca20704497fa6d32a7c9fc1",
+    "docs/teaching/concept-intuition/cross-validation-hyperparameter-tuning/review.md": "e19b12a4001bf5f9c3cbf3257dd1a0fbc0c71aaa91ca2525d8424568e841d144",
+    "scripts/verify-representation-concept-intuition.mjs": "665d4e670b6977ebc15815db6b352af7cf6f7d95ceb51ee7f98692ff3fd4d14d"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/cross-validation-hyperparameter-tuning/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Shared and independent averaging variance",
+      "status": "passed"
+    },
+    {
+      "name": "TPE acquisition density-ratio comparison",
+      "status": "passed"
+    },
+    {
+      "name": "Bootstrap sampled versus distinct and out-of-bag identities",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing numerical models, native programs, datasets and fit campaigns retained; no claim of a fresh native campaign.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

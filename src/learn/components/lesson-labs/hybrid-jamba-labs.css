@@ -1,0 +1,19 @@
+.jamba-lesson { overflow-wrap:anywhere; }
+.jamba-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:.8rem; margin:1rem 0; }
+.jamba-controls>* {min-width:0}
+.jamba-records { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:.8rem; }
+.jamba-record { border:1px solid #555;padding:.7rem;min-width:0;background:#1b1b1b; }
+.jamba-record .neural-number-control--numeric {grid-template-columns:minmax(0,1fr)}
+.jamba-two { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem; }
+.jamba-figure { margin:1.5rem 0;padding:1rem;border:1px solid #555;background:#171717;max-width:100%;min-width:0; }
+.jamba-figure figcaption {font-weight:650;color:#eddbb4;margin-bottom:.8rem}
+.jamba-scroll,.jamba-plot-scroll {overflow-x:auto;max-width:100%;min-width:0}
+.jamba-scroll svg {display:block;width:100%;height:auto}
+.jamba-scroll text {fill:#eee;font:12px system-ui,sans-serif}
+.jamba-scroll path,.jamba-scroll polyline,.jamba-scroll line {stroke:#999;fill:none}
+.jamba-scroll rect {stroke:#aaa;fill:#242424}
+.jamba-scroll circle {stroke:#ddd;fill:#ddd}
+.jamba-plot-scroll .neural-plot,.jamba-plot-scroll .neural-chart {min-width:340px;max-height:none}
+.jamba-source {overflow-x:auto;max-width:100%;padding:1rem;background:#111;font-size:.8rem;line-height:1.6}
+.jamba-downloads {display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0}
+@media(max-width:720px){.jamba-two{grid-template-columns:minmax(0,1fr)}.jamba-figure{padding:.6rem}}

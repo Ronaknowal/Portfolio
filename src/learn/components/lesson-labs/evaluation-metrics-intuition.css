@@ -1,0 +1,11 @@
+.metric-intuition { margin: 2rem 0; padding: clamp(.8rem, 2vw, 1.35rem); border: 1px solid #494235; background: #121211; color: #ddd9d1; }
+.metric-intuition h4, .metric-intuition h5 { color: #f0e7d6; margin: 0 0 .6rem; font-size: 1rem; }
+.metric-intuition p, .metric-intuition figcaption { line-height: 1.7; overflow-wrap: anywhere; }
+.metric-intuition-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
+.metric-intuition-panels > section { min-width: 0; border-top: 1px solid #494235; padding-top: .9rem; }
+.metric-intuition svg { width: 100%; height: auto; display: block; }
+.metric-intuition svg text { fill: #ddd9d1; font-size: 13px; }
+.metric-intuition figcaption { margin-top: 1rem; color: #c9beab; }
+.metric-intuition-track { height: 10px; width: 100%; background: #36332e; }
+.metric-intuition-track span { height: 100%; display: block; background: #e9b949; }
+.metric-intuition-weight p { margin: .6rem 0; font-size: .9rem; }

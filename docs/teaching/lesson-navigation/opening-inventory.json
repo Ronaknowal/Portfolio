@@ -1,0 +1,4811 @@
+{
+  "recorded": "2026-09-27",
+  "scope": "234 current publication mappings; read-only AST navigation inventory, not content/scientific review",
+  "topics": [
+    {
+      "id": "graphs-representations-bfs-dfs",
+      "source": "src/learn/data/topics/graphs-representations-bfs-dfs.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "heaps-priority-queues-tries",
+      "source": "src/learn/data/topics/heaps-priority-queues-tries.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "trees-binary-search-trees",
+      "source": "src/learn/data/topics/trees-binary-search-trees.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "threads-concurrency-locks-deadlocks",
+      "source": "src/learn/data/topics/threads-concurrency-locks-deadlocks.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 7,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      }
+    },
+    {
+      "id": "scientific-file-formats-schemas-reliable-data-i-o",
+      "source": "src/learn/data/topics/scientific-file-formats-schemas-reliable-data-i-o.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "sql-relational-data-transactions-for-ml",
+      "source": "src/learn/data/topics/sql-relational-data-transactions-for-ml.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "python-basics-types-control-flow-functions-modules",
+      "source": "src/learn/data/topics/python-basics-types-control-flow-functions-modules.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "object-oriented-programming-in-python",
+      "source": "src/learn/data/topics/object-oriented-programming-in-python.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 7,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      }
+    },
+    {
+      "id": "iterators-iterables-generators",
+      "source": "src/learn/data/topics/iterators-iterables-generators.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "decorators-context-managers",
+      "source": "src/learn/data/topics/decorators-context-managers.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 5,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "testing-debugging-dependency-management",
+      "source": "src/learn/data/topics/testing-debugging-dependency-management.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 17,
+          "staticSectionCount": 5,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 17,
+        "className": ""
+      }
+    },
+    {
+      "id": "numpy-arrays-broadcasting-vectorization",
+      "source": "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "pandas-data-wrangling-joins-grouping",
+      "source": "src/learn/data/topics/pandas-data-wrangling-joins-grouping.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 7,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "matplotlib-scientific-plotting",
+      "source": "src/learn/data/topics/matplotlib-scientific-plotting.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "reproducible-notebooks-experiment-structure",
+      "source": "src/learn/data/topics/reproducible-notebooks-experiment-structure.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 17,
+          "staticSectionCount": 7,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 17,
+        "className": ""
+      }
+    },
+    {
+      "id": "code-documentation-type-hints-api-design",
+      "source": "src/learn/data/topics/code-documentation-type-hints-api-design.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 17,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 17,
+        "className": ""
+      }
+    },
+    {
+      "id": "git-github-collaborative-version-control",
+      "source": "src/learn/data/topics/git-github-collaborative-version-control.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 7,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "linux-basics-filesystems-processes",
+      "source": "src/learn/data/topics/linux-basics-filesystems-processes.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 18,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 18,
+        "className": ""
+      }
+    },
+    {
+      "id": "os-processes-virtual-memory-isolation",
+      "source": "src/learn/data/topics/os-processes-virtual-memory-isolation.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 6,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "arrays-strings-hash-maps",
+      "source": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 15,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "linked-lists-stacks-queues",
+      "source": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 17,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 17,
+        "className": ""
+      }
+    },
+    {
+      "id": "bash-scripting-command-line-automation",
+      "source": "src/learn/data/topics/bash-scripting-command-line-automation.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 52,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 52,
+        "className": ""
+      }
+    },
+    {
+      "id": "vectors-matrices-tensor-operations",
+      "source": "src/learn/data/topics/vectors-matrices-tensor-operations.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 31,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 31,
+        "className": ""
+      }
+    },
+    {
+      "id": "matrix-decompositions-svd-qr-cholesky-lu",
+      "source": "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "eigenvalues-eigenvectors",
+      "source": "src/learn/data/topics/eigenvalues-eigenvectors.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "matrix-calculus-jacobians",
+      "source": "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "tensor-algebra-einsum-notation",
+      "source": "src/learn/data/topics/tensor-algebra-einsum-notation.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 20,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 20,
+        "className": ""
+      }
+    },
+    {
+      "id": "randomized-linear-algebra",
+      "source": "src/learn/data/topics/randomized-linear-algebra.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "source": "src/learn/data/topics/multivariate-calculus-gradients.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 23,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 23,
+        "className": ""
+      }
+    },
+    {
+      "id": "convex-optimization",
+      "source": "src/learn/data/topics/convex-optimization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "source": "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 22,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 22,
+        "className": ""
+      }
+    },
+    {
+      "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+      "source": "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "source": "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 20,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 20,
+        "className": ""
+      }
+    },
+    {
+      "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+      "source": "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "non-convex-optimization-landscape",
+      "source": "src/learn/data/topics/non-convex-optimization-landscape.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 20,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 20,
+        "className": ""
+      }
+    },
+    {
+      "id": "constrained-multi-objective-optimization",
+      "source": "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 22,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 22,
+        "className": ""
+      }
+    },
+    {
+      "id": "probability-distributions-bayes-theorem",
+      "source": "src/learn/data/topics/probability-distributions-bayes-theorem.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      }
+    },
+    {
+      "id": "maximum-likelihood-map-estimation",
+      "source": "src/learn/data/topics/maximum-likelihood-map-estimation.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 17,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 17,
+        "className": ""
+      }
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "source": "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 20,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 20,
+        "className": ""
+      }
+    },
+    {
+      "id": "bayesian-inference-conjugate-priors",
+      "source": "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 24,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 24,
+        "className": ""
+      }
+    },
+    {
+      "id": "concentration-inequalities-hoeffding-bernstein-chernoff",
+      "source": "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 32,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 32,
+        "className": ""
+      }
+    },
+    {
+      "id": "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+      "source": "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 19,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 19,
+        "className": ""
+      }
+    },
+    {
+      "id": "variational-inference",
+      "source": "src/learn/data/topics/variational-inference.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 19,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 19,
+        "className": ""
+      }
+    },
+    {
+      "id": "exponential-families-sufficient-statistics",
+      "source": "src/learn/data/topics/exponential-families-sufficient-statistics.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 24,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 24,
+        "className": ""
+      }
+    },
+    {
+      "id": "measure-theory-probability-spaces",
+      "source": "src/learn/data/topics/measure-theory-probability-spaces.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "optimal-transport-wasserstein-distance-sinkhorn",
+      "source": "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "causal-inference-do-calculus",
+      "source": "src/learn/data/topics/causal-inference-do-calculus.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "entropy-cross-entropy-kl-divergence",
+      "source": "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "mutual-information-information-bottleneck",
+      "source": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 23,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 23,
+        "className": ""
+      }
+    },
+    {
+      "id": "rate-distortion-theory",
+      "source": "src/learn/data/topics/rate-distortion-theory.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 25,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 25,
+        "className": ""
+      }
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "source": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 31,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 31,
+        "className": ""
+      }
+    },
+    {
+      "id": "graph-fundamentals-adjacency-laplacian-connectivity",
+      "source": "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "spectral-graph-theory",
+      "source": "src/learn/data/topics/spectral-graph-theory.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 31,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 31,
+        "className": ""
+      }
+    },
+    {
+      "id": "combinatorial-optimization-approximation-algorithms",
+      "source": "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 25,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 25,
+        "className": ""
+      }
+    },
+    {
+      "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+      "source": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 29,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 29,
+        "className": ""
+      }
+    },
+    {
+      "id": "random-matrix-theory",
+      "source": "src/learn/data/topics/random-matrix-theory.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 24,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 24,
+        "className": ""
+      }
+    },
+    {
+      "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+      "source": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 29,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 29,
+        "className": ""
+      }
+    },
+    {
+      "id": "dynamical-systems-theory-chaos",
+      "source": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [
+        {
+          "line": 20,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 20,
+        "className": ""
+      }
+    },
+    {
+      "id": "it-calculus-stochastic-differential-equations",
+      "source": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 30,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 30,
+        "className": ""
+      }
+    },
+    {
+      "id": "numerical-methods-finite-differences-quadrature-root-finding",
+      "source": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 24,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 24,
+        "className": ""
+      }
+    },
+    {
+      "id": "functional-analysis-rkhs",
+      "source": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 29,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 29,
+        "className": ""
+      }
+    },
+    {
+      "id": "topology-topological-data-analysis-tda",
+      "source": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "category-theory-emerging-use-in-ml",
+      "source": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [
+        {
+          "line": 25,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 25,
+        "className": ""
+      }
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "source": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 23,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 23,
+        "className": ""
+      }
+    },
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "source": "src/learn/data/topics/attention.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: follow sections 1–2 to understand one read, section 3 to place it inside a decoder, and section 4 to implement it. In section 5, read the direction-of-learning explanation before the optional derivative. Then inspect the real spelling experiment and its alignment in sections 6–7; run the saved model before a full training run. Exercises 1–5 test that route. The scorer diagnosis and section 8 are deeper branches to return to for local windows, copying, speech and efficiency."
+        }
+      ]
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "source": "src/learn/data/topics/backprop.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 16,
+        "className": ""
+      },
+      "customNavigation": [
+        {
+          "tag": "nav",
+          "line": 19,
+          "label": "Backpropagation section route",
+          "className": "backprop-section-route",
+          "text": "Jump within this lesson1. A derivative carries the effect of a small change2. Shared computations need a sum of contributions3. From individual numbers to tensor gradients4. Check derivative"
+        }
+      ],
+      "openingOrientation": [
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "First pass: read §§1–5 and solve practices 1–4. You should be able to trace a shared computation, obtain a network's gradients and diagnose a failed numerical check. §6 and practices 5–8 are deeper routes through a complete teaching engine, higher derivatives, custom operations and memory tradeoffs. Reading and tracing take roughly 60–80 minutes; core practice and programs add 40–60 minutes. The optional engine and advanced practice deserve a separate session."
+        }
+      ]
+    },
+    {
+      "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "source": "src/learn/data/topics/tokenization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "byte-level-tokenization-token-free-models",
+      "source": "src/learn/data/topics/byte-level-tokenization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "vocabulary-design-multilingual-tokenization",
+      "source": "src/learn/data/topics/vocabulary-multilingual.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "multimodal-tokenization-visual-audio-video",
+      "source": "src/learn/data/topics/multimodal-tokenization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "dynamic-tokenization-adat-boundlessbpe-litetoken",
+      "source": "src/learn/data/topics/dynamic-tokenization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "causal-language-modeling-next-token-prediction",
+      "source": "src/learn/data/topics/causal-language-modeling.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "masked-language-modeling-bert-style",
+      "source": "src/learn/data/topics/masked-language-modeling.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "data-curation-deduplication-minhash-bloom-filters",
+      "source": "src/learn/data/topics/data-curation-deduplication.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "scaling-laws-kaplan-chinchilla-beyond",
+      "source": "src/learn/data/topics/scaling-laws.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "curriculum-learning-data-mixing-strategies",
+      "source": "src/learn/data/topics/curriculum-data-mixing.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "fp8-training-low-precision-pre-training",
+      "source": "src/learn/data/topics/fp8-training.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "moe-training-expert-load-balancing",
+      "source": "src/learn/data/topics/moe-training.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+      "source": "src/learn/data/topics/multimodal-pretraining.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "data-curation-pipelines-curator-models-quality-filtering",
+      "source": "src/learn/data/topics/data-curation-pipelines.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "synthetic-data-generation-for-pre-training",
+      "source": "src/learn/data/topics/synthetic-data-pretraining.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "supervised-fine-tuning-sft",
+      "source": "src/learn/data/topics/supervised-fine-tuning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "rlhf-reinforcement-learning-from-human-feedback",
+      "source": "src/learn/data/topics/rlhf.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "dpo-direct-preference-optimization",
+      "source": "src/learn/data/topics/dpo.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "simpo-simple-preference-optimization",
+      "source": "src/learn/data/topics/simpo.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "p-tuning-soft-prompt-methods",
+      "source": "src/learn/data/topics/p-tuning-soft-prompts.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "grpo-rloo-kto-advanced-preference-methods",
+      "source": "src/learn/data/topics/grpo-rloo-kto.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "constitutional-ai-cai",
+      "source": "src/learn/data/topics/constitutional-ai.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "process-reward-models-prm-vs-outcome-reward-models-orm",
+      "source": "src/learn/data/topics/prm-vs-orm.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "rlaif-ipo-orpo-emerging-alignment-methods",
+      "source": "src/learn/data/topics/rlaif-ipo-orpo.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "rlvr-reinforcement-learning-with-verifiable-rewards",
+      "source": "src/learn/data/topics/rlvr.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "dapo-dynamic-adaptive-policy-optimization",
+      "source": "src/learn/data/topics/dapo.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+      "source": "src/learn/data/topics/knowledge-distillation-llms.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "rl-for-reasoning-deepseek-r1-style",
+      "source": "src/learn/data/topics/rl-for-reasoning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "kv-cache-memory-management",
+      "source": "src/learn/data/topics/kv-cache.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+      "source": "src/learn/data/topics/decoding-strategies.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "structured-output-constrained-decoding-outlines-xgrammar",
+      "source": "src/learn/data/topics/constrained-decoding.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "continuous-batching-pagedattention",
+      "source": "src/learn/data/topics/continuous-batching.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "queueing-theory-for-llm-serving",
+      "source": "src/learn/data/topics/queueing-theory-llm-serving.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "speculative-decoding",
+      "source": "src/learn/data/topics/speculative-decoding.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "prefix-caching-prompt-caching",
+      "source": "src/learn/data/topics/prefix-caching.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "inference-cost-economics-compute-scaling",
+      "source": "src/learn/data/topics/inference-cost-economics.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "test-time-compute-scaling",
+      "source": "src/learn/data/topics/test-time-compute.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "inference-engines-serving",
+      "source": "src/learn/data/topics/inference-engines.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "inference-system-architecture-end-to-end",
+      "source": "src/learn/data/topics/inference-system-architecture.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "request-routing-load-balancing",
+      "source": "src/learn/data/topics/request-routing-load-balancing.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "autoscaling-gpu-resource-management",
+      "source": "src/learn/data/topics/autoscaling-gpu.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "disaggregated-prefill-decode",
+      "source": "src/learn/data/topics/disaggregated-prefill-decode.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "caching-strategies-semantic-exact-kv-cache-sharing",
+      "source": "src/learn/data/topics/caching-strategies.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "multi-model-serving-model-routing",
+      "source": "src/learn/data/topics/multi-model-serving.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "rate-limiting-quota-management-fairness",
+      "source": "src/learn/data/topics/rate-limiting.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "guardrails-input-output-filtering-safety-layers",
+      "source": "src/learn/data/topics/guardrails.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "observability-llm-monitoring",
+      "source": "src/learn/data/topics/observability-llm.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "streaming-server-sent-events-sse",
+      "source": "src/learn/data/topics/streaming-sse.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "cost-optimization-tco-analysis",
+      "source": "src/learn/data/topics/cost-optimization-tco.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "edge-on-premise-deployment-architectures",
+      "source": "src/learn/data/topics/edge-on-premise.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "multi-region-global-inference-infrastructure",
+      "source": "src/learn/data/topics/multi-region-global.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "context-window-extension-rope-scaling-yarn-ntk-aware",
+      "source": "src/learn/data/topics/context-window-extension.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "retrieval-augmented-generation-rag",
+      "source": "src/learn/data/topics/rag.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "embedding-models-vector-databases",
+      "source": "src/learn/data/topics/embedding-models-vector-db.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "graphrag-agentic-rag",
+      "source": "src/learn/data/topics/graphrag-agentic.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "model-merging-ties-dare-model-soups-slerp",
+      "source": "src/learn/data/topics/model-merging.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "hybrid-search-dense-sparse-reranking",
+      "source": "src/learn/data/topics/hybrid-search.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "H2",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "linear-logistic-regression",
+      "source": "src/learn/data/topics/linear-logistic-regression.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 23,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 23,
+        "className": ""
+      }
+    },
+    {
+      "id": "decision-trees-random-forests",
+      "source": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 22,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 22,
+        "className": ""
+      }
+    },
+    {
+      "id": "k-nearest-neighbors-knn",
+      "source": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 28,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 28,
+        "className": ""
+      }
+    },
+    {
+      "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+      "source": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "support-vector-machines-svm",
+      "source": "src/learn/data/topics/support-vector-machines-svm.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "source": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 31,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 31,
+        "className": ""
+      }
+    },
+    {
+      "id": "ensemble-methods-stacking",
+      "source": "src/learn/data/topics/ensemble-methods-stacking.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 22,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 22,
+        "className": ""
+      }
+    },
+    {
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "source": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 28,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), he"
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 28,
+        "className": ""
+      }
+    },
+    {
+      "id": "multi-label-multi-output-learning",
+      "source": "src/learn/data/topics/multi-label-multi-output-learning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 30,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [slug(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 30,
+        "className": ""
+      }
+    },
+    {
+      "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+      "source": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 36,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [slug(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 16,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 36,
+        "className": ""
+      }
+    },
+    {
+      "id": "k-means-hierarchical-clustering",
+      "source": "src/learn/data/topics/k-means-hierarchical-clustering.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 45,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 45,
+        "className": ""
+      }
+    },
+    {
+      "id": "pca-dimensionality-reduction",
+      "source": "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 37,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 37,
+        "className": ""
+      }
+    },
+    {
+      "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+      "source": "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 39,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), shortTitle(heading)])"
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 39,
+        "className": ""
+      }
+    },
+    {
+      "id": "dbscan-density-based-clustering",
+      "source": "src/learn/data/topics/dbscan-density-based-clustering.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 40,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 40,
+        "className": ""
+      }
+    },
+    {
+      "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "source": "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 39,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 39,
+        "className": ""
+      }
+    },
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "source": "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 46,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 46,
+        "className": ""
+      }
+    },
+    {
+      "id": "t-sne-umap-manifold-learning",
+      "source": "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 41,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 41,
+        "className": ""
+      }
+    },
+    {
+      "id": "independent-component-analysis-ica",
+      "source": "src/learn/data/topics/independent-component-analysis-ica.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 48,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 48,
+        "className": ""
+      }
+    },
+    {
+      "id": "non-negative-matrix-factorization-nmf",
+      "source": "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 47,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 47,
+        "className": ""
+      }
+    },
+    {
+      "id": "feature-scaling-encoding-imputation",
+      "source": "src/learn/data/topics/feature-scaling-encoding-imputation.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 49,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 49,
+        "className": ""
+      }
+    },
+    {
+      "id": "cross-validation-hyperparameter-tuning",
+      "source": "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 52,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 52,
+        "className": ""
+      }
+    },
+    {
+      "id": "regularization-l1-l2-elastic-net-dropout",
+      "source": "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 54,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 54,
+        "className": ""
+      }
+    },
+    {
+      "id": "feature-selection-importance-shap-permutation-mutual-info",
+      "source": "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 66,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 66,
+        "className": ""
+      }
+    },
+    {
+      "id": "bias-variance-tradeoff-learning-curves",
+      "source": "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 88,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 88,
+        "className": ""
+      }
+    },
+    {
+      "id": "imbalanced-learning-smote-cost-sensitive-learning",
+      "source": "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 97,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 97,
+        "className": ""
+      }
+    },
+    {
+      "id": "automl-neural-architecture-search-nas",
+      "source": "src/learn/data/topics/automl-neural-architecture-search-nas.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 104,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 104,
+        "className": ""
+      }
+    },
+    {
+      "id": "hidden-markov-models-hmm",
+      "source": "src/learn/data/topics/hidden-markov-models-hmm.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 102,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 102,
+        "className": ""
+      }
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "source": "src/learn/data/topics/conditional-random-fields-crf.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 17,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 17,
+        "className": ""
+      }
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "source": "src/learn/data/topics/gaussian-processes-gp.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 19,
+        "className": ""
+      },
+      "customNavigation": [
+        {
+          "tag": "aside",
+          "line": 345,
+          "label": "",
+          "className": "lesson-intro",
+          "text": "Run the two examples offline. Download gp_conditioning.py, co2_gp.py and the NOAA monthly CSV. Keep the CSV beside co2_gp.py. Data provenance and attribution."
+        }
+      ],
+      "openingOrientation": [
+        {
+          "line": 23,
+          "tag": "Prose",
+          "text": "First pass: follow sections 1–7, including the two-observation calculation and the CO₂ experiment. You should finish able to explain a GP prediction, distinguish its two uncertainty bands, run a small regression, and recognize a misleading forecast. Section 8 explores measurement selection; section 9 develops classification, scalable inference, and the connection to kernel ridge regression. Those branches need the core equations but are optional on a first reading."
+        }
+      ]
+    },
+    {
+      "id": "bayesian-networks-causal-graphical-models",
+      "source": "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 137,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 137,
+        "className": ""
+      }
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "source": "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "active-learning",
+      "source": "src/learn/data/topics/active-learning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "source": "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "pac-learning-vc-dimension",
+      "source": "src/learn/data/topics/pac-learning-vc-dimension.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 87,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 87,
+        "className": ""
+      }
+    },
+    {
+      "id": "calibration-conformal-prediction",
+      "source": "src/learn/data/topics/calibration-conformal-prediction.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 120,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 120,
+        "className": ""
+      }
+    },
+    {
+      "id": "rademacher-complexity-generalization-bounds",
+      "source": "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 109,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 109,
+        "className": ""
+      }
+    },
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "source": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 7,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand and train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes."
+        }
+      ]
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "source": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: follow the prediction-to-update map, work the regression and probability examples, investigate focal loss, then build the pair→triplet→candidate-selection connection. Run the small digit experiment and attempt the practice before its solutions. The likelihood, angular-margin, and mutual-information branches add depth; their derivations are not prerequisites for the first experiment."
+        }
+      ]
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "source": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: calculate one normalization, explore the axis map, compare BatchNorm's training/evaluation modes, and run the small handwriting experiment. The gradient derivation, residual placement, precision, and distributed sections are deeper branches. You do not need to know convolutions or Transformers to follow the core: the tensor axes are introduced locally."
+        }
+      ]
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "source": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 15,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped."
+        }
+      ]
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "source": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "aside",
+        "line": 16,
+        "className": "transfer-downloads"
+      },
+      "customNavigation": [
+        {
+          "tag": "aside",
+          "line": 16,
+          "label": "",
+          "className": "transfer-downloads",
+          "text": "Learning routeStart with a backbone and a new head, investigate freezing and low-rank updates, then choose from actual measured evidence. Before starting: forward/backward passes, squared er"
+        },
+        {
+          "tag": "nav",
+          "line": 16,
+          "label": "Transfer learning lesson sections",
+          "className": "",
+          "text": "1. What exactly moves from one problem to another?2. Choose what the target task may change3. A complete small transfer pipeline4. Make an update without replacing the whole weight matrix5. "
+        }
+      ],
+      "openingOrientation": [
+        {
+          "line": 16,
+          "tag": "aside",
+          "text": "Learning routeStart with a backbone and a new head, investigate freezing and low-rank updates, then choose from actual measured evidence. Before starting: forward/backward passes, squared error and cross-entropy, simple matrix multiplication, and the preceding normalization lesson.1. What exactly moves from one problem to another?2. Choose what the target task may change3. A complete small transfer pipeline4. Make an update without replacing the whole weight matrix5. Change features through a bottleneck adapter6. Deeper: derivatives tell you what “frozen” actually preserves7. Read the evidence before choosing the method8. A usable checkpoint includes meaning, not only tensors9. Further choices once the basic comparison is sound10. Practice and transferWhere to go nextReferences and other ways to learn"
+        },
+        {
+          "line": 24,
+          "tag": "Prose",
+          "text": "First pass: follow sections 1–5, run or inspect the experiment in section 7, and solve practice 1–3. You should be able to explain what was transferred, what was frozen, and which evidence justified choosing a model. Sections 6 and 9 provide optional depth on low-rank derivatives, schedules, and larger-model methods; practice 4–6 checks that depth. You do not need to know convolution or Transformer attention to complete the first pass."
+        }
+      ]
+    },
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "source": "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Inspect saved initialization/seed traces; edit four activation values, singular directions, depth and width/rate scaling. Show forward/backward second moments, means/variance, directional gain and shape/update formulas together. Continuous tiny models are distinct from selectors over measured training records. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an initialization/parameterization by the signal and update behavior it preserves, without treating average scale as every-direction stability."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: follow the signal example, the second-moment calculation, the initialization recipes, the geometry counterexample, and the complete digit experiment. Then solve the first three practice problems. The μP section is a second route for learning how to change network width while keeping a meaningful training procedure. LSUV, Fixup, and precision details are reference branches; they are not prerequisites for the next lesson."
+        }
+      ]
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "source": "src/learn/data/topics/residual-connections-skip-connections.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 11,
+        "className": ""
+      },
+      "customNavigation": [
+        {
+          "tag": "aside",
+          "line": 23,
+          "label": "",
+          "className": "res-route",
+          "text": "Before you start: matrix multiplication, gradients and the preceding normalization/initialization lessons. The first five sections build the core; optional connections follow the real experi"
+        },
+        {
+          "tag": "nav",
+          "line": 23,
+          "label": "Residual connections lesson sections",
+          "className": "",
+          "text": "One block, with numbers you can followWhy a direct path helps optimizationThe skip cannot promise a nonvanishing total gradientOperation order changes what is preservedShape agreement also n"
+        }
+      ],
+      "openingOrientation": [
+        {
+          "line": 11,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit branch weights, scalar depth/gain, normalization placement, projection entries and Euler step; inspect recorded block omissions. Show correction contributions, current output/loss, both derivative paths and shape compatibility as inputs change. Display every intermediate gain and genuine before/after ablation record. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to recognize cancellation, shape mismatch and step-size instability despite the presence of an identity path."
+        },
+        {
+          "line": 21,
+          "tag": "Prose",
+          "text": "First pass: trace one correction and its parameter update, follow the two backward paths, compare operation order and shapes, and run the small digit experiment. Practice 1–4 check those ideas. Scaled residuals, path expansions, architecture families, and the differential-equation connection are deeper branches; you can revisit them after the core."
+        },
+        {
+          "line": 23,
+          "tag": "aside",
+          "text": "Before you start: matrix multiplication, gradients and the preceding normalization/initialization lessons. The first five sections build the core; optional connections follow the real experiment.One block, with numbers you can followWhy a direct path helps optimizationThe skip cannot promise a nonvanishing total gradientOperation order changes what is preservedShape agreement also needs coordinate agreementStart near identity while leaving something able to learnA complete comparison on real handwritten digitsOwn the addition; reuse the layers and differentiationMany routes are useful, but they are not independent modelsConnections that solve different problemsWhat really costs memory and computationPracticeAnother way to learn"
+        }
+      ]
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "source": "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 14,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit image/kernel cells, stride/dilation/padding, pooling inputs, shared-weight targets/rate and receptive-field threshold. Synchronize the selected patch, products, output map, transpose contributions, gradient accumulation and ancestry paths. Geometry edits visibly change output size, alignment and holes rather than only a summary label. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose window geometry and pooling from reach, alignment, information loss and update behavior."
+        },
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: follow one patch through a filter, learn how that filter changes, plan the sizes, and train the small digit classifier in sections 1–7. You should then be able to build and diagnose a basic CNN. Sections 8–10 are optional deeper routes into influence, reconstruction and efficient execution. The practice separates core readiness from those extensions."
+        }
+      ]
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "source": "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit head dimensions, channel-context cells, scaling allocations, deployment budgets and signed score-map weights. Show exact parameter/MAC counts, gate contributions, candidate eligibility and current CAM/logit arithmetic live. Recorded model/seed selectors display existing evidence immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to identify which operation consumes the budget, what information a head discards and why a smaller model is not automatically better."
+        },
+        {
+          "line": 21,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6 for the architectural ideas, §8 for the runnable investigation, and §§9–11 for interpretation and practice. The detailed historical fidelity notes and §7's additional families are optional branches. You need not memorize publication years or reproduce ImageNet training to become ready for the next topic."
+        }
+      ]
+    },
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "source": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 9
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit depthwise/pointwise filter entries, channel cells, stencil dilation/offsets, serial rates and parallel branch choices; manipulate retained digit inputs where weights are available. Update output contributions, rank restrictions, visited lattice sites, branch union and exact frozen-model outputs. Keep coverage geometry separate from learned influence. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose separability, dilation or parallel context from expressiveness, blind spots and the measured budget."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: read sections 1–4 to understand the operators, 6–7 for a practical experiment and diagnosis, then attempt practice 1–5. Section 5 connects the mechanisms to mobile models and segmentation. The rank proof, gradient derivation and interval-coverage argument deepen the explanation; you can return to them without delaying the basic investigations. You need weighted sums and the idea that training changes weights to reduce a loss. Shapes, channel mixing and sampling geometry are refreshed here."
+        }
+      ]
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "source": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 9
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6, run or inspect the small experiment, and attempt practice 1–5. You should be able to trace one block, identify which numbers a normalizer sees, prevent hidden-input leakage, and distinguish reconstruction from recognition. The deployment, kernel-fusion and hybrid-design branches in §7 and practice 6–8 deepen that understanding; they are not prerequisites for the next lesson."
+        }
+      ]
+    },
+    {
+      "id": "capsule-networks",
+      "source": "src/learn/data/topics/capsule-networks.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Follow the coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: follow sections 1–6, run the small offline program or inspect its saved results, then attempt practice 1–5 and 8. You only need vector addition, matrix multiplication and the idea that a loss guides parameter updates. Sections 7–8 and practice 6–7 develop derivatives, matrix routing and engineering tradeoffs; they are a deeper branch, not a condition for understanding the core lesson."
+        }
+      ]
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "source": "src/learn/data/topics/rnns-lstms-grus.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 14,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit sequence entries, recurrent weights, LSTM gates, GRU reset placement and supported pen-trajectory coordinates. Update state trajectories, retained/injected terms, shared-weight credit and exact learned outputs. Step, rewind and reset state explicitly; padding and request boundaries remain visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose what must persist or reset, and diagnose saturation, reset-order differences and accidental cross-sequence leakage."
+        },
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "Your first pass: follow the pen trajectory and the three-step calculation in sections 1–2; learn the retain/write/read roles in sections 3–4; run or inspect the complete handwriting experiment in section 5; then work through state boundaries and padding in sections 6–7. Finish the core practice. Section 8 opens the deeper derivative and architecture questions when you are ready. You do not need its full Jacobian derivation to understand the next lesson."
+        }
+      ]
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "source": "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit source/target shifts, bridge weights/rate, tiny probability trees, beam width and supported fitted source/prefix inputs. Show aligned timelines, dependency paths, sequence probabilities and bounded beam candidates live. Keep teacher-forced versus generated inputs explicit at every step. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish model probability from a decoding decision and identify when a prefix or alignment changes the actual task."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: follow sections 1–6 to understand the two networks, the shifted training targets, generation and a real experiment. Section7 supplies the complete CPU program. Use section 8 to diagnose it, then try the practice. The deeper branches in section 9 are optional on a first reading; they explain architectural variants, training objectives and production contracts."
+        }
+      ]
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "source": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: build and inspect before specializing. Read §1 and move the retention control. In §2, follow the held-input example; leave the expandable numerical derivation for later. In §3, follow one input's fading trail and open the system laboratory. Read §4 through the rotating pair; the HiPPO/S4 derivation is a separate return visit. In §5, compare marked events with distractors. In §6, follow the two-by-two state before opening the SSD workshop. Then use §7's real trajectories and training program to connect a useful memory to a learned task."
+        }
+      ]
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "source": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit keys/queries/values, decay, current-token bonus, memory write/correction inputs and real stream interruptions. Update summary matrices/denominators, present output versus stored history and chronological state together. Compare a continued stream with an explicit reset. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose the correct current-read and future-memory semantics and see what compact state cannot retain."
+        },
+        {
+          "line": 23,
+          "tag": "Prose",
+          "text": "A useful first route: read sections 1–5, do the summary and weighted-memory investigations, and then run the real-data example in section 8. Sections6–7 explain the newer architectures and hardware choices; take them after you can trace one update. The optional derivations and later exercises provide a deeper pass. By the end you should be able to derive a causal summary, distinguish an exact reformulation from a different attention operator, preserve state across chunks, and explain what an efficiency claim does—and does not—measure."
+        }
+      ]
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "source": "src/learn/data/topics/self-attention-multi-head-attention.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 12,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 13,
+          "tag": "Prose",
+          "text": "Explore as you read. Drag/edit vectors, manipulate legal communication edges, change head projections/temperature and supported trajectory points. Show scores, weights, mixture point, per-head outputs, mask legality and sensitivity immediately. A direct vector edit reaches every linked output and accessible table. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish compatibility, value content and legal access; choose head/mask/scale settings by those separate effects."
+        },
+        {
+          "line": 21,
+          "tag": "Prose",
+          "text": "Your first route through the lesson: follow §§1–6, try the message-mixing and mask investigations, and complete practice 1–4. That gives you the mechanism, a working implementation and a real result to interpret. The gradient, interpretation and efficiency branches in §§7–9 deepen that understanding; practice 5–8 accompanies those branches. You can return to them without losing a prerequisite for the next lesson."
+        },
+        {
+          "line": 23,
+          "tag": "Prose",
+          "text": "You need to recognize a vector as a list of numbers, a matrix multiplication as weighted sums, and a learned linear layer as x @ W + b. A batch is several examples processed together. If gradients are new, the first route only needs this idea: training adjusts parameters to reduce a loss; §7 shows the detailed derivatives. The earlier recurrent and attention lessons explain other ways to move information through a sequence. Here we make pairwise self-attention explicit."
+        }
+      ]
+    },
+    {
+      "id": "transformer-block-architecture",
+      "source": "src/learn/data/topics/transformer-block-architecture.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 11,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 11,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 12,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit features, normalizer offset/scale, FFN matrices, branch multiplier, pre/post placement and supported retained trajectory inputs. Update normalization reference sets, feature writes, residual state, block output and derivative paths together. Show exact zero-branch and common-shift cases. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to reason about placement and branch scaling using their actual function and gradient effects rather than an architecture slogan."
+        },
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "First pass: read §§1–6, try the block and movement investigations, and solve exercises 1, 2 and 4. You should be able to trace the tensor shapes and explain normalization placement before continuing. Sections 7–9 develop gradient geometry, architecture variants and systems costs; they are deeper branches you can return to. The remaining exercises follow those deeper sections. The next topic is positional encoding, not a requirement to master every large-model training method first."
+        }
+      ]
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "source": "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 11,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 11,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 12,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit position IDs, frequencies, RoPE vectors, ALiBi slopes/scores, cache identities and supported trajectory coordinates. Synchronize phase geometry, relative-score changes, distance penalty, legal cache relations and final mixture. Show whole-record reorder and ID-only edit as different operations. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose and troubleshoot positional mechanisms by relative/absolute behavior and cache consistency; do not infer long-context quality from a toy phase plot."
+        },
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6, run the small program in §7 and try exercises 1–4. You will be able to explain and implement the four main methods and diagnose a position-offset bug. The deeper route in §§8–9 develops context extension, geometric variants and engineering choices; exercises 5–8 use that material. Derivations sit beside the mechanism they explain, so you can return to them after trying the visual investigation."
+        }
+      ]
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "source": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 9,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit Q/K/V, query-to-KV grouping, cache dimensions, offset masks and supported causal input prefixes. Show each reader, shared K/V record, weighted sum, exact byte/MAC budgets and compact cache outputs immediately. Compare equal-head versus unequal-head regrouping. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose grouping by memory and functional tradeoffs, keeping payload arithmetic separate from measured latency and model quality."
+        },
+        {
+          "line": 17,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6 and exercises 1–5. You will be able to calculate a grouped head's output, implement correct caching, explain the storage savings and assess a conversion experiment. The deeper route in §7 develops gradients, representation constraints and serving tradeoffs; exercises 6–9 extend those ideas. The diagrams and short arithmetic examples belong alongside their explanations, not in a separate optional gallery."
+        }
+      ]
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "source": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 8,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 8,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit latent vectors/projections, rotation, retained rank, payload dimensions and supported frozen-model prefixes. Show expanded and absorbed paths, commutation residuals, singular-direction effects, bytes/arithmetic and resulting outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose compression by the function and input directions it preserves; distinguish a low parameter error from low task error."
+        },
+        {
+          "line": 16,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6 and exercises 1–5. You will understand the latent representation, compute both equivalent attention paths, preserve the positional and scaling contracts, and interpret a real cache-compression experiment. Section 7 develops rank, conversion, differentiation and deployment connections; exercises 6–9 extend that reasoning. The core drawings and investigations appear beside the mechanisms they explain."
+        }
+      ]
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "source": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 14,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit sparse edges, feature-memory writes/evictions, random-feature settings, compression coefficients, block layout and supported real trajectories. Show removed mass, reachability, normalized summaries, approximation error, future influence and tile occupancy live under a fixed random draw. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose sparsity or approximation by accessible information, numerical error and actual block work, not a single sparsity percentage."
+        },
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–3 and the opening of §4, the worked sequence-compression example in §5, and the real trajectory experiment in §7. Try the graph and memory investigations, then practice 1–5. You should be able to explain what information an operator can use, calculate a small output, and distinguish work from retained state. Deeper pass: study the random-feature derivation, approximation families, gradients and current sparse systems in §§4–6 and §8, then the remaining practice. Those branches develop implementation and research judgment; they are not hidden requirements for understanding the core story."
+        }
+      ]
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "source": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 13,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 13,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 14,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit patch pixels/projection coefficients, patch-position swaps, window/shift geometry, teacher/student logits and feature angles. Update patch contributions, actual frozen-model logits/maps, spatial dependency sets, teacher targets/gradients and relational loss immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate image edits from position changes, direct neighbors from multi-hop reach and target sharpening from learned quality."
+        },
+        {
+          "line": 22,
+          "tag": "Prose",
+          "text": "First pass: read §§1–2, the practical parts of §3, §§4–5, §6 through “What DINOv2 adds,” and §§7–8. Attempt the core exercises in §9. The marked deeper branches develop symmetry, operation counts, Gram geometry and model adaptation; they extend the same ideas without hiding a prerequisite for the first pass."
+        }
+      ]
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "source": "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 9,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 12
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit token/router scores, expert values, capacity, grouping and budget dimensions; manipulate supported retained images. Show selected experts, discarded probability mass, overflow/drop routes, recombined outputs, balance terms and active/total resource counts together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose routing/capacity policies from missing contributions and resource tradeoffs; auxiliary balance does not establish task quality."
+        },
+        {
+          "line": 16,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–5, the worked cost example in §6, and the actual image experiment in §8; then try practice 1–6. You should be able to trace a token through routing, explain its output and identify where computation is saved. Deeper pass: return to router derivatives, alternative assignments, distributed execution and upcycling in §§3, 6–7, 9; finish the remaining practice. The optional full program makes the small experiment reproducible."
+        }
+      ]
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "source": "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 9,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Change a query, edit what a memory slot holds, or remove an allowed connection. Follow the resulting weights and returned values, then compare what survives compression and what a new question can reuse."
+        },
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "First pass: §§1–5, the worked experiment in §6, and core practice in §9. Return to §7 for detailed cost and cache accounting and §8 for deeper design decisions. You need vector dot products, softmax, residual connections and the idea of fitting a loss. Each is refreshed where used. The preceding vision-transformer lesson explains image tokens; self-attention explains the attention machinery in more depth. Allow roughly an hour for the core explanation and another hour for computation and practice; the advanced branches can be a separate sitting."
+        }
+      ]
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "source": "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 10,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 10,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 11,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit a node feature or reverse an edge and follow the next message-passing round. Compare degree weights, separate self and neighbor updates, and learned attention; then inspect how those choices affect an actual fitted graph model."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: §§1–6 and core practice 1–5. Return to §§7–9 for spectral limits, expressiveness, sampling and applications, then the deeper practice. You need vectors, a weighted sum, a neural layer and a supervised loss. You do not need to know spectral graph theory to begin. The earlier cross-attention lesson provides a useful connection: a node can read a neighborhood as a small memory. Here we also update that memory’s node states, in synchronized rounds."
+        }
+      ]
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "source": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 10,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 10,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 11,
+          "tag": "Prose",
+          "text": "Explore as you read. Change a graph connection and follow its effect on a global read. Then rotate a sensor array or a set of points and compare the two routes through the same rule. Edit the inputs to find what changes, what stays fixed, and which transformation belongs to the output."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass: §§1–4 explain graph structure and global reads; §§5–7 build the symmetry contract from a square to a point cloud; §8 gives a complete real-data experiment. Attempt practice 1–5. Sections 9–10 and practice 6–8 extend the lesson into tensor features, physical outputs, applications and resource decisions. Allow separate reading and experiment sessions. You need weighted sums, graph adjacency and a learned neural layer. The earlier groups and symmetry actions lesson supplies additional algebra, but each transformation used below is defined locally."
+        }
+      ]
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "source": "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 7,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 7,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit small-model biases/interactions, data counts, transition/sampling settings and supported retained digit states. Show normalized joint/marginal probabilities, data-model statistics, exact transition mass and sampled chain trajectories simultaneously. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish energy from normalized likelihood, reconstruction from probability and finite mixing behavior from an equilibrium claim."
+        },
+        {
+          "line": 15,
+          "tag": "Prose",
+          "text": "First pass: sections 1–5 establish the mechanism, sections 6–7 carry out and interpret the experiment, and practice 1–5 checks your understanding. Section 8 and the later problems develop deeper connections. You need weighted sums, elementary probability and the idea of a gradient. We introduce the needed conditional probabilities, expectations and normalizing constants locally; no statistical physics background is assumed."
+        }
+      ]
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "source": "src/learn/data/topics/spectral-normalization-gradient-penalty.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 9,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 9
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit matrix entries, normalization method, power-iteration steps, critic/input values, interpolation points and margin geometry. Update singular stretch, effective matrix, derivative paths, sampled gradient penalties and local decision distances live. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose or diagnose a constraint by what it actually bounds and where it was evaluated; a sampled penalty is not a global guarantee."
+        },
+        {
+          "line": 16,
+          "tag": "Prose",
+          "text": "First pass: read §§1–6 and the experiment interpretation, then attempt practice 1–6. You need vector lengths, matrix multiplication and the idea that a derivative measures change; these are refreshed below. The normalization derivative, robustness certificate, GroupSort and continuous-time connection are deeper branches. You can inspect the recorded experiment before running its complete program."
+        }
+      ]
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "source": "src/learn/data/topics/modern-hopfield-networks.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 9,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 9
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Flip cue bits and visit order, move continuous memories, and edit the keys, values and pixels of a real handwriting cue. Follow the resulting energy, retrieval weights and returned values. Compare cases where recall repairs a memory with cases where a cleaner reconstructed image represents the wrong class."
+        },
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "First pass: follow §§1–6 and the investigations, then try exercises 1–7. The explicitly optional branches in §7 develop capacity, higher-order memories and energy-derived architectures. The local calculations use vectors, dot products, weighted averages and derivatives, all refreshed where they enter."
+        }
+      ]
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "source": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 9,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 12
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Change the evidence written into a scalar memory, move matrix addresses, and regroup a sequence into chunks. Follow the resulting state, normalization and read. Then edit real handwriting pixels and compare the evidence preserved by three trained recurrent models."
+        },
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "Your route through the lesson. First follow the scalar ledger, then the matrix address grid, then the row-by-row digit reader. By the end of that core route you should be able to calculate a write and a read, explain why numerical rescaling must preserve the whole formula, train a small model, and distinguish memory efficiency from successful remembering. The marked deeper branches cover parallel/chunk computation, current large-model variants and hardware tradeoffs. You can return to their derivations after completing the core experiment."
+        }
+      ]
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "source": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 9,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 11
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Change a signal, filter or gate and follow its delayed contributions. Compare causal and circular outputs, carry recurrent state across a new chunk boundary, and edit real DNA symbols to inspect a fixed classifier. Use the resulting paths, states and scores to distinguish future leakage, lost history and deliberate approximation."
+        },
+        {
+          "line": 18,
+          "tag": "Prose",
+          "text": "Your first pass: follow §§1–7, then try practice 1–6. You should be able to compute a causal convolution, identify circular wraparound, explain a gate-filter-gate block, and interpret the real sequence experiment. §8 develops streaming and recurrence extraction; §9 connects modern variants. Those branches and practice 7–10 provide the deeper route. You need weighted sums, matrix shapes and the idea of training by reducing a loss. We introduce the Fourier and signal-processing vocabulary locally."
+        }
+      ]
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "source": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 15,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 12,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 20,
+          "tag": "Prose",
+          "text": "You need the idea of an attention-weighted average and basic array shapes. We refresh both below. On a first pass, follow the ownership picture, the four-value calculation, the causal-work grids and the real movement example. The backward derivation and communication model provide a deeper route for implementing or diagnosing a distributed system."
+        }
+      ]
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "source": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 9,
+          "tag": "Prose",
+          "text": "Explore as you read. Edit gradient/momentum, curvature estimate, step scale, averaging state and supported real digit input for one update. Show the exact update vector and state changes for Lion, Sophia, Prodigy and Schedule-Free, including where gradients and evaluation occur. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a debugging question from sign, curvature, scale and averaging effects rather than extrapolating a universal optimizer ranking."
+        },
+        {
+          "line": 17,
+          "tag": "Prose",
+          "text": "First pass: read the update anatomy, follow one calculation for each method, then inspect the handwriting experiment and memory accounting. Try the core practice before opening the optional theory and matrix-method branches. You need derivatives, weighted averages and basic probability; each is refreshed where it enters. The second-order methods lesson supplies a deeper route through curvature."
+        }
+      ]
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "source": "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 9,
+          "tag": "Prose",
+          "text": "Explore as you read. Change a field, follow the resulting trajectory, and compare numerical error with computational work. Later investigations let you alter real measurements and observation times while keeping the learned model fixed."
+        },
+        {
+          "line": 19,
+          "tag": "Prose",
+          "text": "First pass. Follow sections 1–5 to calculate a trajectory and understand how a model learns it. Section 6 trains small classifiers on real flower measurements; section 7 connects continuous state to irregular observations. Then do the core practice. The deeper branches on density models, flow matching and structured dynamics can wait until the main distinction between a field and its solution feels natural."
+        }
+      ]
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "source": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 9,
+          "tag": "Prose",
+          "text": "Explore as you read. Write a new association and watch how it changes a later query. Then follow the same tokens through attention and neural memory, compare two update schedules, and inspect when real rental observations become available for adaptation."
+        }
+      ]
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "source": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 10,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 10,
+          "tag": "Prose",
+          "text": "Explore as you read. Relabel a record and compare a running summary with a query-based read. Then change a memory budget, follow an expert route, and edit a real pen trajectory to see how its saved model uses recurrent state and attention history."
+        }
+      ]
+    },
+    {
+      "id": "disjoint-sets-union-find",
+      "source": "src/learn/data/topics/disjoint-sets-union-find.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "complexity-analysis-recursion",
+      "source": "src/learn/data/topics/complexity-analysis-recursion.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "binary-search-sorting-two-pointer-patterns",
+      "source": "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "backtracking-divide-and-conquer",
+      "source": "src/learn/data/topics/backtracking-divide-and-conquer.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "dynamic-programming-states-transitions-optimization",
+      "source": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 24,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 24,
+        "className": ""
+      }
+    },
+    {
+      "id": "greedy-algorithms-exchange-arguments",
+      "source": "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "algorithm-correctness-loop-invariants-termination",
+      "source": "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 25,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 25,
+        "className": ""
+      }
+    },
+    {
+      "id": "segment-trees-fenwick-trees-range-queries",
+      "source": "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 16,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 16,
+        "className": ""
+      }
+    },
+    {
+      "id": "hashing-collision-resolution-amortized-analysis",
+      "source": "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 24,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 24,
+        "className": ""
+      }
+    },
+    {
+      "id": "shortest-paths-spanning-trees-topological-ordering",
+      "source": "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "string-matching-prefix-functions-rolling-hashes",
+      "source": "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 22,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 22,
+        "className": ""
+      }
+    },
+    {
+      "id": "reductions-p-np-computational-intractability",
+      "source": "src/learn/data/topics/reductions-p-np-computational-intractability.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "randomized-algorithms-sampling-error-guarantees",
+      "source": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 22,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 22,
+        "className": ""
+      }
+    },
+    {
+      "id": "network-flow-minimum-cuts-bipartite-matching",
+      "source": "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      }
+    },
+    {
+      "id": "computational-geometry-robust-predicates-convex-hulls",
+      "source": "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 8,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 7,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "persistent-data-structures-structural-sharing-versioned-queries",
+      "source": "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 23,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 23,
+        "className": ""
+      }
+    },
+    {
+      "id": "external-memory-algorithms-b-trees-i-o-complexity",
+      "source": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 14,
+          "staticSectionCount": 9,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 14,
+        "className": ""
+      }
+    },
+    {
+      "id": "algebra-functions-exponentials-logarithms",
+      "source": "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "sets-logic-relations-proof-techniques",
+      "source": "src/learn/data/topics/sets-logic-relations-proof-techniques.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 28,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 28,
+        "className": ""
+      }
+    },
+    {
+      "id": "geometry-trigonometry-coordinate-reasoning",
+      "source": "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "counting-combinatorics-mathematical-induction",
+      "source": "src/learn/data/topics/counting-combinatorics-mathematical-induction.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "random-variables-expectation-covariance",
+      "source": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "single-variable-calculus-limits-derivatives-integrals",
+      "source": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 30,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 30,
+        "className": ""
+      }
+    },
+    {
+      "id": "sampling-measurement-experimental-design",
+      "source": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "ordinary-differential-equations-linear-systems",
+      "source": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "complex-numbers-fourier-laplace-transforms",
+      "source": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "conditioning-stability-numerical-analysis",
+      "source": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "decision-theory-risk-cost-sensitive-decisions",
+      "source": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 29,
+          "staticSectionCount": 13,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 13,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 29,
+        "className": ""
+      }
+    },
+    {
+      "id": "real-analysis-sequences-modes-of-convergence",
+      "source": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 30,
+          "staticSectionCount": 14,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 14,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 30,
+        "className": ""
+      }
+    },
+    {
+      "id": "abstract-algebra-groups-symmetry-actions",
+      "source": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 27,
+          "staticSectionCount": 11,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 27,
+        "className": ""
+      }
+    },
+    {
+      "id": "partial-differential-equations-conservation-boundary-conditions",
+      "source": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 26,
+          "staticSectionCount": 12,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 26,
+        "className": ""
+      }
+    },
+    {
+      "id": "numerical-pdes-grids-finite-elements-stability",
+      "source": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 34,
+          "staticSectionCount": 15,
+          "staticNumberedLabelCount": 0
+        }
+      ],
+      "sourceHeadingCount": 1,
+      "dynamicHeadingCount": 1,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 34,
+        "className": ""
+      }
+    },
+    {
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "source": "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 97,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "div",
+        "line": 96,
+        "className": "lesson-pilot endtoend-lesson"
+      },
+      "openingOrientation": [
+        {
+          "line": 96,
+          "tag": "div",
+          "text": "A classifier is useful only as part of a chain: someone asks a question, measurements arrive, a fitted transformation turns them into inputs, a model makes a prediction, and someone acts on the result. A good score in a notebook does not tell you whether that chain answers the original question. Here we build one small, complete study on real wine specimens: can we identify a specimen's recorded cultivar from its chemical measurements? The interesting result is that an additional measurement helps overall — development specimens repaired against newly wrong — while making cultivar worse. That is the kind of tradeoff an average hides. Every score on this page is labelled with what it is evidence about, and the held-out result is not in this document until you have frozen the decision it reports on. First pass. Read sections 1–7, run the offline study in section 4, and do practice 1–4. Follow figure A where it appears and work investigation B before reading the paragraph after it. Section 8 is a deeper branch on uncertainty, selective prediction and iteration design; return to it with practice 5–6. Allow about 45–60 minutes for the core and another 60–90 to reproduce and extend the study. A training score is computed on the rows the model was fitted on; it describes the fit. A validation score is computed on the development rows; it is the evidence this study may inspect and choose with. A selection quantity is a validation score in its role as the declared choice criterion — the same number, a different claim. A held-out score is computed once on the test rows, after the candidate was frozen. Every printed score carries its role beside it, so you never have to reconstruct which one you are reading. The preceding lesson treated a prediction as an origin and a future horizon. Here the unit changes: one row is one wine specimen. The dataset's row order groups cultivars; it is not an observation timestamp. Copying a time split merely because a table has an order would change the experiment for the wrong reason. Our data are the UCI Wine collection — chemical analyses of wines from three cultivars grown in the same Italian region, with recorded measurement columns. The lesson supplies all rows in wine.csv, with an added specimen ID and cultivar codes 0, 1 and 2 holding specimens. These codes are names, not an ordering of wine quality. Its identity, licence and every change made to produce this file are in the attribution note served beside it; the dataset record is the canonical source. Write an experiment contract: the short statement of what information is available, what prediction is wanted, and what evidence would justify a choice. What this dataset can support. This is a retrospective classification exercise within a small historical collection. The file does not give enough sampling, winery, repeated-specimen or time metadata to establish independent future-vintage performance. A deployment study would need those fields and a split matched to its users and future measurements. The random stratified split below preserves class representation for this limited exercise; it does not create missing population evidence. Training changes the model's fitted state. Validation changes the researcher's choices. Testing estimates the performance of a choice already made. Information can move through a human as easily as through a function call. An example makes the distinction concrete. Suppose we calculate the mean alcohol concentration using all rows, scale everything, and then separate training and test sets. The test specimens have already influenced the coordinate system the model sees. The proper sequence is to choose the rows first, calculate the training mean and standard deviation, and apply those same values to the other rows. Pipeline keeps those fitted operations attached to the model. For a feature x, training estimates \\mu_{\\mathrm{train}} and s_{\\mathrm{train}}. Every later specimen is represented as z=\\frac{x-\\mu_{\\mathrm{train}}}{s_{\\mathrm{train}}}. The transformation of a validation specimen uses its own measured x, but not a newly fitted validation mean. Learning a coordinate system and applying that coordinate system are different operations. This picture also explains why hiding the test target from fit is insufficient. If a researcher reads test errors, adds a feature to repair them, and reports the improved score on those same rows, the test has become development data. Continuing to work is reasonable; calling that revised score an untouched final estimate is the mistake. Use a new holdout or a nested outer evaluation for the next confirmatory comparison. Before training, check the table at the level that affects this contract: row identity, label meaning, feature units, duplicates or repeated entities, missing values, impossible values, and which fields exist when predictions will be made. In our supplied file all measurements are finite and the ID is excluded from features. The ID preserves traceability; it carries no chemical meaning. A baseline is a comparison with a job. Each of our four candidates answers a different doubt, and all four are declared together before the comparison. Do not change features, data splits and model settings all at once and then attribute a difference to one of them. Our two interpretable comparisons hold everything else fixed: For logistic regression, each class has a score a_k=w_k^Tz+b_k. The softmax transformation converts these three scores into positive numbers summing to one: p_k=\\frac{e^{a_k}}{\\sum_{j=0}^{2}e^{a_j}}. The predicted cultivar is the class with greatest p_k. The fitting objective rewards probability assigned to the observed class, with regularization to restrain coefficients. A forest instead pools class probabilities from many trees. Its max_depth=4 and min_samples_leaf=3 are declared controls on this comparison, not settings discovered by searching this test set. If a cultivar has validation specimens and are correctly classified, its recall is / = . Balanced accuracy averages the recalls of the three cultivars, so a cultivar with fewer rows still contributes one third. Overall accuracy gives each specimen equal weight. Log loss averages -\\log p_{\\text{actual}}, in natural-log units called nats: assigning 0.8 to the true class costs about nats; assigning 0.2 costs about . It distinguishes probabilities even when the winning class is unchanged. These quantities answer different questions; choose one primary measure before comparing candidates. The program below exposes the research sequence. test is an index list until the final block. It selects the winning candidate by validation balanced accuracy; ties use the stated candidate order, and that deterministic tie rule is part of the protocol. Now interpret the result rather than stopping at the printout. Both measured-input models improve greatly over the majority predictor, whose balanced accuracy of is what predicting the most frequent training cultivar every time is worth. The forest improves the two-feature linear model by validation . Adding flavanoids repairs previously wrong predictions and breaks previously correct one — a net gain of , from to . The improvement is not just a higher aggregate: we can name the changed cases and investigate them. The two-feature forest moves the same aggregate by a different route: it repairs and breaks . Equal-looking gains need not be made of the same movements, which is exactly why the identifiers are worth keeping aligned. An error slice is a defined subset of examples: one cultivar, a measurement range, one acquisition device, or a missingness pattern. Its purpose is to find a coherent failure that suggests an action. Always show the denominator. “Three errors” means something different among five cases and among five hundred. After adding flavanoids, every validation specimen of cultivars 1 and 2 is correct, but cultivar has errors rather than . The mean of recalls nevertheless improves to . A model can improve balanced accuracy and still worsen one class. Whether that is acceptable depends on the contract, including the consequences for the affected cultivar. The colour-intensity split tells a related story, and it points the other way: What could explain a persistent error? There are several distinguishable hypotheses, and they call for different next actions: Under our declared primary metric, the choice is made by reading the validation balanced accuracies and taking the best. That reading is what turns a validation measurement into a selection criterion. Change the candidates or criterion below to see the choice update, then inspect the report for the study's declared comparison. The selected model's fitted scaler and coefficients remain exactly those learned on the training rows. Opening the -row test set once gives the last four lines the study program printed: That is , an accuracy of and a balanced accuracy of . The held-out estimate happens to exceed the validation estimate of . A test set is not required to score worse: its cases are different and the estimate varies with sampling. Would refitting on all development rows be wrong? No, if specified before test evaluation. It would produce a different scaler and different coefficients, whose final test predictions need to be evaluated as that different model. This study keeps the training-only fitted model so that its development diagnostics and its final report refer to the same artifact. Do not silently switch between those protocols. We evaluated cultivar classification within the supplied -specimen Wine collection. A fixed stratified // train/validation/test protocol compared a majority baseline, two-feature logistic regression, a bounded two-feature forest and three-feature logistic regression. Validation balanced accuracy selected the three-feature model (). Its added flavanoid input fixed and broke validation predictions relative to the two-feature linear model; the low-colour slice worsened from / to / errors. The selected training-only fitted pipeline achieved test accuracy and balanced accuracy . The source file, split IDs, software versions and settings accompany the report. Broader winery or future-vintage performance requires representative metadata and evaluation. This is a worked reporting example, not a suggested claim about wine production. Keep the implementation details that affect reproducibility beside the artifact: input schema, units, class encoding, fitted transformations, model settings, split IDs, seeds and versions — for this study, NumPy , scikit-learn and Python . Model cards provide a useful framework for recording intended use, evaluation and limitations, and the source paper also emphasizes evaluation across relevant groups. Maintain an experiment record with the hypothesis, the changed factor, the evidence already consumed, the result, the decision and the next action. You do not need a new framework for every run; a small table is enough. For a real application, the next step after this study would include an inference contract: which named fields are required, how invalid measurements are handled, who receives uncertain results, and how inputs and eventual outcomes will be monitored. A dropped column or a unit change can break the chain even if the classifier's coefficients are untouched. Save and apply the whole fitted pipeline, and validate the incoming schema before prediction. For an invented mass feature, suppose the fitted scaler expects grams with mean 10 and scale 2. A 12-gram input becomes (12−10)/2=1. If an upstream sensor switches to milligrams and sends 12,000 under the same field name, the unchanged scaler produces 5,995. The object has not changed; the measurement contract has. A schema that checks only “is this a number?” misses the failure. Store the unit, permitted range and explicit conversion with the feature definition, and keep the training-time transformation attached. The next module starts with Perceptrons, Neurons & Activation Functions. It introduces a richer way to compose learned functions. The experimental discipline stays: begin with the task and baseline, examine the function's behavior, and demand evidence for an improvement. A neural model is an option to investigate, not the automatic winner after a classical model. This is a deeper branch. Return here after the core study. These extensions develop the same decision chain without changing the frozen result. A small test is uncertain, even when the score looks impressive Think of a confidence interval as a set of candidate population rates that the observed count does not rule out under a stated sampling model. For each candidate rate p, an independent binomial sample has standard deviation \\sqrt{p(1-p)/n} in its observed fraction. Wilson's construction keeps candidate rates satisfying |\\hat p-p|\\le z\\sqrt{p(1-p)/n}. Notice that the uncertainty on the right uses the candidate p, not simply the observed fraction. Solving this inequality gives the center and radius below. This is inversion of an approximate score test, not posterior probability that a fixed unknown rate lies in this particular interval. For k successes among n independent Bernoulli trials, a Wilson interval for a proportion uses and reports c\\pm r. With k=35, n=36 and z=1.96, it is approximately [, ]. That is a useful scale check for the accuracy estimate under an independent common-probability model. Our stratified three-class sampling fixes class counts, so a formal interval targeted to that design, or to balanced accuracy, would have to account for the sampling and the class weights. Do not attach this binomial interval to balanced accuracy by renaming its axis. For model comparisons, pairing matters. On the development rows the three-feature and two-feature models agree on of specimens. The informative changed cases are the repairs and the new error. Treating two accuracy estimates as independent discards that pairing. A paired bootstrap resamples the same row indices for both models, then recomputes their score difference; dependent specimens would instead require group or block resampling. An interval around a validation-selected winner also does not undo the optimism caused by the selection. The accuracy improvement is the mean of the last column: one quarter. A paired resample selecting A, B, B and D carries both models' results for each selected ID, giving improvement three quarters. Resampling the two model columns independently could compare an easy case under one model with a hard case under the other; it no longer preserves their within-case relationship. This is one possible resample to explain the mechanism, not a confidence interval from four cases. More development experiments consume more development evidence Repeatedly inspecting validation errors can overfit your choices to those rows. A practical response is to reserve independent outer evaluation, limit comparisons to useful hypotheses, and report the selection process. Nested cross-validation repeats selection inside each outer training portion and evaluates the selected procedure on that outer holdout. It estimates the procedure, not just one handpicked fit; its computation and interpretation differ from repeatedly retesting the same favorite model. In this deliberately simple model both candidates have true score .5 and independent equally likely score noise of ±.1. Each candidate's reported score averages .5, yet their selected maximum averages .55. Selection favors fortunate noise along with any genuine signal. Real candidate scores often share correlated errors and different true quality, so .05 is not a universal correction. An untouched outer evaluation asks whether the selected procedure's advantage survives new evidence. A system can choose to defer Suppose an invented binary inspection service has equally weighted validation cases. At one declared confidence rule it answers and gets of those correct. Coverage is / = ; conditional error among answered cases is / = . At a stricter rule it answers and all are correct: coverage , observed conditional error . A useful comparison must include the cost and quality of the deferred cases' alternative handling. Plotting accuracy only on answered cases would hide half the work. To connect the cost controls to a decision, suppose p is a justified probability that the proposed automatic answer is correct. If correct answers cost zero, wrong answers cost C>0 and a reliable defer path costs d≥0, the automatic answer has expected cost C(1-p). Prefer it when p\\ge1-d/C, with the tie rule declared. If C=0, the automatic answer instead has zero cost for every p; compare that directly with d rather than divide by zero. The lab's observed ledger measures actual wrong and deferred cases; this formula instead requires probabilities valid for the relevant decision. Human errors, queue delays, capacity or case-specific costs change the comparison. A high uncalibrated score cannot be substituted for p merely because both are between zero and one. The threshold is another decision chosen on development evidence. Confidence rankings, calibration and acceptance rules are distinct; a high score should not be advertised as a verified probability without calibration evidence. This extension connects the model to a service-level decision and to the earlier Calibration & Conformal Prediction lesson. There are 20 cases and 15 correct, so accuracy is . Recalls are 0.8, 5/6 and 0.5, giving balanced accuracy / ≈ . Class 2 has the lowest recall. Its four-case support also means one changed outcome would move that recall by 0.25, so inspect records and uncertainty before announcing a stable subgroup pattern. Outside the subgroup, A makes 11 of 95 errors and B makes 7 of 95. B gains four there and loses two in the subgroup. It improves aggregate accuracy while worsening the small subgroup. The decision depends on the consequences and the subgroup's relevance, along with uncertainty and whether the subgroup was predeclared or discovered during exploration. A testable follow-up is a new representative sample of that subgroup with a fixed comparison; “B is better everywhere” contradicts the given results. Test outcomes influenced feature selection through the team. Those rows now belong to development history. Keep the result as exploratory evidence and freeze the revised procedure before evaluating on fresh appropriate holdout data; alternatively use a genuinely independent outer evaluation of the selection procedure. Deleting the notebook cell does not erase the information consumed. Cultivar 1 has validation specimens. The two-feature linear model makes and the three-feature model makes . The low-colour slice groups by a feature rather than by the label and contains specimens from more than one cultivar. Overlapping subsets need not move in the same direction. Record both definitions so that the figures do not imply one partition is the other — and note that investigation B above will reproduce the cultivar comparison only if you group by the label, which is a different control from the cutoff it offers. The first rule has coverage 0.75 and conditional error 0.10; its cost is 6(10) + 20(2) = 100. The stricter rule has coverage 0.50 and conditional error 0.05; its cost is 2(10) + 40(2) = 100. Better conditional accuracy need not improve total cost. The same reversal is available in investigation C: at the ten-case fixture's default costs, tightening the threshold moves cost from to , but with a wrong answer priced at 2 rather than 10 the same move goes from to — the opposite direction. The calculation changes again if human errors, delay or capacity are included. Use development data to choose the policy before its final evaluation. Evaluation criteria. The packet should reproduce the candidate and its predictions from named inputs, keep preprocessing fitted on the correct training rows, state the selection measure, and report unfavorable results as well as gains. An acceptable conclusion is: “The lower-regularization candidate did not improve the declared development score; we retain the original choice. Because this lesson already disclosed its test result, this extension does not create a new independent test of the modified research process.” A production continuation would reserve new, appropriately sampled evaluation data. You can explain which information each split may change, reproduce the fitted pipeline and its score, trace an aggregate improvement to the actual changed cases, and write a conclusion matched to the evidence that produced it. The deeper route adds uncertainty, selection-procedure evaluation, and decisions that include deferral costs. The scikit-learn cross-validation guide — a deeper reference for evaluating procedures and choosing splitters; bring the preceding module's resampling foundations. NIST's Wilson interval formulas — the formula used in section 8, with its naming note. The arithmetic here is calculated independently. Model Cards for Model Reporting — the authors' reporting proposal, useful for turning a private experiment into an interpretable handoff. The abstract and its stated reporting scope were reviewed; this lesson's report is its own worked example, not a reproduction of the paper's full template. UCI Wine — the original dataset identity, contributors and licence. The supplied extraction and every change made to it are documented in the attribution note served beside the file."
+        }
+      ]
+    },
+    {
+      "id": "ml-problem-formulation-baselines-data-leakage",
+      "source": "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 99,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 9,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 99,
+        "className": ""
+      }
+    },
+    {
+      "id": "time-series-validation-forecasting-baselines",
+      "source": "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx",
+      "deepLearning": false,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 136,
+          "staticSectionCount": null,
+          "staticNumberedLabelCount": null,
+          "derivedSections": "headings.map(heading => [headingId(heading), heading.replace(/^\\d+\\. /, '')])"
+        }
+      ],
+      "sourceHeadingCount": 8,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 136,
+        "className": ""
+      }
+    },
+    {
+      "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "source": "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": true,
+      "sharedIntro": [
+        {
+          "line": 15,
+          "staticSectionCount": 10,
+          "staticNumberedLabelCount": 10
+        }
+      ],
+      "sourceHeadingCount": 10,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "LessonIntro",
+        "line": 15,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 26,
+          "tag": "Prose",
+          "text": "How to read this lesson. Sections 1–2 establish the memory objects and a single weighted read. Sections 3–6 explain one architecture at a time: the problem it solves, a small example, the mechanism and then the formal detail. Try each investigation after its worked example; changes appear immediately. Section 7 connects those operations to complete scratch and library programs and real data. Section 8 is a second-pass route through gradients, scaling and evaluation. Finish with the changed problems in section 9. You can take the architecture sections in separate sittings without losing the common question: what remains available when the next computation needs it?"
+        }
+      ]
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "source": "src/learn/data/topics/mini-batches-training-loops-gradient-accumulation.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 11,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 9,
+          "tag": "Prose",
+          "text": "Explore as you read. Change examples and their microbatch boundaries, then follow the loss derivatives into a shared gradient buffer and one optimizer update. Compare unequal target weights and physical normalization groups to discover when the same rows no longer define the same computation."
+        },
+        {
+          "line": 15,
+          "tag": "Prose",
+          "text": "First pass: read §§1–6, run the scalar trace in §4 and the Iris program in §6, and attempt practices 1–4. Use the state and denominator investigations as you encounter them. You should finish able to write a correct accumulation loop and explain its final partial group. §§7–8 are deeper branches on batch-dependent computation, numerical precision and distributed training; return to these before applying accumulation to such models. Practice 5 tests that transfer. Allow roughly 45–60 minutes for the core reading and 45–75 minutes for programs and independent practice."
+        }
+      ]
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "source": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+      "deepLearning": true,
+      "hasIntegratedGuide": false,
+      "sharedIntro": [],
+      "sourceHeadingCount": 12,
+      "dynamicHeadingCount": 0,
+      "firstElement": {
+        "tag": "Prose",
+        "line": 9,
+        "className": ""
+      },
+      "openingOrientation": [
+        {
+          "line": 9,
+          "tag": "Prose",
+          "text": "Explore as you read. Change a tiny training case, inspect gradients and actual parameter movement, then compare evaluation modes and checkpoint continuations. Later investigations use measured Wine runs to test what a selected comparison can establish."
+        },
+        {
+          "line": 15,
+          "tag": "Prose",
+          "text": "On a first pass, follow sections 1–4, read the main comparisons in sections 5–7, and finish sections 8–11, including the independent case file. The numerical gradient check and full checkpoint program are marked deeper branches: their examples are useful now, while their implementation detail can wait for a second reading. The complete offline programs and data are supplied with this lesson. Allow roughly 45 minutes for the main reading and additional time for the investigations and practice."
+        }
+      ]
+    }
+  ],
+  "method": "Babel JSX AST scan of each manifest source. Counts describe the pre-change navigation baseline. Dynamic headings are counted as source templates; this is not a browser or scientific verification."
+}

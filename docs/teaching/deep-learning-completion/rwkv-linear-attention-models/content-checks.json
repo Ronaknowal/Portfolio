@@ -1,0 +1,55 @@
+{
+  "topicId": "rwkv-linear-attention-models",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/rwkv-linear-attention-models/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/rwkv-linear-attention-models/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/rwkv-linear-attention-models/author-checks.json",
+    "docs/teaching/drafts/rwkv-linear-attention-models/author_calculations.py",
+    "docs/teaching/drafts/rwkv-linear-attention-models/data-provenance.md",
+    "docs/teaching/drafts/rwkv-linear-attention-models/design.md",
+    "docs/teaching/drafts/rwkv-linear-attention-models/investigation-checks.json",
+    "docs/teaching/drafts/rwkv-linear-attention-models/lesson.md",
+    "docs/teaching/drafts/rwkv-linear-attention-models/linear_memory_mechanisms.py",
+    "docs/teaching/drafts/rwkv-linear-attention-models/mechanism-results.json",
+    "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.data",
+    "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.names",
+    "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+    "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-memory-fits.npz",
+    "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-results.json",
+    "docs/teaching/drafts/rwkv-linear-attention-models/trajectory_memory_models.py",
+    "docs/teaching/drafts/rwkv-linear-attention-models/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/rwkv-linear-attention-models/author-checks.json": "972cdf3f179b86d44562560060eb9ae7ae62300a1e128260041105b48f7b216a",
+    "docs/teaching/drafts/rwkv-linear-attention-models/author_calculations.py": "f9762f0c2ce21c692211adedca4e3467e3eb44cdf8bcb27fbe942e99e3ddc34d",
+    "docs/teaching/drafts/rwkv-linear-attention-models/data-provenance.md": "1c505c71d7c4e606ea0c3e5c5ffe0e4fc525cb2a7477e28f341e5c9b73e429e2",
+    "docs/teaching/drafts/rwkv-linear-attention-models/design.md": "a9c049225f632b545f8c0ed4e57637abf9a1c3058784879c9ca2eb7a628d3555",
+    "docs/teaching/drafts/rwkv-linear-attention-models/investigation-checks.json": "0064599a8f8eca9de5342210deb68216b2bd3f3d9ee7036c24687060aaab7005",
+    "docs/teaching/drafts/rwkv-linear-attention-models/lesson.md": "d05d60d03110bb676ef01729e4043e4a9712e05e3b136e177c7212cb21eee901",
+    "docs/teaching/drafts/rwkv-linear-attention-models/linear_memory_mechanisms.py": "ce8505c18962b925152b5a133488e9063bd6cf102dc637788b60b442fdda8e49",
+    "docs/teaching/drafts/rwkv-linear-attention-models/mechanism-results.json": "918d9e85647f944ae73ee6dc21c5dcbebdd0c5fd47db5a932f35bbf6251cab6d",
+    "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py": "e26716574f0fe08bfdac0e8c06fe55c5e5693abe160b4160af69b7c1fe6c334c",
+    "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-memory-fits.npz": "08856481078f012d0f22b793defb28c57941b24235290491d8bfadc9f7f106b5",
+    "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-results.json": "8e7dda0f7f6b41d952df8d49cb598a6fcff8ce026bbedcb64de693ab0c70fb3f",
+    "docs/teaching/drafts/rwkv-linear-attention-models/trajectory_memory_models.py": "a966ae1b5378e73fd85326f3a25a70d1fb571cd353769b697f2a23881c0af344",
+    "docs/teaching/drafts/rwkv-linear-attention-models/visual-specifications.md": "9a431086b8ebd46e46cb965df1be0380f4c89a2a2c95c8d8d3cda593c933ea12"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

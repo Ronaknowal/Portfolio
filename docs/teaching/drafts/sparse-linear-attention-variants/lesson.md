@@ -275,7 +275,7 @@ A causal variant can be constructed, but must define a different prefix-dependen
 
 The current query attends only to these summaries of positions through $t$. In the one-slot example, position 0 sees $0.5$, not the full-sequence 5. The coefficient has not automatically become a prefix-normalized average. Define how unused summary rows participate, how columns are generated beyond the trained length, and whether coefficients depend on future inputs. This construction shows why “the usual full-sequence projection leaks” is precise, while “sequence projection can never be causal” is too strong.
 
-**Investigation: repair the leak at its source.** Use a fresh four-value example and edit one future value. Compare a full-sequence summary with a prefix-only summary at a selected earlier query. Predict both outputs. Moving the same edit into the legal prefix should remove the earlier invariance; making its projection coefficient zero supplies a different null.
+**Investigation: repair the leak at its source.** Use a fresh four-value example and edit one future value. Compare a full-sequence summary with a prefix-only summary at a selected earlier query. Both current outputs and their contributing terms are visible. Moving the same edit into the legal prefix should remove the earlier invariance; making its projection coefficient zero supplies a different null.
 
 ### Nyströmformer: use landmark queries and keys
 
@@ -309,7 +309,7 @@ PyTorch's FlexAttention provides a way to express custom score modifications and
 
 ### Modern sparse systems also pay to choose the reads
 
-The field has continued beyond the early fixed patterns. These examples are architecture snapshots checked on 13 September 2026, not a leaderboard.
+The field has continued beyond the early fixed patterns. These examples are architecture snapshots checked during 13–27 September 2026, not a leaderboard.
 
 **Native Sparse Attention (NSA)** combines three separately normalized branches: compressed blocks, selected fine-grained blocks, and a local window. Compressed-attention scores help select important blocks, with selection shared across grouped heads. Learned sigmoid gates combine branch outputs; their sum is not required to be one. The three-branch design preserves local access while learning coarser and selected long-range reads. With a fixed compression stride, the compressed branch still grows with the number of compressed positions, so a fixed selection budget alone does not establish linear total work. [NSA, §3](https://arxiv.org/html/2502.11089v1)
 
@@ -317,7 +317,7 @@ The field has continued beyond the early fixed patterns. These examples are arch
 
 **DeepSeek-V4.1's CSA2** distinguishes layers that build and index new compressed memory, layers that reuse memory but issue fresh index queries, and layers that reuse both memory and selected indices. Its hierarchical decoder indexer obtains a candidate pool from an initial full scan; later reindexing searches that pool. Local sliding-window memory remains a separate source. The architecture's causal encoder–decoder division changes which layer supplies the global memory, so memory reuse and selection reuse must not be conflated. These are separate mechanisms from NSA's three gated outputs. [V4.1 report, §2.2–2.3](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf)
 
-The accompanying visual marks **candidate discovery**, **main selected reads**, **local reads**, and **cross-layer reuse** as separate arrows with separate costs. It does not invent a speedup from an edge count. Current [FlashMLA source documentation](https://github.com/deepseek-ai/FlashMLA) provides concrete examples of dense and sparse kernels with architecture-specific formats; a cache format or benchmark cannot be transplanted unchanged between model versions.
+**Candidate discovery**, **main selected reads**, **local reads**, and **cross-layer reuse** incur separate costs, as the connected paths below show. It does not invent a speedup from an edge count. Current [FlashMLA source documentation](https://github.com/deepseek-ai/FlashMLA) provides concrete examples of dense and sparse kernels with architecture-specific formats; a cache format or benchmark cannot be transplanted unchanged between model versions.
 
 ## 7. Compare three operators on observed hand trajectories
 
@@ -359,7 +359,7 @@ The window result is an exact null in this model: at final input position 31, it
 
 At this 32-point prefix, float32 numeric attention payloads are 6,144 bytes for dense K/V, 960 for window K/V, and 864 for kernel $S,z$. These exclude weights, outputs, position counters, index metadata and allocator overhead. They are not peak memory measurements. Dense and window incremental forecasts agree with their full-prefix computation to below $2.4\times10^{-7}$ maximum absolute error in transformed output coordinates. The kernel's recurrent and explicit pairwise implementations agree below $2.7\times10^{-7}$. Separate float64 checks give whole-network gradient agreement below $3.6\times10^{-15}$ for this small checked input.
 
-**Investigation: predict what an old edit can change.** The fresh gated case uses 27 points, changes the y coordinate at frame 19, and hides forecasts until you Show the current computed result and its contributing terms immediately. Drag or numerically edit a point, inspect which models can respond, then inspect actual recomputed outputs. Move the edit inside the local window to test the boundary. Reset returns the genuinely visible fresh problem, not the solved 32-point walkthrough.
+**Investigation: inspect what an old edit changes.** Start with 27 observed points and all three current forecasts visible. Edit the y coordinate at frame 19, then inspect the recomputed forecasts and contributing memory. Move the edit inside the local window to test the boundary. Reset restores the original 27-point input and its visible outputs; the 32-point worked example remains available separately.
 
 ### Approximate one trained dense head without retraining it
 

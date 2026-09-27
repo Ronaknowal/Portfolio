@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:09:01.139Z",
+  "topicId": "hybrid-ssm-transformer-architectures-jamba",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-05-28-638Z.json",
+  "buildReceiptHash": "115432f686501131da502e3f7e68141808df294e8886500b194b72e1344899b5",
+  "publicationMapping": "./topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

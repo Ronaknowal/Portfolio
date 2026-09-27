@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T19:39:49.465Z",
+  "topicId": "sparse-linear-attention-variants",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T19-31-54-781Z.json",
+  "buildReceiptHash": "078f546c2c947ed214153d2aa52a0b3ee0204471c1858d41e3cb3079e69b52e1",
+  "publicationMapping": "./topics/sparse-linear-attention-variants.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

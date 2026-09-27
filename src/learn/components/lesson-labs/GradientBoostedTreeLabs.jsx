@@ -44,7 +44,7 @@ function DataTable({
   headings,
   rows
 }) {
-  return <details className="gbt-data"><summary>{caption}</summary><div role="region" aria-label={caption} tabIndex={0}><table><thead><tr>{headings.map(heading => <th scope="col" key={heading}>{heading}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((value, column) => column === 0 ? <th scope="row" key={column}>{value}</th> : <td key={column}>{value}</td>)}</tr>)}</tbody></table></div></details>;
+  return <section className="gbt-data lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{caption}</h4><div role="region" aria-label={caption} tabIndex={0}><table><thead><tr>{headings.map(heading => <th scope="col" key={heading}>{heading}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((value, column) => column === 0 ? <th scope="row" key={column}>{value}</th> : <td key={column}>{value}</td>)}</tr>)}</tbody></table></div></section>;
 }
 
 /** Match the SVG coordinate width to its actual container: labels do not shrink

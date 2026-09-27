@@ -1,0 +1,41 @@
+{
+  "topicId": "feature-scaling-encoding-imputation",
+  "reviewedAt": "2026-09-26T14:17:33.804Z",
+  "sourceFiles": [
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx",
+    "docs/teaching/concept-intuition/feature-scaling-encoding-imputation/review.md",
+    "scripts/verify-representation-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "e1adbbe06c4592c357f74b24c76f16445b28edaf20b2503e4789e6444cd881e5",
+    "docs/teaching/concept-intuition/feature-scaling-encoding-imputation/review.md": "402208743687e06c638d72745793b7bcb405ce5f6e74dd85a5958a2681537210",
+    "scripts/verify-representation-concept-intuition.mjs": "665d4e670b6977ebc15815db6b352af7cf6f7d95ceb51ee7f98692ff3fd4d14d"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/feature-scaling-encoding-imputation/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Cyclic seam distance and sine-only collision",
+      "status": "passed"
+    },
+    {
+      "name": "Target-encoding shrinkage weights",
+      "status": "passed"
+    },
+    {
+      "name": "Pooling and nonlinear analysis do not commute",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing numerical models, native programs, datasets and fit campaigns retained; no claim of a fresh native campaign.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

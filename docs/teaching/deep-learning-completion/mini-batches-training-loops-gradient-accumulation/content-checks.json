@@ -1,0 +1,68 @@
+{
+  "topicId": "mini-batches-training-loops-gradient-accumulation",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author-results.json",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author_checks.py",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/data-provenance.md",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris-output.txt",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris.csv",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace-output.txt",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace_update.py",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/train_iris.py",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author-results.json": "ab86f9783b6086faf3150f13076fceaf092adf4c540ebf28b4d11f7ae35a584d",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author_checks.py": "9e51c6efcc27b42a936dace4696ee2d5948f3676c56dd0cce2fe251b64882a4c",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/data-provenance.md": "72c775683b1c359d08d3432edd151c305e7284377e3178ed58cb862cdf7e992e",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md": "b9c48342f5a90ea791427f58ba2534e646b56ee43ba4f6255dcbc03a772b660f",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris-output.txt": "2408925f0b00a8732b7b0fdd50d33744f3f2a18877f9cc4952ef9f6aede5656e",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris.csv": "777674aa8e8ed6bc0a6758822616f02bceac793e0044a2676d9ee328316bf8b0",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md": "4721e66fdbff24b4c121baa54abc584888b8b147e45b3a789b9fb427be45edc9",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace-output.txt": "234151da8c926affc262c49f756bac1308c7b41b26b3f0a2aefa9e9d80f755bb",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace_update.py": "1087dc17806584c6f08bf97c3e523f25ba7d882735165e36da4d6aa23c9ca432",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/train_iris.py": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md": "7e5c5aa6d4e0a04926092bfb8e552ac34f0916a1e64ed69244d4a54135ec8cf4"
+  },
+  "manuscript": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md",
+  "reconciliation": [
+    "Current manuscript actual pre-edit SHA b97f72e00d6f34598f139f653f6cca7c74411d7715944b154d2fe5169f0a5ca5 matches the root baseline actual bytes; its original recorded checkpoint SHA1f20f79b\u2026 was stale for a substantive change, so no line-ending restoration was attempted.",
+    "Read and reconciled all current manuscript paragraphs against all 11 required packet files. Retain the implemented scratch-engine/optimizer bridge, full changed seven-row accumulation exercise and every existing formula, measured result and practice; no replacement by an earlier or summarized manuscript.",
+    "Replaced implementation-directed opening with learner-facing invitation and removed one obsolete withheld-gradient instruction plus prediction-grading feedback in the spec. All valid edits remain immediately computed.",
+    "No destination note exists; resolved unassigned DSA history is unrelated. Existing DDP note is retained with its boundary: arithmetic here, distributed execution there.",
+    "Revisited primary PyTorch2.14 weighted CE versus probability-target reductions, BatchNorm population/running variance distinction, and AMP accumulation/unscale/step order.",
+    "Preserved long BatchNorm normalized vector at identical precision but moved it into display math after actual320px inline overflow finding.",
+    "Removed remaining explicit-action-only performance wording: all bounded edits recompute immediately and Step inspects chronology."
+  ],
+  "checks": [
+    {
+      "name": "Full current manuscript/spec/design/three programs/all outputs/provenance/data consumed",
+      "passed": true
+    },
+    {
+      "name": "All recorded JSON finite and 150 CSV observations/source identity inspected",
+      "passed": true
+    },
+    {
+      "name": "Ten numbered sections, five changed practices and extra code-transfer task retained",
+      "passed": true
+    },
+    {
+      "name": "Three required distinct live investigations plus inline conceptual figures mapped",
+      "passed": true
+    },
+    {
+      "name": "Complete scratch ownership and normal PyTorch programs locally explained",
+      "passed": true
+    },
+    {
+      "name": "Real fixed Iris paired experiment retained without new score invention",
+      "passed": true
+    }
+  ],
+  "assessment": "Content ready. Pure models, native execution, authored diagrams, independent and browser review remain."
+}

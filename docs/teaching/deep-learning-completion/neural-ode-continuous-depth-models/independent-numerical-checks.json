@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "comparisons": 18776,
+  "maximumError": 1.2557890727293852e-8,
+  "maximumForwardError": 1.7763568394002505e-15,
+  "maximumInputGradientError": 1.2557890727293852e-8,
+  "matrixCases": 54,
+  "fullNetworkCases": 72,
+  "inputGradientComparisons": 288,
+  "scalarCases": 128,
+  "observationCases": 81,
+  "adaptiveCases": 12,
+  "checks": [
+    "Independent SciPy near-degenerate/defective/nonnormal/rotation exponentials and determinant/trace identities",
+    "Functional Torch generic Butcher-tableau full-network traces/logits/probabilities and class2 input gradients for72 new combinations across6 models",
+    "Closed amplification-polynomial sensitivities including zero multiplier and method-specific zero loss",
+    "Closed superposition observation formula across81 causal/query/omit combinations and every exact decay point",
+    "All adaptive attempts satisfy accept/reject bookkeeping and Heun polynomial; bounded-failure paths exercised",
+    "Nonautonomous RK4 exact cubic integral; augmentation threshold equality and zero depth",
+    "All deployed programs/data/models match canonical bytes/objects; both complete embedded programs match downloads"
+  ],
+  "limits": [
+    "No refitting; retained author12-checkpoint full replay and actual installed torchdiffeq program evidence reused.",
+    "Native full-model comparison uses CPU float64; no browser or GPU claims."
+  ]
+}

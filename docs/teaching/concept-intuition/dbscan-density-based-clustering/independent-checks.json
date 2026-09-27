@@ -1,0 +1,30 @@
+{
+  "topicId": "dbscan-density-based-clustering",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx",
+    "src/learn/components/lesson-labs/DbscanIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/dbscan-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": "52bbcb9f1765f528d3f32f209712821db48018f6ece68705cdfb0142bfc6d5b8",
+    "src/learn/components/lesson-labs/DbscanIntuitionFigures.jsx": "513e77f04217c27bdceb9e2c2c6aa19515900fbe00d521b5f471c0c541e0619c",
+    "src/learn/components/lesson-labs/dbscan-intuition.css": "b9088e276c391f1892bf3762a722088a166bbf31a203504043b382758554114d"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson, practice and new figure source reading",
+      "passed": true
+    },
+    {
+      "name": "Independent neighborhood, reachability and persistence arithmetic",
+      "passed": true
+    },
+    {
+      "name": "JSX parsing and source identity",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

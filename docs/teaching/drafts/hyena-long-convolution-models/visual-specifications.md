@@ -71,7 +71,7 @@ All teaching inputs are finite. Validate malformed numbers inline without throwi
 
 **Display:** aligned input/filter/output stems, wrap path, exact selected-output contribution table; mode names include “intentionally circular.” Readable signed values and finite errors. Direct vs FFT numeric error labeled arithmetic difference. Bound work to 12×12 direct products. Reset to fresh inputs and current comparison.
 
-**Phase-two verification:** independent direct/circular index reference across length/zero/impulse/odd-length cases; FFT outputs against exact sums; the two edited prefixes; invalid-input recovery, keyboard editing, mobile labels and input-signature invalidation. No training or hardware speed claim.
+**Phase-two verification:** independent direct/circular index reference across length/zero/impulse/odd-length cases; FFT outputs against exact sums; the two edited prefixes; invalid-input recovery, keyboard editing, mobile labels and current-input/result agreement. No training or hardware speed claim.
 
 ## HB — Build a selective route
 
@@ -83,7 +83,7 @@ All teaching inputs are finite. Validate malformed numbers inline without throwi
 
 **Nulls:** zero values give zero output. Setting every q and k to one recovers ordinary convolution in the single-filter mode. Setting q_t to zero erases that row of this mixing path. Editing a value at j>t cannot affect output t when all gate inputs are held fixed. State that condition: in a complete neural block, editing the original input can also change other gates. This investigation isolates the operator; it is not the DNA classifier.
 
-**Display and feedback:** show the source strip, transmitted values k×v, signed matrix, selected-cell factorization and output ledger. Adding phi introduces an intermediate-position column rather than hiding the extra operation. Highlight exactly the coefficients and output positions that changed after running. Feedback displays the current change and the factor responsible. Do not call coefficients probabilities or the full network Jacobian. Keep zero at the center of a labeled diverging scale that includes all current values.
+**Display and feedback:** show the source strip, transmitted values k×v, signed matrix, selected-cell factorization and output ledger. Adding phi introduces an intermediate-position column rather than hiding the extra operation. Highlight exactly the coefficients and output positions that changed after each edit. Feedback displays the current change and the factor responsible. Do not call coefficients probabilities or the full network Jacobian. Keep zero at the center of a labeled diverging scale that includes all current values.
 
 **Accessibility, reset and limits:** every meaningful entry has a keyboard-operable numeric editor. A locally scrollable matrix and selected-row card replace unreadably small cells on narrow screens. Apply the common live-update, input-validity and reset rules. The bounded maximum is eight positions; even separately summing intermediate paths is inexpensive. No large model is needed.
 
@@ -105,7 +105,7 @@ All teaching inputs are finite. Validate malformed numbers inline without throwi
 
 **Display:** use the labeled DNA editor and aligned original/edited probability bars, highlighting changed positions. Provide a logits table and optional selected-channel filter stems. Show model identity, ablations and “fixed model, no refit” near the result. Follow the result with a focused interpretation and a suggested contrasting experiment, not repeated caution boxes.
 
-**Performance and accessibility:** calculate one current 60-token sequence per run; load additional model weights only when requested. Two direct convolutions of at most 60×60×16 contributions are bounded and require no browser GPU. Do not process the whole native corpus after each edit. A numerical table and keyboard base selectors support narrow screens. Reset restores fresh row 4, default model and current comparison. Assessment records must not become editable training-selection inputs.
+**Performance and accessibility:** calculate one current 60-token sequence per valid edit; load additional model weights only when requested. Two direct convolutions of at most 60×60×16 contributions are bounded and require no browser GPU. Do not process the whole native corpus after each edit. A numerical table and keyboard base selectors support narrow screens. Reset restores fresh row 4, default model and current comparison. Assessment records must not become editable training-selection inputs.
 
 **Phase-two checks:** compare the independent browser implementation with all 460 saved validation logits for each selected fit, including filter generation, normalization, GELU, short-filter orientation, skip and classifier. Check arbitrary sequence edits, all-N input, both supplied edit fixtures, no-op restoration, mode invalidation, error recovery, mobile layout and focus. Use documented tolerances for arithmetic differences. Reuse saved fits; rerun training only if a substantive change makes it necessary.
 
@@ -113,7 +113,7 @@ All teaching inputs are finite. Validate malformed numbers inline without throwi
 
 **Placement and question:** after the recurrence and finite error bound, on the optional deeper route. Which computations preserve the full filter, and which deliberately alter it or its history?
 
-**Inputs:** fresh signal [2,0,−1,3,1,−.5], residues [.6,.4], poles [.5,−.25], zero initial state. Allow 2–12 inputs in −4…4, one to four residues in −2…2, and poles in −.95….95. The chunk boundary ranges from 1 to L−1; retained filter length ranges from 1 to L. The exact recurrence always uses all chosen modes. The comparison convolution generates its first L coefficients from those same modes. Optional state reset and finite truncation explicitly change the state or filter. A changed chunk boundary carries state by default. Current results are visible on opening.: same/different versus full convolution, with an optional first changed position.
+**Inputs:** fresh signal [2,0,−1,3,1,−.5], residues [.6,.4], poles [.5,−.25], zero initial state. Allow 2–12 inputs in −4…4, one to four residues in −2…2, and poles in −.95….95. The chunk boundary ranges from 1 to L−1; retained filter length ranges from 1 to L. The exact recurrence always uses all chosen modes. The comparison convolution generates its first L coefficients from those same modes. Optional state reset and finite truncation explicitly change the state or filter. A changed chunk boundary carries state by default. Current results are visible on opening, including the difference from full convolution and the first changed position when one exists.
 
 **Mechanism:** update each mode s_n,t = lambda_n s_n,t−1 + u_t and read y_t = sum_n R_n s_n,t. Generate h_r = sum_n R_n lambda_n^r for r=0…L−1. Carry the last prefix state into the suffix. Truncation sets coefficients at and beyond the retained length to zero. The finite error bound is max|u| times the sum of absolute coefficient errors. Negative poles and residues are legal; use absolute values correctly in the bound. States and signal amplitudes are dimensionless.
 

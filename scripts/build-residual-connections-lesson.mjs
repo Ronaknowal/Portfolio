@@ -84,12 +84,14 @@ while (index < lines.length) {
   }
   if (prose.startsWith('The function `mechanisms`')) output.push('<Prose>In the fitting loop, <Code>model.train()</Code> selects training behavior, <Code>optimizer.zero_grad(set_to_none=True)</Code> clears the previous derivative, and cross-entropy receives logits rather than already-normalized probabilities. After checking that loss is finite, <Code>loss.backward()</Code> traverses both routes and <Code>optimizer.step()</Code> updates the parameters. Evaluation uses <Code>model.eval()</Code> with <Code>torch.no_grad()</Code>; these control different things. Fixed scales are saved buffers, while trainable gates enter the optimizer through <Code>model.parameters()</Code>. Match these details before attributing a changed result to the shortcut. The <a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.Module.html">Module API</a> documents mode, buffer and parameter behavior.</Prose>');
   if (prose.startsWith('The ensemble-of-paths interpretation')) output.push('<ResidualPathsFigure />');
+  if (prose.startsWith('**Gate derivative walkthrough:**')) output.push('<HighwayGateFigure />');
   if (prose.startsWith('**Remove noise')) output.push('<ResidualDenoisingFigure />');
   if (prose.startsWith('**Refinement as a time step')) output.push('<ResidualEulerLab />');
   if (prose.startsWith('Backward through a pure addition')) output.push('<ResidualMemoryFigure />');
 }
 if (tableIndex !== captions.length) throw new Error('Manuscript table mapping changed');
 const header = `import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
+import { HighwayGateFigure } from '../../components/lesson-labs/ResidualGateIntuition.jsx';
 import { Math, MathBlock as SharedMathBlock } from '../../components/content/Math.jsx';
 import { ResidualTable, ResidualCorrectionLab, ResidualGradientFigure, ResidualDepthLab, ResidualOrderLab, ResidualProjectionLab, ResidualOpeningLab, ResidualEvidenceLab, ResidualPathsFigure, ResidualDenoisingFigure, ResidualEulerLab, ResidualMemoryFigure, ResidualProgram } from '../../components/lesson-labs/ResidualConnectionsLabs.jsx';
 function MathBlock({children}) { return <div className="res-equation" role="region" tabIndex={0} aria-label="Equation; scroll horizontally when needed"><SharedMathBlock>{children}</SharedMathBlock></div>; }

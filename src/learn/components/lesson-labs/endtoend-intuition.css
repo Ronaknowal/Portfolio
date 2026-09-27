@@ -1,0 +1,6 @@
+.ete-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; }
+.ete-intuition svg { display: block; width: 100%; max-width: 500px; height: auto; }
+.ete-intuition svg text { fill: #ddd; font: 15px ui-monospace, monospace; }
+.ete-intuition-title { margin: 0 0 .5rem; font-weight: 600; }
+.ete-intuition-axis { margin: .25rem 0 0; font-size: .95rem; }
+.ete-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }

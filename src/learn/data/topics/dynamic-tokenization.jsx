@@ -1010,7 +1010,7 @@ for name, segs in [("static", static_segmentation(text, 6)),
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         <strong>1.</strong> A serving stack uses prefix caching — if two requests share
@@ -1057,7 +1057,7 @@ for name, segs in [("static", static_segmentation(text, 6)),
         a local optimum worth staying at. Both outcomes are plausible. What is not
         plausible is that the current arrangement — tokenizers designed in 2023 running
         on inputs the world produces in 2026 — stays stable forever.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

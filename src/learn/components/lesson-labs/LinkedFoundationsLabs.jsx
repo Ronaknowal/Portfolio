@@ -67,9 +67,9 @@ export function CircularQueueLab() {
         }}><option value="3">3 jobs</option><option value="4">4 jobs</option></select></label></div>
     <p className="foundation-state">{s.event ?? 'Initialize'} · head {s.head} · size {s.size} · next insertion slot {s.tail}</p>
     <QueueRingFigure state={s} capacity={capacity} />
-    <details><summary>Inspect exact slot contents</summary><div className="foundation-buffer" style={{
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect exact slot contents</h4><div className="foundation-buffer" style={{
         gridTemplateColumns: `repeat(${capacity},minmax(0,1fr))`
-      }}>{s.cells.map((value, i) => <div key={i} className={(i === s.head ? 'is-head ' : '') + (i === s.changed ? 'is-changed' : '')}><small>slot {i}</small><strong>{value ?? '·'}</strong><small>{[i === s.head ? 'HEAD' : '', i === s.tail ? 'NEXT' : ''].filter(Boolean).join(' + ') || '—'}</small></div>)}</div></details>
+      }}>{s.cells.map((value, i) => <div key={i} className={(i === s.head ? 'is-head ' : '') + (i === s.changed ? 'is-changed' : '')}><small>slot {i}</small><strong>{value ?? '·'}</strong><small>{[i === s.head ? 'HEAD' : '', i === s.tail ? 'NEXT' : ''].filter(Boolean).join(' + ') || '—'}</small></div>)}</div></section>
     <p>After slot {capacity - 1} → wrap to slot 0. A full buffer has no writable next slot until a dequeue frees capacity.</p>
     <p><strong>Logical FIFO order:</strong> {s.logical.join(' → ') || 'empty'}</p><p><strong>Already served:</strong> {s.output.join(' → ') || 'none'}</p>
     <p className="nt-feedback" aria-live="polite">{s.note}</p><Stepper step={step} count={trace.length} setStep={setStep} />

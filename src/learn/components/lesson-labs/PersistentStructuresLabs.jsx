@@ -252,8 +252,8 @@ export function PathCopyLab() {
     })}>Run historical query</button>
     <p className="persistent-result">Active query: v{activeQuery.version} [{activeQuery.low},{activeQuery.high}) → <strong>{query.sum}</strong>; cover {query.cover.map(id => `n${id}`).join(' + ') || 'empty'}.</p>
     <PhysicalGraph store={store} versions={shown} queryCover={query.cover} newIds={newIds} />
-    <details>
-      <summary>Inspect physical identities and version ancestry</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Inspect physical identities and version ancestry</h4>
       <div className="persistent-scroll" tabIndex={0}><table>
           <caption>Each row is one immutable physical object</caption>
           <thead><tr>
@@ -272,14 +272,14 @@ export function PathCopyLab() {
             </tr>)}</tbody>
         </table></div>
       <ul>{store.versions.map((version, i) => <li key={i}>v{i} → root n{version.root}; {version.parent === null ? 'initial' : `parent version v${version.parent}`}; {version.label}.</li>)}</ul>
-    </details>
-    <details>
-      <summary>Which nodes survive if we release root handles?</summary>
+    </section>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Which nodes survive if we release root handles?</h4>
       <p>Toggle conceptual external references. The union of their reachable objects counts each shared node once. This browser keeps the arena for inspection; this is an ownership calculation, not a measurement of actual garbage collection.</p>
       <div className="persistent-handles">{store.versions.map((_, i) => <label key={i}><input type="checkbox" checked={retained.includes(i)} onChange={() => setRetained(retained.includes(i) ? retained.filter(id => id !== i) : [...retained, i])} />Keep v{i}</label>)}</div>
       <p className="persistent-result">{reachable.size} reachable / {store.nodes.length} allocated. {store.nodes.length - reachable.size} would be reclaimable with no other references.</p>
       <div className="persistent-allocation" aria-label="Reachable physical node identities">{store.nodes.map(node => <span key={node.id} className={reachable.has(node.id) ? 'live' : 'released'}>n{node.id} {reachable.has(node.id) ? 'kept' : 'free'}</span>)}</div>
-    </details>
+    </section>
     <details>
       <summary>Try a different initial array</summary>
       <label>1–8 integers, each −99…99<input value={draft} onChange={event => setDraft(event.target.value)} /></label>
@@ -310,10 +310,10 @@ export function HistoryLookupLab() {
       </div>)}</div>
     <p className="persistent-result">get(index {index}, snapshot {snapshot}) = <strong>{result.value}</strong></p>
     <p>The selected write stays valid until the next write for this same index. Snapshot 4 need not store another copy of every value. Index 2 has never changed.</p>
-    <details>
-      <summary>Inspect the binary-search comparisons</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Inspect the binary-search comparisons</h4>
       <ol>{result.trace.map((step, i) => <li key={i}>Search history positions [{step.low},{step.high}); middle {step.middle} has time {history[step.middle][0]}. {step.eligible ? 'Eligible: search to its right for a later eligible write.' : 'Too late: discard it and everything to its right.'}</li>)}</ol>
-    </details>
+    </section>
     <button onClick={() => {
       setIndex('0');
       setSnapshot('2');

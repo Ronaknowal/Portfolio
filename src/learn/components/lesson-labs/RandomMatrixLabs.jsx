@@ -100,7 +100,7 @@ export function CovarianceSpectrumLab() {
     <p aria-live="polite">Divide by {result.denominator}; effective ratio {format(result.gamma)}. Mean eigenvalue {format(result.meanEigenvalue)}, largest {format(result.largest)}. Continuous reference support [{format(reference.lower)}, {format(reference.upper)}].</p>
     <p className="rm-note">Bars measure probability mass, not density height. Each gold bar integrates the formula across its whole bin, including the integrable singularity at ratio 1. Bars plus the separate zero atom have total mass one. A finite sample may put eigenvalues outside the limiting support.</p>
     <p className="rm-note">{centered ? 'For Gaussian entries, rotating the centered rows gives an exact n−1-row Gaussian representation. Centered signs do not become independent rows exactly; this is a limiting comparison.' : 'The population mean is known to be zero here. A generated sample need not have exactly zero column means.'} Values within 10⁻⁹ × max(1, largest eigenvalue) of zero are displayed as numerical zeros.</p>
-    <details><summary>Inspect the actual entries, eigenvalues and bin masses</summary><SmallMatrix values={result.data.slice(0, 4).map(row => row.slice(0, 4))} caption="First four raw rows and columns" /><p className="rm-values">{result.values.map(value => format(value)).join(', ')}</p><div className="rm-table-scroll" tabIndex={0}><table><caption>Matching intervals, mass divided by all features</caption><thead><tr><th>Interval</th><th>Sample</th><th>Reference</th></tr></thead><tbody>{bins.map((bin, index) => <tr key={index}><th scope="row">{format(bin.lower, 2)}–{format(bin.upper, 2)}</th><td>{format(bin.observed)}</td><td>{format(bin.theoretical)}</td></tr>)}</tbody></table></div></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the actual entries, eigenvalues and bin masses</h4><SmallMatrix values={result.data.slice(0, 4).map(row => row.slice(0, 4))} caption="First four raw rows and columns" /><p className="rm-values">{result.values.map(value => format(value)).join(', ')}</p><div className="rm-table-scroll" tabIndex={0}><table><caption>Matching intervals, mass divided by all features</caption><thead><tr><th>Interval</th><th>Sample</th><th>Reference</th></tr></thead><tbody>{bins.map((bin, index) => <tr key={index}><th scope="row">{format(bin.lower, 2)}–{format(bin.upper, 2)}</th><td>{format(bin.observed)}</td><td>{format(bin.theoretical)}</td></tr>)}</tbody></table></div></section>
     <p><strong>Transfer:</strong> compare 32×8 with 64×16. Which reference stays fixed, and which sample details still fluctuate?</p>
   </Investigation>;
 }
@@ -122,7 +122,7 @@ export function FiniteSpectrumLab() {
       setNullModel('iid');
       setObservedModel('spike');
     }}>Reset comparison</button>
-    <details><summary>Inspect all finite null maxima</summary><p className="rm-values">{result.maxima.map(value => format(value)).join(', ')}</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect all finite null maxima</h4><p className="rm-values">{result.maxima.map(value => format(value)).join(', ')}</p></section>
   </Investigation>;
 }
 export function SpikeAlignmentLab() {
@@ -201,7 +201,7 @@ export function WignerSpectrumLab() {
     <Legend /><Plot label="Symmetric matrix eigenvalue density and a scaled semicircle reference"><Axes xLabel="Eigenvalue" yLabel="Density" maximum={maximum / factor} left={-extent * factor} right={extent * factor} />{bins.map((bin, index) => <rect key={index} x={x(bin.left) + 1} y={y(bin.density)} width={290 / 12 - 2} height={190 - y(bin.density)} fill="var(--rm-blue)" opacity=".8" />)}<polyline points={curve.map(point => x(point[0]) + ',' + y(point[1])).join(' ')} fill="none" stroke="var(--rm-gold)" strokeWidth="3" /></Plot>
     <p aria-live="polite">Mean squared eigenvalue: {format(result.secondMoment * factor * factor)}. {law === 'gaussian' ? 'Expected' : 'Exact'} finite value: {format((law === 'gaussian' ? 1 + 1 / size : 1 - 1 / size) * factor * factor)}.</p>
     <p className="rm-note">Histogram area is one. Removing the division stretches the horizontal axis by √d and lowers density by the same factor; the matrix and eigenvalues actually rescale. GOE has diagonal variance twice its off-diagonal variance. The sign model has a zero diagonal. Both converge to the displayed semicircle under their stated scaling; their finite spectra need not match.</p>
-    <details><summary>Inspect every eigenvalue</summary><p className="rm-values">{result.values.map(value => format(value * factor)).join(', ')}</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect every eigenvalue</h4><p className="rm-values">{result.values.map(value => format(value * factor)).join(', ')}</p></section>
   </Investigation>;
 }
 export function AvoidedCrossingLab() {

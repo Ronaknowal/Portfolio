@@ -1,0 +1,23 @@
+{
+  "status": "blocked-browser-unavailable",
+  "revision": 4,
+  "reviewDate": "2026-09-26",
+  "attempts": [
+    "cua.listTabs({browser:1}) returned Browser is not available: 1",
+    "cua.getState() returned apps:[], browsers:[]",
+    "cua.createBrowserTab(iab, local4196lessonURL, visible:false) returned Browser is not available: iab",
+    "After root reported its browser available, refreshed CUA documentation and tried fresh hidden browser1 tab at preview4194; same browser-unavailable error"
+  ],
+  "actualRenderedChecks": [],
+  "pending": [
+    "Inspect all four new figures and surrounding prose at desktop, 320px and 760px viewport with actual reader/sidebar geometry",
+    "Check path-point labels, equal scales, timeline wrapping, six-share cells and static-bar labels",
+    "Smoke-check a retained immediate live interaction"
+  ],
+  "note": "Block is scoped to this author agent. Root reports a working CUA browser and takes over the actual production review at4194. Prior revision browser evidence is not relabeled as revision4.",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/LongContextIntuitionFigures.jsx": "0da734d8f26be5e92449d0baf2a61fbbdd3f3dd7d87565220399229eeb944156",
+    "src/learn/components/lesson-labs/long-context-labs.css": "a388f4f7ffeec6c9dbc6f831d9ae29cdfda92e8c2033ead3f61329eaec9ca9ac",
+    "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx": "c7e64153794eb07e37ca3b749a38797b039dcb1cde0bdfec8089ffde735582d0"
+  }
+}

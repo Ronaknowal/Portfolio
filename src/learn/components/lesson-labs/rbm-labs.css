@@ -1,0 +1,30 @@
+.rbm-lesson p, .rbm-lesson a { overflow-wrap: anywhere; }
+.rbm-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 1.1rem; align-items: start; }
+.rbm-two > *, .rbm-pixel-roles > *, .rbm-filter-grid > *, .rbm-sample-grid > * { min-width: 0; }
+.rbm-figure { margin: 1.25rem 0; padding: 1rem; border: 1px solid #444; background: #141414; border-radius: .4rem; min-width: 0; }
+.rbm-figure figcaption, .rbm-probabilities figcaption { color: #e6b854; font-weight: 650; margin-bottom: .85rem; line-height: 1.5; }
+.rbm-diagram-scroll, .rbm-plot-scroll { max-width: 100%; overflow-x: auto; }
+.rbm-diagram-scroll svg { display: block; }
+.rbm-plot-size { min-width: 340px; }
+.rbm-probabilities { margin: 1rem 0; padding: .8rem; border: 1px solid #444; min-width: 0; }
+.rbm-probability-row { display: grid; grid-template-columns: 2.5rem minmax(0,1fr) 5.5rem; align-items: center; gap: .7rem; margin: .6rem 0; }
+.rbm-probability-row strong { font: 12px ui-monospace, monospace; text-align: right; }
+.rbm-probability-track { position: relative; height: 18px; background: #292929; }
+.rbm-probability-track i { display: block; height: 100%; background: #e6b854; }
+.rbm-probability-track b { position: absolute; top: -2px; width: 2px; height: 22px; background: #eee; }
+.rbm-probabilities p, .rbm-pixel-figure small { color: #bbb; font-size: .8rem; line-height: 1.5; }
+.rbm-pixel-roles { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,240px),1fr)); gap: 1.1rem; align-items: start; margin: 1.4rem 0; }
+.rbm-pixel-figure { margin: 0; min-width: 0; }
+.rbm-pixel-figure figcaption { font-size: .88rem; line-height: 1.5; min-height: 2.8em; color: #ddd; margin-bottom: .65rem; }
+.rbm-pixels { display: grid; grid-template-columns: repeat(8,minmax(0,1fr)); gap: 2px; background: #666; padding: 2px; max-width: 280px; }
+.rbm-pixels span, .rbm-pixels button { display: block; aspect-ratio: 1; min-width: 0; width: 100%; border: 0; margin: 0; padding: 0; border-radius: 0; position: relative; }
+.rbm-pixels-interactive button { min-height: 24px; cursor: pointer; }
+.rbm-pixels .rbm-selected { outline: 3px solid #e6b854; outline-offset: -3px; z-index: 1; }
+.rbm-pixels .rbm-missing::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0, transparent 4px, #b07b3699 4px, #b07b3699 6px); pointer-events: none; }
+.rbm-filter-grid, .rbm-sample-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,130px),1fr)); gap: 1rem; margin: 1rem 0; }
+.rbm-filter-grid .rbm-pixels, .rbm-sample-grid .rbm-pixels { max-width: 200px; }
+.rbm-filter-grid small, .rbm-sample-grid small { color: #bbb; font: 12px ui-monospace, monospace; overflow-wrap: anywhere; }
+.rbm-code { max-width: 100%; overflow: auto; padding: 1rem; background: #111; border: 1px solid #444; font-size: .8rem; line-height: 1.65; }
+.rbm-lesson fieldset { min-width: 0; border: 1px solid #444; margin: 1rem 0; padding: .8rem; }
+.rbm-lesson :focus-visible { outline: 2px solid #e6b854; outline-offset: 3px; }
+@media(max-width:600px) { .rbm-figure { padding: .7rem; } .rbm-probability-row { gap: .4rem; grid-template-columns: 2rem minmax(0,1fr) 5rem; } }

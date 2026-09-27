@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "completeInitialCharacters": 301468,
+  "loadedRealCharacters": [
+    37311,
+    37878,
+    38618,
+    37978,
+    38533,
+    39285
+  ],
+  "checks": [
+    "Full15-section lesson renders without exceptions or React warnings",
+    "Seven current investigations present; four complete code disclosures deferred on demand",
+    "Both actual real inputs render under P1/P4/P8 with reverse, striped ownership and renamed ranks",
+    "No raw placeholders, author comments or inherited prediction gate; all details initially closed"
+  ],
+  "limitations": [
+    "SSR verifies structure and values, not painted geometry or interaction; root performs browser review."
+  ]
+}

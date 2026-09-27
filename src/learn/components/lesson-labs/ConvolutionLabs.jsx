@@ -1,3 +1,5 @@
+import { CodeBlock } from '../content/Code.jsx';
+import RemoteCodeBlock from '../content/RemoteCodeBlock.jsx';
 import { useEffect, useState } from 'react';
 import { NeuralLab, NeuralNumber, NeuralSelect, NeuralTable, formatNeural as f } from './NeuralLessonElements.jsx';
 import { initialImage, initialKernel, correlate2d, sharedFilterUpdate, windowGeometry, poolVector, cnnAxisLayers, receptiveTrace, observedAncestors, dilationOffsets, averagingProfile, transpose1d, shiftComparison } from '../../data/convolution-models.js';
@@ -27,7 +29,7 @@ function Grid({ title, values, onChange, selected = [], onSelect, min = -5, max 
         if (onSelect) return <button key={`${r}-${c}`} aria-pressed={active} aria-label={`${title}, row ${r + 1}, column ${c + 1}: ${f(value)}`} onClick={() => onSelect(r, c)}>{f(value, 3)}</button>;
         return <span key={`${r}-${c}`} style={style} className={active ? 'is-selected' : ''} title={`Row ${r + 1}, column ${c + 1}: ${value}`}>{value !== 0 && Math.abs(value) < .01 ? value.toExponential(1) : f(value, 2)}</span>;
       }))}
-    </div></div>{signed && <details><summary>Exact numeric values</summary><pre tabIndex={0}>{values.map(row => row.join(', ')).join('\n')}</pre></details>}</figure>;
+    </div></div>{signed && <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact numeric values</h4><CodeBlock language="text" kind="output" filename="convolution-values.txt">{values.map(row => row.join(', ')).join('\n')}</CodeBlock></section>}</figure>;
 }
 
 function Rail({ values, title, selected = [], signed = false }) {
@@ -134,7 +136,7 @@ export function ConvolutionInfluenceLab() {
     <div className="neural-controls"><NeuralNumber label="Averaging depth" value={depth} onChange={setDepth} min={1} max={20} step={1} integer /><NeuralNumber label="Fraction of peak retained" value={threshold} onChange={setThreshold} min={.001} max={.2} step={.001} /></div>
     <figure className="convolution-profile"><figcaption>Input coefficient by offset (amber meets threshold)</figcaption><div>{result.coefficients.map((value, i) => <span key={i} title={`Offset ${i - depth}: ${value}`}><i style={{ height: `${value / result.peak * 100}%`, background: result.retained.includes(i - depth) ? '#e4b752' : '#777' }} /></span>)}</div><p>Offsets −{depth} … 0 … +{depth}; height scale 0 to {f(result.peak)}.</p></figure>
     <p className="convolution-result">Possible support width <strong>{2 * depth + 1}</strong>; width at or above {f(threshold * 100)}% of peak <strong>{result.width}</strong>. Coefficients sum to {f(result.coefficients.reduce((a, b) => a + b, 0))}.</p>
-    <details><summary>Read every exact coefficient</summary><Rail title="Coefficient index; offset = index − depth" values={result.coefficients} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read every exact coefficient</h4><Rail title="Coefficient index; offset = index − depth" values={result.coefficients} /></section>
     <p>The recorded digit viewer below the experiment also exposes signed input gradients. Those depend on a trained model and particular image; this path-count example has a different meaning.</p>
     <button onClick={() => { setDepth(20); setThreshold(.01); }}>Reset influence</button>
   </NeuralLab>;
@@ -188,8 +190,10 @@ function RemoteContent({ file, json = false, children }) {
 }
 
 export function ConvolutionProgram({ file, title }) {
-  const [open, setOpen] = useState(false);
-  return <details className="convolution-program" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary><p><a href={assetRoot + file} download>Download {file}</a></p>{open && <RemoteContent file={file}>{source => <pre tabIndex={0} role="region" aria-label={title}><code>{source}</code></pre>}</RemoteContent>}</details>;
+  return <>
+    <RemoteCodeBlock source={assetRoot + file} language="python" filename={file} title={(title)} />
+    <p><a href={assetRoot + file} download>Download {file}</a></p>
+  </>;
 }
 
 function MeasuredExplorer({ data }) {
@@ -206,7 +210,7 @@ function MeasuredExplorer({ data }) {
     <div className="neural-controls"><NeuralSelect label="Saved specimen source ID" value={specimen} onChange={v => setSpecimen(Number(v))} options={maps.visual_rows.map((row, i) => [i, `${row.source_id} · digit ${row.actual}`])} /><NeuralSelect label="Saved representation" value={layer} onChange={value => { setLayer(value); setChannel(0); }} options={[["first_maps", 'First post-ReLU · 8×8'], ["second_maps", 'Second post-ReLU · 4×4'], ["final_maps", 'Final pooled · 2×2']]} /><NeuralNumber label="Feature channel" value={Math.min(channel, row[layer].length - 1)} onChange={setChannel} min={0} max={row[layer].length - 1} step={1} integer /></div>
     <div className="neural-two"><Grid title={`Input · true digit ${row.actual}`} values={row.input} signed /><Grid title={`Saved ${layer}, channel ${Math.min(channel, row[layer].length - 1)}`} values={map} signed /></div>
     <Rail title={`Saved class probabilities; predicted digit ${row.predicted}`} values={row.probabilities} />
-    <details><summary>Inspect weights and signed local input sensitivity</summary><p>The filter below is a recorded weight array. The saved maps above are post-ReLU; their missing biases/raw preactivations are not reconstructed here. Signed gradient colors: amber positive, blue negative, neutral zero. Each panel rescales to its own largest absolute value; numbers retain the exact relative scale.</p><Grid title="First-layer filter 0" values={maps.first_layer_kernels[0]} signed /><Grid title={`Derivative of logit ${row.predicted} at this exact image`} values={row.logit_input_gradient} signed /><p>{row.logit_input_gradient.flat().every(value => value === 0) ? 'All input derivatives are zero at this input.' : 'This is local logit sensitivity, not a causal explanation of the image.'}</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect weights and signed local input sensitivity</h4><p>The filter below is a recorded weight array. The saved maps above are post-ReLU; their missing biases/raw preactivations are not reconstructed here. Signed gradient colors: amber positive, blue negative, neutral zero. Each panel rescales to its own largest absolute value; numbers retain the exact relative scale.</p><Grid title="First-layer filter 0" values={maps.first_layer_kernels[0]} signed /><Grid title={`Derivative of logit ${row.predicted} at this exact image`} values={row.logit_input_gradient} signed /><p>{row.logit_input_gradient.flat().every(value => value === 0) ? 'All input derivatives are zero at this input.' : 'This is local logit sensitivity, not a causal explanation of the image.'}</p></section>
     <button onClick={() => { setName('cnn_max'); setSeed(1); setStep(400); setSpecimen(0); setLayer('first_maps'); setChannel(0); }}>Reset recorded view</button>
   </div>;
 }
@@ -235,6 +239,6 @@ function ConvolutionTrainingTrace({ run, baseline, selectedStep }) {
       <line x1={x(selectedStep)} x2={x(selectedStep)} y1="28" y2="196" stroke="#888" strokeDasharray="3 4" />
       {[[baseline, '#aaa'], [run, '#e4b752']].map(([record, color], i) => <g key={i}><polyline fill="none" stroke={color} strokeWidth="2" strokeDasharray={i === 0 ? '5 4' : undefined} points={record.trace.map(row => `${x(row.step)},${y(row[partition].cross_entropy)}`).join(' ')} />{record.trace.map(row => <circle key={row.step} cx={x(row.step)} cy={y(row[partition].cross_entropy)} r={row.step === selectedStep ? 4 : 2.5} fill={color} />)}</g>)}
     </svg><p>Horizontal: parameter updates. Vertical: mean cross-entropy. Amber: {run.name}; dashed gray: dense baseline. Segments join measured points; intermediate updates were not recorded.</p>
-    <details><summary>Exact values at every recorded update</summary><NeuralTable caption={`${partition} cross-entropy at actual checkpoints`} headers={['Update', run.name, 'Dense baseline']} rows={run.trace.map((row, i) => [row.step, f(row[partition].cross_entropy, 6), f(baseline.trace[i][partition].cross_entropy, 6)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact values at every recorded update</h4><NeuralTable caption={`${partition} cross-entropy at actual checkpoints`} headers={['Update', run.name, 'Dense baseline']} rows={run.trace.map((row, i) => [row.step, f(row[partition].cross_entropy, 6), f(baseline.trace[i][partition].cross_entropy, 6)])} /></section>
   </figure>;
 }

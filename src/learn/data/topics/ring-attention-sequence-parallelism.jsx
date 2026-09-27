@@ -1,787 +1,477 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Generated from the complete fifteen-section manuscript and all eight changed-input exercises.
+import {Prose,H2,H3,CodeBlock} from '../../components/content';
+import {Math as InlineMath,MathBlock} from '../../components/content/Math.jsx';
+import {NeuralTable} from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import {RingMemoryFigure,RingOwnershipFigure,RingWorkedMergeFigure,RingIdentityInsets,RingRotaryFigure,RingBackwardFigure,RingScalarGradientFigure,RingModelFigure,RingCodeBuffers,RingDecodeFigure} from '../../components/lesson-labs/RingAttentionFigures.jsx';
+import {RingSummaryLab,RingIdentityLab,RingGradientLab} from '../../components/lesson-labs/RingAttentionLabs.jsx';
+import {RingWorkLab,RingCostLab,RingUlyssesLab} from '../../components/lesson-labs/RingAttentionSystems.jsx';
+import {RingMovementLab,RingProgram} from '../../components/lesson-labs/RingAttentionStudy.jsx';
+import '../../components/lesson-labs/neural-lesson-neutral.css';
+import '../../components/lesson-labs/ring-attention.css';
+export default {title:'Ring Attention & Sequence Parallelism',readTime:'~90 min read + investigations, programs and practice',content:()=> <div className="neural-lesson neural-lesson-neutral ring-attention">
+<Prose opening="summary">{"Move blocks between devices while keeping the attention result the same. Change scores, values, logical positions and real trajectory points, then follow the contributions and communication they require. The comparisons separate a change to the model’s input from a change to its execution plan."}</Prose>
 
-const ringAttentionContent = {
-  title: "Ring Attention & Sequence Parallelism",
-  readTime: "~38 min",
-  content: () => (
-    <div>
+<Prose>{"Suppose four devices must read one long document. Giving each device a different quarter is easy. Letting a word near the end use information from the beginning is harder: that information now lives elsewhere."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{""}<strong>{"Ring Attention keeps each device's questions in place and circulates the information those questions need."}</strong>{" Each device gradually builds the same attention result it would obtain if the entire sequence were available locally. The main change is where data lives and when it moves."}</Prose>
 
-      <Prose>
-        By 2023, the long-context arms race had run into a wall that no algorithmic trick on a single GPU could break through. FlashAttention had already pushed quadratic attention into a memory-linear forward pass on a single device — but linear in {"L"}, with a constant that included the full {"K"} and {"V"} tensors at fp16, plus query, output, and intermediate accumulators, plus the model weights and optimizer states. At {"L = 1{,}000{,}000"}, an 80 GB H100 cannot hold the activation footprint of even a single attention layer, regardless of how cleverly the softmax is tiled. The bottleneck is not the algorithm; it is that one device cannot store enough state to span a million-token sequence. The problem is fundamentally a hardware capacity problem disguised as a software problem.
-      </Prose>
+<Prose>{"In "}<a href={"/learn/path/full-curriculum/hyena-long-convolution-models?module=deep-learning-fundamentals"}>{"Hyena"}</a>{", the mixing operation changes. Here we preserve dense softmax attention and distribute its execution. That distinction matters: a systems optimization should first demonstrate equivalence, then establish its resource benefit."}</Prose>
 
-      <Prose>
-        The fix is to partition the sequence dimension across multiple devices and arrange the communication so that every query still gets to see every key and value. Hao Liu, Matei Zaharia, and Pieter Abbeel published "Ring Attention with Blockwise Transformers for Near-Infinite Context" at NeurIPS 2023 (arXiv:2310.01889) with the central observation: if you slice the sequence into {"N"} contiguous chunks and place chunk {"i"} on device {"i"}, you can compute full attention by rotating the {"K"} and {"V"} chunks around the ring of devices for {"N"} iterations. Each device holds {"1/N"} of the activations at any moment, total per-device memory is {"O(L/N)"}, and the wall-clock cost is {"N"} attention blocks per device — the same total compute as single-GPU attention, but with the communication of {"N"} ring rotations interleaved into it. With perfect overlap, the ring rotations are free.
-      </Prose>
+<Prose opening="route">{"You need the idea of an attention-weighted average and basic array shapes. We refresh both below. On a first pass, follow the ownership picture, the four-value calculation, the causal-work grids and the real movement example. The backward derivation and communication model provide a deeper route for implementing or diagnosing a distributed system."}</Prose>
 
-      <Prose>
-        The same insight surfaced almost simultaneously from a different direction. Sam Ainsworth and the Megatron-LM team at NVIDIA had been pushing on activation memory for the LLM training pipeline, and Korthikanti et al. published "Reducing Activation Recomputation in Large Transformer Models" at MLSys 2023 (arXiv:2205.05198), which introduced sequence parallelism as a complement to tensor parallelism: shard the input of LayerNorm and Dropout layers along the sequence dimension to cut activation memory without changing the parallelism inside attention or MLP blocks. Sam Jacobs and the DeepSpeed team at Microsoft generalised the idea inside attention itself with "DeepSpeed Ulysses: System Optimizations for Enabling Training of Extreme Long Sequence Transformer Models" (arXiv:2309.14509, 2023), using all-to-all collectives to swap between sequence-sharding and head-sharding so that long contexts become tractable without rewriting the attention kernel.
-      </Prose>
+<H2>{"1. What is being divided?"}</H2>
 
-      <Prose>
-        Brandon, Nguyen, and Zhang's "Striped Attention: Faster Ring Attention for Causal Transformers" (arXiv:2311.09431, 2023) added the missing piece for production decoders. Plain ring attention with contiguous chunking is severely load-imbalanced under a causal mask: the device holding the last chunk does roughly {"N"} times more work than the device holding the first. Striping the sequence — interleaving so that token {"t"} lands on device {"t \\bmod N"} — distributes the causal mask uniformly across the ring, eliminating the straggler. By the end of 2023 the recipe was complete: ring attention for the long sequence, striping for the causal mask, blockwise tiling for the on-device softmax, and tensor / pipeline parallelism layered on top for the rest of the model.
-      </Prose>
+<Prose>{"For one attention head, each sequence position supplies three vectors:"}</Prose>
 
-      <Prose>
-        The production fingerprints are everywhere. Meta's "The Llama 3 Herd of Models" paper (arXiv:2407.21783, 2024) describes Llama-3.1 405B trained at 128k context with a 4D parallelism (data + tensor + pipeline + sequence) and explicitly cites context-parallel attention. Gemini's 1M+ token context (Google DeepMind, 2024) is widely understood to use ring or striped variants — the published architecture describes "many millions of tokens of context" with a "novel efficient attention scheme distributed across devices". Claude's 200k context, GPT-4 long context, and the open-weight long-context fine-tunes from Together AI, Yi, and Qwen all use {"ring-flash-attention"} or DeepSpeed Ulysses style sequence parallelism in their training and serving stacks. PyTorch 2.5+ ships {"DTensor"} sharding primitives that make sequence-parallel attention a first-class transformation. Ring attention is not a research trick anymore; it is the load-bearing wall under the long-context era.
-      </Prose>
+<ul><li>{"A "}<strong>{"query"}</strong>{" asks what information this position needs."}</li><li>{"A "}<strong>{"key"}</strong>{" describes information against which a query can be compared."}</li><li>{"A "}<strong>{"value"}</strong>{" contains the information to combine."}</li></ul>
 
-      <Callout accent="gold">
-        Ring attention is what unlocked the move from 4k–32k contexts in 2022 to 128k–10M contexts in 2024. The single-device memory ceiling on attention activations is hard; the ring's per-device memory is {"O(L/N)"}, so adding GPUs adds context length, near-linearly, until communication becomes the bottleneck.
-      </Callout>
+<Prose>{"With query matrix Q, key matrix K and value matrix V, attention computes"}</Prose>
 
-      <Prose>
-        This topic builds the ring attention algorithm from scratch with a single-process simulation that verifies bit-equality with single-shot attention, walks through the online-softmax accumulator that lets partial outputs combine across iterations, derives the compute / communication overlap conditions that determine when ring attention scales linearly versus when it goes communication-bound, and maps the production landscape: when to use ring versus Ulysses, how to combine with tensor parallelism, and the failure modes (causal-mask straggler, fp16 accumulator drift, NCCL ring topology mismatch) that show up in real training runs.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"S=QK^T/\\sqrt d,\\qquad A=\\operatorname{softmax}(S+M),\\qquad O=AV."}</MathBlock></div>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{"Here d is the query/key channel count. Softmax normalizes each query row. The mask M is zero for allowed query–key pairs and negative infinity for forbidden pairs; those pairs receive zero weight. We will reserve A for attention probabilities and P for device count."}</Prose>
 
-      <H3>2.1 The single-device memory ceiling</H3>
+<Prose>{"If all positions may interact, an L-position sequence has L² pairs per head. Increasing L from 8 to 16 creates four times as many pairs. Avoiding storage of those scores does not remove their computation."}</Prose>
 
-      <Prose>
-        Attention's memory footprint per layer at training time is dominated by three tensors: the query, key, and value projections, each {"L × d_{model}"} half-precision floats, plus the attention output. For a single sequence of length {"L = 128{,}000"} with {"d_{model} = 8192"} (a Llama-2-70B-class hidden size), each tensor is {"128k × 8192 × 2 \\text{ B} \\approx 2 \\text{ GB}"}. With {"Q, K, V"} and the output, you are at 8 GB per layer just for attention activations, and a 70B-class model has 80 layers. Even with activation checkpointing, a single 80 GB H100 cannot hold the forward activations of one such layer at {"L = 1\\text{M}"}. The model weights and optimizer state are not the bottleneck — the activations are.
-      </Prose>
+<Prose>{""}<strong>{"FlashAttention"}</strong>{" tiles this operation within a device, computes stable partial summaries and reconstructs needed intermediates during backward rather than storing the entire attention matrix. "}<strong>{"Ring Attention"}</strong>{" adds a partition across devices. They address different levels of the memory hierarchy and can be combined. "}<a href={"https://arxiv.org/pdf/2205.14135"}>{"FlashAttention, especially §3 and Appendix B"}</a>{""}</Prose>
 
-      <Prose>
-        FlashAttention solves this on a single device by tiling: it never materialises the full {"L × L"} attention matrix, processes {"Q"} in row blocks while streaming {"K, V"} from HBM, and uses an online softmax to combine block contributions. The peak activation is reduced from {"O(L^2)"} to {"O(L \\cdot d_{head})"}, but you still need to hold the full {"K, V"} on device. At {"L = 1\\text{M}"} that is the problem: even {"L \\cdot d_{head}"} per head, summed across heads, exceeds device memory. Single-device tiling has nothing left to give.
-      </Prose>
+<Prose>{"For a batch of B sequences, Hq query heads, Hkv key/value heads and head width d, Q has shape B×Hq×L×d, while K and V have B×Hkv×L×d. Standard multi-head attention has Hkv=Hq. In "}<a href={"/learn/path/full-curriculum/grouped-query-attention-gqa-multi-query-attention-mqa?module=deep-learning-fundamentals"}>{"GQA/MQA"}</a>{", several query heads share a key/value head. The saved KV payload can therefore be smaller than Q without removing query heads."}</Prose>
 
-      <H3>2.2 The ring as a token-ring network</H3>
+<Prose>{"An attention matrix stored in float32 would occupy 4BHqL² bytes. The Q, K, V and O arrays instead grow linearly in L. Linear growth can still be large. At B=1, L=1,000,000, Hq·d=8192 and two bytes per element, the four equal-width MHA arrays alone total 65,536,000,000 bytes, about 61.0 GiB. This calculation does "}<strong>{"not"}</strong>{" include weights, optimizer state, other layer activations or temporary buffers. It also does not establish a universal maximum context length for an “80GB GPU”: dimensions, GQA, precision and the rest of the workload change the answer."}</Prose>
 
-      <Prose>
-        Ring attention partitions the sequence dimension across {"N"} devices arranged in a logical ring (device 0 talks to device 1, 1 to 2, ..., {"N-1"} back to 0). Each device {"i"} permanently owns its slice of {"Q_i, K_i, V_i"}, each of shape {"(L/N) \\times d_{head}"}. To compute full attention, every query in {"Q_i"} must see every {"K_j, V_j"}. The ring achieves this by rotating the held {"K, V"} blocks around the ring: in iteration {"j"}, device {"i"} computes a partial attention output of {"Q_i"} against {"K_{(i-j) \\bmod N}, V_{(i-j) \\bmod N}"} — the {"K, V"} block that has been forwarded {"j"} hops from its origin. After {"N"} iterations every device has seen every {"K, V"} block exactly once.
-      </Prose>
+<RingMemoryFigure/>
 
-      <Prose>
-        The shape of this is exactly an old idea — token-ring networks, the systolic arrays of the 1980s, all-reduce on a ring topology — applied to attention. The reason it works for attention specifically is that the operation decomposes block-additively: the contribution of {"K_j, V_j"} to {"Q_i"}'s output can be computed independently of the contribution of {"K_{j'}, V_{j'}"} as long as you keep the right normalisation state. That state is the running max and running denominator of the softmax, which is exactly what FlashAttention's tile-level online softmax was already designed to maintain. Ring attention is FlashAttention extended across devices — the same tile combination math, but the tiles are scattered across {"N"} GPUs and arrive over the network instead of from HBM.
-      </Prose>
+<H2>{"2. Keep the queries; move the key/value blocks"}</H2>
 
-      <Callout accent="purple">
-        Ring attention is FlashAttention with the tiles distributed. The softmax block-combine math is identical; the only new thing is that the next tile arrives via NCCL send/recv instead of via {"cp.async"} from HBM.
-      </Callout>
+<Prose>{"Use eight positions and four devices. Device 0 owns positions 0–1, device 1 owns 2–3, device 2 owns 4–5 and device 3 owns 6–7. Each has local Q, K and V for its positions."}</Prose>
 
-      <H3>2.3 Compute, communication, and the overlap condition</H3>
+<Prose>{"At round 0, every device combines its own queries with its own key/value block. It also prepares to send that block to its neighbor. At the next round, it combines the "}<strong>{"same queries"}</strong>{" with the incoming block. After four computations, it has visited every key/value block once."}</Prose>
 
-      <Prose>
-        Each device does {"N"} attention block computations and {"N - 1"} ring rotations per layer per forward pass. The attention block compute scales as {"(L/N)^2 \\cdot d_{head} \\cdot H"} per block, so total compute per device is {"N \\cdot (L/N)^2 \\cdot d_{head} \\cdot H = L^2 \\cdot d_{head} \\cdot H / N"} — exactly {"1/N"} of the single-device cost, as expected. The ring rotation moves {"2 \\cdot (L/N) \\cdot d_{head} \\cdot H"} bytes per hop ({"K"} and {"V"} blocks), so total bytes moved per device across {"N - 1"} rotations is {"\\approx 2 L d_{head} H"} — independent of {"N"}.
-      </Prose>
+<NeuralTable caption={"2. Keep the queries; move the key/value blocks"} headers={[<>{"Round"}</>,<>{"Device 0 uses KV from"}</>,<>{"Device 1 uses KV from"}</>,<>{"Device 2 uses KV from"}</>,<>{"Device 3 uses KV from"}</>]} rows={[[<>{"0"}</>,<>{"0"}</>,<>{"1"}</>,<>{"2"}</>,<>{"3"}</>],[<>{"1"}</>,<>{"3"}</>,<>{"0"}</>,<>{"1"}</>,<>{"2"}</>],[<>{"2"}</>,<>{"2"}</>,<>{"3"}</>,<>{"0"}</>,<>{"1"}</>],[<>{"3"}</>,<>{"1"}</>,<>{"2"}</>,<>{"3"}</>,<>{"0"}</>]]} />
 
-      <Prose>
-        With careful scheduling, each ring rotation overlaps with the next attention block's compute. Wall-clock per layer is then bounded by the larger of the per-iteration compute and per-iteration communication, repeated {"N"} times. As long as compute per iteration exceeds communication per iteration, the wall-clock is compute-bound: you pay only the {"1/N"} compute reduction with effectively zero communication tax. The transition happens when {"L/N"} drops low enough that the per-iteration FLOP count fits in less time than {"2 (L/N) d_{head} H / \\text{bandwidth}"}. For NVLink at 450 GB/s and H100 fp16 throughput, this transition occurs at chunk sizes around {"\\sim 1k–4k"} tokens; smaller chunks go communication-bound.
-      </Prose>
+<Prose>{"This table uses sends from rank i to rank (i+1) mod P. Rank means a process's index in the participating group. There are P block computations and P−1 necessary transfers to make every block available after its initial local use. Our forward schedule omits an unused final circulation. A library may circulate once more for convenient buffer ownership; account for the schedule actually implemented."}</Prose>
 
-      <H3>2.4 Two flavours: ring and Ulysses</H3>
+<Prose>{"Why circulate K and V together? A key identifies a value. If the two lose alignment, the weighting can be numerically valid while selecting the wrong information. Position IDs and document membership must travel with the records, too."}</Prose>
 
-      <Prose>
-        Ring attention is one way to shard the sequence dimension. DeepSpeed Ulysses takes a different approach: rather than rotating {"K, V"} around a ring while each device keeps its {"Q"} slice, Ulysses uses a pair of all-to-all collectives that re-shard the data between sequence-sharded and head-sharded layouts. Before attention, an all-to-all moves data from "each device has 1/N of the sequence, all heads" to "each device has the full sequence, 1/N of the heads"; attention runs as normal on each head subset; a second all-to-all reverses the layout. The communication volume is {"O(L \\cdot d_{model})"} per all-to-all, not {"O(L \\cdot d_{model})"} ring-distributed.
-      </Prose>
+<RingOwnershipFigure/>
 
-      <Prose>
-        The trade-off: Ulysses needs the full {"L"} sequence to fit on a single device during the head-sharded attention computation, so it caps at the same single-device memory limit FlashAttention does, just with more heads' worth of bandwidth amortised. Ring attention does not have this cap — its per-device memory really is {"O(L/N)"} all the way through. For contexts that exceed single-device memory ({"\\gtrsim"} 256k on H100, depending on model size), ring attention is the only option; for shorter contexts where Ulysses fits, Ulysses is often faster because all-to-all on NVLink is more bandwidth-efficient than ring rotations.
-      </Prose>
+<Prose>{"Each query owner finally stores only its own output rows. Concatenating outputs in "}<strong>{"logical sequence order"}</strong>{", or keeping them sharded for a positionwise operation, preserves the next layer's meaning. Concatenating rank order is correct only when rank ownership is contiguous and ordered that way."}</Prose>
 
-      <H3>2.5 Striped attention for causal masks</H3>
+<Prose>{"The research design combines this circulation with blockwise computation and overlapping communication. Its empirical context-length and utilization results apply to its reported setups; “near-infinite” describes a scaling ambition, not unbounded resources or unlimited learned understanding. "}<a href={"https://arxiv.org/html/2310.01889v4"}>{"Liu, Zaharia and Abbeel, Ring Attention"}</a>{""}</Prose>
 
-      <Prose>
-        The vanilla ring with contiguous chunking — device {"i"} owns positions {"[iL/N, (i+1)L/N)"} — is uniform under bidirectional attention but disastrous under a causal mask. Device 0's queries can only attend to device 0's keys (positions 0 to {"L/N - 1"}). Device {"N - 1"}'s queries attend to all keys. The ratio of work between the busiest and the idlest device is {"N"}; in a synchronous ring iteration, the slowest device sets the pace. Striping fixes this by interleaving: token {"t"} goes to device {"t \\bmod N"}. After this transformation, every device's query slice and every {"K, V"} chunk contain a uniform sample of positions across the whole sequence, so the causal mask falls roughly evenly on each ring iteration. The ratio of work across devices drops from {"N"}-to-1 to roughly {"\\sqrt{N}"}-to-1 in the worst case and {"\\approx 1.4{\\times}"} for typical configurations.
-      </Prose>
+<Prose>{"Reversing circulation while preserving every record’s identity visits the same contributions in another order. In exact arithmetic, the answer is identical. Floating-point addition and rescaling can produce small rounding differences. Reversing the ring is not inherently a positional error; relabeling a received block as though it were local is."}</Prose>
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<H2>{"3. A block's answer is not enough"}</H2>
 
-      <H3>3.1 Single-device attention as a tile sum</H3>
+<Prose>{"It is tempting to calculate attention separately within each KV block and average the resulting outputs. That loses how much probability mass each block should receive."}</Prose>
 
-      <Prose>
-        Standard scaled dot-product attention for a single head, dropping the head index, is
-      </Prose>
+<Prose>{"Consider one query with scores [0, ln2, ln4, 0] and scalar values [2, 8, 1, −2]. Its unnormalized weights are [1,2,4,1]. The correct weighted average is"}</Prose>
 
-      <MathBlock>
-        {"\\mathrm{Attn}(Q, K, V) = \\mathrm{softmax}\\!\\left(\\tfrac{Q K^\\top}{\\sqrt{d_{head}}}\\right) V."}
-      </MathBlock>
-
-      <Prose>
-        Let {"S = Q K^\\top / \\sqrt{d_{head}}"} be the {"L \\times L"} pre-softmax score matrix. Now slice {"K, V"} along the sequence dimension into {"N"} blocks of length {"c = L/N"}: {"K = [K_0; K_1; \\ldots; K_{N-1}]"}, {"V = [V_0; \\ldots; V_{N-1}]"}, each {"K_j, V_j \\in \\mathbb{R}^{c \\times d_{head}}"}. Then for a single query block {"Q_i"},
-      </Prose>
-
-      <MathBlock>
-        {"\\mathrm{Attn}(Q_i, K, V) = \\mathrm{softmax}\\!\\left([\\, S_{i,0} \\;|\\; S_{i,1} \\;|\\; \\cdots \\;|\\; S_{i,N-1} \\,]\\right) \\cdot \\begin{bmatrix} V_0 \\\\ V_1 \\\\ \\vdots \\\\ V_{N-1} \\end{bmatrix},"}
-      </MathBlock>
-
-      <Prose>
-        where {"S_{i,j} = Q_i K_j^\\top / \\sqrt{d_{head}}"} is the score sub-matrix for query block {"i"} against key block {"j"}. The softmax is applied across the entire concatenated row, not block-wise. This is the central numerical challenge: softmax requires a global normalisation over all keys, but we want to consume the {"K_j, V_j"} blocks one at a time. The online-softmax algorithm of Milakov and Gimelshein (arXiv:1805.02867, 2018), refined for FlashAttention by Dao et al. (arXiv:2205.14135, 2022), solves this with a running-max and running-denominator update.
-      </Prose>
-
-      <H3>3.2 The online softmax accumulator</H3>
-
-      <Prose>
-        Maintain three running statistics for each query row in {"Q_i"}: a max {"m^{(j)} \\in \\mathbb{R}"}, a denominator {"\\ell^{(j)} \\in \\mathbb{R}"}, and an output {"O^{(j)} \\in \\mathbb{R}^{d_{head}}"}, each initialised at {"j = -1"} as {"m = -\\infty,\\, \\ell = 0,\\, O = 0"}. When processing block {"j"}, compute the block max {"\\tilde{m}_j = \\max(S_{i,j})"} along the key axis and the unnormalised exponentials {"P_j = \\exp(S_{i,j} - m^{(j)})"} with {"m^{(j)} = \\max(m^{(j-1)}, \\tilde{m}_j)"}. Then
-      </Prose>
-
-      <MathBlock>
-        {"\\ell^{(j)} = e^{m^{(j-1)} - m^{(j)}}\\, \\ell^{(j-1)} + \\sum_k P_{j, k},"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"o=\\frac{1(2)+2(8)+4(1)+1(-2)}{1+2+4+1}=\\frac{20}{8}=2.5."}</MathBlock></div>
 
-      <MathBlock>
-        {"O^{(j)} = e^{m^{(j-1)} - m^{(j)}}\\, O^{(j-1)} + P_j V_j."}
-      </MathBlock>
-
-      <Prose>
-        The first term renormalises the previous accumulator to the new max; the second adds the new block's contribution. After all {"N"} blocks have been processed, {"O^{(N-1)} / \\ell^{(N-1)}"} equals the exact attention output. The renormalisation is the key: when a new block introduces a larger logit than anything seen before, the old accumulator must be downscaled to avoid double-counting. Because all updates use {"e^{m^{(j-1)} - m^{(j)}}"} which is in {"(0, 1]"}, the math is numerically stable and equivalent to the reference softmax up to floating-point round-off.
-      </Prose>
-
-      <H3>3.3 Mapping to the ring</H3>
-
-      <Prose>
-        Each device {"i"} runs the online-softmax loop over {"j = 0, 1, \\ldots, N-1"}, but the {"K_j, V_j"} consumed at iteration {"j"} is the block currently held in the rotation, which is {"K_{(i-j) \\bmod N}"}. The visit order differs across devices, but each device still sees all {"N"} blocks and the online-softmax math is order-invariant: the running max is associative and commutative under {"\\max"}, and the renormalisation factor {"e^{m^{(j-1)} - m^{(j)}}"} is the same regardless of which block introduced the new max. So device {"i"}'s final output {"O_i^{(N-1)} / \\ell_i^{(N-1)}"} is bit-equivalent (in exact arithmetic) to running standard attention on {"Q_i"} against the full {"K, V"}.
-      </Prose>
-
-      <H3>3.4 Memory and compute accounting</H3>
-
-      <Prose>
-        On each device, peak activation memory during the attention forward is the sum of: the owned {"Q_i, K_i, V_i"} blocks ({"3 c d_{head} H"} half-precision floats), the currently-held {"K_j, V_j"} block from the ring ({"2 c d_{head} H"} floats), the running statistics {"(m, \\ell)"} ({"2 c"} floats), and the running output {"O_i"} ({"c d_{head} H"} floats). Total: {"6 c d_{head} H + 2 c \\approx 6 (L/N) d_{head} H"}. This is exactly {"1/N"} of single-GPU attention's {"\\sim 6 L d_{head} H"} ignoring the {"\\ell, m"} term. Adding more devices to the ring linearly extends the maximum context length the system can handle.
-      </Prose>
-
-      <Prose>
-        Compute per device, summed across the {"N"} ring iterations, is {"N \\cdot (c \\cdot c \\cdot d_{head} \\cdot H \\cdot 4)"} FLOPs (the factor of 4 covers the {"QK^\\top"} matmul, softmax exponentiation, and {"PV"} matmul). Substituting {"c = L/N"}, this equals {"4 L^2 d_{head} H / N"} FLOPs per device — exactly {"1/N"} of the single-GPU compute. Total compute across all {"N"} devices is unchanged. Ring attention is a pure capacity scaler: it does not create extra compute, and it does not save compute. It moves the same compute across {"N"} devices and pays for it in inter-device bandwidth.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH BUILD
-          ====================================================================== */}
-      <H2>4. From-scratch build</H2>
-
-      <Prose>
-        We implement ring attention as a single-process simulation: explicit chunking over a Python list of "device" tensors, with an explicit ring-rotation step between iterations. This keeps the algorithm visible and lets us verify bit-equality with single-shot attention. A real multi-GPU implementation replaces the rotation with NCCL {"send/recv"} calls and the Python loop with a CUDA stream that overlaps each iteration's communication with the next iteration's compute.
-      </Prose>
-
-      <H3>4.1 The ring loop</H3>
-
-      <CodeBlock language="python">
-{`import math
-import torch
-
-torch.manual_seed(0)
-
-L, D = 16, 8     # full sequence length, head dim
-N = 4            # ring size (number of "devices")
-chunk = L // N
-scale = 1.0 / math.sqrt(D)
-
-# Single tensor for the full sequence (the ground-truth reference).
-Q_full = torch.randn(L, D)
-K_full = torch.randn(L, D)
-V_full = torch.randn(L, D)
-
-# Reference: standard attention.
-ref = torch.softmax(Q_full @ K_full.T * scale, dim=-1) @ V_full
-
-# Each device i owns Q_i, K_i, V_i (shape [L/N, D]).
-Q = [Q_full[i*chunk:(i+1)*chunk] for i in range(N)]
-K = [K_full[i*chunk:(i+1)*chunk] for i in range(N)]
-V = [V_full[i*chunk:(i+1)*chunk] for i in range(N)]
-
-# Per-device running statistics for the online softmax.
-m = [torch.full((chunk, 1), float("-inf")) for _ in range(N)]
-l = [torch.zeros(chunk, 1) for _ in range(N)]
-O = [torch.zeros(chunk, D) for _ in range(N)]
-
-# Each device i starts holding K_i, V_i and rotates them through the ring.
-held_K = list(K)
-held_V = list(V)
-
-for step in range(N):
-    for i in range(N):
-        S = Q[i] @ held_K[i].T * scale            # [chunk, chunk]
-        m_blk, _ = S.max(dim=-1, keepdim=True)
-        m_new = torch.maximum(m[i], m_blk)
-        alpha = torch.exp(m[i] - m_new)
-        beta_logits = torch.exp(S - m_new)
-        l[i] = alpha * l[i] + beta_logits.sum(dim=-1, keepdim=True)
-        O[i] = alpha * O[i] + beta_logits @ held_V[i]
-        m[i] = m_new
-
-    # Ring rotation: each device sends its held K, V one hop forward.
-    held_K = [held_K[(i - 1) % N] for i in range(N)]
-    held_V = [held_V[(i - 1) % N] for i in range(N)]
-
-out = torch.cat([O[i] / l[i] for i in range(N)], dim=0)
-print(f"Max abs error vs reference: {(out - ref).abs().max().item():.2e}")
-print(f"Output shape: {tuple(out.shape)}, reference shape: {tuple(ref.shape)}")
-
-# Output:
-# Max abs error vs reference: 1.19e-07
-# Output shape: (16, 8), reference shape: (16, 8)`}
-      </CodeBlock>
-
-      <Prose>
-        The error of {"\\approx 10^{-7}"} is fp32 round-off — bit-equivalent to the single-shot reference within the precision of float32 arithmetic. The algorithm is correct. Three details are worth pausing on. First, the running max update {"m\\_new = \\max(m_i, m_{blk})"} is the only thing that prevents catastrophic overflow: without it, large logits in later blocks would have produced {"\\exp(S)"} values too large for any precision. Second, the renormalisation factor {"\\alpha = \\exp(m_i - m\\_new) \\in (0, 1]"} downscales the previous accumulator whenever a new block introduces a larger max; if the new max equals the old max, {"\\alpha = 1"} and the previous state is unchanged. Third, the rotation is a Python list shuffle here, but in a real multi-GPU run it is {"torch.distributed.send/recv"} on a NCCL ring with {"async\\_op=True"} so the rotation overlaps with the next iteration's matmul.
-      </Prose>
-
-      <H3>4.2 Memory and compute accounting</H3>
-
-      <CodeBlock language="python">
-{`per_device_qkv = 3 * chunk * D        # owned Q, K, V
-per_device_held = 2 * chunk * D       # held K, V from ring partner
-per_device_total = per_device_qkv + per_device_held
-single_gpu_total = 3 * L * D
-print(f"Per-device floats (Q+K+V + held K,V): {per_device_total}")
-print(f"Single-GPU floats (Q+K+V):           {single_gpu_total}")
-print(f"Memory ratio: {per_device_total / single_gpu_total:.3f} ({N}-way ring)")
-
-# Output:
-# Per-device floats (Q+K+V + held K,V): 160
-# Single-GPU floats (Q+K+V):           384
-# Memory ratio: 0.417 (4-way ring)`}
-      </CodeBlock>
-
-      <Prose>
-        At {"N = 4"}, per-device activation footprint is {"\\approx 0.42 \\times"} single-GPU. The asymptotic ratio is {"5 / (3 N)"} ({"3"} owned slices plus {"2"} held slices, all of size {"L/N"}, vs {"3 L"} on single GPU), which approaches {"0"} as {"N"} grows. At {"N = 32"} this ratio is {"\\approx 0.05"}; at {"N = 128"} it is {"\\approx 0.013"}. Adding ring devices is a near-linear context extension up to the {"L/N \\to 0"} limit where chunks become too small and the ring goes communication-bound.
-      </Prose>
-
-      <H3>4.3 Compute / communication overlap analysis</H3>
-
-      <Prose>
-        The wall-clock of a ring attention forward depends on whether each iteration's compute exceeds its communication. The communication moves {"2 c d_{head} H"} bytes ({"K"} and {"V"} blocks), while the compute runs roughly {"4 c^2 d_{head} H"} FLOPs. Holding aside constants, the compute-to-communication ratio is {"\\approx c"} — proportional to chunk size. For an H100 at {"\\sim 700"} TFLOP/s fp16 and NVLink at {"\\sim 450"} GB/s effective bandwidth, the crossover is in the few-thousand-token chunk range.
-      </Prose>
-
-      <CodeBlock language="python">
-{`GPU_TFLOP   = 700e12
-NVLINK_BW   = 450e9          # bytes/sec
-BYTES_FP16  = 2
-
-def timing(L_total, N, d_head=128, n_heads=64):
-    c = L_total // N
-    flops_per_block = 4 * c * c * d_head * n_heads
-    t_compute = flops_per_block / GPU_TFLOP
-    bytes_per_hop = 2 * c * d_head * n_heads * BYTES_FP16
-    t_comm = bytes_per_hop / NVLINK_BW
-    t_wall = N * t_compute if t_compute >= t_comm else (N - 1) * t_comm + t_compute
-    return t_compute, t_comm, t_wall
-
-print(f"{'L':>8} {'N':>4} {'chunk':>8} {'comp_ms':>10} {'comm_ms':>10} {'wall_ms':>10} {'bound':>8}")
-for L_total in [128_000, 1_000_000, 8_000_000]:
-    for N in [8, 32, 128]:
-        if L_total // N < 256:
-            continue
-        tc, tcomm, tw = timing(L_total, N)
-        bound = "compute" if tc >= tcomm else "comm"
-        print(f"{L_total:>8} {N:>4} {L_total//N:>8} {tc*1e3:>10.2f} {tcomm*1e3:>10.2f} {tw*1e3:>10.2f} {bound:>8}")
-
-# Output:
-#        L    N    chunk    comp_ms    comm_ms    wall_ms    bound
-#   128000    8    16000      11.98       1.17      95.87  compute
-#   128000   32     4000       0.75       0.29      23.97  compute
-#   128000  128     1000       0.05       0.07       9.29     comm
-#  1000000    8   125000     731.43       9.10    5851.43  compute
-#  1000000   32    31250      45.71       2.28    1462.86  compute
-#  1000000  128     7812       2.86       0.57     365.67  compute
-#  8000000    8  1000000   46811.43      72.82  374491.43  compute
-#  8000000   32   250000    2925.71      18.20   93622.86  compute
-#  8000000  128    62500     182.86       4.55   23405.71  compute`}
-      </CodeBlock>
-
-      <Prose>
-        At {"L = 128"}k, splitting across {"N = 128"} GPUs drives the chunk size to 1000 tokens, where per-iteration communication ({"0.07"} ms) exceeds compute ({"0.05"} ms) — the only configuration in the table that is communication-bound. Every other configuration is compute-bound, meaning the ring rotations hide entirely under the attention compute and the wall-clock equals {"N \\times t_{compute}"}. At {"L = 8"}M with {"N = 128"}, per-device wall is {"\\approx 23"} seconds for the attention forward alone — long, but tractable; without the ring you simply could not store the activations.
-      </Prose>
-
-      <H3>4.4 Striped attention for the causal-mask straggler</H3>
-
-      <CodeBlock language="python">
-{`L, N = 16, 4
-chunk = L // N
-
-def causal_work_contig():
-    work = [[0]*N for _ in range(N)]
-    for i in range(N):
-        for j in range(N):
-            kchunk = (i - j) % N
-            qpos = list(range(i*chunk, (i+1)*chunk))
-            kpos = list(range(kchunk*chunk, (kchunk+1)*chunk))
-            work[i][j] = sum(1 for q in qpos for k in kpos if q >= k)
-    return work
-
-def causal_work_striped():
-    work = [[0]*N for _ in range(N)]
-    for i in range(N):
-        for j in range(N):
-            kdev = (i - j) % N
-            qpos = list(range(i, L, N))      # interleaved positions
-            kpos = list(range(kdev, L, N))
-            work[i][j] = sum(1 for q in qpos for k in kpos if q >= k)
-    return work
-
-W_c, W_s = causal_work_contig(), causal_work_striped()
-per_dev_c = [sum(r) for r in W_c]
-per_dev_s = [sum(r) for r in W_s]
-print("Contiguous totals:", per_dev_c, " ratio", max(per_dev_c)/min(per_dev_c))
-print("Striped     totals:", per_dev_s, " ratio", max(per_dev_s)/min(per_dev_s))
-
-# Output:
-# Contiguous totals: [10, 26, 42, 58]  ratio 5.8
-# Striped     totals: [28, 32, 36, 40]  ratio 1.43`}
-      </CodeBlock>
-
-      <Prose>
-        Under contiguous chunking the load ratio between the busiest and idlest device is {"5.8\\times"} for {"N = 4"} (it grows to {"N\\times"} as {"N \\to \\infty"}). Striping reduces the ratio to {"1.43\\times"} — within striking distance of perfect balance. The striping is purely a token-position permutation: indices are interleaved before the ring is laid out, so token {"t"} goes to device {"t \\bmod N"} instead of device {"\\lfloor t / (L/N) \\rfloor"}. The attention math is unchanged; only the assignment of positions to devices is permuted, which evenly distributes the causal mask across ring iterations.
-      </Prose>
-
-      <Callout accent="green">
-        For decoder pretraining (causal mask), striped attention is non-negotiable above {"N = 8"}. Vanilla ring under causal mask wastes up to {"(N-1)/N"} of the GPU-time of the lighter-loaded devices waiting for the heaviest.
-      </Callout>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production landscape</H2>
-
-      <H3>5.1 Open-source ring attention kernels</H3>
-
-      <Prose>
-        The reference open implementation is {"zhuzilin/ring-flash-attention"} on GitHub (with contributions from Tencent and the HuggingFace community), a Python package that wraps Tri Dao's FlashAttention-2 CUDA kernel with a ring-rotation outer loop using {"torch.distributed"}. It supports the contiguous and striped variants, integrates with {"torch.distributed.tensor.DTensor"} for sharding metadata, and exports {"ring_flash_attn_func"} as a near-drop-in replacement for {"flash_attn_func"} in models that already use FlashAttention. Microsoft's {"DeepSpeed.sequence.SequenceParallel"} ships the Ulysses variant; it does not perform ring rotations but instead does pre-attention and post-attention all-to-all collectives.
-      </Prose>
-
-      <Prose>
-        NVIDIA's Megatron-LM has its own implementation under {"--context-parallel-size"} ({"--cp-size"} in newer builds), which Megatron documents as a "context-parallel" variant of ring attention with overlap. Megatron-LM combines context parallelism with tensor parallelism ({"--tp-size"}), pipeline parallelism ({"--pp-size"}), and data parallelism, exposing all four axes through a single configuration. The xformers library has experimental sequence-parallel attention under {"xformers.ops.sequence_parallel_attention"} but it is less mature than Megatron and {"ring-flash-attention"}.
-      </Prose>
-
-      <H3>5.2 Frontier deployments</H3>
-
-      <Prose>
-        The Llama 3 paper describes Llama-3.1 405B trained with a 4D parallelism: data parallel + tensor parallel ({"TP = 8"}) + pipeline parallel ({"PP = 16"}) + context parallel ({"CP = 16"}) for the 128k long-context phase. This means the sequence is split across 16 GPUs forming a ring, with each ring's GPUs further split across 8 tensor-parallel ranks for the hidden dimension. The total per-instance GPU count is {"8 \\cdot 16 \\cdot 16 = 2048"} on the long-context training run. Meta's reported numbers show {"\\sim"} 70 BF16-MFU even with this 4D sharding — the ring overlap is good enough that context-parallel rotations are essentially free at the configurations Meta uses.
-      </Prose>
-
-      <Prose>
-        Anthropic's Claude (200k context) and OpenAI's GPT-4 long-context variants do not publish architecture details, but the inference characteristics — sub-linear latency growth past 32k, predictable throughput at 128k — are consistent with sequence-sharded attention plus blockwise tiling. Google DeepMind's Gemini 1.5 (1M context, with research demos at 10M) explicitly cites a "novel attention scheme distributed across devices for million-token contexts"; the technical report's description of the inference architecture aligns with ring or striped attention combined with mixture-of-experts sharding for the MLP blocks.
-      </Prose>
-
-      <H3>5.3 The PyTorch DTensor pathway</H3>
-
-      <Prose>
-        PyTorch 2.5+ exposes {"torch.distributed.tensor.DTensor"} and {"torch.distributed.tensor.parallel"} primitives that turn sequence-parallel attention into a metadata transformation rather than a hand-written kernel. A {"DTensor"} sharded along a {"Shard(seq\\_dim)"} placement on a 16-rank device mesh automatically routes attention through a context-parallel implementation. The PyTorch 2.5 release notes show this used in {"torchtitan"}, Meta's open reference for large-scale LLM training, where {"context\\_parallel\\_size = 16"} appears in the published Llama-3 training recipes alongside {"tensor\\_parallel\\_size = 8"} and {"pipeline\\_parallel\\_size"} = (variable).
-      </Prose>
-
-      <H3>5.4 Inference-time considerations</H3>
-
-      <Prose>
-        Ring attention at training time and ring attention at inference time look different. Training does the full {"Q K^\\top V"} computation, and the {"Q, K, V"} are all freshly produced from the input batch — every device naturally has its own slice of {"Q"} and the ring rotates {"K, V"}. Inference is autoregressive: at each generation step the new token's {"Q"} must attend to all previously generated {"K, V"}, which were progressively appended to a KV cache. The cache is also sharded, so the new {"Q"} ring-rotates against the cache slices. Because there is only one new query position per step (the prefill pass is more parallel), the per-step communication-to-compute ratio is much worse than training; production serving stacks like vLLM and SGLang use ring attention only for the prefill phase and a different scheme (paged KV cache + tensor parallel attention) for the decode phase.
-      </Prose>
-
-      <Callout accent="gold">
-        Production sequence parallelism is rarely used in isolation. Llama-3.1 405B uses 4D parallelism (DP + TP + PP + CP). DeepSeek-V3 uses TP + PP + EP (expert parallel for MoE) without ring attention because its training context is shorter. The right combination depends on context length, model size, and available cluster topology.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 The ring rotation across 4 GPUs</H3>
-
-      <Prose>
-        At each iteration, every device computes attention against the {"K, V"} block it currently holds, then forwards that block one hop around the ring. After {"N = 4"} iterations every device has seen every {"K, V"} block exactly once.
-      </Prose>
-
-      <StepTrace
-        label="Ring rotation across 4 devices"
-        steps={[
-          {
-            label: "Iter 0",
-            render: () => (
-              <div>
-                <Prose>
-                  Initial state. Device {"i"} holds {"K_i, V_i"}. Each device computes {"Q_i K_i^\\top V_i"} — its own diagonal block.
-                </Prose>
-                <TokenStream tokens={["GPU0: Q0·K0", "GPU1: Q1·K1", "GPU2: Q2·K2", "GPU3: Q3·K3"]} />
-              </div>
-            ),
-          },
-          {
-            label: "Iter 1",
-            render: () => (
-              <div>
-                <Prose>
-                  Each device's {"K, V"} has been forwarded one hop. Device 0 now holds {"K_3, V_3"}; device 1 holds {"K_0, V_0"}; etc. Compute and merge into running output.
-                </Prose>
-                <TokenStream tokens={["GPU0: Q0·K3", "GPU1: Q1·K0", "GPU2: Q2·K1", "GPU3: Q3·K2"]} />
-              </div>
-            ),
-          },
-          {
-            label: "Iter 2",
-            render: () => (
-              <div>
-                <Prose>
-                  Two hops in. Device 0 holds {"K_2"}; device 1 holds {"K_3"}; etc. Each device updates its running max, denominator, and output.
-                </Prose>
-                <TokenStream tokens={["GPU0: Q0·K2", "GPU1: Q1·K3", "GPU2: Q2·K0", "GPU3: Q3·K1"]} />
-              </div>
-            ),
-          },
-          {
-            label: "Iter 3",
-            render: () => (
-              <div>
-                <Prose>
-                  Final iteration. Each device sees the last {"K, V"} block it had not yet processed. After this step, the running output divided by the running denominator equals full attention.
-                </Prose>
-                <TokenStream tokens={["GPU0: Q0·K1", "GPU1: Q1·K2", "GPU2: Q2·K3", "GPU3: Q3·K0"]} />
-              </div>
-            ),
-          },
-          {
-            label: "Done",
-            render: () => (
-              <div>
-                <Prose>
-                  Every device has seen every {"K, V"} block. Output is finalised as {"O / \\ell"} per device, then concatenated. Total inter-device communication: {"N - 1 = 3"} ring rotations per device per layer per forward pass.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6.2 Per-device peak memory vs ring size</H3>
-
-      <Prose>
-        Per-device activation memory for attention scales as {"O((L/N) \\cdot d_{model})"}. Doubling {"N"} halves per-device memory at any fixed context length. The plot below shows peak memory in GB for three context lengths across ring sizes from 1 to 128, assuming a {"d_{model} = 8192"} model in fp16.
-      </Prose>
-
-      <Plot
-        label="Per-device peak attention memory (GB) vs ring size"
-        xLabel="ring size N (log)"
-        yLabel="GB per device"
-        series={[
-          {
-            name: "L=128k",
-            color: colors.gold,
-            points: [[1, 6.0], [2, 3.0], [4, 1.5], [8, 0.75], [16, 0.38], [32, 0.19], [64, 0.09], [128, 0.05]],
-          },
-          {
-            name: "L=1M",
-            color: colors.green,
-            points: [[1, 47.0], [2, 23.5], [4, 11.8], [8, 5.9], [16, 2.95], [32, 1.5], [64, 0.74], [128, 0.37]],
-          },
-          {
-            name: "L=8M",
-            color: "#c084fc",
-            points: [[1, 376], [2, 188], [4, 94], [8, 47], [16, 23.5], [32, 11.8], [64, 5.9], [128, 2.95]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The dashed line at 80 GB (an H100's HBM) sits well above the 1M curve at {"N = 8"} and above the 8M curve at {"N = 128"} — exactly the breakeven point for fitting a single attention layer's activation footprint at each context length. Without ring attention, 8M context would require {"\\approx 376"} GB per device just for one layer's {"Q, K, V"}; with {"N = 128"}, it drops to a comfortable {"3"} GB per device.
-      </Prose>
-
-      <H3>6.3 Compute / communication overlap timeline</H3>
-
-      <Prose>
-        With perfect overlap, each ring iteration's compute hides the next iteration's communication. The plot below shows two scenarios for {"L = 1\\text{M}, N = 32"}: a compute-bound case (chunk = 31k, compute per iteration {"\\gg"} comm) and a communication-bound case ({"L = 128\\text{k}, N = 128"}, chunk = 1000) where the rotation is the bottleneck.
-      </Prose>
-
-      <Plot
-        label="Per-iteration timing (ms) — compute vs comm — L=1M N=32 across iterations"
-        xLabel="ring iteration"
-        yLabel="ms per iter"
-        series={[
-          {
-            name: "compute",
-            color: colors.gold,
-            points: [[0, 45.7], [1, 45.7], [2, 45.7], [3, 45.7], [4, 45.7], [5, 45.7], [6, 45.7], [7, 45.7]],
-          },
-          {
-            name: "comm (overlapped)",
-            color: colors.green,
-            points: [[0, 2.28], [1, 2.28], [2, 2.28], [3, 2.28], [4, 2.28], [5, 2.28], [6, 2.28], [7, 2.28]],
-          },
-        ]}
-      />
-
-      <Prose>
-        Each iteration's communication ({"2.28"} ms) fits entirely under that iteration's compute ({"45.7"} ms), so wall-clock per layer is just {"N \\times 45.7 = 1463"} ms with effectively zero communication tax. Lift {"N"} too high and chunk size shrinks until communication exceeds compute, at which point the ring goes communication-bound and adds a per-iteration tax equal to {"t_{comm} - t_{compute}"}.
-      </Prose>
-
-      <H3>6.4 Causal-mask work distribution: contiguous vs striped</H3>
-
-      <Prose>
-        Each cell shows the work (number of {"(q, k)"} pairs not masked out) for device row in iteration column, for {"L = 16, N = 4"}. Row-sums on the right are total work per device. Brighter = more work.
-      </Prose>
-
-      <Heatmap
-        label="Contiguous causal ring — work[device][iter]"
-        rowLabels={["GPU0", "GPU1", "GPU2", "GPU3"]}
-        colLabels={["it 0", "it 1", "it 2", "it 3"]}
-        matrix={[
-          [10, 0, 0, 0],
-          [10, 16, 0, 0],
-          [10, 16, 16, 0],
-          [10, 16, 16, 16],
-        ]}
-        colorScale="warm"
-      />
-
-      <Heatmap
-        label="Striped causal ring — work[device][iter]"
-        rowLabels={["GPU0", "GPU1", "GPU2", "GPU3"]}
-        colLabels={["it 0", "it 1", "it 2", "it 3"]}
-        matrix={[
-          [10, 6, 6, 6],
-          [10, 10, 6, 6],
-          [10, 10, 10, 6],
-          [10, 10, 10, 10],
-        ]}
-        colorScale="green"
-      />
-
-      <Prose>
-        Contiguous: the bottom-right triangle is full ({"16"} cells per block); the top-right is empty. GPU0 finishes in iteration 0 and idles for the next three; GPU3 works every iteration. Striped: every device works every iteration, with at most 4 cells of difference between busiest and idlest. The work ratio drops from {"5.8\\times"} (contiguous) to {"1.43\\times"} (striped). For larger {"N"}, the contiguous ratio scales as {"N"} while the striped ratio stays close to {"\\sqrt{N}"}.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        The right parallelism for attention depends primarily on context length and secondarily on model size and cluster topology. The following matrix maps the regimes we have seen in production.
-      </Prose>
-
-      <Heatmap
-        label="Recommended attention parallelism by context length"
-        rowLabels={["8k–32k", "32k–128k", "128k–1M", "1M+"]}
-        colLabels={["FlashAttn only", "Tensor par.", "Ulysses", "Ring attn", "Striped ring"]}
-        matrix={[
-          [3, 1, 0, 0, 0],
-          [2, 3, 2, 1, 1],
-          [0, 1, 3, 3, 3],
-          [0, 0, 1, 3, 3],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        <strong>8k–32k context.</strong> Standard FlashAttention on a single GPU is sufficient. Tensor parallelism is used to split the model across GPUs, but attention itself does not need sequence sharding — the activations fit. Sequence parallelism here is unnecessary engineering complexity. Llama-3 8B and Mistral-7B at default context fall in this regime.
-      </Prose>
-
-      <Prose>
-        <strong>32k–128k context.</strong> Tensor parallelism alone can usually handle this if the TP size is large enough to fit the activation footprint per device. Sequence parallelism (Megatron-style {"--cp-size"}) becomes attractive when TP is already at the all-reduce bandwidth ceiling and you need another sharding axis. DeepSpeed Ulysses is a good fit here: the all-to-all collective is bandwidth-efficient on NVLink and the per-device sequence still fits during the head-sharded attention.
-      </Prose>
-
-      <Prose>
-        <strong>128k–1M context.</strong> Single-device memory is exhausted. You need either ring attention or Ulysses, and at the upper end of this range Ulysses runs out of memory inside its head-sharded attention block (because each device has the full sequence, even if only some heads). Ring attention is the cleanest fit. Llama-3.1 405B at 128k uses {"CP = 16"} ring attention. Long-context fine-tunes of Llama, Yi, and Qwen at 200k–1M context all use {"ring-flash-attention"}-style ring kernels.
-      </Prose>
-
-      <Prose>
-        <strong>1M+ context.</strong> Ring attention is the only option. Ulysses cannot fit a million-token sequence on any single device. Striped attention is essential if the model is causal (i.e., a decoder). Communication starts to dominate as {"N"} grows, so cluster topology — NVLink for intra-node, InfiniBand for inter-node — becomes a first-order concern. Gemini's 1M+ context and the research demos at 10M sit here.
-      </Prose>
-
-      <Prose>
-        <strong>Many short sequences.</strong> If the workload is many short sequences (e.g., a typical chat-completion server with 4k-token requests), data parallelism alone is the right answer and ring attention adds only complexity. The decision is per-workload, not per-model.
-      </Prose>
-
-      <Callout accent="gold">
-        Pick parallelism by the binding constraint. Memory-bound at long context: ring attention. Compute-bound at moderate context with high TP: Ulysses or context parallelism for activation savings. Data-parallel-only for short contexts. Frontier models combine all four (DP + TP + PP + CP).
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Context length scales linearly with ring size</H3>
-
-      <Prose>
-        Per-device activation memory is {"O(L/N)"}. Doubling {"N"} doubles the maximum {"L"} the system can handle, until communication or compute becomes the bottleneck. In practice, ring attention has been demonstrated at {"N = 32"} ({"L \\approx 1\\text{M}"}, the Llama-3.1 long-context training) and {"N = 128"} or higher in research settings (Liu et al.'s near-infinite-context experiments). The theoretical ceiling is the cluster size; the practical ceiling is set by NVLink and InfiniBand bandwidth ratios.
-      </Prose>
-
-      <H3>8.2 Communication scales as ring rotations</H3>
-
-      <Prose>
-        Total bytes per device per attention layer is {"\\approx 2 L d_{head} H"} (each device sends and receives one full {"K, V"} chunk per ring iteration, {"N - 1"} times — and the chunk shrinks as {"N"} grows, but the total stays the same). This is independent of {"N"}. So bandwidth requirements are constant, but the latency-bandwidth ratio favours larger chunks: at small chunks the per-rotation latency overhead becomes a non-trivial fraction of the rotation time, and ring goes communication-bound.
-      </Prose>
-
-      <H3>8.3 Combining with tensor parallelism</H3>
-
-      <Prose>
-        Ring attention shards the sequence dimension; tensor parallelism shards the hidden dimension within attention and MLP. The two are orthogonal and can be composed: a 2D mesh of size {"(CP, TP)"} runs {"CP"}-way ring attention with each ring rank further internally split across {"TP"} ranks for hidden sharding. This is what Llama-3.1 405B does: {"(CP=16, TP=8)"} forms a 128-GPU 2D mesh per data-parallel replica, with pipeline parallelism on top to span layers across multiple meshes.
-      </Prose>
-
-      <H3>8.4 Striped attention reduces straggler effects</H3>
-
-      <Prose>
-        Plain ring attention under causal mask wastes up to {"(N-1)/N"} of the lighter-loaded devices' time waiting for the heaviest. Striped attention drops the work ratio from {"N\\times"} to {"\\approx \\sqrt{N}\\times"}. For Llama-3.1 at {"N = 16"}, striping reduces the worst-case stragglers from {"15\\times"} to {"\\sim 4\\times"}, recovering most of the GPU-time that vanilla ring would have left on the table. Brandon et al.'s paper reports {"1.45\\times"} end-to-end speedup over non-striped ring attention on a causal decoder.
-      </Prose>
-
-      <H3>8.5 4D parallelism for frontier scale</H3>
-
-      <Prose>
-        Llama-3.1 405B's training mesh is {"(\\text{DP}, \\text{TP}, \\text{PP}, \\text{CP}) = (4, 8, 16, 16)"} for the 128k phase, with {"4 \\cdot 8 \\cdot 16 \\cdot 16 = 8192"} GPUs per training instance (later rolled into multi-instance gradient sync via DP). Each axis serves a different memory or compute purpose:
-      </Prose>
-
-      <Callout accent="purple">
-        DP shards the optimizer state (ZeRO-style) across replicas. TP shards activations along the hidden dim. PP shards layers across stages. CP (ring) shards activations along the sequence dim. The four together let frontier models train at sequence lengths that no single axis could support alone.
-      </Callout>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Wrong online-softmax accumulation</H3>
-
-      <Prose>
-        The most common implementation bug: forgetting to renormalise the previous accumulator when a new block introduces a larger max. The naive implementation
-      </Prose>
-
-      <CodeBlock language="python">
-{`# WRONG — does not renormalise old accumulator
-l[i] = l[i] + torch.exp(S - m_new).sum(dim=-1, keepdim=True)
-O[i] = O[i] + torch.exp(S - m_new) @ held_V[i]`}
-      </CodeBlock>
-
-      <Prose>
-        produces silently wrong outputs that look reasonable on small test cases but diverge from reference attention on real distributions. The correct update multiplies the previous {"\\ell"} and {"O"} by {"\\exp(m^{(j-1)} - m^{(j)})"} — the renormalisation factor that downscales the old accumulator when a larger max is introduced. The correct form,
-      </Prose>
-
-      <CodeBlock language="python">
-{`alpha = torch.exp(m[i] - m_new)
-l[i] = alpha * l[i] + torch.exp(S - m_new).sum(dim=-1, keepdim=True)
-O[i] = alpha * O[i] + torch.exp(S - m_new) @ held_V[i]`}
-      </CodeBlock>
-
-      <Prose>
-        differs only in the {"alpha *"} on the {"l[i]"} and {"O[i]"} terms. The unit test for this bug is to feed the algorithm a sequence where one block contains very large logits ({"\\sim 10"}+) preceded by a block with small logits ({"\\sim 0"}); without renormalisation the small-logit block dominates because {"\\exp"} of small numbers does not get renormalised when a large max appears later.
-      </Prose>
-
-      <H3>9.2 Ring rotation not overlapping with compute</H3>
-
-      <Prose>
-        On NCCL, {"send/recv"} pairs must be issued with {"async\\_op=True"} on a separate CUDA stream from the compute kernel for overlap to actually happen. The synchronous form
-      </Prose>
-
-      <CodeBlock language="python">
-{`# WRONG — synchronous, no overlap
-torch.distributed.send(K_buf, dst=next_rank)
-torch.distributed.recv(K_buf, src=prev_rank)
-# ... then compute on the new K_buf`}
-      </CodeBlock>
-
-      <Prose>
-        serialises every rotation against the corresponding compute, doubling wall-clock at minimum. The correct pattern uses two buffers (double-buffering), launches the rotation for buffer B+1 while compute runs on buffer B, and synchronises only at the buffer swap. PyTorch's {"torch.distributed.batch\\_isend\\_irecv"} with {"async\\_op=True"} returns a handle whose {"wait()"} can be deferred to just before the next compute uses the buffer. {"ring-flash-attention"}'s reference implementation does exactly this; the Megatron-LM and DeepSpeed Ulysses implementations use {"torch.distributed.P2POp"} batches scheduled on a dedicated comm stream.
-      </Prose>
-
-      <H3>9.3 NCCL bandwidth bottleneck</H3>
-
-      <Prose>
-        NCCL's effective bandwidth on a ring topology depends heavily on whether the ring respects the underlying NVLink / PCIe topology. On an 8-GPU H100 NVLink node, NCCL constructs an optimal NVLink ring automatically; on multi-node setups, the ring crosses InfiniBand at {"\\sim 50"} GB/s — an order of magnitude slower than NVLink. If the ring rank order does not match the physical topology, NCCL may construct a ring that crosses InfiniBand multiple times unnecessarily, halving effective bandwidth. The fix is to set {"NCCL\\_TOPO\\_FILE"} or {"CUDA\\_VISIBLE\\_DEVICES"} so that ranks are arranged contiguously on each node, and to set {"CP\\_size"} as a divisor of intra-node GPU count when possible.
-      </Prose>
-
-      <H3>9.4 Wrong rank ordering in the ring</H3>
-
-      <Prose>
-        A subtle bug: if the ring rotation goes the wrong direction (each device reads from {"(rank + 1) \\bmod N"} instead of {"(rank - 1) \\bmod N"}), the math still produces a valid attention output — but the assignment of token positions to devices is reversed, which corrupts the relationship between {"Q"} and {"K"} positions. Models with positional encodings (RoPE, ALiBi) will have completely wrong relative-position offsets across devices and produce gibberish. The unit test: run the ring on a small example and verify token-by-token equality with single-shot attention; any bidirectional symmetry in the test data will hide the bug, so use asymmetric inputs (e.g., increasing position-dependent values).
-      </Prose>
-
-      <H3>9.5 Striping load imbalance</H3>
-
-      <Prose>
-        Striping is a permutation, but it interacts with the choice of position encoding: if RoPE rotates positions {"0, 1, 2, \\ldots"} contiguously and you stripe so that device 0 holds positions {"0, N, 2N, \\ldots"}, the RoPE rotation indices on device 0 are {"0, N, 2N, \\ldots"} — which is fine, but the ring rotation must still respect that device {"i"}'s held positions in iteration {"j"} are {"(i - j) \\bmod N + N \\cdot \\{0, 1, \\ldots, c - 1\\}"}, not the contiguous block. Implementations that assume contiguous chunking when computing RoPE produce wrong rotations after striping. {"ring-flash-attention"} handles this correctly; hand-rolled ring kernels often do not until tested against a striped baseline.
-      </Prose>
-
-      <H3>9.6 Causal mask within ring rotation</H3>
-
-      <Prose>
-        Within a single ring iteration, device {"i"}'s {"Q"} chunk processes against held {"K, V"} chunk {"k = (i - j) \\bmod N"}. The causal mask must be applied correctly: if {"k > i"}, the entire iteration is masked out (queries on device {"i"} cannot attend to later positions on device {"k"}); if {"k < i"}, no mask within the block; if {"k = i"}, a triangular within-chunk mask. A common bug is to apply the causal mask uniformly to every iteration (always triangular), which produces wrong scores for the {"k < i"} blocks. The correct conditional masking is: full block (no mask) for {"k < i"}, triangular for {"k = i"}, all-mask (skip) for {"k > i"}.
-      </Prose>
-
-      <H3>9.7 fp16 / bf16 accumulator drift</H3>
-
-      <Prose>
-        The online softmax {"\\ell"} accumulator grows as {"\\ell^{(j)} = \\alpha \\ell^{(j-1)} + \\sum P_j"}, accumulating {"N"} block contributions. In bf16, with {"7"}-bit mantissa, the accumulation drift is non-negligible at {"N > 32"} and pushes attention output error above the typical {"10^{-2}"} tolerance for downstream consistency. FlashAttention-2 keeps {"\\ell"} and {"m"} in fp32 even when {"Q, K, V"} are in bf16; ring attention implementations should do the same. The cost is small ({"2 c"} fp32 floats per device, vs {"6 c d_{head} H"} bf16 floats for {"Q, K, V"}) but skipping it produces silently degraded long-context training.
-      </Prose>
-
-      <Callout accent="red">
-        Always keep the online-softmax statistics in fp32, even when {"Q, K, V"} are bf16. The {"\\ell"} accumulator drift in bf16 is the single most common silent quality regression in homemade ring kernels.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        <strong>Liu, Zaharia, Abbeel (2023). "Ring Attention with Blockwise Transformers for Near-Infinite Context."</strong> arXiv:2310.01889; NeurIPS 2023. The foundational paper. Introduces the ring rotation of {"K, V"} blocks across devices, derives the online-softmax block combination, and demonstrates near-infinite context scaling on synthetic and real benchmarks. The paper's central thesis — that activation memory, not compute, is the binding constraint at long context — frames the entire long-context era. Section 3 contains the algorithm; Section 4 the memory and communication analysis.
-      </Prose>
-
-      <Prose>
-        <strong>Brandon, Nguyen, Zhang (2023). "Striped Attention: Faster Ring Attention for Causal Transformers."</strong> arXiv:2311.09431. Identifies the causal-mask straggler problem in vanilla ring attention and proposes striping (token interleaving) as the fix. Reports {"1.45\\times"} end-to-end speedup on causal decoders at {"N = 16"} compared to non-striped ring. The math in Section 3 proves that striping achieves uniform load distribution across ring iterations under causal mask.
-      </Prose>
-
-      <Prose>
-        <strong>Korthikanti, Casper, Lym, McAfee, Andersch, Shoeybi, Catanzaro (2023). "Reducing Activation Recomputation in Large Transformer Models."</strong> arXiv:2205.05198; MLSys 2023. NVIDIA's introduction of sequence parallelism in Megatron-LM. Distinct from ring attention: shards LayerNorm, Dropout, and the residual path along the sequence dimension while tensor parallelism handles attention and MLP internals. Combined with ring attention, this is the {"--sequence-parallel"} flag in Megatron alongside {"--context-parallel"}.
-      </Prose>
-
-      <Prose>
-        <strong>Jacobs, Tanaka, Zhang, Zhang, Song, Rajbhandari, He (2023). "DeepSpeed Ulysses: System Optimizations for Enabling Training of Extreme Long Sequence Transformer Models."</strong> arXiv:2309.14509. The all-to-all-based alternative to ring attention. Sections 3 and 4 show how a pair of all-to-all collectives swaps between sequence-sharded and head-sharded layouts so that attention can run on a per-head subset with the full sequence on each device. Faster than ring attention for short-to-medium contexts where the full sequence fits per device; cannot scale beyond single-device memory.
-      </Prose>
-
-      <Prose>
-        <strong>Dao, Fu, Ermon, Rudra, Ré (2022). "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness."</strong> arXiv:2205.14135; NeurIPS 2022. The single-device tile-level math that ring attention extends across devices. Section 3.1's online-softmax algorithm is exactly the per-device update rule used in ring's outer loop. Reading this paper before Liu et al. makes the ring-as-distributed-FlashAttention framing immediate.
-      </Prose>
-
-      <Prose>
-        <strong>Llama Team (2024). "The Llama 3 Herd of Models."</strong> arXiv:2407.21783. Meta's technical report on Llama-3 family. Section 3.4 ("Long Context Pre-Training") describes the 128k context-parallel training with {"CP = 16"}, the gradient checkpointing strategy, and the curriculum from 8k to 128k. Section 3.3.3 documents the 4D parallelism mesh used for the 405B run. The most detailed published account of ring attention in a frontier production training pipeline.
-      </Prose>
-
-      <Prose>
-        <strong>Milakov, Gimelshein (2018). "Online normalizer calculation for softmax."</strong> arXiv:1805.02867. The pre-FlashAttention paper that introduced the online-softmax algorithm in a numerical-methods context. The two-pass-becomes-one-pass derivation is short and lucid; reading it makes the renormalisation factor {"\\alpha = \\exp(m^{(j-1)} - m^{(j)})"} obvious.
-      </Prose>
-
-      <Prose>
-        <strong>Open implementations.</strong> {"zhuzilin/ring-flash-attention"} on GitHub for the production Python wrapper around FlashAttention-2 with ring rotation; {"deepspeed.sequence.SequenceParallel"} in the DeepSpeed repo for Ulysses; {"NVIDIA/Megatron-LM"} for context-parallel + sequence-parallel + tensor-parallel + pipeline-parallel composition; {"pytorch/torchtitan"} for the PyTorch DTensor reference recipe used by Meta. Reading the source of any one of these clarifies the implementation choices the papers gloss over.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        <strong>1. Why does ring attention save memory but not compute?</strong> Ring attention partitions the sequence dimension across {"N"} devices, so each device holds only {"1/N"} of the {"Q, K, V"} activations — peak memory drops from {"O(L \\cdot d)"} to {"O(L \\cdot d / N)"}. Total compute is unchanged: each device still does {"L^2 d / N"} FLOPs across {"N"} iterations, summing to {"L^2 d"} across the cluster — exactly what single-GPU attention would do. The trade is memory for inter-device bandwidth, not compute.
-      </Prose>
-
-      <Prose>
-        <strong>2. What is the renormalisation factor in the online softmax, and why is it needed?</strong> The factor is {"\\alpha = \\exp(m^{(j-1)} - m^{(j)})"} where {"m^{(j)}"} is the running max after block {"j"}. It downscales the previous accumulator whenever a new block's logits introduce a larger max, so that all unnormalised exponentials in the running sum are expressed relative to the same {"m^{(j)}"}. Without it, the contributions of earlier blocks are over-weighted (they were computed with a smaller max, so their {"\\exp"} values are larger than they should be relative to later blocks). The factor is always in {"(0, 1]"} and ensures numerical stability and exactness up to floating-point round-off.
-      </Prose>
-
-      <Prose>
-        <strong>3. When should you use Ulysses instead of ring attention?</strong> Ulysses uses a pair of all-to-all collectives instead of ring rotations and is bandwidth-efficient on NVLink, but it requires the full sequence to fit on a single device during the head-sharded attention phase. Use Ulysses when context fits per device and you want lower latency than ring (typically 32k–256k on H100, depending on model size). Use ring when context exceeds single-device memory (typically {"\\gtrsim"} 256k for large models). Above 1M, ring is the only option.
-      </Prose>
-
-      <Prose>
-        <strong>4. Why does plain ring attention have a load-imbalance problem under causal mask, and how does striping fix it?</strong> Under contiguous chunking, device {"i"}'s queries can only attend to keys at positions {"\\le i \\cdot c"}, so device 0 does {"1/N"} of full work and device {"N - 1"} does full work — a ratio of {"N\\times"} between busiest and idlest. Striping interleaves: token {"t"} goes to device {"t \\bmod N"}. After striping, every device's positions sample uniformly across {"[0, L)"}, so the causal mask falls evenly on each ring iteration; the work ratio drops from {"N\\times"} to {"\\sqrt{N}\\times"} or better.
-      </Prose>
-
-      <Prose>
-        <strong>5. In the 4D parallelism used by Llama-3.1 405B at 128k context, what does each axis shard, and why are all four needed?</strong> DP (data parallel) shards optimizer state (ZeRO-style) across replicas — needed because optimizer state is roughly {"4\\times"} the parameter count for AdamW in fp32. TP (tensor parallel) shards activations along the hidden dimension within attention and MLP — needed because activation footprint per layer at 128k context exceeds single-device memory. PP (pipeline parallel) shards layers across stages — needed because the model has 126 layers, more than the per-stage device limit can hold along with TP and CP. CP (context parallel, ring attention) shards activations along the sequence dimension — needed because even with TP, the {"K, V"} cache and intermediates at 128k context exceed per-device memory. Removing any one axis causes the model to OOM at 128k context with the available GPU memory.
-      </Prose>
-
-    </div>
-  ),
-};
-
-export default ringAttentionContent;
+<Prose>{"The first two records alone give 18/3=6. The last two alone give 2/5=0.4. Averaging those block outputs gives 3.2, which is wrong. Their denominators are 3 and 5, not equal. Combining them with those weights gives (3·6+5·0.4)/8=2.5."}</Prose>
+
+<Prose>{"Large scores introduce another problem: computing exp(1000) overflows ordinary floating point. Subtracting the same maximum from every score preserves softmax, because the common exponential factor cancels between numerator and denominator."}</Prose>
+
+<Prose>{"We can apply that correction incrementally. For each query, retain just three quantities:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"m=\\max_{j\\text{ visited}}s_j,\\quad\n\\ell=\\sum_{j\\text{ visited}} e^{s_j-m},\\quad\nu=\\sum_{j\\text{ visited}}e^{s_j-m}v_j."}</MathBlock></div>
+
+<Prose>{"m is a scalar score, ℓ a scalar normalizer, and u a vector with the value width. The output is u/ℓ. These are summaries of all visited keys, not trainable model parameters."}</Prose>
+
+<Prose>{"When a new block has maximum b, set m′=max(m,b). Convert the old summary to the new exponential reference with α=exp(m−m′), then add the new contributions:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\ell'=\\alpha\\ell+\\sum_{j\\in\\text{new}}e^{s_j-m'},\\qquad\nu'=\\alpha u+\\sum_{j\\in\\text{new}}e^{s_j-m'}v_j."}</MathBlock></div>
+
+<Prose>{"The common scale matters for "}<strong>{"both"}</strong>{" accumulated quantities. It is not a correction for accidentally counting a token twice. The online-normalizer construction also admits associative merging of independently computed summaries. "}<a href={"https://arxiv.org/pdf/1805.02867"}>{"Milakov and Gimelshein, §3 and §3.1"}</a>{""}</Prose>
+
+<Prose>{"Here is our calculation in the stable representation:"}</Prose>
+
+<NeuralTable caption={"3. A block's answer is not enough"} headers={[<>{"State"}</>,<>{"m"}</>,<>{"ℓ"}</>,<>{"u"}</>,<>{"u/ℓ"}</>]} rows={[[<>{"After records 0–1"}</>,<>{"ln2"}</>,<>{"1.5"}</>,<>{"9"}</>,<>{"6"}</>],[<>{"Rescale old summary to ln4"}</>,<>{"ln4"}</>,<>{"0.75"}</>,<>{"4.5"}</>,<>{"6"}</>],[<>{"Add records 2–3"}</>,<>{"ln4"}</>,<>{"2"}</>,<>{"5"}</>,<>{"2.5"}</>]]} />
+
+<Prose>{"The rescaling line changes the representation without changing its average. The second block contributes 1.25 to ℓ and 0.5 to u. If we neglect rescaling, we obtain 9.5/2.75≈3.4545 instead."}</Prose>
+
+<RingWorkedMergeFigure/>
+
+<Prose>{"Initialize m=−∞, ℓ=0, u=0. The first valid block gets α=0. A completely masked block contributes nothing. If a query has no valid key in any block, softmax is undefined as a probability distribution: explicitly return the chosen zero-output convention and mark the row invalid, rather than turn 0/0 into a meaningful prediction. The reference program uses zero output and log-normalizer −∞ for that case."}</Prose>
+
+<RingSummaryLab/>
+
+<H2>{"4. Global meaning must survive local storage"}</H2>
+
+<Prose>{"A causal language model lets query position q attend only to keys k≤q. In distributed storage, a record's local array index is not its position in the document."}</Prose>
+
+<Prose>{"Device 2's first query may be global position 4. When keys 0–1 arrive, both are allowed. Applying a fresh lower-triangular mask to the local 2×2 block would incorrectly forbid key 1 for that query. Instead evaluate the global condition on each pair."}</Prose>
+
+<Prose>{"This distinction becomes even more important when records are deliberately interleaved to balance work. A useful record has at least a payload and its logical identity:"}</Prose>
+
+<Prose>{""}<code>{"(document_id, global_position_within_document, key_vector, value_vector)"}</code>{""}</Prose>
+
+<Prose>{"With packed documents, the allowed condition becomes "}<code>{"same_document AND key_position <= query_position"}</code>{". Padding adds another valid-record condition. Without document membership, the beginning of one document can attend into an unrelated previous document even when every numeric position comparison succeeds."}</Prose>
+
+<Prose>{"Position encodings must use the same identities. With a two-dimensional rotary pair, unrotated vectors (1,0), angular frequency 1, query position 5 and key position 1, the unscaled rotated dot product is cos4≈−0.6536. Resetting those positions to local indices 0 and 1 changes it to cos1≈0.5403. Moving already correctly rotated Q/K records is safe; computing rotations from wrong indices changes the model. Review "}<a href={"/learn/path/full-curriculum/positional-encodings-sinusoidal-learned-rope-alibi?module=deep-learning-fundamentals"}>{"Positional Encodings"}</a>{" for why the relative phase appears."}</Prose>
+
+<Prose>{"Training targets have an analogous boundary. Suppose input tokens are [10,11,12,13,14,15] and the task predicts the next token. The targets are [11,12,13,14,15,ignore]. Splitting first and shifting each half independently produces [11,12,ignore,14,15,ignore], silently losing the target across the partition boundary. Construct logical next-token targets before sharding, with document boundaries respected, or explicitly exchange boundary information."}</Prose>
+
+<Prose>{"Finally, averaging local mean losses is wrong when ranks contribute different valid-token counts. If one rank has three valid tokens with mean loss 2 and another has one with mean loss 6, the global mean is (3·2+1·6)/4=3, not 4. Gradient normalization and the framework's sum/average collectives must implement that same global objective. The official DeepSpeed integration explains target shifting and valid-token-weighted loss aggregation. "}<a href={"https://www.deepspeed.ai/tutorials/ulysses-alst-sequence-parallelism/"}>{"DeepSpeed Ulysses integration, “Nuances” and “Loss averaging”"}</a>{""}</Prose>
+
+<RingIdentityInsets/><RingRotaryFigure/><RingIdentityLab/>
+
+<H2>{"5. Equal token counts can hide unequal work"}</H2>
+
+<Prose>{"Consider causal attention over positions 0–15, split four ways. Query 0 has one allowed key; query 15 has sixteen. Four consecutive queries near the end therefore cost more than four near the beginning."}</Prose>
+
+<Prose>{"With c=L/P positions per device, zero-based contiguous rank i has"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"W_i=ic^2+\\frac{c(c+1)}2"}</MathBlock></div>
+
+<Prose>{"allowed query–key pairs. The first term counts all previous chunks; the second counts the local triangle. For c=4, totals are [10,26,42,58]. The busiest device has 5.8 times the first device's useful pair work."}</Prose>
+
+<Prose>{"The individual block counts make the imbalance visible:"}</Prose>
+
+<NeuralTable caption={"5. Equal token counts can hide unequal work"} headers={[<>{"Query owner \\ KV owner"}</>,<>{"0"}</>,<>{"1"}</>,<>{"2"}</>,<>{"3"}</>,<>{"Total"}</>]} rows={[[<>{"0"}</>,<>{"10"}</>,<>{"0"}</>,<>{"0"}</>,<>{"0"}</>,<>{"10"}</>],[<>{"1"}</>,<>{"16"}</>,<>{"10"}</>,<>{"0"}</>,<>{"0"}</>,<>{"26"}</>],[<>{"2"}</>,<>{"16"}</>,<>{"16"}</>,<>{"10"}</>,<>{"0"}</>,<>{"42"}</>],[<>{"3"}</>,<>{"16"}</>,<>{"16"}</>,<>{"16"}</>,<>{"10"}</>,<>{"58"}</>]]} />
+
+<Prose>{"A block whose every pair is masked can be skipped. A mixed block may still execute entire matrix tiles, so useful pairs are not automatically executed FLOPs."}</Prose>
+
+<Prose>{""}<strong>{"Striping"}</strong>{" assigns rank i positions i, i+P, i+2P, and so on. For our example, rank 0 receives [0,4,8,12], rank 1 [1,5,9,13], and so forth. Each owner now has early and late queries. Its useful work is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"W_i=c(i+1)+\\frac{Pc(c-1)}2."}</MathBlock></div>
+
+<Prose>{"The totals become [28,32,36,40]. Each pair of owner blocks contains either c(c+1)/2 or c(c−1)/2 valid cells, depending on their rank relationship. The input sequence has not been semantically reordered; its records have different storage owners. The Striped Attention paper connects this arrangement to per-round work balance and explicitly discusses tile-granularity limits. "}<a href={"https://arxiv.org/html/2311.09431v1"}>{"Brandon et al., especially §2.2–§4"}</a>{""}</Prose>
+
+<Prose>{"A "}<strong>{"zigzag"}</strong>{" arrangement divides the sequence into 2P consecutive pieces and pairs an early piece with its mirrored late piece. Here the four owners receive [0,1,14,15], [2,3,12,13], [4,5,10,11], and [6,7,8,9]. All four have 34 useful pairs. The paired-chunk approach appears in PyTorch's context-parallel implementation discussion. "}<a href={"https://discuss.pytorch.org/t/distributed-w-torchtitan-breaking-barriers-training-long-context-llms-with-1m-sequence-length-in-pytorch-using-context-parallel/215082"}>{"PyTorch authors, “Tensor Sharding”"}</a>{""}</Prose>
+
+<Prose>{"Does exact pair balance guarantee the best kernel? No. In our deliberately simple cost calculation, sum the maximum work of any rank in each synchronized round. The resulting critical work is:"}</Prose>
+
+<NeuralTable caption={"5. Equal token counts can hide unequal work"} headers={[<>{"Layout"}</>,<>{"One-cell tiles"}</>,<>{"2×2 tiles"}</>,<>{"4×4 tiles"}</>]} rows={[[<>{"Contiguous"}</>,<>{"58"}</>,<>{"60"}</>,<>{"64"}</>],[<>{"Striped"}</>,<>{"40"}</>,<>{"48"}</>,<>{"64"}</>],[<>{"Zigzag"}</>,<>{"34"}</>,<>{"36"}</>,<>{"64"}</>]]} />
+
+<Prose>{"We count a whole tile whenever any cell is valid, with no special triangular kernel optimization. At 4×4 granularity, all layouts have the same critical executed-cell count. These numbers are exact for this defined toy scheduler. They are not GPU timings, and a production kernel's treatment of diagonal tiles may differ."}</Prose>
+
+<RingWorkLab/>
+
+<H2>{"6. Communication can overlap computation, but it takes time"}</H2>
+
+<Prose>{"A device can multiply its queries by the current KV block while the next block is in transit. It must not read the receive buffer before the transfer completes or overwrite the send buffer while transport still needs it."}</Prose>
+
+<Prose>{"This requires buffer ownership and dependencies, not merely an asynchronous function name. A useful timeline has a compute lane and a communication lane. The next compute block depends on both the current compute finishing and the incoming data becoming ready. An overly early wait serializes work; a missing wait can produce races."}</Prose>
+
+<Prose>{"For an explanatory model, let each rank own c positions, batch size be one, and count only the QKᵀ and AV matrix products. A dense block requires approximately"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"F_{\\text{block}}=4c^2H_qd"}</MathBlock></div>
+
+<Prose>{"floating-point operations when one multiply and one add count separately. Softmax, projections, normalization, mask construction and other layer work are excluded. A key/value transfer sends"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"S_{\\text{KV}}=2cH_{kv}d\\,s"}</MathBlock></div>
+
+<Prose>{"bytes, where s is bytes per stored element. K and V account for the leading 2. Sending and receiving the same-size payload are distinct network directions; do not add both and then divide by an already aggregate bandwidth without defining that bandwidth."}</Prose>
+
+<Prose>{"Suppose effective compute throughput is F, effective one-direction link bandwidth is R and message latency is a. Then C=Fblock/F and D=a+SKV/R approximate one round's compute and transfer times. Under ideal independent overlap,"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"T_{\\text{serial}}=PC+(P-1)D,\\qquad\nT_{\\text{overlap}}=C+(P-1)\\max(C,D)."}</MathBlock></div>
+
+<Prose>{"The final compute still has to finish. With C≥D this model hides transfer time; with C<D it exposes network waits. Contention, launch overhead, synchronization, nonuniform causal work and resource interference can all make the measured time worse."}</Prose>
+
+<Prose>{"Here are "}<strong>{"calculated hypothetical values"}</strong>{", not specifications or measurements for any GPU: P=4, Hq=8, Hkv=2, d=64, s=2 bytes, F=100×10¹² FLOP/s, R=50×10⁹ bytes/s and a=2 microseconds."}</Prose>
+
+<NeuralTable caption={"6. Communication can overlap computation, but it takes time"} headers={[<>{"Positions per rank c"}</>,<>{"Compute C, µs"}</>,<>{"Transfer D, µs"}</>,<>{"Serial total, µs"}</>,<>{"Ideal overlap total, µs"}</>]} rows={[[<>{"128"}</>,<>{"0.336"}</>,<>{"3.311"}</>,<>{"11.274"}</>,<>{"10.268"}</>],[<>{"1024"}</>,<>{"21.475"}</>,<>{"12.486"}</>,<>{"123.357"}</>,<>{"85.899"}</>],[<>{"4096"}</>,<>{"343.597"}</>,<>{"43.943"}</>,<>{"1506.219"}</>,<>{"1374.390"}</>]]} />
+
+<Prose>{"The rows have different "}<strong>{"global sequence lengths"}</strong>{". They show increasing arithmetic intensity, not a claim that a larger input runs faster. Compute grows quadratically in c while transfer payload grows linearly; small shards can leave too little computation to cover communication."}</Prose>
+
+<Prose>{"Memory accounting needs equally explicit boundaries. For c=1024 in this example, Q is 1,048,576 bytes, one KV block is 524,288 bytes and a next-block receive buffer adds another 524,288. A float32 accumulated numerator is 2,097,152 bytes; two float32 row statistics add 65,536. If output is distinct it adds 1,048,576. An illustrative 128×128 float32 score tile for each of eight heads adds 524,288. These listed allocations total 5,832,704 bytes."}</Prose>
+
+<Prose>{"That is a "}<strong>{"forward allocation model"}</strong>{". Aliasing or kernel fusion can change it; backward may retain owned K/V separately and requires gradients and saved/recomputed activations. The CPU reference stores entire arrays and whole local score blocks, so it does not achieve this modeled device footprint. Neither calculation is measured peak GPU memory."}</Prose>
+
+<RingCostLab/>
+
+<H2>{"7. What scales when we add devices?"}</H2>
+
+<Prose>{"There are several different questions hidden inside “does it scale?”"}</Prose>
+
+<Prose>{"With "}<strong>{"fixed global L"}</strong>{", adding ranks gives each rank fewer queries. Dense attention matrix-product work per rank is about 4BL²Hq d/P. This is strong scaling. Eventually messages, synchronization and too-small kernels limit speedup. In our hypothetical model with L=4096, moving from P=4 to P=16 does not give a fourfold speedup: ideal overlap time moves from about 85.90 to 70.66 microseconds because the shards become communication-bound."}</Prose>
+
+<Prose>{"With "}<strong>{"fixed local c"}</strong>{" and L=Pc, activation capacity can grow with P. However, each query must now visit P KV blocks. Per-rank attention work grows with P; aggregate work grows with P². This weak-scaling setup does not keep step duration constant."}</Prose>
+
+<Prose>{"For a "}<strong>{"fixed dataset token budget"}</strong>{", doubling context length means processing half as many sequences. Attention work per sequence grows fourfold, so the attention portion of total dataset work doubles. Positionwise projection/MLP work per token is approximately unchanged. State which quantity is held fixed before interpreting a scaling curve."}</Prose>
+
+<Prose>{"The distinction also prevents a learning mistake: fitting a million-token sequence in memory does not demonstrate that a model learned useful million-token dependencies. Position-encoding behavior, training lengths, data quality, optimization and task evaluation remain necessary. A retrieval test measures a particular ability, not end-to-end comprehension of every long document."}</Prose>
+
+<H2>{"8. Ulysses and the overloaded term “sequence parallelism”"}</H2>
+
+<Prose>{"Ring circulation is one way to distribute attention. "}<strong>{"Ulysses"}</strong>{" instead changes which tensor dimension is sharded around attention."}</Prose>
+
+<Prose>{"Start with L/P positions and all H heads per rank. An all-to-all operation routes head slices so each rank obtains all L positions for H/P heads. It computes attention on those heads, then another all-to-all restores the sequence partition. With L=8, H=4 and P=2:"}</Prose>
+
+<NeuralTable caption={"8. Ulysses and the overloaded term “sequence parallelism”"} headers={[<>{"Stage"}</>,<>{"Rank 0"}</>,<>{"Rank 1"}</>,<>{"Elements per rank, per channel"}</>]} rows={[[<>{"Before resharding"}</>,<>{"Tokens 0–3, heads 0–3"}</>,<>{"Tokens 4–7, heads 0–3"}</>,<>{"16"}</>],[<>{"During attention"}</>,<>{"Tokens 0–7, heads 0–1"}</>,<>{"Tokens 0–7, heads 2–3"}</>,<>{"16"}</>],[<>{"After resharding"}</>,<>{"Tokens 0–3, heads 0–3"}</>,<>{"Tokens 4–7, heads 0–3"}</>,<>{"16"}</>]]} />
+
+<Prose>{"Holding the whole sequence for "}<strong>{"fewer heads"}</strong>{" does not restore the original unsharded all-head payload. This is why Ulysses is not limited to the unchanged single-device context capacity. It can also use efficient local attention kernels. "}<a href={"https://arxiv.org/html/2309.14509v2"}>{"DeepSpeed-Ulysses, §3 and §4.1"}</a>{""}</Prose>
+
+<Prose>{"For equal MHA heads and ideal even partitioning, the before/after per-rank payload for one tensor is BLHd/P elements. Each rank sends a fraction (P−1)/P of that to others in one reshard. Q, K, V and O together therefore send 4BLHd·s·(P−1)/P² bytes per rank for these two forward reshard stages. This arithmetic counts application-level nonlocal bytes, not physical network hops, switch contention or a collective's actual schedule."}</Prose>
+
+<Prose>{"For our Ring schedule, forward sends per rank total 2(P−1)B(L/P)Hkv d·s bytes. Comparing these expressions helps identify a tradeoff, but it is not a universal speed ranking. Ring may fit a topology or head arrangement better; all-to-all may move less data but demand a different network pattern. Hybrid approaches can use multiple mesh dimensions."}</Prose>
+
+<Prose>{"Head partitioning has practical constraints. H must be divisible by P for the simple equal Ulysses transformation above. GQA complicates matters: with Hq=8, Hkv=2 and P=4, four disjoint owners cannot each receive a nonempty separate KV-head subset. A capable implementation may replicate or specially route KV heads, use a hybrid partition, or limit that mesh dimension. “Impossible for every implementation” is too strong; “unchanged MHA resharding always works” is also wrong."}</Prose>
+
+<Prose>{"Terminology depends on the framework. In Megatron, earlier "}<strong>{"sequence parallelism"}</strong>{" divides certain activations, such as normalization/dropout regions, in conjunction with tensor parallelism. "}<strong>{"Context parallelism"}</strong>{" extends partitioning across the sequence through the network, with additional attention communication. Inspect the implementation rather than assuming every "}<code>{"sequence_parallel"}</code>{" option means a KV ring. "}<a href={"https://docs.nvidia.com/megatron-core/developer-guide/latest/user-guide/features/context_parallel.html"}>{"Megatron Core context parallelism overview"}</a>{""}</Prose>
+
+<Prose>{"Other mesh dimensions answer different ownership questions:"}</Prose>
+
+<NeuralTable caption={"8. Ulysses and the overloaded term “sequence parallelism”"} headers={[<>{"Strategy"}</>,<>{"What is divided?"}</>,<>{"What must still be coordinated?"}</>]} rows={[[<>{"Ordinary data parallelism"}</>,<>{"Different examples among model replicas"}</>,<>{"Parameter gradients"}</>],[<>{"Tensor parallelism"}</>,<>{"Parts of a layer's operations/weights"}</>,<>{"Partial layer results"}</>],[<>{"Pipeline parallelism"}</>,<>{"Different depth stages"}</>,<>{"Activations and gradients between stages"}</>],[<>{"Context parallelism"}</>,<>{"Positions of the same sequence"}</>,<>{"Cross-position operations and shared-weight gradients"}</>],[<>{"Expert parallelism"}</>,<>{"Different experts"}</>,<>{"Routed tokens and expert results"}</>],[<>{"FSDP/ZeRO"}</>,<>{"Model-state storage across a chosen group"}</>,<>{"Parameter availability and gradient/optimizer ownership"}</>]]} />
+
+<Prose>{"A simple orthogonal DP2×TP2×PP2×CP2 mesh has 16 ranks. It does not mean sixteen independent examples. A CP group participates in the same sequence, and any replicated shared parameters require their contributions to be combined consistently. Real frameworks may overlap or combine groups for model-state sharding; that must be reflected in the actual communication plan."}</Prose>
+
+<RingUlyssesLab/>
+
+<H2>{"9. Training: gradients must get home"}</H2>
+
+<Prose>{"Correct forward values do not guarantee correct training. A key on rank 0 may affect queries owned by all four ranks. Its gradient must include every such contribution."}</Prose>
+
+<Prose>{"For a loss with incoming output gradient G=dLoss/dO, the attention derivatives are"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"dV=A^TG,\\qquad dA=GV^T,"}</MathBlock></div>
+
+<div className="neural-equation"><MathBlock>{"dS_{ij}=A_{ij}\\left(dA_{ij}-\\sum_k A_{ik}dA_{ik}\\right),\n\\qquad dQ=dSK/\\sqrt d,\\quad dK=dS^TQ/\\sqrt d."}</MathBlock></div>
+
+<Prose>{"The subtraction expresses competition within each query's softmax row: increasing one score shifts probability away from others. For the four-value example and scalar upstream gradient 1, dV is [1,2,4,1]/8 and dS is [−0.0625,1.375,−0.75,−0.5625]. The score derivatives sum to zero because adding a common score offset changes nothing."}</Prose>
+
+<RingScalarGradientFigure/>
+
+<Prose>{"We can reconstruct a tile of A from its scores and the saved row log-normalizer z=m+lnℓ:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"A_{ij}=e^{S_{ij}-z_i}"}</MathBlock></div>
+
+<Prose>{"for allowed entries. Also, the row subtraction term simplifies to the dot product G_i·O_i. Thus backward can recompute small probability tiles without retaining the full L×L probability matrix."}</Prose>
+
+<Prose>{"At a query owner, contributions accumulate into local dQ. For each visiting KV block, contributions to dK and dV must be reduced across all query owners and returned to the correct original owner. A central sum in our CPU program demonstrates the needed arithmetic; a distributed implementation must supply the transport and synchronization. Its backward communication count is not simply the forward P−1 transfers relabeled “backward.”"}</Prose>
+
+<Prose>{"Dropout adds state. If attention weights are randomly masked, recomputation must reproduce the same mask for the same global batch/head/query/key identities. Changing shard count must not silently change the intended comparison's randomness. A rank-local random stream without a mapping contract can break this. Our reference disables dropout; adding it requires both forward and derivative changes."}</Prose>
+
+<Prose>{"The author calculations compared blockwise gradients with direct dense derivatives, Torch automatic derivatives on valid-row cases, and selected finite differences. Maximum dense/autograd discrepancies were below 7×10⁻¹⁶ in float64; selected finite-difference errors were below 1.9×10⁻¹¹. An intentionally incomplete KV-gradient accumulation differed by about 0.865. These checks establish the small reference's arithmetic, not the correctness of an untested multi-device backend."}</Prose>
+
+<RingBackwardFigure/><RingGradientLab/>
+
+<H2>{"10. A real attention layer under a different execution plan"}</H2>
+
+<Prose>{"We reuse a frozen two-head classifier from "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention"}</a>{". Its input is a real Libras movement trajectory: 45 recorded two-dimensional hand-centroid positions. The task predicts one of 15 movement classes. It is a small educational classification task, not full sign-language translation. "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{""}</Prose>
+
+<Prose>{"The model maps each coordinate pair through a learned 2→24 projection and tanh, computes two attention heads of width 12, applies an output projection and residual connection, averages positions, then classifies with a 24→15 layer. All 2,751 parameters are retained. This particular model has bidirectional attention and no explicit position encoding; do not pretend it was trained as a causal language model."}</Prose>
+
+<RingModelFigure/>
+
+<Prose>{"Its earlier training used duplicate-aware sequence-level splitting: 330 distinct trajectories, 220 fitting, 50 validation and 60 assessment. Each of four attention/baseline variants used three declared seeds, and checkpoints were selected using validation macro-F1, then cross-entropy and earlier epoch. We reuse the predeclared seed-101 two-head model; we did not retrain or choose a model to flatter Ring Attention. The complete provenance records the existing fit rather than manufacturing a new training comparison."}</Prose>
+
+<Prose>{"Here the experimental question is: "}<strong>{"if the learned Q/K/V arrays are divided into 12,11,11,11 positions, does a four-owner calculation preserve output?"}</strong>{" The weights and input are held fixed. Both directions of circulation agree with dense attention to floating-point tolerance."}</Prose>
+
+<NeuralTable caption={"10. A real attention layer under a different execution plan"} headers={[<>{"Source trajectory"}</>,<>{"Actual class"}</>,<>{"Predicted class, both executions"}</>,<>{"Maximum attention-output difference"}</>]} rows={[[<>{"77"}</>,<>{"4"}</>,<>{"5"}</>,<>{"2.22×10⁻¹⁵"}</>],[<>{"20"}</>,<>{"1"}</>,<>{"2"}</>,<>{"1.78×10⁻¹⁵"}</>]]} />
+
+<Prose>{"Both classifications are wrong. That is useful evidence: correct systems execution preserves a model's mistakes too. The first trajectory's class-5 probability is about 0.8111; it is not evidence of calibrated confidence or correct recognition."}</Prose>
+
+<Prose>{"Next change trajectory 77's frame-23 x coordinate by +0.10 within [0,1]. The maximum class-probability change is about 0.00960; the attention values change as well. Recompute "}<strong>{"both"}</strong>{" dense and partitioned paths from the edited points and compare again. For a different task, edit trajectory 20's frame-10 x coordinate by −0.15; its maximum probability change is about 0.00394. Neither activity should automatically declare the original label valid after an arbitrary coordinate edit."}</Prose>
+
+<RingMovementLab/>
+
+<Prose>{"This CPU experiment makes no GPU throughput or memory claim. It tests two selected real trajectories and controlled edits, not every input a future implementation might receive."}</Prose>
+
+<H2>{"11. From a CPU reference to a distributed implementation"}</H2>
+
+<Prose>{"The complete program below needs NumPy. It simulates labeled ownership on one CPU, including uneven shards, causal masks and backward accumulation. Run it as "}<code>{"python ring-attention-reference.py"}</code>{"; the author used Python 3.12.14 and NumPy 2.3.5. Its printed forward difference is approximately 2.22×10⁻¹⁶. The separate "}<a href={"/learn-assets/ring-attention-sequence-parallelism/attention-partition-study.py"}>{"partition study"}</a>{" also needs Torch and the local data/model files; it creates the real-input and derivative evidence in "}<a href={"/learn-assets/ring-attention-sequence-parallelism/partition-results.json"}>{"partition-results.json"}</a>{". The "}<a href={"/learn-assets/ring-attention-sequence-parallelism/systems-calculations.py"}>{"systems calculation"}</a>{" computes the ownership and cost tables without GPU dependencies."}</Prose>
+
+<Prose>{"Read the loops as an ownership proof. "}<code>{"query_ids"}</code>{" stay fixed for an owner; "}<code>{"key_ids"}</code>{" change at every step. "}<code>{"allowed[np.ix_(query_ids,key_ids)]"}</code>{" preserves global mask meaning. The numerical guard handles empty rows, and the final assignment places output back at its logical positions."}</Prose>
+
+<Prose>{"The program intentionally allocates a dense reference and all shards in one process. To turn this into an efficient GPU operation, replace global-array access with actual owned buffers, use tiled/fused attention kernels, transport labeled KV shards, implement backward reduction, and check the result under the chosen dtype and backend."}</Prose>
+
+<RingProgram file="ring-attention-reference.py" title="Read the complete scratch reference: stable forward and recomputed backward"/><RingProgram file="attention-partition-study.py" title="Read the complete real-input and derivative study"/><RingProgram file="systems-calculations.py" title="Read the complete ownership, work and resource calculations"/>
+
+<Prose>{"For a real backend, begin with its maintained end-to-end example. The PyTorch context-parallel tutorial uses an "}<strong>{"experimental"}</strong>{" context that shards supplied buffers and replaces supported scaled-dot-product attention calls. Its example also restores logical output ordering for comparison. Declaring a "}<code>{"DTensor"}</code>{" shard alone does not automatically implement a correct KV ring. Position-dependent buffers must be included consistently. The author reviewed the 2.14 documentation; the GPU example was not executed here. "}<a href={"https://docs.pytorch.org/tutorials/unstable/context_parallel.html"}>{"PyTorch context-parallel tutorial"}</a>{""}</Prose>
+
+<Prose>{"If writing lower-level communication, PyTorch 2.14's "}<code>{"batch_isend_irecv"}</code>{" takes a list of "}<code>{"P2POp"}</code>{" records and returns request objects; it does not take an "}<code>{"async_op=True"}</code>{" parameter. Requests, stream dependencies and buffer lifetimes must be respected. Blocking “send to next, then receive from previous” on every rank can deadlock in a cycle. Separate the correctness of a communication schedule from its hoped-for overlap. The installed API documentation was inspected for this lesson. "}<a href={"https://docs.pytorch.org/docs/stable/distributed.html"}>{"PyTorch distributed documentation"}</a>{""}</Prose>
+
+<Prose>{"The independent ring-flash-attention project supplies several attention layouts and packed-sequence APIs, but its README also records numerical/buffer limitations and unsupported dropout/window settings. Read those restrictions and the actual version's tests before adoption; a method name does not prove that every mask, dtype or head configuration works. "}<a href={"https://github.com/zhuzilin/ring-flash-attention"}>{"Project README and tests"}</a>{""}</Prose>
+
+<H3>{"Move the buffers between real processes"}</H3>
+
+<Prose>{"The arithmetic reference above is deliberately single-process. "}<a href={"/learn-assets/ring-attention-sequence-parallelism/distributed_ring.py"}>{"distributed_ring.py"}</a>{" is the complete next implementation step: separate PyTorch processes keep local Q/K/V, send K/V to the next rank, receive from the previous rank, and return accumulated key/value gradients to their owners. It uses ordinary "}<code>{"torch.distributed"}</code>{" primitives; it does not import an opaque Ring Attention function. This small CPU/Gloo protocol is also the lowest useful abstraction for learning buffer ownership before a fused GPU backend."}</Prose>
+
+<Prose>{"Use a PyTorch 2.14.0 environment with Gloo support and run "}<code>{"torchrun --standalone --nproc-per-node=3 distributed_ring.py"}</code>{" on one machine. The example uses two heads, equal Q/K/V width three, a single causal sequence and no dropout; the sequence length is "}<code>{"2*world_size+1"}</code>{", making ownership uneven. Each rank knows shard lengths from "}<code>{"all_gather"}</code>{"; global starts determine the causal mask. Padded packets have a common shape for transport, but only the owner's valid rows enter the attention calculation. The complete program has now run in separate CPU/Gloo processes with one, two and three ranks, including a fresh eight-position/three-rank case. Forward outputs and each owner’s Q/K/V gradients matched native scaled-dot-product attention and automatic differentiation at the stated float64 tolerances. The Windows verification launcher supplied the standard rank/master environment with "}<code>{"USE_LIBUV=0"}</code>{"; each rank used one CPU thread. These are correctness checks, not timings."}</Prose>
+
+<Prose>{"Forward processing needs P block visits and P−1 transfers. Backward processing makes P visits "}<strong>{"and P transfers"}</strong>{": the packet contains K, V, dK and dV, and after a complete circuit its partial sums are back at the original owner. dQ stays with its query owner. This is the exact missing operation in a backward implementation that only passes forward parity. The externally supplied "}<code>{"upstream"}</code>{" is ∂L/∂O; a model layer would pass these Q/K/V derivatives through its projection weights using the already taught chain rule."}</Prose>
+
+<RingCodeBuffers/>
+
+<RingProgram file="distributed_ring.py" title="Read the complete ordinary PyTorch CPU/Gloo multi-process program"/>
+
+<Prose>{"The local score tile uses O(H c c_max) memory, with O(H c d) local queries/output and O(H c_max d) circulating packet storage. Per-rank full-sequence arithmetic remains O(H c L d); distributing storage does not make dense attention subquadratic. Backward recomputes score tiles instead of retaining all probabilities. The tiny validator separately creates full arrays and uses "}<code>{"scaled_dot_product_attention"}</code>{" plus autograd as an independent oracle; those deliberately small validation allocations are not part of the ring routines' storage bound. The retained native run verifies those forward and owner-specific gradient comparisons; it does not measure this storage model on a GPU."}</Prose>
+
+<Prose>{""}<code>{"rotate"}</code>{" submits paired send/receive requests together, waits for completion, and only then returns new storage. The immediate wait makes the schedule synchronous; calling an asynchronous API is not evidence of communication overlap. Gloo/CPU proves a different engineering claim from NCCL/CUDA streams, fused kernels or multi-node performance. Those remain specialized production extensions. The concrete transport API and request-lifetime contract are in "}<a href={"https://docs.pytorch.org/docs/2.14/distributed.html"}>{"PyTorch's distributed reference"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Take control."}</strong>{" Run one, two and three ranks. Then change the validation sequence length to eight at three ranks and retain the uneven-shard checks. Finally remove only the last backward rotation to see which owner receives whose partial sums. Repair the error before introducing any faster kernel."}</Prose>
+
+<details><summary>Hint and reasoned solution</summary>
+
+<Prose>{"One rank requires no actual transfer but still computes a complete local forward/backward. The shard counts and offsets must change with eight positions; no rank may attend to padded positions. With P−1 backward transfers the packet at a rank is not its original packet after a full circuit, and it is missing the final return even when every query contribution was added. Matching a global gradient sum is insufficient: compare each owner's dK/dV against its exact logical indices, using nonuniform upstream gradients as supplied. A valid extension to packed documents carries document identities and combines a same-document condition with the global causal comparison; using a local triangle alone fails. This change requires explicit metadata transport, not just a new drawing."}</Prose>
+
+</details>
+
+<H2>{"12. Long-input applications and one-token decoding"}</H2>
+
+<Prose>{"The same ownership problem appears outside a text document. A video clip may contribute a long sequence of patch tokens. A scientific instrument may produce a long sampled trajectory. A learning agent may consume multiple episodes represented by observations, actions and rewards. In each case, the design question is whether distant interactions are valuable enough to justify dense attention and its communication. These are application possibilities, not claims that every such workload should use Ring Attention."}</Prose>
+
+<Prose>{"Our hand-trajectory example is a small version of this input/output contract. Expanding to a long video adds data encoding, training and task-evaluation problems that distributing the attention layer cannot solve. A long-context retrieval result should not be silently renamed a general reasoning result."}</Prose>
+
+<Prose>{"Inference also contains two different phases. "}<strong>{"Prefill"}</strong>{" processes many query positions against the prompt, resembling the attention calculation we studied. "}<strong>{"Autoregressive decoding"}</strong>{" often adds one query per sequence at a time. With only one query, there may be little computation available to hide movement of a large KV cache."}</Prose>
+
+<Prose>{"One alternative is to keep KV shards stationary, distribute the new query, compute each shard's local summary (m,ℓ,u), and merge summaries. Choose global maximum m*, rescale each shard's denominator and numerator by exp(m−m*), sum them, and divide. This is the same stable-merge algebra with a different communication plan. The query and result are small relative to a long cache, though collective latency and batching still matter."}</Prose>
+
+<RingDecodeFigure/>
+
+<Prose>{"Paged cache allocation solves another problem—how cache blocks are stored and reused. It can coexist with distributed ownership. Neither paging nor Ring Attention by itself specifies scheduling, cache eviction, beam reordering or multi-request batching. Those belong to serving-system design."}</Prose>
+
+<Prose>{"The useful question is therefore “which information should move for this workload?” Full-prompt attention, a single new token and a training backward pass have different dependency graphs. Do not infer a proprietary model's architecture from its advertised context window or response latency."}</Prose>
+
+<H2>{"13. Diagnose a discrepancy before celebrating a speedup"}</H2>
+
+<NeuralTable caption={"13. Diagnose a discrepancy before celebrating a speedup"} headers={[<>{"Symptom"}</>,<>{"A targeted investigation"}</>,<>{"What the result would establish"}</>]} rows={[[<>{"Outputs disagree only after a shard boundary"}</>,<>{"Compare global positions, document mask and target alignment"}</>,<>{"Whether sharding changed the intended sequence"}</>],[<>{"Forward agrees, training diverges immediately"}</>,<>{"Compare dQ/dK/dV and shared-weight gradient normalization"}</>,<>{"Whether all loss contributions reach their owners"}</>],[<>{"NaNs at early causal queries"}</>,<>{"Inspect a fully masked incoming block and empty-row convention"}</>,<>{"Whether stable summary updates handle no contribution"}</>],[<>{"More ranks make execution slower"}</>,<>{"Separate C, message latency, transfer time and waits"}</>,<>{"Whether smaller shards expose communication"}</>],[<>{"Memory greatly exceeds an O(L/P) estimate"}</>,<>{"Inventory saved activations, logits, buffers and aliasing"}</>,<>{"Which actual allocations the asymptotic slogan omitted"}</>],[<>{"Different layout appears fast but changes quality"}</>,<>{"Compare identical weights/input/masks and logical ordering first"}</>,<>{"Whether it is still the same attention operation"}</>],[<>{"Correctness differs with dropout or resume"}</>,<>{"Inspect global random identities and saved recomputation state"}</>,<>{"Whether the same stochastic computation is being compared"}</>]]} />
+
+<Prose>{"For a meaningful real benchmark, fix model weights, input lengths/batch, attention semantics, dtype, backward setting and hardware topology. Include warmup and proper device synchronization, measure peak memory with defined allocator semantics, and report whether tokens/second means one long sequence or several shorter ones. Count end-to-end time as well as the attention kernel. Preserve failures and out-of-memory cases rather than plot guessed replacements. These requirements describe a separate performance experiment; the calculations here are not measured GPU benchmarks."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"14. Practice: repair the computation, not just the labels"}</H2>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Merge a new pair of blocks"}</H3>
+
+<Prose>{"Scores are [ln3,0,ln2,0] and values [4,−1,7,2]. The first two and last two entries arrive separately. Calculate the final output and explain why averaging the two local outputs is wrong."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use the unnormalized weights [3,1,2,1]. Keep numerator and denominator separately for each block."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The block numerators are 11 and 16; denominators are 4 and 3. Output is 27/7≈3.85714. Local outputs are 11/4 and 16/3; their equal average is not weighted by their probability masses. In the stable maximum-ln3 representation, ℓ=7/3 and u=9, giving the same answer. Reversing arrival or adding a common score constant changes neither exact result."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A valid shape, an invalid mask"}</H3>
+
+<Prose>{"A query's global position is 5. An incoming block contains keys at positions [0,3,6] from the same document. Which entries are allowed under causal attention? What if key 3 belongs to a different packed document?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The local query index is irrelevant. There are two logical conditions to check."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Positions 0 and 3 are allowed; 6 is future. With different document membership, key 3 is forbidden too. Apply same-document and k≤q to the labeled records. A local triangle over array indices can miss both distinctions. An all-masked block contributes zero; it should not reset summaries from earlier valid blocks."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Rebalance a smaller sequence"}</H3>
+
+<Prose>{"Take L=12 and P=3. Compare per-rank causal pair counts for contiguous chunks of four, striping, and paired early/late two-position pieces. What is invariant across the layouts?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Every global query q contributes q+1 allowed pairs. Sum these over each owner's actual positions."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Contiguous totals are [10,26,42]. Striped owners [0,3,6,9], [1,4,7,10], [2,5,8,11] yield [22,26,30]. Zigzag owners [0,1,10,11], [2,3,8,9], [4,5,6,7] each yield 26. All total 78=12·13/2, preserving the same allowed pairs. Only their ownership changes. Tile granularity and communication still determine executed time."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Diagnose an overlap claim"}</H3>
+
+<Prose>{"Four ranks each require C=4µs per block; each transfer takes D=7µs. Compute serial and ideal-overlap totals. A slide says “communication is free because the calls are asynchronous.” Repair it."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"There are four compute rounds and three required transfers. The next round must wait for the slower prerequisite."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Serial time is 16+21=37µs. Ideal overlap is 4+3·7=25µs, compared with compute-only 16µs. Overlap helps but exposes 9µs beyond compute-only. Asynchronous submission permits overlap; it neither removes dependencies nor guarantees sufficient bandwidth or compute duration."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Check the bytes before choosing a mesh"}</H3>
+
+<Prose>{"Use B=2, c=512, Hq=16, Hkv=4, d=64 and two-byte K/V elements. How many bytes does one KV transfer send per rank? For P=8, what is the forward total in our schedule? Would changing only Hq to 32 double these bytes?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Count both K and V, batch size, stored head count, width and bytes. Forward sends happen P−1 times."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"One transfer is 2·2·512·4·64·2=1,048,576 bytes. Seven sends total 7,340,032 bytes. Changing only query heads does not alter stored KV payload; it changes query/output storage and attention computation. A backend that materializes repeated KV copies would have a different implementation cost and should be identified explicitly."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Forward passes; gradients fail"}</H3>
+
+<Prose>{"A ring implementation produces correct outputs but accumulates dK only from queries on the key's original owner. Explain the missing dependency and propose a numerical test."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Write dK as a sum over query rows. A key can influence more than its owner's rows."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"dK=dSᵀQ/√d includes all allowed queries. Remote query owners must contribute to each key's gradient, and their contributions must be reduced back to its owner. Use small asymmetric Q/K/V, a nonuniform upstream gradient and a mask with cross-owner valid pairs. Compare dense and distributed gradients, then perturb one remote key coordinate and estimate the loss derivative by a central finite difference. A test where every mask is strictly owner-local would miss the bug."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Preserve the objective at a boundary"}</H3>
+
+<Prose>{"One rank has two valid prediction targets with mean loss 1; another has six with mean loss 3. What should the global mean be? Why does discarding one boundary target remain a bug even if both ranks' local code executes successfully?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Reconstruct the global loss sum and denominator. The objective is defined over logical tokens."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The correct mean is (2·1+6·3)/8=2.5. An equal average of local means gives 2. Losing a valid next-token target changes both the numerator and denominator of the training objective. Shift targets using logical sequence/document boundaries before partitioning, or exchange the needed boundary target. The gradient reduction must preserve the same weighted global mean."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Make a fresh real-input change"}</H3>
+
+<Prose>{"Use the retained trajectory 20 with the frozen model. Choose a different point or coordinate edit from the worked case, then predict separately: will model output change, and should dense versus ring disagreement grow materially? Repeat using only a different owner assignment."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Separate the function's input from its execution plan. Recompute Q/K/V after a point edit."}</Prose>
+
+</details>
+
+<details><summary>Solution and acceptance criteria</summary>
+
+<Prose>{"There is no fixed class answer for an arbitrary edit. Report the changed coordinates, model identity, before/after probabilities and maximum dense/ring difference. The input edit may change scores, values and classification; a small or null effect is valid evidence. Correct implementations should still agree within a justified floating-point tolerance. Ownership-only changes preserve the mathematical function, provided mask/position/record identities and output order remain correct. Explain any discrepancy instead of accepting a favorable class prediction as proof of systems correctness."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--next" data-lesson-ending="next" data-lesson-resource-list=""><H2>{"15. Continue learning"}</H2>
+
+<Prose>{"You are ready to move on when you can explain why block softmax outputs need their normalizers, trace a global mask through a shard transfer, account for both compute and bytes, and describe how a remote query contributes to a key gradient. The next module-order topic is "}<a href={"/learn/path/full-curriculum/advanced-optimizers-lion-sophia-prodigy-schedule-free?module=deep-learning-fundamentals"}>{"Advanced Optimizers"}</a>{". It asks how gradients update parameters once the distributed computation has produced the intended gradient."}</Prose>
+
+<Prose>{"For deeper GPU work, implement the maintained small distributed example first, then study fused kernels, network topology and profiling. For serving, revisit the one-query case and cache ownership. For model design, compare this exact execution strategy with the different approximations and state representations in sparse attention, Hyena and state-space models."}</Prose>
+
+<Prose>{"Useful alternate routes and references:"}</Prose>
+
+<ul><li>{""}<a href={"https://arxiv.org/html/2310.01889v4"}>{"Ring Attention paper"}</a>{": the primary algorithm, blockwise setup and experimental context. Read §3 with the ownership/merge example here, then distinguish §5's measured setups from extrapolation. Appendix A supplies its JAX forward/backward structure."}</li><li>{""}<a href={"https://arxiv.org/pdf/1805.02867"}>{"Online normalizer calculation"}</a>{": a short mathematical route to stable normalization and parallel summary merging. Useful before implementing custom attention arithmetic."}</li><li>{""}<a href={"https://arxiv.org/pdf/2205.14135"}>{"FlashAttention"}</a>{": §3 explains the memory hierarchy; Appendix B derives forward/backward tiling. This is an advanced kernel-oriented reference, not a prerequisite for the first pass."}</li><li>{""}<a href={"https://arxiv.org/html/2311.09431v1"}>{"Striped Attention"}</a>{": inspect its causal grids and §4 limitations. The paper's performance measurements are configuration-specific; our toy work grid is independently calculated."}</li><li>{""}<a href={"https://arxiv.org/html/2309.14509v2"}>{"DeepSpeed-Ulysses"}</a>{": a different tensor-ownership route. Follow Figure 2, then §3's communication analysis with the token/head puzzle."}</li><li>{""}<a href={"https://docs.pytorch.org/tutorials/unstable/context_parallel.html"}>{"PyTorch context-parallel tutorial"}</a>{": a maintained, executable GPU starting point after the CPU reference. Experimental APIs and supported backends require version checks; its multi-GPU program was read, not run here."}</li><li>{""}<a href={"https://cs336.stanford.edu/spring2025/"}>{"Stanford CS336 Spring 2025 course materials"}</a>{" and "}<a href={"https://www.youtube.com/watch?v=l1RJcDjzK8M"}>{"Stanford Online Lecture 7: Parallelism 1"}</a>{": broader distributed-training background to connect the mesh dimensions. Course schedule and official indexed video identity were verified; the complete video was not watched and no timestamp is claimed. This is supporting parallelism background, not a Ring-specific implementation walkthrough."}</li><li>{""}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{": source, attribution and schema for the real example. The "}<a href={"/learn-assets/ring-attention-sequence-parallelism/data-provenance.md"}>{"data/provenance record"}</a>{" and "}<a href={"/learn-assets/ring-attention-sequence-parallelism/movement-attention-model.json"}>{"complete frozen model"}</a>{" make the exact input-to-output path reproducible offline."}</li></ul>
+
+<Prose>{"The investigations distinguish live mathematical calculations, frozen-model evidence and hypothetical resource models. The CPU/Gloo program tests actual transport correctness separately; GPU execution and performance benchmarks require their own measured setup."}</Prose></section>
+</div>};

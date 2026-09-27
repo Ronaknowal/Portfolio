@@ -1,0 +1,55 @@
+{
+  "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "65815bfe3587ec567f6a20d76c5d3a77dbe04166268ed6ef15c28e92294a38a9",
+    "src/learn/components/lesson-labs/SurvivalIntuitionFigures.jsx": "9b865b1781eb518d4bbc5376c400de080fca7b52a8bd0b9954f313ce69da44fb",
+    "src/learn/components/lesson-labs/survival-intuition.css": "53768fc075eb20791b755f5c8bca68e384a0849f7e3b0cd7c3f782adf811367b"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        9
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        41,
+        42,
+        43,
+        44
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        2
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

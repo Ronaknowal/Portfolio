@@ -845,52 +845,52 @@ vs provisioned            | unpredictable; cost efficiency    | overhead wastes 
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — compute end-to-end latency</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — compute end-to-end latency</H3>
       <Prose>
         A request arrives at an API gateway in San Francisco destined for a datacenter in Virginia. Network latency is 68 ms each way. Gateway processing takes 8 ms. The router lookup takes 3 ms. There are no workers available; the request queues for 1.2 seconds. Prefill runs on a 4,096-token prompt at 400 tokens per second. Decode runs at 35 tokens per second for 256 output tokens. What is the TTFT? What is the end-to-end latency? Which term is dominant, and what would you change first to reduce P99?
       </Prose>
 
       <Callout accent="purple">
         Answer: TTFT = 68 + 8 + 3 + 1200 + (4096/400 × 1000) ms = 68 + 8 + 3 + 1200 + 10,240 ms ≈ 11,519 ms. End-to-end = TTFT + (256/35 × 1000) = 11,519 + 7,314 ≈ 18,833 ms. Queue latency (1200 ms) and prefill (10,240 ms) dominate. Fix order: (1) add more workers to reduce queue depth; (2) if prompt length is tunable, reduce it or use prefix caching; (3) use disaggregated prefill on dedicated hardware.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2 — design for 99.95% SLA</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — design for 99.95% SLA</H3>
       <Prose>
         You are designing a serving stack with six tiers: CDN, gateway, router, load balancer, inference worker, and observability. Your SLA target is 99.95% (4.38 hours downtime per year). If each tier must contribute equally to the composite availability, what per-tier availability do you need? If the inference worker can only reach 99.9% due to GPU driver issues, how must the other five tiers compensate? Show the math.
       </Prose>
 
       <Callout accent="gold">
         Answer: For composite 0.9995 = A^6, A = 0.9995^(1/6) ≈ 0.99992 per tier (99.992%). If the worker is at 99.9% = 0.999, the remaining 5 tiers must satisfy: 0.9995 / 0.999 = 1.0005. That is impossible with five values ≤ 1.0 — the composite is already below target with just the worker. You must either improve the worker (hardware redundancy, automatic restart), reduce tier count, or widen the SLA target. In practice: run two inference workers with an automatic failover, treating the pair as a single tier at 1 - (1-0.999)^2 = 99.9999%.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 3 — pick an architecture for a specific workload</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — pick an architecture for a specific workload</H3>
       <Prose>
         You are building a legal document review product. Documents are 20,000–80,000 tokens. Users submit documents during business hours; traffic drops to near zero at night. The product is used by lawyers in the US and EU who require data residency (EU data must stay in EU, US data must stay in US). The output is always a structured JSON report, 200–400 tokens. What tier architecture would you choose? Which decisions are forced by the constraints and which are free choices?
       </Prose>
 
       <Callout accent="purple">
         Forced decisions: multi-region deployment (US + EU) with strict routing by user geography — data residency requirements force this. Single-tier per region is possible since the user base is small and regionally isolated. Long-context workers ({">"}80k context) required — "large" tier only. Structured output requires constrained decoding at the inference layer. Free choices: stateless vs. stateful routing (stateless is simpler; no conversation history needed for document review); dedicated vs. shared capacity (shared is cheaper for the bursty business-hours pattern, but PTU-style dedicated capacity gives predictable latency for high-value clients); semantic caching (could cache similar legal queries, but the risk of wrong-answer cache hits is too high for legal work — skip it).
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 4 — identify where to cache</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — identify where to cache</H3>
       <Prose>
         A customer support bot receives 50,000 requests per day. Each request starts with a 2,000-token system prompt (identical for all requests) followed by a 50–200 token user message and conversation history. The bot uses Claude claude-sonnet-4-5. Prompt caching is available. Where exactly should caching be applied, and what hit rate do you expect? What is the cost reduction?
       </Prose>
 
       <Callout accent="gold">
         Apply prefix caching on the 2,000-token system prompt. All 50,000 daily requests share this prefix. After the first request warms the cache, 49,999 requests hit the cache on the system prompt prefix. Expected hit rate: ~99.998% on the system-prompt portion. Cost reduction: prefill for 2,000 tokens costs ~5× less when served from cache (Anthropic's cache-hit pricing is roughly 10% of full input token price). At 2,000 tokens × 50,000 requests = 100M tokens/day, you save ~90% of the system-prompt prefill cost, which is roughly 80% of total prompt cost (since the user message is short). Also consider exact-match caching for the most common FAQ queries — if even 5% of 50k queries are exact repeats, that is 2,500 zero-GPU responses per day.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 5 — spot the anti-pattern</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — spot the anti-pattern</H3>
       <Prose>
         An engineering team has built the following pipeline: (1) Client sends request to gateway. (2) Gateway validates and authenticates. (3) Gateway calls the inference worker synchronously and waits for the full response (non-streaming). (4) Gateway calls the safety classifier on the full response. (5) If the safety classifier passes, the gateway returns the full response to the client. The team reports that P99 latency is 45 seconds for typical requests and client timeouts are frequent. Identify all architectural anti-patterns and propose fixes.
       </Prose>
 
       <Callout accent="purple">
         Anti-patterns: (1) Non-streaming gateway blocks the client connection for the entire generation duration, which is tens of seconds for typical outputs. Fix: stream tokens to the client as they are generated. (2) Safety classification after full generation means the user waits an extra 50–200 ms (classifier latency) after the model finishes, on top of an already long wait. Fix: stream output through the safety classifier token-by-token or in chunks; reject mid-stream if a violation is detected. (3) Synchronous wait at the gateway holds a gateway thread for the full generation duration, limiting concurrent capacity to (gateway_threads × generation_time). Fix: use async I/O (asyncio or event loop) so gateway threads are not blocked during inference. (4) Client timeouts at 45 seconds suggest the gateway or client has a hard timeout shorter than the generation time for long outputs. Fix: set gateway timeout to match maximum expected generation time (minutes for long-context), and communicate progress via streaming so clients do not time out waiting.
-      </Callout>
+      </Callout></div></section>
 
     </div>
   ),

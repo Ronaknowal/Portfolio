@@ -160,6 +160,49 @@ Repeat a smaller loop where a new conceptual hurdle appears:
 
 An early lab may prepare the intuition; another can follow a derivation to investigate its implications. Exercises belong near the relevant concepts as well as at the end.
 
+### Build the reason before naming the machinery
+
+#### Apply the teaching loop at every conceptual transition
+
+Intuition is a continuing responsibility throughout a lesson, not a section completed by its opening analogy. Review every newly introduced idea the reader must reason with: a mechanism, quantity, representation, objective, assumption, algorithmic step, architecture variant, implementation choice or evaluation result. A single topic may contain many such transitions, including inside advanced branches. A familiar prerequisite can be recalled and linked; do not silently treat a new idea as familiar because it belongs under an existing heading.
+
+For each transition, establish what the reader already knows, the question or limitation that motivates the new idea, and a plain explanation of what changes. Follow the relevant entities through an inspectable example with intermediate steps and an interpreted result. Connect the prose, visual, symbols and implementation where those forms occur. Explain why the operation has that effect and what decision or further question follows it. Compare a nearby alternative or counterexample when that exposes the key distinction. Choose the amount of support the actual hurdle needs; a short local bridge may suffice for a small transition.
+
+Map these transitions before and during writing in the topic design. Record the exact section or component that supplies each bridge, the existing support worth retaining, any gap, and the chosen explanation/representation. Independently review the full reading path against that map. “An intuition section exists,” a figure count, or a general introductory diagram does not close gaps later in the lesson. Name remaining gaps explicitly instead of certifying the page from its strongest example.
+
+Use as many useful diagrams, worked traces and live investigations as the mechanisms require, at their point of need. A picture must expose a relationship or transformation the learner otherwise has to reconstruct mentally. Do not replace that job with summary cards, boxes containing prose or decorative graphs. Do not force a diagram onto a transition already clear through a compact calculation, table, familiar earlier figure or direct explanation. Reuse and link an established representation when it still works; show the precise new part when an idea extends it.
+
+Research teaching approaches at the weak concept, not just at the topic title. Compare original explainers and primary references for the particular difficulty, check the limits of analogies, then write an original self-contained explanation. Preserve advanced coverage and complete scratch/library implementations. Layer detail and improve transitions rather than deleting difficult ideas or adding repetitive introductions everywhere.
+
+The 26 September attention/memory revision exposed a gap that numerical correctness
+checks did not catch: dense openings, immediate notation, and diagrams that named
+components without establishing why a learner would need them. For each major new
+mechanism, teach a concrete problem, make the simpler approach's relevant limitation
+visible, and follow one complete repair before presenting the taxonomy or advanced
+counterexamples. Do not imply the simpler method always fails; state the actual
+information or computation constraint.
+
+Keep the example's objects recognizable through prose, diagram, worked numbers,
+formula and code. Explain when the example changes and why. Before a formula,
+identify what its inputs and result do; afterward, connect its intermediate
+operations to the visible example. A compact executable core can bridge arithmetic
+to a full program. Keep the complete scratch/library routes and deep derivations,
+but route optional branches so they do not interrupt the first successful operation.
+Do not prepend a generic analogy and leave an otherwise inaccessible lesson unchanged.
+
+Research strong original explainers, textbooks, creator tutorials and current
+primary documentation where the intuition is weak. Compare how they introduce the
+problem, sequence the reasoning and use visual correspondences. Adopt useful
+teaching decisions with an original example and wording; popularity or attractive
+animation does not establish accuracy. Record what was read or watched, distinguish
+recent resources from useful classics, and verify nuanced technical claims against
+primary sources. Retain a self-contained explanation and annotated alternate routes.
+
+An early lab should reveal only quantities whose roles have been introduced.
+Introduce an output loss or auxiliary classifier before displaying it as a central
+result. Add more controls when their learning question arrives. A technically correct
+lab is not a substitute for the explanatory buildup that makes its controls meaningful.
+
 | Depth | Expected experience |
 | --- | --- |
 | Beginner core | Explain the purpose in ordinary words; identify the entities; follow one small example; read its visual; predict a simple change. |
@@ -170,7 +213,11 @@ Do not require a beginner to already know all notation or advanced software used
 
 Use explicit core/deeper labels, meaningful section navigation, short summaries, and expandable derivations or secondary implementation details. Do not hide essential steps or safety-relevant conditions in optional material. Reference catalogues and long API inventories belong on a revision route, with links from the tasks that need them.
 
-Any lesson longer than about one sitting states a **first-pass route** immediately after its introduction: which sections to read now, which labs and programs to run on the way, and which sections are deeper branches to return to. Long sections that are deeper branches say so in their first line. A section list in the intro is navigation; it is not a route.
+Any lesson longer than about one sitting states a **first-pass route** in the shared opening directly below the reader title: which sections to read now, which labs and programs to run on the way, and which sections are deeper branches to return to. Long sections that are deeper branches say so in their first line. The opening's complete section index supplies jump links; the first-pass guidance explains which of those sections to choose.
+
+Every published lesson uses that same opening position and neutral/amber navigation treatment. Supply its topic-specific summary, first-pass guidance, prerequisites and instructions for using examples/labs through the shared opening components. Keep this orientation together instead of scattering separate route cards, partial tables of contents and exploration instructions between introductory paragraphs. The reader derives the full section list from the lesson's actual H2 headings; do not maintain a competing hand-written list. Preserve existing fragment links and authored section numbers, including when the lesson contains unnumbered introductory or reference sections. See the [opening component and prepared-renderer contract](docs/engineering/LEARNING-CODE-STANDARD.md#shared-lesson-opening-and-section-navigation).
+
+This common navigation structure does not prescribe identical content sections, diagrams, labs or exercises. The lesson body still builds its concrete problem and intuition before introducing new mechanisms, and topic-specific representations and styles remain available where they teach the subject.
 
 When the same quantity, object or partition appears by two different routes in one lesson, say so explicitly at the second appearance and explain why the routes agree or when they would not. Readers do not reliably notice that a number has recurred, and the connection is often the most valuable idea on the page.
 
@@ -293,6 +340,10 @@ Constructed fixtures are right for hand calculation and for exposing a specific 
 
 The learner must be able to implement the mechanisms a lesson promises to teach, and use their ordinary library/tool implementations deliberately. Neither a formula, a browser simulator's internal source, a library import nor a downloadable experiment by itself establishes both outcomes. Make the implementation route visible in the lesson, explain its decisions and give independent implementation practice. Apply this requirement to prepared manuscripts when they are resumed as well as new lessons. Existing phase completion is historical evidence, not automatic certification against a newly added requirement.
 
+Keep teaching explanations, derivations, diagrams, worked examples and code visible in the reading flow, including clearly labeled optional depth. The learner must not open a dropdown to reach that teaching; a default-open disclosure is still collapsible and does not meet this rule. Practice tasks, hints, solutions and in-body retrieval feedback can retain their authored disclosures so the learner can attempt a changed case first. Preserve these roles when an explanatory branch contains a separate practice checkpoint.
+
+Every code block uses consistent Copy and Download controls for its displayed source. Make complete programs and supporting files discoverable through the common lesson file index, with their real names and useful annotations, while keeping contextual links and answer-only assets with their tasks. Distinguish a snippet from an executable program and preserve agreement with the canonical downloadable file. Large code may load automatically near the viewport; loading strategy must not create another click gate or hide essential reasoning.
+
 For each substantive algorithm, operation or workflow, record its **implementation owner** in the design: locally taught, reused from an actual prerequisite section/program, introduced here but implemented by a named later owner, or not a computational implementation outcome with a reason. A passing mention need not grow into a second textbook; an advertised core outcome cannot be deferred silently. Inspect the linked source before declaring it reusable. A planned page cannot count as an already-taught prerequisite.
 
 Choose the lowest useful abstraction for the mechanism being taught and state that boundary. A NumPy implementation of a loss may use arrays, sums and exponentials but must not delegate that loss to an opaque loss API. A neural layer may use tensor primitives and reuse the already-taught autograd engine; it need not rebuild BLAS or differentiation in every lesson. A kernel lesson must open the memory/indexing work the high-level layer legitimately delegates. A theorem needs reasoning/proof and, where relevant, a computational realization; do not invent a library counterpart for a purely conceptual outcome. A systems lesson may implement a small protocol or state machine rather than rebuild the entire operating system.
@@ -355,6 +406,14 @@ Check that all lab representations, including form-control values, selected opti
 
 Finish with a concise conceptual recap, retrieval prompts, and a readiness check: can the learner explain the mechanism, predict a change, complete a practical task, and identify a relevant limitation? Provide a next-topic link with the reason it follows. Include occasional review of prerequisite ideas in later lessons rather than assuming one exposure is sufficient.
 
+### Keep recurring endings recognizable
+
+Use the shared lesson-ending presentation for practice, further learning, technical references and readiness/next steps, with explicit boundaries that reflect the authored content. Keep these purposes distinct: practice invites an attempt, feedback explains it, further learning offers another explanation or activity, references support precise claims or API behavior, and readiness connects demonstrated skills to the next topic. A mixed legacy heading does not make every paragraph or link serve the same purpose. Preserve useful annotations and their relationship to the resource they qualify.
+
+Keep each exercise's prompt visible. Where authored separately, present optional hints and complete solutions as separate native disclosures with clear labels; preserve combined feedback or visible worked answers when changing presentation alone. Keep all code, diagrams, evaluation criteria and explanation within their original task. Do not hide live lab output or invent missing hints, solutions, resource metadata or readiness claims to fill a template.
+
+Share section and exercise styling without requiring identical titles, counts, order or scientific content. Topic-specific investigations and deeper teaching branches remain part of the lesson body. Preserve existing heading IDs, authored numbering, links and progress identity. Plan explicit ending roles during authoring and retain them through regeneration; the implementation contract is in the [learning code standard](docs/engineering/LEARNING-CODE-STANDARD.md#shared-lesson-endings).
+
 ## 8. Subject-specific adaptations
 
 | Subject | Teaching flow and particular obligations |
@@ -385,9 +444,9 @@ Investigate conflicting definitions, assumptions, conventions, and nuanced cases
 
 Sources should be optional for following the core walkthrough; a reference link must not replace a missing explanation. Separate evidence for technical correctness from inspiration for pedagogy.
 
-### References & another way to learn it
+### Further learning and technical references
 
-Curate useful learner-facing alternatives as well as the technical claim sources. During every rewrite, look for good explanatory articles, worked tutorials, books/chapters, interactive exercises, and videos or YouTube playlists where they offer a helpful alternate explanation. Include well-matched resources in the lesson's existing “References & another way to learn it” section; do not keep them only in the author's research record. No format or link count is a quota, and a full playlist is not automatically better than one focused lesson.
+Curate useful learner-facing alternatives as well as the technical claim sources. During every rewrite, look for good explanatory articles, worked tutorials, books/chapters, interactive exercises, and videos or YouTube playlists where they offer a helpful alternate explanation. Publish well-matched alternatives under further learning and precise claim/API sources under technical references; do not keep them only in the author's research record. Choose the role from the resource's actual use in this lesson, not its URL or format. No format or link count is a quota, and a full playlist is not automatically better than one focused lesson.
 
 Annotate each selected resource with creator/title, format, the particular concept or activity it helps, intended level or suggested point in this lesson, and important prerequisites/version/access caveats. Prefer a direct lesson, relevant chapter or creator's playlist over a channel/search homepage. Supply useful timestamps or playlist item names only when verified. Keep references navigable by separating alternate explanations/practice from precise API or claim references when that aids scanning.
 
@@ -429,7 +488,7 @@ Assess each revised lesson on separate axes. Do not infer one from another:
 
 Correctness review and learning-experience review are different activities and are recorded separately. A lesson can pass every numerical oracle and still teach poorly. The author runs this checklist before handing off and the independent reviewer runs it again; both record concrete findings, not a pass mark.
 
-1. **Route.** Is there a first-pass route after the introduction? Are deeper branches labeled where they begin?
+1. **Route.** Is the shared opening directly below the title, with the complete actual section index and a clear first-pass route? Are prerequisite and exploration instructions grouped there without a second custom TOC or duplicate numbering? Are deeper branches labeled where they begin?
 2. **Cautions.** Is each important caution stated once in a clear home and referred back to, rather than repeated after every result? Does any code print a cautionary sentence?
 3. **Real question.** Does the lesson open with a concrete situation a reader can care about, and return to it with a result the reader can judge? For data methods, is there real data?
 4. **Labs as live investigations.** Does each lab show its current result immediately, with no prediction feature? Do meaningful edits update the mechanism, diagram, numbers and explanation together? Can the learner compare changes and connect them to a decision? Does at least one control act on entities beyond named presets? Was the fixture run under the offered alternatives, including the null case?
@@ -438,6 +497,7 @@ Correctness review and learning-experience review are different activities and a
 7. **Code.** In each displayed program, does the mechanism occupy most of the lines? Is validation separated and minimal?
 8. **Practice.** Do the exercises change the numbers and the context, and does at least one give the learner exact values to reproduce after an independent variation?
 9. **Screenshots.** Were informative states captured and looked at, including meaningful edited inputs, the fixture that shows the contrast, boundary/null results, and the figure at full desktop width?
+10. **Buildup throughout.** At every new conceptual transition—including middle sections, substeps, variants, code choices and deeper branches—can the reader say what question is being answered, what the entities mean, how the operation proceeds and why its result follows? Use the topic's concept map to locate actual explanations, worked intermediates and appropriate visual support. Follow complete examples in reading order without having to discover a later lab state. Record concept-level gaps and their closure, or why existing support suffices. An opening intuition section, lab counts and extra prose are not evidence that the rest of the lesson is understandable.
 
 Include an explicit inline-visual reading pass in coverage/pedagogy review: inspect introduction of structures, alternative cases and intermediate transformations, separately from checking that lab controls work. Record concrete omissions and improvements rather than reporting only a lab count. The policy above governs when an inline figure is needed; it does not create a diagram-per-section quota.
 

@@ -1,0 +1,1507 @@
+{
+  "topicId": "multi-head-latent-attention-mla",
+  "passed": true,
+  "checks": [
+    {
+      "name": "shape0 rankNone shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.84658713057118e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rankNone shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.846587186082331e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rankNone shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rankNone shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.937891372515992e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank1 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.937891372515992e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank1 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank1 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.109565617163355e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank3 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.5612511283791264e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.109565617163355e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank3 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 1.5612511283791264e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank3 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 3.602857567841511e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank5 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 3.602857623352662e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank5 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank5 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.846588740394566e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank8 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.8465889069280195e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape0 rank8 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape0 rank8 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.04199978645525e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rankNone shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0419997975574802e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rankNone shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rankNone shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.278465192188776e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank1 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.608224830031759e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 6.278465303211078e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank1 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.608224830031759e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank1 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 9.062978478802108e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank3 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.7470027081099033e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 9.062978478802108e-09,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank3 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 3.7470027081099033e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank3 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0997507349230773e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank5 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0997507404741924e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank5 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank5 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0419999751931641e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank8 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.0419999640909339e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape1 rank8 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape1 rank8 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9609257218000664e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rankNone shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9609256829422606e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rankNone shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rankNone shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.2651308778366399e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank1 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 2.498001805406602e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.2651308778366399e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank1 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 2.498001805406602e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank1 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9019103736361842e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank3 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9019103791872993e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank3 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 4.996003610813204e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank3 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9870856293735528e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank5 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.134781488891349e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9870856293735528e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank5 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 5.134781488891349e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank5 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.9609258161690235e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank8 shift0 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 7.494005416219807e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift0 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 9.992007221626409e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 full-network SDPA forecast",
+      "passed": true,
+      "maxAbsoluteError": 1.960925788413448e-08,
+      "tolerance": 3e-07
+    },
+    {
+      "name": "shape2 rank8 shift127 original normalized latent",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 stored basis coordinates",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 positioned rotary cache",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head weights",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head contentScores",
+      "passed": true,
+      "maxAbsoluteError": 7.494005416219807e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "shape2 rank8 shift127 final-head rotaryScores",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed 7-latent/3-content batched SDPA paths",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "Changed-dimension factor gradient 0",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 1",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 2",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 3",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 4",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "Changed-dimension factor gradient 5",
+      "passed": true,
+      "maxAbsoluteError": 1.249000902703301e-16,
+      "tolerance": 1e-11
+    },
+    {
+      "name": "All9 public reproduction files byte-identical to intended sources",
+      "passed": true
+    },
+    {
+      "name": "Browser future exclusion, logical-record permutation, chunk3 cache and BigInt budget controls",
+      "passed": true
+    }
+  ],
+  "maximumForecastError": 1.9870856293735528e-08,
+  "environment": {
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "maximumThreads": 2
+  },
+  "limitations": [
+    "Author all-parameter gradient and held-out fit replay evidence reused; no fit rerun.",
+    "This independent reference uses complete functional PyTorch layers and expanded ordinary SDPA; it does not call the author model class or scalar attention implementation.",
+    "Painted/browser controls and full integration remain the parent responsibility."
+  ]
+}

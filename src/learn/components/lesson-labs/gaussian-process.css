@@ -8,6 +8,7 @@
 .gp-figure h4, .gp-lab h4 { font-size: 1rem; margin: 1rem 0 .5rem; }
 .gp-figure p, .gp-lab p { font-size: .97rem; line-height: 1.65; margin: .75rem 0; }
 .gp-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1.5rem; }
+.gp-panels > * { min-width: 0; }
 .gp-chart-wrap { max-width: 470px; width: 100%; margin: .7rem auto; min-width: 0; }
 .gp-chart { display: block; width: 100%; height: auto; overflow: visible; }
 .gp-chart text { fill: #d8e0de; font-size: 18px; font-family: ui-monospace, monospace; }

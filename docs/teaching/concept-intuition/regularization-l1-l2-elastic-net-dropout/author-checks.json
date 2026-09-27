@@ -1,0 +1,41 @@
+{
+  "topicId": "regularization-l1-l2-elastic-net-dropout",
+  "reviewedAt": "2026-09-26T14:41:49.798Z",
+  "sourceFiles": [
+    "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx",
+    "docs/teaching/concept-intuition/regularization-l1-l2-elastic-net-dropout/review.md",
+    "scripts/verify-model-selection-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx": "b213ab6051001ca35cc356e6050acdefdec4fd870f3f9cbfab96655a4666b4df",
+    "docs/teaching/concept-intuition/regularization-l1-l2-elastic-net-dropout/review.md": "d4852ea95955c873c51a6088f0fe8ab3fc23928c0f891ceaf5e92dbc98425940",
+    "scripts/verify-model-selection-sequence-intuition.mjs": "aed7d76adb84de450a55418b72b1019c2ce39cf6b947993ec93d15802a365f92"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/regularization-l1-l2-elastic-net-dropout/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Partial residual adds back current contribution",
+      "status": "passed"
+    },
+    {
+      "name": "Group optimum versus coordinate threshold and zero boundary",
+      "status": "passed"
+    },
+    {
+      "name": "Fixed-prior penalty halves when independent n doubles",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing models, native programs, datasets and run outputs retained; no fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

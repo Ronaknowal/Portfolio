@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "reviewer": "long_context_implementation",
+  "revision": 4,
+  "scope": [
+    "Full manuscript learner continuity, all core/deeper sections, programs, measured protocol, exercises and references",
+    "All four new intuition component/data sources",
+    "Fresh closed-form initial impulse at four retentions; impulse, marker/delay and matrix endpoint arithmetic"
+  ],
+  "assessment": "The revised route builds a retained/write rule before notation; connects held-input time to coefficients, impulse trails to convolution, multiple timescales to rotating modes, marked events to content-dependent selection, and an actual matrix write/read to SSD. Advanced HiPPO/DPLR material has an explicit separate return path. Numeric examples, complete implementation boundaries and measured results remain coherent.",
+  "findings": [
+    {
+      "severity": "minor",
+      "location": "MatrixWriteFigure caption",
+      "finding": "Both matrices referred to several matrices shown.",
+      "resolution": "Changed to Every matrix uses that same arrangement; source read verified."
+    }
+  ],
+  "unresolved": [],
+  "limitations": [
+    "No new browser review by this reviewer",
+    "No newly executed optional GPU or package parity; existing native mechanisms remain independently recorded"
+  ],
+  "reviewedFiles": {
+    "docs/teaching/revisions/state-space-models-s4-mamba-mamba-2/4/lesson.md": "7e0e714032642b2edc07fc1ad893cfeb181dd0b03f57c4d3d16759e49a3a5fd7",
+    "src/learn/components/lesson-labs/StateSpaceIntuition.jsx": "d89434017b8b7252c6e9811d7993b74b876f3515da6cd84646ae1da09fbf5f23",
+    "src/learn/data/state-space-intuition.js": "4f1e632bb3abb603e81b1970984cfd423f30c18ad0270b74c474ac3369e717f0"
+  }
+}

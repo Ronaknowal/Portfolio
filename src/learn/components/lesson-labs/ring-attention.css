@@ -1,0 +1,31 @@
+.ring-attention { --ring-accent:#d9b365; --ring-blue:#8ca8cf; --ring-purple:#c3a5de; }
+.ring-attention .ring-controls { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px 20px;margin:18px 0; }
+.ring-attention .ring-controls>* { min-width:0; }
+.ring-attention .ring-controls .neural-select { display:grid;gap:8px;align-content:start;min-width:0; }
+.ring-attention select { width:100%;max-width:100%;min-width:0;min-height:44px;background:#242426;color:#eee8ef;border:1px solid #77717a;border-radius:4px;padding:7px; }
+.ring-attention .ring-actions { display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:18px 0; }
+.ring-attention .ring-actions button,.ring-attention .ring-actions label { min-height:44px;display:inline-flex;align-items:center;gap:8px; }
+.ring-attention button { background:#2b292d;color:#eee8ef;border:1px solid #77717a;border-radius:4px;padding:8px 12px; }
+.ring-attention button:disabled { opacity:.5;cursor:not-allowed; }
+.ring-attention input[type=checkbox] { accent-color:#d9b365;min-width:18px;min-height:18px; }
+.ring-attention .ring-pair { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,410px),1fr));gap:22px;align-items:start; }
+.ring-attention .ring-pair>* { min-width:0; }
+.ring-attention .ring-scroll { overflow-x:auto;max-width:100%;padding-bottom:10px;overscroll-behavior-inline:contain; }
+.ring-attention .ring-scroll:focus-visible,.ring-attention :is(button,select):focus-visible { outline:2px solid #d9b365;outline-offset:3px; }
+.ring-attention .ring-figure { margin:24px 0;max-width:100%;min-width:0; }
+.ring-attention figcaption { color:#eee8ef;font-weight:600;margin-bottom:12px;line-height:1.5; }
+.ring-attention .ring-figure svg { display:block;width:100%;height:auto;background:#1b1b1e;border:1px solid #454147;border-radius:4px; }
+.ring-attention .ring-figure svg text { fill:#e2dce5;font:12px ui-sans-serif,system-ui,sans-serif; }
+.ring-attention .ring-small { font-size:.86rem;color:#bfb8c3; }
+.ring-attention .ring-grid { display:grid;gap:2px;align-items:center;margin:8px 0;font-size:11px; }
+.ring-attention .ring-grid>span { min-height:22px;display:flex;align-items:center;justify-content:center; }
+.ring-attention .ring-grid>button { min-width:24px;width:24px;height:24px;min-height:24px;padding:0;font-size:14px;line-height:1;border:1px solid #66606c;border-radius:0; }
+.ring-attention .ring-grid .ring-legal { background:#59482e;color:#f5d38a; }
+.ring-attention .ring-grid .ring-document { background:#403348;color:#d6b7f0; }
+.ring-attention .ring-grid .ring-future { background:#29394f;color:#aec5e5; }
+.ring-attention .ring-grid :is(.ring-padding,.ring-blocked) { background:#29272b;color:#b0a7b7; }
+.ring-attention .ring-grid .ring-cell-selected { outline:2px solid #fff4d6;outline-offset:0;z-index:1; }
+.ring-attention [role=alert] { border-left:3px solid #d6a6b6;padding:10px 14px;background:#2c2329; }
+.ring-attention .neural-equation { max-width:100%;overflow-x:auto; }
+@media(max-width:560px){.ring-attention .ring-controls{grid-template-columns:minmax(0,1fr);gap:12px}.ring-attention .ring-actions>*{max-width:100%;white-space:normal}.ring-attention .ring-actions button{flex:1 1 160px}.ring-attention .ring-pair{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.ring-attention *{scroll-behavior:auto}}

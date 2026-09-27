@@ -351,6 +351,8 @@ Summing this reduction over a specified set of target locations produces an acqu
 
 For example, with c(u, x) = 0.5, c(x, x) = 1, and σ² = 0.25, the variance reduction is 0.25/1.25 = 0.2 in squared response units. If the covariance is zero it is exactly zero. This is a model-based uncertainty calculation, not an empirical error guarantee.
 
+[Inline figure: target-directed variance reduction.] Compare two possible measurements against one target location. Its current variance is 1. Candidate A has variance 4 and target covariance 0.2; candidate B has variance 1 and target covariance 0.8. With noise variance 0.25, their reductions are about 0.009412 and 0.512. Asking “which candidate is most uncertain?” chooses A; asking “which reduces uncertainty at this target?” chooses B.
+
 ### BADGE joins a gradient representation with batch diversity
 
 For a classifier with feature representation z and softmax probabilities p, choose the model's predicted class ŷ = argmaxₖ pₖ. The cross-entropy gradient with respect to each last-layer class-weight vector is
@@ -362,6 +364,10 @@ g_k=(p_k-\mathbf1[k=\hat y])z.
 Concatenate those class blocks to make one gradient embedding for the candidate. BADGE uses a diverse sampling procedure based on k-means++ distances in this space. It uses the **single predicted label** to form the gradient; it does not concatenate a separate gradient for every possible hypothetical label. [Ash and colleagues, §3 and Algorithm 1](https://arxiv.org/pdf/1906.03671).
 
 For z = [2, −1] and p = [0.6, 0.3, 0.1], ŷ = 0. The three blocks are [−0.8, 0.4], [0.6, −0.3], and [0.2, −0.1], with total Euclidean norm √1.3 ≈ 1.140175. This makes both the representation and class uncertainty visible in the candidate geometry. The resulting diversity still depends on the current model. It cannot discover distinctions that the representation completely removes.
+
+[Inline figure: gradient direction and batch redundancy.] Three equally uncertain candidates can propose redundant or different changes. Inspect the block structure and the conditional sampling probabilities after one candidate joins the batch.
+
+The squared-distance sampling is not the farthest-first rule from section 5. After each selected center, recompute each eligible candidate's squared distance to its nearest selected gradient embedding, then sample in proportion to that value. A far candidate is more likely, not certain. A complete implementation must specify its initial-center convention, avoid duplicate identifiers and handle a zero total distance; the diagram conditions on A already being selected rather than hiding that initialization choice.
 
 ### Importance weighting can expose selection bias, with explicit assumptions
 
@@ -432,10 +438,10 @@ A team reports 90% accuracy on examples its active learner requested, says it us
 
 ### 8. An independent acquisition experiment
 
-Using the offline program, compare random and entropy acquisition with one predeclared change to the training-label budget, such as fifteen new labels. Keep paired initial sets, the same model, and the same development rows. Before running, predict whether you expect the difference to grow or shrink and explain your reason. With your environment's Python interpreter, run `banknote-active-learning.py --budget 15 --strategies random entropy --development-only`. This command retains the final refit and skips test prediction. Save every query identifier, the actual fit count, and the per-run development difference from the output JSON. Explain whether your result supports the prediction.
+Using the offline program, compare random and entropy acquisition with one predeclared change to the training-label budget, such as fifteen new labels. Keep paired initial sets, the same model, and the same development rows. With your environment's Python interpreter, run `banknote-active-learning.py --budget 15 --strategies random entropy --development-only`. This command retains the final refit and skips test prediction. Save every query identifier, the actual fit count, and the per-run development difference from the output JSON. Explain the observed differences and which changed queries could account for them.
 
 <details><summary>Hint</summary>The budget parameter changes the loop bound and final stopping condition together. A mean should be accompanied by the five individual differences. Keep `--development-only` while investigating; the result's final_test list should be empty.</details>
-<details><summary>Solution and assessment criteria</summary>A complete answer states the budget and hypothesis before observing results; refits after the fifteenth acquisition; produces five paired development results; checks that each run uses 6 + 15 = 21 acquired training labels; and interprets variation without claiming that five shared-data repetitions are independent population samples. Either direction of the observed difference is acceptable. An explanation that merely announces a winner, omits a final refit, or changes the model for only one strategy does not establish the intended comparison. If further tuning follows, the development set supports that tuning and a separate final evaluation remains necessary.</details>
+<details><summary>Solution and assessment criteria</summary>A complete answer states the budget and comparison protocol; refits after the fifteenth acquisition; produces five paired development results; checks that each run uses 6 + 15 = 21 acquired training labels; and interprets variation without claiming that five shared-data repetitions are independent population samples. Either direction of the observed difference is acceptable. An explanation that merely announces a winner, omits a final refit, or changes the model for only one strategy does not establish the intended comparison. If further tuning follows, the development set supports that tuning and a separate final evaluation remains necessary.</details>
 
 ## 10. Other ways to learn and where to go next
 

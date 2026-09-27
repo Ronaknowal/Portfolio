@@ -1,0 +1,4 @@
+.depthwise-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; }
+.depthwise-intuition svg { width: 100%; max-width: 480px; height: auto; display: block; }
+.depthwise-intuition text { fill: #ddd; font: 15px ui-monospace, monospace; }
+.neural-lesson .depthwise-intuition figcaption { margin-top: 1rem; line-height: 1.7; font-weight: 400; }

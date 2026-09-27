@@ -1,0 +1,15 @@
+.sv-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; color: #e3e3e3; }
+.sv-intuition svg { display: block; width: min(100%, 480px); height: auto; margin-inline: auto; }
+.sv-intuition svg text { fill: #d4d4d4; font: 13px ui-monospace, monospace; }
+.sv-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }
+.sv-intuition-risk-rows { display: grid; gap: 1.1rem; }
+.sv-intuition-risk-rows > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: .4rem 1rem; align-items: center; font-size: .9rem; }
+.sv-intuition-risk-rows strong { grid-column: 2; font: .9rem ui-monospace, monospace; }
+.sv-intuition-track { width: 100%; height: 1.3rem; background: #252525; border-inline-end: 1px solid #888; }
+.sv-intuition-track span { display: block; height: 100%; background: #e8b44a; }
+.sv-intuition-population { display: flex; height: 2.5rem; }
+.sv-intuition-population span { display: grid; place-content: center; background: #e8b44a; color: #17120a; font: .9rem ui-monospace, monospace; }
+.sv-intuition-population span:nth-child(2) { background: #ddd; }
+.sv-intuition-population span:nth-child(3) { background: #303030; color: #eee; }
+.sv-intuition-key { font-size: .85rem; }
+.sv-intuition-denominator { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding-block: .6rem; border-bottom: 1px solid #333; font-size: .95rem; }

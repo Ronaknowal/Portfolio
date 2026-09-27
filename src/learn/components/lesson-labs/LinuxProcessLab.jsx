@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { useState } from "react";
 import { processActions, transitionProcess } from "../../data/linux-process-model";
 import "./linux-lesson.css";
@@ -29,11 +30,11 @@ export default function LinuxProcessLab() {
     <div className="lesson-controls">{Object.entries(processActions).map(([key, action]) => <button key={key} type="button" disabled={!action.from.includes(state)} onClick={() => act(key)}>{action.label}</button>)}<button type="button" onClick={() => { setState("ready"); setHistory([]); setLast(null); }}>Reset process</button></div>
     <div className="lesson-results" aria-live="polite" aria-atomic="true">
       <p><strong>{stateNames[state]}</strong></p>
-      <pre className="linux-command"><code>{last ? processActions[last].command : "# Start the child to begin"}</code></pre>
+      <CodeBlock language="bash" filename="linux-process-step.sh">{last ? processActions[last].command : "# Start the child to begin"}</CodeBlock>
       <p>{last ? processActions[last].note : "The diagram will keep the parent and child separate. Only the child's state changes in this investigation."}</p>
     </div>
     {history.length > 0 && <ol className="linux-process__history" aria-label="Actions in this investigation">{history.map((action, index) => <li key={index}>{processActions[action].label}</li>)}</ol>}
-    <details className="linux-deeper"><summary>Why is End unavailable while stopped?</summary><p>A stopped process may leave a termination signal pending until it is continued. This guided route resumes before sending TERM. Real signal handling, blocking and timing have additional cases. This model also omits the timer expiring naturally.</p></details>
+    <section className="linux-deeper lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Why is End unavailable while stopped?</h4><p>A stopped process may leave a termination signal pending until it is continued. This guided route resumes before sending TERM. Real signal handling, blocking and timing have additional cases. This model also omits the timer expiring naturally.</p></section>
   </section>;
 }
 

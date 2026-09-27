@@ -1,0 +1,29 @@
+.gqa-lesson { overflow-wrap: anywhere; }
+.gqa-figure { margin: 1.6rem 0; padding: 1rem; border: 1px solid #45403a; border-radius: 6px; background: #171717; max-width: 100%; overflow-x: auto; }
+.gqa-figure figcaption { color: #eed9b0; font-weight: 650; margin-bottom: 1rem; }
+.gqa-figure p, .gqa-lesson .neural-lab p { line-height: 1.65; }
+.gqa-diagram { display: block; width: 100%; min-width: 420px; height: auto; }
+.gqa-vector-diagram { min-width: 310px; }
+.gqa-diagram text { fill: #e7e1d7; font-size: 12px; font-family: inherit; }
+.gqa-diagram rect { fill: #24211d; stroke: #b5a17b; }
+.gqa-diagram path { fill: none; stroke: #bcab8d; }
+.gqa-diagram-scroll { overflow-x: auto; }
+.gqa-diagram-scroll .gqa-diagram { min-width: 660px; }
+.gqa-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 175px), 1fr)); gap: 1rem; margin: 1rem 0; }
+.gqa-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.gqa-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+.gqa-factor-strip { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0; }
+.gqa-factor-strip span { border-left: 3px solid #d8b768; padding: .5rem .9rem; display: flex; flex-direction: column; background: #24211d; }
+.gqa-factor-strip small { color: #c4bfb5; }
+.gqa-gradient { display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 1rem; padding: 1rem; border: 1px solid #6b5c3e; }
+.gqa-gradient span { text-align: center; }
+.gqa-code { max-width: 100%; overflow-x: auto; padding: 1rem; font-size: .8rem; line-height: 1.6; background: #111; }
+.gqa-lesson fieldset { min-width: 0; border: 1px solid #50483a; margin: 1rem 0; }
+@media (max-width: 680px) { .gqa-columns { grid-template-columns: minmax(0, 1fr); } .gqa-figure { padding: .65rem; } }
+
+.gqa-plot-scroll { min-width: 0; max-width: 100%; overflow-x: auto; }
+.gqa-plot-scroll .neural-plot { min-width: 340px; }
+.gqa-plot-scroll .neural-chart { min-width: 340px; max-height: none; }
+
+.gqa-mechanism { display: block; width: 100%; height: auto; }
+.gqa-mechanism text { font: 12px system-ui, sans-serif; fill: #eee; }

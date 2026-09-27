@@ -1,0 +1,37 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/self-attention-multi-head-attention.jsx",
+    "src/learn/data/self-attention-models.js",
+    "src/learn/data/self-attention-trajectory-example.json",
+    "src/learn/components/lesson-labs/SelfAttentionLabs.jsx",
+    "src/learn/components/lesson-labs/SelfAttentionFigures.jsx",
+    "src/learn/components/lesson-labs/self-attention-labs.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "public/learn-assets/self-attention-multi-head-attention/trajectory-model.json",
+    "scripts/prepare-self-attention-assets.py",
+    "scripts/render-self-attention-lesson.mjs",
+    "scripts/verify-self-attention-models.mjs",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/native-checks.json",
+    "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/model-checks.json",
+    "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/design.md"
+  ],
+  "browserInventory": [
+    "Roles paths, worked score/product table, causal input-target strip, two-head lanes, real source77pipeline, permutation, gradients, rank, entropy, copytargets, storage and tiled normalization",
+    "self-attention-message: query/key/value numeric entities, donor selection, temperature, +1000offset, pinbaseline, reset, collinear\u00e2\u2020\u2019triangle valueplane",
+    "self-attention-mask: receiver/donor selection, futureDedit with/withoutedge, emptyset, repaircausal, rectangular absolutepositions, reset",
+    "self-attention-heads: edit all4maps, inputvectors, zeroVnull, reset",
+    "self-attention-trajectory: lazyopen, head/receiver, pointxy, reverse, moveearlier/later, reflect, fivepadding, independentkey/poolmask, validpointemptyguard, reset, fullclassprobabilities",
+    "self-attention-sensitivity: rawscores, width, temperature, saturatedoutofwindowstate, reset",
+    "self-attention-mixtures: editablevaluesandweights, equalV1/V3construction, zeroamountrow, reset",
+    "Storage L2048\u00e2\u2020\u20194096 and H16\u00e2\u2020\u20198; completeprogramdisclosure;8practicehints/solutions;keyboardscrollregions;320/390/desktop"
+  ],
+  "limits": [
+    "No original12fitcampaignrerun;selectedfrozenmodelandretainedresultsreused",
+    "Authorcorrectness/experiencecheckscomplete;independentbrowserintegrationremain"
+  ]
+}

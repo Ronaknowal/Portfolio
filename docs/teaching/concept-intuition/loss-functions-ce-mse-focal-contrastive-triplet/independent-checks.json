@@ -1,0 +1,42 @@
+{
+  "topicId": "loss-functions-ce-mse-focal-contrastive-triplet",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:08:38.198Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+    "src/learn/components/lesson-labs/LossIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/loss-intuition.css",
+    "docs/teaching/concept-intuition/loss-functions-ce-mse-focal-contrastive-triplet/independent-review.md",
+    "scripts/review-neural-foundation-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "30ba7db1eeb36060c58966a07d4521cff773c76e1fbe351026dfdbeeafea14d5",
+    "src/learn/components/lesson-labs/LossIntuitionFigures.jsx": "9c4f4efc23bcaa10db5263112c183e45ad58885db2094c0e4639aeb230a6b973",
+    "src/learn/components/lesson-labs/loss-intuition.css": "9a0abc534dbf8a2e37445b41371ebc1a390f7eca0999f4520d5c9a9d18ee0729",
+    "docs/teaching/concept-intuition/loss-functions-ce-mse-focal-contrastive-triplet/independent-review.md": "46807d974e94bd0bb7340dc1eb7a9303a788a16a8a0204e6783927c734b6079a",
+    "scripts/review-neural-foundation-intuition.mjs": "0d39e7f335dd45b1a92a6e07809ccfa2c35f1a5ad1582bee4d67e7377c20722a"
+  },
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic assessment, no actual learner session",
+  "checks": [
+    {
+      "name": "Discrete quantile interval of optima at q=.8",
+      "status": "passed"
+    },
+    {
+      "name": "New equal-mass positive allocation contrast",
+      "status": "passed"
+    },
+    {
+      "name": "Margin lowers target score and raises CE with fixed competitor",
+      "status": "passed"
+    }
+  ],
+  "fullReading": "docs/teaching/concept-intuition/loss-functions-ce-mse-focal-contrastive-triplet/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "pending root",
+  "integration": "pending root",
+  "nativeExecution": "Existing unchanged campaigns retained; no fresh fits or full native verification claimed."
+}

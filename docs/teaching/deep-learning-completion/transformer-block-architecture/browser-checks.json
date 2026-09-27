@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "topicId": "transformer-block-architecture",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T19:23:11.239Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T19-16-57-506Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/transformer-block-architecture.jsx": "1ba8783855b75c88418db2e7fe7d5ae415e8a585d30a6b6939b27ad0996c9360",
+    "src/learn/data/transformer-block-models.js": "92ebf577b69ab97ac18d7c8d214ebb769f3776c26ad116f9e35ed96d684e39ee",
+    "src/learn/data/sequence-tensor-operations.js": "d9bb0a81927032a6e76beff864e5df8fa548fd59e12cd7158e5d49a07e16a21f",
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx": "feb09397170eeb07a83fbfb2867030a3aedc48d4f77b7823aab86df24ee933bc",
+    "src/learn/components/lesson-labs/transformer-block-labs.css": "1bb5dcb44cfb4f51be9fc4bfb604fac911b4ca5d507d03f667c764bbcad1e53e",
+    "public/learn-code/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+    "public/learn-code/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+    "public/learn-code/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+    "public/learn-code/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+    "public/learn-code/transformer-block-architecture/evidence-runtime.json": "f0c28a4ad36901a45a5f6e77983b4130bc018dba5e2e548c8b67101e69c9ee78",
+    "public/learn-code/transformer-block-architecture/movement-runtime.json": "54f64c07f968c7b995233adc40ba6df390a169922a3710bd09952ae9ac12a8b6",
+    "public/learn-code/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx": "c12d99fff440f7240849c86c3a9a7157d33732792400e2801f0d2097e214aa37",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx": "0d0a7cc44054f3ad177cce6c401da21d5a90e778ecd6e39d0614d00d16c2bb20",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "docs/teaching/deep-learning-completion/transformer-block-architecture/browser-review.md": "a0e6ca3fce1aa29c814418f7efb594f0dc7916b8f9033fca152a9f9f1c91afdb"
+  },
+  "checks": [
+    "Six complete labs: normalizer, feature writes/SwiGLU, block junctions, actual retained models, gradients and costs; observed changed/null values in browser-review.md",
+    "Latest task-mask grid screenshot: two full desktop columns and third wrapped; all three stack at320 with native290 diagram width",
+    "Phone page width305 equal scroll width; keyboard local scroll16.67px; invalid numeric then one Reset click restored default",
+    "Practice solution disclosure and actual source link; no observed KaTeX or console errors"
+  ],
+  "findings": [
+    {
+      "issue": "Normalizer denominator and FFN write mechanisms needed visible intermediates",
+      "status": "closed"
+    },
+    {
+      "issue": "Dense fitted-feature dump interrupts first pass",
+      "status": "closed"
+    },
+    {
+      "issue": "Task-mask diagrams clipped in three desktop columns",
+      "status": "closed"
+    }
+  ],
+  "limitations": "Representative control and viewport checks. No GPU timing, exhaustive input sweep or learner study."
+}

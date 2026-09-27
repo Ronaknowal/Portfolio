@@ -1,0 +1,278 @@
+{
+  "topicId": "hyena-long-convolution-models",
+  "passed": true,
+  "checks": [
+    {
+      "name": "JSX parse HyenaPrimitives.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HyenaFigures.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HyenaMechanismLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HyenaStudy.jsx",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy convolution_mechanisms.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy splice_models.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy author_calculations.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy blocked_convolution.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy splice-fits.npz",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy splice-results.json",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy splice.data",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy splice.names",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy data-provenance.md",
+      "passed": true
+    },
+    {
+      "name": "All460 shipped sequence and label records equal their one-based raw source records",
+      "passed": true
+    },
+    {
+      "name": "Worked and fresh source identity",
+      "passed": true
+    },
+    {
+      "name": "Only explicit learner assets deployed",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Three questions about a long sequence",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: A convolution is a ledger",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Gates make the mixing",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Generate the filter",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: How the block learns",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: A real sequence task",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Blocks must include",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Some long filters",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Hankel",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: StripedHyena",
+      "passed": true
+    },
+    {
+      "name": "Complete conceptual manuscript rendered: Plan an honest efficiency comparison",
+      "passed": true
+    },
+    {
+      "name": "Twenty figure anchors and four main investigations replaced",
+      "passed": true
+    },
+    {
+      "name": "Ten separate solutions and extra blocked practice remain closed",
+      "passed": true
+    },
+    {
+      "name": "Inline mathematics was rendered, not left as dollar strings",
+      "passed": true
+    },
+    {
+      "name": "Topic neutral theme and no bad values",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders linear_29 original",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders linear_29 boundaryAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders linear_29 distantAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders linear_29 allN",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders linear_29 lag0to4",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders linear_29 gatesOff",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_29 original",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_29 boundaryAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_29 distantAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_29 allN",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_29 lag0to4",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_29 gatesOff",
+      "passed": true
+    },
+    {
+      "name": "Actual fitted raw/envelope/product at block1 channel15 gated_29",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders ungated_29 original",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders ungated_29 boundaryAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders ungated_29 distantAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders ungated_29 allN",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders ungated_29 lag0to4",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders ungated_29 gatesOff",
+      "passed": true
+    },
+    {
+      "name": "Actual fitted raw/envelope/product at block1 channel15 ungated_29",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_71 original",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_71 boundaryAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_71 distantAA",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_71 allN",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_71 lag0to4",
+      "passed": true
+    },
+    {
+      "name": "Complete saved network renders gated_71 gatesOff",
+      "passed": true
+    },
+    {
+      "name": "Actual fitted raw/envelope/product at block1 channel15 gated_71",
+      "passed": true
+    },
+    {
+      "name": "Signed extrema stems keep text baseline233 and separate index268 within285-height viewBox 1,-1",
+      "passed": true
+    },
+    {
+      "name": "Signed extrema stems keep text baseline233 and separate index268 within285-height viewBox -4,0,4",
+      "passed": true
+    },
+    {
+      "name": "Signed extrema stems keep text baseline233 and separate index268 within285-height viewBox 0.001,-0.001",
+      "passed": true
+    },
+    {
+      "name": "Distinct span-aware scientific tick labels -0.000635..0.003135",
+      "passed": true
+    },
+    {
+      "name": "Distinct span-aware scientific tick labels -1e-16..1e-16",
+      "passed": true
+    },
+    {
+      "name": "Distinct span-aware scientific tick labels 0..2129.92",
+      "passed": true
+    },
+    {
+      "name": "Distinct span-aware scientific tick labels 0.999999..1.000001",
+      "passed": true
+    },
+    {
+      "name": "All320 exact measured validation points and selected epochs are retained",
+      "passed": true
+    }
+  ],
+  "localNodeTiming": {
+    "millisecondsPerSixtySymbolForward": 6.725895000000003
+  },
+  "limits": [
+    "SSR validates accessible rendered values and complete manuscript, not interactive or painted browser geometry.",
+    "Local Node timing is not a browser/device speed claim.",
+    "Native42 and model1,036,712 checks cover unchanged numerical engines; final independent/browser/integration remain pending."
+  ]
+}

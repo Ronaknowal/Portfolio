@@ -93,7 +93,7 @@ export function OopLookupLab() {
       <label>Where lists begin<select aria-label="Where lists begin" value={state.mode} onChange={e => mode(e.target.value)}><option value="class">One class list · bug for independent logs</option><option value="instance">One list per instance · intended design</option></select></label>
       <label>Receiving object<select aria-label="Receiving object" value={receiver} onChange={e => setReceiver(e.target.value)}><option value="A">a · object A</option><option value="B">b · object B</option></select></label>
     </div>
-    <CodeBlock language="python">{state.mode === "class" ? "class Log:\n    values = []\n\na = Log()\nb = Log()" : "class Log:\n    def __init__(self):\n        self.values = []\n\na = Log()\nb = Log()"}</CodeBlock>
+    <CodeBlock language="python" filename="instance-storage.py">{state.mode === "class" ? "class Log:\n    values = []\n\na = Log()\nb = Log()" : "class Log:\n    def __init__(self):\n        self.values = []\n\na = Log()\nb = Log()"}</CodeBlock>
     <div className="oop-lookup-map">
       <div className="oop-lookup-map__instances">{["A", "B"].map(id => {
           const found = lookupValues(state, id);
@@ -134,7 +134,7 @@ export function OopValidationLab() {
     <ol className="oop-gates" aria-label="Checks before mutation">{result.gates.map((gate, index) => <li key={gate.label} className={`oop-gate--${gate.status}`}><span className="oop-gate-number">{index + 1}</span><div><strong>{gate.label}</strong><span>{gate.status === "passed" ? "✓ Passed" : gate.status === "blocked" ? "✕ Stop here" : "Not reached"}</span></div>{index < 3 && <span className="oop-gate-arrow" aria-hidden="true">↓</span>}</li>)}</ol>
     <div className="oop-before-after"><div><span className="oop-label">BEFORE · internal list</span><code>[18.0]</code></div><Arrow>successful checks permit mutation</Arrow><div><span className="oop-label">AFTER · internal list</span><code>{result.error ? "[18.0]" : "[18.0, 24.0]"}</code></div></div>
     <div className="oop-feedback" aria-live="polite" aria-atomic="true"><><strong>{result.error || "Accepted: the method returns None"}</strong><p>{result.error ? "The exception ends add before append. The original reading remains, and count and mean are unchanged." : "24 becomes 24.0 in float storage. Only after all checks pass does append change the list; the count becomes 2 and the mean 21.0."}</p></></div>
-    <details className="oop-deeper"><summary>Explain the different failures</summary><p>True and the text "24" violate this class's accepted-type contract. NaN and infinity have float type, but fail the finite-value requirement. The huge integer passes the type check and fails float conversion. Validation tests meaning as well as type.</p></details>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Explain the different failures</h4><p>True and the text "24" violate this class's accepted-type contract. NaN and infinity have float type, but fail the finite-value requirement. The huge integer passes the type check and fails float conversion. Validation tests meaning as well as type.</p></section>
     <p className="lesson-note">Six fixed Python inputs are modelled; the dropdown is not a general expression evaluator. The browser reproduces the checked method's error policy. It does not measure sensor quality or choose a scientifically valid temperature range.</p>
   </section>;
 }

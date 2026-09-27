@@ -329,10 +329,10 @@ export function AirfoilTraceLab() {
           {' '}{signed(active.target - trace.prediction, 6)} dB — a comparison value, never a feature.
         </p>
       </div>
-      <details>
-        <summary>Inspect every term: raw value, saved mean and scale, standardized value, coefficient and contribution</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Inspect every term: raw value, saved mean and scale, standardized value, coefficient and contribution</h4>
         <Table caption="The full twenty-term trace, exactly as the saved model computes it" headings={['term', 'raw value', 'saved mean', 'saved scale', 'standardized', 'coefficient', 'contribution (dB)']} rows={featureNames.map((name, index) => [name, round(trace.terms[index], 6), round(ridgeModel.scaleMean[index], 6), round(ridgeModel.scaleScale[index], 6), round(trace.standardized[index], 6), round(ridgeModel.coefficients[index], 6), round(trace.contributions[index], 6)])} rowClass={index => touched.has(index) ? 'is-selected' : undefined} scroll />
-      </details>
+      </section>
       <p className="rg-caption">
         The twenty terms are not twenty independent dials: they are determined by the five measurements, which is why this investigation
         edits the measurements and not the scaled terms. This page recomputes the saved model here rather than reading a stored answer,
@@ -464,15 +464,15 @@ export function DropoutLab() {
         clean {round(enumeration.cleanLoss, 9)}. The analytic excess {round(enumeration.analyticExtra, 9)} depends on x, w and q and <em>not</em> on
         the target, so changing y alone moves both losses and leaves their difference where it was.
       </p>
-      <details>
-        <summary>Why a mean-preserving mask is not exact model averaging through a nonlinearity</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Why a mean-preserving mask is not exact model averaging through a nonlinearity</h4>
         <p className="rg-caption">
           Let a value be {inset.values.join(' or ')} with equal probability and pass it through f(u) = max(0, u − {inset.shift}).
           The mean of f is {round(inset.meanOutput, 6)}, while f of the mean input {round(inset.meanInput, 6)} is {round(inset.outputOfMean, 6)}.
           Ordinary dropout-off inference is therefore not generally an exact average over every masked nonlinear network. This inset is
           fixed; it takes no input of its own.
         </p>
-      </details>
+      </section>
     </>}
   </Investigation>;
 }

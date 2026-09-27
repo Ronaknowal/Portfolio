@@ -1,0 +1,53 @@
+{
+  "topicId": "residual-connections-skip-connections",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/residual-connections-skip-connections.jsx": "0864b09b9cbe7d0020b61c2659d1ce17b121e088d1f403430e4235135b2bccc3",
+    "src/learn/components/lesson-labs/ResidualGateIntuition.jsx": "5c8c433beba7cc479c15890f3e721ca9b01cfb1ba765d0930875921c0822f55f",
+    "src/learn/components/lesson-labs/residual-gate-intuition.css": "46bef1d18a254e3ac69fb6d58d4befcf099475e83c56493c773ce437b9b32081"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        48
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": []
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        38
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": [
+        13
+      ]
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T15:09:47.230Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [
+      "src/learn/data/topics/residual-connections-skip-connections.jsx"
+    ],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

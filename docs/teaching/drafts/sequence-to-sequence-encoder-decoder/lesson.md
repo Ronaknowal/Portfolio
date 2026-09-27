@@ -129,6 +129,8 @@ m_{bt}=1\ \text{when the target is not PAD}.$$
 
 This gives equal weight to valid tokens. Averaging each sequence first would give equal weight to sequences and therefore relatively more weight to tokens in short answers. Both can be deliberate objectives; changing the denominator silently changes the training problem.
 
+For a concrete comparison, suppose one answer has two valid tokens costing 1 nat each, and another has six costing 3 nats each. The token mean is (2×1+6×3)/8=2.5. Averaging the two sequence means gives (1+3)/2=2. Under the first rule every token has weight 1/8. Under the second, each short-answer token has weight 1/4 and each long-answer token 1/12. The threefold difference is a weighting choice, not a numerical rounding effect. Padding should receive zero weight under either rule.
+
 ### Teacher forcing: a known prefix, not the current answer
 
 During training we know the reference output. **Teacher forcing** uses its previous tokens as the decoder inputs while scoring each next token. This directly evaluates the conditional factors in the likelihood above. It is ordinary maximum-likelihood training for this model, not a trick that makes the loss invalid.
@@ -562,6 +564,16 @@ Context can also be concatenated to the decoder input at every step. That repeat
 
 The 2014 Sutskever system demonstrated large recurrent encoder–decoder translation with word vocabularies and unknown-word tokens. Its reported 34.81 BLEU result used an ensemble of five models and beam 12. Source reversal shortened some important dependency paths; it did not reverse the target language or eliminate recurrent computation. The paper actually reported good performance on long sentences in that setting, so a universal “fails after 30 words” claim would misrepresent it. [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215).
 
+Use a constructed alignment A→X, B→Y, C→Z to see what reversal changes. Count state-to-state edges from the source token's encoder state to its aligned decoder output, in a single-summary recurrent chain:
+
+| Aligned information | Encode A B C, then decode X Y Z | Encode C B A, then decode X Y Z |
+| --- | --- | --- |
+| A needed for X | A→B→C→X: 3 edges | A→X: 1 edge |
+| B needed for Y | B→C→X→Y: 3 edges | B→A→X→Y: 3 edges |
+| C needed for Z | C→X→Y→Z: 3 edges | C→B→A→X→Y→Z: 5 edges |
+
+Some early output dependencies become shorter while later ones become longer; the average in this small construction stays 3. Real language alignments are more complicated. Reversal is an ordering choice that changes credit paths, not a way to remove the source-summary bottleneck or a universal preprocessing rule.
+
 </details>
 
 <details>
@@ -571,7 +583,11 @@ Maximum likelihood scores observed prefixes. Deployment uses generated prefixes.
 
 Scheduled sampling mixes reference and generated previous tokens during training, typically changing the mixing probability over time. The targets can remain the original next tokens even when the prefix has changed. That means it is no longer simply evaluating the original data likelihood. The original proposal reported useful results, while an analysis of the sampling objective showed an inconsistency even in a two-symbol setting: replacing the first symbol independently can encourage prediction of the second marginal rather than the correct conditional relationship. It is not an automatic required upgrade. [Bengio et al.](https://arxiv.org/abs/1506.03099), [Huszár's analysis, section 4](https://arxiv.org/abs/1511.05101).
 
+The replacement can change the relationship being taught. Suppose the only true two-symbol sequences are 00 and 11, equally common. The second symbol should copy the first. If the first symbol is always replaced by an independent fair generated bit while the second target is kept, all four shown-prefix/target pairs become equally common. Half the examples now tell the model to contradict the shown bit. Predicting the target marginal 50/50 is optimal for that corrupted pair distribution. The figure isolates this limiting mechanism; partial replacement and real models require their own analysis.
+
 Sequence-level objectives can optimize a reward or risk attached to the complete answer. They introduce their own estimation, optimization and evaluation questions. Label smoothing changes target distributions at the loss; it does not itself train on the model's wrong prefixes. Keep these mechanisms distinct when interpreting an experiment.
+
+For an inspectable sequence-level objective, let a tiny model choose between two complete answers A and B with probabilities .6 and .4, and assign task rewards 0 and 1. Expected reward is .4. If B's probability is a sigmoid of a logit difference, increasing that difference has reward derivative .4×.6=.24. The gradient acts on probability assigned to complete outcomes, not on a differentiable argmax string. Large output spaces cannot usually be enumerated like these two routes: sampling-based estimators or restricted candidate approximations introduce variance or bias, and the reward must actually reflect the task. Label smoothing instead redistributes a per-token training target; it does not perform this expected-reward calculation.
 
 </details>
 
@@ -581,6 +597,8 @@ Sequence-level objectives can optimize a reward or risk attached to the complete
 With output vocabulary size $V$, limit $T$ and beam width $K$, exhaustive enumeration has exponentially many possible paths, whereas beam expansion considers roughly $KVT$ token extensions. This count omits the cost of each neural state update, embedding lookup, projection and sorting. It is an algorithmic description, not a measured latency claim.
 
 For raw log scores, extending a particular live path cannot improve its score. A completed candidate that already beats every live prefix cannot be beaten by descendants of those retained prefixes. This does not recover routes already pruned. Length-normalized scores need a compatible bound because their denominator changes; borrowing a raw-score stopping proof would be invalid.
+
+For example, a completed raw score −.8 beats a live prefix at −1.0; every descendant adds nonpositive log terms, so none of that prefix's completions can win. With the earlier length normalization at α=1, a length-1 prefix with raw score −1.0 has normalized score −1.0, but a length-5 completion with raw score −1.1 has normalized score −.66. It can overtake a completed candidate whose normalized score is −.8. A stopping bound must account for the allowed remaining lengths as well as possible log-score additions. This is why a stop rule and a scoring rule must be designed together.
 
 In a deployed model, record the exact tokenizer and vocabulary, source normalization, checkpoint revision, input limit, decoder-start and EOS IDs, padding side, precision/device, beam or sampling settings, score definition, output limit and termination reason. For multilingual models a language token is checkpoint-specific, not a universal string format. Keep model and tokenizer versions paired.
 

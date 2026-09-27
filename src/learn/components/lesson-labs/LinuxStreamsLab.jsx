@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { useId, useState } from "react";
 import { LINUX_STREAM_ROUTES, linuxStreamModel } from "../../data/linux-stream-model";
 import "./linux-streams-lab.css";
@@ -51,18 +52,18 @@ export default function LinuxStreamsLab() {
       <div>{LINUX_STREAM_ROUTES.filter(route => !route.advanced).map(route => <button key={route.id} type="button" aria-pressed={routeId === route.id} onClick={() => chooseRoute(route.id)}>{route.label}<code>{route.suffix || "no redirection"}</code></button>)}</div>
     </fieldset>
 
-    <details className="linux-stream-deeper">
-      <summary>Deeper: why redirection order matters</summary>
+    <section className="linux-stream-deeper lesson-teaching-section" data-lesson-teaching="">
+      <h4 className="lesson-teaching-section__title">Deeper: why redirection order matters</h4>
       <p><code>2&gt;&amp;1</code> gives stderr the destination stdout has <em>at that moment</em>. Compare these two instructions from left to right.</p>
       <div className="linux-stream-order">{LINUX_STREAM_ROUTES.filter(route => route.advanced).map(route => <button key={route.id} type="button" aria-pressed={routeId === route.id} onClick={() => chooseRoute(route.id)}>{route.label}<code>{route.suffix}</code></button>)}</div>
-    </details>
+    </section>
 
-    <details className="linux-stream-deeper">
-    <summary>See the complete Bash command</summary>
+    <section className="linux-stream-deeper lesson-teaching-section" data-lesson-teaching="">
+    <h4 className="lesson-teaching-section__title">See the complete Bash command</h4>
     <p className="linux-stream-command-label">The complete command · <strong>{model.label}</strong></p>
-    <pre className="linux-stream-command"><code>{model.command}</code></pre>
+    <CodeBlock language="bash" filename="linux-stream-command.sh">{model.command}</CodeBlock>
     <p className="lesson-note">Inside this small program, <code>&gt;&amp;2</code> sends the warning to stderr. The instruction after the closing quote sets the destinations for the whole program.</p>
-    </details>
+    </section>
 
     
     <div className="linux-stream-actions"><button type="button" onClick={reset}>Reset streams</button></div>
@@ -79,30 +80,30 @@ export default function LinuxStreamsLab() {
     <div className="linux-stream-results">
       <h4>What arrives at each destination</h4>
       <div className="linux-stream-output-grid">
-        <div className="linux-stream-output"><strong>Your terminal</strong>{model.terminal.length ? model.terminal.map(item => <div key={item.stream}><span className="linux-stream-small">From {item.stream}</span><pre><code>{item.content}</code></pre></div>) : <p>No output from this command.</p>}</div>
-        {Object.entries(model.files).map(([filename, content]) => <div className="linux-stream-output" key={filename}><strong>{filename}</strong><pre><code>{content}</code></pre></div>)}
+        <div className="linux-stream-output"><strong>Your terminal</strong>{model.terminal.length ? model.terminal.map(item => <div key={item.stream}><span className="linux-stream-small">From {item.stream}</span><CodeBlock language="text" kind="output" filename={`terminal-${item.stream}.txt`}>{item.content}</CodeBlock></div>) : <p>No output from this command.</p>}</div>
+        {Object.entries(model.files).map(([filename, content]) => <div className="linux-stream-output" key={filename}><strong>{filename}</strong><CodeBlock language="text" kind="output" filename={filename}>{content}</CodeBlock></div>)}
       </div>
       {model.id === "pipe" && <p className="lesson-note">The terminal receives a warning and the count. Their on-screen order can vary because the two programs run concurrently; they are grouped by source here. Only the metric enters wc.</p>}
       <div className="linux-stream-status"><span>Program exit status <strong>{model.producerStatus}</strong></span><span>{model.id === "pipe" ? "Pipeline status" : "Shell's command status"} <strong>{model.shellStatus}</strong></span></div>
       <p>{fails ? model.id === "pipe" ? "The producer exits 7, but wc succeeds. With Bash's pipefail disabled, the pipeline reports the last command's 0. A successful count does not prove the producer succeeded." : "The program exits 7 even though it produced output. Changing the destination of a message does not repair a failure." : "The warning is diagnostic text. This program deliberately exits 0, so the warning alone does not mean the command failed."}</p>
     </div>
 
-    <details className="linux-stream-deeper">
-      <summary>Deeper: can useful output come from a failed command?</summary>
+    <section className="linux-stream-deeper lesson-teaching-section" data-lesson-teaching="">
+      <h4 className="lesson-teaching-section__title">Deeper: can useful output come from a failed command?</h4>
       <p>Try “Count result lines”, then make the producer fail after printing. Watch the count and reported status as you change the exit behavior.</p>
       <label className="linux-stream-failure"><input type="checkbox" checked={fails} onChange={event => {
           setFails(event.target.checked);
         }} />Exit 7 after printing the same messages</label>
       <p className="lesson-note">This lab assumes successful file access, a successful wc, and Bash with pipefail disabled. A real redirection or program can fail for other reasons. pipefail and error handling are explored further in the Bash lesson.</p>
-    </details>
+    </section>
 
-    <details className="linux-stream-deeper">
-      <summary>Try it in your own terminal</summary>
+    <section className="linux-stream-deeper lesson-teaching-section" data-lesson-teaching="">
+      <h4 className="lesson-teaching-section__title">Try it in your own terminal</h4>
       <p>This browser lab models six fixed commands; it does not execute a shell or write files. To reproduce the selected command, start a disposable directory in a Linux Bash terminal:</p>
-      <pre className="linux-stream-command"><code>{'lab=$(mktemp -d)\ncd "$lab" || exit 1\nset +o pipefail'}</code></pre>
+      <CodeBlock language="bash" filename="linux-stream-workspace.sh">{'lab=$(mktemp -d)\ncd "$lab" || exit 1\nset +o pipefail'}</CodeBlock>
       <p>Run the complete command shown above. Immediately run <code>{'printf "status: %s\\n" "$?"'}</code> to inspect its status. Use <code>cat</code> with the output filename to inspect any file it created.</p>
       <p><code>&gt;</code> creates or truncates its destination before the program runs. Use this new directory so existing work is not overwritten. Each browser trace starts with fresh modeled files.</p>
-    </details>
+    </section>
     <p className="lesson-note">Transfer: you need a machine-readable metric file and a separate warning log. Choose a route, then explain why plain <code>| wc -l</code> would leave the warning visible. Compare the routes directly in the diagram.</p>
   </section>;
 }

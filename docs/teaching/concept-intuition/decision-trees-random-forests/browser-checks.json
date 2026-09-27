@@ -1,0 +1,55 @@
+{
+  "topicId": "decision-trees-random-forests",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/decision-trees-random-forests.jsx": "d379d3b49a78e9ca3605833f866b51d492d9f0c0c046612ffb18612614084073",
+    "src/learn/components/lesson-labs/DecisionTreeIntuition.jsx": "8232cf18f9c3aa3a03011a0b3af879b934067632dffbd1aec186d0a08a3832af",
+    "src/learn/components/lesson-labs/decision-tree-intuition.css": "9fe5560ebd8358eaed7366304f41668a3b700a9918a998adf86a3b0d96b5e054"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        1
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        47
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "topicId": "time-series-validation-forecasting-baselines",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx",
+    "src/learn/components/lesson-labs/TimeSeriesIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/timeseries-intuition.css",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "1785ee1e4c11d647b6078ae095a73a8872a0ff9463f5c6b21852c900db2d09b7",
+    "src/learn/components/lesson-labs/TimeSeriesIntuitionFigures.jsx": "c0efce60b00582df44d0038ab452b70e01ce6de919eeec1c2db5e3866395eb38",
+    "src/learn/components/lesson-labs/timeseries-intuition.css": "6bb5bd0f0c7c577763b2945843cd2064ba0346e4830e928295a11135ee07c922",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "67b8e84102be6cd1bcbc74b69c23919ab7f55412bd947005283e351cef948cdf"
+  },
+  "checks": [
+    {
+      "name": "Full lesson, practice, local conceptual transitions and added figure source read",
+      "passed": true
+    },
+    {
+      "name": "Independent exact fixture and mechanism calculations",
+      "passed": true
+    },
+    {
+      "name": "JSX parse and exact author source identity",
+      "passed": true
+    },
+    {
+      "name": "Final bounded copy review: investigation wording replaces predict-before-use instructions; source parses, no engine/control changes",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

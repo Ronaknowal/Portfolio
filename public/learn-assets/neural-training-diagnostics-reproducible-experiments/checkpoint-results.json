@@ -1,0 +1,1018 @@
+{
+  "checkpoint_after_update": 5,
+  "checkpoint_cursor": 60,
+  "optimizer_buffer_omission_preserves_parameter_groups": true,
+  "training_row_ids": [
+    17,
+    5,
+    18,
+    43,
+    44,
+    54,
+    3,
+    50,
+    29,
+    47,
+    16,
+    32,
+    12,
+    56,
+    6,
+    8,
+    9,
+    36,
+    30,
+    55,
+    25,
+    11,
+    19,
+    57,
+    124,
+    75,
+    103,
+    125,
+    108,
+    72,
+    113,
+    63,
+    73,
+    65,
+    77,
+    78,
+    112,
+    71,
+    69,
+    76,
+    90,
+    84,
+    97,
+    119,
+    64,
+    128,
+    82,
+    92,
+    143,
+    158,
+    173,
+    171,
+    164,
+    167,
+    169,
+    139,
+    161,
+    146,
+    177,
+    130,
+    138,
+    141,
+    135,
+    133,
+    172,
+    151,
+    145,
+    170,
+    148,
+    150,
+    140,
+    134
+  ],
+  "prefix": [
+    {
+      "update": 1,
+      "training_positions": [
+        56,
+        16,
+        53,
+        65,
+        50,
+        37,
+        23,
+        36,
+        41,
+        12,
+        67,
+        58
+      ],
+      "pre_update_loss": 1.3417177458736103,
+      "learning_rate_used": 0.03
+    },
+    {
+      "update": 2,
+      "training_positions": [
+        42,
+        0,
+        26,
+        43,
+        27,
+        4,
+        15,
+        3,
+        2,
+        13,
+        31,
+        38
+      ],
+      "pre_update_loss": 1.1196143262336589,
+      "learning_rate_used": 0.03
+    },
+    {
+      "update": 3,
+      "training_positions": [
+        17,
+        24,
+        8,
+        46,
+        47,
+        10,
+        18,
+        35,
+        6,
+        39,
+        60,
+        51
+      ],
+      "pre_update_loss": 1.1400390770778221,
+      "learning_rate_used": 0.03
+    },
+    {
+      "update": 4,
+      "training_positions": [
+        32,
+        28,
+        34,
+        1,
+        40,
+        7,
+        22,
+        71,
+        59,
+        64,
+        25,
+        30
+      ],
+      "pre_update_loss": 1.1090683407584165,
+      "learning_rate_used": 0.015
+    },
+    {
+      "update": 5,
+      "training_positions": [
+        61,
+        62,
+        55,
+        48,
+        29,
+        57,
+        19,
+        68,
+        52,
+        9,
+        21,
+        49
+      ],
+      "pre_update_loss": 1.2478890488294636,
+      "learning_rate_used": 0.015
+    }
+  ],
+  "uninterrupted_continuation": [
+    {
+      "update": 6,
+      "training_positions": [
+        63,
+        70,
+        33,
+        14,
+        5,
+        66,
+        69,
+        11,
+        44,
+        45,
+        20,
+        54
+      ],
+      "pre_update_loss": 1.0529240400055435,
+      "learning_rate_used": 0.015
+    },
+    {
+      "update": 7,
+      "training_positions": [
+        64,
+        4,
+        37,
+        59,
+        24,
+        19,
+        15,
+        13,
+        33,
+        45,
+        10,
+        28
+      ],
+      "pre_update_loss": 0.9774806999786344,
+      "learning_rate_used": 0.0075
+    },
+    {
+      "update": 8,
+      "training_positions": [
+        17,
+        1,
+        22,
+        42,
+        49,
+        40,
+        34,
+        66,
+        6,
+        16,
+        71,
+        7
+      ],
+      "pre_update_loss": 0.9484414261438857,
+      "learning_rate_used": 0.0075
+    },
+    {
+      "update": 9,
+      "training_positions": [
+        20,
+        60,
+        53,
+        8,
+        51,
+        27,
+        36,
+        29,
+        2,
+        26,
+        12,
+        48
+      ],
+      "pre_update_loss": 0.860020409778291,
+      "learning_rate_used": 0.0075
+    },
+    {
+      "update": 10,
+      "training_positions": [
+        14,
+        67,
+        18,
+        58,
+        35,
+        3,
+        55,
+        0,
+        57,
+        25,
+        52,
+        31
+      ],
+      "pre_update_loss": 0.8459955415342076,
+      "learning_rate_used": 0.00375
+    },
+    {
+      "update": 11,
+      "training_positions": [
+        5,
+        69,
+        41,
+        50,
+        47,
+        62,
+        44,
+        54,
+        43,
+        32,
+        9,
+        65
+      ],
+      "pre_update_loss": 0.9662156608618115,
+      "learning_rate_used": 0.00375
+    },
+    {
+      "update": 12,
+      "training_positions": [
+        30,
+        23,
+        70,
+        68,
+        21,
+        11,
+        61,
+        56,
+        63,
+        39,
+        38,
+        46
+      ],
+      "pre_update_loss": 0.9328100324750227,
+      "learning_rate_used": 0.00375
+    }
+  ],
+  "comparisons": [
+    {
+      "omission": "none",
+      "trace": [
+        {
+          "update": 6,
+          "training_positions": [
+            63,
+            70,
+            33,
+            14,
+            5,
+            66,
+            69,
+            11,
+            44,
+            45,
+            20,
+            54
+          ],
+          "pre_update_loss": 1.0529240400055435,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 7,
+          "training_positions": [
+            64,
+            4,
+            37,
+            59,
+            24,
+            19,
+            15,
+            13,
+            33,
+            45,
+            10,
+            28
+          ],
+          "pre_update_loss": 0.9774806999786344,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 8,
+          "training_positions": [
+            17,
+            1,
+            22,
+            42,
+            49,
+            40,
+            34,
+            66,
+            6,
+            16,
+            71,
+            7
+          ],
+          "pre_update_loss": 0.9484414261438857,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 9,
+          "training_positions": [
+            20,
+            60,
+            53,
+            8,
+            51,
+            27,
+            36,
+            29,
+            2,
+            26,
+            12,
+            48
+          ],
+          "pre_update_loss": 0.860020409778291,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 10,
+          "training_positions": [
+            14,
+            67,
+            18,
+            58,
+            35,
+            3,
+            55,
+            0,
+            57,
+            25,
+            52,
+            31
+          ],
+          "pre_update_loss": 0.8459955415342076,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 11,
+          "training_positions": [
+            5,
+            69,
+            41,
+            50,
+            47,
+            62,
+            44,
+            54,
+            43,
+            32,
+            9,
+            65
+          ],
+          "pre_update_loss": 0.9662156608618115,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 12,
+          "training_positions": [
+            30,
+            23,
+            70,
+            68,
+            21,
+            11,
+            61,
+            56,
+            63,
+            39,
+            38,
+            46
+          ],
+          "pre_update_loss": 0.9328100324750227,
+          "learning_rate_used": 0.00375
+        }
+      ],
+      "exact_trace_equal": true,
+      "exact_parameters_equal": true,
+      "maximum_parameter_difference": 0.0
+    },
+    {
+      "omission": "optimizer_buffers",
+      "trace": [
+        {
+          "update": 6,
+          "training_positions": [
+            63,
+            70,
+            33,
+            14,
+            5,
+            66,
+            69,
+            11,
+            44,
+            45,
+            20,
+            54
+          ],
+          "pre_update_loss": 1.0529240400055435,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 7,
+          "training_positions": [
+            64,
+            4,
+            37,
+            59,
+            24,
+            19,
+            15,
+            13,
+            33,
+            45,
+            10,
+            28
+          ],
+          "pre_update_loss": 1.0137133801570604,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 8,
+          "training_positions": [
+            17,
+            1,
+            22,
+            42,
+            49,
+            40,
+            34,
+            66,
+            6,
+            16,
+            71,
+            7
+          ],
+          "pre_update_loss": 1.0084021975550375,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 9,
+          "training_positions": [
+            20,
+            60,
+            53,
+            8,
+            51,
+            27,
+            36,
+            29,
+            2,
+            26,
+            12,
+            48
+          ],
+          "pre_update_loss": 0.9232149400802919,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 10,
+          "training_positions": [
+            14,
+            67,
+            18,
+            58,
+            35,
+            3,
+            55,
+            0,
+            57,
+            25,
+            52,
+            31
+          ],
+          "pre_update_loss": 0.9144744026267064,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 11,
+          "training_positions": [
+            5,
+            69,
+            41,
+            50,
+            47,
+            62,
+            44,
+            54,
+            43,
+            32,
+            9,
+            65
+          ],
+          "pre_update_loss": 1.0623865922566194,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 12,
+          "training_positions": [
+            30,
+            23,
+            70,
+            68,
+            21,
+            11,
+            61,
+            56,
+            63,
+            39,
+            38,
+            46
+          ],
+          "pre_update_loss": 1.00946047574008,
+          "learning_rate_used": 0.00375
+        }
+      ],
+      "exact_trace_equal": false,
+      "exact_parameters_equal": false,
+      "maximum_parameter_difference": 0.030061552988794482
+    },
+    {
+      "omission": "torch_rng",
+      "trace": [
+        {
+          "update": 6,
+          "training_positions": [
+            63,
+            70,
+            33,
+            14,
+            5,
+            66,
+            69,
+            11,
+            44,
+            45,
+            20,
+            54
+          ],
+          "pre_update_loss": 1.1836292200582381,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 7,
+          "training_positions": [
+            64,
+            4,
+            37,
+            59,
+            24,
+            19,
+            15,
+            13,
+            33,
+            45,
+            10,
+            28
+          ],
+          "pre_update_loss": 0.9193819890783702,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 8,
+          "training_positions": [
+            17,
+            1,
+            22,
+            42,
+            49,
+            40,
+            34,
+            66,
+            6,
+            16,
+            71,
+            7
+          ],
+          "pre_update_loss": 1.055585190817208,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 9,
+          "training_positions": [
+            20,
+            60,
+            53,
+            8,
+            51,
+            27,
+            36,
+            29,
+            2,
+            26,
+            12,
+            48
+          ],
+          "pre_update_loss": 0.904264390818207,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 10,
+          "training_positions": [
+            14,
+            67,
+            18,
+            58,
+            35,
+            3,
+            55,
+            0,
+            57,
+            25,
+            52,
+            31
+          ],
+          "pre_update_loss": 0.8845757281481953,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 11,
+          "training_positions": [
+            5,
+            69,
+            41,
+            50,
+            47,
+            62,
+            44,
+            54,
+            43,
+            32,
+            9,
+            65
+          ],
+          "pre_update_loss": 1.0592927150738094,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 12,
+          "training_positions": [
+            30,
+            23,
+            70,
+            68,
+            21,
+            11,
+            61,
+            56,
+            63,
+            39,
+            38,
+            46
+          ],
+          "pre_update_loss": 0.8473520331682697,
+          "learning_rate_used": 0.00375
+        }
+      ],
+      "exact_trace_equal": false,
+      "exact_parameters_equal": false,
+      "maximum_parameter_difference": 0.008614809399284551
+    },
+    {
+      "omission": "active_order_cursor",
+      "trace": [
+        {
+          "update": 6,
+          "training_positions": [
+            64,
+            4,
+            37,
+            59,
+            24,
+            19,
+            15,
+            13,
+            33,
+            45,
+            10,
+            28
+          ],
+          "pre_update_loss": 1.021431484741836,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 7,
+          "training_positions": [
+            17,
+            1,
+            22,
+            42,
+            49,
+            40,
+            34,
+            66,
+            6,
+            16,
+            71,
+            7
+          ],
+          "pre_update_loss": 0.9716563262937532,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 8,
+          "training_positions": [
+            20,
+            60,
+            53,
+            8,
+            51,
+            27,
+            36,
+            29,
+            2,
+            26,
+            12,
+            48
+          ],
+          "pre_update_loss": 0.9409954526916376,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 9,
+          "training_positions": [
+            14,
+            67,
+            18,
+            58,
+            35,
+            3,
+            55,
+            0,
+            57,
+            25,
+            52,
+            31
+          ],
+          "pre_update_loss": 0.913374603597198,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 10,
+          "training_positions": [
+            5,
+            69,
+            41,
+            50,
+            47,
+            62,
+            44,
+            54,
+            43,
+            32,
+            9,
+            65
+          ],
+          "pre_update_loss": 0.9372259571105749,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 11,
+          "training_positions": [
+            30,
+            23,
+            70,
+            68,
+            21,
+            11,
+            61,
+            56,
+            63,
+            39,
+            38,
+            46
+          ],
+          "pre_update_loss": 0.8496220753523979,
+          "learning_rate_used": 0.00375
+        },
+        {
+          "update": 12,
+          "training_positions": [
+            17,
+            45,
+            43,
+            18,
+            8,
+            30,
+            42,
+            41,
+            16,
+            5,
+            19,
+            7
+          ],
+          "pre_update_loss": 0.8686897504620984,
+          "learning_rate_used": 0.00375
+        }
+      ],
+      "exact_trace_equal": false,
+      "exact_parameters_equal": false,
+      "maximum_parameter_difference": 0.008778305019240762
+    },
+    {
+      "omission": "scheduler",
+      "trace": [
+        {
+          "update": 6,
+          "training_positions": [
+            63,
+            70,
+            33,
+            14,
+            5,
+            66,
+            69,
+            11,
+            44,
+            45,
+            20,
+            54
+          ],
+          "pre_update_loss": 1.0529240400055435,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 7,
+          "training_positions": [
+            64,
+            4,
+            37,
+            59,
+            24,
+            19,
+            15,
+            13,
+            33,
+            45,
+            10,
+            28
+          ],
+          "pre_update_loss": 0.9774806999786344,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 8,
+          "training_positions": [
+            17,
+            1,
+            22,
+            42,
+            49,
+            40,
+            34,
+            66,
+            6,
+            16,
+            71,
+            7
+          ],
+          "pre_update_loss": 0.9227895526205137,
+          "learning_rate_used": 0.015
+        },
+        {
+          "update": 9,
+          "training_positions": [
+            20,
+            60,
+            53,
+            8,
+            51,
+            27,
+            36,
+            29,
+            2,
+            26,
+            12,
+            48
+          ],
+          "pre_update_loss": 0.8145370855104764,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 10,
+          "training_positions": [
+            14,
+            67,
+            18,
+            58,
+            35,
+            3,
+            55,
+            0,
+            57,
+            25,
+            52,
+            31
+          ],
+          "pre_update_loss": 0.806388224743383,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 11,
+          "training_positions": [
+            5,
+            69,
+            41,
+            50,
+            47,
+            62,
+            44,
+            54,
+            43,
+            32,
+            9,
+            65
+          ],
+          "pre_update_loss": 0.8986342678071907,
+          "learning_rate_used": 0.0075
+        },
+        {
+          "update": 12,
+          "training_positions": [
+            30,
+            23,
+            70,
+            68,
+            21,
+            11,
+            61,
+            56,
+            63,
+            39,
+            38,
+            46
+          ],
+          "pre_update_loss": 0.8693385967917845,
+          "learning_rate_used": 0.00375
+        }
+      ],
+      "exact_trace_equal": false,
+      "exact_parameters_equal": false,
+      "maximum_parameter_difference": 0.023764835838657017
+    }
+  ]
+}

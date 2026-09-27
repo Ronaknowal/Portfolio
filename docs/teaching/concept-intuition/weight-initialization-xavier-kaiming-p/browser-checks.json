@@ -1,0 +1,64 @@
+{
+  "topicId": "weight-initialization-xavier-kaiming-p",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx": "0afb834fce7e584cc1f5faed48c1bd00f9d8539a9498fe0406ecc2c6ceb962a5",
+    "src/learn/components/lesson-labs/InitializationUpdateIntuition.jsx": "8cca86a9d7af53d6e0f0b76aea310990f075e15dcf369da066d507b4239f08bc",
+    "src/learn/components/lesson-labs/initialization-update-intuition.css": "72374b475e8d07da25e62ed002d89af452de36aa2cec5c7cbe48eada3e9c7973"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        47
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": []
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        37
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": [
+        1,
+        17
+      ]
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T15:09:47.230Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [
+      "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx"
+    ],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Replaced raw inline math with rendered KaTeX in the update-size bridge; inspected actual adjacent prose.",
+      "status": "closed",
+      "recheckIndices": [],
+      "copyIndices": [
+        1,
+        17
+      ]
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

@@ -718,37 +718,37 @@ trainer.train()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — derive why prompt masking is necessary</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — derive why prompt masking is necessary</H3>
 
       <Prose>
         Suppose you train on (prompt, response) pairs without masking the prompt — all tokens contribute to the loss equally. (a) What does the model learn to do with respect to the prompt tokens? (b) Why does this hurt instruction-following at inference, when the model is given a prompt but not asked to reproduce it? (c) Design a concrete experiment to measure the size of this effect using a small test set.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — design a chat template for a tool-using model</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — design a chat template for a tool-using model</H3>
 
       <Prose>
         A tool-using model needs to emit structured JSON tool calls as part of its response, receive tool results, and then produce a final answer. The standard <Code>{"<|user|>"}</Code> / <Code>{"<|assistant|>"}</Code> template has no slot for this. Design a multi-role chat template that accommodates <Code>tool_call</Code> and <Code>tool_result</Code> turns. Specify: (a) the special tokens you would add to the vocabulary; (b) which turns would be masked in the SFT loss; (c) what a three-turn training example (user → tool call → tool result → final answer) would look like after formatting.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — packed vs unpacked: when does cross-attention leakage matter?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — packed vs unpacked: when does cross-attention leakage matter?</H3>
 
       <Prose>
         Many production implementations use a flat causal mask for packed sequences (not block-diagonal), accepting minor cross-example attention leakage. (a) Under what conditions does this leakage cause measurable harm? Think about example length distribution and training objective. (b) Design a pair of experiments — one where leakage hurts, one where it is harmless — and describe what you would measure.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — data size vs quality tradeoff</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — data size vs quality tradeoff</H3>
 
       <Prose>
         LIMA says 1K high-quality beats 52K noisy. FLAN says diversity at 1M examples improves over 100K. These claims are not contradictory but they are in tension. (a) What is the key variable that reconciles them? (b) Draw a hypothetical learning curve (eval performance vs number of training examples) that would be consistent with both findings. (c) Given a budget of 10,000 human-annotation hours, how would you allocate them between breadth (task variety) and depth (example quality per task)?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — detect template drift in a deployed model</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — detect template drift in a deployed model</H3>
 
       <Prose>
         You suspect that a recently deployed model is exhibiting template drift — its outputs stylistically resemble the training data source rather than the intended response format. Describe a systematic evaluation protocol to: (a) confirm drift is occurring and quantify its severity; (b) identify which aspect of the training data is driving it (source domain, annotation style, response length distribution); (c) determine the minimal dataset change that would correct it without retraining from scratch.
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

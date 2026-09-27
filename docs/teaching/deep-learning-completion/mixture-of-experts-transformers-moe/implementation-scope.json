@@ -1,0 +1,40 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+    "src/learn/data/moe-models.js",
+    "src/learn/data/moe-examples.json",
+    "src/learn/components/lesson-labs/MoeFigures.jsx",
+    "src/learn/components/lesson-labs/MoeLabs.jsx",
+    "src/learn/components/lesson-labs/moe-labs.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "public/learn-assets/mixture-of-experts-transformers-moe/moe-001-17.json",
+    "scripts/prepare-moe-assets.py",
+    "scripts/render-moe-lesson.mjs",
+    "scripts/verify-moe-models.mjs",
+    "scripts/check-moe-static-render.mjs"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/design.md",
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/native-checks.json",
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/calculated-inputs.json",
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/model-checks.json",
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/static-checks.json"
+  ],
+  "browserInventory": [
+    "All twelve figure families in design map: attention vs assignments/residual, both normalizers, backward rails, gather/return, capacity, q/P, stored/active rulers, communication, row/column choice, real image, twelve observed outcomes, copied-function equality. Inspect 320px scroll bounds and painted labels.",
+    "moe-routing: default masses[1,3,2,4] output[15/7,6/7]; expert2mass5 output[7/9,20/9]. All expert/logit/mass/output/k/convention controls; score unit switch preserves state; chosen-coordinate derivatives; tied lower-ID boundary; common+1 null; constant vector null; pin/reset; invalid input then first Reset click.",
+    "moe-capacity: default capacity2 outputs[1.5,2,2,2.5,0], three assignments dropped/whole token4; capacity3 one partial drop/output token4=1; token4first preserves three drops but none wholly dropped. Route duplicate options absent; both slot weights, expert scalars, keyboard order, dropless reorder null and explicit survivor-renormalization; reset.",
+    "moe-balance: default1.0125,z0; row0replacement=>1.125; offset+2 givesz4 while probabilities unchanged; fresh scale/peaked/uniform; k1/2/group all/pairs/rows; exact tie note; reset.",
+    "moe-cost: baseline expert11520,total115200,router480,active23040,payload18432; fine same total/active but router960,payload36864; remote0 payload0; max/min integer controls/shared experts; reset.",
+    "moe-image: lazy network request only on open, loading/friendly retry; default observed7 row2030 p7~.96999669, lowerhalf=>digit3 p7~.00776564. Zero alreadyzero upperleft exactnull; temperature2 same routes changed p7~.96980703; disabled0 keeps routes p7~.97009194. Digit0 disabled0 exactnull. All64pixelcount edits, patch/head/coordinate views, actual selected contributions (unexecuted branches labelled), all ten score/delta rows, baseline/reset.",
+    "Outcome selection: all12 fits, clean/stress marks separate with fixed accuracy0..1; selected validation trace and route counts total9600; each class route total960; dense has no router. Two complete program fetches and seven downloads; all12 changed practice solutions closed by default."
+  ],
+  "limits": [
+    "No training repeated; all twelve retained outcomes replayed",
+    "Distributed GPU/grouped-GEMM backend performance is a bounded continuation, not an executed benchmark",
+    "Author-ready only; independent review, browser/device/network and shared integration remain"
+  ]
+}

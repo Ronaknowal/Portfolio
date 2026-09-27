@@ -1,0 +1,51 @@
+{
+  "topicId": "graph-transformers-geometric-deep-learning",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/calculated-inputs.json",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/data-provenance.md",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/design.md",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-calculations.py",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-results.json",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/gps_library_bridge.py",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/graph-transformer-study.py",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/karate-club.json",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/NETWORKX-LICENSE.txt",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/visual-specifications.md",
+    "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/calculated-inputs.json": "eb88403f87705f05fb5e02bdff2f2c8f302b23d7f7cb62badf7ef1d374c77685",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/data-provenance.md": "3a33f1e1d733a1ceeecc971d98ed3ec8feeff1dc2ae8ee914e12762f094cb4d4",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/design.md": "2343811424d6ab83fc516692f6b06c5b05ebd1699321abdd0fe734275f014edd",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-calculations.py": "40f133ae7196d77d460a22127808bf483135df18880a67347c65e8f5ada4ad92",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-results.json": "c408a5547f888678435255cf6247e756d136c19d0bf5a69aa036a26090f5f190",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/gps_library_bridge.py": "068df250860779853851b5b6163cff678769a3d73d5cda4aeedf835c01a2f0ce",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/graph-transformer-study.py": "95fd8386ea8aa62c2ba8bd64e002f489af39fa832f8a274546ec548f255a8ee7",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/karate-club.json": "2b3ec6b980c8905b7aac15482e1a7a562859e6d88ae0c83e54b0436663711812",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md": "f87f1b71b3e92a01c224c2afa23dd69128bd7677ed9355187b6d5774544f9a18",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/NETWORKX-LICENSE.txt": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33",
+    "docs/teaching/drafts/graph-transformers-geometric-deep-learning/visual-specifications.md": "f4fddaa63492814aa90379704cb9583de802b3db779d8d47128b3f8ca056722b",
+    "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md": "099760405e3234a08ca9947e0504587723fb9d6fddd17bf18dce07e1b44028c6",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

@@ -181,6 +181,16 @@ $$
 The first term penalizes disagreement after degree normalization; the second penalizes departure from the injected evidence. Taking the derivative and setting it to zero gives
 $(I-\alpha S)F=(1-\alpha)Y$. This connects the update to an optimization problem rather than a visual blending trick. [Zhou and colleagues](https://proceedings.neurips.cc/paper_files/paper/2003/file/87682805257e619d49b8e0dfdc14affa-Paper.pdf) develop the local-and-global-consistency approach.
 
+To unpack “degree normalization,” inspect one score column $f$ on nodes with positive degree. Its graph term is
+
+$$
+f^\top(I-S)f=\frac12\sum_{i,j}w_{ij}\left(\frac{f_i}{\sqrt{d_i}}-\frac{f_j}{\sqrt{d_j}}\right)^2.
+$$
+
+The quantities being compared are $f_i/\sqrt{d_i}$, not the raw scores. On a three-node unit-weight chain, degrees are $[1,2,1]$. Equal raw scores $[1,1,1]$ still have normalized disagreement; scores $[1,\sqrt2,1]$ have none. This is why replacing $S$ with an ordinary neighbor average silently changes the regularizer. We assume positive degrees in this identity; isolated nodes need the separate zero-degree convention discussed above.
+
+**Inline illustration — degree-normalized agreement.** Compare raw and normalized score columns on the same chain.
+
 The error obeys $E^{(t+1)}=\alpha S E^{(t)}$. Since the eigenvalues of this normalized adjacency lie in $[-1,1]$, the Euclidean error norm contracts by at most $\alpha$ per step. Increasing $\alpha$ toward one can slow convergence considerably: $0.99^{100}\approx0.366$, and $0.99^{500}\approx0.00657$. A worst-case reduction to $10^{-6}$ needs 1,375 steps at that factor. Use a residual or convergence criterion, not an animation that declares victory after an arbitrary number of frames.
 
 ### Reproduce the two different solutions
@@ -494,6 +504,8 @@ $$
 
 The first term learns from observed labels, the second controls the prediction rule and the third lets the input geometry constrain it. The kernel space connects back to the GP lesson; the graph term connects to section 2. Constants depend on the formulation, so preserve them when reproducing a specific algorithm.
 
+Confidence alone cannot supply the class balance. For two unlabeled examples, predictions $[0.5,0.5]$ each have entropy $\log 2$. Assigning both $[0.99,0.01]$ lowers each entropy to about 0.056 nats, even if the true classes differ. Observed-label loss and the other structural assumptions are therefore doing essential work alongside confidence.
+
 ### Deep consistency and teacher–student learning
 
 In [FixMatch](https://arxiv.org/pdf/2001.07685), a weakly augmented input supplies a pseudo-label; a strongly augmented version is trained toward it:
@@ -506,6 +518,12 @@ $$
 $$
 
 Treat the selected target and acceptance decision as fixed for that gradient update. Average over the specified unlabeled batch and combine with supervised loss using a weight $\lambda_u$. A horizontal flip may preserve an animal category but alter the interpretation of a character. The transformation is part of the modeling assumption.
+
+For a numerical reading, let the weak view output $[0.02,0.98]$ and use threshold 0.95. The accepted target is class 1. If the strong view outputs $[0.6,0.4]$, its loss is $-\log 0.4\approx0.9163$. Treating the target as fixed gives derivative $0.4-1=-0.6$ with respect to the binary class-1 logit. Gradient descent pushes that logit upward. If the weak confidence were 0.90 instead, the mask would zero this example's contribution; it would not relabel the example as class 0.
+
+**Investigation — consistency target flow.** Change weak confidence, threshold and strong-view output. Follow the mask, target and gradient live.
+
+The denominator also expresses a choice. With two unlabeled examples, only the first accepted, the FixMatch batch average is $(0.9163+0)/2\approx0.4581$, not 0.9163. Dividing by accepted examples instead changes the effective strength as acceptance varies. Keep the full unlabeled-batch denominator when reproducing this objective.
 
 [Noisy Student](https://arxiv.org/pdf/1911.04252) trains a teacher, generates pseudo-labels, then trains a student with input and model noise before optionally repeating the process. The student can have equal or greater capacity, and the noise introduces consistency pressure; a pseudo-label still has an origin and can still be wrong.
 

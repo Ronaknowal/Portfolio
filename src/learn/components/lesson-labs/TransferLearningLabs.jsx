@@ -1,5 +1,6 @@
+import useLessonViewport from './useLessonViewport.js';
+import RemoteCodeBlock from '../content/RemoteCodeBlock.jsx';
 import { useEffect, useId, useRef, useState } from 'react';
-import { CodeBlock } from '../content';
 import experiment from '../../data/transfer-learning-experiment.json';
 import specimens from '../../data/transfer-learning-specimens.json';
 import { TRANSFER_METHODS, TRANSFER_LABELS, finiteIn, loraFixture, loraStep, batchNormFixture, batchNormForward, adapterBudget, selectTransferCandidate } from '../../data/transfer-learning-model.js';
@@ -111,31 +112,21 @@ const partitionNames = { source_train: 'Source training', source_holdout: 'Sourc
 const partitionPurposes = { source_train: 'Learn backbone and original head', source_holdout: 'Describe retention; never select target candidate', target_train: 'Fit all adaptation candidates', target_validation: 'Choose the exact seed-1 artifact', target_test: 'Already reported once: selected artifact only' };
 
 export function TransferPartitionsFigure() {
-  const [open, setOpen] = useState(false);
+  const [teachingSection, ready] = useLessonViewport();
   return <Lab id="transfer-partitions" title="Five bins; five distinct jobs" kind="Recorded fixed partitions">
     <div className="transfer-partitions">{Object.entries(experiment.splits_source_ids).map(([key, ids]) => <div key={key}><h4>{partitionNames[key]}</h4><strong>{ids.length} specimens</strong><p>Digits {key.startsWith('source') ? '0–4' : '5–9'}</p><p>{partitionPurposes[key]}</p></div>)}</div>
     <p>Source training → learned backbone. Target training → six candidates. Target validation → one choice. Exact selected artifact → target test report. Source holdout → separate retention report.</p>
     <p>All 400 IDs belong to exactly one bin. These are fixed row blocks, not random writer groups or the official UCI benchmark. The test is already observed; browsing this saved report does not make a new untouched test.</p>
-    <details onToggle={event => setOpen(event.currentTarget.open)}><summary>Inspect all 400 specimen assignments</summary>{open && <div className="transfer-table-scroll" role="region" tabIndex={0} aria-label="All specimen IDs and partitions"><table><caption>Source IDs in saved experiment order</caption><thead><tr><th>Partition</th><th>Count</th><th>Source IDs</th></tr></thead><tbody>{Object.entries(experiment.splits_source_ids).map(([key, ids]) => <tr key={key}><th scope="row">{partitionNames[key]}</th><td>{ids.length}</td><td className="transfer-id-list">{ids.join(', ')}</td></tr>)}</tbody></table></div>}</details>
+    <section  data-lesson-teaching="" ref={teachingSection} className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect all 400 specimen assignments</h4>{ready && <div className="transfer-table-scroll" role="region" tabIndex={0} aria-label="All specimen IDs and partitions"><table><caption>Source IDs in saved experiment order</caption><thead><tr><th>Partition</th><th>Count</th><th>Source IDs</th></tr></thead><tbody>{Object.entries(experiment.splits_source_ids).map(([key, ids]) => <tr key={key}><th scope="row">{partitionNames[key]}</th><td>{ids.length}</td><td className="transfer-id-list">{ids.join(', ')}</td></tr>)}</tbody></table></div>}</section>
     <p><strong>Why does target digit 5 have class index 0?</strong> The program computes digit − 5 for target labels. Index 0 of the new head means 5; index 0 of the retained source head means 0.</p>
   </Lab>;
 }
 
 export function TransferProgram() {
-  const [open, setOpen] = useState(false);
-  const [code, setCode] = useState(null);
-  const [failed, setFailed] = useState(false);
-  const [attempt, setAttempt] = useState(0);
-  useEffect(() => {
-    if (!open || code) return;
-    let active = true; setFailed(false);
-    import('../../assets/transfer-learning/transfer-experiments.py?raw').then(module => { if (active) setCode(module.default); }).catch(() => { if (active) setFailed(true); });
-    return () => { active = false; };
-  }, [open, code, attempt]);
   return <section className="transfer-downloads" aria-label="Complete reproducible transfer experiment">
     <h3>Run the complete experiment</h3><p><a href={programUrl} download="transfer-experiments.py">Download complete Python program</a> · <a href={dataUrl} download="digits-400.csv">Download all 400 digit rows</a> · <a href={provenanceUrl} download="data-provenance.md">Dataset provenance and license</a></p>
     <p>Keep the program and CSV together. The program performs all 18 target fits, all source fits, the predeclared selection and the one test report. Browser labs use saved observations or exact small arithmetic; they do not run these fits.</p>
-    <details onToggle={event => setOpen(event.currentTarget.open)}><summary>Read the full executable Python program</summary>{open && (code ? <div className="transfer-code" role="region" tabIndex={0} aria-label="Complete Python program; scroll horizontally when needed"><CodeBlock language="python">{code}</CodeBlock></div> : failed ? <p role="alert">The in-page program could not load. The download remains available. <button onClick={() => setAttempt(value => value + 1)}>Retry code view</button></p> : <p role="status">Loading full program…</p>)}</details>
+    <RemoteCodeBlock source={programUrl} language="python" filename="transfer-experiments.py" title="Read the full executable Python program" />
   </section>;
 }
 
@@ -214,7 +205,7 @@ function TransferTrace({ record }) {
       {[0, 100, 300].map(value => <text key={value} x={px(value)} y="211" textAnchor="middle">{value}</text>)}
       {['train', 'validation'].map((split, i) => <g key={split}><polyline fill="none" stroke={i ? '#e2b55a' : '#9fc8b4'} strokeWidth="2" strokeDasharray={i ? '5 4' : undefined} points={record.trace.map(row => `${px(row.step)},${py(row[split].ce)}`).join(' ')} />{record.trace.map(row => <circle key={row.step} cx={px(row.step)} cy={py(row[split].ce)} r="3" fill={i ? '#e2b55a' : '#9fc8b4'} />)}</g>)}
     </svg><p>Solid green = training (40 rows); dashed amber = validation (60 rows).</p>
-    <details><summary>Read all saved trace values</summary><div className="transfer-table-scroll" role="region" tabIndex={0} aria-label="Exact recorded trace"><table><thead><tr><th>Update</th><th>Train CE</th><th>Train correct / 40</th><th>Validation CE</th><th>Validation correct / 60</th></tr></thead><tbody>{record.trace.map(row => <tr key={row.step}><th scope="row">{row.step}</th><td>{number(row.train.ce, 6)}</td><td>{row.train.correct}</td><td>{number(row.validation.ce, 6)}</td><td>{row.validation.correct}</td></tr>)}</tbody></table></div></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read all saved trace values</h4><div className="transfer-table-scroll" role="region" tabIndex={0} aria-label="Exact recorded trace"><table><thead><tr><th>Update</th><th>Train CE</th><th>Train correct / 40</th><th>Validation CE</th><th>Validation correct / 60</th></tr></thead><tbody>{record.trace.map(row => <tr key={row.step}><th scope="row">{row.step}</th><td>{number(row.train.ce, 6)}</td><td>{row.train.correct}</td><td>{number(row.validation.ce, 6)}</td><td>{row.validation.correct}</td></tr>)}</tbody></table></div></section>
   </figure>;
 }
 

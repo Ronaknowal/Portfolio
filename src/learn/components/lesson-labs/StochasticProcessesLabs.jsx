@@ -337,13 +337,13 @@ export function AbsorptionLab() {
     <p>From the chosen start {start}: eventual success {number(result.success[start])};
       mean time to <em>either</em> boundary {number(result.meanSteps[start])} steps.
       A still-moving path at step {step} is censored, not a permanent failure.</p>
-    <details><summary>Inspect exact-model probabilities and expected transient visits</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect exact-model probabilities and expected transient visits</h4>
       <Table caption="Solved first-step system" headers={['Reserve', 'Upper success h', 'Mean steps t']} rows={result.success.map((h, i) => [i, number(h, 6), number(result.meanSteps[i], 6)])} />
       <Table caption="Fundamental matrix: expected visits before absorption, including time zero" headers={['Start / visit', ...Array.from({
         length: boundary - 1
       }, (_, i) => String(i + 1))]} rows={result.visits.map((row, i) => [i + 1, ...row.map(value => number(value))])} />
       <Table caption="First-hit probability and survival at every displayed step" headers={['Step', 'First lower', 'First upper', 'Surviving']} rows={result.history.slice(0, step + 1).map(state => [state.step, number(state.firstLower), number(state.firstUpper), number(state.surviving)])} />
-    </details>
+    </section>
   </Lab>;
 }
 export function PoissonArrivalLab() {
@@ -474,13 +474,13 @@ export function PoissonArrivalLab() {
     <p>{routing === 'independent' ? 'Independent marking gives independent Poisson output processes. Given a positive total and a routing probability strictly between 0 and 1, their counts become dependent. At probability 0 or 1, or given total zero, the conditional counts are deterministic.' : 'Alternating marks are a counterexample: the labels depend on event order. Successive A waits add two original waits, so the thinned streams are not Poisson.'}</p>
     {!result.complete && <p role="status">The 120-event work cap was reached at minute {number(result.observedUntil)}.
       Later counts are unknown; the drawing is deliberately incomplete.</p>}
-    <details><summary>Inspect the events and count distribution</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the events and count distribution</h4>
       <p className="process-small">Seed {seed}; seeded illustration, not measured traffic. The final gap to the horizon is censored: it is not a completed exponential wait.</p>
       <Table caption="Realized arrivals" headers={['Event', 'Minute', 'Gap', 'Λ(time)', 'Route']} rows={result.events.map(arrival => [arrival.index, number(arrival.time), number(arrival.gap), number(arrival.unitTime), arrival.mark ? 'B' : 'A'])} />
       <Table caption="Theoretical count probabilities for the selected interval" headers={['Count', 'Probability']} rows={result.pmf.map((value, count) => [count, number(value, 6)])} />
       <p>Approximate probability above 40: {number(result.pmfTail, 6)} (summed through 160).
         {result.tailBelowFloatingPointRange && ' This positive tail is below this calculation’s floating-point range.'}</p>
-    </details>
+    </section>
   </Lab>;
 }
 export function JumpClockLab() {
@@ -557,10 +557,10 @@ export function JumpClockLab() {
       Holding intervals above are a seeded realization. Rates 0.05–6 per hour keep this finite investigation bounded.</p>
     {!state.complete && <p role="status">The 120-jump cap ended the path at hour {number(state.observedUntil)}.
       Remaining exposure is unknown.</p>}
-    <details><summary>Inspect generator and holding intervals</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect generator and holding intervals</h4>
       <Table caption="Generator: rates, not transition probabilities" headers={['From / to', 'On', 'Off']} rows={state.generator.map((row, i) => [i ? 'Off' : 'On', ...row.map(value => number(value))])} />
       <Table caption="Seeded holding intervals; final interval is clipped at the observation horizon" headers={['State', 'Start', 'Observed end', 'Full drawn hold', 'Departure seen?']} rows={state.segments.map(segment => [segment.state ? 'Off' : 'On', number(segment.start), number(segment.end), number(segment.holdingTime), segment.jumped ? 'Yes' : 'No'])} />
-    </details>
+    </section>
   </Lab>;
 }
 export function BrownianPathLab() {
@@ -645,12 +645,12 @@ export function BrownianPathLab() {
     <Table compact caption="Squared increments: realized value and exact finite-grid moments" headers={['Sum', 'Observed', 'Expected']} rows={[['Raw', number(result.rawVariation), number(result.rawVariationExpectation)], ['Centered', number(result.centeredVariation), number(result.centeredVariationExpectation)]]} />
     <p>Variance of the centered sum: {number(result.centeredVariationVariance)}.
       Refinement reduces its mean-square error around σ²T, but the realized sums need not move monotonically.</p>
-    <details><summary>Inspect covariance and grid values</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect covariance and grid values</h4>
       <Table caption="Exact covariance σ² min(s,t), unaffected by drift" headers={['s / t', ...result.covarianceTimes.map(time => number(time))]} rows={result.covariance.map((row, index) => [number(result.covarianceTimes[index]), ...row.map(value => number(value))])} />
       <Table caption="Selected grid path and its increments" headers={['Time', 'X(t)', 'Increment ending here']} rows={result.times.map((time, index) => [number(time), number(result.selected[index]), index ? number(result.increments[index - 1]) : 'Start'])} />
       <p>Seed {seed}; synthetic seeded normal draws. Terminal mean {number(result.terminalMean)},
         variance {number(result.terminalVariance)}. The grid calculations come from the displayed model, not measurements.</p>
-    </details>
+    </section>
   </Lab>;
 }
 export function BrownianCovarianceFigure() {

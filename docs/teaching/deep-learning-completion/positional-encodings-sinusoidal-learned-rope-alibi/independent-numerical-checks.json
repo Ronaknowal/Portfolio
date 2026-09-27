@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "scalarComparisons": 48657,
+  "maxModelError": 0.0000029894944663100276,
+  "maxGradientError": 0.0000306889580627967,
+  "checks": [
+    "none/curved11: full output, pooled state and both attention maps vs independent native SDPA",
+    "none/edited45: full output, pooled state and both attention maps vs independent native SDPA",
+    "none/interleavedPads50: full output, pooled state and both attention maps vs independent native SDPA",
+    "sinusoidal/curved11: full output, pooled state and both attention maps vs independent native SDPA",
+    "sinusoidal/edited45: full output, pooled state and both attention maps vs independent native SDPA",
+    "sinusoidal/interleavedPads50: full output, pooled state and both attention maps vs independent native SDPA",
+    "learned/curved11: full output, pooled state and both attention maps vs independent native SDPA",
+    "learned/edited45: full output, pooled state and both attention maps vs independent native SDPA",
+    "learned/interleavedPads50: full output, pooled state and both attention maps vs independent native SDPA",
+    "rope/curved11: full output, pooled state and both attention maps vs independent native SDPA",
+    "rope/edited45: full output, pooled state and both attention maps vs independent native SDPA",
+    "rope/interleavedPads50: full output, pooled state and both attention maps vs independent native SDPA",
+    "alibi/curved11: full output, pooled state and both attention maps vs independent native SDPA",
+    "alibi/edited45: full output, pooled state and both attention maps vs independent native SDPA",
+    "alibi/interleavedPads50: full output, pooled state and both attention maps vs independent native SDPA",
+    "rope: new irregular logical IDs, future-value isolation, physical permutation and all-masked null",
+    "alibi: new irregular logical IDs, future-value isolation, physical permutation and all-masked null",
+    "Non-power-of-two original slope ordering; all signed T5 bucket boundaries -256..256; identity extension and stretched last-pair law; strict learned indices; all nine published source/data copies match canonical bytes"
+  ],
+  "nativeChecks": [
+    "none: arbitrary paired record permutation",
+    "none: interleaved masked pads excluded from keys and pooling",
+    "sinusoidal: arbitrary paired record permutation",
+    "sinusoidal: interleaved masked pads excluded from keys and pooling",
+    "learned: arbitrary paired record permutation",
+    "learned: interleaved masked pads excluded from keys and pooling",
+    "rope: arbitrary paired record permutation",
+    "rope: interleaved masked pads excluded from keys and pooling",
+    "alibi: arbitrary paired record permutation",
+    "alibi: interleaved masked pads excluded from keys and pooling",
+    "none: selection uses validation F1/loss and earliest tie",
+    "sinusoidal: selection uses validation F1/loss and earliest tie",
+    "learned: selection uses validation F1/loss and earliest tie",
+    "rope: selection uses validation F1/loss and earliest tie",
+    "alibi: selection uses validation F1/loss and earliest tie"
+  ],
+  "limitations": [
+    "No duplicate fit campaign; inference/gradients and recorded validation selection checked.",
+    "Source and numerical review does not establish painted browser behavior."
+  ]
+}

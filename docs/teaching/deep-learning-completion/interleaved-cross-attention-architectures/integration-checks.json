@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T21:28:07.761Z",
+  "topicId": "interleaved-cross-attention-architectures",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T21-22-05-096Z.json",
+  "buildReceiptHash": "c8a9457b62ebc1773d3eefe6efbf5db9177ac3d6035dacaeb6c2597416ff38e2",
+  "publicationMapping": "./topics/interleaved-cross-attention-architectures.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

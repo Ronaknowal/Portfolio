@@ -1,0 +1,65 @@
+{
+  "runAt": "2026-09-26T16:07:42.958Z",
+  "checks": [
+    {
+      "command": "node scripts/verify-learning-artifacts.mjs",
+      "result": {
+        "chunk_id": "c98bf3",
+        "wall_time_seconds": 4.7932401,
+        "exit_code": 0,
+        "original_token_count": 66,
+        "output": "Verified navigation for 1461 topics, 232 published lessons and 486 separate outlines; 0 stale files.\nPASS: 1461 topic records, 29 modules, 232 publication mappings and every guided/module route match authoring sources; body and outline loading remain separate.\n"
+      }
+    },
+    {
+      "command": "node scripts/verify-curriculum.mjs",
+      "result": {
+        "chunk_id": "1ab61c",
+        "wall_time_seconds": 1.5689302,
+        "exit_code": 0,
+        "original_token_count": 73,
+        "output": "PASS: 29 modules, 1461 stable topics, 639 individual briefs, 10 paths. Prerequisite graphs are acyclic and included as supporting topics; reading order follows module contents. Shared memberships and all 1002 pre-expansion topic IDs preserved. Unknown older dependencies remain unreviewed.\n"
+      }
+    },
+    {
+      "command": "node scripts/verify-lesson-delivery.mjs",
+      "result": {
+        "chunk_id": "e9b1d7",
+        "wall_time_seconds": 1.5226142999999999,
+        "exit_code": 0,
+        "original_token_count": 170,
+        "output": "{\n  \"status\": \"passed\",\n  \"trackedTopics\": 177,\n  \"cases\": [\n    \"Missing content prevents finish; full/content requests can begin\",\n    \"Incomplete content and premature implementation are rejected\",\n    \"A complete matching manuscript/specification checkpoint permits finish only\",\n    \"Changed or missing specification invalidates a previously complete handoff\",\n    \"Implementation completion needs its own exact source checkpoint\",\n    \"Historical completion is preserved without blessing a changed revision\",\n    \"Malformed status, topic, hash and path cannot bypass the checkpoint\",\n    \"An active full rewrite cannot inherit an old allowlisted/user-approved status\"\n  ]\n}\n"
+      }
+    },
+    {
+      "command": "node scripts/verify-repository-files.mjs",
+      "result": {
+        "chunk_id": "66cb30",
+        "wall_time_seconds": 2.442995,
+        "exit_code": 0,
+        "original_token_count": 42,
+        "output": "Repository ignore checks passed for 7376 current files and 9 future-path probes; caches and secrets remain excluded. Machine-global excludes are outside this check.\n"
+      }
+    },
+    {
+      "command": "node scripts/verify-site-build.mjs",
+      "result": {
+        "chunk_id": "08dff8",
+        "wall_time_seconds": 0.8640442,
+        "exit_code": 0,
+        "original_token_count": 41,
+        "output": "Build checks passed: lazy section boundaries, isolated Markdown reader, 0 on-demand published bodies, no draft chunks, static route entry files and Pages fallback.\n"
+      }
+    },
+    {
+      "command": "git -c core.safecrlf=false diff --check",
+      "result": {
+        "chunk_id": "069413",
+        "wall_time_seconds": 1.5107097,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  ]
+}

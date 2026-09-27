@@ -1,0 +1,63 @@
+{
+  "url": "https://raw.githubusercontent.com/unimorph/eng/66e0e9e8e2dcd196da081a25a48e5c1fe3d8b49b/eng",
+  "commit": "66e0e9e8e2dcd196da081a25a48e5c1fe3d8b49b",
+  "source_bytes": 18022905,
+  "source_sha256": "20a191cefdc7cad6fa74b00f49d6f658684f17b14541aae372e5a3d5a8c15c67",
+  "nonempty_rows": 652477,
+  "malformed_rows": 0,
+  "duplicate_exact_triple_rows": 385,
+  "filtered_lemma_groups": 14174,
+  "ambiguous_filtered_lemma_groups": 0,
+  "eligible_complete_unambiguous_lemmas": 14162,
+  "selected_lemmas": 600,
+  "extract_bytes": 89626,
+  "extract_sha256": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+  "partitions": {
+    "train": {
+      "rows": 1353,
+      "lemmas": 451,
+      "lemma_lengths": {
+        "3": 42,
+        "4": 183,
+        "5": 222,
+        "6": 300,
+        "7": 282,
+        "8": 324
+      }
+    },
+    "development": {
+      "rows": 447,
+      "lemmas": 149,
+      "lemma_lengths": {
+        "3": 21,
+        "4": 57,
+        "5": 90,
+        "6": 90,
+        "7": 102,
+        "8": 87
+      }
+    }
+  },
+  "cross_partition_lemma_overlap": 0,
+  "cross_partition_target_overlap": 0,
+  "license": "CC BY-SA 3.0",
+  "attribution": "UniMorph English repository contributors; source named Wikipedia in the pinned repository README.",
+  "readme_url": "https://github.com/unimorph/eng/blob/66e0e9e8e2dcd196da081a25a48e5c1fe3d8b49b/README.md",
+  "shared_form_group_moved_records": [
+    {
+      "lemma": "work",
+      "feature": "past",
+      "form": "worked"
+    },
+    {
+      "lemma": "work",
+      "feature": "participle",
+      "form": "working"
+    },
+    {
+      "lemma": "work",
+      "feature": "third_person",
+      "form": "works"
+    }
+  ]
+}

@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { CodeBlock } from '../content/Code.jsx';
+import useLessonViewport from './useLessonViewport.js';
+import { useEffect, useState } from 'react';
 import { NeuralLab, NeuralNumber, NeuralSelect, NeuralTable, NeuralPlot } from './NeuralLessonElements.jsx';
 import { formatDropout as fmt, maskedUpdate, maskOutcomes, maskShapes, geometryOutput, residualMask, depthRates, expectedActive, executeDepth, normalizationStep, monteCarloSummary } from '../../data/dropout-models.js';
 import measurements from '../../data/dropout-measurements.json';
@@ -193,7 +195,7 @@ export function DropoutMeasuredLab() {
     <div className="neural-controls"><NeuralSelect label="Architecture family" value={family} onChange={value => { setFamily(value); setVariantKey('0.2-row'); }} options={[['mlp', 'MLP · 8,970 parameters'], ['residual', 'Residual MLP · 21,450 parameters']]} /><NeuralSelect label="Recorded seed" value={seed} onChange={setSeed} options={['1', '2', '3'].map(value => [value, value])} /><NeuralSelect label="Recorded masking configuration" value={variant.drop_probability + '-' + variant.mode} onChange={setVariantKey} options={options.map(run => [run.drop_probability + '-' + run.mode, run.drop_probability === 0 ? 'No masking' : (family === 'mlp' ? 'Element' : run.mode) + ' · ' + run.drop_probability])} /></div>
     <NeuralPlot title="Actual recorded loss points" xLabel="optimizer updates" yLabel="cross-entropy (nats / example)" xDomain={[0, 400]} yDomain={[0, maxY]} series={series} points={series.flatMap((item, index) => item.values.map(([x, y], i) => ({ id: index + '-' + i, x, y, color: item.color, label: item.label + ': step ' + x + ', CE ' + fmt(y, 6) })))} />
     <p className="dropout-small">Line segments connect six measured checkpoints at 0, 1, 25, 100, 200 and 400; intermediate values were not measured. The table preserves the final small differences hidden by the full loss scale.</p>
-    <details><summary>Exact values at every plotted checkpoint</summary><NeuralTable caption="All six checkpoints for the displayed baseline and variant" headers={['Update', 'Baseline train CE', 'Baseline validation CE', 'Variant train CE', 'Variant validation CE']} rows={baseline.trace.map((row, index) => [row.step, fmt(row.train.cross_entropy, 9), fmt(row.validation.cross_entropy, 9), fmt(variant.trace[index].train.cross_entropy, 9), fmt(variant.trace[index].validation.cross_entropy, 9)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact values at every plotted checkpoint</h4><NeuralTable caption="All six checkpoints for the displayed baseline and variant" headers={['Update', 'Baseline train CE', 'Baseline validation CE', 'Variant train CE', 'Variant validation CE']} rows={baseline.trace.map((row, index) => [row.step, fmt(row.train.cross_entropy, 9), fmt(row.validation.cross_entropy, 9), fmt(variant.trace[index].train.cross_entropy, 9), fmt(variant.trace[index].validation.cross_entropy, 9)])} /></section>
     <NeuralTable caption="Final matched comparison" headers={['Run', 'Train CE', 'Validation CE', 'Validation correct']} rows={[['Unmasked baseline', fmt(last(baseline).train.cross_entropy, 6), fmt(last(baseline).validation.cross_entropy, 6), last(baseline).validation.correct + ' / 120'], ['Selected variant', fmt(last(variant).train.cross_entropy, 6), fmt(last(variant).validation.cross_entropy, 6), last(variant).validation.correct + ' / 120']]} />
     <p className="neural-result" data-result="dropout-measured">Variant − baseline validation CE = {fmt(gap, 9)}. {Math.abs(gap) < 1e-10 ? 'Identical comparison within 10⁻¹⁰.' : gap > 0 ? 'The masking variant has worse validation loss in this recorded run.' : 'The masking variant has better validation loss in this recorded run.'} This is validation evidence for this setup, not a universal ranking.</p>
     <div className="dropout-specimens">{measurements.specimens.map(specimen => <Digit specimen={specimen} key={specimen.id} />)}</div>
@@ -223,27 +225,29 @@ export function DropoutMonteCarloLab() {
 }
 
 export function DropoutProgram({ file = 'dropout-experiments.py', title = 'Read the complete experiment program', start, end }) {
-  const [source, setSource] = useState(null);
-  const [failed, setFailed] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [container, ready] = useLessonViewport();
+  const [source, setSource] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);
   const url = '/learn-assets/dropout-droppath-stochastic-depth/' + file;
-  async function load() {
-    setLoading(true); setFailed(false);
-    try {
-      const response = await fetch(url);
+  useEffect(() => {
+    if (!ready) return undefined;
+    const controller = new AbortController();
+    setSource(null); setFailed(false);
+    fetch(url, { signal: controller.signal }).then(response => {
       if (!response.ok) throw new Error('Source unavailable');
-      const text = await response.text();
+      return response.text();
+    }).then(text => {
       const first = start ? text.indexOf(start) : 0;
       const last = end ? text.indexOf(end, first + (start?.length || 0)) : text.length;
       if (first < 0 || last < first) throw new Error('Source boundary missing');
-      setSource(text.slice(first, last));
-    } catch { setFailed(true); }
-    finally { setLoading(false); }
-  }
-  return <details className="neural-program" onToggle={event => { if (event.currentTarget.open && source === null && !loading && !failed) load(); }}><summary>{title}</summary>
-    {loading && <p role="status">Loading the canonical source…</p>}
-    {failed && <p role="alert">The source could not load. <button type="button" onClick={load}>Retry source</button></p>}
-    {source !== null && <pre className="neural-program-source" tabIndex={0} aria-label={title}><code>{source}</code></pre>}
+      if (!controller.signal.aborted) setSource(text.slice(first, last));
+    }).catch(() => { if (!controller.signal.aborted) setFailed(true); });
+    return () => controller.abort();
+  }, [ready, url, start, end, attempt]);
+  return <section ref={container} className="lesson-teaching-section" data-lesson-teaching="code">
+    <h4 className="lesson-teaching-section__title">{title}</h4>
+    {failed ? <p role="alert">The source could not load. <button type="button" onClick={() => setAttempt(value => value + 1)}>Retry source</button></p>
+      : source !== null ? <CodeBlock language="python" filename={start || end ? file.replace(/\.py$/, '-excerpt.py') : file}>{source}</CodeBlock>
+        : <p role="status">Loading the canonical source…</p>}
     <p><a href={url} download>Download {file}</a></p>
-  </details>;
+  </section>;
 }

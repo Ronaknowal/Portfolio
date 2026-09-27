@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "comparisons": 32826,
+  "freshNativeCases": 6,
+  "parameterDerivativeCoordinates": 672,
+  "maxNativeError": 3.9968028886505635e-15,
+  "maxParameterGradientError": 4.4189740755484763e-10,
+  "randomizedMechanismCases": 100,
+  "complexDftCases": 30,
+  "sourceFilesVerified": 65,
+  "authorBindingPending": false,
+  "reusedAuthorComparisons": 1036712,
+  "scope": "Every embedding parameter plus both implicit-filter bias/decay vectors; new native sequences, exact prefix checks, full complex DFT/Parseval, nonzero modal-state history, tight truncation bound witnesses, hierarchy paths and independent connected-component split verification. No refitting."
+}

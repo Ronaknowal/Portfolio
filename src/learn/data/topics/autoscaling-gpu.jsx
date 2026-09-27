@@ -911,9 +911,9 @@ spec:
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Cold-start amortization threshold</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Cold-start amortization threshold</H3>
 
       <Prose>
         A model takes 4 minutes to load. Your policy is that cold-start overhead must not exceed 10% of total instance GPU-time. What is the minimum active window required for a newly started instance before it may be considered for scale-down? If you set the scale-down cooldown to this value, how does it interact with the autoscaling oscillation risk?
@@ -921,9 +921,9 @@ spec:
 
       <Prose>
         Answer: From the overhead formula, <Code>overhead = t_load / (t_load + t_active) ≤ 0.10</Code>. Solving: <Code>4 / (4 + t_active) ≤ 0.10</Code>, so <Code>4 ≤ 0.10 × (4 + t_active)</Code>, giving <Code>t_active ≥ 36 minutes</Code>. Set the scale-down cooldown to 36 minutes minimum. This cooldown directly reduces oscillation risk: a scale-up event followed by rapid scale-down cannot happen faster than 36 minutes, which is longer than most transient demand spikes. The tension is that if demand genuinely drops quickly, the fleet is over-provisioned for 36 minutes — acceptable given the cold-start overhead argument.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Composite metric design</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Composite metric design</H3>
 
       <Prose>
         Your fleet is serving a product where KV cache utilization runs at 0.70 (within threshold), queue depth is 0 (fine), but TTFT p99 has risen to 2,400ms against a 2,000ms SLO. The autoscaler has not fired. Diagnose what is causing the TTFT breach without a queue or KV breach, and explain what change to the autoscaler would have caught it earlier.
@@ -931,9 +931,9 @@ spec:
 
       <Prose>
         Answer: TTFT can rise without queue depth or KV utilization breaching if the requests currently being served have unusually long prompts — the prefill phase is taking longer than average, directly inflating time-to-first-token. With chunked prefill disabled, a single 10,000-token prefill blocks all decode steps for its full duration. The autoscaler should have TTFT p99 as a standalone scale-up trigger (it should in the composite rule from Section 4c). If TTFT is excluded, the system is blind to prefill-dominated latency spikes. The fix: ensure the composite decision function includes <Code>{"ttft_p99_ms > SLO_threshold"}</Code> as an independent OR branch, and if chunked prefill is not enabled, enable it to bound per-step prefill impact.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Predictive autoscaler lead time</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Predictive autoscaler lead time</H3>
 
       <Prose>
         Your workload has a daily traffic cycle peaking at 14:00 local time. Your model load time is 6 minutes. You are using a Holt-Winters predictive autoscaler. At what time should the autoscaler issue the scale-up command for the 14:00 peak, assuming a linear demand ramp from 13:30 to 14:00? What happens if the forecast underestimates the 14:00 peak by 20%?
@@ -941,9 +941,9 @@ spec:
 
       <Prose>
         Answer: The scale-up must be issued 6 minutes before capacity is needed. If the ramp is linear from 13:30 to 14:00 (30 minutes), the autoscaler should issue the command at 13:54 (to have the instance ready at 14:00). In practice, issue at 13:50 to build in a buffer. If the forecast underestimates by 20%, the autoscaler provisions 20% fewer instances than needed at the peak. The reactive fallback fires when the queue builds, but the new instances it triggers will not be ready until 14:06 — six minutes into the peak with the fleet underscaled. The fix is to multiply the predictive target by a safety factor (1.2–1.3) to absorb forecast error, accepting the cost of slight over-provisioning in exchange for resilience to forecast underestimation.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Spot fleet cost-benefit analysis</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Spot fleet cost-benefit analysis</H3>
 
       <Prose>
         You run a fleet of 10 on-demand H100 instances at $8/hr each for a batch inference pipeline. A spot H100 costs $3/hr but has a 5% per-hour probability of interruption, where each interruption loses an average of 15 minutes of work on the interrupted instance. Calculate the expected hourly cost of a pure spot fleet versus pure on-demand, factoring in the cost of lost work (measured in GPU-hours wasted). At what spot interruption probability does on-demand become cheaper?
@@ -951,9 +951,9 @@ spec:
 
       <Prose>
         Answer: Pure on-demand cost: 10 × $8 = $80/hr. Pure spot cost: direct GPU cost = 10 × $3 = $30/hr. Lost work cost: with 5% interruption probability, expected interruptions per hour = 10 × 0.05 = 0.5 instances interrupted. Each interruption loses 15 minutes = 0.25 GPU-hours of work, which must be re-executed. Cost of lost work = 0.5 × 0.25 × $3 = $0.375/hr (re-running on spot). Total spot cost = $30 + $0.375 ≈ $30.38/hr. Spot wins decisively at 5% interruption probability. Breakeven: set $30 + 10p × 0.25 × $3 = $80, solving gives <Code>p = 666%</Code> — spot never becomes more expensive than on-demand on GPU cost alone. The real cost of interruptions for batch work is negligible unless the checkpoint interval is very long or the retry mechanism is expensive.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Oscillation diagnosis</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Oscillation diagnosis</H3>
 
       <Prose>
         A production fleet shows a recurring pattern: every 45 minutes, instance count spikes from 4 to 7, then drops back to 4, then spikes again. TTFT p99 is within SLO except during the transition back to 4 instances. The scale-down cooldown is set to 15 minutes. Diagnose the root cause and prescribe a fix.
@@ -961,7 +961,7 @@ spec:
 
       <Prose>
         Answer: The 45-minute cycle with a 15-minute cooldown is a textbook oscillation: the fleet scales up (5 minutes to load + 15 minutes cooldown = 20 minutes before scale-down fires), then scales down after the cooldown, then demand recovers and scale-up fires again, repeating every ~45 minutes. The scale-down is happening too fast — at 15 minutes, the instances have barely amortized their cold-start overhead. The TTFT breach during transition confirms the fleet is underscaled immediately after scale-down. Fix: increase the scale-down cooldown to at least 30 minutes (preferably 36 minutes per Exercise 1 analysis for a 5-minute load time). Also add a hysteresis condition: do not scale down unless KV utilization has been below the lower threshold for the entire cooldown window, not just at the moment the cooldown expires.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

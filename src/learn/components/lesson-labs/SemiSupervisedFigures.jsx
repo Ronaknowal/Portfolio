@@ -55,7 +55,7 @@ export function SameInputsFigure() {
           : <rect key={i} x={143 + x * 48} y={58 - heights[i] * 130} width="14" height="14" fill="#e2b55a" />)}
       </svg></section>)}</div>
     <figcaption>Authored counterexample. Circles = class 0; squares = class 1. The inputs and display coordinates are identical in both panels. Density alone cannot choose the target rule.</figcaption>
-    <details><summary>Exact authored coordinates and labels</summary><DataTable caption="Same inputs, changed targets" headers={['x', 'Display y', 'Target 1', 'Target 2']} rows={coordinates.map((x, i) => [x, heights[i], targets[0][i], targets[1][i]])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact authored coordinates and labels</h4><DataTable caption="Same inputs, changed targets" headers={['x', 'Display y', 'Target 1', 'Target 2']} rows={coordinates.map((x, i) => [x, heights[i], targets[0][i], targets[1][i]])} /></section>
   </figure>;
 }
 
@@ -111,6 +111,6 @@ export function PromotionAuditFigure() {
     <div className="ssl-audit-panels"><section><h5>Newly accepted · axis 0–110 specimens</h5>{rows.map(([round, correct, incorrect]) => <div className="ssl-count-row" key={round}><span>R{round}</span><div className="ssl-count-track"><span className="ssl-class-0" style={{ width: `${correct / 110 * 100}%` }} /><span className="ssl-error" style={{ width: `${incorrect / 110 * 100}%` }} /></div><span>{correct + incorrect}</span></div>)}<p>Green: correct. Rose: wrong.</p></section>
       <section><h5>Cumulative accepted · axis 0–320 specimens</h5>{rows.map(([round, , , total]) => <div className="ssl-count-row" key={round}><span>R{round}</span><div className="ssl-count-track"><span className="ssl-class-1" style={{ width: `${total / 320 * 100}%` }} /></div><span>{total}</span></div>)}<p>252 accepted; 73 wrong; 62 still unlabeled.</p></section></div>
     <figcaption>Executed Banknote Authentication experiment, threshold 0.8. Hidden benchmark targets were opened after fitting for explanation. No unmeasured performance curve is implied between these rounds.</figcaption>
-    <details><summary>Exact counts behind the bars</summary><DataTable caption="Retrospective promotion audit" headers={['Round', 'Correct', 'Wrong', 'Cumulative accepted']} rows={rows} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact counts behind the bars</h4><DataTable caption="Retrospective promotion audit" headers={['Round', 'Correct', 'Wrong', 'Cumulative accepted']} rows={rows} /></section>
   </figure>;
 }

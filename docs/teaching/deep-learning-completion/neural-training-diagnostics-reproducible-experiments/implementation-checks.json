@@ -1,0 +1,322 @@
+{
+  "topicId": "neural-training-diagnostics-reproducible-experiments",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/author-verification.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculation-results.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/prediction-retention-check.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/split.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine-results.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine.csv",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py",
+    "public/learn-assets/backpropagation/teaching-autodiff.py",
+    "public/learn-assets/gradient-variants/optimizer_library_bridge.py",
+    "public/learn-assets/loss-functions-ce-mse-focal-contrastive-triplet/loss-mechanisms.py",
+    "public/learn-assets/mini-batches-training-loops-gradient-accumulation/train_iris.py",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/calculation-results.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/calculations.py",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/data-provenance.md",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/split.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-pairs.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-results.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-seed-19.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-seed-3.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-seed-7.json",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine.csv",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py",
+    "scripts/check-training-diagnostics-models.mjs",
+    "scripts/check-training-diagnostics-native.py",
+    "scripts/check-training-diagnostics-render.mjs",
+    "scripts/generate-training-diagnostics-lesson.mjs",
+    "scripts/lib/prepared-lesson-renderer.mjs",
+    "src/learn/components/content/Callout.jsx",
+    "src/learn/components/content/Code.jsx",
+    "src/learn/components/content/Figure.jsx",
+    "src/learn/components/content/Headings.jsx",
+    "src/learn/components/content/Math.jsx",
+    "src/learn/components/content/Prose.jsx",
+    "src/learn/components/content/index.js",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsDiagrams.jsx",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/training-diagnostics-labs.css",
+    "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+    "src/learn/data/training-diagnostics-models.js",
+    "src/learn/data/training-diagnostics-study.js",
+    "src/learn/styles.js"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/author-verification.json": "5c47803a03b66f20869b5567aea9c265c0172d9a5bbda802e03bb86b8f193dca",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculation-results.json": "6ad1f028f621e1d280b4c7b8a5a4b25849fce1fd108e88280452ea90571c9dfe",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json": "737d99c93c3a8e093054f0d8d09a6ba6fd0c831a5532f4c1940e72a2f18a1d76",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md": "287e3306f83dcc950ac737062f993adc6dd98f078bbd1567e47a23980c3fcb63",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md": "d9145695a2cc1519f532e4b09cd4af36d48f772aa490127194331de015f44e20",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md": "e9d40df4e70499f3980936dd3ee367a4c53c2bf233843e068f563b8824115032",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md": "c487e18cb28cc05f2ecbbc59b93d875a97e5083e244c988e432d6025211fb228",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/prediction-retention-check.json": "b7cce268b375a827bcdf10d71a1fe36d3a9f80ada50dcc38398a55572346115d",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/split.json": "8204aed7bd9edff16f90355f6640629fc46e0e862820dfc87ba1dce7d3491e73",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py": "3572f7e69cdfa2cdd6922727e9ecb10f99b38129eef915862e15f4d784bda0b2",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md": "ce8dba5cf66e63be30ad640d40f2a60830b946963b6a3b6f16021326626b8556",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine-results.json": "7c8f520c4357379fc79e6d863890eecab4b131a543744357a24c965ce9af3774",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine.csv": "68386101f5ee41ef2a03d50bb8fe6dc5d4ac86aac31b6e987616be00a8c9c728",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d",
+    "public/learn-assets/backpropagation/teaching-autodiff.py": "d59c0af1a3bf7f87e2359eb3f811cba3f5f8efdd70f6db505ff91852e5e6fdcd",
+    "public/learn-assets/gradient-variants/optimizer_library_bridge.py": "ea345b2e33ea48e30336764cece7a9641c762ff452ffea79a88a32658f3df75a",
+    "public/learn-assets/loss-functions-ce-mse-focal-contrastive-triplet/loss-mechanisms.py": "4c4a670bd9ea9cca5abb2709f4a87609093e021ec047e0659e9a2e4514ee3e62",
+    "public/learn-assets/mini-batches-training-loops-gradient-accumulation/train_iris.py": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/calculation-results.json": "6ad1f028f621e1d280b4c7b8a5a4b25849fce1fd108e88280452ea90571c9dfe",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/calculations.py": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json": "737d99c93c3a8e093054f0d8d09a6ba6fd0c831a5532f4c1940e72a2f18a1d76",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/data-provenance.md": "287e3306f83dcc950ac737062f993adc6dd98f078bbd1567e47a23980c3fcb63",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md": "e9d40df4e70499f3980936dd3ee367a4c53c2bf233843e068f563b8824115032",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/split.json": "8204aed7bd9edff16f90355f6640629fc46e0e862820dfc87ba1dce7d3491e73",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-pairs.json": "cb3a1930fb4d40eeface41dd2e40c9fb3d2ff8f807ff38de41a8ec89be09a808",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-results.json": "7c8f520c4357379fc79e6d863890eecab4b131a543744357a24c965ce9af3774",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-seed-19.json": "048b27e66ca93fde80314fc98191a7cc9adc0d5d498dfc2c8241e89db77bd738",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-seed-3.json": "f2f0a0fd0ac150270eba34799dddcd2bd296a27ab85be637d4e1d582adc76956",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine-seed-7.json": "07929fab51c67e6c211bf4d9e21f08407b06516d7603bfbafda317e067f06783",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine.csv": "68386101f5ee41ef2a03d50bb8fe6dc5d4ac86aac31b6e987616be00a8c9c728",
+    "public/learn-assets/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d",
+    "scripts/check-training-diagnostics-models.mjs": "4f17d7a299e28f5da56c221e0d8730a906982be58fd76645b28dae5a6bf6c663",
+    "scripts/check-training-diagnostics-native.py": "d73fe65f0c735349a67c9c00b0af51b51c93ff0e9b93dea6a519da8acc60c0b8",
+    "scripts/check-training-diagnostics-render.mjs": "45b687c7c951392c5ecd173b231f9915359941eef269a45a453831a8acc7b9ec",
+    "scripts/generate-training-diagnostics-lesson.mjs": "0bb06d832b4f8be1692599f05e34237ade0b7e5f3e0b5a66d4742989aec2a414",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "src/learn/components/content/Callout.jsx": "810f228309aa7c3e616fcbbb87bc76e768e1ef5c599e57699a9595bee873e758",
+    "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+    "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+    "src/learn/components/content/Headings.jsx": "225f4f43fbedadbda344b660ade02ab99f90e9cdb8bf73c4c31414ecf7f368cd",
+    "src/learn/components/content/Math.jsx": "427a466aaa33b2733c7b87cf9c2c8e2ed338a2f234764590b69fafc1b5952459",
+    "src/learn/components/content/Prose.jsx": "1528b2a39390da2527d707430ab7ed363b740990071315716d2bd25699988494",
+    "src/learn/components/content/index.js": "c7a7e0b98f308758c789b286ad74af82d762e48b29982506ef9a1307ce947c4f",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsDiagrams.jsx": "35f5f199ae795126273c94bc61c96137c3d9bab70e92fc6d47a1d584f7958ae5",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx": "6f8eeb80a30e754e4e81162717574f886a029a9b11fdfa529b1130d4e987065d",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx": "01f383252878dae7a8e0d02ffdc4483c4f9524b03905b89faa821d8c7dd1211b",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/training-diagnostics-labs.css": "9fd2e73f292285340689bb343fc4dc2185e6f17ddcd771dcc4f41160b38ae0ae",
+    "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx": "3878a7a83416576b792923d3696bb4851f9c190f042b0725f3e878065701dee1",
+    "src/learn/data/training-diagnostics-models.js": "a4ff57a7598fbf640587fe708402f70e850acdb0d49c9e15ae5ce4531763d9ef",
+    "src/learn/data/training-diagnostics-study.js": "88a212ab0e2e663011d346dbdfe689a73e0873499d4e36cdb8eeade47c5c5928",
+    "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+  },
+  "productionPath": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/content-checks.json",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/design.md",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/native-checks.json",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/native-output.txt",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/model-checks.json",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/render-checks.json"
+  ],
+  "evidenceHashes": {
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/content-checks.json": "6efa2d23365c971610f7dfd7c24d3a0050f28a771d3ccc3a4e3c802c50d95f81",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/design.md": "83977cb1068d70d69a4b1162f1e906605a699b2da64c8335f36074ae47ec8549",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/native-checks.json": "6a95cdf3207b63236847d8350e3347ea0b538826f82890dfba6c0fe90d2191f5",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/native-fixtures.json": "b5deda6024b9720df5eff388f525218dacaa5a003175b7da0cea205d70d6292a",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/native-output.txt": "d9486ac4561a8e87bd63586e067d52a723d4c3ad3cf5005762829c926c3f98ad",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/model-checks.json": "bc849fffb86304a4af5fa278728cfd5103fc66eddadf238c2a3c906326e4a22c",
+    "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/render-checks.json": "cc684bed4562067c1b0c54727d322aecfe8a16577a1613632d035a693c6abe9b"
+  },
+  "checks": [
+    {
+      "name": "Complete wine_diagnostics.py executed; every retained numeric/result field matches",
+      "passed": true
+    },
+    {
+      "name": "Complete checkpoint_replay.py executed; every retained numeric/result field matches",
+      "passed": true
+    },
+    {
+      "name": "Complete calculations.py executed; every retained numeric/result field matches",
+      "passed": true
+    },
+    {
+      "name": "Exact finite-difference program extracted from manuscript executes and matches displayed output",
+      "passed": true
+    },
+    {
+      "name": "Fresh native scalar gradients, all independent BatchNorm/linear mode switches, restart trajectories and paired summaries exported",
+      "passed": true
+    },
+    {
+      "name": "178 measured source rows match sklearn and split is disjoint/exhaustive; test remains unevaluated",
+      "passed": true
+    },
+    {
+      "name": "36 new scalar cases match native autograd and exact SGD; omitted branch remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "40 actual BatchNorm/linear combinations match forward values, both buffers and graph presence",
+      "passed": true
+    },
+    {
+      "name": "81 native restart cases match every prefix and continued state, including zero-rate velocity divergence and zero-momentum null",
+      "passed": true
+    },
+    {
+      "name": "Paired mean/sample SD and declared direction agree with independent statistics; one observation has undefined SD",
+      "passed": true
+    },
+    {
+      "name": "All selected-seed projections preserve every401-point trace, every final row and current metric lookup; all loss axes contain all retained values",
+      "passed": true
+    },
+    {
+      "name": "First observable divergence is distinguished from inferred unrecorded parameter-update divergence",
+      "passed": true
+    },
+    {
+      "name": "All ten allowed public program/data/evidence downloads are exact canonical copies",
+      "passed": true
+    },
+    {
+      "name": "Complete eleven-section manuscript, references, four case files, synthesis and all source controls render",
+      "passed": true
+    },
+    {
+      "name": "Four investigations and two recorded-evidence explorers render without exceptions, React warnings or nonfinite outputs",
+      "passed": true
+    },
+    {
+      "name": "Equation rendering and initially closed practice preserved; no unresolved mathematical delimiters",
+      "passed": true
+    },
+    {
+      "name": "Native-size local diagram/plot scrolling, explicit select labels and honest selected-data loading state present",
+      "passed": true
+    },
+    {
+      "name": "Complete concept-level representation map and all ten learning-experience checks recorded in design.md",
+      "passed": true
+    }
+  ],
+  "nativeEvidence": {
+    "environment": {
+      "python": "3.12.14",
+      "torch": "2.14.0+cpu",
+      "numpy": "2.3.5",
+      "threads": 1,
+      "dtype": "float64",
+      "device": "CPU"
+    },
+    "retainedNumericComparisons": 30828,
+    "maxRetainedError": 0.0,
+    "browserModelComparisons": 50619,
+    "maxBrowserModelError": 4.440892098500626e-16,
+    "fits": "Only unchanged eight declared runs and checkpoint continuations; no tuning/test evaluation"
+  },
+  "browserInventory": {
+    "labs": {
+      "diagnostics-scalar": [
+        "1\u20134 input/target rows",
+        "initial weight/rate",
+        "stationary/zero-rate/changed-case",
+        "pin/reset"
+      ],
+      "diagnostics-mode": [
+        "two inputs/stored mean and variance",
+        "module choice",
+        "module and graph modes independently",
+        "carry resulting buffers",
+        "fresh/matching/equal-input/reset"
+      ],
+      "diagnostics-pairs": [
+        "recorded/fresh modes",
+        "checkpoint and seed subset",
+        "loss/accuracy metric",
+        "same-run null",
+        "2\u20136 score pairs",
+        "units/direction/provenance",
+        "invalid accuracy-unit boundary",
+        "reset"
+      ],
+      "diagnostics-restart": [
+        "target/weight/rate/momentum",
+        "save1\u20135 and continue1\u20135",
+        "Back/Next",
+        "zero momentum/rate",
+        "changed recurrence/reset"
+      ],
+      "diagnostics-wine": [
+        "three lazy seeds",
+        "all401 checkpoints",
+        "log/linear common scale",
+        "original-target overlay",
+        "treatment/data role/row/sort",
+        "all final row table",
+        "raw13-feature disclosure",
+        "retry retaining selections"
+      ],
+      "diagnostics-replay": [
+        "all five restore treatments",
+        "update6\u201312",
+        "batch-position/CSV-ID mapping",
+        "restoration status",
+        "full trace",
+        "reset/exact null"
+      ]
+    },
+    "figures": [
+      "contribution-to-gradient-to-step branches",
+      "data split and fitted transform permissions",
+      "tiny measured curve and gradient/movement scales",
+      "tanh/derivative curves",
+      "common activation quantiles plus endpoint inset",
+      "mean derivative bars",
+      "finite-difference secant and dependency",
+      "mode operands/buffers/graph",
+      "fixed-state measurement protocol",
+      "common401point loss and accuracy curves",
+      "actual row label/probability mechanism",
+      "paired signed difference samples",
+      "fixed versus varied experiment branches",
+      "checkpoint velocity lanes",
+      "actual first observable continuation",
+      "completed/mid-group dependency",
+      "separate RNG stream positions"
+    ],
+    "sourcePrograms": 3,
+    "independentCaseFiles": 4,
+    "additionalPractice": [
+      "changed paired scores",
+      "mid-group checkpoint extension",
+      "measured practical synthesis"
+    ]
+  },
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limitations": [
+    "Only the unchanged eight declared Wine treatments and the declared12-update checkpoint continuations were fitted; no new hyperparameter selection or test score.",
+    "Exact continuation is established for this CPU environment, not across hardware, workers or releases.",
+    "SSR cannot establish painted geometry, actual keyboard/mobile controls, network recovery or asynchronous-state continuity."
+  ]
+}

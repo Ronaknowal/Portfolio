@@ -44,7 +44,7 @@ function Table({
   headings,
   rows
 }) {
-  return <details className="svm-data"><summary>{caption}</summary><div role="region" aria-label={caption} tabIndex={0}><table><thead><tr>{headings.map(heading => <th key={heading} scope="col">{heading}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((value, column) => column === 0 ? <th scope="row" key={column}>{value}</th> : <td key={column}>{value}</td>)}</tr>)}</tbody></table></div></details>;
+  return <section className="svm-data lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{caption}</h4><div role="region" aria-label={caption} tabIndex={0}><table><thead><tr>{headings.map(heading => <th key={heading} scope="col">{heading}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={index}>{row.map((value, column) => column === 0 ? <th scope="row" key={column}>{value}</th> : <td key={column}>{value}</td>)}</tr>)}</tbody></table></div></section>;
 }
 function Plot({
   title,

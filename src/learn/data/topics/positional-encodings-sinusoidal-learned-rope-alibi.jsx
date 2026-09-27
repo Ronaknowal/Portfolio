@@ -1,1158 +1,654 @@
-import { Prose, H2, H3, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Generated from the complete manuscript by scripts/generate-positional-encoding-lesson.mjs.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { PositionJourneyFigure, AdditivePositionLab, SinusoidalPositionLab, RotaryPositionLab, AlibiPositionLab, RelativeBucketFigure, PositionMovementLab, PositionCacheLab, PositionFrequencyFigure, PositionExtensionLab, PositionApplicationsFigure, XposPositionFigure } from '../../components/lesson-labs/PositionalEncodingLabs.jsx';
+export default {
+  title: 'Positional Encodings: Sinusoidal, Learned, RoPE and ALiBi',
+  readTime: '~90 min read + experiments and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="neural-lesson neural-lesson-neutral positional-encoding-lesson"><LessonIntro prerequisites="Query/key/value attention and Transformer blocks. Rotations, relative distances and cache coordinates are developed locally." sections={[["1-what-information-is-missing","1. What information is missing?"],["2-add-a-position-vector-learned-and-sinusoidal-encodings","2. Add a position vector: learned and sinusoidal encodings"],["3-rope-let-relative-position-change-the-comparison","3. RoPE: let relative position change the comparison"],["4-alibi-express-a-preference-in-logit-space","4. ALiBi: express a preference in logit space"],["5-other-relative-encodings-explain-the-design-space","5. Other relative encodings explain the design space"],["6-a-real-investigation-can-the-model-see-movement-direction","6. A real investigation: can the model see movement direction?"],["7-implement-positions-and-verify-cached-attention","7. Implement positions and verify cached attention"],["8-deeper-route-extending-the-context-without-confusing-the-claims","8. Deeper route: extending the context without confusing the claims"],["9-choose-the-position-system-for-the-actual-task","9. Choose the position system for the actual task"],["10-practice-change-the-situation-then-explain-the-result","10. Practice: change the situation, then explain the result"],["what-comes-next","What comes next?"],["references-and-another-way-to-learn","References and another way to learn"]]}>An ordered array is useful only when the model can use its order. Follow where position enters the actual computation.</LessonIntro>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit position IDs, frequencies, RoPE vectors, ALiBi slopes/scores, cache identities and supported trajectory coordinates. Synchronize phase geometry, relative-score changes, distance penalty, legal cache relations and final mixture. Show whole-record reorder and ID-only edit as different operations. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose and troubleshoot positional mechanisms by relative/absolute behavior and cache consistency; do not infer long-context quality from a toy phase plot."}</Prose>
 
-const positionalEncodingsContent = {
-  title: "Positional Encodings (Sinusoidal, Learned, RoPE, ALiBi)",
-  readTime: "~40 min",
-  content: () => (
-    <div>
+<Prose>{"Imagine recording a hand moving around an arc. The same collection of points can describe clockwise or anticlockwise movement. To tell them apart, a model needs to know how the points are ordered—not just where the hand visited."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{"The "}<a href={"/learn/path/full-curriculum/transformer-block-architecture?module=deep-learning-fundamentals"}>{"previous Transformer Block lesson"}</a>{" supplied that information by attaching a numerical time-slot tag to every point. This lesson studies more structured ways to supply position. Some add a position vector to the input. Some turn query and key vectors before comparing them. Some change the attention score according to distance. These choices affect what the model can represent, how cached generation works and what happens when a sequence becomes longer."}</Prose>
 
-      <Prose>
-        Every Transformer layer is, at its core, a permutation-equivariant function. If you shuffle the input tokens before feeding them to a self-attention block, the output tokens come out shuffled in the same order; the block itself cannot tell whether the sequence {"[the, cat, sat]"} arrived as {"[cat, sat, the]"}. This is not a bug of any particular implementation — it follows directly from the fact that attention is a weighted sum and matrix multiplication is associative. {"Attention(Q, K, V) = softmax(Q K^T / √d_k) V"} has no position term anywhere. Same goes for the pointwise feed-forward sublayer and every layer norm — none of them see token order. A vanilla Transformer is a bag-of-tokens model, and that is a problem: language is not a bag of words. "Dog bites man" and "Man bites dog" differ only in word order and differ completely in meaning.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow §§1–6, run the small program in §7 and try exercises 1–4. You will be able to explain and implement the four main methods and diagnose a position-offset bug. The deeper route in §§8–9 develops context extension, geometric variants and engineering choices; exercises 5–8 use that material. Derivations sit beside the mechanism they explain, so you can return to them after trying the visual investigation."}</Prose>
 
-      <Prose>
-        Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin knew this from page one of "Attention Is All You Need" (arXiv:1706.03762, NeurIPS 2017). Their fix was deliberately modest: add a fixed sinusoidal function of position to each input embedding before the first layer. {"PE(pos, 2i) = sin(pos / 10000^{2i/d})"} and {"PE(pos, 2i+1) = cos(pos / 10000^{2i/d})"}. The motivation was that linear combinations of shifted sinusoids can express relative positions — if the model learned that a particular projection of {"PE(pos)"} and {"PE(pos + k)"} correlates, it could learn position-aware behavior from the input embedding alone. The scheme was untrained (no parameters), extended to arbitrary lengths in principle (any pos gives a valid embedding), and added almost no compute. It was good enough to reach state of the art on machine translation, and the question of what the "right" positional encoding should be became a decade-long research program.
-      </Prose>
+<H2>{"1. What information is missing?"}</H2>
 
-      <Prose>
-        A year later, Devlin, Chang, Lee, and Toutanova's BERT (arXiv:1810.04805) and Radford, Wu, Child, Luan, Amodei, and Sutskever's GPT-2 (OpenAI 2019) both swapped sinusoidal for a learned absolute positional embedding: {"nn.Embedding(max_len, d)"}. Each position index 0 through {"max_len − 1"} got its own trainable vector, added to the token embedding exactly like the sinusoidal PE but with {"max_len · d"} extra parameters. Learned PE matched or slightly outperformed sinusoidal on in-distribution lengths because the optimizer could shape position embeddings to match the actual distribution of positions in the training data, but it came with a hard ceiling — queries at positions beyond {"max_len"} simply had no embedding. BERT's {"max_len = 512"}, GPT-2's {"max_len = 1024"}. You could not feed them longer inputs without retraining.
-      </Prose>
+<H3>{"Rows store order; the computation must use it"}</H3>
 
-      <Prose>
-        In 2018 Shaw, Uszkoreit, and Vaswani (arXiv:1803.02155) reframed the problem. What attention actually needs to know is not absolute position but relative position: how far apart are query {"i"} and key {"j"}? Their "Self-Attention with Relative Position Representations" added a learned bias term {"a^K_{i−j}"} and value term {"a^V_{i−j}"} into the attention computation, where the index is the clipped relative distance. Relative position encodings (RPE) became the family of techniques that modify the attention score itself rather than the input embedding. T5 (Raffel et al. 2020, arXiv:1910.10683) simplified this further with a scalar relative bias {"b_{i−j}"} per head, learned and bucketed log-spaced for long distances. RPE gave two wins at once: it decoupled position representation from token representation, and it generalized better to sequences longer than those seen during training, because the model only ever encoded distances, never absolute positions.
-      </Prose>
+<Prose>{"An array preserves its row order. That does not mean every function applied to the array uses that order. Adding all the rows gives the same sum after any rearrangement."}</Prose>
 
-      <Prose>
-        The pivotal move came with Jianlin Su, Yu Lu, Shengfeng Pan, Ahmed Murtadha, Bo Wen, and Yunfeng Liu's "RoFormer: Enhanced Transformer with Rotary Position Embedding" (arXiv:2104.09864, published 2021, broadly adopted from 2023 onward). RoPE does not add anything. Instead it rotates the query and key vectors in learned 2D subspaces by an angle proportional to their absolute position. The result of the rotation is that the inner product {"⟨q'_m, k'_n⟩"} — which is the only thing attention ever evaluates on position-encoded vectors — ends up depending only on the positional difference {"m − n"}, not on {"m"} or {"n"} individually. You get relative-position behavior for free, without a separate bias term, without extra parameters, and with a multiplicative interaction that composes cleanly across layers. LLaMA, Qwen, Mistral, Gemma, DeepSeek, and essentially every frontier decoder-only model from 2023 onward uses RoPE.
-      </Prose>
+<Prose>{"Recall one head from "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention"}</a>{". A query describes what a row seeks, a key describes how a row can be matched, and a value is the information mixed into the result:"}</Prose>
 
-      <Prose>
-        Running in parallel, Ofir Press, Noah Smith, and Mike Lewis published "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation" (ALiBi, arXiv:2108.12409, ICLR 2022). ALiBi also leaves token embeddings alone; instead it adds a fixed linear penalty {"−m · |i − j|"} to the attention logits, where {"m"} is a head-specific slope set a priori (no learning involved). The penalty biases each query toward recent keys and away from distant ones, with different heads preferring different window sizes. The paper's central empirical claim — that a model trained at length 1024 could evaluate at length 2048 or 4096 with only minor perplexity increase, while sinusoidal and learned PE collapsed — made ALiBi the go-to mechanism for models that needed length extrapolation out of the box. MPT-7B, BLOOM, and Falcon adopted it.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"A=\\operatorname{softmax}_{\\text{keys}}(QK^\\top/\\sqrt{d_k}),\\qquad Y=AV."}</MathBlock></div>
 
-      <Prose>
-        The 2023 wave closed the loop by making RoPE extrapolate as well as ALiBi. Shouyuan Chen, Sherman Wong, Liangjian Chen, and Yuandong Tian's "Extending Context Window of Large Language Models via Positional Interpolation" (arXiv:2306.15595) showed that you could stretch a pre-trained RoPE model from 2K to 32K context with just a few hundred fine-tuning steps by rescaling the position indices — interpolating new positions into the already-learned range instead of extrapolating beyond it. The anonymous Reddit user bloc97 published "NTK-Aware Scaled RoPE" later that year, arguing that uniform rescaling blurs high-frequency detail and that the scaling should preserve high-frequency dimensions while stretching low-frequency ones. Bowen Peng, Jeffrey Quesnelle, Honglu Fan, and Enrico Shippole's "YaRN: Efficient Context Window Extension" (arXiv:2309.00071) formalized NTK-aware into a principled (α, β)-blend of positional interpolation and NTK scaling, and showed that RoPE-based models could be extended from their 2K or 4K training window to 128K context with a small fraction of the original pretraining compute. Yutao Sun et al.'s "A Length-Extrapolatable Transformer" (XPos, arXiv:2212.10554) added a decay term to RoPE that further improved long-range stability. By 2024, the de facto stack was RoPE-with-YaRN-or-NTK-scaling for decoder-only LLMs, learned PE for small BERT-family encoders, sinusoidal for legacy research models, and ALiBi where native length extrapolation mattered more than peak accuracy.
-      </Prose>
+<Prose>{"Here rows of Q correspond to queries, columns of the score matrix to keys, and each softmax row sums to 1. "}<InlineMath>{"d_k"}</InlineMath>{" is the width of "}<strong>{"one query/key head"}</strong>{", not the whole model. Dividing by its square root controls score scale."}</Prose>
 
-      <Callout accent="gold">
-        The arc: sinusoidal (fixed, additive, pre-layer) {"→"} learned (trained, additive, pre-layer, fixed max_len) {"→"} relative position (learned bias inside attention) {"→"} RoPE (multiplicative rotation inside attention) {"→"} ALiBi (fixed linear bias inside attention). The later techniques move position information <em>out</em> of the token embedding and <em>into</em> the attention score, which is where it always belonged — because what attention actually consumes is pairwise similarity, not absolute identity.
-      </Callout>
+<Prose>{"Suppose we reorder every input row using the same permutation matrix "}<InlineMath>{"P"}</InlineMath>{". Shared rowwise projections produce "}<InlineMath>{"PQ,PK,PV"}</InlineMath>{". The score matrix becomes "}<InlineMath>{"P(QK^\\top)P^\\top"}</InlineMath>{": its rows and columns are merely rearranged. Rowwise softmax respects that rearrangement, so"}</Prose>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<div className="neural-equation"><MathBlock>{"\\operatorname{Attention}(PX)=P\\operatorname{Attention}(X)."}</MathBlock></div>
 
-      <H3>2.1 Absolute vs relative position</H3>
+<Prose>{"This is "}<strong>{"permutation equivariance"}</strong>{". Output rows move with their inputs. It is different from invariance: an invariant output stays unchanged. Mean pooling the equivariant output gives an invariant whole-sequence representation. Shared feedforward networks, per-row LayerNorm and residual additions preserve the same symmetry when no other positional signal is present."}</Prose>
 
-      <Prose>
-        Absolute positional encoding answers the question "what is this token's index in the sequence?" — position 7 gets one embedding, position 8 gets another. Relative positional encoding answers "what is the distance from this token to that token?" — the offset {"−3"} (query is three positions after key) gets one representation regardless of whether the query is at position 50 or at position 5000. Most of what a language model needs from position information is relative: "the pronoun refers to the noun <em>three words back</em>", "the closing bracket matches the opening bracket <em>eight tokens earlier</em>". Absolute-position awareness matters much less frequently (examples: "this is the first token of the document", "this is the second sentence"). That asymmetry is the reason every successful modern PE variant encodes <em>relative</em> position as its primary signal; absolute-position sensitivity is emergent from content rather than hard-coded into the encoding.
-      </Prose>
+<Prose>{"For a set of measurements whose order is irrelevant, this is useful. For a movement whose direction matters, it is a limitation. An attention-based set classifier cannot distinguish a sequence from its reversal if the two differ only in row order."}</Prose>
 
-      <H3>2.2 Additive PE: sinusoidal and learned</H3>
+<PositionJourneyFigure />
 
-      <Prose>
-        Sinusoidal and learned PE are both additive: they produce a position vector {"p_t ∈ R^d"} that is summed with the token embedding {"x_t"} before the first Transformer layer. Everything downstream sees one combined input {"x_t + p_t"} and cannot disentangle position from content except through the learned projections. The additive scheme is simple to implement and cheap to compute, but it has two structural weaknesses. First, the position signal is injected <em>once</em> at the bottom of the network; as the representation passes through many layers of attention and feed-forward, that signal is progressively mixed with content and may be attenuated. Second, since position information is carried inside the same vector as content information, the {"W^Q, W^K, W^V"} projections must allocate some of their capacity to separating the two, which is capacity that cannot go toward modeling content.
-      </Prose>
+<H3>{"A causal mask already supplies some structure"}</H3>
 
-      <H3>2.3 Multiplicative PE: RoPE</H3>
+<Prose>{"The proof assumed the permitted query–key pairs were also unchanged or consistently permuted. A fixed causal mask permits a query to read only itself and preceding slots. Arbitrarily shuffling content while leaving this triangle fixed changes who can read whom. The earlier equivariance proof no longer applies."}</Prose>
 
-      <Prose>
-        RoPE breaks with the additive template entirely. Token embeddings are left alone at the input; position enters only inside the attention layers, by <em>rotating</em> the query and key vectors in learned 2D subspaces. The per-dimension rotation angle scales linearly with absolute position, but because attention only ever compares queries to keys via their inner product, and rotations preserve inner products under simultaneous rotation, the net effect on the attention score is a function only of the positional <em>difference</em>. Intuitively: rotating {"q"} by {"mθ"} and {"k"} by {"nθ"} gives {"⟨q', k'⟩ = q^T R_{(n-m)θ} k"}. The rotation cancels out by the relative amount. Position is reinjected at every attention layer — not just at the bottom — which keeps the signal crisp through deep stacks. There is no capacity trade-off in the Q/K projections: content lives in the full vector, and position is a separable geometric transform applied afterward.
-      </Prose>
+<Prose>{"For example, with equal scores and scalar values "}<code>{"[2,6,10]"}</code>{", causal attention produces prefix means "}<code>{"[2,4,6]"}</code>{". Reversing the inputs against the same mask gives "}<code>{"[10,8,6]"}</code>{", not a reversal of the old outputs. With a special beginning-of-sequence marker, uniform attention can even expose a quantity such as "}<InlineMath>{"1/(t+1)"}</InlineMath>{", because the marker is one item among a growing prefix. Additional layers can use such structure. This is why decoder-only Transformers without explicit position embeddings, often called "}<strong>{"NoPE"}</strong>{", are a meaningful research design. It does not imply that every such model automatically learns robust counting or long-context reasoning. The "}<a href={"https://arxiv.org/pdf/2305.19466"}>{"NoPE/length-generalization study"}</a>{" distinguishes the causal setting and evaluates actual tasks rather than equating computability with generalization."}</Prose>
 
-      <H3>2.4 Bias-based PE: ALiBi</H3>
+<Prose>{"Position can therefore arrive through several routes: explicit coordinates, position vectors, score biases, causal/local connectivity, recurrent state or a combination. Our task is to identify which route the model actually has."}</Prose>
 
-      <Prose>
-        ALiBi takes yet another tack. It leaves both token embeddings and Q/K vectors alone, and instead modifies the attention <em>logit matrix</em> directly: after computing {"Q K^T / √d_k"}, add a matrix {"B"} where {"B_{i,j} = −m_h · |i − j|"} for head {"h"} with a per-head slope {"m_h"}. The penalty is a plain linear function of distance, same on every layer, not learned — just a geometric prior that says "closer keys should be preferred". Each head gets a different slope {"m_h = 2^{−8h/H}"}, so head 1 has a steep preference for local context (slope 0.5, penalty doubles every token), head 8 has a shallow preference (slope 0.004, penalty accumulates slowly). The multi-head stack therefore spans a range of effective attention windows, from near-local to essentially global. Because the bias is a function of {"|i − j|"} and nothing else — no position-specific parameter — ALiBi extrapolates naturally: at any evaluation length the bias is well-defined and bounded, and the model's learned patterns (which depend only on content Q/K and the universal distance penalty) still apply.
-      </Prose>
+<H2>{"2. Add a position vector: learned and sinusoidal encodings"}</H2>
 
-      <H3>2.5 Why RoPE rotations are the right geometric primitive</H3>
+<H3>{"A label the model can learn"}</H3>
 
-      <Prose>
-        To see why rotation is clever, consider what we want the attention score {"q^T k"} to look like when query {"q"} sits at position {"m"} and key {"k"} sits at position {"n"}. A good positional encoder should make this score a function of {"(m − n)"} and the underlying content vectors, but not of {"m"} or {"n"} alone — otherwise absolute-position artifacts leak into attention. Rotations have exactly this property. A 2D rotation by angle {"mθ"} is a unitary transform; applying it to both {"q"} and {"k"} before taking the inner product gives a result that depends only on the <em>relative</em> rotation {"(n − m)θ"}, which is a function of position difference. Packaging the d-dim vector as {"d/2"} independent 2D rotations, each at a different frequency, produces a multi-scale relative-position encoding — one rotation handles short-range interactions (high frequency, wavelength {"2π"}), another handles medium-range (wavelength {"∼60"}), another handles long-range (wavelength {"∼600"} and beyond). The model can attend at any of these scales by learning which Q/K dimensions to emphasize.
-      </Prose>
+<Prose>{"Let a token or measurement have a content vector "}<InlineMath>{"x_t\\in\\mathbb R^d"}</InlineMath>{". The simplest construction is"}</Prose>
 
-      <H3>2.6 Why ALiBi extrapolates but may not maximize accuracy</H3>
+<div className="neural-equation"><MathBlock>{"h_t=x_t+p_t."}</MathBlock></div>
 
-      <Prose>
-        ALiBi's linear penalty is a strong inductive bias: it hardcodes "recency preferred" into every layer. That is exactly right for most language-modeling tasks, which is why ALiBi trains fast and generalizes cleanly to longer contexts. But the bias is <em>fixed</em>; the model cannot learn to undo it. If a particular attention head would benefit from attending to a distant token — for instance, a head that resolves long-range coreference — it has to overcome ALiBi's penalty with very strong Q/K alignment to that distant key. In practice this means ALiBi is a few perplexity points worse than RoPE at in-distribution lengths on well-trained large models, but noticeably more robust out-of-distribution. For a model that will only ever be used at a fixed context, RoPE tends to win. For a model that needs to extrapolate well, ALiBi is safer.
-      </Prose>
+<Prose>{"Both vectors have the same width. Addition keeps the shape "}<InlineMath>{"L\\times d"}</InlineMath>{", so the existing Transformer block can consume it."}</Prose>
 
-      <H3>2.7 Sinusoidal encodes position via frequency</H3>
+<Prose>{"A "}<strong>{"learned absolute embedding"}</strong>{" stores a table "}<InlineMath>{"P\\in\\mathbb R^{L_{\\max}\\times d}"}</InlineMath>{", and chooses "}<InlineMath>{"p_t=P[t]"}</InlineMath>{". Its rows begin as ordinary trainable parameters. During training, a prediction error updates the rows used by that example, together with the rest of the network. If several examples use slot 7, their gradients contribute to the same position row 7."}</Prose>
 
-      <Prose>
-        Why sinusoids at all? Because {"sin"} and {"cos"} of the same angle are phase-shifted by {"π/2"}, and together they form an orthonormal basis for 2D — which means an arbitrary rotation can be written as a linear combination of {"sin(pos·θ)"} and {"cos(pos·θ)"} at fixed {"θ"}. In particular, {"PE(pos + k)"} is a linear function of {"PE(pos)"} whose coefficients depend only on {"k"}. If the model can learn a linear readout of the PE, it can extract relative position from absolute sinusoidal encoding. The multi-scale choice of frequencies ({"θ_i = 10000^{−2i/d}"}) gives wavelengths spanning several orders of magnitude, so one pair encodes position with wavelength {"≈ 6"}, another with wavelength {"≈ 600"}, another with wavelength {"≈ 60000"}. At any given scale, nearby positions have similar sinusoidal codes, which is how the model recognizes locality.
-      </Prose>
+<Prose>{"Take a deliberately small table:"}</Prose>
 
-      <H3>2.8 Why position matters more in causal models</H3>
+<NeuralTable caption={"A label the model can learn"} headers={[<>{"Slot"}</>,<>{"Position vector"}</>]} rows={[[<>{"0"}</>,<>{"[0.2, 0.0]"}</>],[<>{"1"}</>,<>{"[0.0, 0.3]"}</>],[<>{"2"}</>,<>{"[−0.1, 0.1]"}</>]]} />
 
-      <Prose>
-        Causal (decoder-only) models care about position more than bidirectional (encoder-only) models. The reason is that in a bidirectional encoder, every token already sees every other token, so order is partly recoverable from co-occurrence patterns — "dog" and "bites" and "man" in the same window tell you quite a bit even without order. In a causal decoder, position is not only part of the signal, it is part of what makes autoregressive generation coherent: predicting the next token requires knowing where in the sequence you are, and especially, which tokens are <em>most recent</em>. That asymmetry is part of why frontier decoder-only LLMs converged on RoPE (which gives a strong relative-position signal to every attention layer) while BERT-family models stuck with learned absolute PE for years — they needed it less.
-      </Prose>
+<Prose>{"If the content vector "}<code>{"[1,2]"}</code>{" occurs in slot 0, its combined vector is "}<code>{"[1.2,2]"}</code>{". The same content in slot 1 becomes "}<code>{"[1,2.3]"}</code>{". These numbers are a hand fixture, not learned weights from a language model. They make the operation visible: the table tells the model which slot a row occupies; training decides what to do with that signal."}</Prose>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"The table has "}<InlineMath>{"L_{\\max}d"}</InlineMath>{" parameters. A 512 × 768 table has 393,216. A table with 512 rows supports indices 0–511. Index 512 has no row. Enlarging the table solves the storage problem but leaves a learning problem: new rows need a considered initialization, interpolation or further training strategy. Full retraining from scratch is not mathematically required, and a larger table alone does not establish useful longer-context behavior."}</Prose>
 
-      <H3>3.1 Sinusoidal positional encoding</H3>
+<Prose>{"Do not silently replace an out-of-range index with "}<code>{"index % max_length"}</code>{". That makes different absolute positions share an embedding without having trained the model for this periodic rule."}</Prose>
 
-      <Prose>
-        For position {"pos ∈ {0, 1, ..., L-1}"} and embedding dimension {"d"} (assumed even), the sinusoidal PE is defined per-dimension:
-      </Prose>
+<AdditivePositionLab />
 
-      <MathBlock>{"PE_{(pos, 2i)} = \\sin\\!\\left(\\frac{pos}{10000^{2i/d}}\\right), \\qquad PE_{(pos, 2i+1)} = \\cos\\!\\left(\\frac{pos}{10000^{2i/d}}\\right)"}</MathBlock>
+<H3>{"Smooth clocks instead of a table"}</H3>
 
-      <Prose>
-        where {"i ∈ {0, 1, ..., d/2 − 1}"} indexes the dimension pair. The frequency {"ω_i = 10000^{−2i/d}"} is geometric: {"ω_0 = 1"} (highest frequency, wavelength {"2π"}), {"ω_{d/2-1} ≈ 1/10000"} (lowest frequency, wavelength {"20000π"}). The encoding is deterministic, parameter-free, and extends to any position by evaluating the formula. At training time each input embedding {"x_{pos}"} is modified by element-wise sum: {"x'_{pos} = x_{pos} + PE_{pos}"}.
-      </Prose>
+<Prose>{"We can compute the position vector from a fixed formula. The original Transformer used sine/cosine pairs at different frequencies:"}</Prose>
 
-      <H3>3.2 The key identity: {"PE(pos + k)"} is linear in {"PE(pos)"}</H3>
+<div className="neural-equation"><MathBlock>{"p_{t,2r}=\\sin(t\\omega_r),\\quad\np_{t,2r+1}=\\cos(t\\omega_r),\\quad\n\\omega_r=b^{-2r/d},\\quad r=0,\\ldots,d/2-1."}</MathBlock></div>
 
-      <Prose>
-        For any fixed offset {"k"} and dimension pair {"i"} with frequency {"ω_i"}:
-      </Prose>
+<Prose>{"This definition assumes even "}<InlineMath>{"d"}</InlineMath>{", uses radians and commonly starts from "}<InlineMath>{"b=10000"}</InlineMath>{". Frequency means radians of phase change per position. The wavelength is "}<InlineMath>{"2\\pi/\\omega_r"}</InlineMath>{" positions for a complete turn."}</Prose>
 
-      <MathBlock>{"\\begin{bmatrix} \\sin(\\omega_i (pos+k)) \\\\ \\cos(\\omega_i (pos+k)) \\end{bmatrix} = \\begin{bmatrix} \\cos(\\omega_i k) & \\sin(\\omega_i k) \\\\ -\\sin(\\omega_i k) & \\cos(\\omega_i k) \\end{bmatrix} \\begin{bmatrix} \\sin(\\omega_i pos) \\\\ \\cos(\\omega_i pos) \\end{bmatrix}"}</MathBlock>
+<Prose>{"Think of several clock hands turning at different rates. One fast hand is ambiguous after it comes around again, but the other hands are at different phases. Together they supply a rich position signature. This analogy concerns multiple scales; it does not make a floating-point vector an infinitely precise position identifier."}</Prose>
 
-      <Prose>
-        The transformation matrix is a 2D rotation by angle {"ω_i k"}, and it depends only on {"k"}, not on {"pos"}. This means a linear layer with the right weights can extract "the token {"k"} positions away" from the PE regardless of absolute position. Vaswani et al. conjectured this property would make relative-position learning easy. In practice it works but not optimally — the model must learn to build the rotation, and the learned projections {"W^Q, W^K"} are not explicitly constrained to do so.
-      </Prose>
+<Prose>{"For "}<InlineMath>{"d=8,b=10000"}</InlineMath>{", the four frequencies are "}<code>{"[1,0.1,0.01,0.001]"}</code>{". Evaluating the formula gives:"}</Prose>
 
-      <H3>3.3 Learned positional encoding</H3>
+<NeuralTable caption={"Smooth clocks instead of a table"} headers={[<>{"Position"}</>,<>{"sin pair 0"}</>,<>{"cos pair 0"}</>,<>{"sin pair 1"}</>,<>{"cos pair 1"}</>,<>{"sin pair 2"}</>,<>{"cos pair 2"}</>,<>{"sin pair 3"}</>,<>{"cos pair 3"}</>]} rows={[[<>{"0"}</>,<>{"0"}</>,<>{"1"}</>,<>{"0"}</>,<>{"1"}</>,<>{"0"}</>,<>{"1"}</>,<>{"0"}</>,<>{"1"}</>],[<>{"1"}</>,<>{"0.841"}</>,<>{"0.540"}</>,<>{"0.100"}</>,<>{"0.995"}</>,<>{"0.010"}</>,<>{"1.000"}</>,<>{"0.001"}</>,<>{"1.000"}</>],[<>{"2"}</>,<>{"0.909"}</>,<>{"−0.416"}</>,<>{"0.199"}</>,<>{"0.980"}</>,<>{"0.020"}</>,<>{"1.000"}</>,<>{"0.002"}</>,<>{"1.000"}</>],[<>{"3"}</>,<>{"0.141"}</>,<>{"−0.990"}</>,<>{"0.296"}</>,<>{"0.955"}</>,<>{"0.030"}</>,<>{"1.000"}</>,<>{"0.003"}</>,<>{"1.000"}</>]]} />
 
-      <Prose>
-        Learned PE replaces the fixed sinusoidal formula with a trainable embedding table:
-      </Prose>
+<Prose>{"Slow channels appear constant at three decimal places even when their exact values differ. Conversely, the fastest hand turns nearly half a revolution from position 0 to 3. Adjacent positions need not look similar in every channel."}</Prose>
 
-      <MathBlock>{"P \\in \\mathbb{R}^{L_{\\max} \\times d}, \\qquad PE_{pos} = P[pos]"}</MathBlock>
+<SinusoidalPositionLab />
 
-      <Prose>
-        The table is updated by backpropagation like any other parameter. It has {"L_{\\max} · d"} parameters ({"512 · 768 = 393{,}216"} for BERT-base). The crucial constraint is {"pos < L_{\\max}"} — a query at position {"L_{\\max}"} or beyond literally has no embedding, and the lookup fails (or, in sloppy implementations, indexes off the end of the tensor and produces garbage). BERT, GPT-2, RoBERTa, and ViT all use learned absolute PE. Parameter count is typically negligible compared to the Transformer body ({"< 1%"} of total params for most configurations), but the rigid max-length ceiling is a serious constraint.
-      </Prose>
+<H3>{"Why pairs make relative shifts expressible"}</H3>
 
-      <H3>3.4 Rotary Position Embedding (RoPE)</H3>
+<Prose>{"The addition identities for sine and cosine give"}</Prose>
 
-      <Prose>
-        RoPE treats each pair of consecutive dimensions {"(2i, 2i+1)"} of the query and key as a complex number (or equivalently as a 2D vector). At position {"m"}, the rotation matrix {"R_{\\theta_i, m}"} is applied to each pair independently:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\begin{bmatrix}\\sin((t+\\delta)\\omega)\\\\\\cos((t+\\delta)\\omega)\\end{bmatrix}\n=\n\\begin{bmatrix}\\cos(\\delta\\omega)&\\sin(\\delta\\omega)\\\\-\\sin(\\delta\\omega)&\\cos(\\delta\\omega)\\end{bmatrix}\n\\begin{bmatrix}\\sin(t\\omega)\\\\\\cos(t\\omega)\\end{bmatrix}."}</MathBlock></div>
 
-      <MathBlock>{"R_{\\theta_i, m} = \\begin{bmatrix} \\cos(m\\theta_i) & -\\sin(m\\theta_i) \\\\ \\sin(m\\theta_i) & \\cos(m\\theta_i) \\end{bmatrix}, \\qquad \\theta_i = b^{-2i/d_k}"}</MathBlock>
+<Prose>{"The matrix depends on the shift "}<InlineMath>{"\\delta"}</InlineMath>{", not on the starting slot "}<InlineMath>{"t"}</InlineMath>{". It is a rotation with a sign/order convention appropriate to the "}<code>{"[sin,cos]"}</code>{" column. This means a shared linear transformation can relate the code of a position to the code of a fixed offset. It does not mean that a learned attention head automatically selects “exactly three positions earlier.”"}</Prose>
 
-      <Prose>
-        with {"i ∈ {0, ..., d_k/2 − 1}"} and base {"b"} (typically {"10000"} or {"500000"}). The full per-position rotation {"R_m"} is the block-diagonal stack of these 2D rotations. RoPE is applied to {"Q"} and {"K"} after the Q/K projections but before the attention score:
-      </Prose>
+<Prose>{"Another useful identity is"}</Prose>
 
-      <MathBlock>{"q'_m = R_m \\, q_m, \\qquad k'_n = R_n \\, k_n"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"p_m^\\top p_n=\\sum_r\\cos((m-n)\\omega_r)."}</MathBlock></div>
 
-      <Prose>
-        Crucially, because {"R_m"} is orthogonal, {"R_m^T R_m = I"}, and because {"R_m R_n^T = R_{m-n}"}, the attention score becomes:
-      </Prose>
+<Prose>{"For the unprojected position vectors alone, the inner product depends on relative offset. But attention compares projected "}<strong>{"content-plus-position"}</strong>{" vectors. Let "}<InlineMath>{"M=W_Q^\\top W_K"}</InlineMath>{" under a column-vector convention. Then"}</Prose>
 
-      <MathBlock>{"\\langle q'_m, k'_n \\rangle = q_m^T R_m^T R_n k_n = q_m^T R_{n-m} k_n"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"(x_m+p_m)^\\top M(x_n+p_n)\n=x_m^\\top Mx_n+x_m^\\top Mp_n+p_m^\\top Mx_n+p_m^\\top Mp_n."}</MathBlock></div>
 
-      <Prose>
-        The score depends on the content vectors {"q_m, k_n"} and on the relative offset {"n − m"}, but not on {"m"} or {"n"} individually. This is what we want. {"V"} is <em>not</em> rotated — only {"Q"} and {"K"}. Applying RoPE to {"V"} would break the relative-position invariance of the output.
-      </Prose>
+<Prose>{"There are content–content, content–position, position–content and position–position terms. An arbitrary learned "}<InlineMath>{"M"}</InlineMath>{" need not preserve the simple cosine identity. Those interactions are part of the representation, not inherently wasted capacity. They allow position to affect values and residual features as well as attention scores."}</Prose>
 
-      <H3>3.5 RoPE frequencies and wavelengths</H3>
+<Prose>{"The "}<a href={"https://arxiv.org/pdf/1706.03762"}>{"original Transformer §3.5"}</a>{" compares learned and fixed input encodings and motivates the shift identity. The "}<a href={"https://d2l.ai/chapter_attention-mechanisms-and-transformers/self-attention-and-positional-encoding.html#positional-encoding"}>{"D2L explanation and runnable notebook"}</a>{" supplies another route through the multiscale picture. Neither the existence of a sine formula at position 100,000 nor a successful table lookup establishes that a trained model will use that position well."}</Prose>
 
-      <Prose>
-        With base {"b = 10000"} and {"d_k = 64"}, the per-pair angular frequency is {"θ_i = 10000^{−2i/64}"} and the corresponding wavelength is {"λ_i = 2π / θ_i"}. The highest-frequency pair ({"i = 0"}) has {"θ = 1"} and wavelength {"≈ 6.28"} positions — the rotation wraps every six tokens. The lowest-frequency pair ({"i = 31"}) has {"θ ≈ 1.3 × 10^{−4}"} and wavelength {"≈ 47000"} positions — effectively linear over any reasonable context. Doubling the base to {"500000"} (LLaMA-3 default) multiplies every wavelength by roughly {"500000^{1/32} ≈ 1.5"} at the high-frequency end and by {"500000/10000 = 50"} at the low-frequency end, so the longest wavelength jumps from {"≈ 47000"} to {"≈ 2{,}084{,}000"} positions — long enough to cover a 128K context with the lowest frequency still in a monotone regime.
-      </Prose>
+<H2>{"3. RoPE: let relative position change the comparison"}</H2>
 
-      <H3>3.6 ALiBi (Attention with Linear Biases)</H3>
+<H3>{"Rotate the features after the projections"}</H3>
 
-      <Prose>
-        ALiBi leaves the token embedding and Q/K untouched and modifies the attention score directly. For a causal Transformer with {"H"} heads, the attention for head {"h"} becomes:
-      </Prose>
+<Prose>{""}<strong>{"Rotary position embedding"}</strong>{", RoPE, applies a deterministic rotation to each query and key. Standard RoPE leaves the values unrotated. Position enters the query–key comparison in each attention layer."}</Prose>
 
-      <MathBlock>{"\\mathrm{Attention}_h(Q, K, V) = \\mathrm{softmax}\\!\\left(\\frac{Q K^\\top}{\\sqrt{d_k}} + m_h \\cdot B\\right) V"}</MathBlock>
+<Prose>{"Start with two-dimensional vectors. A counterclockwise rotation through angle "}<InlineMath>{"\\phi"}</InlineMath>{" is"}</Prose>
 
-      <Prose>
-        where {"B ∈ R^{L×L}"} is a fixed relative-distance matrix {"B_{i,j} = -(i - j)"} for {"j ≤ i"} and {"-∞"} for {"j > i"} (the causal part), and {"m_h"} is the per-head slope:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"R(\\phi)=\\begin{bmatrix}\\cos\\phi&-\\sin\\phi\\\\\\sin\\phi&\\cos\\phi\\end{bmatrix}."}</MathBlock></div>
 
-      <MathBlock>{"m_h = 2^{-8h/H}, \\qquad h = 1, 2, \\ldots, H"}</MathBlock>
+<Prose>{"The point "}<code>{"[1,0]"}</code>{" becomes "}<code>{"[0,1]"}</code>{" at "}<InlineMath>{"\\phi=\\pi/2"}</InlineMath>{". Its length stays 1. A general vector turns through the same angle without changing length."}</Prose>
 
-      <Prose>
-        For {"H = 8"}: {"m = (0.5, 0.25, 0.125, ..., 0.0039)"}. The head with {"m = 0.5"} penalizes distance-1 keys by {"−0.5"} in logit space, distance-2 by {"−1.0"}, distance-8 by {"−4.0"} — essentially a local window. The head with {"m = 0.0039"} penalizes distance-256 by just {"−1.0"} — a near-global head. The multi-head stack therefore covers a geometric range of attention scales.
-      </Prose>
+<Prose>{"For a head of even width "}<InlineMath>{"d_k"}</InlineMath>{", divide the coordinates into pairs. Pair "}<InlineMath>{"r"}</InlineMath>{" gets frequency "}<InlineMath>{"\\theta_r=b^{-2r/d_k}"}</InlineMath>{". At query position "}<InlineMath>{"m"}</InlineMath>{", rotate each pair through "}<InlineMath>{"m\\theta_r"}</InlineMath>{"; at key position "}<InlineMath>{"n"}</InlineMath>{", rotate its corresponding pair through "}<InlineMath>{"n\\theta_r"}</InlineMath>{". Write the block-diagonal collection of rotations as "}<InlineMath>{"R_m"}</InlineMath>{":"}</Prose>
 
-      <H3>3.7 Positional Interpolation (PI)</H3>
+<div className="neural-equation"><MathBlock>{"q'_m=R_mq_m,\\qquad k'_n=R_nk_n."}</MathBlock></div>
 
-      <Prose>
-        To extend a RoPE model trained at {"L_{\\mathrm{train}}"} to a longer context {"L_{\\mathrm{eval}} > L_{\\mathrm{train}}"}, naive extrapolation feeds positions {"0, 1, 2, ..., L_{\\mathrm{eval}} − 1"} through the same RoPE formula. This puts some dimension pairs into rotation ranges the model has never seen, and high-frequency pairs wrap around badly. PI (Chen et al. 2023) instead rescales the position index:
-      </Prose>
+<Prose>{"The coordinate pairs are fixed by the implementation's basis. The projections that produce their content are learned. The rotation planes themselves are not separately learned in this standard construction."}</Prose>
 
-      <MathBlock>{"pos' = pos \\cdot \\frac{L_{\\mathrm{train}}}{L_{\\mathrm{eval}}}"}</MathBlock>
+<RotaryPositionLab />
 
-      <Prose>
-        so that position {"L_{\\mathrm{eval}} − 1"} is mapped to the highest position the model was trained on. Every RoPE angle is then in-distribution, and a short fine-tune (1000 steps) is typically enough for the model to recalibrate. PI is simple and works well up to {"4x–8x"} extension but degrades at larger factors because it uniformly compresses all frequencies, blurring the high-frequency short-range structure.
-      </Prose>
+<H3>{"The relative-offset identity, step by step"}</H3>
 
-      <H3>3.8 NTK-aware scaling</H3>
+<Prose>{"Transpose reverses a rotation, and successive rotations add their angles. Therefore"}</Prose>
 
-      <Prose>
-        NTK-aware RoPE scaling (bloc97 2023) preserves high-frequency dimensions while stretching low-frequency ones. Instead of rescaling positions, it rescales the base: {"b → b · α^{d_k/(d_k - 2)}"} where {"α = L_{\\mathrm{eval}} / L_{\\mathrm{train}}"}. The effect is that high-frequency pairs (low {"i"}) keep their wavelengths approximately unchanged, while low-frequency pairs (high {"i"}) get their wavelengths stretched by roughly {"α"}. This preserves short-range attention fidelity while allowing long-range attention to cover the new context length. NTK-aware typically outperforms PI for extension factors {"> 4x"}.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"(R_mq_m)^\\top(R_nk_n)\n=q_m^\\top R_m^\\top R_nk_n\n=q_m^\\top R_{n-m}k_n."}</MathBlock></div>
 
-      <H3>3.9 YaRN</H3>
+<Prose>{"Turn both vectors by 100 extra position units, using the same frequencies, and their dot product stays unchanged. Turn only the key, and the relative angle changes. That is the useful built-in structure."}</Prose>
 
-      <Prose>
-        YaRN (Peng et al. 2023) unifies PI and NTK-aware into a per-dimension scheme: each dimension pair {"i"} is scaled by a factor that depends on its wavelength relative to the original training context. Pairs whose wavelength is much shorter than {"L_{\\mathrm{train}}"} are left unscaled (they rotate many times within the training window, so they are well-sampled). Pairs whose wavelength is comparable to or longer than {"L_{\\mathrm{train}}"} are scaled via PI (they rotate slowly, so they need rescaling to fit the new range). A smooth interpolation {"ramp(α, β)"} blends between the two regimes. YaRN also multiplies the attention scores by a temperature factor {"√(1 + 0.1 \\ln(L_{\\mathrm{eval}}/L_{\\mathrm{train}}))"} to compensate for the fact that longer contexts mean more keys competing for the softmax, which tends to flatten the attention distribution. In practice YaRN is state of the art for RoPE context extension; a 4K-trained LLaMA can be extended to 128K with a few hundred fine-tuning steps.
-      </Prose>
+<Prose>{"Notice what the identity holds fixed: the "}<strong>{"content vectors"}</strong>{" "}<InlineMath>{"q_m,k_n"}</InlineMath>{". Different words or hidden states still produce different vectors. RoPE has not replaced content similarity with a distance-only score. The vectors in a later layer may already reflect boundaries, masks and earlier context, so a statement about this local operation must not be mistaken for universal translation invariance of an entire language model."}</Prose>
 
-      <H3>3.10 Cost comparison</H3>
+<Prose>{"One pair contributes"}</Prose>
 
-      <Prose>
-        All four schemes have modest cost overhead relative to attention itself. Sinusoidal: one-time {"O(L d)"} generation per forward pass (or cached), no extra compute per attention layer. Learned: one {"O(L d)"} embedding lookup per forward pass. RoPE: one rotation per Q and per K per head per layer, {"O(L d)"} extra multiplies — roughly 10% of the attention matmul cost. ALiBi: adds one {"L × L"} bias matrix to the logits before softmax, {"O(L^2)"} extra adds per head per layer — cheaper than RoPE in FLOPs but still negligible compared to the {"O(L^2 d_k)"} attention matmul itself.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"(q_0k_0+q_1k_1)\\cos(\\Delta\\theta)\n +(q_1k_0-q_0k_1)\\sin(\\Delta\\theta),\\quad \\Delta=n-m."}</MathBlock></div>
 
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
+<Prose>{"The sine term can distinguish the direction of the offset. With suitable content vectors, “three before” and “three after” can receive different scores. The denominator "}<InlineMath>{"\\sqrt{d_k}"}</InlineMath>{" and rowwise softmax follow this calculation as usual."}</Prose>
 
-      <Prose>
-        Everything below was run on a single GPU with PyTorch 2.6 + CUDA 12.4. Every {"# Output:"} block is real stdout. The from-scratch benchmark trains a tiny 2-layer causal Transformer ({"d = 64, H = 4, d_k = 16"}) on a shift-by-one task (predict {"y_t = x_{t-1}"}, {"x ∈ {0, ..., 31}"}) at sequence length 64, then evaluates at lengths {"{64, 128, 256, 512}"}. Shift-by-one is trivial at the training length — any competent self-attention learns it — and the eval-beyond-train-length curves cleanly isolate the length-extrapolation quality of the four PE variants.
-      </Prose>
+<H3>{"A complete four-coordinate example"}</H3>
 
-      <H3>4.1 Sinusoidal PE from scratch</H3>
+<Prose>{"Take "}<InlineMath>{"q=[0.8,-0.5,0.3,1.2]"}</InlineMath>{" at position 3 and "}<InlineMath>{"k=[1,0.25,-0.5,0.75]"}</InlineMath>{" at position 7. For "}<InlineMath>{"d_k=4,b=10000"}</InlineMath>{", frequencies are 1 and 0.01."}</Prose>
 
-      <CodeBlock language="python">
-{`import math, torch
+<ol start={1}><li>{"Query pair 0 turns through 3 radians; query pair 1 through 0.03."}</li><li>{"Key pair 0 turns through 7 radians; key pair 1 through 0.07."}</li><li>{"The rotated vectors are"}</li></ol>
 
-def sinusoidal_pe(L, d, device, base=10000.0):
-    pos  = torch.arange(L, device=device).float().unsqueeze(1)   # [L, 1]
-    i    = torch.arange(d // 2, device=device).float().unsqueeze(0)  # [1, d/2]
-    freq = torch.pow(base, -2 * i / d)                           # [1, d/2]
-    angles = pos * freq                                          # [L, d/2]
-    pe = torch.zeros(L, d, device=device)
-    pe[:, 0::2] = torch.sin(angles)
-    pe[:, 1::2] = torch.cos(angles)
-    return pe
+<Prose>{"   "}<InlineMath>{"q'\\approx[-0.721434,0.607892,0.263870,1.208459]"}</InlineMath>{" and    "}<InlineMath>{"k'\\approx[0.589656,0.845462,-0.551233,0.713192]"}</InlineMath>{"."}</Prose>
 
-# Print the first 4 positions, first 8 dimensions, for base=10000
-pe = sinusoidal_pe(4, 8, "cuda")
-for row in pe.tolist():
-    print("  ", [round(v, 3) for v in row])
+<ol start={4}><li>{"Their dot product is 0.804961. Dividing by "}<InlineMath>{"\\sqrt4=2"}</InlineMath>{" gives the attention logit 0.402481."}</li><li>{"Computing "}<InlineMath>{"q^\\top R_4k"}</InlineMath>{" gives the same 0.804961. Positions 103 and 107 also give that value."}</li></ol>
 
-# Output:
-#    [0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
-#    [0.841, 0.54, 0.1, 0.995, 0.01, 1.0, 0.001, 1.0]
-#    [0.909, -0.416, 0.199, 0.98, 0.02, 1.0, 0.002, 1.0]
-#    [0.141, -0.99, 0.296, 0.955, 0.03, 1.0, 0.003, 1.0]`}
-      </CodeBlock>
+<Prose>{"The query's norm remains 1.555635. Moving the key to position 8 changes the dot product to 1.570549; bringing it to the same position as the query gives the raw dot product 1.425. A farther key can receive a "}<strong>{"larger"}</strong>{" score. Position modulates a content-dependent comparison; it is not a mandatory recency penalty."}</Prose>
 
-      <Prose>
-        Row 0 is {"[sin(0), cos(0), sin(0), cos(0), ...] = [0, 1, 0, 1, ...]"} — constant 1s and 0s. Rows 1, 2, 3 show sinusoidal progression at increasing wavelengths. Notice columns 2-3 (next dim pair) change much more slowly than columns 0-1 — that is the geometric frequency falloff.
-      </Prose>
-
-      <H3>4.2 Learned PE from scratch</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn as nn
+<H3>{"A diagonal pattern requires a controlled example"}</H3>
 
-class LearnedPE(nn.Module):
-    def __init__(self, max_len, d):
-        super().__init__()
-        self.pos = nn.Embedding(max_len, d)
-        self.max_len = max_len
-
-    def forward(self, L, device):
-        if L > self.max_len:
-            # naive handling — real code should raise IndexError
-            idx = torch.arange(L, device=device) % self.max_len
-        else:
-            idx = torch.arange(L, device=device)
-        return self.pos(idx)    # [L, d]`}
-      </CodeBlock>
-
-      <Prose>
-        A learned PE is exactly {"nn.Embedding(max_len, d)"}. The {"max_len"} argument is a hard ceiling; any position {"≥ max_len"} either raises or (in the modulo-hack above) wraps around and produces position-shifted garbage. BERT, GPT-2, RoBERTa, and ViT are all built on this pattern with {"max_len ∈ {512, 1024, 2048}"}.
-      </Prose>
-
-      <H3>4.3 RoPE from scratch</H3>
-
-      <CodeBlock language="python">
-{`def rope_freqs(d_k, L, device, base=10000.0):
-    i     = torch.arange(d_k // 2, device=device).float()   # [d_k/2]
-    theta = torch.pow(base, -2 * i / d_k)                   # [d_k/2]
-    pos   = torch.arange(L, device=device).float()          # [L]
-    angles = torch.einsum("l,d->ld", pos, theta)            # [L, d_k/2]
-    return torch.cos(angles), torch.sin(angles)
-
-def apply_rope(x, cos, sin):
-    # x:   [B, H, L, d_k]
-    # cos: [L, d_k/2]
-    # sin: [L, d_k/2]
-    x1 = x[..., 0::2]                           # even dims
-    x2 = x[..., 1::2]                           # odd dims
-    c  = cos.unsqueeze(0).unsqueeze(0)          # broadcast over B, H
-    s  = sin.unsqueeze(0).unsqueeze(0)
-    y1 = x1 * c - x2 * s                        # rotate (x1, x2) by angle
-    y2 = x1 * s + x2 * c
-    return torch.stack([y1, y2], dim=-1).flatten(-2)
-
-# Sanity: RoPE preserves norms (rotation is unitary)
-q = torch.randn(1, 1, 4, 8, device="cuda")
-cos, sin = rope_freqs(8, 4, "cuda")
-q_rot = apply_rope(q, cos, sin)
-print("norm before:", round(q.norm().item(), 4))
-print("norm after: ", round(q_rot.norm().item(), 4))
-
-# Output:
-#   norm before: 6.0944
-#   norm after:  6.0944`}
-      </CodeBlock>
-
-      <Prose>
-        The rotation is an isometry — it preserves {"L_2"} norms because {"R"} is orthogonal. Different positions give different rotations, but every position produces a query vector with exactly the same magnitude as the input. This is what makes RoPE compose cleanly with attention and with layer norm.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Sanity: attention score depends only on relative position for q=k.
-# Build identical q, k vectors and compute their rotated inner products.
-q = torch.randn(1, 1, 4, 8, device="cuda")
-k = q.clone()
-cos, sin = rope_freqs(8, 4, "cuda")
-q_r = apply_rope(q, cos, sin)
-k_r = apply_rope(k, cos, sin)
-sims = torch.matmul(q_r, k_r.transpose(-2, -1))[0, 0]
-for row in sims.tolist():
-    print("  ", [round(v, 3) for v in row])
-
-# Output:
-#    [8.893, 4.897, 0.033, -4.277]
-#    [4.897, 12.395, -0.871, 1.039]
-#    [0.033, -0.871, 9.162, 4.219]
-#    [-4.277, 1.039, 4.219, 6.691]`}
-      </CodeBlock>
-
-      <Prose>
-        The matrix is approximately Toeplitz — along any diagonal (constant {"i − j"}) the values are similar. The off-diagonals trend from high (small distance) to low/negative (distance 3). The exact values would be perfectly Toeplitz if we averaged over many random {"q = k"}; one sample picks up noise from the specific content. That is RoPE's relative-position behavior in action.
-      </Prose>
-
-      <H3>4.4 ALiBi from scratch</H3>
-
-      <CodeBlock language="python">
-{`def alibi_slopes(h):
-    # Per-head slope 2^{-8h/H}, h = 1..H (ALiBi paper eq. 1)
-    return torch.tensor([2.0 ** (-8.0 * (i + 1) / h) for i in range(h)])
-
-def alibi_bias(L_q, L_k, h, device):
-    slopes = alibi_slopes(h).to(device)                  # [H]
-    i = torch.arange(L_q, device=device).unsqueeze(1)    # [L_q, 1]
-    j = torch.arange(L_k, device=device).unsqueeze(0)    # [1,   L_k]
-    dist = (j - i).float()                               # <0 when j < i
-    bias = -dist.abs().unsqueeze(0) * slopes.view(h, 1, 1)  # [H, L_q, L_k]
-    return bias
-
-print("ALiBi slopes (H=4):", [round(s.item(), 4) for s in alibi_slopes(4)])
-
-ab = alibi_bias(4, 4, 4, "cuda")
-print("bias head 0:")
-for row in ab[0].tolist():
-    print("  ", [round(v, 3) for v in row])
-
-# Output:
-#   ALiBi slopes (H=4): [0.25, 0.0625, 0.0156, 0.0039]
-#   bias head 0:
-#      [-0.0, -0.25, -0.5, -0.75]
-#      [-0.25, -0.0, -0.25, -0.5]
-#      [-0.5, -0.25, -0.0, -0.25]
-#      [-0.75, -0.5, -0.25, -0.0]`}
-      </CodeBlock>
-
-      <Prose>
-        Head 0 has the steepest slope ({"0.25"}); at distance 3 the penalty is {"−0.75"} in logit space, which roughly halves the softmax weight compared to distance 0. Head 3 has slope {"0.004"} — its penalty at distance 3 is {"−0.012"}, essentially negligible; that head attends nearly globally. The combined multi-head effect is a stack of attention distributions at different spatial scales.
-      </Prose>
-
-      <H3>4.5 Tiny Transformer with swappable PE</H3>
-
-      <CodeBlock language="python">
-{`class Attn(nn.Module):
-    def __init__(self, d, h, pe_mode):
-        super().__init__()
-        self.h, self.d_k = h, d // h
-        self.Wq = nn.Linear(d, d, bias=False)
-        self.Wk = nn.Linear(d, d, bias=False)
-        self.Wv = nn.Linear(d, d, bias=False)
-        self.Wo = nn.Linear(d, d, bias=False)
-        self.pe_mode = pe_mode
-
-    def forward(self, x, cos=None, sin=None, alibi=None):
-        B, L, D = x.shape
-        q = self.Wq(x).view(B, L, self.h, self.d_k).transpose(1, 2)
-        k = self.Wk(x).view(B, L, self.h, self.d_k).transpose(1, 2)
-        v = self.Wv(x).view(B, L, self.h, self.d_k).transpose(1, 2)
-
-        if self.pe_mode == "rope":
-            q = apply_rope(q, cos, sin)
-            k = apply_rope(k, cos, sin)
-
-        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_k)
-
-        if self.pe_mode == "alibi":
-            scores = scores + alibi.unsqueeze(0)     # [1, H, L, L]
-
-        mask = torch.triu(torch.ones(L, L, device=x.device, dtype=torch.bool), diagonal=1)
-        scores = scores.masked_fill(mask, float("-inf"))
-        attn = torch.nn.functional.softmax(scores, dim=-1)
-        ctx = torch.matmul(attn, v).transpose(1, 2).contiguous().view(B, L, D)
-        return self.Wo(ctx)
-
-class TinyLM(nn.Module):
-    def __init__(self, pe_mode, max_len=96):
-        super().__init__()
-        self.pe_mode = pe_mode
-        self.tok = nn.Embedding(32, 64)
-        if pe_mode == "learned":
-            self.pos = nn.Embedding(max_len, 64)
-            self.max_len = max_len
-        self.blocks = nn.ModuleList([nn.ModuleDict({
-            "ln1": nn.LayerNorm(64),
-            "attn": Attn(64, 4, pe_mode),
-            "ln2": nn.LayerNorm(64),
-            "ff":  nn.Sequential(nn.Linear(64, 256), nn.GELU(), nn.Linear(256, 64)),
-        }) for _ in range(2)])
-        self.ln_f = nn.LayerNorm(64)
-        self.head = nn.Linear(64, 32, bias=False)
-
-    def forward(self, x):
-        B, L = x.shape
-        h = self.tok(x)
-        cos = sin = alibi = None
-        if self.pe_mode == "sinusoidal":
-            h = h + sinusoidal_pe(L, 64, x.device).unsqueeze(0)
-        elif self.pe_mode == "learned":
-            idx = torch.arange(L, device=x.device) % self.max_len
-            h = h + self.pos(idx).unsqueeze(0)
-        elif self.pe_mode == "rope":
-            cos, sin = rope_freqs(16, L, x.device)
-        elif self.pe_mode == "alibi":
-            alibi = alibi_bias(L, L, 4, x.device)
-        for blk in self.blocks:
-            h = h + blk["attn"](blk["ln1"](h), cos=cos, sin=sin, alibi=alibi)
-            h = h + blk["ff"](blk["ln2"](h))
-        return self.head(self.ln_f(h))`}
-      </CodeBlock>
-
-      <H3>4.6 Train on shift task at L=64, evaluate at longer lengths</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn.functional as F
-
-def sample_seq(B, L, device):
-    x = torch.randint(0, 32, (B, L), device=device)
-    y = torch.zeros_like(x)
-    y[:, 1:] = x[:, :-1]              # target = shifted input
-    y[:,  0] = x[:,  0]
-    return x, y
-
-def train(pe_mode, steps=600):
-    torch.manual_seed(42)
-    m = TinyLM(pe_mode=pe_mode).cuda()
-    opt = torch.optim.Adam(m.parameters(), lr=3e-4)
-    for _ in range(steps):
-        x, y = sample_seq(64, 64, "cuda")
-        loss = F.cross_entropy(m(x).reshape(-1, 32), y.reshape(-1))
-        opt.zero_grad(); loss.backward(); opt.step()
-    return m, loss.item()
-
-@torch.no_grad()
-def eval_ppl(m, L, n=8):
-    m.eval()
-    losses = []
-    for _ in range(n):
-        x, y = sample_seq(64, L, "cuda")
-        logits = m(x)
-        losses.append(F.cross_entropy(logits.reshape(-1, 32), y.reshape(-1)).item())
-    m.train()
-    return math.exp(sum(losses) / len(losses))
-
-for mode in ["sinusoidal", "learned", "rope", "alibi"]:
-    m, fl = train(mode, 600)
-    print(f"[{mode}]  final_loss={fl:.4f}")
-    for L in [64, 128, 256, 512]:
-        print(f"  L={L:4d}  ppl={eval_ppl(m, L):.3f}")
-
-# Output:
-#   [sinusoidal]  final_loss=0.0365
-#     L=  64  ppl=1.032
-#     L= 128  ppl=17.282
-#     L= 256  ppl=73.504
-#     L= 512  ppl=138.568
-#   [learned]     final_loss=0.0154
-#     L=  64  ppl=1.016
-#     L= 128  ppl=13.515
-#     L= 256  ppl=23.382
-#     L= 512  ppl=52.936
-#   [rope]        final_loss=0.0113
-#     L=  64  ppl=1.011
-#     L= 128  ppl=1.035
-#     L= 256  ppl=1.426
-#     L= 512  ppl=3.617
-#   [alibi]       final_loss=0.0244
-#     L=  64  ppl=1.024
-#     L= 128  ppl=1.026
-#     L= 256  ppl=1.027
-#     L= 512  ppl=1.027`}
-      </CodeBlock>
-
-      <Prose>
-        Four models, four stories. At train length 64 all four solve the task ({"ppl ≈ 1"} means near-perfect prediction). At {"2x"} the train length, sinusoidal and learned both collapse ({"ppl"} jumps from ~1 to 13-17), and they get catastrophically worse at {"4x"} and {"8x"}. RoPE holds up well at {"2x"}, degrades gently at {"4x"} and {"8x"} — it extrapolates partway. ALiBi is essentially flat across the entire eval range. This is the canonical length-extrapolation result: sinusoidal and learned PE encode positions the model has actually seen, and they cannot generalize past those positions; ALiBi's distance-based penalty is defined everywhere and depends only on distance, so the model's learned patterns still apply at any length.
-      </Prose>
-
-      <H3>4.7 RoPE base sensitivity</H3>
-
-      <CodeBlock language="python">
-{`# Re-train the RoPE model with different RoPE bases.
-for base in [1000.0, 10000.0, 500000.0]:
-    # (Retrains a RoPE model end-to-end at each base.)
-    ...
-    print(f"  base={int(base):7d}  ppl(64)={p64:.3f}  ppl(512)={p512:.3f}")
-
-# Output:
-#   base=   1000  ppl(64)=1.011  ppl(512)=1.188
-#   base=  10000  ppl(64)=1.011  ppl(512)=3.599
-#   base= 500000  ppl(64)=1.011  ppl(512)=5.391`}
-      </CodeBlock>
-
-      <Prose>
-        On this tiny model and task, a smaller RoPE base extrapolates slightly better because the dominant positional signal is short-range (wavelength {"≈ 6"} tokens for {"i = 0"} at any reasonable base) and a smaller base gives more of the high-frequency pairs their own distinct rotation. On real LLMs the calculus is reversed: modern large models use base {"500{,}000"} (LLaMA-3) or even {"1{,}000{,}000"} because the <em>long-range</em> dimensions need extra wavelength to avoid wrapping inside a {"32K+"} context. Base sensitivity is empirical — always sweep at the target context.
-      </Prose>
-
-      <H3>4.8 Positional interpolation (PI) demo</H3>
-
-      <CodeBlock language="python">
-{`# Train at L=64, evaluate at L=256 with position scale = 64/256 = 0.25.
-# Same model, no retraining — just feed scaled positions into rope_freqs.
-for scale in [1.0, 0.25]:
-    p256 = eval_ppl_scaled(m, L=256, scale=scale)
-    print(f"  scale={scale}  ppl(L=256) = {p256:.3f}")
-
-# Output:
-#   scale=1.0   ppl(L=256) = 1.418
-#   scale=0.25  ppl(L=256) = 85.902`}
-      </CodeBlock>
-
-      <Prose>
-        A naive PI with no fine-tuning hurts badly on this model — every RoPE angle is now {"4x"} smaller than the model learned to expect, and it cannot interpret positions correctly. In practice, PI is always paired with a short fine-tune (100-1000 steps at the new context length); this post-scaling fine-tune recovers in-distribution quality at the extended length. YaRN and NTK-aware do the same thing with per-dimension scaling factors so that less fine-tuning is needed.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production tools</H2>
-
-      <H3>5.1 Sinusoidal PE in PyTorch's nn.Transformer</H3>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn, math
-
-# nn.Transformer has no built-in PE — you must add it yourself.
-# The canonical PyTorch-tutorial implementation:
-
-class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, max_len=5000):
-        super().__init__()
-        pe = torch.zeros(max_len, d_model)
-        pos = torch.arange(0, max_len).unsqueeze(1).float()
-        div = torch.exp(torch.arange(0, d_model, 2).float()
-                        * -(math.log(10000.0) / d_model))
-        pe[:, 0::2] = torch.sin(pos * div)
-        pe[:, 1::2] = torch.cos(pos * div)
-        self.register_buffer("pe", pe.unsqueeze(0))  # [1, max_len, d]
-
-    def forward(self, x):
-        return x + self.pe[:, : x.size(1)]
-
-# Full encoder with sinusoidal PE:
-d_model, nhead, nlayers = 512, 8, 6
-encoder = nn.Sequential(
-    nn.Embedding(vocab_size, d_model),
-    PositionalEncoding(d_model),
-    nn.TransformerEncoder(
-        nn.TransformerEncoderLayer(d_model, nhead, batch_first=True),
-        num_layers=nlayers,
-    ),
-)`}
-      </CodeBlock>
-
-      <Prose>
-        PyTorch's {"nn.Transformer"} family does not bake in a positional encoding because different tasks want different ones. The snippet above is the pattern every research Transformer starts from: token embedding plus sinusoidal PE, fed into {"nn.TransformerEncoder"}. The {"register_buffer"} call is important — it makes the PE move to GPU with the module but not be treated as a learnable parameter.
-      </Prose>
-
-      <H3>5.2 Learned PE in HuggingFace BERT / GPT-2</H3>
-
-      <CodeBlock language="python">
-{`from transformers import BertModel, GPT2Model
-
-# BERT uses learned absolute position embeddings of size max_position_embeddings.
-bert = BertModel.from_pretrained("bert-base-uncased")
-print("BERT position table:", bert.embeddings.position_embeddings)
-# Embedding(512, 768)
-
-# GPT-2 also uses learned absolute PE.
-gpt2 = GPT2Model.from_pretrained("gpt2")
-print("GPT-2 wpe:", gpt2.wpe)
-# Embedding(1024, 768)
-
-# The max_position_embeddings is a hard ceiling.
-# Feeding input_ids of length 513 to bert-base will index off the position table.`}
-      </CodeBlock>
-
-      <Prose>
-        Both models ship with learned PE tables sized exactly to their training context (512 for BERT-base, 1024 for GPT-2). Extending these to longer contexts requires either re-initializing the position table and full retraining, or interpolating new positions into the existing table (rarely done for absolute PE — it works better for relative variants).
-      </Prose>
-
-      <H3>5.3 RoPE in HuggingFace LLaMA / Mistral / Qwen</H3>
-
-      <CodeBlock language="python">
-{`from transformers import AutoModelForCausalLM, AutoConfig
-
-cfg = AutoConfig.from_pretrained("meta-llama/Llama-3.2-1B")
-print("rope_theta (base):", cfg.rope_theta)
-print("max_position_embeddings:", cfg.max_position_embeddings)
-# rope_theta: 500000.0
-# max_position_embeddings: 131072
-
-# The rope_scaling dict controls YaRN/PI/NTK-aware at load time.
-print("rope_scaling:", cfg.rope_scaling)
-# rope_scaling: {'rope_type': 'llama3', 'factor': 32.0,
-#                'high_freq_factor': 4.0, 'low_freq_factor': 1.0,
-#                'original_max_position_embeddings': 8192}
-
-# 'llama3' rope_type is LLaMA-3's variant of NTK-aware scaling:
-# 8K trained context stretched to 128K at load time.`}
-      </CodeBlock>
-
-      <Prose>
-        LLaMA-3 ships with {"rope_theta = 500000"} (a higher base than the original {"10000"} to support longer contexts natively) and a {"rope_scaling"} configuration that applies a per-dimension frequency blend at load time. This is NTK-aware scaling implemented at the model-config level — no code changes needed to extend from 8K to 128K. Qwen-2.5 and Mistral use very similar configs with their own {"rope_theta"} and scaling variants.
-      </Prose>
-
-      <H3>5.4 Manual RoPE application with rotary-embedding-torch</H3>
-
-      <CodeBlock language="python">
-{`# pip install rotary-embedding-torch
-from rotary_embedding_torch import RotaryEmbedding
-import torch
-
-rotary = RotaryEmbedding(dim=32)                     # d_k/2 pair count
-q = torch.randn(1, 8, 128, 64)                       # [B, H, L, d_k]
-k = torch.randn(1, 8, 128, 64)
-
-# Apply rotation to q and k independently.
-q = rotary.rotate_queries_or_keys(q)
-k = rotary.rotate_queries_or_keys(k)
-
-# Now q and k carry positional rotation; attention uses them normally.
-attn = (q @ k.transpose(-2, -1) / 8).softmax(dim=-1)`}
-      </CodeBlock>
-
-      <Prose>
-        {"rotary-embedding-torch"} (by lucidrains) is the community-standard implementation for adding RoPE to a custom Transformer. It handles the cos/sin precomputation with caching, supports partial rotation (only rotate the first {"d_k · k"} dimensions, leaving the rest unrotated — the "XPos"-style variant), and matches LLaMA's layout by default.
-      </Prose>
-
-      <H3>5.5 ALiBi in MPT / BLOOM / Falcon</H3>
-
-      <CodeBlock language="python">
-{`# MPT-7B / BLOOM use ALiBi. In HuggingFace code:
-from transformers import AutoModelForCausalLM
-
-# MPT explicitly uses ALiBi — no RoPE, no learned PE.
-mpt = AutoModelForCausalLM.from_pretrained("mosaicml/mpt-7b")
-# Its attention implementation adds ALiBi bias inside each layer.
-
-# BLOOM: the attention module computes ALiBi slopes per-head at init
-# and adds them to the attention scores before softmax.
-# BloomAttention has a _build_alibi_tensor() static method.`}
-      </CodeBlock>
-
-      <Prose>
-        MPT-7B (2023) was the first large well-known model to ship with ALiBi, and demonstrated that ALiBi-trained models could be extended from 2K train context to 8K+ eval context without fine-tuning. BLOOM (Le Scao et al. 2022) used ALiBi for similar length-extrapolation reasons. Falcon-7B/40B also use ALiBi. By 2024, most frontier decoder-only models had migrated to RoPE-with-YaRN (because RoPE plus scaling outperforms ALiBi at fixed context while still extrapolating reasonably), but ALiBi remains the implementation-of-choice when you know in advance you will evaluate at lengths far beyond train length.
-      </Prose>
-
-      <H3>5.6 YaRN context extension</H3>
-
-      <CodeBlock language="python">
-{`# The llama_yarn repo (jquesnelle/yarn) extends a pretrained LLaMA-2 from
-# 4K to 128K context with ~400 fine-tuning steps.
-
-from transformers import AutoModelForCausalLM, AutoConfig
-
-cfg = AutoConfig.from_pretrained("NousResearch/Yarn-Llama-2-7b-128k")
-print(cfg.rope_scaling)
-# {
-#   'type': 'yarn',
-#   'factor': 32.0,
-#   'original_max_position_embeddings': 4096,
-#   'finetuned': True,
-#   'beta_fast': 32,
-#   'beta_slow': 1
-# }
-
-# beta_fast, beta_slow: YaRN's (alpha, beta) boundaries that control
-# which RoPE pairs get PI-style vs NTK-style scaling.`}
-      </CodeBlock>
-
-      <Prose>
-        YaRN is the most-adopted context-extension technique for RoPE models in 2024-2026. The {"beta_fast"} / {"beta_slow"} parameters correspond to the paper's {"α"}, {"β"} — frequencies above {"β_fast"} are left unscaled (they rotate many times within the training window and are well-sampled), frequencies below {"β_slow"} are fully PI-scaled (they rotate slowly and need rescaling), and there is a smooth ramp between. The paper's recommended values {"(β_fast, β_slow) = (32, 1)"} work well in practice.
-      </Prose>
-
-      <H3>5.7 XPos — RoPE with decay</H3>
-
-      <CodeBlock language="python">
-{`# XPos (Sun et al. 2022) multiplies the RoPE-rotated vectors by a
-# position-dependent decay factor to improve long-range stability.
-
-def xpos_freqs(d_k, L, device, base=10000.0, scale_base=512.0):
-    i = torch.arange(d_k // 2, device=device).float()
-    theta = torch.pow(base, -2 * i / d_k)
-    pos   = torch.arange(L, device=device).float()
-    angles = pos.unsqueeze(1) * theta.unsqueeze(0)
-    # XPos-specific decay scale (grows with dim index so high-freq dims decay faster)
-    zeta = (i / (d_k // 2) + 0.4) / 1.4
-    decay_q = zeta ** pos.unsqueeze(1)     # [L, d_k/2]
-    return torch.cos(angles), torch.sin(angles), decay_q`}
-      </CodeBlock>
-
-      <Prose>
-        XPos adds a multiplicative decay {"ζ^{pos}"} that attenuates low-frequency dimensions faster than high-frequency ones, giving better long-range extrapolation than plain RoPE at similar cost. RetNet (Sun et al. 2023) adopted XPos as its default PE, and a handful of research-track LLMs use it. Most production LLMs stick with plain RoPE plus YaRN because RoPE has more mature tooling.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Heatmap of sinusoidal PE</H3>
-
-      <Prose>
-        The first 16 positions of a sinusoidal PE with {"d = 32"} (8 dimension pairs plotted) and base {"10000"}. Each row is a position; each column is a single dimension. The left-most pair ({"dim 0, 1"}) oscillates rapidly with position — high frequency, wavelength {"≈ 6"}. The right-most pair oscillates very slowly, almost flat over these 16 positions — that dimension encodes position on a scale of thousands of tokens. Notice how the multi-scale encoding allows the model to disambiguate positions at any scale: nearby positions differ sharply in high-frequency dimensions; far-apart positions differ in low-frequency ones.
-      </Prose>
-
-      <Heatmap
-        matrix={[
-          [0.000,  1.000,  0.000,  1.000,  0.000,  1.000,  0.000,  1.000],
-          [0.841,  0.540,  0.389,  0.921,  0.178,  0.984,  0.079,  0.997],
-          [0.909, -0.416,  0.717,  0.697,  0.350,  0.937,  0.159,  0.987],
-          [0.141, -0.990,  0.932,  0.362,  0.507,  0.862,  0.237,  0.971],
-          [-0.757, -0.654,  0.997, -0.072,  0.644,  0.765,  0.312,  0.950],
-          [-0.959,  0.284,  0.900, -0.435,  0.757,  0.653,  0.384,  0.923],
-          [-0.279,  0.960,  0.649, -0.760,  0.843,  0.537,  0.452,  0.892],
-          [ 0.657,  0.754,  0.287, -0.958,  0.900,  0.435,  0.516,  0.857],
-          [ 0.989, -0.146, -0.123, -0.992,  0.927,  0.374,  0.574,  0.819],
-          [ 0.412, -0.911, -0.511, -0.859,  0.923,  0.383,  0.627,  0.779],
-          [-0.544, -0.839, -0.798, -0.602,  0.891,  0.453,  0.675,  0.738],
-          [-0.999,  0.004, -0.955, -0.297,  0.831,  0.557,  0.716,  0.698],
-          [-0.537,  0.844, -0.967,  0.257,  0.746,  0.666,  0.752,  0.659],
-          [ 0.420,  0.907, -0.829,  0.560,  0.637,  0.771,  0.782,  0.622],
-          [ 0.991,  0.137, -0.564,  0.826,  0.509,  0.861,  0.808,  0.589],
-          [ 0.650, -0.760, -0.201,  0.980,  0.367,  0.930,  0.828,  0.561],
-        ]}
-        rowLabels={["pos 0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]}
-        colLabels={["d0","d1","d2","d3","d4","d5","d6","d7"]}
-        colorScale="gold"
-        label="sinusoidal PE, d=32 (first 8 dims shown), 16 positions, base=10000"
-      />
-
-      <Prose>
-        Reading the heatmap: the leftmost column ({"d0"}) cycles quickly — {"sin(0), sin(1), sin(2), ..."} — and completes almost a full cycle within 16 positions. The rightmost column ({"d7"}) is nearly constant at {"≈ 1"} across the first 16 positions because its wavelength is {"≈ 785"} positions and we are only sampling the first 2% of its period. Every position has a unique, {"d"}-dimensional code, but the codes are <em>similar</em> for nearby positions in the high-frequency dimensions and <em>continuous</em> in the low-frequency dimensions — exactly what a smooth positional signal should look like.
-      </Prose>
-
-      <H3>6.2 RoPE rotation angle per dimension pair</H3>
-
-      <Prose>
-        The rotation angle {"m · θ_i"} (in radians) that RoPE applies at position {"m = 64"} for a {"d_k = 64"} attention head with base {"10000"}. Pair 0 is the highest frequency (rotates by ~64 radians at position 64 — many full turns); pair 31 is the lowest (rotates by only ~0.009 radians — barely any rotation over 64 positions).
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "base=10000", color: colors.gold, points: [
-            [0,  64.000],
-            [1,  47.993],
-            [2,  35.989],
-            [4,  20.239],
-            [8,   6.400],
-            [12,  2.024],
-            [16,  0.640],
-            [20,  0.202],
-            [24,  0.064],
-            [28,  0.020],
-            [31,  0.009],
-          ]},
-          { name: "base=500000", color: colors.green, points: [
-            [0,  64.000],
-            [1,  42.471],
-            [2,  28.183],
-            [4,  12.411],
-            [8,   2.407],
-            [12,  0.467],
-            [16,  0.091],
-            [20,  0.018],
-            [24,  0.003],
-            [28,  0.001],
-            [31,  0.000],
-          ]},
-        ]}
-        xLabel="dim pair index i"
-        yLabel="rotation angle at pos=64 (rad)"
-        label="RoPE: rotation angle per dimension pair at position 64"
-      />
-
-      <Prose>
-        Both curves fall off steeply from pair 0 to pair 8, then flatten. The higher base ({"500000"}) gives smaller rotation angles at all but the very highest-frequency pair — the effective wavelengths are longer, meaning the same position induces less rotation. This is why Llama-3 uses {"base = 500000"}: at context length {"128K"}, low-frequency pairs with base {"10000"} would wrap many times and lose their monotonicity. With base {"500000"}, low-frequency pairs rotate slowly enough to encode position-difference signals even at {"L = 128K"}.
-      </Prose>
-
-      <H3>6.3 ALiBi bias per head</H3>
-
-      <Prose>
-        ALiBi bias {"m_h · |i − j|"} plotted as a function of distance {"|i − j|"} for each of {"H = 8"} heads. Head 1 (steepest slope {"0.5"}) penalizes distant keys heavily — it becomes effectively a "last few tokens" head. Head 8 (slope {"0.0039"}) has negligible penalty even at distance {"256"} — it acts nearly globally. The multi-head ALiBi stack spans a geometric range of effective attention windows.
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "head 1 (m=0.500)",  color: colors.gold,   points: [[0, 0.000], [16, -8.000],  [32, -16.000], [64, -32.000], [128, -64.000], [256, -128.000]] },
-          { name: "head 2 (m=0.250)",  color: colors.green,  points: [[0, 0.000], [16, -4.000],  [32,  -8.000], [64, -16.000], [128, -32.000], [256,  -64.000]] },
-          { name: "head 4 (m=0.063)",  color: "#c084fc",     points: [[0, 0.000], [16, -1.000],  [32,  -2.000], [64,  -4.000], [128,  -8.000], [256,  -16.000]] },
-          { name: "head 8 (m=0.004)",  color: "#60a5fa",     points: [[0, 0.000], [16, -0.063],  [32,  -0.125], [64,  -0.250], [128,  -0.500], [256,   -1.000]] },
-        ]}
-        xLabel="distance |i - j|"
-        yLabel="ALiBi bias (logits)"
-        label="ALiBi bias per head, H=8, slope m_h = 2^{-8h/H}"
-      />
-
-      <Prose>
-        Every head's bias line is a straight line through the origin — that is the "linear" in Attention with Linear Biases. The slopes span a factor of {"128x"} from head 1 to head 8 (geometrically spaced). The steep heads ({"m = 0.5"} and {"0.25"}) effectively implement local-window attention; the shallow heads provide global context. Because the bias is a fixed function of distance, this structure holds at any evaluation length — the steep heads still act local, the shallow still act global — which is why ALiBi generalizes to longer inputs.
-      </Prose>
-
-      <H3>6.4 Length extrapolation: perplexity vs eval length</H3>
-
-      <Prose>
-        Summary of the section-4 experiment: each PE method was trained at sequence length 64 on the shift-by-one task, then evaluated at lengths 64, 128, 256, and 512. Lower is better; a perfect extrapolator stays at {"ppl = 1"}.
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "sinusoidal", color: colors.gold,   points: [[64, 1.032], [128, 17.282], [256, 73.504], [512, 138.568]] },
-          { name: "learned",    color: "#f472b6",     points: [[64, 1.016], [128, 13.515], [256, 23.382], [512, 52.936]] },
-          { name: "RoPE",       color: "#c084fc",     points: [[64, 1.011], [128,  1.035], [256,  1.426], [512,   3.617]] },
-          { name: "ALiBi",      color: colors.green,  points: [[64, 1.024], [128,  1.026], [256,  1.027], [512,   1.027]] },
-        ]}
-        xLabel="eval sequence length"
-        yLabel="perplexity (lower is better)"
-        label="length extrapolation (train L=64)"
-      />
-
-      <Prose>
-        Three distinct regimes. Sinusoidal and learned PE both collapse as soon as the eval length exceeds training length — the model has literally never seen those position signals and cannot interpret them. RoPE degrades gracefully: {"ppl"} grows from {"1.01"} at the train length to {"3.6"} at {"8x"} train length, which for this task represents partial extrapolation (the relative rotations for distances {"≤ 64"} are still in-distribution; only some long-distance pairs are out). ALiBi is essentially flat across the entire range: because its bias is a function of distance and distances {"≤ 63"} dominate in causal attention (each position {"i"} attends to at most {"i + 1"} keys), the effective attention landscape at {"L = 512"} is the same as at {"L = 64"} for most query positions. This plot is the ALiBi paper's headline result, reproduced on a tiny model and a toy task.
-      </Prose>
-
-      <H3>6.5 StepTrace: RoPE applied to a single Q/K pair</H3>
-
-      <Prose>
-        Walk through the rotation of a 4-dimensional query vector {"q"} by the RoPE rotation matrix at position {"m = 3"}. Assume {"d_k = 4"} so there are two dimension pairs; the first pair has frequency {"θ_0 = 1"}, the second has {"θ_1 = 10000^{−0.5} = 0.01"}.
-      </Prose>
-
-      <StepTrace
-        label="RoPE applied to q = (q0, q1, q2, q3) at position m=3"
-        steps={[
-          {
-            label: "raw Q vector",
-            render: () => (
-              <Prose>
-                Start with the query vector from the Q projection: {"q = (q_0, q_1, q_2, q_3) = (0.8, -0.5, 0.3, 1.2)"}. This is the content vector, with no position information. It comes out of {"W^Q · x_m"} for input token at position {"m = 3"}.
-              </Prose>
-            ),
-          },
-          {
-            label: "compute frequencies θ_i",
-            render: () => (
-              <Prose>
-                For {"d_k = 4"}, there are two dimension pairs. Frequencies: {"θ_0 = 10000^{-0/4} = 1"}, {"θ_1 = 10000^{-2/4} = 10000^{-0.5} = 0.01"}. The high-frequency pair (indices 0, 1) rotates quickly with position; the low-frequency pair (indices 2, 3) rotates slowly.
-              </Prose>
-            ),
-          },
-          {
-            label: "compute rotation angles at m=3",
-            render: () => (
-              <Prose>
-                Pair 0 angle: {"m · θ_0 = 3 · 1 = 3"} radians (about 172°). Pair 1 angle: {"m · θ_1 = 3 · 0.01 = 0.03"} radians (about 1.7°, nearly no rotation). Each pair will be rotated independently by its own angle — the key to RoPE's multi-scale behavior.
-              </Prose>
-            ),
-          },
-          {
-            label: "rotate pair 0: (q_0, q_1) -> (q'_0, q'_1)",
-            render: () => (
-              <Prose>
-                Apply 2D rotation by {"3"} rad: {"cos(3) ≈ -0.99"}, {"sin(3) ≈ 0.14"}. New values: {"q'_0 = q_0·cos(3) − q_1·sin(3) = 0.8·(-0.99) − (-0.5)·0.14 = -0.72"}. {"q'_1 = q_0·sin(3) + q_1·cos(3) = 0.8·0.14 + (-0.5)·(-0.99) = 0.61"}. The pair has been rotated substantially — almost reversed in sign.
-              </Prose>
-            ),
-          },
-          {
-            label: "rotate pair 1: (q_2, q_3) -> (q'_2, q'_3)",
-            render: () => (
-              <Prose>
-                Apply 2D rotation by {"0.03"} rad: {"cos(0.03) ≈ 1.0"}, {"sin(0.03) ≈ 0.03"}. New values: {"q'_2 = 0.3·1.0 − 1.2·0.03 = 0.264"}. {"q'_3 = 0.3·0.03 + 1.2·1.0 = 1.209"}. Nearly unchanged — this pair carries long-range position info that barely rotates at position 3.
-              </Prose>
-            ),
-          },
-          {
-            label: "assemble q' and pass to attention",
-            render: () => (
-              <Prose>
-                Final rotated query: {"q' = (-0.72, 0.61, 0.264, 1.209)"}. Apply the same rotation construction to {"k"} at its own position {"n"}, then compute {"q'·k'"}. The inner product depends on the content of {"q"} and {"k"} and the <em>relative</em> angle {"(n − m)·θ_i"} per pair — exactly what was claimed in section 3.4. The relative-position signal has been injected multiplicatively, and it composes cleanly with the subsequent attention softmax and value mixing.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix — which PE, when</H2>
-
-      <H3>7.1 Modern decoder-only LLM: RoPE with NTK-aware / YaRN scaling</H3>
-
-      <Prose>
-        For any decoder-only Transformer in 2026 — LLaMA-family, Qwen, Mistral, DeepSeek, Gemma — the default is RoPE. Pick base {"b = 10000"} for small-context models ({"≤ 4K"}) and base {"b = 500000"} or {"1000000"} for long-context models ({"≥ 32K"}). Apply YaRN or LLaMA-3-style NTK-aware scaling at load time to extend context beyond the training window. There is almost no scenario in which a new decoder-only model from scratch should use sinusoidal or learned absolute PE in 2026 — the RoPE variant outperforms on every axis that matters for large-scale language modeling.
-      </Prose>
-
-      <H3>7.2 Context extension without full retraining: ALiBi or RoPE + YaRN</H3>
-
-      <Prose>
-        If you already have a pretrained model at context {"L_{\\mathrm{train}}"} and need to evaluate at {"L > L_{\\mathrm{train}}"}: ALiBi extrapolates natively and does not need any extra work. RoPE-based models need YaRN (or NTK-aware, or PI, in decreasing order of quality and increasing order of age) at load time. YaRN + 100-500 fine-tuning steps is typically the right play for serious deployments — the fine-tune recalibrates the RoPE rotations for the new context. For quick-and-dirty extension without fine-tuning, LLaMA-3's built-in scaling at {"factor = 32"} is a solid baseline.
-      </Prose>
-
-      <H3>7.3 Bidirectional encoder (BERT, RoBERTa, small ViTs)</H3>
-
-      <Prose>
-        Learned absolute PE is still fine for encoder-only models at {"max_len ≤ 2048"}. BERT, RoBERTa, DeBERTa-v1 all use it, and the performance is good on in-distribution tasks. DeBERTa-v2/v3 use disentangled attention with relative position bias, which is a stronger design but requires more implementation complexity. For simple encoder workloads where context never exceeds training length, learned PE is the pragmatic choice — no configuration, no edge cases, well-supported by every framework.
-      </Prose>
-
-      <H3>7.4 Research needing out-of-distribution length extrapolation: ALiBi</H3>
-
-      <Prose>
-        If the research question is specifically about length extrapolation ("can my model generalize to contexts 10x longer than it was trained on?"), ALiBi is the cleanest baseline. It extrapolates without any scaling tricks, tuning, or fine-tuning, and it is easy to implement on top of any attention kernel. For a research paper that wants to isolate the effect of some other change (e.g., a new architecture, a new loss), pairing that change with ALiBi as the PE removes length-extrapolation from the list of confounding variables.
-      </Prose>
-
-      <H3>7.5 Very small models ({"≤ 50M"} params) on short sequences</H3>
-
-      <Prose>
-        For tiny models on short tasks ({"L ≤ 512"}), the choice of PE barely matters — sinusoidal, learned, and RoPE all converge to similar test loss and the extra complexity of RoPE or YaRN is not justified. Default to learned PE (one line, a single {"nn.Embedding"}) unless there is a specific reason to choose otherwise.
-      </Prose>
-
-      <H3>7.6 Edge or on-device inference with aggressive KV-cache compression</H3>
-
-      <Prose>
-        For on-device inference where KV cache is quantized or compressed, RoPE has an important engineering win: the cached {"K"} vectors are already post-RoPE. You do not need to store a position index alongside each cached token. The query at generation step {"t"} gets rotated by {"R_t"} and the cached key at position {"m"} already carries {"R_m"}; the attention score correctly computes the relative rotation. With ALiBi the distance must be recomputed at every step (cheap but not free); with learned PE the absolute position index must be tracked separately. RoPE is the most KV-cache-friendly encoding.
-      </Prose>
-
-      <Callout accent="gold">
-        One-line rule: default to RoPE with LLaMA-3-style NTK-aware scaling for any new decoder-only LLM in 2026. Use learned PE for small encoder-only models at fixed max length. Use ALiBi when native length extrapolation matters more than peak quality. Use sinusoidal only for legacy / educational / reference implementations.
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Sinusoidal caps at training length in practice</H3>
-
-      <Prose>
-        The sinusoidal formula itself is well-defined at any position — {"sin(pos/10000^{2i/d})"} evaluates fine at {"pos = 10^9"} — but the downstream network has only ever seen positions seen during training. Feeding position {"L_{\\mathrm{eval}} > L_{\\mathrm{train}}"} produces PE vectors in a region of feature space the {"W^Q, W^K, W^V"} projections have never seen, and the induced Q/K vectors are out-of-distribution. In practice this manifests as the sudden perplexity collapse visible in the section-4 experiment: sinusoidal PE degrades from {"ppl ≈ 1"} at train length to {"ppl ≈ 140"} at {"8x"} train length. The legend of "sinusoidal extrapolates" in the Vaswani paper was more aspiration than empirical finding; subsequent careful analysis (Press et al. 2022) showed that the extrapolation is weak on any nontrivial task.
-      </Prose>
-
-      <H3>8.2 Learned PE has a hard parameter-count ceiling</H3>
-
-      <Prose>
-        Learned PE's max position is fixed at model-definition time: once you compile an {"nn.Embedding(1024, 768)"}, position 1024 does not exist. Extending it requires either (a) appending new rows to the table and training them from scratch (hundreds of millions of tokens to converge), (b) replacing the entire table with a larger one and retraining the whole model (worst case), or (c) some form of interpolation between existing rows (not standard for absolute PE). In practice, learned PE is a commitment you make at model-design time and cannot gracefully back out of. This is why modern large models have migrated away from learned PE — the inability to extend context is too costly.
-      </Prose>
-
-      <H3>8.3 RoPE extrapolates partially and scales well with tricks</H3>
-
-      <Prose>
-        RoPE's rotation formula is defined at every position; there is no hard ceiling. But naive extrapolation (training at {"L_{\\mathrm{train}}"}, evaluating at {"10 · L_{\\mathrm{train}}"}) tends to hurt because low-frequency dimension pairs start rotating into regions of angle space the model was never trained on, and high-frequency pairs, which wrap many times, lose their unique position signature. PI scales all frequencies uniformly but blurs short-range detail. NTK-aware scales low frequencies more than high frequencies, preserving short-range fidelity. YaRN does both with a smooth ramp and a temperature correction. With YaRN, RoPE-based models have been pushed from {"4K"} training context to {"128K"} eval context with modest fine-tuning. In 2026, RoPE + YaRN is the standard for long-context LLMs.
-      </Prose>
-
-      <H3>8.4 ALiBi extrapolates natively but with a precision cost</H3>
-
-      <Prose>
-        ALiBi's linear bias is well-defined at any distance, and the per-head slopes do not change with context length. A model trained at {"L = 1024"} can be evaluated at {"L = 16384"} without any modification and typically shows only a small perplexity increase. The cost is that ALiBi's hard-coded "closer is better" bias is a strong inductive prior that the model cannot learn around. A head that needs to attend to a very distant token must fight ALiBi's penalty with very strong Q/K alignment, and often the right Q/K alignment for that head is simply not learnable against the bias. In head-to-head comparisons at fixed context length, well-tuned RoPE tends to beat ALiBi by 1-3% on perplexity. ALiBi's advantage is robustness across lengths, not peak quality.
-      </Prose>
-
-      <H3>8.5 Context extension: 2K → 128K+ is routine with RoPE + YaRN</H3>
-
-      <Prose>
-        The 2023-2024 wave of long-context LLMs — LongLLaMA (32K), Yarn-Llama-2-7b-128k, Gemini-1.5 (1M via undisclosed techniques), Qwen-2-128K — all built on RoPE + some variant of scaling. The typical recipe: start from a pretrained RoPE model at {"L_{\\mathrm{train}}"}, apply YaRN-scaled RoPE with target {"L_{\\mathrm{eval}} = k · L_{\\mathrm{train}}"} for {"k ∈ {8, 32, 64}"}, fine-tune on long-document data for a few hundred to a few thousand steps, evaluate on long-context benchmarks (needle-in-haystack, RULER, BABILong). The compute cost of the long-context fine-tune is typically {"< 1%"} of pretraining, which is why this approach dominated: it was far cheaper than retraining from scratch at the longer context.
-      </Prose>
-
-      <H3>8.6 KV cache stores post-RoPE K for efficiency</H3>
-
-      <Prose>
-        RoPE-rotated keys are still {"d_k"}-dimensional; rotation does not change the representation size. At inference time, the KV cache stores {"K'_n = R_n · K_n"} — the rotation is baked into the cached value. Queries at step {"t"} are rotated by {"R_t"} as they are computed, and the attention score {"Q'_t · (K'_n)^T = Q_t · R_t^T R_n K_n = Q_t · R_{n-t} · K_n"} correctly gives the relative-position dependence. This means the KV cache does not need to store position indices, the rotations never have to be recomputed on cached tokens, and the cache can be quantized just like ordinary vectors. ALiBi has to recompute distance at every step (cheap) but does not store anything extra in the cache. Learned absolute PE requires tracking the original position index alongside every cached vector, which is extra bookkeeping most implementations handle fine but is conceptually messier than RoPE's approach.
-      </Prose>
-
-      <H3>8.7 Grouped-Query Attention interacts cleanly with RoPE</H3>
-
-      <Prose>
-        GQA (used by LLaMA-3 and most large models in 2024+) reduces the number of K/V heads below the number of Q heads. RoPE operates per-head, so each Q head and each K head is rotated independently — the math and code do not change when you reduce the K head count. Each Q head still gets its own rotation {"R_m"} applied to its own {"d_k"}-dim query; each K head gets its own rotation applied to its {"d_k"}-dim key. The attention score per (Q head, K head) pair inherits the relative-position property. This clean compositionality is one of the reasons RoPE has been such an easy fit for modern production LLMs — it doesn't conflict with GQA, MQA, flash-attention, sliding window attention, or any of the other standard tricks.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Evaluating sinusoidal PE past training length without scaling</H3>
-
-      <Prose>
-        This is the most common length-generalization bug: a model with sinusoidal PE is trained at {"L = 1024"} and then evaluated at {"L = 2048"} or longer with no changes. Perplexity explodes. The fix is not "train longer with sinusoidal" — the underlying issue is that the {"W^Q, W^K"} projections have never seen PE vectors at those positions. The proper fix is either (a) use RoPE + YaRN instead, (b) switch to ALiBi for native extrapolation, or (c) train with some amount of positional noise / length curriculum so the model sees positions beyond the nominal max.
-      </Prose>
-
-      <H3>9.2 Learned PE at position beyond max_len</H3>
-
-      <Prose>
-        Indexing an {"nn.Embedding(512, 768)"} with position 513 raises {"IndexError"} in PyTorch by default. Worse, in some custom codepaths that do {"pos % max_len"} as a defensive fallback, the model silently wraps — position 513 gets the embedding of position 1, and the model outputs plausible-looking but subtly wrong predictions. Defensive programming here means: always validate that input {"L"} is {"≤ max_len"} at the top of the forward pass, with an explicit assertion or clean error. Never let position indexing fail silently.
-      </Prose>
-
-      <H3>9.3 Wrong RoPE base for target context</H3>
-
-      <Prose>
-        Training a model at {"L = 8192"} with RoPE base {"10000"} is workable but not ideal — the lowest-frequency dimension pair has wavelength {"≈ 47000"}, so at position 8191 its rotation angle is about 1 radian, which is fine. But training at {"L = 128000"} with base {"10000"} means the lowest-frequency pair rotates almost 20 times over the context, losing its monotone position signal. Symptom: long-range attention becomes noisy and the model degrades on long-range benchmarks. Fix: use a base proportional to the target context. LLaMA-3 at {"L = 8192"}: base {"500000"}. Qwen at {"L = 128000"}: base {"1000000"}. Rule of thumb: {"b ≈ 60 · L_{\\mathrm{target}}"} so the longest wavelength is several times {"L"}.
-      </Prose>
-
-      <H3>9.4 ALiBi slopes wrong per head</H3>
-
-      <Prose>
-        The ALiBi paper specifies slopes as {"m_h = 2^{−8h/H}"} for {"h = 1..H"}. A common bug is using {"2^{−8h/H}"} for {"h = 0..H-1"} instead, which gives slope {"1.0"} for head 0 — too steep, essentially a single-token attention. Another bug is using the same slope for every head (all 0.5 or all 0.1), which collapses ALiBi to a single-scale bias and throws away the multi-scale advantage. Check {"alibi_slopes(H)"} output: should span {"≈ 0.5"} to {"≈ 2^{-8}"} with {"H = 8"}, geometrically spaced.
-      </Prose>
-
-      <H3>9.5 Applying RoPE to V</H3>
-
-      <Prose>
-        RoPE is applied to {"Q"} and {"K"} only, never to {"V"}. The math in section 3.4 relies on the fact that the rotation cancels cleanly inside the inner product {"q^T k"}; since {"V"} enters attention through {"softmax(Q K^T / √d_k) · V"}, rotating {"V"} would introduce an uncompensated position-dependent rotation into the output that defeats the relative-position property. A wrong implementation that rotates all three (Q, K, V) will train but produce weaker results — the value vectors carry absolute position information that mixes confusingly with content. Symptom: decent in-distribution performance but much worse length-generalization than standard RoPE.
-      </Prose>
-
-      <H3>9.6 Padding position confusion</H3>
-
-      <Prose>
-        Batched sequences of variable length use padding tokens. For learned and sinusoidal PE, the position index assigned to padded positions matters: should padded tokens get position 0, position {"L_\\mathrm{actual}"}, or be skipped? Common convention (BERT): positions always run {"0, 1, ..., L-1"} with no special treatment for padding, and a padding mask in the attention ensures padded queries/keys are ignored. If the padding mask is missed, the model attends to random position embeddings for padded positions and corrupts the signal. For RoPE, the safest pattern is to rotate all positions (including padded ones) and rely entirely on the attention mask to exclude them — do not try to skip or reassign positions for padding, because the {"R_m"} rotation depends on the position index {"m"} itself.
-      </Prose>
-
-      <H3>9.7 Positional Interpolation without YaRN over-smooths</H3>
-
-      <Prose>
-        PI uniformly compresses all RoPE frequencies by a factor of {"L_{\\mathrm{train}} / L_{\\mathrm{eval}}"}. This works at {"2-4x"} extension but at {"8x"} and beyond, high-frequency pairs get compressed into ranges where they no longer distinguish short-range offsets. Symptom: the model loses its ability to attend to very recent tokens sharply — short-range patterns blur. YaRN fixes this by leaving high-frequency pairs unscaled (they are well-sampled even at the longer context) and scaling only the low-frequency pairs that actually need it. If you are doing context extension and seeing quality loss on short-range benchmarks (nearby-token tasks, local syntax, needle-in-short-haystack), the problem is almost certainly uniform PI and the fix is YaRN or NTK-aware.
-      </Prose>
-
-      <H3>9.8 Rotating the wrong dimension layout</H3>
-
-      <Prose>
-        RoPE expects pairs of consecutive dimensions: rotate {"(x[0], x[1])"} together, then {"(x[2], x[3])"}, and so on. A common variant found in some LLaMA implementations uses the "half-split" layout instead: rotate {"(x[0], x[d_k/2])"} together, then {"(x[1], x[d_k/2 + 1])"}, and so on. Both are valid as long as Q and K use the same layout, but mixing layouts (e.g., loading a checkpoint trained with pair-layout into code that assumes half-split) silently corrupts every rotation. Symptom: loss stays high, the model fails to train past random. The bug is subtle because the forward pass still produces reasonable-looking activations. When adopting a third-party checkpoint, verify the RoPE layout matches your code by checking a single position's rotation output against the reference implementation.
-      </Prose>
-
-      <H3>9.9 Forgetting the {"√d_k"} scaling when adding ALiBi bias</H3>
-
-      <Prose>
-        The ALiBi bias is added to {"Q K^T / √d_k"}, not to the unscaled {"Q K^T"}. If you add ALiBi <em>before</em> dividing by {"√d_k"}, the bias ends up scaled down by that factor, weakening the effect. Similarly, if you apply RoPE <em>after</em> computing {"Q K^T"} (wrong), the rotation has no effect since the rotation operates on Q and K, not on their inner product. Order matters: (1) Q/K projections, (2) RoPE rotation on Q and K, (3) {"Q K^T / √d_k"}, (4) add ALiBi bias if present, (5) add attention mask, (6) softmax, (7) multiply by V. Every modern attention implementation gets this order right by default; if you are writing from scratch, double-check.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        Foundational papers introducing and extending the core positional encoding schemes. Reading these in order roughly tracks the intellectual arc from additive absolute PE to multiplicative relative-position RoPE to modern long-context extensions.
-      </Prose>
-
-      <Prose>
-        <strong>Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, Polosukhin (2017)</strong>. "Attention Is All You Need." arXiv:1706.03762. NeurIPS 2017. Section 3.5 introduces the sinusoidal positional encoding as an alternative to learned position embeddings and argues (without conclusive proof) that the sinusoidal form should extrapolate better than learned. The rest of the Transformer paper is also mandatory reading for context.
-      </Prose>
-
-      <Prose>
-        <strong>Shaw, Uszkoreit, Vaswani (2018)</strong>. "Self-Attention with Relative Position Representations." arXiv:1803.02155. NAACL 2018. The first paper to replace absolute PE with a relative-position scheme by adding learned bias terms {"a^K_{i-j}, a^V_{i-j}"} into the attention computation. Starts the shift from "position as an input embedding" toward "position as an attention modification" that RoPE and ALiBi would later refine.
-      </Prose>
-
-      <Prose>
-        <strong>Su, Lu, Pan, Murtadha, Wen, Liu (2021)</strong>. "RoFormer: Enhanced Transformer with Rotary Position Embedding." arXiv:2104.09864. The RoPE paper. Introduces the rotation-based multiplicative PE, proves the relative-position property {"⟨q'_m, k'_n⟩ = f(m-n, q, k)"}, demonstrates improvements over sinusoidal and RPE on Chinese LM and translation tasks. The paper was underappreciated at the time of publication (2021) but became central when LLaMA adopted RoPE in 2023.
-      </Prose>
-
-      <Prose>
-        <strong>Press, Smith, Lewis (2022)</strong>. "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation." arXiv:2108.12409. ICLR 2022. The ALiBi paper. Defines the per-head linear bias scheme, proves it enables length extrapolation, and shows large perplexity wins at test lengths 2-4x beyond training on WikiText-103. The argument that sinusoidal does not in fact extrapolate (contra the Vaswani paper) is made rigorously here.
-      </Prose>
-
-      <Prose>
-        <strong>Chen, Wong, Chen, Tian (2023)</strong>. "Extending Context Window of Large Language Models via Positional Interpolation." arXiv:2306.15595. The PI paper from Meta. Introduces the idea of rescaling RoPE position indices to extend context, and shows that with only 1000 fine-tuning steps a LLaMA-7B can be extended from 2K to 32K context. The paper kicked off the 2023 wave of context-extension research.
-      </Prose>
-
-      <Prose>
-        <strong>bloc97 (2023)</strong>. "NTK-Aware Scaled RoPE allows LLaMA models to have extended (8k+) context size without any fine-tuning and minimal perplexity degradation." Posted on r/LocalLLaMA. Not a peer-reviewed paper but widely cited. Introduces the argument that PI uniformly blurs frequencies and proposes scaling the RoPE base rather than the position indices, preserving high-frequency dimensions. The blog post directly inspired the YaRN paper.
-      </Prose>
-
-      <Prose>
-        <strong>Peng, Quesnelle, Fan, Shippole (2023)</strong>. "YaRN: Efficient Context Window Extension of Large Language Models." arXiv:2309.00071. The YaRN paper from Nous Research. Unifies PI and NTK-aware scaling into a per-dimension ramp parameterized by {"(β_{\\mathrm{fast}}, β_{\\mathrm{slow}})"}, adds an attention-temperature correction, and demonstrates extension of LLaMA-2-7B from 4K to 128K with {"∼400"} fine-tuning steps. State of the art for RoPE context extension in 2023-2025.
-      </Prose>
-
-      <Prose>
-        <strong>Sun, Dong, Patra, Ma, Huang, Benhaim, Chaudhary, Song, Wei (2022)</strong>. "A Length-Extrapolatable Transformer" (XPos). arXiv:2212.10554. Adds a multiplicative per-position decay to RoPE that further improves long-range stability. Not widely adopted in production LLMs but influential on RetNet and a handful of research-track models.
-      </Prose>
-
-      <Prose>
-        <strong>Ainslie, Lee-Thorp, de Jong, Zemlyanskiy, Lebrón, Sanghai (2023)</strong>. "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints." arXiv:2305.13245. Not a PE paper per se but essential context for understanding how RoPE interacts with the reduced-K/V-head architectures that dominate modern LLMs. LLaMA-3 and most 2024+ large models use RoPE-on-GQA.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>11.1 Why does pure self-attention need positional information at all?</H3>
-
-      <Prose>
-        Self-attention is permutation-equivariant: if you permute the input token order by any {"π"}, the output tokens come out in the same permuted order, with identical values at each permuted index. This is because the attention equation {"softmax(Q K^T / √d_k) V"} is a weighted sum and summation is commutative. A bag-of-tokens input produces a bag-of-tokens output, and language is not a bag of tokens — "Dog bites man" and "Man bites dog" have different meanings. So we must inject position information somewhere: either at the input embedding (sinusoidal, learned), inside the attention score (RoPE, ALiBi), or both.
-      </Prose>
-
-      <H3>11.2 What exactly does RoPE do to Q and K, and why does V escape?</H3>
-
-      <Prose>
-        RoPE rotates {"Q"} and {"K"} per-head in 2D subspaces by an angle proportional to absolute position: {"q'_m = R_m q_m"}, {"k'_n = R_n k_n"}. Because rotations are orthogonal and {"R_m^T R_n = R_{n-m}"}, the resulting attention score {"⟨q'_m, k'_n⟩ = q_m^T R_{n-m} k_n"} depends only on the relative offset {"n - m"} and the content vectors — not on absolute positions. {"V"} is <em>not</em> rotated because the math only works for {"Q · K"}: if you rotated {"V"} as well, the output {"A V"} would carry a position-dependent rotation that defeats the relative-position property and injects unwanted absolute-position information into the next layer's input.
-      </Prose>
-
-      <H3>11.3 Why do different ALiBi heads get different slopes?</H3>
-
-      <Prose>
-        Each head's slope {"m_h = 2^{-8h/H}"} sets the effective attention scale for that head. The head with the steepest slope ({"m_1 = 0.5"}) penalizes distance heavily — at distance 10 the bias is {"-5"}, which halves the softmax weight; this head effectively attends to only the last handful of tokens. The head with the shallowest slope ({"m_H ≈ 0.004"}) has negligible penalty even at distance 256; this head is nearly global. The geometric spacing of slopes gives the multi-head stack a broad range of attention scales — roughly analogous to a CNN with kernels at multiple spatial scales — and the model can attend at whatever scale each head finds most useful. A single slope for all heads would collapse ALiBi to a single-scale bias, losing the multi-scale coverage that is the whole point.
-      </Prose>
-
-      <H3>11.4 What breaks when you try to evaluate a learned-PE BERT at position 513 (given {"max_len = 512"})?</H3>
-
-      <Prose>
-        The position embedding table is {"nn.Embedding(512, 768)"}, which internally is a {"512 × 768"} parameter tensor. Indexing row 512 (the 513th row, zero-indexed) is out of bounds. PyTorch's default behavior is to raise {"IndexError"}. A defensive fallback using {"pos % 512"} would silently wrap — the model sees position 1's embedding at what should be position 513, producing plausible-looking but wrong outputs. Some implementations with {"nn.Embedding(padding_idx=...)"} combined with unusual padding schemes can produce even weirder failures. The correct solution is either to (a) not exceed {"max_len"}, (b) retrain BERT with a larger {"max_len"}, or (c) migrate to RoPE or another unbounded PE.
-      </Prose>
-
-      <H3>11.5 A new decoder-only LLM trained at 8K context needs to support 64K inference. What is the modern default recipe?</H3>
-
-      <Prose>
-        Use RoPE at training time with a base chosen for the target context ({"b = 500000"} or higher). Train to good quality at 8K. Then apply YaRN scaling with factor {"= 64000 / 8000 = 8"} at load time (or LLaMA-3-style scaling, which is similar). Fine-tune for a few hundred to a few thousand steps on long documents at 64K context; this typically takes under 1% of pretraining compute. Evaluate on long-context benchmarks (RULER, needle-in-haystack, BABILong) to confirm the extension worked — a successful YaRN extension should recover most of the model's short-context quality while adding usable long-context capability. If short-context quality degrades significantly, tune the {"(β_{\\mathrm{fast}}, β_{\\mathrm{slow}})"} ramp or increase the fine-tune step count. Do not use sinusoidal or learned PE for this workflow — neither extends gracefully, and the engineering work to retrofit them is much larger than adopting RoPE from the start.
-      </Prose>
-
-    </div>
-  ),
+<Prose>{"A matrix is "}<strong>{"Toeplitz"}</strong>{" when each diagonal is constant. If the same content query appears at every position and the same content key appears at every position, RoPE scores depend only on their offsets, producing such a matrix. With q above repeated four times for both Q and K, the diagonal entries are all 2.42 and first off-diagonal entries are 2.010793."}</Prose>
+
+<Prose>{"Now double the content vector at position 1. Its self-score becomes 9.68; neighboring scores involving it double. Other scores remain unchanged. The matrix is no longer Toeplitz, although every comparison still satisfies the RoPE identity. This is a useful controlled contrast for understanding an attention heatmap."}</Prose>
+
+<Prose>{"RoPE also does not make every score decrease monotonically with distance. Concentrate q and k on the first pair as "}<code>{"[1,0]"}</code>{": the score is simply "}<InlineMath>{"\\cos\\Delta"}</InlineMath>{", which falls toward −1 near distance 3 and rises to 0.96017 at distance 6. Frequency mixtures can create useful distance structure, but they do not remove this counterexample. The "}<a href={"https://arxiv.org/html/2104.09864v5#S3"}>{"RoFormer construction"}</a>{" and "}<a href={"https://arxiv.org/html/2306.15595v2#S2"}>{"Position Interpolation analysis"}</a>{" help distinguish the exact rotation identity from assumptions about longer-distance behavior."}</Prose>
+
+<H3>{"Coordinate layout and partial rotation"}</H3>
+
+<Prose>{"Our implementation pairs adjacent entries "}<code>{"(0,1),(2,3),…"}</code>{". Another valid convention pairs the first half with the second half: "}<code>{"(0,d_k/2),(1,d_k/2+1),…"}</code>{". For four coordinates, the permutation "}<code>{"[0,2,1,3]"}</code>{" converts the adjacent representation into the half-split representation. Permute the projection outputs, frequencies and inverse mapping consistently, and these are two coordinate descriptions of the same operation. Changing the rotation routine while loading unchanged checkpoint weights generally is not equivalent."}</Prose>
+
+<Prose>{"Some architectures rotate only an even number "}<InlineMath>{"d_r\\leq d_k"}</InlineMath>{" of coordinates. Split q and k into rotary and unrotated portions:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"(q_m^R)^\\top R_{n-m}k_n^R+(q_m^C)^\\top k_n^C."}</MathBlock></div>
+
+<Prose>{"The content-only term and the relative positional term coexist. State whether frequencies use "}<InlineMath>{"d_r"}</InlineMath>{" or a checkpoint-specific rule; do not silently substitute the model width. We will use this split again in "}<a href={"/learn/path/full-curriculum/multi-head-latent-attention-mla?module=deep-learning-fundamentals"}>{"Multi-Head Latent Attention"}</a>{"."}</Prose>
+
+<Prose>{"Values are unrotated in the standard mechanism taught here, because the weights already determine how their content is mixed. Rotating values would define a different architecture and requires explaining how its output coordinates transform. It is not an impossible mathematical operation or proof that every such variant trains poorly."}</Prose>
+
+<H2>{"4. ALiBi: express a preference in logit space"}</H2>
+
+<H3>{"A score penalty has a precise probabilistic effect"}</H3>
+
+<Prose>{"In causal attention, query position "}<InlineMath>{"i"}</InlineMath>{" may read key positions "}<InlineMath>{"j\\leq i"}</InlineMath>{". "}<strong>{"Attention with Linear Biases"}</strong>{", ALiBi, uses"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"s_{ij}=q_i^\\top k_j/\\sqrt{d_k}-a_h(i-j),\\qquad a_h>0."}</MathBlock></div>
+
+<Prose>{"The positive slope "}<InlineMath>{"a_h"}</InlineMath>{" is fixed per head in the original scheme. Future positions remain masked. This finite penalty does not replace a causal or padding mask: it discourages a distant legal key; a mask prohibits a key."}</Prose>
+
+<Prose>{"For two legal keys j and r, softmax gives the exact odds ratio"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{A_{ij}}{A_{ir}}\n=\\exp(c_{ij}-c_{ir})\\exp[-a_h((i-j)-(i-r))],"}</MathBlock></div>
+
+<Prose>{"where "}<InlineMath>{"c"}</InlineMath>{" denotes scaled content scores. If content scores tie, an extra distance "}<InlineMath>{"D"}</InlineMath>{" multiplies the odds by "}<InlineMath>{"e^{-a_hD}"}</InlineMath>{". With "}<InlineMath>{"a_h=0.5,D=10"}</InlineMath>{", the factor is 0.006738, not one-half. The distance that halves these equal-content odds is "}<InlineMath>{"\\ln2/a_h\\approx1.3863"}</InlineMath>{". These are odds between keys; an individual normalized probability also depends on all other keys."}</Prose>
+
+<Prose>{"The logit penalty grows linearly. The induced multiplicative factor in unnormalized attention grows or decays exponentially. That connection makes the name and effect easier to remember."}</Prose>
+
+<H3>{"Content can overcome the preference"}</H3>
+
+<Prose>{"Consider a query in slot 3 and keys in slots 0–3. Suppose their scaled content scores are "}<code>{"[2,0,0,0]"}</code>{". With slope 0.5:"}</Prose>
+
+<NeuralTable caption={"Content can overcome the preference"} headers={[<>{"Key position"}</>,<>{"Distance"}</>,<>{"Content score"}</>,<>{"Bias"}</>,<>{"Final score"}</>,<>{"Final attention weight"}</>]} rows={[[<>{"0"}</>,<>{"3"}</>,<>{"2"}</>,<>{"−1.5"}</>,<>{"0.5"}</>,<>{"0.455054"}</>],[<>{"1"}</>,<>{"2"}</>,<>{"0"}</>,<>{"−1.0"}</>,<>{"−1.0"}</>,<>{"0.101536"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"0"}</>,<>{"−0.5"}</>,<>{"−0.5"}</>,<>{"0.167405"}</>],[<>{"3"}</>,<>{"0"}</>,<>{"0"}</>,<>{"0"}</>,<>{"0"}</>,<>{"0.276004"}</>]]} />
+
+<Prose>{"Without the bias, key 0 receives 0.711235. The distance penalty weakens its advantage, but it still gets the largest weight. The model can learn content scores that counteract a fixed penalty; the penalty itself does not learn. There is no hard finite attention window in this formula."}</Prose>
+
+<AlibiPositionLab />
+
+<H3>{"Different slopes, different preferences"}</H3>
+
+<Prose>{"For a power-of-two head count H, the original schedule gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"a_h=2^{-8h/H},\\quad h=1,\\ldots,H."}</MathBlock></div>
+
+<Prose>{"With eight heads the slopes are 1/2, 1/4,…, 1/256. With two heads they are 1/16 and 1/256, not 1/2 and 1/256. With sixteen heads the first is "}<InlineMath>{"1/\\sqrt2"}</InlineMath>{". Steeper slopes prefer shorter distances more strongly when content scores are comparable. Head behavior still depends on its learned Q/K features."}</Prose>
+
+<Prose>{"The "}<a href={"https://github.com/ofirpress/attention_with_linear_biases/blob/master/fairseq/models/transformer.py#L693"}>{"author's implementation"}</a>{" extends the schedule to a non-power-of-two count by retaining a lower power-of-two schedule and inserting selected slopes from the doubled schedule. Its three-head result is "}<code>{"[1/16,1/256,1/4]"}</code>{". Preserve that convention when reproducing its checkpoints; a different geometric schedule is a design variation, not a reproduction."}</Prose>
+
+<Prose>{"There is also a useful implementation identity. For one causal row,"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"-a_h(i-j)=a_hj-a_hi."}</MathBlock></div>
+
+<Prose>{"The last term is constant across that row. Softmax ignores a common additive constant, so adding "}<InlineMath>{"a_hj"}</InlineMath>{" alone gives the same probabilities if the legal key set is the same. This permits compact bias construction. It does not mean you can omit the causal mask or forget which entries belong to a packed sequence."}</Prose>
+
+<Prose>{"The "}<a href={"https://arxiv.org/html/2108.12409v2#S3"}>{"ALiBi paper"}</a>{" reports length-extrapolation results in specified language-model experiments. It does not prove that this bias solves every long-range task, that all distant facts remain retrievable or that runtime overhead is identical across kernels."}</Prose>
+
+<H3>{"Bidirectional distance needs a direction decision"}</H3>
+
+<Prose>{"For an encoder that can read both directions, one possible adaptation is "}<InlineMath>{"-a_h|i-j|"}</InlineMath>{". It favors proximity on either side. But absolute distance cannot tell left from right. Reverse a sequence of length "}<InlineMath>{"L"}</InlineMath>{": slots i, j become "}<InlineMath>{"L-1-i,L-1-j"}</InlineMath>{", and their absolute distance is unchanged."}</Prose>
+
+<Prose>{"If all other operations are shared per row and the final readout is mean pooling, this symmetric adaptation produces the same prediction for a trajectory and its reversal. The real investigation below demonstrates it. Signed relative buckets, explicitly directed heads, absolute slots or another directional signal can break that symmetry. The original causal ALiBi model already has a directed mask, so this particular reversal argument does not apply to it."}</Prose>
+
+<H2>{"5. Other relative encodings explain the design space"}</H2>
+
+<H3>{"A learned relation vector: Shaw-style attention"}</H3>
+
+<Prose>{"An offset can be represented by a trainable vector instead of a fixed rotation or scalar penalty. For query i, key j, set "}<InlineMath>{"r=\\operatorname{clip}(j-i,-k,k)"}</InlineMath>{". A Shaw-style head uses"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"s_{ij}=\\frac{q_i^\\top(k_j+a_r^K)}{\\sqrt{d_k}},\\qquad\ny_i=\\sum_j A_{ij}(v_j+a_r^V)."}</MathBlock></div>
+
+<Prose>{"The score contribution "}<InlineMath>{"q_i^\\top a_r^K"}</InlineMath>{" depends on what the query seeks. With "}<InlineMath>{"q=[2,0]"}</InlineMath>{", relation vector "}<code>{"[0.5,1]"}</code>{" adds 1 to the unscaled dot product. Another query "}<code>{"[0,2]"}</code>{" gets 2 from that same relation. A learned scalar bias cannot express this particular query-dependent distinction on its own."}</Prose>
+
+<Prose>{"Clipping at "}<InlineMath>{"k=2"}</InlineMath>{" assigns offsets −9 and −2 to the same relation category. This saves parameters but deliberately loses their exact distance at this component. There are "}<InlineMath>{"2k+1"}</InlineMath>{" relation vectors per table; the value relation can convey which relation supplied information, beyond just changing the weight. The "}<a href={"https://aclanthology.org/N18-2074.pdf"}>{"original relation-aware attention paper §§3.1–3.3"}</a>{" develops this construction and its efficient decomposition."}</Prose>
+
+<H3>{"A learned scalar by distance bucket: T5-style bias"}</H3>
+
+<Prose>{"A simpler mechanism learns one scalar per head and relative-distance bucket, then adds it to the content score. Nearby offsets receive finer categories; large distances share coarser categories. The model learns the preference for each category. Unlike ALiBi, it need not be monotone in distance."}</Prose>
+
+<Prose>{"For the common bidirectional 32-bucket, maximum-distance 128 configuration, divide the buckets by direction. Within one direction, distances 0–7 have exact bins and larger distances enter logarithmically widening bins. Under the "}<a href={"https://github.com/huggingface/transformers/blob/main/src/transformers/models/t5/modeling_t5.py#L198"}>{"T5 implementation's key-minus-query convention"}</a>{":"}</Prose>
+
+<NeuralTable caption={"A learned scalar by distance bucket: T5-style bias"} headers={[<>{"Offset "}<InlineMath>{"j-i"}</InlineMath>{""}</>,<>{"−129"}</>,<>{"−128"}</>,<>{"−16"}</>,<>{"−8"}</>,<>{"−7"}</>,<>{"−1"}</>,<>{"0"}</>,<>{"1"}</>,<>{"7"}</>,<>{"8"}</>,<>{"16"}</>,<>{"128"}</>,<>{"129"}</>]} rows={[[<>{"Bucket"}</>,<>{"15"}</>,<>{"15"}</>,<>{"10"}</>,<>{"8"}</>,<>{"7"}</>,<>{"1"}</>,<>{"0"}</>,<>{"17"}</>,<>{"23"}</>,<>{"24"}</>,<>{"26"}</>,<>{"31"}</>,<>{"31"}</>]]} />
+
+<Prose>{"The bucket number is an index, not a magnitude. Bucket 31's learned value might be positive or negative. Positions 128 and 129 sharing a bin means this bias component cannot distinguish those two distances; content and other layers may still distinguish their tokens."}</Prose>
+
+<Prose>{"For distance "}<InlineMath>{"D"}</InlineMath>{" in one direction, with "}<InlineMath>{"B"}</InlineMath>{" available buckets and exact range "}<InlineMath>{"E=B/2"}</InlineMath>{", the large-distance index is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\min\\left(B-1,\\;E+\\left\\lfloor\n\\frac{\\ln(D/E)}{\\ln(D_{\\max}/E)}(B-E)\n\\right\\rfloor\\right)."}</MathBlock></div>
+
+<Prose>{"Use the exact index "}<InlineMath>{"D"}</InlineMath>{" for "}<InlineMath>{"D<E"}</InlineMath>{", and add the direction offset afterward. A causal variant allocates buckets differently because future keys are prohibited. It still needs the causal mask; mapping an illegal future offset to a bucket does not authorize attention to it."}</Prose>
+
+<Prose>{"T5's original attention parameterization also omits the usual explicit "}<InlineMath>{"1/\\sqrt{d_k}"}</InlineMath>{" score scale. A lesson comparing "}<strong>{"bias mechanisms"}</strong>{" may use a common scaled-content convention, but a checkpoint reproduction must match its complete attention rule. “Relative bias” names the position component, not every surrounding implementation detail."}</Prose>
+
+<Prose>{"These methods are alternatives with different expressive choices. There is no historical rule that every later method strictly replaces every earlier one."}</Prose>
+
+<RelativeBucketFigure />
+
+<H2>{"6. A real investigation: can the model see movement direction?"}</H2>
+
+<H3>{"The data and the question"}</H3>
+
+<Prose>{"Return to the real "}<strong>{"Libras Movement"}</strong>{" trajectories used in the preceding lessons. Each record contains 45 ordered x/y hand-centroid samples and one of 15 movement-type labels. Class 4 is an anticlockwise arc; class 5 is a clockwise arc. These are simplified movement measurements, not complete signed-language sentences or a deployed recognition system."}</Prose>
+
+<Prose>{"The "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI source and original metadata"}</a>{" are available under CC BY 4.0, credited to Daniel Baptista Dias, Sarajane Marques Peres and Helton Hideraldo Bíscaro. The "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data"}>{"offline input"}</a>{", "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names"}>{"original metadata"}</a>{" and "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md"}>{"provenance record"}</a>{" accompany this lesson. Coordinates lie in 0–1; our model uses the fixed transformation "}<InlineMath>{"2x-1"}</InlineMath>{". Position indices 0–44 describe sample order, not exact elapsed seconds."}</Prose>
+
+<Prose>{"The practical question is: "}<strong>{"does changing direction become visible to the classifier, and how does that depend on the encoding?"}</strong>{" Accuracy on the whole dataset and sensitivity to this particular intervention are different measurements."}</Prose>
+
+<Prose>{"The raw 360 rows contain 30 additional exact duplicates. We retain the first occurrence of each unique 90-coordinate trajectory after checking that duplicate labels agree. A fixed classwise split assigns 220 unique records to training, 50 to validation and 60 to test, with four test records per class. Whole trajectories stay together. The collection describes four performers and two sessions but does not provide reliable per-row identities, so this is a row-level study; it cannot establish performance on a new performer or session. The exact split and duplicate groups are saved with the program's results."}</Prose>
+
+<H3>{"Five controlled models"}</H3>
+
+<Prose>{"Each model has a 2-to-24 coordinate projection, one pre-normalized Transformer block with two heads of width 12 and a 48-wide GELU feedforward layer, final LayerNorm, mean pooling and a 24-to-15 classifier. Q/K/V and output maps have biases. LayerNorm uses epsilon "}<InlineMath>{"10^{-5}"}</InlineMath>{". There is no dropout."}</Prose>
+
+<NeuralTable caption={"Five controlled models"} headers={[<>{"Model"}</>,<>{"Where position enters"}</>]} rows={[[<>{"No-position control"}</>,<>{"Nowhere; every row uses the same operations"}</>],[<>{"Sinusoidal"}</>,<>{"Add the width 24 vector to the coordinate embedding"}</>],[<>{"Learned"}</>,<>{"Add a learned 45 × 24 table row"}</>],[<>{"RoPE"}</>,<>{"Rotate the 12-dimensional Q/K vectors before comparing them"}</>],[<>{"Symmetric ALiBi"}</>,<>{"Add a two-head "}<InlineMath>{"-a_h|i-j|"}</InlineMath>{" proximity bias; no causal mask"}</>]]} />
+
+<Prose>{"All shared tensors have exactly the same seed 101 initialization. The learned table uses its own generator 303, initialized with standard deviation 0.02, so creating it does not change the shared weights. The table adds 1,080 parameters: 6,447 versus 5,367 in each other model. Fixed sinusoidal and RoPE frequencies use base 10000. The ALiBi slopes are 1/16 and 1/256."}</Prose>
+
+<Prose>{"Every model gets 180 full-batch Adam updates with learning rate 0.003 and no weight decay. Select its checkpoint by validation macro-F1, then lower validation cross entropy, then the earliest exact tie. Macro-F 1 averages the 15 classwise F1 scores equally. The test records are evaluated after this selection. This is one predeclared seed with one common training protocol, not a large tuning study or a language-model context-extension experiment."}</Prose>
+
+<Prose>{"The actual CPU results were:"}</Prose>
+
+<NeuralTable caption={"Five controlled models"} headers={[<>{"Encoding"}</>,<>{"Selected epoch"}</>,<>{"Train correct /220"}</>,<>{"Validation correct /50"}</>,<>{"Test correct /60"}</>,<>{"Test macro-F1"}</>,<>{"Test CE, nats/record"}</>]} rows={[[<>{"None"}</>,<>{"107"}</>,<>{"193"}</>,<>{"35"}</>,<>{"33"}</>,<>{"0.528"}</>,<>{"1.287"}</>],[<>{"Sinusoidal"}</>,<>{"154"}</>,<>{"217"}</>,<>{"38"}</>,<>{"42"}</>,<>{"0.689"}</>,<>{"1.039"}</>],[<>{"Learned"}</>,<>{"108"}</>,<>{"220"}</>,<>{"40"}</>,<>{"40"}</>,<>{"0.656"}</>,<>{"1.017"}</>],[<>{"RoPE"}</>,<>{"106"}</>,<>{"203"}</>,<>{"35"}</>,<>{"40"}</>,<>{"0.632"}</>,<>{"1.120"}</>],[<>{"Symmetric ALiBi"}</>,<>{"180"}</>,<>{"218"}</>,<>{"29"}</>,<>{"39"}</>,<>{"0.624"}</>,<>{"1.289"}</>]]} />
+
+<Prose>{"Sinusoidal happens to have the highest test-correct count in this run. That does not establish a universal ranking. The models have different inductive biases, only one seed was run, the learned table changes parameter count, and the common hyperparameters need not suit all methods equally. Keep the table as an observation of this protocol. The sharper result comes from the following symmetry test."}</Prose>
+
+<H3>{"Reverse the path and inspect what changes"}</H3>
+
+<Prose>{"The displayed example is source row 77, chosen beforehand as the first held-out class 4 record in the fixed split. All five selected models classify its original version incorrectly. The example is kept because a real failure can still reveal the mechanism."}</Prose>
+
+<Prose>{"There are two different edits:"}</Prose>
+
+<ol start={1}><li>{""}<strong>{"Move records together."}</strong>{" Reverse the storage/display order of the point records and move each original position ID with its point. The sequence meaning has not changed. Every model's pooled logits stay the same within float32 rounding, with maximum changes below "}<InlineMath>{"1.6\\times10^{-6}"}</InlineMath>{"."}</li><li>{""}<strong>{"Reverse the movement."}</strong>{" Reverse the points but retain slot IDs 0–44. A point formerly attached to the beginning is now attached to the end. This changes the ordered trajectory."}</li></ol>
+
+<Prose>{"For the second edit, the observed largest change among the 15 logits was:"}</Prose>
+
+<NeuralTable caption={"Reverse the path and inspect what changes"} headers={[<>{"Model"}</>,<>{"Maximum absolute logit change"}</>,<>{"Original predicted class → reversed prediction"}</>]} rows={[[<>{"None"}</>,<>{"0.000001"}</>,<>{"5→5"}</>],[<>{"Sinusoidal"}</>,<>{"3.652706"}</>,<>{"9→9"}</>],[<>{"Learned"}</>,<>{"6.880572"}</>,<>{"7→5"}</>],[<>{"RoPE"}</>,<>{"6.110313"}</>,<>{"3→5"}</>],[<>{"Symmetric ALiBi"}</>,<>{"0.000002"}</>,<>{"9→9"}</>]]} />
+
+<Prose>{"The unrounded ALiBi change is "}<InlineMath>{"1.55\\times10^{-6}"}</InlineMath>{", numerical noise around an exact real-arithmetic invariance. Its distance matrix is unchanged by reversal after the corresponding row/column rearrangement, so the same proof as in §1 propagates through the block and mean pool. No amount of ordinary parameter training can break this architectural symmetry while its assumptions remain in place."}</Prose>
+
+<Prose>{"The sinusoidal classifier's predicted class stays 9, but its logits change substantially. Looking only at the largest-probability class would conceal its directional sensitivity. The RoPE model's class 5 probability changes from 0.084402 to 0.969648. That shows the intervention affected its decision; it does not supply a verified label for an artificially edited recording. We do not automatically grade any reversed or hand-edited sample as a newly labeled real example."}</Prose>
+
+<H3>{"A visual workspace that exposes the mechanism"}</H3>
+
+<PositionMovementLab />
+
+<Prose>{"The coordinate edit is also real computation: reflect frame 23's x coordinate from "}<InlineMath>{"x"}</InlineMath>{" to "}<InlineMath>{"1-x"}</InlineMath>{". On this example it changes the maximum logit by 2.890378 in the no-position model and 3.264872 in symmetric ALiBi. Reversal invariance does not mean these models ignore the coordinates. In the ALiBi run this edit even changes the winning class 9→4; an artificially edited sample still has no newly established ground-truth label."}</Prose>
+
+<Prose>{"As another control, append five padded points at coordinates "}<InlineMath>{"[0.75,0.75]"}</InlineMath>{", assign harmless position IDs 0, and exclude them from attention "}<strong>{"and pooling"}</strong>{". Original valid positions remain 0–44. The original logits are recovered within float32 rounding for all five models. Leaving the pads unmasked changes the computation; for the sinusoidal model the largest logit change is 8.816077. Masking keys alone is not sufficient if the final mean still includes padded query rows."}</Prose>
+
+<Prose>{"No retraining occurs when the learner edits an input. The workspace evaluates the saved selected model. It must display that scope clearly: predictions are from a small movement classifier, not from a pretrained language model, and attention weights are one internal calculation rather than a causal explanation of the whole decision."}</Prose>
+
+<H3>{"Reproduce and investigate further"}</H3>
+
+<Prose>{"Download "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py"}>{"the complete CPU program"}</a>{", the two original data files and "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json"}>{"its recorded results"}</a>{" into one directory. With Python, NumPy, PyTorch and scikit-learn installed, run:"}</Prose>
+
+<CodeBlock language={"bash"}>{"python author-calculations.py"}</CodeBlock>
+
+<Prose>{"The program contains the full data-boundary checks, all five model definitions, training/checkpoint selection, metrics, actual interventions and weight export. It has no hidden notebook state, pretrained download or GPU dependency. The recorded run used Python 3.12.14, NumPy 2.3.5, PyTorch 2.14.0+cpu and scikit-learn 1.9.1, with one CPU thread and deterministic algorithms. Last-digit results can vary with a different numerical environment."}</Prose>
+
+<Prose>{"Read "}<code>{"PositionClassifier.forward"}</code>{" in this order: construct the content rows; add an input position signal when selected; normalize; project Q/K/V; apply RoPE or ALiBi at its own location; mask; mix values; perform the residual/feedforward block; normalize and valid-pool; classify. This is the same Transformer mechanism from the previous lesson with a deliberately isolated positional choice."}</Prose>
+
+<Prose>{"The retained "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json"}>{"model/trace evidence"}</a>{" supports the interactive view, while the full training histories are optional reproduction material. A production page should load only the selected model's compact weights on demand. The source study remains offline; training all variants in the browser would add cost without improving this investigation."}</Prose>
+
+<H2>{"7. Implement positions and verify cached attention"}</H2>
+
+<H3>{"The cache needs a coordinate system"}</H3>
+
+<Prose>{"A "}<strong>{"KV cache"}</strong>{" stores past keys and values so an autoregressive decoder does not project the same past tokens again at every new step. Standard RoPE implementations often cache the already-rotated keys "}<InlineMath>{"R_nk_n"}</InlineMath>{", with unrotated values. A new query at position "}<InlineMath>{"t"}</InlineMath>{" must use "}<InlineMath>{"R_tq_t"}</InlineMath>{"."}</Prose>
+
+<Prose>{"Imagine a chunk whose real positions are 7, 8, 9. When processing its last token separately, the local query tensor has length 1. Calling "}<code>{"arange(1)"}</code>{" gives position 0, not 9. Its shape is valid, but its relative angles to the cached keys are wrong."}</Prose>
+
+<Prose>{"Track three notions separately:"}</Prose>
+
+<NeuralTable caption={"The cache needs a coordinate system"} headers={[<>{"Quantity"}</>,<>{"Meaning"}</>,<>{"Example"}</>]} rows={[[<>{"Logical position ID"}</>,<>{"The coordinate used by the encoding"}</>,<>{"9"}</>],[<>{"Cache slot"}</>,<>{"Where this key/value is stored"}</>,<>{"Slot 2 in this three-entry toy cache"}</>],[<>{"Valid/causal relation"}</>,<>{"Which stored entries this query may read"}</>,<>{"Positions 7, 8, 9 are legal"}</>]]} />
+
+<Prose>{"In a contiguous cache these may have simple relationships. With left padding, packed documents, sliding windows, evictions or reused prefixes, they can differ. RoPE does not remove the need to maintain those relationships. Learned absolute embeddings also do not intrinsically require a separate position field in every cached vector; implementations track enough metadata for their chosen layout and next position."}</Prose>
+
+<H3>{"A runnable, transparent reference"}</H3>
+
+<Prose>{"This complete program uses NumPy and one head so the geometry and cache contract are visible. It implements sinusoidal features, strict learned lookup, adjacent-pair RoPE, the original ALiBi slope schedule, explicit logical-position causal masking, and a full-versus-cached comparison. It is a correctness reference, not a fused production kernel. The small projected Q/K/V arrays are declared hand fixtures, not claimed learned model activations."}</Prose>
+
+<CodeBlock language={"python"}>{"import math\nimport numpy as np\n\n\ndef sinusoidal(positions, width, base=10000.0):\n    if width < 2 or width % 2:\n        raise ValueError(\"Use an even encoding width of at least two.\")\n    positions = np.asarray(positions, dtype=np.float64)\n    frequencies = base ** (-np.arange(0, width, 2) / width)\n    angles = positions[..., None] * frequencies\n    return np.stack((np.sin(angles), np.cos(angles)), -1).reshape(\n        *positions.shape, width)\n\n\ndef learned_positions(table, positions):\n    positions = np.asarray(positions)\n    if not np.issubdtype(positions.dtype, np.integer):\n        raise ValueError(\"Table positions must be integers.\")\n    if np.any(positions < 0) or np.any(positions >= len(table)):\n        raise ValueError(\"Position is outside the learned table.\")\n    return table[positions]\n\n\ndef rotate(values, positions, base=10000.0):\n    values = np.asarray(values, dtype=np.float64)\n    width = values.shape[-1]\n    if width < 2 or width % 2:\n        raise ValueError(\"Use an even rotary width of at least two.\")\n    angles = np.asarray(positions)[..., None] * base ** (\n        -np.arange(0, width, 2) / width)\n    even, odd = values[..., 0::2], values[..., 1::2]\n    return np.stack((even * np.cos(angles) - odd * np.sin(angles),\n                     even * np.sin(angles) + odd * np.cos(angles)),\n                    -1).reshape(values.shape)\n\n\ndef slopes(head_count):\n    if head_count < 1:\n        raise ValueError(\"A head count must be positive.\")\n    def powers(count):\n        start = 2 ** (-2 ** -(math.log2(count) - 3))\n        return [start ** (index + 1) for index in range(count)]\n    lower = 2 ** int(math.floor(math.log2(head_count)))\n    if lower == head_count:\n        return np.array(powers(lower))\n    return np.array(powers(lower) + powers(2 * lower)[::2][:head_count-lower])\n\n\ndef mix(query, keys, values, query_ids, key_ids, mode, slope=.5):\n    query_ids, key_ids = np.asarray(query_ids), np.asarray(key_ids)\n    scores = query @ keys.T / math.sqrt(query.shape[-1])\n    if mode == \"alibi\":\n        scores -= slope * (query_ids[:, None] - key_ids[None, :])\n    legal = key_ids[None, :] <= query_ids[:, None]\n    if np.any(~legal.any(axis=-1)):\n        raise ValueError(\"Every query needs at least one legal key.\")\n    scores = np.where(legal, scores, -np.inf)\n    weights = np.exp(scores - scores.max(axis=-1, keepdims=True))\n    weights /= weights.sum(axis=-1, keepdims=True)\n    return weights @ values\n\n\nq = np.array([[1, 0, .5, -1], [.5, 1, -1, .25], [2, -.5, .25, 1]])\nk = np.array([[.5, 1, 1, 0], [1, -.5, .5, 1], [-.5, .75, 1, -1]])\nv = np.array([[2, 0], [0, 3], [1, -1]])\npositions = np.array([7, 8, 9])\n\nprint(\"position 1:\", np.round(sinusoidal([1], 8)[0], 3))\nprint(\"three-head slopes:\", slopes(3))\ntable = np.array([[.2, 0], [0, .3], [-.1, .1]])\nprint(\"learned slots 2,0:\", learned_positions(table, [2, 0]))\n\nfor mode in (\"rope\", \"alibi\"):\n    q_used = rotate(q, positions) if mode == \"rope\" else q\n    k_used = rotate(k, positions) if mode == \"rope\" else k\n    full = mix(q_used, k_used, v, positions, positions, mode)\n\n    # Prefill positions 7 and 8, then append a correctly positioned new key.\n    cached_keys, cached_values = k_used[:2].copy(), v[:2].copy()\n    cached_keys = np.concatenate((cached_keys, k_used[2:]), axis=0)\n    cached_values = np.concatenate((cached_values, v[2:]), axis=0)\n    last = mix(q_used[2:], cached_keys, cached_values,\n               positions[2:], positions, mode)\n    print(mode, \"last:\", np.round(last[0], 6),\n          \"matches full:\", np.allclose(last, full[2:], atol=1e-12))\n\n# Keep the legal cache entries fixed, but give the query the wrong RoPE angle.\nwrong = mix(rotate(q[2:], [0]), rotate(k, positions), v,\n            [9], positions, \"rope\")\nprint(\"wrong query angle:\", np.round(wrong[0], 6))"}</CodeBlock>
+
+<Prose>{"Recorded outputs include:"}</Prose>
+
+<CodeBlock language={"text"}>{"position 1: [0.841 0.54  0.1   0.995 0.01  1.    0.001 1.   ]\nthree-head slopes: [0.0625     0.00390625 0.25      ]\nlearned slots 2,0: [[-0.1  0.1]\n                  [ 0.2  0. ]]\nrope last: [1.035332 1.29716 ] matches full: True\nalibi last: [0.340434 2.281648] matches full: True\nwrong query angle: [0.65852  1.291697]"}</CodeBlock>
+
+<Prose>{"For the RoPE last query, the actual weights over positions 7, 8, 9 are approximately "}<code>{"[0.487697,0.452366,0.059937]"}</code>{". With the wrong query angle they become "}<code>{"[0.185156,0.526635,0.288209]"}</code>{". There is no shape error to warn us. Comparing the actual output with a full causal reference catches the bug."}</Prose>
+
+<PositionCacheLab />
+
+<H3>{"Match position geometry to the ordinary attention API"}</H3>
+
+<Prose>{"The "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py"}>{"complete position/API bridge"}</a>{" composes standard adjacent-pair RoPE and ALiBi with PyTorch SDPA. The former transforms Q/K before matching; the latter supplies a floating additive score mask containing both distance penalties and negative infinity on illegal entries. A boolean mask would express legality alone. The program compares direct and API values and gradients for two offset queries reading four cached keys, with explicit positions 7–10 and zero dropout. Run "}<code>{"python position_library_bridge.py"}</code>{" with PyTorch."}</Prose>
+
+<Prose>{"Learned absolute positions take the ordinary "}<code>{"nn.Embedding"}</code>{" route. The same program checks its output against direct table indexing and shows why position ID 7 appearing twice accumulates two gradient contributions into row 7, while unused rows remain unchanged. Fixed sinusoids and prescribed ALiBi slopes have no trainable table unless we deliberately introduce one. The scratch formulas and "}<code>{"PositionClassifier"}</code>{" remain the code owners; this API bridge opens no second positional model."}</Prose>
+
+<Prose>{"This mapping is for the exact conventions taught here, not blanket parity with every checkpoint's RoPE. Half-split pairing, partial rotation, changed bases and context scaling are explicit different transformations in §§3/8. For a checkpoint, use its configuration and code; a shared name does not authorize substituting adjacent-pair rotation."}</Prose>
+
+<Prose>{""}<strong>{"Change the constraint:"}</strong>{" add 100 to both query and key IDs, preserving their legal relation, then add 100 only to queries. "}<strong>{"Hint:"}</strong>{" standard RoPE and ALiBi depend on relative position within this fixed-input operator. "}<strong>{"Solution:"}</strong>{" the common shift leaves scores/outputs unchanged up to rounding; a query-only shift changes offsets and can change outputs. Compare the actual values, not merely whether the final argmax stays the same."}</Prose>
+
+<H3>{"Padding, packed records and numerical precision"}</H3>
+
+<Prose>{"For a left-padded batch, a common logical-position construction is "}<code>{"valid.cumsum(-1)-1"}</code>{", assigning the first valid token position 0. Replace padding indices with a safe value before table lookup, then exclude those entries with the mask. Whether this convention matches a specific checkpoint depends on its training and generation implementation. A uniform position shift cancels locally in standard RoPE when all relevant content and masks are held fixed; arbitrary per-token renumbering does not. Additive learned/sinusoidal vectors generally change under even a common shift."}</Prose>
+
+<Prose>{"When independent documents are packed into one tensor, resetting their position IDs is not enough. A document/block mask must prevent an example from attending to another example. Otherwise equal position IDs do not stop information leakage. Likewise, a key-padding mask often suppresses padded keys but does not automatically erase padded query outputs; exclude those outputs from losses or pooling as appropriate."}</Prose>
+
+<Prose>{"Compute phases at adequate precision. Adjacent large integers can become the same number if converted too early to a low-precision format. For example, BF16 cannot represent every integer beyond 256. Constructing all positions directly in BF16 can therefore give neighboring tokens identical phases before sine/cosine is evaluated. A common implementation calculates phases in float32 and casts the resulting sine/cosine values as needed; our small reference uses float64. Neither floating-point choice provides arbitrary precision at unlimited positions. Validate the actual target range, checkpoint convention and kernel."}</Prose>
+
+<Prose>{"Standard PyTorch Transformer layers do not automatically choose a positional scheme. Use the model's actual embedding/attention implementation and versioned documentation rather than assuming "}<code>{"nn.TransformerEncoder"}</code>{" inserts RoPE or sinusoidal features for you. The real program above makes the injection site explicit; production implementations may fuse the same operation without materializing the intermediate arrays."}</Prose>
+
+<H2>{"8. Deeper route: extending the context without confusing the claims"}</H2>
+
+<H3>{"Three different length questions"}</H3>
+
+<Prose>{"“This model supports a longer context” can mean several things:"}</Prose>
+
+<ol start={1}><li>{""}<strong>{"The operation is defined."}</strong>{" The position lookup/rotation, mask and cache accept that length."}</li><li>{""}<strong>{"The model remains useful."}</strong>{" Loss and downstream quality stay acceptable on the new distribution."}</li><li>{""}<strong>{"The model uses the additional information."}</strong>{" It can retrieve or combine evidence far away, rather than ignoring most of the added context."}</li></ol>
+
+<Prose>{"An ALiBi penalty is defined at arbitrarily large finite distances in real arithmetic, but grows without a finite bound as distance increases. A sine/rotation formula is also defined beyond training indices. Neither is a theorem about the model's behavior on a longer task. The softmax denominator sees more competitors, content distributions change, and long-range computations may require skills the training examples never demanded."}</Prose>
+
+<Prose>{"Even good average language-model loss can hide a failure on an instruction that needs one distant fact. A long-context evaluation should vary both total length and evidence location, include distractors and multiple pieces of evidence, inspect short-context retention, and measure the task that matters. A single successful “needle in a haystack” example does not establish long-document reasoning. The "}<a href={"https://arxiv.org/pdf/2305.19466"}>{"NoPE study"}</a>{" is useful here because it evaluates several algorithmic tasks and separates them from perplexity claims."}</Prose>
+
+<H3>{"Frequency, wavelength and the base"}</H3>
+
+<Prose>{"For "}<InlineMath>{"d_k=64"}</InlineMath>{", base 10000 gives first frequency 1 and last frequency "}<InlineMath>{"10000^{-31/32}\\approx0.00013335"}</InlineMath>{". The first wavelength is "}<InlineMath>{"2\\pi\\approx6.2832"}</InlineMath>{" positions; the last is 47,117.243."}</Prose>
+
+<Prose>{"Changing the base to 500000 leaves the first frequency exactly 1. For pair "}<InlineMath>{"r"}</InlineMath>{" it multiplies the wavelength by"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\left(\\frac{500000}{10000}\\right)^{2r/64}=50^{r/32}."}</MathBlock></div>
+
+<Prose>{"The last wavelength becomes 2,084,764.773, about 44.25 times as long. It is not 50 times for every pair, and the first pair does not change at all. At position 128,000, a 47,117-position wavelength has completed about 2.72 turns, not 20. One channel wrapping is not the same as the entire multiscale code becoming identical, nor must every channel remain monotone over the whole context."}</Prose>
+
+<PositionFrequencyFigure />
+
+<Prose>{"The base and rotary dimension are checkpoint/architecture choices. There is no universal formula such as “base equals 60 times the target length.” A suitable choice depends on learned Q/K features, training lengths, positional scaling and task. The "}<a href={"https://arxiv.org/html/2407.21783v3#S3.S2"}>{"Llama 3 report"}</a>{" records a 500000 base; its "}<a href={"https://arxiv.org/html/2407.21783v3#S3.S4.SS2"}>{"long-context training section"}</a>{" also describes staged long-sequence training. The resulting capability was not created by editing a configuration field after an otherwise unchanged short-context training run."}</Prose>
+
+<H3>{"Position Interpolation"}</H3>
+
+<Prose>{"Let a model be trained with nominal context "}<InlineMath>{"L"}</InlineMath>{", and choose a target "}<InlineMath>{"L'=sL"}</InlineMath>{". "}<strong>{"Position Interpolation"}</strong>{", PI, feeds "}<InlineMath>{"t/s"}</InlineMath>{" into the same rotation formula:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"R_t\\quad\\longrightarrow\\quad R_{t/s}."}</MathBlock></div>
+
+<Prose>{"Equivalently, divide all angular frequencies by "}<InlineMath>{"s"}</InlineMath>{". Distances are compressed too: two new positions 8 slots apart have the old phase difference of 1 slot when "}<InlineMath>{"s=8"}</InlineMath>{". This moves a large range of offsets into a smaller phase range, but also changes local distinctions."}</Prose>
+
+<Prose>{"For training length 64 and target 256, "}<InlineMath>{"s=4"}</InlineMath>{". Position 255 maps to 63.75, not 63. The interval "}<code>{"[0,256)"}</code>{" maps into "}<code>{"[0,64)"}</code>{", but the model was trained at integer positions 0–63; fractional positions and altered token spacing are a new input condition. Endpoint-preserving scaling "}<InlineMath>{"t(63/255)"}</InlineMath>{" is another possible rule, with slightly different spacing. Name which rule you use."}</Prose>
+
+<Prose>{"The "}<a href={"https://arxiv.org/html/2306.15595v2#S2.SS3"}>{"PI paper §2.3"}</a>{" gives the rescaling and a bounded interpolation analysis for a fixed trigonometric score function. Its model experiments include further training. A bound on a fixed score function is not an end-to-end guarantee about hidden states, all softmax competitors or task correctness. Uniform rescaling can work well in a particular protocol, but it is not free of a short-distance tradeoff."}</Prose>
+
+<H3>{"Base scaling, often called NTK-aware scaling"}</H3>
+
+<Prose>{"One proposed alternative for rotary width "}<InlineMath>{"d"}</InlineMath>{" greater than 2 changes the base to"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"b'=b\\,s^{d/(d-2)}."}</MathBlock></div>
+
+<Prose>{"Pairr then has"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\theta'_r=\\theta_r\\,s^{-2r/(d-2)}."}</MathBlock></div>
+
+<Prose>{"At "}<InlineMath>{"r=0"}</InlineMath>{" there is no change. At the last pair "}<InlineMath>{"r=d/2-1"}</InlineMath>{", the frequency is divided by "}<InlineMath>{"s"}</InlineMath>{". Intermediate pairs receive intermediate scaling. This preserves the fastest phase changes while stretching the slowest wavelengths. The "}<InlineMath>{"d=2"}</InlineMath>{" formula is undefined and must not be applied blindly."}</Prose>
+
+<Prose>{"The name refers to the reasoning that motivated the heuristic; it does not constitute a proof that any pretrained network behaves like its infinite-width neural tangent kernel or that this base change is optimal. The "}<a href={"https://arxiv.org/html/2309.00071v3#S3"}>{"YaRN paper's methodology and appendices"}</a>{" explain the relationship among PI, base changes and later interpolation schemes."}</Prose>
+
+<H3>{"YaRN: select frequencies and adjust score sharpness"}</H3>
+
+<Prose>{"Uniform interpolation changes every frequency; a base change changes most frequencies by different amounts. A "}<strong>{"by-parts"}</strong>{" construction instead asks how many turns each pair made within the original context:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"r_i=\\frac{L\\theta_i}{2\\pi}=\\frac{L}{\\lambda_i}."}</MathBlock></div>
+
+<Prose>{"Under the paper's linear ramp in this rotation count, let"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\gamma(r)=\\operatorname{clip}\\left(\\frac{r-\\alpha}{\\beta-\\alpha},0,1\\right),\n\\qquad\n\\widetilde\\theta_i=(1-\\gamma(r_i))\\frac{\\theta_i}{s}+\\gamma(r_i)\\theta_i."}</MathBlock></div>
+
+<Prose>{"Pairs with few turns are fully interpolated; pairs with many turns remain unchanged; the middle blends the two. The paper uses "}<InlineMath>{"\\alpha=1,\\beta=32"}</InlineMath>{" in its Llama experiments. These are thresholds in "}<strong>{"rotations during the original context"}</strong>{", not raw feature indices or universal constants."}</Prose>
+
+<Prose>{"YaRN combines this frequency treatment with an empirical attention-temperature adjustment. If softmax originally sees "}<InlineMath>{"q'^\\top k'/\\sqrt d"}</InlineMath>{", dividing this logit by temperature "}<InlineMath>{"T"}</InlineMath>{" makes it sharper when "}<InlineMath>{"T<1"}</InlineMath>{". Scaling "}<strong>{"both"}</strong>{" q and k by "}<InlineMath>{"c=\\sqrt{1/T}"}</InlineMath>{" has the same effect because the dot product scales by "}<InlineMath>{"c^2"}</InlineMath>{". The paper's suggested fit is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"c=1+0.1\\ln s,\\qquad\\text{logit multiplier}=c^2."}</MathBlock></div>
+
+<Prose>{"At "}<InlineMath>{"s=8"}</InlineMath>{", "}<InlineMath>{"c\\approx1.207944"}</InlineMath>{", so logits are multiplied by about 1.459129. Multiplying them by "}<InlineMath>{"\\sqrt{1+0.1\\ln s}"}</InlineMath>{" is a different rule. The temperature fit is an empirical recipe, not a conservation law that exactly compensates every longer softmax."}</Prose>
+
+<Prose>{"The full mechanism therefore changes both relative phases and attention sharpness. In partial-rotation implementations, scaling only the rotary subset does not multiply the entire dot product uniformly. Check whether the attention scale is applied separately and how unrotated channels are treated."}</Prose>
+
+<Prose>{"The displayed frequency comparison uses the "}<strong>{"paper's ramp in rotation count"}</strong>{". Practical checkpoint libraries can discretize the boundary indices and use a ramp over pair indices, giving a different intermediate curve. A label such as “YaRN” is not enough to reproduce every checkpoint: use its versioned implementation, parameter names, rotary width and scaling factors. "}<a href={"https://huggingface.co/docs/transformers/main/en/internal/rope_utils"}>{"Current Transformers RoPE documentation"}</a>{" distinguishes several schemes and per-layer configurations; its "}<code>{"main"}</code>{" documentation is mutable, so pin the version when reproducing a model."}</Prose>
+
+<PositionExtensionLab />
+
+<H3>{"Dynamic scaling and cached representations"}</H3>
+
+<Prose>{"A dynamic rule can change frequencies as the current length grows. That raises a consistency problem: old keys might have been rotated with yesterday's frequency vector while the new query uses today's."}</Prose>
+
+<Prose>{"For fixed content keys in one attention layer, you can store unrotated keys or rephase existing keys from the old rotation into the new one. In the hand fixture from §7, changing the base from 10000 to 100 and rotating only the new query gives last output "}<code>{"[0.973912,1.389528]"}</code>{"; recomputing all Q/K rotations consistently at the new base gives "}<code>{"[0.998788,1.344242]"}</code>{"."}</Prose>
+
+<Prose>{"There is a further model-level distinction. In a multilayer decoder, cached hidden states and values may themselves have been computed under the old frequencies. Rephasing keys alone does not generally reproduce a fresh full-prefix pass through "}<strong>{"every layer"}</strong>{" at the new fixed frequency rule. Define the intended dynamic algorithm, maintain internally consistent cache metadata and compare against the appropriate reference. If exact equivalence to a fresh pass under a new global configuration is required, earlier states may need recomputation. A “cache fix” must state what equivalence it promises."}</Prose>
+
+<H3>{"XPos: a relative amplitude factor as well as a rotation"}</H3>
+
+<Prose>{"XPos extends the geometry using reciprocal query/key scaling. In a real-coordinate form, for each pair "}<InlineMath>{"i"}</InlineMath>{" choose "}<InlineMath>{"0<\\zeta_i<1"}</InlineMath>{" and a positive scale "}<InlineMath>{"S"}</InlineMath>{":"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"q'_m=\\zeta_i^{m/S}R_mq_m,\\qquad\nk'_n=\\zeta_i^{-n/S}R_nk_n."}</MathBlock></div>
+
+<Prose>{"The pair's score becomes"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\zeta_i^{(m-n)/S}\\,q_m^\\top R_{n-m}k_n."}</MathBlock></div>
+
+<Prose>{"For a causal key "}<InlineMath>{"n\\le m"}</InlineMath>{", the amplitude factor attenuates older contributions. The query/key norms individually are no longer preserved. Scaling both vectors in the same direction would produce an unwanted absolute-position factor instead of this relative factor."}</Prose>
+
+<Prose>{"The "}<a href={"https://github.com/microsoft/torchscale/blob/main/torchscale/component/xpos_relative_position.py"}>{"TorchScale XPos implementation"}</a>{" uses a pair scale equivalent to "}<InlineMath>{"\\zeta_i=(2i/d+0.4)/1.4"}</InlineMath>{", default "}<InlineMath>{"S=512"}</InlineMath>{", a centered exponent and reciprocal scaling for keys. For the first pair, "}<InlineMath>{"\\zeta_0=2/7"}</InlineMath>{", so a 512-position causal separation multiplies that pair's score amplitude by 2/7. Higher-frequency pairs have smaller "}<InlineMath>{"\\zeta"}</InlineMath>{" under this rule. Omitting the division by "}<InlineMath>{"S"}</InlineMath>{" would instead apply "}<InlineMath>{"(2/7)^{512}"}</InlineMath>{", an entirely different and numerically extreme factor."}</Prose>
+
+<Prose>{"The centering choice can improve numerical range while preserving a common relative factor when handled consistently. It also belongs in the cache convention. The "}<a href={"https://arxiv.org/pdf/2212.10554"}>{"XPos/LEX paper"}</a>{" separately studies its encoding and blockwise masking; partial rotary dimensions alone are not “XPos.” A fixed amplitude decay also does not establish monotonicity of every content-dependent signed score."}</Prose>
+
+<XposPositionFigure />
+
+<H2>{"9. Choose the position system for the actual task"}</H2>
+
+<H3>{"What changes, and what stays expensive?"}</H3>
+
+<NeuralTable caption={"What changes, and what stays expensive?"} headers={[<>{"Mechanism"}</>,<>{"Position parameters"}</>,<>{"Main injection site"}</>,<>{"A question to ask before using it"}</>]} rows={[[<>{"Learned absolute"}</>,<>{""}<InlineMath>{"L_{\\max}d"}</InlineMath>{""}</>,<>{"Input rows"}</>,<>{"Are supported indices and training coverage adequate?"}</>],[<>{"Sinusoidal absolute"}</>,<>{"None"}</>,<>{"Input rows"}</>,<>{"Does the model learn to use this multiscale signal on the relevant lengths?"}</>],[<>{"Shaw-style relative vectors"}</>,<>{"Depends on clipped offset range, width and sharing"}</>,<>{"Query-dependent scores and optionally values"}</>,<>{"Which offsets can share a category without losing needed distinctions?"}</>],[<>{"T5-style scalar buckets"}</>,<>{"Buckets×heads per shared table"}</>,<>{"Scores"}</>,<>{"How much distance/direction precision should the bins preserve?"}</>],[<>{"Standard RoPE"}</>,<>{"None for fixed frequencies"}</>,<>{"Q/K coordinates"}</>,<>{"Which basis, rotary width, frequencies and cache offsets does the model expect?"}</>],[<>{"ALiBi"}</>,<>{"None for fixed slopes"}</>,<>{"Scores"}</>,<>{"Is the chosen directional/proximity prior appropriate for the task and mask?"}</>]]} />
+
+<Prose>{"For a new small model, a simple learned or sinusoidal baseline is useful if its position semantics match the problem. For a pretrained model, preserve its specified scheme first. A frequency change, table extension or bias replacement changes the function the checkpoint computes; it is not a cosmetic implementation substitution."}</Prose>
+
+<Prose>{"RoPE adds work linear in the number of rotated coordinates. Full attention still computes pairwise scores, with "}<InlineMath>{"O(BHL^2d_k)"}</InlineMath>{" attention arithmetic and an "}<InlineMath>{"L^2"}</InlineMath>{" score/probability array if implemented eagerly. A tiled attention kernel can avoid storing the full matrix while calculating the same attention function, within floating-point differences. Positional encoding itself does not make full attention linear in sequence length."}</Prose>
+
+<Prose>{"ALiBi can be generated from position vectors and head slopes. A naive implementation materializes an H × L × L bias; a compatible kernel can compute needed entries or use the causal row-constant identity. Thus “ALiBi requires an extra dense matrix” and “ALiBi is free everywhere” are both implementation-dependent claims. Report actual shapes and measured performance if making a speed comparison."}</Prose>
+
+<Prose>{"With full rotary width and matching query/key widths, standard RoPE does not reduce KV-cache dimensions. For B batches, N layers, Hkv cached heads, length "}<InlineMath>{"L"}</InlineMath>{" and head widths "}<InlineMath>{"d_k,d_v"}</InlineMath>{", unquantized cache storage is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"BNH_{kv}L(d_k+d_v)\\times\\text{bytes per stored element}."}</MathBlock></div>
+
+<Prose>{"An example B=1, N=32, Hkv=8, L=4096, dk=dv=128 with two-byte elements needs 536,870,912 bytes, or 512 MiB, for those K/V tensors. Rotating keys changes their values, not this count. Quantization scales/metadata, padding allocation and other runtime state add their own storage. The "}<strong>{"next"}</strong>{" lesson, "}<a href={"/learn/path/full-curriculum/grouped-query-attention-gqa-multi-query-attention-mqa?module=deep-learning-fundamentals"}>{"Grouped-Query and Multi-Query Attention"}</a>{", changes "}<InlineMath>{"H_{kv}"}</InlineMath>{" and explains the actual sharing computation. RoPE can apply once to each stored key head and separately to each query head, provided corresponding frequency/basis conventions match. Reducing stored heads is a different mechanism from supplying position."}</Prose>
+
+<H3>{"Useful applications beyond words in a sentence"}</H3>
+
+<Prose>{""}<strong>{"Movement, irregular time and event streams."}</strong>{" An ordinal sample index measures order. An actual timestamp measures elapsed time. If one sensor records events at 0, 1 and 20 seconds, assigning positions 0, 1, 2 hides the nineteen-second gap. A continuous position formula can accept "}<code>{"[0,1,20]"}</code>{", but its frequency units are now radians per second and must suit that scale. A measurement system may need both event order and elapsed time; an additive learned lookup can instead encode a finite time-bin category. In our Libras example, only sample order was supplied reliably, so the lesson does not relabel slot differences as exact seconds."}</Prose>
+
+<Prose>{""}<strong>{"Images and video."}</strong>{" Rasterizing a patch grid into one long list creates accidental one-dimensional neighbors: the last patch of one row and first patch of the next have consecutive flattened indices. A two-dimensional encoding can represent row and column separately. One construction allocates coordinate pairs to x and y, applying phases "}<InlineMath>{"x\\theta_i"}</InlineMath>{" in one subset and "}<InlineMath>{"y\\theta_j"}</InlineMath>{" in another. Their score contributions depend on "}<InlineMath>{"\\Delta x"}</InlineMath>{" and "}<InlineMath>{"\\Delta y"}</InlineMath>{", not just a flattened offset. A video can add temporal coordinates. A position design must decide how special tokens, different resolutions and multiple frames share these coordinates. The later "}<a href={"/learn/path/full-curriculum/vision-transformers-vit-deit-swin-dinov2?module=deep-learning-fundamentals"}>{"Vision Transformers lesson"}</a>{" develops patch grids, learned-grid interpolation and relative window geometry."}</Prose>
+
+<Prose>{""}<strong>{"Coordinates versus identities."}</strong>{" In a set of physical objects, rearranging the storage order should not change a prediction if each object's actual coordinates move with it. In a sentence, swapping words while retaining their slots should change the represented sentence. This is the same distinction as our movement workspace. Choosing position IDs deliberately can preserve the symmetry you want and break the symmetry the task must distinguish."}</Prose>
+
+<Prose>{"These examples explain why there is no universal “best position vector.” Start with the relation the learner or application needs—absolute slot, signed distance, elapsed time, two-dimensional displacement—and trace where that relation enters the function."}</Prose>
+
+<PositionApplicationsFigure />
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice: change the situation, then explain the result"}</H2>
+
+<Prose>{"Try the questions before opening hints or solutions. Exercises 1–4 check the core route; 5–8 extend it. No pretrained download or long training run is needed."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Two rearrangements"}</H3>
+
+<Prose>{"An encoder receives points A, B, C with position IDs 0, 1, 2 and uses learned absolute input embeddings, no dropout and mean pooling. Compare (a) storing the records in order C, A, B with their IDs 2, 0, 1, and (b) assigning points C, A, B to IDs 0, 1, 2. Which output is guaranteed to equal the original? Explain at the input to the first block."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Write the three content-plus-position vectors before and after each edit. Check whether you merely permuted existing rows."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"In (a), the combined rows are "}<code>{"[xC+p2,xA+p0,xB+p1]"}</code>{", a permutation of "}<code>{"[xA+p0,xB+p1,xC+p2]"}</code>{". The equivariant encoder followed by mean pooling produces the same output. In (b), they are "}<code>{"[xC+p0,xA+p1,xB+p2]"}</code>{"; generally these are different vectors, so equality is not guaranteed. The model can still happen to predict the same class in (b), but the architectural guarantee concerns the full output function and applies to (a)."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A different rotary pair"}</H3>
+
+<Prose>{"Use one pair with frequency 1, query q="}<code>{"[1,0]"}</code>{" at position 2 and key k="}<code>{"[0,1]"}</code>{" at position 5. Compute the unscaled dot product after rotation. Then shift both positions by 20. Finally move only the key one further position. Does the score necessarily decrease?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use "}<InlineMath>{"q^\\top R_{n-m}k"}</InlineMath>{", and work out "}<InlineMath>{"R_\\phi[0,1]"}</InlineMath>{"."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{""}<InlineMath>{"R_\\phi[0,1]=[-\\sin\\phi,\\cos\\phi]"}</InlineMath>{". The original score is "}<InlineMath>{"-\\sin3\\approx-0.141120"}</InlineMath>{". Shifting both positions to 22 and 25 leaves offset 3 and the score unchanged. Moving only the key to 6 gives offset 4 and score "}<InlineMath>{"-\\sin4\\approx0.756802"}</InlineMath>{", which is larger. RoPE encodes a relative phase; it does not require scores to fall with distance. If these are two-dimensional attention logits, divide the dot products by "}<InlineMath>{"\\sqrt2"}</InlineMath>{" before softmax."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. How much evidence overcomes the bias?"}</H3>
+
+<Prose>{"A causal head uses ALiBi slope 0.25. Key A is 8 positions farther from the query than key B. How much larger must A's scaled content score be to tie B's final score? With equal content scores, what are their attention odds? Does that answer depend on how many other legal keys exist?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Subtract the final scores. Their difference controls the ratio of softmax probabilities."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"A needs an extra "}<InlineMath>{"0.25\\times8=2"}</InlineMath>{" content-logit units to tie. With equal content scores, "}<InlineMath>{"A_A/A_B=e^{-2}\\approx0.135335"}</InlineMath>{". Other keys change both normalized probabilities but cancel from their ratio. Neither probability itself is 0.135335 unless the remaining normalization happens to make that so. A finite penalty does not prohibit A."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Construct and repair a cache bug"}</H3>
+
+<Prose>{"In the three-key reference example, shift the key positions from "}<code>{"[7,8,9]"}</code>{" to "}<code>{"[0,1,2]"}</code>{" and the last query's position from 9 to 2, retaining the same content vectors and legal order. Run it and compare the last RoPE output with the original. Now return to the original key positions and reset "}<strong>{"only"}</strong>{" the last query's rotation to 0 while retaining key rotations for "}<code>{"[7,8,9]"}</code>{" and the original allowed-key mask. Explain why the two edits have different results. How would you separately expose a wrongly offset causal mask?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"A common shift preserves all pairwise offsets. The query's rotary angle and its legal-key relation are separate inputs in this transparent program."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The common shift preserves offsets, so the last output remains approximately "}<code>{"[1.035332,1.297160]"}</code>{". Resetting only the query's angle changes those offsets and gives "}<code>{"[0.658520,1.291697]"}</code>{". The latter experiment keeps the legal entries fixed to isolate the rotation error. To expose a mask error, keep rotations correct but use a local query index 0 to construct legality against key IDs 7–9: this falsely masks every key, and the reference must reject that empty legal set. In a full decoder, use both correct logical IDs and the correct valid/document relation."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Design a directional encoder"}</H3>
+
+<Prose>{"A model uses "}<InlineMath>{"-a|i-j|"}</InlineMath>{", shared rowwise blocks and mean pooling. You want it to distinguish a list from its reversal. Propose one change that can remove the symmetry and one change that cannot. Explain why increasing the number of identical-structure layers does not solve the issue by itself."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Check whether the entire pipeline commutes with the reversal permutation. Changing parameter values cannot break an equality that holds for all parameter values."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Adding distinct absolute position vectors, using signed relative categories with independently learned values, or introducing an appropriate directional mask can remove reversal symmetry. Increasing width or adding more shared blocks with the same symmetric-distance rule cannot: each block remains reversal-equivariant, and mean pooling remains invariant. Removing the symmetry creates the capacity to distinguish directions; it does not guarantee successful training or correct predictions on all movements. If order should be irrelevant in the application, breaking it may be undesirable."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. A stretching rule is not a performance curve"}</H3>
+
+<Prose>{"A width 8 RoPE head uses base 10000 and extends nominal length 64 to 256 by PI. Find the four original frequencies, the four new frequencies, the mapped value of position 255 and the original wavelength of the slowest pair. What happens under "}<InlineMath>{"s=1"}</InlineMath>{"? What evidence would still be missing before claiming good 256-token task performance?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use "}<InlineMath>{"\\theta_r=10000^{-2r/8}"}</InlineMath>{", divide by 4 for PI, and calculate a full turn as "}<InlineMath>{"2\\pi/\\theta_r"}</InlineMath>{"."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Original frequencies are "}<code>{"[1,0.1,0.01,0.001]"}</code>{"; PI gives "}<code>{"[0.25,0.025,0.0025,0.00025]"}</code>{". Position 255 maps to 63.75. The slowest original wavelength is "}<InlineMath>{"2000\\pi\\approx6283.1853"}</InlineMath>{" positions. With "}<InlineMath>{"s=1"}</InlineMath>{" the frequencies and positions are unchanged; a YaRN-style score multiplier also becomes 1. These calculations establish the geometric transformation. They provide no actual loss, retrieval or reasoning result from a trained model at length 256. That requires a declared evaluation protocol, representative held-out examples and controls for retained short-context behavior."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. A partial-rotation temperature trap"}</H3>
+
+<Prose>{"An attention score has rotary contribution 2 and unrotated contribution 3, before the common head-width scaling. A developer multiplies only the rotary Q/K coordinates by "}<InlineMath>{"c=2"}</InlineMath>{" and claims to multiply the entire logit by 4. What actually happens? Give a way to achieve the claimed uniform factor."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Each rotary dot product receives two factors of "}<InlineMath>{"c"}</InlineMath>{", but the unrotated dot product receives neither."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The original unscaled score is 2+3=5. Scaling only rotary coordinates gives "}<InlineMath>{"4\\times2+3=11"}</InlineMath>{", not 20. To get a uniform factor 4, multiply the completed dot-product score by 4, or scale "}<strong>{"all"}</strong>{" query and key coordinates by 2. The usual head-width division can remain separate. This is why matching a context-extension checkpoint requires its attention-scale placement as well as its frequency vector."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. A time unit changes the meaning"}</H3>
+
+<Prose>{"A sensor produces three observations at 0, 1 and 20 seconds. A sinusoidal time encoding uses frequency 0.1 radians/second. Another programmer passes timestamps in milliseconds without changing the frequency. Calculate the phase of the last observation under each program. Give the correct frequency in radians/millisecond and explain why index positions 0, 1, 2 solve a different problem."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"An angle is timestamp multiplied by frequency. Convert both quantities consistently."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The intended phase is "}<InlineMath>{"20\\times0.1=2"}</InlineMath>{" radians. Passing 20,000 milliseconds with unchanged 0.1 gives 2000 radians. The corresponding frequency is 0.0001 radians/millisecond, restoring phase 2. Index positions 0, 1, 2 retain event order but discard the unequal temporal gaps. Neither is universally wrong: choose the coordinate whose relation matters, then state its units."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{"What comes next?"}</H2>
+
+<Prose>{"You can now locate position at the input, in Q/K geometry or in score biases; distinguish invariance from sensitivity; and verify that a cached computation uses the intended offsets. Continue in the planned sequence to "}<a href={"/learn/path/full-curriculum/grouped-query-attention-gqa-multi-query-attention-mqa?module=deep-learning-fundamentals"}>{"Grouped-Query Attention and Multi-Query Attention"}</a>{". That lesson asks how several query heads can share keys and values, and what this changes in cache storage and computation. Its position operations build directly on the conventions here."}</Prose></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and another way to learn"}</H2>
+
+<Prose>{"Use these selectively according to the part you want to understand better. Formula definitions, our independently calculated fixtures and the real local experiment serve different purposes."}</Prose>
+
+<ul><li>{""}<strong>{"A visual refresher before the positional details:"}</strong>{" "}<a href={"https://www.3blue1brown.com/lessons/attention/"}>{"3Blue1Brown, Attention in transformers, step-by-step"}</a>{" includes its video and illustrated written adaptation. The inspected Q/K, dot-product, softmax and masking explanations help reconnect geometry to value mixing. Its diagrams use query columns rather than this lesson's query rows, which the notes explain. The adjective/noun behavior is explicitly hypothetical; this is a background attention resource, not a RoPE implementation tutorial. The written adaptation was inspected; the video was not independently watched for this packet."}</li><li>{""}<strong>{"A compact comparison with diagrams:"}</strong>{" "}<a href={"https://sebastianraschka.com/faq/docs/rope-vs-absolute-positional-embeddings.html"}>{"Sebastian Raschka, RoPE versus absolute positional embeddings"}</a>{". The full inspected article traces the input-table versus Q/K-rotation distinction, partial RoPE and cache offsets. Use it after §3 for another concise explanation; follow this lesson's examples for the detailed calculations."}</li><li>{""}<strong>{"A book/notebook route:"}</strong>{" "}<a href={"https://d2l.ai/chapter_attention-mechanisms-and-transformers/self-attention-and-positional-encoding.html"}>{"Dive into Deep Learning §11.6"}</a>{", especially 11.6.3–11.6.5. The inspected code, frequency visuals, absolute/relative subsections and exercises provide a second path through sinusoidal encodings. Its CNN/RNN comparison connects to earlier architecture lessons. A binary-counter analogy is about scales, not a claim that floating-point encodings always use fewer physical bits."}</li><li>{""}<strong>{"Learned position tables inside a complete GPT:"}</strong>{" "}<a href={"https://www.youtube.com/watch?v=kCc8FmEb1nY"}>{"Andrej Karpathy's Let's build GPT video"}</a>{", linked from the "}<a href={"https://karpathy.ai/zero-to-hero.html"}>{"creator's Zero to Hero course"}</a>{", is a longer code-first learning option. The inspected "}<a href={"https://github.com/karpathy/nanoGPT/blob/master/model.py"}>{"nanoGPT implementation"}</a>{" shows "}<code>{"wpe"}</code>{", strict context checks and addition to token embeddings inside a real decoder. It is companion implementation evidence from the same author, not a claim that the video transcript or its unavailable older repository was inspected. This option teaches the learned-input mechanism and surrounding model, not the RoPE/ALiBi extensions."}</li><li>{""}<strong>{"Original fixed encoding:"}</strong>{" "}<a href={"https://arxiv.org/pdf/1706.03762"}>{"Vaswani et al., Attention Is All You Need, §3.5"}</a>{". Read for the position formula, original comparison and the motivation behind its relative-shift identity."}</li><li>{""}<strong>{"Learned relations and buckets:"}</strong>{" "}<a href={"https://aclanthology.org/N18-2074.pdf"}>{"Shaw et al., §§3.1–3.3"}</a>{" defines relation vectors and their score/value roles; "}<a href={"https://github.com/huggingface/transformers/blob/main/src/transformers/models/t5/modeling_t5.py"}>{"T5's maintained attention source"}</a>{" makes signed bucket conventions and cache offsets concrete. Code on a moving branch must be version-pinned for reproduction."}</li><li>{""}<strong>{"Rotary geometry:"}</strong>{" "}<a href={"https://arxiv.org/html/2104.09864v5"}>{"Su et al., RoFormer §§2–3"}</a>{" derives the rotation construction. Read its claims about distance behavior together with the explicit counterexample here and the "}<a href={"https://arxiv.org/html/2306.15595v2"}>{"PI analysis §2"}</a>{". A geometric identity and a broad empirical tendency are different statements."}</li><li>{""}<strong>{"Linear bias:"}</strong>{" "}<a href={"https://arxiv.org/html/2108.12409v2"}>{"Press et al., ALiBi §§2–3"}</a>{" supplies the causal mechanism and comparison context; the "}<a href={"https://github.com/ofirpress/attention_with_linear_biases/blob/master/fairseq/models/transformer.py"}>{"author's implementation"}</a>{" supplies the non-power-of-two schedule and row-constant optimization."}</li><li>{""}<strong>{"Extending a trained model:"}</strong>{" "}<a href={"https://arxiv.org/html/2306.15595v2"}>{"Position Interpolation"}</a>{", "}<a href={"https://arxiv.org/html/2309.00071v3"}>{"YaRN §§3–4 and appendices"}</a>{", and "}<a href={"https://arxiv.org/html/2407.21783v3#S3.S4.SS2"}>{"the Llama 3 training report §3.4.2"}</a>{". Use the inspected methods/training/evaluation sections to separate frequency changes from the complete adaptation recipe. This packet did not repeat their large training runs."}</li><li>{""}<strong>{"Further geometric and evaluation depth:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2212.10554"}>{"XPos/LEX"}</a>{" and its "}<a href={"https://github.com/microsoft/torchscale/blob/main/torchscale/component/xpos_relative_position.py"}>{"TorchScale code"}</a>{" explain reciprocal amplitude factors; "}<a href={"https://arxiv.org/pdf/2305.19466"}>{"Kazemnejad et al."}</a>{" tests length generalization in decoder-only models and motivates the causal NoPE distinction. The full appendix proof campaign is optional research depth, not required to start the next lesson."}</li><li>{""}<strong>{"Implementation reference:"}</strong>{" "}<a href={"https://huggingface.co/docs/transformers/main/en/internal/rope_utils"}>{"Transformers RoPE utilities"}</a>{" documents named variants and layer-specific configuration. Consult the version matching your model; changing a field is not proof of extended-context quality."}</li><li>{""}<strong>{"Real data and reproduction:"}</strong>{" "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{", "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md"}>{"our provenance"}</a>{", "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py"}>{"complete training program"}</a>{", "}<a href={"/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py"}>{"independent mechanism calculations"}</a>{". These support the actual observations and editable examples in this lesson."}</li></ul></section>
+  </div>,
 };
-
-export default positionalEncodingsContent;

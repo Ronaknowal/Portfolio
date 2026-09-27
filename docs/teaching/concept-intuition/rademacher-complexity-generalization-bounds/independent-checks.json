@@ -1,0 +1,30 @@
+{
+  "topicId": "rademacher-complexity-generalization-bounds",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+    "src/learn/components/lesson-labs/RademacherIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/rademacher-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "53ce84a9038bbe6372d19108ccd8505017c902c224de34b1c9d329655722d4d8",
+    "src/learn/components/lesson-labs/RademacherIntuitionFigures.jsx": "d770049d3f0032e50e15389f7d5e5ea1ad66a4a2d4fc77d43054e48574893ba1",
+    "src/learn/components/lesson-labs/rademacher-intuition.css": "d2676e196ef2c89e1e2cc1e57f757525a2efbae550b69b34bef68d1040deadf4"
+  },
+  "checks": [
+    {
+      "name": "Full lesson, theory transitions and new support source read",
+      "passed": true
+    },
+    {
+      "name": "Independent cover, local-envelope, ReLU and KL calculations",
+      "passed": true
+    },
+    {
+      "name": "JSX parsing and exact author source identity",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

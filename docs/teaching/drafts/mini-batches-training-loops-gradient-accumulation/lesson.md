@@ -1,6 +1,6 @@
 # Mini-Batches, Training Loops & Gradient Accumulation
 
-**Explore as you read.** Edit rows, microbatch boundaries, learning rate, clearing/step policy, target weights and normalization groups. Populate row model outputs/errors/gradients immediately; step backward and optimizer events with distinct clocks and buffers. Compare final policies using the same rows and initial state. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to decide when accumulation is equivalent, what receives influence and why partition-sensitive operations change the computation.
+**Explore as you read.** Change examples and their microbatch boundaries, then follow the loss derivatives into a shared gradient buffer and one optimizer update. Compare unequal target weights and physical normalization groups to discover when the same rows no longer define the same computation.
 
 
 Your model can process twelve examples at a time, but you want one update to use thirty-two. Can you run three forward/backward passes and obtain the same update as a batch of thirty-two? Yes, for an appropriate computation—but the last eight examples must receive the same per-example influence as the first twenty-four. Calling every microbatch's loss `.mean()` and averaging those three numbers gives a different objective.
@@ -273,7 +273,13 @@ The arithmetic proof in §3 assumes that partitioning leaves each loss term's co
 
 ### Batch normalization sees the physical forward batch
 
-Suppose a layer receives scalar activations $[0,2,10,12]$. Normalization using their full mean 6 and population variance 26 yields approximately $[-1.176697,-0.784464,0.784464,1.176697]$, using $\epsilon=10^{-5}$. If instead `[0,2]` and `[10,12]` are normalized independently, each pair becomes approximately `[-0.999995,+0.999995]`. The third example changes sign: its value 10 is above the full-group mean but below its own pair's mean.
+Suppose a layer receives scalar activations $[0,2,10,12]$. Normalization using their full mean 6 and population variance 26 yields approximately
+
+$$
+[-1.176697,-0.784464,0.784464,1.176697]
+$$
+
+using $\epsilon=10^{-5}$. If instead `[0,2]` and `[10,12]` are normalized independently, each pair becomes approximately `[-0.999995,+0.999995]`. The third example changes sign: its value 10 is above the full-group mean but below its own pair's mean.
 
 For a downstream trainable scale $\theta$, predict $\theta z_i$ and use half-squared loss against targets $[0,0,1,1]$. At $\theta=1$, the full-group mean gradient is approximately 0.509709, while correctly weighted local-normalization chunks give 0.999990. The denominator is correct in both; the normalized inputs differ. Gradient accumulation has no way to retroactively replace those forward statistics.
 

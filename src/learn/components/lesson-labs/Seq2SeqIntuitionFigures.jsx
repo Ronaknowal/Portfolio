@@ -1,0 +1,7 @@
+import './seq2seq-intuition.css';
+
+export function ScheduledPrefixFigure() {
+  return <figure className="seq2seq-intuition" data-figure="scheduled-prefix-joint" data-constructed-fixture="true"><div className="seq2seq-intuition-panels">
+    {[{title:'Reference prefix',values:[[.5,0],[0,.5]],description:'Every 0 prefix is followed by target 0; every 1 prefix by target 1.'},{title:'Independent replacement prefix',values:[[.25,.25],[.25,.25]],description:'Each shown prefix is paired equally often with either target.'}].map(panel=><section key={panel.title}><h4>{panel.title}</h4><table><caption>Probability mass over training pairs</caption><thead><tr><th>Shown prefix</th><th>Target 0</th><th>Target 1</th></tr></thead><tbody>{panel.values.map((row,i)=><tr key={i}><th>{i}</th>{row.map((v,j)=><td key={j} className={v?'seq2seq-intuition-mass':''}>{v}</td>)}</tr>)}</tbody></table><p>{panel.description}</p></section>)}
+  </div><figcaption>Constructed equal mixture of true sequences 00 and 11. In the replacement case, an independent fair bit replaces the prefix while the original second-token target stays. The off-diagonal mass is created by the training procedure. A model minimizing this second-token cross-entropy should now output 50/50 for either prefix, losing the original dependency. This is the fully replaced limiting example, not a claim about every schedule or empirical outcome.</figcaption></figure>;
+}

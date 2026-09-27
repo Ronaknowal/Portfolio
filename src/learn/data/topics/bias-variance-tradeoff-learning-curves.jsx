@@ -88,7 +88,7 @@ const biasVarianceContent = {
     <LessonIntro prerequisites={<>A mean, a variance, squared error and the fit/validation distinction from the earlier <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a> lesson. The <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a> and <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">Feature Selection</a> lessons supply useful connections, refreshed where needed. Matrix notation appears only in the deeper branches, and is introduced there.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
       A model makes a mistake. Separate three quantities that get confused: one fitted model&rsquo;s error, a learning procedure&rsquo;s sensitivity to the data it was trained on, and the uncertainty left in the target itself. You will calculate a small decomposition by hand, enumerate every possible tiny training set and watch the average fitted curve appear, read three different kinds of curve on {provenance.rows.toLocaleString('en-US')} real wind-tunnel measurements including a crossover that no cartoon predicts, and design a controlled next experiment. The investigations update their calculations and visual explanations as you change valid inputs.
     </LessonIntro>
-    <div className="bv-route"><Prose><strong>First pass.</strong> Read sections 1–6 and try practices 1–5. You will calculate a small decomposition, read three kinds of curve and propose a controlled next experiment. Sections 7–9 explain training optimism, classification and double descent; their additional mathematics is a deeper route you can return to.</Prose></div>
+    <div className="bv-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–6 and try practices 1–5. You will calculate a small decomposition, read three kinds of curve and propose a controlled next experiment. Sections 7–9 explain training optimism, classification and double descent; their additional mathematics is a deeper route you can return to.</Prose></div>
 
     <Prose>A model makes an error. Should you collect more examples, change its inputs, simplify it, or let it fit a richer relationship? Those actions solve different problems. This lesson gives you a way to reason about them and then check that reasoning against data.</Prose>
     <Prose>Begin with a distinction: <strong>one fitted model&rsquo;s mistake, a learning procedure&rsquo;s sensitivity to its training data, and the uncertainty remaining in the target are different quantities.</strong> A learning curve helps investigate them; it does not directly display all three.</Prose>
@@ -254,6 +254,16 @@ const biasVarianceContent = {
     <Prose>This projection also exposes estimation versus approximation. If the true mean vector is <Math>{'f'}</Math> rather than <Math>{'X\\beta'}</Math>, training error gains <Math>{'\\|(I-H)f\\|^2/n'}</Math>. High training error can contain approximation failure; small training error alone says little about a new input far from the fitted design.</Prose>
 
     <H3>Effective degrees of freedom and regularization</H3>
+    <Prose>Think of a smoother as a set of routes from measured outcomes to fitted outcomes. The entry S<sub>ij</sub> tells how much fitted outcome i changes when outcome j increases by one, with the design and smoother fixed. The diagonal S<sub>ii</sub> measures a row’s influence on its own fitted value. Summing those self-influences gives the trace: an effective amount of adaptation to the same outcomes used for scoring. It need not be an integer count of stored coefficients.</Prose>
+    <figure className="bv-figure" data-intuition="smoother-direction-budget">
+      <figcaption><strong>Two noise directions, two different summaries.</strong> Constructed orthogonal directions retained by factors 0.8 and 0.2.</figcaption>
+      <LessonTable caption="Effects of a fixed diagonal smoother S = diag(0.8,0.2), with unit independent noise in both directions" headers={['Direction', 'Retained amplitude', 'Retained noise variance']} rows={[
+        ['First', '0.8', '0.8² = 0.64'],
+        ['Second', '0.2', '0.2² = 0.04'],
+        ['Sum', 'tr(S) = 1', 'tr(SᵀS) = 0.68'],
+      ]} />
+      <Prose>Multiplying a fluctuating value by 0.8 multiplies its variance by 0.8². That is why prediction variance uses squared factors while the optimism gap uses their unsquared sum. For n=2 and noise variance 1, this example contributes 0.68/2=0.34 to average prediction variance, but an optimism gap of 2×1/2=1. The fixed mean can add a separate shrinkage bias.</Prose>
+    </figure>
     <Prose>For a fixed linear smoother <Math>{'\\hat y=Sy'}</Math>, training error under a mean vector <Math>{'f'}</Math> is</Prose>
     <MathBlock>{'\\begin{gathered}\\frac{\\|(I-S)f\\|^2}{n}\\\\[4pt]+\\frac{\\sigma^2}{n}\\{n-2\\operatorname{tr}(S)\\\\[4pt]+\\operatorname{tr}(S^\\top S)\\}.\\end{gathered}'}</MathBlock>
     <Prose>Fresh outcomes at the same inputs have expected error</Prose>
@@ -278,6 +288,7 @@ const biasVarianceContent = {
     <H2>{headings[8]}</H2>
     <Prose>The squared-error identity remains true when expectations exist. It does not prescribe how its terms move with width, depth, training size or optimization time. Double descent concerns those trajectories, not a failure of expanding a square.</Prose>
     <Prose>To see a concrete alternative, consider a specified linear world with <Math>{'p'}</Math> independent standard-Gaussian input coordinates, true coefficient norm <Math>{'\\|\\beta\\|=1'}</Math>, and independent target noise of variance {doubleDescentNoise}. Fit the <strong>minimum Euclidean-norm unregularized least-squares solution</strong>, using the pseudoinverse. Set <Math>{'\\gamma=n/p'}</Math>, the ratio of training rows to coordinates.</Prose>
+    <Prose>When n&lt;p, the observations usually cannot identify every coefficient direction. Minimum-norm fitting sets the unobserved directions to zero. More rows can reveal more of the true signal, but near n=p they can also force the fit to explain noisy observations through directions with very small singular values. The two effects compete: more identified signal helps, while division by small singular values amplifies noise. Beyond the boundary, additional observations supply redundancy rather than another freely fitted direction.</Prose>
     <Prose>In the large-<Math>{'n,p'}</Math> approximation with fixed ratio, expected excess squared error is</Prose>
     <MathBlock>{'\\begin{cases}(1-\\gamma)+\\dfrac{.04\\,\\gamma}{1-\\gamma},&\\gamma<1,\\\\[8pt]\\dfrac{.04}{\\gamma-1},&\\gamma>1.\\end{cases}'}</MathBlock>
     <Prose>Add {doubleDescentNoise} for fresh-target noise. These are asymptotic theoretical values, not a timing experiment or finite-sample measured result. <a href="https://arxiv.org/pdf/1912.07242">Nakkiran, Claims 1&ndash;2</a>.</Prose>
@@ -290,57 +301,57 @@ const biasVarianceContent = {
     <Prose>For this linear objective, convergent gradient descent from zero finds the minimum-norm solution. That statement does not establish that gradient descent finds an analogous minimum-norm predictor for every nonlinear network. Parameter count alone is also not a reliable interpolation threshold for arbitrary architectures and losses.</Prose>
     <Prose><a href="https://arxiv.org/html/1812.11118v2">Belkin and colleagues</a> document model-wise examples, including tree ensembles; the phenomenon is not exclusive to neural networks. Deep networks add optimization-time and data-size behavior to investigate. The practical consequence is to measure the relevant trajectory and regularization choices, not to replace &ldquo;smaller is always safer&rdquo; with &ldquo;bigger is always safer.&rdquo;</Prose>
 
-    <H2>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[9]}</H2>
     <Prose>Try the first five without the deeper branches. Hints and solutions are optional so you can work independently before checking.</Prose>
 
-    <Practice title="1. A new three-world sensor"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A new three-world sensor"
       question={<>The true mean at one input is 5. Equally likely fitted predictions are 3, 4 and 8. Fresh target noise has variance 2 and is independent of training. Compute bias, variance and expected squared error. Compare with a procedure always predicting 4.</>}
       hint="Average predictions before measuring their spread. The target mean and average prediction need not be equal.">
       <Prose>The mean is 5, so bias is zero. Prediction variance is <Math>{'(4+1+9)/3=14/3'}</Math>; expected error is <Math>{'20/3'}</Math>. Always predicting 4 gives squared bias 1, variance 0, error 3. The stable biased procedure wins here. Noise has the same value in both comparisons.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. Change the noise, keep the procedure"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. Change the noise, keep the procedure"
       question={<>For the quadratic in section 3 at <Math>{'x=.5'}</Math>, keep curvature 1 and change <Math>{'\\sigma'}</Math> to 1. Compute the new variance and total error. Then explain why the bias stays zero.</>}
       hint="The noise variance multiplies the squared interpolation weights; the mean of each training noise remains zero.">
       <Prose>Variance is <Math>{'23/32='}</Math>{num(louderQuadratic.variance)}; fresh-target noise is 1, so expected error is <Math>{'55/32='}</Math>{num(louderQuadratic.expectedError)}. Correctly specified interpolation reproduces the quadratic mean in expectation at these full-rank input points. This conclusion relies on this estimator and experiment, not merely on containing the true function in a broad model family. The investigation&rsquo;s &ldquo;Louder noise&rdquo; setup is exactly this case: apply it and read the candidate row.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Diagnose the diagnosis"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Diagnose the diagnosis"
       question="A colleague observes train/validation MSE 12/13 at several inspected sizes and says, “The model has low variance, the noise floor is 13, and collecting more data is pointless.” List what is observed and propose two distinct tests before accepting that conclusion."
       hint="You have no measured population mean or conditional noise variance. Consider another model and another part of the data-generation process.">
       <Prose>The observed curves are close and flat over the inspected sizes. That does not identify the decomposition. Compare a justified richer or less-regularized procedure under the same splits, and inspect target measurement, feature availability, group composition or optimization with known cases. A meaningful new-size experiment can also test the local plateau. Report outcomes that would weaken each hypothesis, rather than calling a gap of 1 a variance estimate.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Investigate a new restriction on real data"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Investigate a new restriction on real data"
       question={<>Using only the supplied {provenance.developmentRows.toLocaleString('en-US')}-row development pool, compare a tree with maximum depth 4 against the existing leaf-1 tree at the same five sizes and folds. Predict at which size, if any, the restriction will first stop helping. Keep the original feature set, row IDs, metric and shuffle settings fixed.</>}
       hint="Add a separately named model to the program's dictionary, leaving the baseline procedures unchanged. A crossover may not occur in the inspected range."
       revealLabel="Assessment and example conclusion">
       <Prose>A complete answer contains the saved prediction, five paired score comparisons with fold values, and a conclusion tied to the actual result. &ldquo;The restricted model was never better over these sizes&rdquo; is acceptable if supported. Do not tune depth repeatedly and then present the selected score as independent evaluation. The {provenance.reservedRows} reserved rows remain unused while this development exercise continues. For calibration, the leaf-20 restriction in the lesson helps only at {restriction.helps.join(' and ')} fitted rows and hurts at every larger inspected size.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Two sets of evidence"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Two sets of evidence"
       question="In an invented study, model A's validation error decreases 20 → 14 → 11 as fitted rows increase 100 → 300 → 900. Model B scores 13 on one different validation split with 900 fitted rows. Explain what may be concluded, and design the missing comparison."
       hint="The data-size trajectory and the model-family comparison are separate.">
       <Prose>A improved over the inspected training sizes under its protocol. B&rsquo;s 13 cannot be cleanly ranked against A&rsquo;s 11 without accounting for the changed evaluation set. Fit the two prespecified procedures on matching training subsets and score the same validation units; inspect paired errors and relevant uncertainty. Neither trajectory certifies a future deployment improvement.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. A new optimism calculation — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. A new optimism calculation — deeper"
       question={<>For correctly specified fixed-design OLS with <Math>{'n=10,p=3,\\sigma^2=2'}</Math>, calculate expected training MSE, fresh-response MSE at the same inputs, their gap, and average fitted-prediction variance. State what changes for a new input location.</>}>
       <Prose>The values are {num(practiceOptimism.trainingMse)}, {num(practiceOptimism.newOutcomeMse)}, {num(practiceOptimism.gap)} and {num(practiceOptimism.predictionVariance)}. For a new <Math>{'x_*'}</Math>, the variance contribution is <Math>{'2x_*^\\top(X^\\top X)^{-1}x_*'}</Math>; the fixed-design average cannot be reused without its location and distribution assumptions. A rank-deficient design would also require the effective rank rather than blindly counting columns.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Is a probability loss the same as accuracy? — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Is a probability loss the same as accuracy? — deeper"
       question={<>At one input, <Math>{'P(Y=1)=.7'}</Math>. Procedure A always outputs probability .6; B outputs .4 or .8 with equal chance across independent training datasets. Compute expected Brier loss and expected classification error using threshold .5.</>}
       hint="Both procedures average to .6, but only one crosses the class threshold across fits.">
       <Prose>A has Brier loss <Math>{'.01+.21=.22'}</Math>, that is {num(brierA.total)}. B has the same squared bias {num(brierB.squaredBias)} plus prediction variance {num(brierB.variance)} and noise {num(brierB.noise)}, totaling {num(brierB.total)}. A always predicts class 1, giving error {num(zeroOneA)}. B predicts 0 or 1 equally, giving error {num(zeroOneB)}. This example compares two losses explicitly; it does not turn {num(brierB.variance)} into a universal classification-variance term.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Transfer the nonmonotonic example — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Transfer the nonmonotonic example — deeper"
       question={<>Use section 9&rsquo;s stated approximation at <Math>{'\\gamma=.75'}</Math> and .9. Compute risk and explain why adding examples can worsen it without contradicting section 2. Then name two assumptions you would check before applying that conclusion to a neural model.</>}>
       <Prose>At <Math>{'\\gamma=.75'}</Math> the risk is {num(transferRatios[0].base)} + {num(transferRatios[0].amplified)} + {doubleDescentNoise} = {num(transferRatios[0].risk)}; at .9 it is {num(transferRatios[1].base)} + {num(transferRatios[1].amplified)} + {doubleDescentNoise} = {num(transferRatios[1].risk)}. The risk identity allows a changing variance term; it does not assert monotonic learning curves. The example assumes isotropic Gaussian inputs, a correctly specified linear target, independent noise and minimum-norm ridgeless fitting in a large-dimensional limit. A neural model&rsquo;s data geometry, loss, regularization and optimization selection need their own evidence.</Prose>
-    </Practice>
+    </Practice></div></section>
 
-    <H2>{headings[10]}</H2>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[10]}</H2>
     <Prose>Core readiness: distinguish bias, prediction variability and target noise; calculate the changed finite example; tell the three plot axes apart; interpret real curves without inventing a diagnosis; design one useful controlled next experiment. Deeper readiness adds the fixed-design optimism derivation, loss-specific distinction and conditional double-descent explanation.</Prose>
     <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
       ['Separate a fitted mistake, sample sensitivity and target noise', 'Section 1, the prediction-ruler investigation, practice 1'],
@@ -353,7 +364,7 @@ const biasVarianceContent = {
       ['Separate a probability loss from a thresholded decision, and explain averaging', 'Section 8, figure 6, practice 7'],
       ['Explain a nonmonotonic risk curve without contradicting the identity', 'Section 9, figure 7, practice 8'],
     ]} />
-    <Prose>Next is <a href="/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml">Imbalanced Learning</a>. Carry forward a question that a single average curve can hide: whose mistakes does the metric count, and does the training/evaluation population give the rare cases enough attention?</Prose>
+    <Prose>Next is <a href="/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml">Imbalanced Learning</a>. Carry forward a question that a single average curve can hide: whose mistakes does the metric count, and does the training/evaluation population give the rare cases enough attention?</Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
       <li><a href="https://www.youtube.com/watch?v=zrEyxfl2-a8">Caltech &mdash; Learning From Data, Lecture 8</a>, with <a href="https://work.caltech.edu/slides/slides08.pdf">official lecture slides</a>. A visual mathematical alternative on repeated fits and learning curves, best after sections 1&ndash;3. The full slide sequence was read; the video itself was not watched for this checkpoint. The slides use &ldquo;bias&rdquo; for the squared-bias contribution and sometimes compare fresh outcomes at fixed inputs; retain those conventions when following their derivations.</li>

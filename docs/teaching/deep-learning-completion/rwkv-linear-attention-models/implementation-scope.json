@@ -1,0 +1,36 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+    "src/learn/data/rwkv-memory-models.js",
+    "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx",
+    "src/learn/components/lesson-labs/RwkvMechanismFigures.jsx",
+    "src/learn/data/rwkv-trajectory-example.json",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/rwkv-memory.css",
+    "public/learn-assets/rwkv-linear-attention-models/trajectory-models.json",
+    "scripts/prepare-rwkv-assets.py",
+    "scripts/render-rwkv-memory-lesson.mjs",
+    "scripts/verify-rwkv-memory-models.mjs",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/native-checks.json",
+    "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/model-checks.json",
+    "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/design.md"
+  ],
+  "browserInventory": [
+    "23 inline figures: transcript; parameters; outer; ledger; kernels; random; chunk; timeline; circuit; retention; scale; block; objective; correction; interference; versions; goose; reflection; forgetting; cache; pipeline; outcomes; continuation",
+    "rwkv-summary: edit row/key/value/query, chunk3\u00e2\u2020\u20198, zero query undefined, append/remove, constant4, reset",
+    "rwkv-weighted: value edit, bonus0, offset1000, retention1, constant7, reset",
+    "rwkv-delta: edit angle to correlated direction, beta0 and1, append/remove, query rotation, reset",
+    "rwkv-trajectory: open lazy workbench, source20\u00e2\u2020\u20197, both frozen models, cut15\u00e2\u2020\u201922, selected coordinate edit, reverse, restore, reset, all15probabilities",
+    "Goose direction checkbox: both exact tile fixtures; three program disclosures; practice hints/solutions; narrow320/390 and desktop geometry"
+  ],
+  "limits": [
+    "Optional official RWKV checkpoint program unexecuted: weights/tokenizer not supplied",
+    "No training rerun; original retained fit evidence preserved",
+    "Author review only; independent, browser and shared integration remain"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "topicId": "end-to-end-supervised-learning-error-analysis",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+    "src/learn/components/lesson-labs/EndToEndIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/endtoend-intuition.css",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "afcd606885eb0956c94427dd6bb477968cb9e62515a89d9f862485eee21d42a3",
+    "src/learn/components/lesson-labs/EndToEndIntuitionFigures.jsx": "6e5eb9d54e7fa155257972d2bd06df8bd726ef937ad35efc03c77e5b76610b6b",
+    "src/learn/components/lesson-labs/endtoend-intuition.css": "1a3cffcb0b49bfcaa42aff9235e35ac42c41800fbf0a7d800548dfc721d7a132",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "862111f0af25531b242ae6e684ad81eff6cbcc388be6fdf3eb9451a217116cd7"
+  },
+  "checks": [
+    {
+      "name": "Full lesson, practice, conceptual transitions and report lab source read",
+      "passed": true
+    },
+    {
+      "name": "Independent Wilson inversion, unit, paired-resample, selection and defer-cost calculations",
+      "passed": true
+    },
+    {
+      "name": "Stale prediction instructions removed; explicit report-disclosure control retained",
+      "passed": true
+    },
+    {
+      "name": "All changed JSX parse and exact author source identity",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

@@ -1,0 +1,8 @@
+.convnext-intuition { margin: 1.5rem 0; padding: 1rem; background: #101010; border: 1px solid #333; border-radius: 8px; }
+.convnext-intuition-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.convnext-intuition h4 { margin: 0 0 .7rem; color: #e8b44a; }
+.convnext-intuition p { margin: .5rem 0; overflow-wrap: anywhere; }
+.convnext-intuition-step { color: #b9b9b9; }
+.convnext-intuition strong { color: #e8b44a; }
+.convnext-lesson .convnext-intuition figcaption { margin-top: 1rem; color: #b9b9b9; font-size: .9rem; line-height: 1.65; font-weight: 400; }
+@media (max-width: 600px) { .convnext-intuition-paths { grid-template-columns: 1fr; } }

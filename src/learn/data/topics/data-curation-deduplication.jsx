@@ -763,13 +763,13 @@ sig_pipe = [
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Solutions follow each question. Try to answer before reading the solution.
       </Prose>
 
-      <H3>Exercise 1 — MinHash signature memory</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — MinHash signature memory</H3>
 
       <Prose>
         Given one million documents, each represented by a 128-hash MinHash signature with 64-bit integers, how much memory do the signatures occupy?
@@ -777,9 +777,9 @@ sig_pipe = [
 
       <Callout>
         <strong>Solution.</strong> 1,000,000 docs × 128 hashes × 8 bytes = 1.024 × 10<sup>9</sup> bytes ≈ 0.95 GB. Fits comfortably in RAM on any modern server. Scaling to one billion documents gives 950 GB — still tractable in a sharded setup, though no longer single-machine. This is why signature-based pipelines scale: the data-reduction factor from raw documents (kilobytes each) to signatures (one kilobyte each) is already three to four orders of magnitude.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2 — Bloom filter sizing for one billion URLs</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Bloom filter sizing for one billion URLs</H3>
 
       <Prose>
         What <Code>m</Code> (bit array size) and <Code>k</Code> (hash count) should a Bloom filter use for one billion URLs at a target 0.1 percent false-positive rate?
@@ -787,9 +787,9 @@ sig_pipe = [
 
       <Callout>
         <strong>Solution.</strong> Using the formulas <Code>m = -n \ln p / (\ln 2)<sup>2</sup></Code> and <Code>k = (m/n) \ln 2</Code>: <Code>m ≈ -10<sup>9</sup> × \ln(0.001) / (\ln 2)<sup>2</sup> ≈ 1.44 × 10<sup>10</sup></Code> bits ≈ 1.67 GB. <Code>k ≈ (m/n) × 0.693 ≈ 10</Code> hashes. At roughly 14.4 bits per item — independent of the hash-value range or item size — this is a small fraction of the memory that a string hash set holding one billion URLs would need (tens of GB). Query cost is ten bit-tests.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 3 — Why LSH if MinHash signatures are small?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Why LSH if MinHash signatures are small?</H3>
 
       <Prose>
         MinHash compresses a document to 128 numbers. Why do we need LSH bucketing on top of that — can we not just compare signatures pairwise?
@@ -797,9 +797,9 @@ sig_pipe = [
 
       <Callout>
         <strong>Solution.</strong> Pairwise comparison of <Code>N</Code> signatures is <Code>C(N, 2) = N(N-1)/2</Code> comparisons. For one billion documents that is 5 × 10<sup>17</sup> pairs — infeasible even at one nanosecond per comparison (it would take around fifteen years on a single core). The signature size bounded the per-pair cost but not the pair count. LSH replaces the O(<Code>N<sup>2</sup></Code>) pair enumeration with a hash-table lookup that is O(<Code>N · b</Code>) to build and O(<Code>1</Code>) amortized per candidate lookup, reducing total work by several orders of magnitude. The key insight is that most pairs have near-zero similarity and can be safely pruned without explicit comparison — LSH does that pruning by bucket misses.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 4 — Jaccard from partial agreement</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Jaccard from partial agreement</H3>
 
       <Prose>
         Two documents are each represented by a 32-hash MinHash signature. Ten of the thirty-two hash values agree between them. What is the estimated Jaccard similarity, and what is the 95 percent confidence interval on the estimate?
@@ -807,9 +807,9 @@ sig_pipe = [
 
       <Callout>
         <strong>Solution.</strong> Point estimate: <Code>10/32 = 0.3125</Code>. The estimator is a sample mean of 32 Bernoulli trials with unknown parameter <Code>J</Code>; at <Code>J ≈ 0.31</Code> the standard error is <Code>sqrt(J(1-J)/32) ≈ sqrt(0.31 × 0.69 / 32) ≈ 0.082</Code>. A 95 percent CI is approximately <Code>0.31 ± 1.96 × 0.082 = [0.15, 0.47]</Code> — wide, because 32 hashes is too few to estimate similarity precisely. This is why production systems use 128–256 hashes: the standard error scales as <Code>1/sqrt(k)</Code>, so 128 hashes tighten the interval by a factor of 2.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 5 — When does semantic dedup add value over MinHash?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — When does semantic dedup add value over MinHash?</H3>
 
       <Prose>
         Under what conditions does running a semantic (embedding-based) dedup pass after MinHash+LSH actually improve downstream model quality, versus being just a compute tax with no upside?
@@ -821,7 +821,7 @@ sig_pipe = [
 
       <Prose>
         The pattern across all five exercises is the same. Dedup is a set of cheap, old, well-understood algorithms whose value comes from composition and from correct parameter setting. Get the knobs right and a dedup pipeline removes half your corpus while improving downstream benchmark scores. Get them wrong and you either waste memory on an exact hash set, saturate a Bloom filter into uselessness, over-prune legitimate content, or miss the evaluation contamination the pipeline was built to catch. The dial is delicate, the cost of getting it wrong is real, and the difference between a good and a bad dedup pipeline shows up in exactly the places where architecture changes and training recipes do not.
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

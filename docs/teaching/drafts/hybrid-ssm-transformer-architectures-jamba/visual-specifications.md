@@ -11,7 +11,7 @@ Step/Back and bounded Run controls advance a real computation or reveal its chro
 Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
 
 ### Topic-specific live route
-**Compare sequence memory and expert routes.** Edit record keys/values, decay, score gap, cache budget, expert probabilities/capacity and supported stroke inputs.
+**Compare sequence memory and expert routes.** Edit record keys/values, decay, score gap, cache budget, expert scores, selected count and outputs and supported stroke inputs.
 **See the consequence.** Show retained state versus explicit memory read, probability mass, exact request memory and continued frozen-model outputs.
 **Decision connection.** Choose a hybrid arrangement by memory retention and routing costs; named architecture examples do not imply identical mechanisms.
 
@@ -26,7 +26,7 @@ Sequence position and network depth are separate axes. A recurrent matrix, short
 
 Each investigation follows the live exploration contract above: current results are visible immediately, valid entity edits update all linked views, and comparisons explain the mechanism. Reset restores the declared inputs and recomputes their result. No prediction or answer-submission state is retained.
 
-Provide Run/Compare, restore original inputs, and Reset. Reset restores the fresh fixture, cancels pending work, clears the current result/feedback and collapses hints. Worked examples remain readable without a lab. Show the actual current result at the default; no answer choices or learner prediction state are stored. Reflection should show whether information path changed.
+Provide direct edits, restore-original-input controls, and Reset. Reset restores the fresh fixture, cancels pending work and immediately displays its recomputed result. Worked examples remain readable without a lab. Show the actual current result at the default; no answer choices or learner prediction state are stored. Reflection should show whether information path changed.
 
 Use semantic labels, accessible tables and textual equivalents for colour. All dragging has numerical or keyboard alternatives. Keep focus on the initiating control; announce only completed result summaries. Motion is optional, respects reduced-motion preferences and has a static/step equivalent. On narrow screens put controls above figures and results below; use a local labelled scroller or vertical table instead of shrinking text. Maintain readable equations, explicit units and the site's established target sizes.
 
@@ -111,7 +111,7 @@ Nulls: T0 gives zero K/V but preallocated recurrent buffers remain. Attention co
 
 Display additive bands with formula substitution and an exact table, not actual allocated arrays. Plot at most128 calculated sample points. When attention count changes, highlight both the changed K/V slope and changed recurrent-layer count. Windowed mode must draw the direct-read range being removed, because it changes the operator. Linear axes include T0; an optional logarithmic view must explain exclusion of zero.
 
-Bind predictions to every setting and comparison. Reset restores the fresh case and clears results. Invalid inputs keep stale results visibly marked. Phase two verifies byte arithmetic, units, batch scaling, extreme counts, window saturation and accessible narrow layouts. No quality scores or latency estimates belong in this investigation.
+Bind computed outputs to every setting and comparison. Reset restores the fresh case and immediately recomputes its result. Invalid inputs keep stale results visibly marked. Phase two verifies byte arithmetic, units, batch scaling, extreme counts, window saturation and accessible narrow layouts. No quality scores or latency estimates belong in this investigation.
 
 ## Investigation JD — selected experts and retained probability mass
 
@@ -119,7 +119,7 @@ Place in §5. The learner should distinguish router scores, selected indices, se
 
 Four expert entities E0–E3 each have a router logit in −8…8 and an editable two-dimensional output in −10…10 per component. k ranges1…4. The default uses probabilities retained from the full softmax; a comparison switch explicitly names selected-weight renormalization.
 
-Show selected experts, retained probability mass and the actual recombined vector immediately. Changing router scores or capacity updates all three. The explanation follows contributions that survive or are dropped; a separate written exercise may ask for reasoning.
+Show selected experts, retained probability mass and the actual recombined vector immediately. Changing router scores, the selected count or expert outputs updates all three. Capacity and dispatch remain in the dedicated MoE lesson. The explanation follows contributions that survive or are dropped; a separate written exercise may ask for reasoning.
 
 Compute p=softmax(logits), select top-k, and use w=p[selected]. The comparison divides those selected weights by their sum. Declare deterministic ties by lower expert ID first and visibly label a selection-boundary tie. Do not claim this tie order is guaranteed by every GPU top-k implementation. Any tie exercise must explain the announced policy rather than invent a unique selection without it.
 
@@ -137,7 +137,7 @@ Reset restores the stated inputs and immediately displays their computed result.
 
 Place in §7 after worked source2452. This investigation must perform real small-model inference on editable coordinates, not switch between scripted transcripts.
 
-Fresh input: development source2970, original class1, coordinates[(38,100),(100,92),(88,77),(75,62),(50,46),(25,30),(12,15),(0,0)]. Model MAM-37, boundary after three points, intervention K/V reset. Initially show the trajectory, editable table and live comparison, but no model probabilities or feedback.
+Fresh input: development source2970, original class1, coordinates[(38,100),(100,92),(88,77),(75,62),(50,46),(25,30),(12,15),(0,0)]. Model MAM-37, boundary after three points, intervention K/V reset. Initially show the trajectory, editable table, complete model probabilities and live comparison as soon as the selected model loads.
 
 All eight points are editable integers0–100 using fields or keyboard-accessible point controls. The count stays eight because that is the trained representation. Any coordinate edit marks the input “edited; original source class1, new ground truth unassigned.” An optional all-(50,50) degenerate probe has no true digit. Do not retain the original label as a correctness judgment on a modified trace.
 
@@ -167,7 +167,7 @@ Nulls: reset at boundary0 clears empty state; reset after boundary8 has no suffi
 
 Show the path, boundary marker, per-layer cache bundle, full/branch probability bars and per-position logit differences. Include the numeric maximum difference, not only a class badge. Explain how K/V reset removes earlier addressable representations, convolution reset changes transformed inputs and state, and offset reset changes supplied position tags. Earlier logits are internal diagnostics; fitting supervised only the final position.
 
-Bound computation to one eight-point input, three width16 layers and a small number of branches per Run. Load the chosen roughly9K-parameter model only when needed. Do not bundle all300 validation-prefix logs or all six model states on initial page load. Use a bounded worker if needed; coordinate edits mark stale results and wait for Run rather than recomputing on every keystroke.
+Bound computation to one eight-point input, three width16 layers and a small number of branches per valid edit. Load the chosen roughly9K-parameter model only when needed. Do not bundle all300 validation-prefix logs or all six model states on initial page load. Use a bounded worker if needed; valid coordinate edits recompute immediately or with a short debounce and a clear pending state. Cancel stale calculations, so the displayed result always identifies its inputs.
 
 Phase-two verification must reproduce saved worked/fresh/edited/degenerate fixtures and full/stream/chunk paths from actual arrays. Initial logit tolerance is1e−4 for a faithful port; native float32 full/stream differences are below1.26e−5. A precision-driven tolerance revision needs explanation and cannot hide a wrong operator. Verify future edits leave earlier outputs unchanged, branches/requests are isolated, boundary nulls hold, invalid coordinates are blocked, all changes recompute current outputs and mobile/keyboard operation is usable.
 

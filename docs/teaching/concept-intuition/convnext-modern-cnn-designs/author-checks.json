@@ -1,0 +1,39 @@
+{
+  "topicId": "convnext-modern-cnn-designs",
+  "date": "2026-09-26T15:22:36.021Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+    "src/learn/components/lesson-labs/ConvNeXtIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/convnext-intuition.css",
+    "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+    "scripts/generate-convnext-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx": "8f6a32297452b54656296075dbbb5a3c1d2619be7bf82a29aff65bc245435799",
+    "src/learn/components/lesson-labs/ConvNeXtIntuitionFigures.jsx": "f581a43af1f57718930d8502ba2f229fcb3017000aebb34fd86cf4e7d3bda17d",
+    "src/learn/components/lesson-labs/convnext-intuition.css": "1215d206995dbd34284be49872e17008d08db2bf3a33eb90286ed2a2cfef10f4",
+    "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md": "2d3bbfeedb3288dc8f0fcbc469217c5731f657087466de4e193905912c16fa63",
+    "scripts/generate-convnext-lesson.mjs": "9b315ffb6f3436751cec37d356553c792f1844b1223d08bf9e482c32dc184531"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Pooling and channel normalization order counterexample",
+    "Identity-initialized GRN parameter gradients",
+    "Patch-target brightness removal",
+    "Global position-pair scaling across resolutions",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/convnext-models.js",
+    "src/learn/components/lesson-labs/ConvNeXtLabs.jsx",
+    "public/learn-assets/convnext-modern-cnn-designs/calculated-inputs.json",
+    "public/learn-assets/convnext-modern-cnn-designs/saved-models.json"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

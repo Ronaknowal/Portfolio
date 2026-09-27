@@ -1,0 +1,1402 @@
+{
+  "topicId": "spectral-normalization-gradient-penalty",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Native SVD matrix 0",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Native SVD matrix 1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Native SVD matrix 2",
+      "passed": true,
+      "maxAbsoluteError": 1.9860273225978183e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Native SVD matrix 3",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Native SVD matrix 4",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 3,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 3,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 4,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 4,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 5,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 5,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,1,1,2",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,1,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,1,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,valid,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,2,1,2",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,2,-2,0.7",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,2,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Basis matrix 6,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Full operator SVD 6,circular,2,0.2,-0.8",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 3,4,target-one",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 3,4,target-one",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 3,4,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 3,4,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 3,4,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 3,4,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 2,-1,target-one",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 2,-1,target-one",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 2,-1,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 2,-1,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 2,-1,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 2,-1,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 0,0,target-one",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 0,0,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 0,0,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 0,0,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 0,0,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 0.2,0.1,target-one",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 0.2,0.1,target-one",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 0.2,0.1,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 0.2,0.1,one-sided",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty 0.2,0.1,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Penalty derivative 0.2,0.1,zero",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Moved probe penalty",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Normalization derivative oracle",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Power generic",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Power orthogonal",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Power slow_gap",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Power rotated_weight_cached_vector",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Actual PyTorch access 0",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Actual PyTorch access 1",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Actual PyTorch access 2",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Actual PyTorch access 3",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Actual PyTorch access 4",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-11 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 3.970802625596903e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-11 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 4.5207159404814234e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-11 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 4.454849482360412e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-11 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-11 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 5.204170427930421e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-11 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-11 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "clipping-29 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 6.400898694414181e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-29 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 7.62734039816415e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-29 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 6.133969866761735e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-29 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-29 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 1.0408340855860843e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-29 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-29 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "clipping-47 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 5.1976649151352916e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-47 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 7.800535800628339e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-47 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 4.443522647057385e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "clipping-47 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-47 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-47 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "clipping-47 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "gradient-penalty-11 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 7.711544480759613e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-11 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 9.014368801407713e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-11 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 8.751552027508325e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-11 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-11 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-11 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-11 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "gradient-penalty-29 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 8.560356323794593e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-29 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 1.0926686289103316e-7,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-29 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 1.5655735119413094e-7,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-29 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-29 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-29 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-29 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "gradient-penalty-47 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 8.181317268096677e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-47 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 5.752843978967803e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-47 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 1.9066891665531216e-7,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "gradient-penalty-47 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-47 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-47 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "gradient-penalty-47 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "spectral-normalization-11 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 4.534800035482789e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-11 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 2.0695011621052473e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-11 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 6.155112225458836e-9,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-11 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-11 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-11 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-11 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "spectral-normalization-29 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 5.0881003299529937e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-29 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 5.665962765633026e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-29 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 2.4390269554031008e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-29 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-29 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-29 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-29 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "spectral-normalization-47 all256 generated",
+      "passed": true,
+      "maxAbsoluteError": 4.8738443725326874e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-47 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 5.766787305669374e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-47 all1681 gradients",
+      "passed": true,
+      "maxAbsoluteError": 3.4528633979791223e-8,
+      "tolerance": 0.000001
+    },
+    {
+      "name": "spectral-normalization-47 fresh critic",
+      "passed": true,
+      "maxAbsoluteError": 2.42861286636753e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-47 fresh gradients",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-47 fresh generator",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "spectral-normalization-47 joint coordinate/basis swap",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "Positive uniform rescaling null",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Fresh winning radius",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    }
+  ],
+  "limits": [
+    "Native frozen models reused; no new GAN training.",
+    "Browser rendering and interactions checked separately."
+  ]
+}

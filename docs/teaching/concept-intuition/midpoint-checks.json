@@ -1,0 +1,1730 @@
+[
+  {
+    "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "selector": ".rec-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Constructed scalar block: fixed item factors 1 and 2, observed ratings 4 and 2, λ=1. Predictions are p and 2p. Loss is (4−p)² + (2−2p)² + p². Its slope 12p−16 becomes zero at p=4/3, where loss is 28/3. ALS finds this block's bottom before switching which side is allowed to move.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Same factors and counts as the confidence lab: q₁=(1,0), q₂=(0,1), q₃=(1,1), with weights 5, 1, 3. The all-item Gram gives one copy of every outer product. Sparse corrections add only 5−1 and 3−1 copies. The unobserved item contributes [[0,0],[0,1]] to the baseline; skipping its stored row does not erase its loss.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Each bar is one full probability mass. A's reward probability stays .4; B's stays .8. Multipliers .5/.8=.625 and .5/.2=2.5 turn the logging contributions .32 and .16 into target contributions .20 and .40. A rare logged B click counts more because B is more common in the target policy.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "multi-label-multi-output-learning",
+    "selector": ".mo-compression-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 425,
+          "display": "block",
+          "left": 339,
+          "name": "Calculated positions from the program's 200-row fixture. At each common state, 99 rows have rare label 0 (white dot) and one has rare label 1 (amber dot). Marker size does not encode count. The amber crosses show the rank-one reconstruction: centered rare coordinate 0. Adding its mean .01 makes every rare score .01, below a .5 threshold. The common coordinate varies by ±√.5; axes use the same physical unit scale.",
+          "right": 763.6666870117188,
+          "scrollWidth": 425,
+          "width": 424.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "selector": ".sv-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "All bars use the same 0–6.5 risk-weight scale. The tied failures carry total weight 3. Efron subtracts half that mass before the second factor; it does not claim that a particular subject with weight 1.5 actually failed first. Both numerators remain the product 1×2. The figure isolates the denominator approximation before the full likelihood multiplies event-time contributions.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Calculated illustration: reference rate .1/day; event-time percentiles 25%, 50%, 75%. Matching dots denote the same percentile in two distributions, not the same subject's observed counterfactual. Medians move from 6.93 to 13.86 days. At day 10, the stretched survival reads the original curve at day 5: S₁(10)=S₀(5). AFT changes where you read the time axis.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Constructed snapshot, separate from the six-record lab. Both descriptions concern the same next infinitesimal cause-1 probability increment dF₁. Cause-specific hazard divides it by .20; subdistribution hazard divides it by .70. The latter bookkeeping includes cause-2 outcomes, although those subjects cannot experience a new first cause-1 event. This is why its denominator is not an ordinary physical risk set.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 409,
+          "display": "block",
+          "left": 339,
+          "name": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+          "right": 747.6666870117188,
+          "scrollWidth": 409,
+          "width": 408.6666870117187
+        },
+        {
+          "clientWidth": 409,
+          "display": "block",
+          "left": 339,
+          "name": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+          "right": 747.6666870117188,
+          "scrollWidth": 409,
+          "width": 408.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "pca-dimensionality-reduction",
+    "selector": ".pca-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "The same four observations, now drawn in score coordinates. Divide score 1 by √6 and score 2 by √(2/3). Both new coordinate magnitudes become √3/2≈.8660. A/B's original score distance √2 becomes √3, while A/C's 3√2 becomes √3: unequal separations become equal. Every panel uses the same numeric scale on both axes. Whitening rescales distances; it is more than another rotation.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Constructed observations with true signal (2,2), shown by a white circle, and measured input shown by an amber diamond. The fixed retained line is x₂=x₁. Orthogonal noise (1,−1) disappears on projection; parallel noise (1,1) survives unchanged. Axes use equal scales. These examples inspect a given projection; estimating its direction from noisy data remains a separate fitting step.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+    "selector": ".ce-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "DB combines the average distance to each center (2/3 on either side) with center separation 7: (2/3+2/3)/7=4/21. Dunn instead uses the closest cross-group pair and the widest within-group pair: 5/2. Neither is the silhouette's average distance from a selected observation to all members of a group.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Trace upward from each leaf until the paths meet. AB meets at 1; AC and BC both meet at 2. The horizontal leaf positions merely lay out the tree; their printed values give the original locations. The tree preserves AB's distance but compresses original AC=3 and BC=2 into the same height.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "dbscan-density-based-clustering",
+    "selector": ".db-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "A declared finite condensed branch with minimum cluster size 2 is born at λ=2. One row leaves at 3 and the remaining two leave at 5. Sum lifetimes: (3−2)+(5−2)+(5−2)=7. Or sum the shaded count-by-density areas: 3×1+2×2=7. The area counts retained rows through density levels; it is not geographic area or a probability. This tree is illustrative, not an Iris fit.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Use the original trail, ε=1 and m=4. Add a distinct observation I′ at the same position as I. Each zero row now counts D, E, I and I′ and becomes core. The graph acquires a path between the former components. I and I′ are offset vertically only to show two row identities; both physical positions are x=0. Other original core neighbors of D and E are omitted from this graph excerpt; J remains isolated.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "selector": "[data-intuition=\"support-weight-budget\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "The support-vector bound is a weight budget · constructed n = 8, nu = 1/2",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "gaussian-mixture-models-gmm-em-algorithm",
+    "selector": "[data-intuition=\"mixture-variance-budget\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Choosing one source and averaging two sources create different populations",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "t-sne-umap-manifold-learning",
+    "selector": "[data-intuition=\"tsne-shared-denominator\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Move C, and the preference for unchanged pair A–B changes too",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "independent-component-analysis-ica",
+    "selector": "[data-intuition=\"ica-projection-mass\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Equal variance, different distributions · exact independent fair binary sources",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "non-negative-matrix-factorization-nmf",
+    "selector": "[data-intuition=\"nmf-touching-upper-bound\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Lower an easier upper bound from its touching point · exact constructed coordinate update",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "feature-scaling-encoding-imputation",
+    "selector": "[data-intuition=\"cyclic-feature-geometry\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Keep the seam from becoming a false distance · constructed unit-circle representation",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "cross-validation-hyperparameter-tuning",
+    "selector": "[data-intuition=\"cv-shared-variance\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Which uncertainty survives averaging? A constructed four-fold comparison.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "bayesian-networks-causal-graphical-models",
+    "selector": ".bn-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Each rule asks a different question in a specifically edited graph.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A message preserves every way the other cluster can be affected.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "conditional-random-fields-crf",
+    "selector": ".crf-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A second-order score needs the last two labels before choosing the next one.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Incomplete labels teach a set of possible paths, not a guessed completion.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Sample a whole path by keeping its label dependencies intact.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "gaussian-processes-gp",
+    "selector": ".gp-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Recurrence and persistence are two different assumptions.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A long length scale expects observations to move together.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "One inducing value leaves uncertainty about how the function bends around it.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "pac-learning-vc-dimension",
+    "selector": ".pac-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "There are 4 distinct prefixes and 3 prefixes with both extensions, giving 4+3=7 full patterns. Prefix 10 cannot extend to 101. The extra-copy collection contains 00, 01 and 11 but not 10: its flexibility has dropped from the interval class's two-point shattering to at most one-point shattering. This small enumeration exposes the two collections in Sauer's recurrence.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "The comparison threshold is .5 and the required separation γ is .1. Output .55 is above the threshold, but it cannot witness the positive margin condition f(x)≥.6. Output .65 can; output .35 satisfies the negative condition f(x)≤.4. Shattering asks for every requested pattern across all selected inputs with their thresholds fixed in advance. A single point crossing a threshold does not establish the dimension.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "calibration-conformal-prediction",
+    "selector": ".cal-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Solid amber: τ=.8. Dashed neutral: τ=.2. At τ=.8, predicting 1 when y=2 costs .8; predicting 3 costs .2. The asymmetric cost pushes a fitted upper quantile upward. At τ=.5 the two sides have equal slope, giving absolute-error median fitting. These are single-outcome loss curves, not fitted quantiles.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Constructed intermediate values at one new input. Each center and residual belong to the same leave-one-out fit. Keep lower candidates [9,12,7] and upper candidates [11,16,9], then apply the method's finite-sample lower/upper order-statistic rules. Replacing all three centers by one final prediction discards the between-fit variation. These segments are intermediate candidates, not three separately guaranteed intervals.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "rademacher-complexity-generalization-bounds",
+    "selector": ".rademacher-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Constructed constant prediction vectors fₜ=(t,t), with t in [0,1]. Grids spaced .5, .25 and .125 cover this class in empirical RMS distance with radii .25, .125 and .0625. The highlighted target .68 is represented as .5 + (.75−.5) + (.625−.75) + (.68−.625). Corrections can point either way; their permitted magnitude shrinks with scale. This is a decomposition to understand chaining, not a computed generalization bound.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "A mistaken row supplies the direction of its own correction",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "A batch adds examples, not extra neurons",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "One score rises; every probability can change",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "A hard cutoff becomes an input-dependent fraction",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "backpropagation-automatic-differentiation",
+    "selector": "[data-backprop-figure=\"matrix-sensitivity\"], [data-backprop-figure=\"ce-signal\"], [data-backprop-figure=\"microbatch-weights\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "One input reaches two outputs; one weight is reused by two rows",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Cross-entropy compares allocated probability with the target allocation",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Each example should keep the same share of the objective",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "loss-functions-ce-mse-focal-contrastive-triplet",
+    "selector": ".loss-intuition-figure",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A high quantile puts a stronger pull on underestimates",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Ask for extra angular agreement with the correct class",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "batch-layer-group-rms-normalization",
+    "selector": ".normalization-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A hidden route from the future into the present",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Running statistics retain a fading history",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Statistics travel across features; parameter contributions collect across tokens",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "transfer-learning-fine-tuning-strategies",
+    "selector": ".transfer-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A head can fail for two different reasons",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "One measurement controls one output direction",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Follow one feature correction through the detour",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "regularization-l1-l2-elastic-net-dropout",
+    "selector": "[data-intuition=\"regularization-group-threshold\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Same data preference, a different unit of selection — one constructed orthonormal group, λ=4.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "feature-selection-importance-shap-permutation-mutual-info",
+    "selector": "[data-intuition=\"shap-group-arrival-orders\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "The last arrival receives the unit in this unanimity game. Grouping changes how many arrival orders there are.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "bias-variance-tradeoff-learning-curves",
+    "selector": "[data-intuition=\"smoother-direction-budget\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Two noise directions, two different summaries. Constructed orthogonal directions retained by factors 0.8 and 0.2.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "imbalanced-learning-smote-cost-sensitive-learning",
+    "selector": "[data-intuition=\"nearmiss-opposite-neighborhoods\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Nearest and farthest minority points can favor different majority rows. One-dimensional constructed data, retaining one majority row, using one neighbor for either rule. The three minority points and two competitive candidates are drawn below; the other majority points, at 20, 30 and 40, lie outside this view and lose under both rules.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "automl-neural-architecture-search-nas",
+    "selector": "[data-intuition=\"naswot-agreement-kernel\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Turn shared activation decisions into a dot product. Append each code’s inactive bits to its active bits.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "hidden-markov-models-hmm",
+    "selector": "[data-intuition=\"factorial-shared-evidence\"]",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "One shared measurement connects two initially independent explanations. A constructed one-time slice: two devices independently have on-probability 1/2, each draws exactly one unit when on, and a noiseless meter reads their sum.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "semi-supervised-learning-label-propagation-self-training-co-training",
+    "selector": ".ssl-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Agreement depends on the coordinates being compared",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Explore which branch supplies the target and which receives the gradient",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "active-learning",
+    "selector": ".active-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "An uncertain measurement can help little at the location you care about",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Similar uncertainty can point toward different parameter changes",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "selector": ".metric-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "The best single number depends on what errors cost",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Choose what receives one vote before averaging",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "selector": ".formulation-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Constructed counts. The observed 20/100 describes the selected branch. Without further assumptions, the whole production batch could have as few as 20 defective parts or as many as 920: between 2% and 92%. The width of that range comes from absent evidence about the 900, not a poor classifier. Random inspection of some previously uninspected cases can supply information the old rule omitted.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "time-series-validation-forecasting-baselines",
+    "selector": ".ts-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Dot = inside that day's interval; × = outside. Each column has the same 90% empirical coverage in both constructions. Requiring all seven entries in a row to be inside leaves three complete paths when misses are spread across paths, and nine when misses coincide on one path. Daily coverage alone does not determine their joint coverage. These are counting examples, not fitted interval results or an independence assumption.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": ".ete-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "The observed fraction is one, but a small perfect sample does not establish a perfect population. Wilson's approximate 95% interval remains about [0.722, 1]. A naive plug-in normal interval uses zero estimated variance at this boundary and collapses to [1,1]. Neither interval repairs dependence or unrepresentative sampling.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "weight-initialization-xavier-kaiming-p",
+    "selector": ".init-update-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Gradient contributions can add even when the inputs alternate signs",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "residual-connections-skip-connections",
+    "selector": ".res-gate-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A gate is also a function of the input",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "The same number of zeros can remove different evidence",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Which edges disappear together?",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Move the random draw to the quantity the loss actually uses",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "depthwise-separable-dilated-convolutions",
+    "selector": ".depthwise-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Each amber three-dot segment is a shifted copy of the previous reachable set. At d=3 the copies touch as consecutive integers: −2 is followed by −1, and 1 by 2. At d=4, −2 and 2 are missing (crosses). Compare the right end of the left copy, −d+S, with the left end of the middle copy, −S: no missing integer requires −S≤−d+S+1, or d≤2S+1.",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "convnext-modern-cnn-designs",
+    "selector": ".convnext-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Pool, then normalize",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "capsule-networks",
+    "selector": ".capsule-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Length direction",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "rnns-lstms-grus",
+    "selector": ".recurrent-intuition,.neural-table,.neural-table:has(table[aria-label=\"7. Different lengths, stacks and directions\"])",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 393,
+          "display": "block",
+          "left": 345.66668701171875,
+          "name": "Orderless features discard these permutations",
+          "right": 739.0000305175781,
+          "scrollWidth": 393,
+          "width": 393.3333435058594
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "1. Keep a running description",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Three observations, one state number",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 393,
+          "display": "block",
+          "left": 345.66668701171875,
+          "name": "Add contributions because all three positions reuse each parameter",
+          "right": 739.0000305175781,
+          "scrollWidth": 393,
+          "width": 393.3333435058594
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Learning assigns credit to repeated uses of the same weight",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "“Almost one” still compounds",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 393,
+          "display": "block",
+          "left": 345.66668701171875,
+          "name": "Each edge contributes to a different reset placement",
+          "right": 739.0000305175781,
+          "scrollWidth": 393,
+          "width": 393.3333435058594
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "What actually happened",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "6. State belongs to a stream",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "7. Different lengths, stacks and directions",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Start: e₂",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "sequence-to-sequence-encoder-decoder",
+    "selector": ".seq2seq-intuition,.neural-table:has(table[aria-label=\"9. Deeper connections and practical extensions\"])",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "9. Deeper connections and practical extensions",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Reference prefix",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "convolution-pooling-receptive-fields",
+    "selector": ".conv-op-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Adaptive bins are defined by boundaries, not equal-sized partitions",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Absorb a fixed channel scale and offset into the filter",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "New channels are appended; earlier channels remain available",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A smooth width rule becomes repeated stages",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Frozen weights still transmit a gradient to their input",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "decision-trees-random-forests",
+    "selector": ".tree-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Impurity is the chance that two independent labels disagree.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A threshold moves the boundary; the counts move one row at a time.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Similarity can mean “the fitted trees make the same distinctions.”",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "k-nearest-neighbors-knn",
+    "selector": ".knn-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "You can rule out an entire group before measuring every member.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Perfectly matching inputs can still produce different outcomes.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "selector": ".boosting-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A small tree approximates six requests with two shared answers.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "The same initial push can justify different step sizes.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "The model used to judge row 4 determines its training residual.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "support-vector-machines-svm",
+    "selector": ".svm-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Hinge loss pays for the missing score margin, not just wrong labels.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A feasible solution and a lower bound squeeze the optimum from opposite sides.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Every kernel column has a stored observation and coefficient attached to it.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "selector": ".nb-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Independent within each group does not mean independent after mixing groups.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "“The alarm is off” supplies evidence; “the alarm was not measured” may not.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Two future tokens share the same uncertain vocabulary composition.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "ensemble-methods-stacking",
+    "selector": ".ensemble-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A stronger vote helps the rows this stump gets right and hurts the rows it gets wrong.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Train the combiner on honest predictions; serve it with refitted bases.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "A meta-model gives each score its own meaning before combining it.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "attention-mechanism-bahdanau-luong",
+    "selector": ".neural-table:has(table[aria-label=\"Remember where a speech reader has been\"])",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Remember where a speech reader has been",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "selector": ".neural-table:has(table[aria-label=\"3.4 A reused position needs a coherent address\"])",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "3.4 A reused position needs a coherent address",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"]), .neural-table:has(table[aria-label=\"Preserve that memory structure without expensive dense work\"])",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "A calculation you can reconcile by hand",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "A calculation you can reconcile by hand",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 443,
+          "display": "block",
+          "left": 321,
+          "name": "Preserve that memory structure without expensive dense work",
+          "right": 763.6666870117188,
+          "scrollWidth": 443,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "linear-logistic-regression",
+    "selector": ".linear-intuition",
+    "width": 820,
+    "result": {
+      "documentWidth": 805,
+      "figures": [
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "At the best line, neither allowed adjustment has a remaining first-order pull.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "One observed late shipment asks the model to increase its score.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        },
+        {
+          "clientWidth": 441,
+          "display": "block",
+          "left": 321,
+          "name": "Different penalties answer “how much evidence is enough?” differently.",
+          "right": 763.6666870117188,
+          "scrollWidth": 441,
+          "width": 442.6666870117187
+        }
+      ],
+      "viewport": 820
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  }
+]

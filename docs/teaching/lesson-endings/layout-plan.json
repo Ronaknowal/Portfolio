@@ -1,0 +1,3156 @@
+[
+  {
+    "id": "graphs-representations-bfs-dfs",
+    "file": "src/learn/data/topics/graphs-representations-bfs-dfs.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise a changed contract",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Readiness check",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "heaps-priority-queues-tries",
+    "file": "src/learn/data/topics/heaps-priority-queues-tries.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise and choose under new constraints",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "trees-binary-search-trees",
+    "file": "src/learn/data/topics/trees-binary-search-trees.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise, explain and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Readiness check",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "threads-concurrency-locks-deadlocks",
+    "file": "src/learn/data/topics/threads-concurrency-locks-deadlocks.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "7. Build a bounded worker pipeline",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready to use the module as a toolkit?",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "scientific-file-formats-schemas-reliable-data-i-o",
+    "file": "src/learn/data/topics/scientific-file-formats-schemas-reliable-data-i-o.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise an independent import",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Readiness and the next connection",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "sql-relational-data-transactions-for-ml",
+    "file": "src/learn/data/topics/sql-relational-data-transactions-for-ml.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise a changed feature request",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Readiness and the next connection",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "python-basics-types-control-flow-functions-modules",
+    "file": "src/learn/data/topics/python-basics-types-control-flow-functions-modules.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise and check",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready for the next topic?",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "object-oriented-programming-in-python",
+    "file": "src/learn/data/topics/object-oriented-programming-in-python.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Build and test an independent design",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Choose the smallest design that keeps the contract clear",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "iterators-iterables-generators",
+    "file": "src/learn/data/topics/iterators-iterables-generators.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise and check",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready for the next topic?",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "decorators-context-managers",
+    "file": "src/learn/data/topics/decorators-context-managers.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise and check",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "testing-debugging-dependency-management",
+    "file": "src/learn/data/topics/testing-debugging-dependency-management.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise and check",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "numpy-arrays-broadcasting-vectorization",
+    "file": "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Investigate a new dataset",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. Check your readiness and carry the structure forward",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "pandas-data-wrangling-joins-grouping",
+    "file": "src/learn/data/topics/pandas-data-wrangling-joins-grouping.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practise and check",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Connect the checked report to a chart",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "matplotlib-scientific-plotting",
+    "file": "src/learn/data/topics/matplotlib-scientific-plotting.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise a complete report",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "reproducible-notebooks-experiment-structure",
+    "file": "src/learn/data/topics/reproducible-notebooks-experiment-structure.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise a handoff",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "code-documentation-type-hints-api-design",
+    "file": "src/learn/data/topics/code-documentation-type-hints-api-design.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise and review",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "git-github-collaborative-version-control",
+    "file": "src/learn/data/topics/git-github-collaborative-version-control.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practise a complete change",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "linux-basics-filesystems-processes",
+    "file": "src/learn/data/topics/linux-basics-filesystems-processes.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practise a small investigation",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "os-processes-virtual-memory-isolation",
+    "file": "src/learn/data/topics/os-processes-virtual-memory-isolation.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Build and diagnose a worker",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "arrays-strings-hash-maps",
+    "file": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "14. Practice a changed representation contract",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "linked-lists-stacks-queues",
+    "file": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Rebuild the reasoning on changed inputs",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "bash-scripting-command-line-automation",
+    "file": "src/learn/data/topics/bash-scripting-command-line-automation.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Independent investigation: collect several reports",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "vectors-matrices-tensor-operations",
+    "file": "src/learn/data/topics/vectors-matrices-tensor-operations.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise, explain and check readiness",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "matrix-decompositions-svd-qr-cholesky-lu",
+    "file": "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "7. Practise and explain your choice",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "8. Connect the factors to the next idea",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "eigenvalues-eigenvectors",
+    "file": "src/learn/data/topics/eigenvalues-eigenvectors.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise and connect to local change",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "matrix-calculus-jacobians",
+    "file": "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise on changed problems",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "tensor-algebra-einsum-notation",
+    "file": "src/learn/data/topics/tensor-algebra-einsum-notation.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with new questions",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "randomized-linear-algebra",
+    "file": "src/learn/data/topics/randomized-linear-algebra.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise with new failures and new data",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready to continue",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "multivariate-calculus-gradients",
+    "file": "src/learn/data/topics/multivariate-calculus-gradients.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise new calculations and counterexamples",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "convex-optimization",
+    "file": "src/learn/data/topics/convex-optimization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Run, check and practise",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "file": "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise a changed update contract",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+    "file": "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Compare and practise",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "convex-duality-lagrangian-methods-kkt-conditions",
+    "file": "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise new constraints and certificates",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+    "file": "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise the reasoning on new cases",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "non-convex-optimization-landscape",
+    "file": "src/learn/data/topics/non-convex-optimization-landscape.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise and connect",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "constrained-multi-objective-optimization",
+    "file": "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise and connect",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "probability-distributions-bayes-theorem",
+    "file": "src/learn/data/topics/probability-distributions-bayes-theorem.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise on changed experiments",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "maximum-likelihood-map-estimation",
+    "file": "src/learn/data/topics/maximum-likelihood-map-estimation.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise the whole estimation workflow",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "hypothesis-testing-confidence-intervals",
+    "file": "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Report, practise and connect",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "bayesian-inference-conjugate-priors",
+    "file": "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise the complete inference loop",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "concentration-inequalities-hoeffding-bernstein-chernoff",
+    "file": "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise changing the contract",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+    "file": "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise and choose the next method",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "variational-inference",
+    "file": "src/learn/data/topics/variational-inference.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise and connect the next ideas",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "exponential-families-sufficient-statistics",
+    "file": "src/learn/data/topics/exponential-families-sufficient-statistics.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise changing the inference contract",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Connect the ideas and continue",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "measure-theory-probability-spaces",
+    "file": "src/learn/data/topics/measure-theory-probability-spaces.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with new spaces and assumptions",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "optimal-transport-wasserstein-distance-sinkhorn",
+    "file": "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise the complete transport decision",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "causal-inference-do-calculus",
+    "file": "src/learn/data/topics/causal-inference-do-calculus.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise changing the assumptions",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. Continue with explicit assumptions",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "entropy-cross-entropy-kl-divergence",
+    "file": "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with new distributions and decisions",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "mutual-information-information-bottleneck",
+    "file": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise and connect the next question",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "rate-distortion-theory",
+    "file": "src/learn/data/topics/rate-distortion-theory.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise the compression decision",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "f-divergences-integral-probability-metrics",
+    "file": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise changed laws and assumptions",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "graph-fundamentals-adjacency-laplacian-connectivity",
+    "file": "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise the reasoning on a different graph",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "spectral-graph-theory",
+    "file": "src/learn/data/topics/spectral-graph-theory.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise on changed graphs",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "combinatorial-optimization-approximation-algorithms",
+    "file": "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Check the decision in the real system",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+    "file": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+    "entries": [
+      {
+        "level": "H3",
+        "title": "Independent practice: change the law, not just the button",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "random-matrix-theory",
+    "file": "src/learn/data/topics/random-matrix-theory.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise on new shapes and new assumptions",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+    "file": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Measure, test and practise",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "dynamical-systems-theory-chaos",
+    "file": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+    "entries": [
+      {
+        "level": "H3",
+        "title": "Independent practice",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "it-calculus-stochastic-differential-equations",
+    "file": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+    "entries": [],
+    "customTaskGroup": {
+      "afterHeading": "10. Apply, test and practise",
+      "firstComponent": "Practice",
+      "stopBeforeTextPrefix": "Continue in module order:"
+    }
+  },
+  {
+    "id": "numerical-methods-finite-differences-quadrature-root-finding",
+    "file": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise with changed problems",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Next connections and learning resources",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "functional-analysis-rkhs",
+    "file": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise and transfer",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "topology-topological-data-analysis-tda",
+    "file": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise calculation and judgment",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "category-theory-emerging-use-in-ml",
+    "file": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practise the reasoning",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "differential-geometry-riemannian-manifolds",
+    "file": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise the connections",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Continue and choose another learning route",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "attention-mechanism-bahdanau-luong",
+    "file": "src/learn/data/topics/attention.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: calculate, diagnose and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Continue the route and choose another explanation",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "backpropagation-automatic-differentiation",
+    "file": "src/learn/data/topics/backprop.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "7. Practice with changed graphs and failure cases",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "8. References and alternative routes",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+    "file": "src/learn/data/topics/tokenization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "byte-level-tokenization-token-free-models",
+    "file": "src/learn/data/topics/byte-level-tokenization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "vocabulary-design-multilingual-tokenization",
+    "file": "src/learn/data/topics/vocabulary-multilingual.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "multimodal-tokenization-visual-audio-video",
+    "file": "src/learn/data/topics/multimodal-tokenization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "dynamic-tokenization-adat-boundlessbpe-litetoken",
+    "file": "src/learn/data/topics/dynamic-tokenization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "causal-language-modeling-next-token-prediction",
+    "file": "src/learn/data/topics/causal-language-modeling.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "masked-language-modeling-bert-style",
+    "file": "src/learn/data/topics/masked-language-modeling.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "data-curation-deduplication-minhash-bloom-filters",
+    "file": "src/learn/data/topics/data-curation-deduplication.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "scaling-laws-kaplan-chinchilla-beyond",
+    "file": "src/learn/data/topics/scaling-laws.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "curriculum-learning-data-mixing-strategies",
+    "file": "src/learn/data/topics/curriculum-data-mixing.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "fp8-training-low-precision-pre-training",
+    "file": "src/learn/data/topics/fp8-training.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "moe-training-expert-load-balancing",
+    "file": "src/learn/data/topics/moe-training.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+    "file": "src/learn/data/topics/multimodal-pretraining.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "data-curation-pipelines-curator-models-quality-filtering",
+    "file": "src/learn/data/topics/data-curation-pipelines.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "synthetic-data-generation-for-pre-training",
+    "file": "src/learn/data/topics/synthetic-data-pretraining.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "supervised-fine-tuning-sft",
+    "file": "src/learn/data/topics/supervised-fine-tuning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "rlhf-reinforcement-learning-from-human-feedback",
+    "file": "src/learn/data/topics/rlhf.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "dpo-direct-preference-optimization",
+    "file": "src/learn/data/topics/dpo.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "simpo-simple-preference-optimization",
+    "file": "src/learn/data/topics/simpo.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "p-tuning-soft-prompt-methods",
+    "file": "src/learn/data/topics/p-tuning-soft-prompts.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "grpo-rloo-kto-advanced-preference-methods",
+    "file": "src/learn/data/topics/grpo-rloo-kto.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "constitutional-ai-cai",
+    "file": "src/learn/data/topics/constitutional-ai.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "process-reward-models-prm-vs-outcome-reward-models-orm",
+    "file": "src/learn/data/topics/prm-vs-orm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "rlaif-ipo-orpo-emerging-alignment-methods",
+    "file": "src/learn/data/topics/rlaif-ipo-orpo.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "rlvr-reinforcement-learning-with-verifiable-rewards",
+    "file": "src/learn/data/topics/rlvr.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "dapo-dynamic-adaptive-policy-optimization",
+    "file": "src/learn/data/topics/dapo.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+    "file": "src/learn/data/topics/knowledge-distillation-llms.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "rl-for-reasoning-deepseek-r1-style",
+    "file": "src/learn/data/topics/rl-for-reasoning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "The Post-Training section: what this has all been building toward",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "kv-cache-memory-management",
+    "file": "src/learn/data/topics/kv-cache.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+    "file": "src/learn/data/topics/decoding-strategies.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "structured-output-constrained-decoding-outlines-xgrammar",
+    "file": "src/learn/data/topics/constrained-decoding.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "continuous-batching-pagedattention",
+    "file": "src/learn/data/topics/continuous-batching.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "queueing-theory-for-llm-serving",
+    "file": "src/learn/data/topics/queueing-theory-llm-serving.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "speculative-decoding",
+    "file": "src/learn/data/topics/speculative-decoding.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "prefix-caching-prompt-caching",
+    "file": "src/learn/data/topics/prefix-caching.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "inference-cost-economics-compute-scaling",
+    "file": "src/learn/data/topics/inference-cost-economics.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "test-time-compute-scaling",
+    "file": "src/learn/data/topics/test-time-compute.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "inference-engines-serving",
+    "file": "src/learn/data/topics/inference-engines.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Closing: the complete Inference Optimization arc",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "inference-system-architecture-end-to-end",
+    "file": "src/learn/data/topics/inference-system-architecture.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "request-routing-load-balancing",
+    "file": "src/learn/data/topics/request-routing-load-balancing.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "autoscaling-gpu-resource-management",
+    "file": "src/learn/data/topics/autoscaling-gpu.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "disaggregated-prefill-decode",
+    "file": "src/learn/data/topics/disaggregated-prefill-decode.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "caching-strategies-semantic-exact-kv-cache-sharing",
+    "file": "src/learn/data/topics/caching-strategies.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "multi-model-serving-model-routing",
+    "file": "src/learn/data/topics/multi-model-serving.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "rate-limiting-quota-management-fairness",
+    "file": "src/learn/data/topics/rate-limiting.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "guardrails-input-output-filtering-safety-layers",
+    "file": "src/learn/data/topics/guardrails.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "observability-llm-monitoring",
+    "file": "src/learn/data/topics/observability-llm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "streaming-server-sent-events-sse",
+    "file": "src/learn/data/topics/streaming-sse.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "cost-optimization-tco-analysis",
+    "file": "src/learn/data/topics/cost-optimization-tco.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "edge-on-premise-deployment-architectures",
+    "file": "src/learn/data/topics/edge-on-premise.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "multi-region-global-inference-infrastructure",
+    "file": "src/learn/data/topics/multi-region-global.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Closing: the Inference System Design arc",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "context-window-extension-rope-scaling-yarn-ntk-aware",
+    "file": "src/learn/data/topics/context-window-extension.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "retrieval-augmented-generation-rag",
+    "file": "src/learn/data/topics/rag.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "embedding-models-vector-databases",
+    "file": "src/learn/data/topics/embedding-models-vector-db.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Exercises",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Further reading",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "graphrag-agentic-rag",
+    "file": "src/learn/data/topics/graphrag-agentic.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "model-merging-ties-dare-model-soups-slerp",
+    "file": "src/learn/data/topics/model-merging.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Self-check exercises",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "hybrid-search-dense-sparse-reranking",
+    "file": "src/learn/data/topics/hybrid-search.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Exercises",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Closing — the full Large Language Models track",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "linear-logistic-regression",
+    "file": "src/learn/data/topics/linear-logistic-regression.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed questions",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "14. Connect the two models and continue",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "decision-trees-random-forests",
+    "file": "src/learn/data/topics/decision-trees-random-forests.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed questions",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "14. Continue from regions to neighbors",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "k-nearest-neighbors-knn",
+    "file": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practise and write a changed report",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "13. Connect this rule to the next model",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "file": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise transfer and choose the next question",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "support-vector-machines-svm",
+    "file": "src/learn/data/topics/support-vector-machines-svm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Diagnose, transfer and continue",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "naive-bayes-probabilistic-classifiers",
+    "file": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise with new observations",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "ensemble-methods-stacking",
+    "file": "src/learn/data/topics/ensemble-methods-stacking.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed data",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "file": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "14. Practise, diagnose and choose the next step",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "multi-label-multi-output-learning",
+    "file": "src/learn/data/topics/multi-label-multi-output-learning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "14. Practise, explain and transfer",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "file": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "16. Practise, explain and transfer",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "k-means-hierarchical-clustering",
+    "file": "src/learn/data/topics/k-means-hierarchical-clustering.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise, diagnose and transfer",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "pca-dimensionality-reduction",
+    "file": "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: calculate, diagnose and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. What you should now be able to do",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+    "file": "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. A report you can defend, then try on your own",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready to continue?",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "dbscan-density-based-clustering",
+    "file": "src/learn/data/topics/dbscan-density-based-clustering.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practice: change the data, then explain the result",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "14. What to remember, and another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "file": "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practice: explain the mechanism before choosing a label",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "13. What to remember, and another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "gaussian-mixture-models-gmm-em-algorithm",
+    "file": "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise on changed problems",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. Readiness and the next question",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "t-sne-umap-manifold-learning",
+    "file": "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice: make a changed choice and explain the result",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. References & another way to learn it",
+        "kind": "resources"
+      },
+      {
+        "level": "H2",
+        "title": "13. Ready to move on?",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "independent-component-analysis-ica",
+    "file": "src/learn/data/topics/independent-component-analysis-ica.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice with changed inputs",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Readiness and the next question",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "11. References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "non-negative-matrix-factorization-nmf",
+    "file": "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: explain, change, diagnose",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Readiness and the next step",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "feature-scaling-encoding-imputation",
+    "file": "src/learn/data/topics/feature-scaling-encoding-imputation.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: explain the representation before choosing the function",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Readiness and the next connection",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "cross-validation-hyperparameter-tuning",
+    "file": "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: identify the decision before computing the score",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Readiness and what follows",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "regularization-l1-l2-elastic-net-dropout",
+    "file": "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: change the problem, then explain the answer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Readiness and the next question",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "feature-selection-importance-shap-permutation-mutual-info",
+    "file": "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice: change the question and calculate its answer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "9. Readiness and what comes next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "bias-variance-tradeoff-learning-curves",
+    "file": "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: from a calculation to a research decision",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Readiness and the next question",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "imbalanced-learning-smote-cost-sensitive-learning",
+    "file": "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: make the decision yourself",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Readiness and the next lesson",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "automl-neural-architecture-search-nas",
+    "file": "src/learn/data/topics/automl-neural-architecture-search-nas.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: design, calculate, and diagnose",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Connections and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "hidden-markov-models-hmm",
+    "file": "src/learn/data/topics/hidden-markov-models-hmm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practice: change the evidence, keep the question precise",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "13. Readiness and the next lesson",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "conditional-random-fields-crf",
+    "file": "src/learn/data/topics/conditional-random-fields-crf.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: calculate, diagnose, transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "gaussian-processes-gp",
+    "file": "src/learn/data/topics/gaussian-processes-gp.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "7. Practice: calculate, diagnose, and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "bayesian-networks-causal-graphical-models",
+    "file": "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: explain the changed case before calculating",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. What you can now do, and where it goes next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+    "file": "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: produce a decision and explain its evidence",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Another route through the subject",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "active-learning",
+    "file": "src/learn/data/topics/active-learning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: justify the next question and the resulting claim",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Other ways to learn and where to go next",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "file": "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: calculate, diagnose, and defend the choice",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. References and another route through the material",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "pac-learning-vc-dimension",
+    "file": "src/learn/data/topics/pac-learning-vc-dimension.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice: state the claim before calculating",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. What you can now do, and where it goes next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "calibration-conformal-prediction",
+    "file": "src/learn/data/topics/calibration-conformal-prediction.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: calculate, change, and interpret",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. What you can now do, and where it goes next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "rademacher-complexity-generalization-bounds",
+    "file": "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice with changed problems",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Other ways to learn this, and the next connection",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "perceptrons-neurons-activation-functions",
+    "file": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice: explain, compute, diagnose",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "9. References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+    "file": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "Practice: change the problem, then explain the consequence",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Another way to learn, and the next connection",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "batch-layer-group-rms-normalization",
+    "file": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "Practice and diagnosis",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Another explanation and the next step",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "dropout-droppath-stochastic-depth",
+    "file": "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice with changed inputs",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Continue and read another explanation",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "transfer-learning-fine-tuning-strategies",
+    "file": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Where to go next",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "weight-initialization-xavier-kaiming-p",
+    "file": "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "Practice: use the mechanism on a changed case",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Another way to learn, and what comes next",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "residual-connections-skip-connections",
+    "file": "src/learn/data/topics/residual-connections-skip-connections.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "Practice",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "convolution-pooling-receptive-fields",
+    "file": "src/learn/data/topics/convolution-pooling-receptive-fields.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice: construct, diagnose, transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "file": "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice and diagnosis",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. What you should now be able to do",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "depthwise-separable-dilated-convolutions",
+    "file": "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice on changed problems",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "9. Readiness and the next design question",
+        "kind": "next"
+      },
+      {
+        "level": "H3",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "convnext-modern-cnn-designs",
+    "file": "src/learn/data/topics/convnext-modern-cnn-designs.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice: reason about a changed design",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "9. Readiness, connections and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "capsule-networks",
+    "file": "src/learn/data/topics/capsule-networks.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: implement, explain and compare",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Continue and learn another way",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "rnns-lstms-grus",
+    "file": "src/learn/data/topics/rnns-lstms-grus.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: change the problem before checking the answer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Continue and learn another way",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "sequence-to-sequence-encoder-decoder",
+    "file": "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: build, diagnose and change the problem",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. References, another way to learn, and the next step",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "state-space-models-s4-mamba-mamba-2",
+    "file": "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice, explain and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "rwkv-linear-attention-models",
+    "file": "src/learn/data/topics/rwkv-linear-attention-models.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: change the task, not just the numbers on a trace",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "self-attention-multi-head-attention",
+    "file": "src/learn/data/topics/self-attention-multi-head-attention.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice, investigate and explain",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Continue from the mechanism to a complete model",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "transformer-block-architecture",
+    "file": "src/learn/data/topics/transformer-block-architecture.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: change the problem before checking the answer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Where this leads, and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+    "file": "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: change the situation, then explain the result",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "What comes next?",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+    "file": "src/learn/data/topics/grouped-query-attention-gqa-multi-query-attention-mqa.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice: reason about new inputs and constraints",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "What comes next?",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "multi-head-latent-attention-mla",
+    "file": "src/learn/data/topics/multi-head-latent-attention-mla.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice: preserve a computation or change it deliberately",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "What comes next?",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "sparse-linear-attention-variants",
+    "file": "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Another way to learn, and what comes next",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "vision-transformers-vit-deit-swin-dinov2",
+    "file": "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: explain, calculate, intervene and choose",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. References and another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "mixture-of-experts-transformers-moe",
+    "file": "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice with new inputs",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. References and another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "interleaved-cross-attention-architectures",
+    "file": "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice, hints and solutions",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. What to read or watch next",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+    "file": "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice with changed examples",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "graph-transformers-geometric-deep-learning",
+    "file": "src/learn/data/topics/graph-transformers-geometric-deep-learning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice with new inputs",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+    "file": "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: make the probability bookkeeping explicit",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "spectral-normalization-gradient-penalty",
+    "file": "src/learn/data/topics/spectral-normalization-gradient-penalty.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "modern-hopfield-networks",
+    "file": "src/learn/data/topics/modern-hopfield-networks.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: predict, calculate and diagnose",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "xlstm-extended-lstm",
+    "file": "src/learn/data/topics/xlstm-extended-lstm.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice: transfer the mechanism",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "hyena-long-convolution-models",
+    "file": "src/learn/data/topics/hyena-long-convolution-models.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice: reason, calculate and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. References and another way to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "ring-attention-sequence-parallelism",
+    "file": "src/learn/data/topics/ring-attention-sequence-parallelism.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "14. Practice: repair the computation, not just the labels",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "15. Continue learning",
+        "kind": "next",
+        "resourceList": true
+      }
+    ]
+  },
+  {
+    "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+    "file": "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practice and transfer",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "neural-ode-continuous-depth-models",
+    "file": "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practice: transfer the mechanism",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "13. Continue and learn another way",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "titans-multi-memory-architecture",
+    "file": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practice: carry the idea to a changed case",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Ready to move on?",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "hybrid-ssm-transformer-architectures-jamba",
+    "file": "src/learn/data/topics/hybrid-ssm-transformer-architectures-jamba.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practice",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "disjoint-sets-union-find",
+    "file": "src/learn/data/topics/disjoint-sets-union-find.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise with a changed contract",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready to move on",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "complexity-analysis-recursion",
+    "file": "src/learn/data/topics/complexity-analysis-recursion.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise explanations that survive a change",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "binary-search-sorting-two-pointer-patterns",
+    "file": "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Solve a new task and defend the choice",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "backtracking-divide-and-conquer",
+    "file": "src/learn/data/topics/backtracking-divide-and-conquer.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise a new contract",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready to continue",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "dynamic-programming-states-transitions-optimization",
+    "file": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Design a new dynamic program",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "greedy-algorithms-exchange-arguments",
+    "file": "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Prove a new choice",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Ready to continue",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "algorithm-correctness-loop-invariants-termination",
+    "file": "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Build a proof for a new contract",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "segment-trees-fenwick-trees-range-queries",
+    "file": "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Design and test a new summary",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "hashing-collision-resolution-amortized-analysis",
+    "file": "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Build and explain it independently",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "shortest-paths-spanning-trees-topological-ordering",
+    "file": "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practice the changed question",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "string-matching-prefix-functions-rolling-hashes",
+    "file": "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Build and explain it independently",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "reductions-p-np-computational-intractability",
+    "file": "src/learn/data/topics/reductions-p-np-computational-intractability.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise the claim, not just the code",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "What to learn next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "randomized-algorithms-sampling-error-guarantees",
+    "file": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Reconstruct the guarantee yourself",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "network-flow-minimum-cuts-bipartite-matching",
+    "file": "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise the model and the certificate",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "What comes next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "computational-geometry-robust-predicates-convex-hulls",
+    "file": "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "7. Practise changed geometric cases",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "persistent-data-structures-structural-sharing-versioned-queries",
+    "file": "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practise version ownership and queries",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "external-memory-algorithms-b-trees-i-o-complexity",
+    "file": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "8. Practise a changed storage contract",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "algebra-functions-exponentials-logarithms",
+    "file": "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise with new questions",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "sets-logic-relations-proof-techniques",
+    "file": "src/learn/data/topics/sets-logic-relations-proof-techniques.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "11. Practise with changed claims",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "12. Carry the method into the next topic",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "geometry-trigonometry-coordinate-reasoning",
+    "file": "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with changed geometry",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "counting-combinatorics-mathematical-induction",
+    "file": "src/learn/data/topics/counting-combinatorics-mathematical-induction.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed objects and rules",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "14. Use the method again",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "random-variables-expectation-covariance",
+    "file": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Practise on changed models",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "single-variable-calculus-limits-derivatives-integrals",
+    "file": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed assumptions",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "14. Connect the pieces and continue",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "sampling-measurement-experimental-design",
+    "file": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with different designs",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "ordinary-differential-equations-linear-systems",
+    "file": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed systems",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "14. Choose a method and a next step",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "complex-numbers-fourier-laplace-transforms",
+    "file": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Transfer the method and check its limits",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "conditioning-stability-numerical-analysis",
+    "file": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with changed data and methods",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "decision-theory-risk-cost-sensitive-decisions",
+    "file": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Make and defend a changed decision",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "A reusable decision record",
+        "kind": "next"
+      },
+      {
+        "level": "H3",
+        "title": "References and other ways to learn",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "real-analysis-sequences-modes-of-convergence",
+    "file": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "13. Practise with changed claims",
+        "kind": "practice"
+      },
+      {
+        "level": "H3",
+        "title": "Make the method reusable",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "abstract-algebra-groups-symmetry-actions",
+    "file": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Practise with changed contracts",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Continue with a clear boundary",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "partial-differential-equations-conservation-boundary-conditions",
+    "file": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "12. Transfer the method to changed problems",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "numerical-pdes-grids-finite-elements-stability",
+    "file": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+    "entries": [],
+    "customSection": "npde-practice"
+  },
+  {
+    "id": "end-to-end-supervised-learning-error-analysis",
+    "file": "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: make and defend a decision",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "ml-problem-formulation-baselines-data-leakage",
+    "file": "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: repair a question before improving a score",
+        "kind": "practice"
+      }
+    ]
+  },
+  {
+    "id": "time-series-validation-forecasting-baselines",
+    "file": "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "6. Practice on changed requests",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "Where to go next",
+        "kind": "next"
+      }
+    ]
+  },
+  {
+    "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "file": "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: implement a change and explain its effect",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "mini-batches-training-loops-gradient-accumulation",
+    "file": "src/learn/data/topics/mini-batches-training-loops-gradient-accumulation.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "9. Practice: change the data and defend the boundary",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "10. Check readiness and continue",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References & another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  },
+  {
+    "id": "neural-training-diagnostics-reproducible-experiments",
+    "file": "src/learn/data/topics/neural-training-diagnostics-reproducible-experiments.jsx",
+    "entries": [
+      {
+        "level": "H2",
+        "title": "10. Independent case file",
+        "kind": "practice"
+      },
+      {
+        "level": "H2",
+        "title": "11. Readiness and next study",
+        "kind": "next"
+      },
+      {
+        "level": "H2",
+        "title": "References and another way to learn it",
+        "kind": "resources"
+      }
+    ]
+  }
+]

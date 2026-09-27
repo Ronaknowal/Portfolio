@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "scalarComparisons": 1364,
+  "maximumAbsoluteDifference": 2.774504548330725e-7,
+  "checks": [
+    {
+      "name": "18 independent NumPy rectangular reads, complete weights/output and paired-column invariance",
+      "passed": true
+    },
+    {
+      "name": "Worked exact read, mask intervention, forbidden-value null, paired K/V versus value-only permutation and empty-row semantics",
+      "passed": true
+    },
+    {
+      "name": "Shape projections preserve T with unrelated reader/memory/key/value widths",
+      "passed": true
+    },
+    {
+      "name": "Direct recent/all reads, indirect earlier-text routes, no preceding image, reordered causal encoder and bidirectional upstream leak",
+      "passed": true
+    },
+    {
+      "name": "Compression collision and identity restoration; five actual autograd gate fixtures and central differences",
+      "passed": true
+    },
+    {
+      "name": "Native two-head MHA projection, full/streamed query equivalence, mask and cache identity contracts",
+      "passed": true
+    },
+    {
+      "name": "Exact memory bytes, pair-count conventions, recompute/raw-feature separation and maximum UI integers",
+      "passed": true
+    },
+    {
+      "name": "All nine reproduced fits exactly equal historical results; 120 new observations are normalized, source-bound and paired without success selection",
+      "passed": true
+    },
+    {
+      "name": "Both JSX modules parse, learner downloads equal prepared sources and source has no eager recorded-output import",
+      "passed": true
+    },
+    {
+      "name": "Attention-cell black/white foreground is chosen from actual sRGB luminance and exceeds 4.5:1 throughout displayed scale",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Author verification; independent review and real browser are separate",
+    "Native study reproduced all nine fits exactly; UI selections expose actual retained observations, not arbitrary image inference",
+    "Normalization tolerances for saved float32 study observations are 2e-6; cache and analytic checks generally 1e-10"
+  ]
+}

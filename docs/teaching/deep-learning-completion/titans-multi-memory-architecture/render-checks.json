@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "htmlCharacters": 373776,
+  "checks": [
+    "Full manuscript renders with all five investigations and four complete-code controls",
+    "No render exception, React warnings, or nonfinite numerical outputs",
+    "Equations render through KaTeX; practice solutions remain closed",
+    "All chart/diagram containers have focusable local scrolling at native label size"
+  ],
+  "limitations": [
+    "SSR cannot establish painted layout, browser controls, keyboard focus or network recovery."
+  ]
+}

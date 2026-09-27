@@ -1,0 +1,11 @@
+.active-intuition { margin: 2rem 0; border: 1px solid #494235; background: #121211; padding: clamp(.8rem, 2vw, 1.35rem); color: #ddd9d1; }
+.active-intuition h4, .active-intuition h5 { color: #eee7da; font-size: 1rem; margin: 0 0 .7rem; }
+.active-intuition p, .active-intuition figcaption { line-height: 1.7; overflow-wrap: anywhere; }
+.active-intuition figcaption { margin-top: 1rem; color: #c9beab; }
+.active-intuition-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 1.2rem; }
+.active-intuition-panels > section { min-width: 0; border-top: 1px solid #494235; padding-top: .8rem; }
+.active-intuition svg { display: block; width: 100%; height: auto; }
+.active-intuition svg text { fill: #ddd9d1; font-size: 14px; }
+.active-intuition table { width: 100%; font-size: .85rem; border-collapse: collapse; table-layout: fixed; }
+.active-intuition th, .active-intuition td { padding: .45rem .2rem; border-bottom: 1px solid #494235; text-align: left; overflow-wrap: anywhere; }
+.active-intuition caption { text-align: left; margin: .6rem 0; }

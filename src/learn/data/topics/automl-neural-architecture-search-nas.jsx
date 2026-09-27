@@ -104,7 +104,7 @@ const automlContent = {
     <LessonIntro prerequisites={<>A fitted pipeline, a cross-validation split and a held-out comparison, from <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a>. Scaling from <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a>, penalty strength from <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a>, and the error-cost distinction from <a href="/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml">Imbalanced Learning</a>. <strong>No prior neural-network course is required:</strong> section 4 defines a unit, an activation, a layer and a parameter count before anything depends on them.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
       You specify what counts as a valid candidate, how candidates will be judged, and how much work is allowed; a search procedure does the rest. You will build a conditional search space and count it correctly, decide what a cheap evaluation is worth, meet the neural machinery locally, then read a real {estimatorFits}-fit study on {provenance.rows.toLocaleString('en-US')} banknote measurements in which the winning network is perfect on its folds and three other candidates tie by making the same single mistake. The investigations update their calculations and visual explanations as you change valid inputs.
     </LessonIntro>
-    <div className="am-route"><Prose><strong>First pass.</strong> Read sections 1–5 in order, including the small neural bridge in section 4, and try practices 1–6. You will build a valid search space, understand two ways to spend its budget, and interpret a real experiment. Section 6 turns the result into a workflow. <strong>Section 7 is a deeper branch</strong> on differentiable search and cheap architecture proxies; section 8 is optional library translation. You can stop after section 6 and be ready for the next topic.</Prose></div>
+    <div className="am-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–5 in order, including the small neural bridge in section 4, and try practices 1–6. You will build a valid search space, understand two ways to spend its budget, and interpret a real experiment. Section 6 turns the result into a workflow. <strong>Section 7 is a deeper branch</strong> on differentiable search and cheap architecture proxies; section 8 is optional library translation. You can stop after section 6 and be ready for the next topic.</Prose></div>
 
     <Prose>You have a dataset, several reasonable models, and an afternoon. A logistic model might work. A tree might need less preprocessing. A small neural network might capture a useful interaction. Each choice brings more choices: which columns to transform, how much to regularize, how large a model to fit, and when to stop trying alternatives.</Prose>
     <Prose><strong>Automated machine learning, or AutoML, organizes and carries out some of these experiments.</strong> You specify what counts as a valid candidate, how candidates will be judged, and how much work is allowed. A search procedure proposes candidates; an evaluator fits and scores them; a record of the results guides the next decision. Neural architecture search, or NAS, applies this idea to the structure of a neural network.</Prose>
@@ -215,6 +215,12 @@ const automlContent = {
 
     <H3>A graph must also be executable</H3>
     <Prose>Think of a more general architecture as a directed acyclic computation graph. A node stores an intermediate tensor; an edge applies an operation. Two paths can be added only if their output shapes agree, or if an explicit projection makes them agree. Concatenation joins selected dimensions and changes the downstream shape. An identity edge preserves its input; a zero edge contributes a zero tensor of the required shape.</Prose>
+    <LessonTable caption="Shape is part of the search grammar; B is the number of examples processed together" headers={['Two branch outputs', 'Operation', 'Result']} rows={[
+      ['B × 8 and B × 12', 'Add corresponding entries', 'Invalid: the feature widths disagree'],
+      ['B × 8 and B × 12', 'Concatenate feature coordinates', 'B × 20; the next layer receives twenty values per example'],
+      ['B × 8 and B × 12', 'Project the second branch from 12 to 8, then add', 'B × 8; an affine projection adds 12×8 + 8 = 104 parameters'],
+    ]} />
+    <Prose>These are different executable candidates, not interchangeable fixes to a drawing. Concatenation preserves both feature lists, while addition combines aligned entries; learning a projection adds computation and parameters. The evaluator must train the graph that the search description actually defines.</Prose>
     <Prose>NAS therefore has three separable components:</Prose>
     <LessonTable caption="The three separable components of any NAS method" headers={['Component', 'The question it answers', 'Our small study']} rows={[
       ['Search space', 'Which executable architectures are allowed?', 'Three fixed hidden-width patterns.'],
@@ -309,12 +315,14 @@ const automlContent = {
     <MathBlock>{'\\begin{gathered}p_i=\\frac{e^{\\alpha_i}}{\\sum_j e^{\\alpha_j}},\\\\[4pt]\\overline o(x)=\\sum_i p_i\\,o_i(x),\\end{gathered}'}</MathBlock>
     <Prose>and evaluate the mixture while searching. The logits are not class probabilities. They control how candidate operations contribute to an intermediate computation.</Prose>
     <Prose>For a constructed scalar edge at input <Math>{'x=2'}</Math>, let the operations be zero, identity, and negation. Their outputs are <Math>{'[0,2,-2]'}</Math>. With logits <Math>{'[\\log2,0,0]'}</Math>, the probabilities are <Math>{'[0.5,0.25,0.25]'}</Math>, so the mixed output is {num(mixture.mixed)}. If the target is 1 and loss is <Math>{'\\tfrac12(\\overline o-1)^2'}</Math>, the loss is {num(mixture.loss)}.</Prose>
+    <Prose>Increasing one logit reallocates a fixed total weight of one: it strengthens that operation while taking weight from the others. Its effect therefore depends on how its output differs from the current mixture, not just on whether its own output is large. An operation already producing exactly the mixture’s output has no first-order effect on that output when its logit changes.</Prose>
     <Prose>The softmax derivative gives</Prose>
     <MathBlock>{'\\begin{gathered}\\frac{\\partial\\overline o}{\\partial\\alpha_i}=p_i\\big(o_i-\\overline o\\big),\\\\[6pt]\\frac{\\partial L}{\\partial\\alpha_i}=(\\overline o-1)\\,p_i\\big(o_i-\\overline o\\big).\\end{gathered}'}</MathBlock>
     <Prose>The gradient is <Math>{'[0,-0.5,0.5]'}</Math>. One gradient step of size {mixture.step} changes the logits to <Math>{'[\\log2,0.2,-0.2]'}</Math>, yielding output about {num(mixture.updatedOutput)}. The identity operation&rsquo;s contribution increases, which moves the mixture toward the target.</Prose>
     <MixtureLab />
     <Prose>The <a href="https://arxiv.org/pdf/1806.09055">DARTS paper</a> uses continuous mixtures to search cell structures. Its convolutional-cell discretization retains two strong nonzero operations from distinct incoming nodes for each intermediate node; its recurrent-cell construction uses one. This is more specific than independently keeping the largest logit on every possible edge. Shape-compatible search and the final graph-construction rule both belong in a reproducible method.</Prose>
 
+    <Prose>A good mixture need not contain a single equally good operation. At x=1, identity outputs 1 and negation outputs −1. An equal mixture outputs 0 and exactly fits a target of 0; keeping either operation alone gives half-squared loss 0.5. Discretization changes the function class. It is a reason to evaluate and, where the protocol calls for it, retrain the selected discrete graph instead of attaching the mixture’s score to it.</Prose>
     <H3>The architecture should anticipate trained weights</H3>
     <Prose>For a network, operations can have trainable weights <Math>{'w'}</Math> in addition to architecture variables <Math>{'\\alpha'}</Math>. The intended nested problem is</Prose>
     <MathBlock>{'\\begin{gathered}\\min_\\alpha L_{\\mathrm{val}}(w^*(\\alpha),\\alpha),\\\\[4pt]w^*(\\alpha)\\in\\arg\\min_w L_{\\mathrm{train}}(w,\\alpha).\\end{gathered}'}</MathBlock>
@@ -339,6 +347,15 @@ const automlContent = {
     <Prose>where <Math>{'d_H'}</Math> is Hamming distance: the number of positions at which two codes differ. The proposed score uses <Math>{'\\log\\det K'}</Math>. With codes 110 and 101, <Math>{`K=\\begin{bmatrix}${kernel.matrix[0].join('&')}\\\\${kernel.matrix[1].join('&')}\\end{bmatrix}`}</Math>, so the determinant is {kernel.determinant}. Identical codes give a singular matrix and determinant {singularKernel.determinant}. This helps visualize the score&rsquo;s preference for differentiated activation patterns; it does not prove that such differentiation will generalize after training.</Prose>
     <Prose>The <a href="https://proceedings.mlr.press/v139/mellor21a/mellor21a.pdf">NASWOT paper</a> evaluates this signal on architecture benchmarks and studies sensitivity to initialization and batches. Its main construction uses actual input mini-batches; Gaussian random inputs are an ablation, not the definition of the method. &ldquo;Without training&rdquo; still involves computation, including a forward pass and a matrix calculation. A practical implementation must specify handling of singular kernels and distinguish any numerical regularization from the original exact formula.</Prose>
 
+    <figure className="am-figure" data-intuition="naswot-agreement-kernel">
+      <figcaption><strong>Turn shared activation decisions into a dot product.</strong> Append each code’s inactive bits to its active bits.</figcaption>
+      <LessonTable caption="One constructed pair of activation codes" headers={['Input', 'Active bits c', 'Inactive bits 1−c', 'Combined vector']} rows={[
+        ['First', '110', '001', '(1,1,0,0,0,1)'],
+        ['Second', '101', '010', '(1,0,1,0,1,0)'],
+      ]} />
+      <Prose>Each vector has squared length 3: every unit contributes once, through its active or inactive entry. Their dot product is 1 because only the first activation decision agrees. Their Gram matrix is therefore the stated K with diagonal 3 and off-diagonal 1. Its determinant 3×3−1×1=8 measures squared area spanned by those two vectors. Identical codes give parallel vectors, zero area and log determinant −∞.</Prose>
+      <Prose>This makes the diversity preference visible, but it is still a proxy: distinct activation patterns can separate nuisance variation as well as useful task information. A positive determinant is not a trained accuracy or proof that the architecture learned labels. The computation must handle a singular matrix explicitly instead of reporting a finite invented score.</Prose>
+    </figure>
     <H3>Keep the final comparison honest</H3>
     <Prose>Use the same task data, candidate space, fitting budget, and deployment protocol when comparing search methods, unless a changed component is the explicit subject of the experiment. Count search work, proxy evaluation, architecture selection, and final retraining. Separate variability from architecture-training seeds and variability from the search process itself. Repeatedly consulting a public benchmark&rsquo;s test outcomes can turn that benchmark into selection evidence, even when no single training script reads those labels.</Prose>
     <Prose>The later <a href="/learn/topic/neural-architecture-search-nas">dedicated NAS lesson</a> develops convolutional cells, search benchmarks, shared-weight implementation, and hardware evaluation. The local mechanism here is complete enough to explain what those methods optimize without pretending that a tiny multilayer perceptron validates a full image-model search system.</Prose>
@@ -358,61 +375,61 @@ const automlContent = {
       <Prose>The tuner selects using validation performance, including its checkpoint behavior across epochs. That checkpoint choice is part of the selection procedure. A high printed score still needs assessment outside this holdout before supporting a generalization claim. The <a href="https://keras.io/keras_tuner/api/hyperparameters/">conditional-hyperparameter reference</a> and <a href="https://keras.io/keras_tuner/getting_started/">complete getting-started guide</a> explain the interface and retrieval of selected settings.</Prose>
     </OptionalProgram>
 
-    <H2>{headings[8]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[8]}</H2>
     <Prose>Try the core questions 1&ndash;6 before the deeper questions. Open a hint or solution when you need it. Changing an answer after a reveal is useful reflection, but it is different from an unaided first attempt.</Prose>
 
-    <Practice title="1. Count the experiments"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. Count the experiments"
       question={<>A new space contains logistic regression with three <Math>{'C'}</Math> values and two preprocessing options; trees with four depths; and neural networks with either one hidden layer of width 6 or 12, or two hidden layers with each width independently 6 or 12. How many valid configurations exist? How many fits does four-fold CV require before refits?</>}
       hint="Add independent family branches. Multiply settings that are simultaneously active within a branch.">
       <Prose>Logistic contributes 6, trees 4, one-layer networks 2, and two-layer networks 4. Total 16 configurations; four-fold CV requires 64 fits. Counting an inactive second width for a one-layer network would double-count its functionally identical configurations. This exercise uses a different registry from the first investigation, which also includes nearest neighbors; apply the same branch-by-branch counting rule to the families declared here.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. Read the evidence boundary"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. Read the evidence boundary"
       question="A colleague standardizes the full development matrix, runs fold-based AutoML on it, then tries five cost thresholds on the final inspection set and reports the best inspection cost. Identify two distinct boundary violations and repair them."
       hint="Ask which rows fitted the preprocessing and which rows selected the threshold.">
       <Prose>The scaler learned validation-fold information before CV; place it inside each candidate pipeline and fit it on each fold&rsquo;s fitting rows. The inspection set selected the threshold; choose thresholds using selection data under the task&rsquo;s cost policy, then assess the fixed model-plus-threshold procedure with separate evidence. Calling the second step &ldquo;just postprocessing&rdquo; does not restore independence.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Spend a small fidelity budget"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Spend a small fidelity budget"
       question={<>Four candidates have losses at resources 1, 2, and 4: A = (0.10, 0.09, 0.08), B = (0.11, 0.08, 0.07), C = (0.12, 0.07, 0.02), D = (0.20, 0.18, 0.15). Keep half at each cut. Which candidate wins? What is the work with restart and with genuine continuation? Which full-resource winner is missed?</>}>
       <Prose>A and B survive resource 1; B survives resource 2 and finishes at 0.07. Restart work is <Math>{'4+2(2)+1(4)=12'}</Math>; continuation work is <Math>{'4+2(2-1)+1(4-2)=8'}</Math>. C would reach 0.02 but is removed at the first cut. Its good later value cannot inform a real early decision unless that evidence is actually purchased.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Count network parameters, including biases"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Count network parameters, including biases"
       question="For five inputs, hidden widths 6 and 3, and one binary output, compute every parameter block. Would replacing the two layers with one width-12 layer necessarily improve accuracy?">
       <Prose>The blocks contain {networkBlocks(5, [6, 3]).blocks.map(block => block.equation.split(' = ')[0]).join(', ')}, that is {networkBlocks(5, [6, 3]).blocks.map(block => block.total).join(', ')} parameters, totaling {networkBlocks(5, [6, 3]).total}. A one-layer width-12 model has <Math>{'(5+1)12+(12+1)='}</Math>{networkBlocks(5, [12]).total}. Neither parameter count determines accuracy: representation, optimization, regularization, and data all matter. Compare them under a declared evaluator.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Interpret the real search replay"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Interpret the real search replay"
       question="Reveal only the first three candidates in the replay investigation. Explain why the recommended candidate can change while the best-so-far score stays flat. Can the selected width-16 model's eventual inspection result be attached to the budget-three recommendation?">
       <Prose>{replayTwo.recommendedId} and {replayThree.recommendedId} tie at {num(replayThree.best)} mean fold accuracy. The registry-order tie rule favors {replayThree.recommendedId} when it becomes available. A flat maximum does not imply the selected model is unchanged. The width-16 model has not been revealed at budget three and its inspection result belongs to a different selected procedure. The replay cannot borrow that outcome.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Apply a hard deployment constraint"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Apply a hard deployment constraint"
       question="Three hypothetical models have (latency, accuracy) pairs P = (3 ms, 0.92), Q = (6 ms, 0.96), and R = (5 ms, 0.91). Identify the frontier and choose under a 5 ms cap. Explain why adding a finite latency penalty to accuracy need not enforce the cap.">
       <Prose>P dominates R, while P and Q trade speed for accuracy. The frontier is P and Q; the cap leaves P as the best feasible candidate. A finite penalty allows accuracy gains to compensate for exceeding the cap. Feasibility filtering encodes a hard bound directly, provided the latency measurement itself matches the requirement. You can enter these three pairs directly in the deployment investigation.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Calculate expected improvement — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Calculate expected improvement — deeper"
       question="The incumbent loss is 0.3. Candidate U has a deterministic predicted loss of 0.25. Candidate V has Gaussian predicted mean 0.3 and standard deviation 0.1. Which has larger EI? What additional fact would you need before claiming that it will actually improve validation performance?">
       <Prose>U has EI {num(expectedImprovement(0.3, 0.25, 0))}. V has <Math>{'0.1\\phi(0)=0.1/\\sqrt{2\\pi}\\approx'}</Math>{num(expectedImprovement(0.3, 0.3, 0.1))}, so U wins this acquisition comparison. Actual performance requires an evaluation; the surrogate&rsquo;s probability model and acquisition ranking are not observed objective values.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Differentiate an operation mixture — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Differentiate an operation mixture — deeper"
       question="At one input, two operations output 3 and −1. Their logits are equal, the target is zero, and loss is half squared error. Find the mixture and both architecture gradients. Then add 7 to both logits.">
       <Prose>Probabilities are one half, output is {num(practiceMixture.mixed)}, and loss is {num(practiceMixture.loss)}. Gradients are <Math>{'1(0.5)(3-1)=1'}</Math> and <Math>{'1(0.5)(-1-1)=-1'}</Math>. Adding a common constant leaves probabilities, output, loss, and gradients unchanged. It changes a redundant coordinate representation, not the mixture. The mixture investigation&rsquo;s common-logit setup applies exactly this null.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="9. Separate three architecture derivatives — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="9. Separate three architecture derivatives — deeper"
       question={<>Use <Math>{'L_{train}=\\tfrac12(w-\\alpha)^2'}</Math>, <Math>{'L_{val}=\\tfrac12(w-2)^2'}</Math>, current <Math>{'w=0'}</Math>, <Math>{'\\alpha=0.5'}</Math>, and <Math>{'\\xi=0.2'}</Math>. Compute the first-order direct derivative, the one-step derivative, and the exact-inner outer derivative.</>}>
       <Prose>The direct derivative is {num(practiceScalar.lanes[0].outer)}. The one-step weight is {num(practiceScalar.stepped)} and its derivative with respect to architecture is {num(practiceScalar.lanes[1].dependency)}, so the one-step outer derivative is <Math>{'(0.1-2)(0.2)='}</Math>{num(practiceScalar.lanes[1].outer)}. The exact inner optimum is <Math>{'w^*=\\alpha'}</Math>, yielding derivative <Math>{'\\alpha-2='}</Math>{num(practiceScalar.lanes[2].outer)}. These are three distinct functions being differentiated, not rounding differences.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="10. Design an experiment that could disappoint you"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="10. Design an experiment that could disappoint you"
       question="Choose a small classification task with a documented prediction-time feature set. Declare a simple baseline, two justified model families, a conditional space, grouping or temporal boundaries, selection metric, budget, tie rule, and final assessment. Predict one result that would make you simplify the system. Explain which observation would invalidate your original split rather than merely favor a different optimizer."
       revealLabel="Example response and assessment criteria">
       <Prose>A valid response could compare a standardized regularized linear model with bounded-depth trees for repeated measurements from devices, keeping each device in one fold when deployment concerns new devices. It would reserve devices for final assessment and declare latency conditions. A near-tie favoring the simpler baseline could justify choosing it. Discovering that device identifiers were duplicated across roles would require repairing the evaluation boundary and reassessing affected conclusions. A large search score alone is not evidence that the split is valid. Other tasks can satisfy the same criteria with different models and boundaries.</Prose>
-    </Practice>
+    </Practice></div>
 
     <Prose>You are ready to continue when you can distinguish a configuration from fitted weights, count a conditional space, protect fitting and selection boundaries, explain a fidelity failure, and interpret the real result without treating the finite search winner as a universal best model. The deeper questions prepare you to inspect differentiable NAS implementations and proxy claims.</Prose>
     <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
@@ -426,11 +443,11 @@ const automlContent = {
       ['Compute an operation mixture\u2019s gradient and explain the discretization gap', 'Section 7, the mixture investigation, practice 8'],
       ['Tell the direct, one-step and exact-inner architecture derivatives apart', 'Section 7, the bilevel figure, practice 9'],
       ['Say what a shared-weight score or an untrained proxy actually measured', 'Section 7, the provenance figure'],
-    ]} />
+    ]} /></section>
 
-    <H2>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{headings[9]}</H2>
     <Prose>The next topic in this module is <a href="/learn/path/full-curriculum/hidden-markov-models-hmm?module=classical-ml">Hidden Markov Models</a>. AutoML chooses among learning procedures; an HMM introduces a particular probabilistic structure for observations that arrive in sequence and depend on unobserved states. It will distinguish summing over possible hidden paths from finding one best path. This is a change in modeling assumptions, not simply another knob for the current independent-row classifier.</Prose>
-    <Prose>For focused review, revisit <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">feature scaling and encoding</a>, <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">cross-validation</a>, <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">regularization</a>, and <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">feature selection</a>. For deeper branches, use <a href="/learn/path/full-curriculum/gaussian-processes-gp?module=classical-ml">Gaussian processes</a>, <a href="/learn/topic/neural-architecture-search-nas">dedicated NAS</a>, and <a href="/learn/topic/automl-as-meta-learning">AutoML as meta-learning</a>.</Prose>
+    <Prose>For focused review, revisit <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">feature scaling and encoding</a>, <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">cross-validation</a>, <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">regularization</a>, and <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">feature selection</a>. For deeper branches, use <a href="/learn/path/full-curriculum/gaussian-processes-gp?module=classical-ml">Gaussian processes</a>, <a href="/learn/topic/neural-architecture-search-nas">dedicated NAS</a>, and <a href="/learn/topic/automl-as-meta-learning">AutoML as meta-learning</a>.</Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
       <li><a href="https://www.automl.org/book/">Hutter, Kotthoff and Vanschoren &mdash; Automated Machine Learning: Methods, Systems, Challenges</a>, openly licensed. Chapters 1&ndash;3 separate hyperparameter optimization, meta-learning, and architecture search; the auto-sklearn and Automatic Statistician chapters show different uses of a search history and search language. Read the relevant section after its local example rather than treating the whole book as a prerequisite.</li>

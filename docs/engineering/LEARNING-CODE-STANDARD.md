@@ -2,7 +2,7 @@
 
 For hub/navigation or end-to-end project work, also read [the learning workspace architecture](LEARNING-WORKSPACE.md). Projects use separate compact metadata, stage content loaded on demand, canonical downloadable programs and their own learner/authoring progress. Preserve existing lesson routes, ordered curriculum and source-bound reviews when extending discovery.
 
-For learner-facing algorithm code, also follow the teaching standard's [scratch/library implementation contract](../../LESSON-TEACHING-STANDARD.md#build-the-mechanism-then-control-the-library). Use semantic owners for reusable primitives and complete downloadable programs. Generated displayed copies must come from the canonical program and be checked for agreement; independent hand-edited copies are a drift risk. Keep large program views deferred until opened and keyboard-scrollable without page overflow. Inspectable teaching code still needs appropriate algorithms, stable arithmetic, efficient memory use, explicit contracts and meaningful tests. A readable scalar trace can introduce a vectorized or asymptotically better final route. Do not claim optimal performance without a stated workload/cost model and, for empirical claims, measurements.
+For learner-facing algorithm code, also follow the teaching standard's [scratch/library implementation contract](../../LESSON-TEACHING-STANDARD.md#build-the-mechanism-then-control-the-library). Use semantic owners for reusable primitives and complete downloadable programs. Generated displayed copies must come from the canonical program and be checked for agreement; independent hand-edited copies are a drift risk. Show instructional program views in the reading flow without an opening click. Large source may load automatically as its view approaches the viewport; keep it keyboard-scrollable without page overflow. Inspectable teaching code still needs appropriate algorithms, stable arithmetic, efficient memory use, explicit contracts and meaningful tests. A readable scalar trace can introduce a vectorized or asymptotically better final route. Do not claim optimal performance without a stated workload/cost model and, for empirical claims, measurements.
 
 Updated 11 September 2026. This is the current engineering policy for educational code. Read it with the teaching standard: efficient delivery must preserve complete explanations, topic-specific visuals, accurate models and practice. The user's current request controls scope.
 
@@ -48,6 +48,8 @@ Compact `subtopics` labels may appear in generated navigation for discovery and 
 
 Generated files are deterministic outputs; never edit them manually. The generator parses static `title`, `readTime` and optional boolean `hasIntegratedGuide` from the lesson's default-exported object, without evaluating its component or imports. Keep these fields static; introduce a deliberate schema change if richer metadata is necessary. It validates publication paths, catalogue membership, distinct ownership and required content. New lesson registration requires a manifest entry and real complete content; a blueprint alone remains planned.
 
+`hasIntegratedGuide` is retained as legacy metadata; it no longer controls whether the reader shows its shared opening. Do not set or clear it to create an alternate lesson layout.
+
 The reader renders `readTime` as supplied. Use an explicit learner-facing estimate with units, such as `~60 min read + 90 min practice`, rather than a bare number. Check the generated header as well as the lesson body. Before producing data for a shared component, read its actual field contract: for example, `RunnableExample` renders its recorded output from `example.expected`. If a topic-owned execution record calls that field `output`, map it explicitly at the boundary and verify the actual displayed code/output text. An existing component on screen does not prove that all its data was rendered.
 
 Vite regenerates artifacts at build/dev startup and when relevant source metadata changes during development. It writes only changed files. Run `node scripts/generate-learning-artifacts.mjs` after source changes outside Vite, and `node scripts/generate-learning-artifacts.mjs --check` to detect stale outputs. Authoring CLI tools read full sources through the authoring adapter, so topic notes and curriculum verification do not silently depend on stale browser snapshots.
@@ -70,6 +72,86 @@ At the first runnable implementation, check the actual consumers before producin
 5. Ignore asynchronous results from an old route. Reset mounted lesson state when the topic changes. Late imports cannot replace the new topic's body. Keep direct links, hash targets, module context, browser Back and progress identities working.
 6. Completion stays disabled until a published lesson loads and renders successfully. Errors and planned pages cannot become completed through the footer.
 7. Reuse successfully imported modules on revisit. ES modules remain cached by the browser; this is not a claim that visited JavaScript can be unloaded. Unmount inactive components and clean up listeners, timers, observers, animation frames and workers.
+
+## Shared lesson opening and section navigation
+
+`TopicContent` places one `LessonGuide` directly below the lesson title/meta. `LessonOpeningContext` lets lesson-owned guidance render in that opening through React portals. Keep the common neutral/amber presentation and responsive, keyboard-accessible links; retain topic-specific layouts and scientific encodings in the body.
+
+- Use `LessonIntro` from `components/lesson-labs/LessonElements.jsx` for an existing lesson summary and `prerequisites`, or `LessonOrientation` from `components/LessonOpening.jsx` for new direct use. Their contents belong to the opening. The old `LessonIntro.sections` prop no longer defines navigation; do not add new partial route arrays.
+- Mark guidance paragraphs explicitly with `<Prose opening="route">`, `<Prose opening="prerequisites">`, or `<Prose opening="exploration">`. `opening="summary"` is available for a summary without `LessonIntro`. Preserve the authored inner JSX, including links and locally explained terms. For a structured guidance fragment, use `<LessonOpeningNote kind="route">` (or another supported kind) directly.
+- Keep the explanation of the learner's actual problem in the body. Register guidance deliberately; do not move arbitrary introductory prose by keyword, hide it with CSS, or add another bespoke compass/TOC. The shared note components retain their contents inline when rendered outside the reader.
+- Use meaningful actual H2s for navigable lesson sections. `lesson-navigation.js` collects them after the selected lesson mounts, excluding local lab, aside/navigation and disclosure headings. The collection includes wrapped/template-generated section headings. Keep sections that need a main TOC entry outside local disclosures. H3s and lab controls remain local content.
+- Preserve stable IDs and existing wrapper anchors. Retain authored section numbers because prose and practice may refer to them; unnumbered sections must not shift those numbers. Display each number once. Heading display normalization must not rename existing fragments.
+
+The authoring-only `scripts/lib/prepared-lesson-renderer.mjs` supports explicit Markdown paragraph annotations:
+
+```js
+renderPreparedLesson(manuscript, {
+  assetBase: `/learn-assets/${id}/`,
+  preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
+  opening: [
+    ["**First pass:**", "route"],
+    ["**Explore as you read.**", "exploration"],
+  ],
+});
+```
+
+Each `opening` entry is an exact Markdown prefix and one of `summary`, `route`, `prerequisites`, or `exploration`. It must select exactly one paragraph; missing, overlapping and repeated matches fail. This is an explicit author choice, not a general prose classifier. Use the paragraph's actual prefix, including Markdown formatting.
+
+When regenerating an existing lesson, `preserveOpeningFrom` reads its explicit `<Prose opening="…">` annotations before the destination is written. It restores them only when each previous paragraph has one exact static-text match in the generated JSX, with formatting whitespace normalized. It preserves generated inner JSX and links. A missing/changed/ambiguous paragraph, unsupported dynamic annotation or conflicting kind fails visibly so the author can reconcile the source and generator instead of silently scattering guidance again. A new destination has no previous annotations; supply `opening` entries for its guidance. Bespoke generators that do not use this renderer must preserve the same attributes themselves. Do not regenerate a completed lesson merely to apply a navigation convention or change its delivery ledger.
+
+After navigation changes, check one opening, actual section coverage, unique fragments, native hash/Back behavior, focus, narrow-width bounds and unchanged topic/progress identity. Reuse numerical evidence for unchanged mechanisms. `scripts/check-lesson-opening-authoring.mjs` verifies annotation preservation and its failure cases without running topic generators or scientific programs.
+
+## Shared lesson endings
+
+Give recurring closing material explicit authored boundaries. Use `section.lesson-ending` with `data-lesson-ending` for its purpose and the shared `lesson-ending--practice`, `lesson-ending--next` or `lesson-ending--resources` presentation. Keep practice, readiness/next, further learning and technical references distinguishable; preserve topic-specific titles, authored section numbers, stable heading IDs and every existing content node. A later substantive teaching branch is not a closing section merely because its title includes “next”, “deeper” or “connections”. Do not classify or move ending content by runtime text matching or DOM scanning.
+
+Within final practice, `lesson-exercise` marks the existing task boundary. Keep the prompt visible, use native `details`/`summary` for authored hints and solutions, and preserve their distinct labels and contents. An in-body `Checkpoint`, a lab's live output and an independent final exercise have different roles. Do not wrap all checkpoints or all disclosures globally, manufacture missing feedback, or rewrite a topic's practice helper merely to impose identical teaching structure.
+
+`Sources` in `lesson-labs/LessonElements.jsx` uses its existing `alternatives` prop for a normal H2 “Further learning” section (`data-lesson-ending="further-learning"`) and its children for a separate H2 “Technical references” section (`data-lesson-ending="references"`). Both use `lesson-ending--resources` and a `lesson-resource-list` body. Keep every resource annotation and optional-reference note. Topic-authored mixed lists need an explicit content-aware boundary decision; URL patterns do not establish learning purpose. Use normal semantic sections so actual main headings enter the shared opening's full TOC.
+
+Prepared authoring supports explicit `endings` entries shaped as `{ level: "H2" | "H3", title: exactAuthoredTitle, kind: "practice" | "next" | "resources" | "further-learning" | "references" }`. The renderer's `preserveOpeningFrom` destination also retains existing ending annotations through regeneration. Keep matching exact and fail visibly when a recorded boundary cannot be preserved. A prior custom range without a direct static H2/H3, such as a group of task components or a topic-local `Section`, makes generic regeneration fail with an explicit preservation error; it must never silently drop the wrapper. Preserve that range through the bespoke generator or an explicit supported adapter before regenerating. Bespoke generators must retain the same markers. Do not regenerate completed scientific content or refresh ledger evidence solely to apply presentation conventions.
+
+For an explicitly reviewed mixed ending whose lists contain resources, an entry may set `resourceList: true`; the generated `data-lesson-resource-list` marker preserves that list presentation through regeneration without changing the section's readiness/next purpose. Do not infer this flag from link destinations or apply it to a mixed section containing ordinary readiness lists. Keep a practice section's identifying H3 outside its individual exercise wrappers.
+
+For ending-only changes, verify preservation of text, links, IDs and authored node order; distinct purpose boundaries; actual TOC links; native disclosures, keyboard focus and narrow-screen bounds. Reuse unchanged scientific evidence. Shared spacing, surfaces and typography should support each topic's content rather than force all endings into a fixed sequence or quota.
+
+## Visible teaching and consistent code access
+
+Explanations, derivations, diagrams, lab output, worked teaching examples and instructional code belong in the visible reading flow. Optional depth can remain clearly labeled without a disclosure gate. Do not require a dropdown, expand button or “show code” click to read teaching material, and do not simulate visibility with `details open`, which still permits collapsing it. Keep authored practice, in-body retrieval prompts, hints and solutions collapsible when they already serve an independent attempt. A disclosure's role depends on its actual content and context; words such as “solution” can also describe a mathematical method, and an explanatory branch can occur inside a practice section.
+
+Topic-owned visible branches use an ordinary `section` with `className="lesson-teaching-section"` and `data-lesson-teaching=""`; preserve any existing classes, styles and IDs. Its former summary becomes a semantic heading with `lesson-teaching-section__title`. Use H3 for a local teaching branch, H2 for a genuine main section, and an appropriate subordinate heading within a lab. Preserve every child, diagram, program and its order. Never move a nested practice answer out of its own disclosure when revealing its surrounding explanation.
+
+Prepared authoring accepts explicit `teaching: [{ summary: exactAuthoredSummary, headingLevel: "h2" | "h3" | "h4" }]` entries (`h3` by default). `preserveOpeningFrom` also preserves the destination's visible-teaching annotations. `scripts/lib/lesson-teaching-disclosures.mjs` matches the exact static summary once and refuses missing, ambiguous, conflicting or stateful conversions; dynamic teaching helpers require an explicit adapter instead of silently returning to a dropdown. Topic-specific generators must preserve the same visible structure. This is authoring-time source transformation, never a browser text classifier. `scripts/check-lesson-teaching-visibility.mjs` verifies the scoped migration's complete source-tree conservation and byte-identical retained practice disclosures.
+
+Use the shared code display and controls for every instructional code block, including short snippets and full programs. Provide consistent, keyboard-accessible Copy and Download actions for the exact displayed source. Retain canonical filenames and file types for real programs; distinguish a downloadable snippet from a complete executable file. Use the common lesson file index for actual downloadable assets, keeping useful labels, descriptions and existing context links. Do not add custom toolbar/download-list variants, duplicate hand-maintained source, invent files or metadata, or reveal answer-only material outside its practice context. Loading code automatically near the viewport must retain visible loading/error feedback and must not eagerly download every lesson's assets.
+
+Implementation entry points are `components/content/Code.jsx` (`CodeBlock` for
+inline source) and `components/content/RemoteCodeBlock.jsx` (canonical local
+programs loaded automatically near the viewport). Supply `filename` whenever
+the prose tells the learner to save/import/run a named file; pass `kind="output"`
+or `language="output"` for recorded results. A `downloadUrl` must identify the
+same complete source that is displayed. For an excerpt, omit it so Download
+saves that exact excerpt. Keep snippets and outputs inside their authored
+practice context when appropriate.
+
+`TopicContent` supplies the lesson-scoped registry and `LessonCodeDownloads`
+index automatically. Do not append another custom file index. Local asset
+namespaces include `/learn-code/`, `/learn-assets/` and `/learn/examples/`;
+use real, deployed files and preserve original filenames. Register future
+asynchronously inserted source with the shared components so its file appears
+without scanning or fetching unrelated lessons. The viewer preserves code
+whitespace, uses local scrolling and wrapping toolbars, and reports unavailable
+copy/load operations. Check filename agreement, exact copied/downloaded payload,
+viewport loading, practice separation, keyboard access and narrow layout when
+changing it. `scripts/check-lesson-code-controls.mjs` exercises the actual
+shared handlers; native browser integration needs its own observed evidence.
+
+Copy success must be visible at the clicked button: briefly show a checkmark and
+“Copied” in the amber theme, then restore “Copy”. Reserve the button width to avoid
+shifting adjacent controls. Confirm only after the Clipboard API succeeds, keep
+an accessible live announcement, show failures beside the controls, restart the
+feedback interval on repeated clicks, and clear pending timers on unmount.
 
 ## Diagram layout and SVG legibility
 

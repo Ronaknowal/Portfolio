@@ -4,6 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const packet = 'docs/teaching/drafts/backpropagation-automatic-differentiation';
+const ledger = JSON.parse(fs.readFileSync('docs/teaching/lesson-delivery-progress.json', 'utf8'));
+const manuscript = ledger.topics['backpropagation-automatic-differentiation'].content.manuscript;
+if (manuscript !== `${packet}/lesson.md`) {
+  throw new Error(`The retained packet is historical. Current manuscript: ${manuscript}. Edit that source; this old importer must not overwrite later teaching revisions.`);
+}
 const assetRoot = 'public/learn-assets/backpropagation';
 fs.mkdirSync(assetRoot, { recursive: true });
 for (const name of ['teaching-autodiff.py', 'digits-400.csv', 'author-calculations.py', 'calculated-inputs.json']) {

@@ -1,0 +1,37 @@
+{
+  "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+  "date": "2026-09-26T14:18:06.254Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx",
+    "src/learn/components/lesson-labs/ClusteringEvaluationIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/clustering-evaluation-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "1a9ad0dc3ced936b6e2a0519b0fd35a810ff0dee582ea73c76639a4a649a3117",
+    "src/learn/components/lesson-labs/ClusteringEvaluationIntuitionFigures.jsx": "6f45d829587ee89e66c0e2b481c43a9ddd95004c6c3a91d65a801635981cec9f",
+    "src/learn/components/lesson-labs/clustering-evaluation-intuition.css": "9c57a9a9cfae9af3ac933d698e6f9c3bdc053fa2f578276ca28b5dab646999f1"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "DB and Dunn contrasting distance summaries",
+    "Cellwise expected MI matches exact enumeration mean",
+    "One-to-one matching versus purity counts",
+    "Conditional co-assignment denominator",
+    "Cophenetic distance correlation",
+    "Subset versus focal-row silhouette",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/clustering-evaluation-models.js",
+    "src/learn/data/clustering-evaluation-examples.js",
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx",
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

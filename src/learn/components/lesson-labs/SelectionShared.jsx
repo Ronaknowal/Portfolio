@@ -265,7 +265,7 @@ export function Waterfall({ model, names, baselineLabel = 'baseline', totalLabel
 /** A closed detail block. Hints and worked explanations start closed and never
  * select the learner's answer. */
 export function Folded({ summary, children }) {
-  return <details className="fs-folded"><summary>{summary}</summary>{children}</details>;
+  return <section className="fs-folded lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">{summary}</h4>{children}</section>;
 }
 
 /* ------------------------------------------------------ the saved tree */

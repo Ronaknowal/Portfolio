@@ -1,0 +1,54 @@
+{
+  "topicId": "multi-head-latent-attention-mla",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-results.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/design.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/forecast-model.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-fixtures.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.data",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.names",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-fixtures.json",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/author-results.json": "ae90f897e3773387e874df3d4ff74ec0dc5da3bfdd964b3dd081ae814587d07d",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md": "1a52d8b0c8897ae2ef2798a299ff233653f6df17f1987d943cfda2143f2d265c",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/design.md": "d52ee8133d4e5058587adeb530a31938122e83aad36350312c5989e42aa2bdfd",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/forecast-model.json": "a516d590c4119511dbc965a4eb1832d750402ecf77569f8d5b0f0fe875745baa",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md": "cf7eb2f3318da7790ceaa625cf03ee7784f1936afcaecc1b0490e35ba5c2ede5",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-fixtures.json": "da2a73b801bc891d9e0a3b5d6eedfb4a60ee880746afd98a60d8b57ad3ae3fc0",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py": "116e75bdc5df6f44fc390afd1d4f9f20aff9e8588f4f99a421b0c70edbf99831",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/practice-fixtures.json": "67aa008b575242064698801b5ecf1a3c7b0109c7dc928db1f0a06d92f72abaa1",
+    "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md": "9d2ee6d0eb7c68320d607906bc85b59b00ecc6f7eb3d3444392b01b6a63c5973"
+  },
+  "manuscript": "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md",
+  "reconciliation": [
+    "Entire prepared manuscript, visual specifications, design, provenance and four programs consumed. No topic-specific destination note exists.",
+    "Removed surviving gate/optional-estimate wording while preserving every derivation, native algorithm, selected model, measured outcome and nine changed exercises. Historical superseded interaction record retained in design.",
+    "Verified current official FlashMLA documentation still labels V3.2 record 512 latent bytes +16 scale +128 rotary =656; newer V4/V4.1 layouts are explicitly separate.",
+    "No original fits rerun and no primary-source or model metric invented."
+  ],
+  "checks": [
+    {
+      "name": "Complete scratch mechanism, SDPA bridge, real-data model/cache training, rank/rotation/gradient scope and practice retained",
+      "passed": true
+    },
+    {
+      "name": "Concept-level map covers exact reassociation versus compression, normalization, position, scale, budget, singular directions and inference",
+      "passed": true
+    }
+  ]
+}

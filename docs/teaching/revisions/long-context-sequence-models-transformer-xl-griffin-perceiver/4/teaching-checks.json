@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "revision": 4,
+  "checks": [
+    "All previous executable/result code blocks and display equations conserved",
+    "All eight exercises with hints/solutions conserved",
+    "All six measured result rows conserved",
+    "Four live labs and three full lazy programs retained",
+    "Four new teaching diagrams rendered from independently checked numerical fixtures",
+    "Every imported current JS/JSX parses",
+    "Prior native and independent numerical receipts still match unchanged implementation/assets"
+  ],
+  "counts": {
+    "preservedCodeBlocks": 5,
+    "preservedDisplayEquations": 9,
+    "newIntuitionFigures": 4,
+    "existingFigures": 16,
+    "liveInvestigations": 4
+  },
+  "retainedEvidence": {
+    "docs/teaching/evidence/long-context/native-checks.json": "bf6baaac0d64b15cc6f37bbdccd5ad433f79d59edd52b34e8e2114c74389c16f",
+    "docs/teaching/evidence/long-context/independent-checks.json": "98acda37d4b269c39ce4ea1a0440f539e2c2ba3039775892b25e1f7f01d8f84b"
+  },
+  "limitation": "This does not claim a new training run, optional RecurrentGemma execution, browser review or independent pedagogy approval. Those reviews are separately recorded.",
+  "reviewedFiles": {
+    "docs/teaching/revisions/long-context-sequence-models-transformer-xl-griffin-perceiver/4/lesson.md": "3023159656927ceb817e03875518c76ee2747c031836240d0ee3ef550b4a29b4",
+    "docs/teaching/revisions/long-context-sequence-models-transformer-xl-griffin-perceiver/4/design.md": "f9db790c2c150203acb0ebf9d2c3b080fbd158225711df1aa6800e77124ce613",
+    "docs/teaching/revisions/long-context-sequence-models-transformer-xl-griffin-perceiver/4/visual-specifications.md": "e652c25f56c64b3c976d0374c2872800dd77fc821bae792216c6793a3e73a89f",
+    "src/learn/data/long-context-intuition.js": "7c77b32c5353e596f2ed390c3ab5777fd4ab01ac92f55930be8cfa2b2385e466",
+    "src/learn/data/long-context-models.js": "cd2f2f775b7d2a9f1d623e72b76f6e25c44dbae58ae2323d8af911ec287dce82",
+    "src/learn/components/lesson-labs/LongContextIntuitionFigures.jsx": "0da734d8f26be5e92449d0baf2a61fbbdd3f3dd7d87565220399229eeb944156",
+    "src/learn/components/lesson-labs/LongContextFigures.jsx": "36e39125039e87c227cd1b264732907094258778f64ad7fe7dbf206cf6494791",
+    "src/learn/components/lesson-labs/LongContextLabs.jsx": "d7c23024d9a8c1ff7dcb14837eabc5ae970a3fa1eb0ec59e789a3e36ae613a89",
+    "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx": "1ffee5f2ed41e79cab617eb09ac8760641642a63fbafd4ecf5dad585c19b5a0d",
+    "src/learn/components/lesson-labs/long-context-labs.css": "a388f4f7ffeec6c9dbc6f831d9ae29cdfda92e8c2033ead3f61329eaec9ca9ac",
+    "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx": "c7e64153794eb07e37ca3b749a38797b039dcb1cde0bdfec8089ffde735582d0",
+    "scripts/render-long-context-lesson.mjs": "e111e217f34715aad69063bc77cad103b11d77555776c80b0d9a3e5b8639f052",
+    "scripts/verify-long-context-teaching.mjs": "b666c03410926f08e9e8a879bea98a5d4cbae17285c440dc10d78e08d681590a"
+  }
+}

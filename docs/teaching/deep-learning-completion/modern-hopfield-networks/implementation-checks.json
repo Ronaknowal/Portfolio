@@ -1,0 +1,493 @@
+{
+  "topicId": "modern-hopfield-networks",
+  "passed": true,
+  "productionPath": "src/learn/data/topics/modern-hopfield-networks.jsx",
+  "sourceFiles": [
+    "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py",
+    "docs/teaching/drafts/modern-hopfield-networks/author-checks.json",
+    "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py",
+    "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py",
+    "docs/teaching/drafts/modern-hopfield-networks/data-provenance.md",
+    "docs/teaching/drafts/modern-hopfield-networks/design.md",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-memory-fits.npz",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-results.json",
+    "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py",
+    "docs/teaching/drafts/modern-hopfield-networks/investigation-checks.json",
+    "docs/teaching/drafts/modern-hopfield-networks/lesson.md",
+    "docs/teaching/drafts/modern-hopfield-networks/mechanism-results.json",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.names",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra",
+    "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md",
+    "src/learn/data/topics/modern-hopfield-networks.jsx",
+    "src/learn/data/hopfield-memory-models.js",
+    "src/learn/components/lesson-labs/HopfieldPrimitives.jsx",
+    "src/learn/components/lesson-labs/HopfieldFigures.jsx",
+    "src/learn/components/lesson-labs/HopfieldLabs.jsx",
+    "src/learn/components/lesson-labs/HopfieldDigitLab.jsx",
+    "src/learn/components/lesson-labs/hopfield-memory-labs.css",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/LessonElements.jsx",
+    "scripts/lib/prepared-lesson-renderer.mjs",
+    "scripts/generate-hopfield-lesson.mjs",
+    "scripts/check-hopfield-native.py",
+    "scripts/check-hopfield-models.mjs",
+    "scripts/check-hopfield-render.mjs",
+    "public/learn-code/modern-hopfield-networks/associative_memory.py",
+    "public/learn-code/modern-hopfield-networks/data-provenance.md",
+    "public/learn-code/modern-hopfield-networks/digit-bank.json",
+    "public/learn-code/modern-hopfield-networks/digit-memory-fits.npz",
+    "public/learn-code/modern-hopfield-networks/digit-results.json",
+    "public/learn-code/modern-hopfield-networks/digit_memory.py",
+    "public/learn-code/modern-hopfield-networks/mechanism-results.json",
+    "public/learn-code/modern-hopfield-networks/model-fixed.json",
+    "public/learn-code/modern-hopfield-networks/model-seed17.json",
+    "public/learn-code/modern-hopfield-networks/model-seed41.json",
+    "public/learn-code/modern-hopfield-networks/optdigits.names",
+    "public/learn-code/modern-hopfield-networks/optdigits.tes",
+    "public/learn-code/modern-hopfield-networks/optdigits.tra",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/design.md",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/native-checks.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/native-port-fixtures.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/model-checks.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/render-checks.json"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+    "docs/teaching/drafts/modern-hopfield-networks/author-checks.json": "6bc81c982a9dece222a6fc5433f7198d7fcaf326a4d346c1be3c9d10bf2b5993",
+    "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py": "2ea65126d5326acd37019a8832085e5e7cb28fe5be82bb530893c041bba73c45",
+    "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py": "587c99ba4dce210f7c2b4d706d25bf5586ee6a76f40b8a6bd0439bfbde2b6ad9",
+    "docs/teaching/drafts/modern-hopfield-networks/data-provenance.md": "049b89daf5ecd3c767af2429d643ad898f6ea7e76cc6ea3475cac153d359f8da",
+    "docs/teaching/drafts/modern-hopfield-networks/design.md": "98303b78d6e0c20ecd0eefaec62546dce252ce33c0788cac4bc53fcd45b9d347",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-memory-fits.npz": "6752b5d608fa548b81c37191347b590bdfbf0170b830336de56206e39cfaec7a",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-results.json": "514a0afdfd92410c0f3260edf2a913e1190a93734bf78f479b5244924d043a46",
+    "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+    "docs/teaching/drafts/modern-hopfield-networks/investigation-checks.json": "d12122c74d0c76cf6407b3582f672037042215d2c3b8275cbc68129ffc3f6218",
+    "docs/teaching/drafts/modern-hopfield-networks/lesson.md": "cf4713fee681cc19cd26d20bf901c6a133b01de2b9bb632e5dbbcd0b4d4f1733",
+    "docs/teaching/drafts/modern-hopfield-networks/mechanism-results.json": "2dd480cd1d0309f5f8c0382ae2bb77b667f1c8623e6d0c9b00ac7536e8a08a2c",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md": "e9f251b308ae63ed1b542c3f296399e97bbefba82f32db7b984ffbbacb6916c3",
+    "src/learn/data/topics/modern-hopfield-networks.jsx": "956bea6d09a92cf8beabc5a325752ff18d684e8943ace3035ee264d269aa2cc0",
+    "src/learn/data/hopfield-memory-models.js": "52664e4f2e93912b6b022e562e274f8759acbb76e4239bf4f5354831925e9000",
+    "src/learn/components/lesson-labs/HopfieldPrimitives.jsx": "489355b517367d8e1c19126002ebc119a9c090d7219b31f5eb239647bc11d496",
+    "src/learn/components/lesson-labs/HopfieldFigures.jsx": "10e44b91c2c3702657de0f07ce1e07830a6e257d0076078067e2bca55a7d73ff",
+    "src/learn/components/lesson-labs/HopfieldLabs.jsx": "5738ab9dfa010b3b3abe65103d5663dd0662a015c53f46175b910b2d8f15834b",
+    "src/learn/components/lesson-labs/HopfieldDigitLab.jsx": "6b967308011bb39087bf5935c8a7a633b20885fa21f3219892177af31250c10c",
+    "src/learn/components/lesson-labs/hopfield-memory-labs.css": "3230243c56e4273b82f2536ba21ec9c40b4f0995231fda0cab1912493e5d50c7",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "9d081761b3b4ba38fd92933501ebd0aa6f60aa2046ac29772f8eb386949ccb78",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "scripts/generate-hopfield-lesson.mjs": "bc53a4c1d76249c426e325ab5f17947fc3fc3844926c55e57cfbf66674c19221",
+    "scripts/check-hopfield-native.py": "470302b63039abc6224c257343e55b9b8c45ea2d0cb9c29c6bad400b772faf15",
+    "scripts/check-hopfield-models.mjs": "8dc3f9a77aa52c55bc9588362b8f0af76dc2f13fd3e06b024bc61a5e5048eaca",
+    "scripts/check-hopfield-render.mjs": "526bdc94f54cf7aba93d6c70f12f1040f43db1dd7244e5a1242ae3d38cbbe90b",
+    "public/learn-code/modern-hopfield-networks/associative_memory.py": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+    "public/learn-code/modern-hopfield-networks/data-provenance.md": "049b89daf5ecd3c767af2429d643ad898f6ea7e76cc6ea3475cac153d359f8da",
+    "public/learn-code/modern-hopfield-networks/digit-bank.json": "07496f262127caf7619f475cd1c1aac024b3b2156dd569807a829d09f3e0a7cf",
+    "public/learn-code/modern-hopfield-networks/digit-memory-fits.npz": "6752b5d608fa548b81c37191347b590bdfbf0170b830336de56206e39cfaec7a",
+    "public/learn-code/modern-hopfield-networks/digit-results.json": "514a0afdfd92410c0f3260edf2a913e1190a93734bf78f479b5244924d043a46",
+    "public/learn-code/modern-hopfield-networks/digit_memory.py": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+    "public/learn-code/modern-hopfield-networks/mechanism-results.json": "2dd480cd1d0309f5f8c0382ae2bb77b667f1c8623e6d0c9b00ac7536e8a08a2c",
+    "public/learn-code/modern-hopfield-networks/model-fixed.json": "12e7558f6e40a56e83a4658e9be632a52c4700ae1e028d1981d5e757210a823a",
+    "public/learn-code/modern-hopfield-networks/model-seed17.json": "c82b06401397cd1cced135505474804e3c64d3e9e39e9328165cc6e7094acb33",
+    "public/learn-code/modern-hopfield-networks/model-seed41.json": "890b75f6c98342e62c81bcca1fa9fa4b83f42a825cd64172bd3b9314e3611d56",
+    "public/learn-code/modern-hopfield-networks/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "public/learn-code/modern-hopfield-networks/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "public/learn-code/modern-hopfield-networks/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/design.md": "6e6920392910221f998f9a5c55f044da0fecc7c91466ef263c6ee41fcb261418",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/native-checks.json": "1d4192cbdecbbda9094172a1ac5a3aa2ee5130a896a166887e5b97472b39b03a",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/native-port-fixtures.json": "5de00de837e1eb08dd0f9ab6d2dfbe1b1c85b7f99de6ac8d4440b648c774bf41",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/model-checks.json": "a1074c134bc7e2f37b07f9b26fab011a6bb3497ac5da208665b56376fddabb7b",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/render-checks.json": "c74863fbd6b7044a4cc9fb4cc1896dce6dd2b8967cb651626b22a3371acf3c5f"
+  },
+  "checks": [
+    {
+      "name": "Complete canonical program replay mechanism-results.json",
+      "passed": true
+    },
+    {
+      "name": "Complete canonical program replay investigation-checks.json",
+      "passed": true
+    },
+    {
+      "name": "Original source bytes and exact declared role identities",
+      "passed": true
+    },
+    {
+      "name": "All5620 original feature vectors unique",
+      "passed": true
+    },
+    {
+      "name": "Memory/fit/validation disjoint",
+      "passed": true
+    },
+    {
+      "name": "memory archive pixels and labels identical to original source",
+      "passed": true
+    },
+    {
+      "name": "validation archive pixels and labels identical to original source",
+      "passed": true
+    },
+    {
+      "name": "Fixed 4.0 validation clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 4.0 validation occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 4.0 test clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 4.0 test occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 16.0 validation clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 16.0 validation occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 16.0 test clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 16.0 test occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 64.0 validation clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 64.0 validation occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 64.0 test clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 64.0 test occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 256.0 validation clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 256.0 validation occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 256.0 test clean complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed 256.0 test occluded complete metrics and cosine baseline",
+      "passed": true
+    },
+    {
+      "name": "Fixed beta selected only by clean validation CE",
+      "passed": true
+    },
+    {
+      "name": "seed17 validation-only epoch selection",
+      "passed": true
+    },
+    {
+      "name": "seed17 fit_queries clean full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed17 fit_queries occluded full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed17 validation clean full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed17 validation occluded full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed17 test clean full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed17 test occluded full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed41 validation-only epoch selection",
+      "passed": true
+    },
+    {
+      "name": "seed41 fit_queries clean full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed41 fit_queries occluded full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed41 validation clean full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed41 validation occluded full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed41 test clean full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "seed41 test occluded full selected-fit replay",
+      "passed": true
+    },
+    {
+      "name": "Distinct-value SDPA scale=.7 complete values and query gradients",
+      "passed": true
+    },
+    {
+      "name": "Actual shared-projection class loss has finite nonzero gradient",
+      "passed": true
+    },
+    {
+      "name": "One bounded real Adam update changes projection",
+      "passed": true
+    },
+    {
+      "name": "Complete native saved-fit validation ports and fresh double precision reads",
+      "passed": true
+    },
+    {
+      "name": "Fresh autograd query intensity gradients versus browser finite differences",
+      "passed": true
+    },
+    {
+      "name": "All16 binary cues, changed banks/orders and per-flip exact energy identity",
+      "passed": true
+    },
+    {
+      "name": "Continuous tangent descent, analytic gradient and covariance Jacobian across48 constructed settings",
+      "passed": true
+    },
+    {
+      "name": "Distinct-value SDPA, equal payloads, paired permutation, parity, exact storage and nonempty finite contours",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldPrimitives.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldFigures.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldDigitLab.jsx",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy associative_memory.py",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy digit_memory.py",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy digit-memory-fits.npz",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy digit-results.json",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy mechanism-results.json",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy optdigits.tra",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy optdigits.tes",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy optdigits.names",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy data-provenance.md",
+      "passed": true
+    },
+    {
+      "name": "Every deployed image and label equal the one-based raw source row",
+      "passed": true
+    },
+    {
+      "name": "Full article render A memory is more than a label",
+      "passed": true
+    },
+    {
+      "name": "Full article render Every other feature casts a signed vote",
+      "passed": true
+    },
+    {
+      "name": "Full article render Actual energy contours",
+      "passed": true
+    },
+    {
+      "name": "Full article render Higher-order",
+      "passed": true
+    },
+    {
+      "name": "Full article render fixed training samples",
+      "passed": true
+    },
+    {
+      "name": "Full article render Hint and reasoned solution",
+      "passed": true
+    },
+    {
+      "name": "All ten independent practice solutions closed",
+      "passed": true
+    },
+    {
+      "name": "All four distinct investigations visible",
+      "passed": true
+    },
+    {
+      "name": "Prepared placeholder anchors are absent",
+      "passed": true
+    },
+    {
+      "name": "Neutral scoped body applied",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render fixed 00058300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render fixed 00000300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render fixed 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie fixed",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed17 00058300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed17 00000300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed17 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie seed17",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00058300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00000300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie seed41",
+      "passed": true
+    },
+    {
+      "name": "Pixel editor intensity8 uses black label on #808080; image-only PixelImage has no overlaid text. Source/render reviewed; 36 render checks passed after this contrast correction.",
+      "passed": true
+    },
+    {
+      "name": "Key/value diagram now uses exact adjacent worked K=I2,q=[.6,-.2],beta1 fixture; same computed weights and output. 36 render checks passed.",
+      "passed": true
+    },
+    {
+      "name": "Association defaults/reset match prepared fresh q=[-.3,.4],beta2 and actual current-key/query/key-read geometry added separately from payload;36 render checks passed.",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie seed41",
+      "passed": true
+    },
+    {
+      "name": "Digit class probability bars use fixed0–1 domain for current,stories,and pinned views.38 source/SSR checks passed; blank0.1 bars measure27/270px.",
+      "passed": true
+    }
+  ],
+  "evidencepaths": [
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/content-checks.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/native-checks.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/native-port-fixtures.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/model-checks.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/render-checks.json",
+    "docs/teaching/deep-learning-completion/modern-hopfield-networks/design.md"
+  ],
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "authorLearningExperienceChecklist": "docs/teaching/deep-learning-completion/modern-hopfield-networks/design.md",
+  "browserControlsAndFigures": "docs/teaching/deep-learning-completion/modern-hopfield-networks/design.md",
+  "nativeEvidence": {
+    "nativeChecks": 41,
+    "validationReads": 1800,
+    "freshFunctionalReads": 9,
+    "scalarComparisons": 502047,
+    "maximumNativeFloat32PortError": 0.000016638942463842454
+  },
+  "limits": [
+    "Two original100-epoch training campaigns replayed from exact selected checkpoints, not refitted.",
+    "No browser paint, production build, GPU execution or optional research-package reproduction claimed."
+  ]
+}

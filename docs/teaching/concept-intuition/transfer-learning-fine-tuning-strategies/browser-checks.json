@@ -1,0 +1,67 @@
+{
+  "topicId": "transfer-learning-fine-tuning-strategies",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "770cb9cd08371cb50a4730b8e89eef10368bc1b02f9e694f0cc0b6e81d3e802b",
+    "src/learn/components/lesson-labs/TransferIntuitionFigures.jsx": "581551e47bb5ad7222a34a96be010271f562417cb75fcba6856aa461090341e7",
+    "src/learn/components/lesson-labs/transfer-intuition.css": "5cab16803eefd65eb5617d4568980844ffaf813a10b34d22a3ebe891baed2a20"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        32
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        92,
+        93,
+        94,
+        95
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        24
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Layout-dependent left/right caption; revised source awaiting rendered recheck",
+      "status": "closed",
+      "resolution": "Corrected source; subsequent desktop/narrow observations retained in extra-rendered-checks.json.",
+      "recheckIndices": [
+        92,
+        93,
+        94,
+        95
+      ]
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

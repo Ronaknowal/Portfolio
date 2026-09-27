@@ -1,0 +1,62 @@
+{
+  "topicId": "ring-attention-sequence-parallelism",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/attention-partition-study.py",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/data-provenance.md",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/design.md",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/distributed_ring.py",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/movement-attention-model.json",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/movement_libras.data",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/partition-results.json",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/ring-attention-reference.py",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-calculations.py",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-results.json",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/attention-partition-study.py": "f9efea1d0b93ac632a14dfb265c8cd40f480f354effc54eb4fc4a0cc4ccfe9f1",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/data-provenance.md": "4dca52a748a0109bc7e535121599723acfe34461cc8325552f3e47dd549c8ab0",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/design.md": "00a55e22b358f1c034c2ca0cd899ec2e6b36edfc58be0365b099962e126b7a33",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/distributed_ring.py": "ec48dcaceeb572531112545ed4af0414916cd28d41439f3021f167dffa99c17a",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md": "177f36c61f62efea354765aa20dfb6801ad18901a1643b63c0872d3f297df3dc",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/movement-attention-model.json": "fa2b2b1b0a85d4ede3a9962a94e16386c795012bf2b56b031d8d451a706d5cae",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/partition-results.json": "50fde98846546108d556188d9875d685d5a7089d1ded84a8e08bf0a43f871f3f",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/ring-attention-reference.py": "f28aad941b105046a5e51d0ab8ce9bb1dde88b560211498325a1513214c0f34c",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-calculations.py": "b759da93dc2fdbd799b3f6676faf904cee17137ccc9aaf34fc5447276c6a1364",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-results.json": "568e7578f735680f956b07235566d86d16855d68192e59f0444d980141941404",
+    "docs/teaching/drafts/ring-attention-sequence-parallelism/visual-specifications.md": "1f0df584339bd7de5c341a2bdd3a31365862983a85a3d4d963f73f8f8beb2bca"
+  },
+  "manuscript": "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/ring-attention-sequence-parallelism/visual-specifications.md",
+  "reconciliation": [
+    "Consumed all twelve prepared files, including complete 15-section manuscript, two embedded complete programs, two companion calculation programs, frozen-model weights and all retained records.",
+    "Preflight canFinish true; no destination note; unrelated resolved DSA inbox does not apply.",
+    "Replaced implementation-style opening with learner invitation; made the circulation-null reasoning immediately visible.",
+    "Reconciled stale Run/assessment/malformed prediction wording with immediate live edits and chronology-only stepping; preserved all eight independent written practice problems and solutions.",
+    "Preserved every scientific derivation, complete source program, measured unfavorable prediction, original data/model and calculation result.",
+    "Original dated research/descriptions remain historical; source execution status will be updated only after actual native completion.",
+    "Primary Ring paper algorithm and official PyTorch2.14 paired P2P signature/lifetime documentation rechecked; no GPU performance claim.",
+    "After actual native completion, replaced the multi-process-unexecuted statements with scoped CPU/Gloo output/gradient verification and added dated provenance; GPU benchmarks remain unexecuted."
+  ],
+  "checks": [
+    {
+      "name": "Full packet consumed and actual program identity matched embedded Python",
+      "passed": true
+    },
+    {
+      "name": "Complete retained JSON parses without nonfinite constants; metadata and measured examples inspected",
+      "passed": true
+    },
+    {
+      "name": "Concept-level scope retained, all 15 sections/eight practice problems and scratch/tool programs present",
+      "passed": true
+    },
+    {
+      "name": "Immediate live investigation contract reconciled",
+      "passed": true
+    }
+  ]
+}

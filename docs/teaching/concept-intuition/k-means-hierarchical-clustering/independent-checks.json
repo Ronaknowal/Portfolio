@@ -1,0 +1,38 @@
+{
+  "topicId": "k-means-hierarchical-clustering",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx",
+    "src/learn/components/lesson-labs/KMeansStructureFigures.jsx",
+    "src/learn/components/lesson-labs/k-means-structure.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "65394fbbce5ab09c717caa5cd823308bc620e4bcea21597e22c9c3f033eafce8",
+    "src/learn/components/lesson-labs/KMeansStructureFigures.jsx": "abcc557f84465ce08bf13791570a4717719d11aec6b5e1d18a9b2a738e87e084",
+    "src/learn/components/lesson-labs/k-means-structure.css": "a0ee7af2f5dcb5e9b73522d6698ffb4851abea43690e6e4327142da624da796a"
+  },
+  "checks": [
+    {
+      "name": "Full lesson, worked cases, practice and changed visual source read",
+      "passed": true
+    },
+    {
+      "name": "Independent targeted arithmetic and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Actual source hashes agree with author checkpoint",
+      "passed": true
+    },
+    {
+      "name": "Reviewed isolated 13 to 18px scoped SVG label typography; other source unchanged",
+      "passed": true
+    },
+    {
+      "name": "Final bounded copy review: investigation wording replaces predict-before-use instructions; source parses, no engine/control changes",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

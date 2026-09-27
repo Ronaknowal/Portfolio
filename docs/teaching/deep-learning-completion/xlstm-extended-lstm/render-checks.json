@@ -1,0 +1,310 @@
+{
+  "topicId": "xlstm-extended-lstm",
+  "passed": true,
+  "checks": [
+    {
+      "name": "JSX parse XlstmPrimitives.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmFigures.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmMechanismLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse XlstmStudy.jsx",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy memory_mechanisms.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy row_sequence_models.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy author_calculations.py",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy row-sequence-fits.npz",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy row-sequence-results.json",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy optdigits.tra",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy optdigits.tes",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy optdigits.names",
+      "passed": true
+    },
+    {
+      "name": "Exact deployed source copy data-provenance.md",
+      "passed": true
+    },
+    {
+      "name": "All300 deployed images and labels equal their one-based source records",
+      "passed": true
+    },
+    {
+      "name": "Fresh and worked source identities retained",
+      "passed": true
+    },
+    {
+      "name": "Only explicit learner assets are deployed",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: weighted ledger",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: Signed retrieval is not softmax",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: checkpoint",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: xLSTM-Mixer",
+      "passed": true
+    },
+    {
+      "name": "Full conceptual article rendered: Hint and reasoned solution",
+      "passed": true
+    },
+    {
+      "name": "Twenty figure anchors and four investigations replaced",
+      "passed": true
+    },
+    {
+      "name": "Ten independent practice solutions remain closed",
+      "passed": true
+    },
+    {
+      "name": "Shared neutral style scoped to new body",
+      "passed": true
+    },
+    {
+      "name": "Initial article has no bad computed values",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed19: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation lstm_seed19",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render lstm_seed43: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation lstm_seed43",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed19: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation slstm_seed19",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render slstm_seed43: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation slstm_seed43",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed19: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation mlstm_seed19",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: original",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: bottom rows zero",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: reversed",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: blank",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: carry",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: full reset",
+      "passed": true
+    },
+    {
+      "name": "Actual selected fit and state render mlstm_seed43: normalizer reset",
+      "passed": true
+    },
+    {
+      "name": "All150 learning points and selected-checkpoint explanation mlstm_seed43",
+      "passed": true
+    },
+    {
+      "name": "Zero and negative signed contribution geometry renders",
+      "passed": true
+    }
+  ],
+  "localNodeTiming": {
+    "millisecondsPerEightRowForward": 1.659677499999998
+  },
+  "limits": [
+    "SSR checks actual accessible values and complete manuscript, not browser interaction or painted geometry.",
+    "Local Node timing is not a browser benchmark.",
+    "Final whole-site build, independent review and desktop/mobile browser remain root-owned."
+  ]
+}

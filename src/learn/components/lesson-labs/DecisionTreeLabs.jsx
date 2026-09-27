@@ -71,7 +71,7 @@ export function TreePartitionLab() {
     <CoordinateMap tree={tree} query={[x, y]} />
     <p className="tree-readout" aria-live="polite">Query probability {number(result.probability)}; predicted label {result.label}; reached {result.count} training rows: {result.rows.join(', ')}.</p>
     <ol className="tree-path">{result.path.map((step, index) => <li key={index}>Compare x{step.feature + 1}={number(step.value, 2)} with {number(step.threshold, 2)}: go {step.direction}.</li>)}<li>Use this leaf's counts; no new training occurs when the query moves.</li></ol>
-    <details><summary>Inspect the complete branching rule</summary><TreeRules node={tree} selectedPath={result.leafPath} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the complete branching rule</h4><TreeRules node={tree} selectedPath={result.leafPath} /></section>
     <LessonTable caption="The eight rows used to learn every displayed split" headers={['Row', 'x₁', 'x₂', 'Label']} rows={inspectionRows.map(row => [row.id, ...row.features, row.label])} />
     <p>Set x₁ exactly to 4.5: equality goes left. Increase depth to 3, then minimum leaf rows to 2. Explain why a one-row region can be representable but disallowed by the training constraint.</p>
   </Investigation>;
@@ -132,7 +132,7 @@ export function TreePruningLab() {
     </Plot>
     <p aria-live="polite">Selected {report.best.leaves} leaves; risk {number(report.best.risk, 6)} + {alpha}×{report.best.leaves} = {number(report.best.objective, 6)}.</p>
     <LessonTable caption="Distinct cost lines, not validation performance" headers={['Leaves', 'Training risk', 'Objective at α']} rows={[...lines].sort((a, b) => a.leaves - b.leaves).map(row => [row.leaves, number(row.risk, 6), number(row.objective, 6)])} />
-    <details><summary>Inspect the selected pruned rule</summary><TreeRules node={report.best.tree} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the selected pruned rule</h4><TreeRules node={report.best.tree} /></section>
     <p>In this fixture the optimum jumps from five leaves to one at α=0.1171875. Intermediate subtree sizes exist but never minimize this objective. Choosing α for future prediction still needs validation; this graph uses training impurity.</p>
   </Investigation>;
 }
@@ -158,7 +158,7 @@ export function BootstrapForestLab() {
     <div className="tree-bootstrap-ledger">{report.members.map(row => <div className="tree-bootstrap-member" key={row.index}><strong>Tree {row.index + 1}</strong><div className="tree-tokens" aria-label={`Bootstrap draws for tree ${row.index + 1}`}>{row.sampleIndices.map((index, draw) => <span key={draw} className={index === selectedRow ? 'tree-token-selected' : ''}>{inspectionRows[index].id}</span>)}</div><span>p(1)={number(row.prediction.probability)} · {row.omitted ? 'Eligible for this row’s OOB' : 'In sample — exclude from this row’s OOB'}</span></div>)}</div>
     <p className="tree-readout" aria-live="polite">All-tree mean p(1)={number(report.probability)}. OOB uses {report.oobCount} trees: <strong>{report.oobProbability === null ? 'unavailable — no eligible tree' : number(report.oobProbability)}</strong>.</p>
     <label>Inspect an individual fitted tree<select value={selectedMember} onChange={event => setMember(Number(event.target.value))}>{report.members.map(row => <option key={row.index} value={row.index}>Tree {row.index + 1}</option>)}</select></label>
-    <details><summary>Show its questions and sampled candidate features</summary><TreeRules node={report.members[selectedMember].tree} selectedPath={report.members[selectedMember].prediction.leafPath} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Show its questions and sampled candidate features</h4><TreeRules node={report.members[selectedMember].tree} selectedPath={report.members[selectedMember].prediction.leafPath} /></section>
     <p>Each displayed sample contains eight draws with replacement, including repetitions; leaf counts count draws. A fixed small seeded generator makes this reproducible. These twelve possible shallow teaching trees are not sklearn's RNG or a performance benchmark. No-eligible-feature split stops this model; library search policies can differ.</p>
   </Investigation>;
 }

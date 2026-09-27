@@ -124,7 +124,7 @@ export default {
     <PythonExample example={pandasExamples.windows}><Prose>Sorting by customer and day makes a previous order well-defined. Grouped shift leaves the first row of each customer without a predecessor; grouped cumsum restarts at each customer boundary. The standalone rolling example averages up to two rows, yielding 10, 20 and 40.</Prose></PythonExample>
     <Prose>A two-row window is not a two-day window. Time-based rolling requires an appropriate time index, and min_periods specifies how many observations are required before reporting a value. For predictive features, decide whether the current row may contribute; you may need to shift before rolling to avoid using information unavailable at prediction time. A stable sort preserves input order for ties but does not invent a scientifically meaningful tie-breaker.</Prose>
 
-    <details className="nt-deeper"><summary>A different use of matching: which calibration was active?</summary>
+    <section className="nt-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">A different use of matching: which calibration was active?</h3>
       <Prose>A reading and its calibration need not have identical timestamps. An equality merge would miss a reading at time 2 when the latest calibration was recorded at time 0. In this invented instrument example, an offset becomes applicable at its recorded time and expires after 3 ms. Subtract it from a reading only while it is recent enough.</Prose>
       <LessonTable caption="Choose a prior calibration, then check its age" headers={['Reading time','Latest prior calibration','Age','Decision']} rows={[[2,'time 0: offset 1',2,'10 − 1 = 9'],[5,'time 4: offset 3',1,'12 − 3 = 9'],[9,'time 4: offset 3',5,'Too old: result unknown']]}/>
       <Prose>Merge_asof searches an ordered time key. Backward means the right key must be less than or equal to the reading time; tolerance limits the distance. This is a matching policy, not interpolation. We chose 3 ms for the exercise, not as a physical recommendation. Sort the time key; for multiple instruments, use an appropriate by key and keep merge times globally sorted.</Prose>
@@ -132,7 +132,7 @@ export default {
       <Checkpoint prompt="What changes if tolerance becomes 5? What if the second calibration is only delivered at time 8?">
         <Prose>With tolerance 5, time 9 uses offset 3 and becomes 12. But a timestamp alone does not prove availability: if the time-4 calibration arrives at 8, a real-time decision at 5 cannot use it. Event time and availability time need a separate contract. This lesson teaches matching; <a href="/learn/topic/ml-problem-formulation-baselines-data-leakage">data leakage and prediction-time information</a> is the stronger home for that evaluation question.</Prose>
       </Checkpoint>
-    </details>
+    </section>
     <H2>11. Build an auditable report</H2>
     <Prose>The complete example introduces six raw records: one repeated row, one malformed amount, one cancelled order, one paid order with an unknown customer and two accepted orders. Amounts are deliberately tiny integer cents. The goal is a report whose exclusions are visible, not a silent reduction from six rows to two.</Prose>
     <PythonExample example={pandasExamples.project}><Prose>The audit reconciles all six source records: 1 exact duplicate + 1 invalid amount + 1 not-paid record + 1 unmatched record + 2 accepted records. North and South each have one accepted order, totalling 10 and 20 cents respectively. Order 105 is explicitly quarantined, not treated as revenue belonging to an invented region.</Prose></PythonExample>
@@ -152,7 +152,7 @@ export default {
     <Prose>Use vectorised arithmetic and built-in string/group operations when they express the task. Assign and pipe can organise readable transformations; row-wise apply is not an automatic speed optimisation. If iteration is genuinely needed, itertuples is often preferable to iterrows, which can coerce row types. Avoid turning a clear process into one enormous chain that is difficult to audit.</Prose>
     <Prose>Pandas is primarily in-memory. Select needed columns/dtypes early and measure memory. Chunked CSV reading helps only when the downstream algorithm can combine partial results correctly: partial sums and counts can combine, while a global exact median or unrestricted join needs more planning. Deduplication across chunks must also track keys across boundaries.</Prose>
 
-    <H2>12. Practise and check</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>12. Practise and check</H2>
     <Checkpoint prompt="In the group example, why are North's row count, known count and mean 2, 1 and 10? What would replacing the missing amount with zero change?">
       <Prose>One of North's two amounts is missing. Size counts both rows; count and mean use the one known measurement. Filling with zero would change the known count to 2 and mean to 5, asserting something different about the underlying data.</Prose>
     </Checkpoint>
@@ -168,15 +168,15 @@ export default {
     <Checkpoint prompt="Two region averages are 10 from one known order and 30 from three known orders. What is the combined order-level mean?">
       <Prose>(10 × 1 + 30 × 3) / (1 + 3) = 25. The simple average of the two region means is 20, which weights regions equally instead. Always connect the denominator to the question.</Prose>
     </Checkpoint>
-    <H3>Independent task: off, observed or unknown?</H3>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Independent task: off, observed or unknown?</H3>
     <Prose>Use sample IDs 1–6, devices A,A,A,B,B,C and watts 0,4,missing,0,0,missing. Each row is one scheduled observation. Report scheduled rows, observed readings and the fraction of observed readings with watts greater than zero, for each device. Zero means observed but inactive; missing means no observation. Keep an entirely unobserved device visible with an unknown fraction. This is an invented monitoring example; a missing reading cannot tell you whether a device was physically off.</Prose>
     <details><summary>Hint: create a nullable indicator before grouping</summary><Prose>Preserve missing values when comparing watts with zero. Count all sample IDs for scheduled observations, count known watts for the denominator, and sum the active indicator. Turn a zero denominator into missing before division.</Prose></details>
     <details><summary>Worked solution and checks</summary><PythonExample example={pandasPracticeExamples.uptime}><Prose>A is active in one of two observed readings, not one of three scheduled readings. B is observed and inactive. C has no measured denominator, so its fraction stays unknown. The active sum can be zero even for C; the observed count prevents that zero being misread as evidence of inactivity.</Prose></PythonExample></details>
     <Checkpoint prompt="Add sample 7 for C at 6 watts. Predict C's report. Then introduce a duplicate sample ID and explain the response.">
       <Prose>C has two scheduled rows, one observed value and active fraction 1.00. A duplicate sample ID must fail the explicit identity check. None of this proves a time-weighted uptime percentage: irregular sampling requires a different denominator and a stated interpolation policy.</Prose>
-    </Checkpoint>
-    <H3>Connect the checked report to a chart</H3>
-    <Prose>You should be able to explain the grain, key rules, missingness policy and row-count changes at every stage. Once those checks hold, <a href="/learn/topic/matplotlib-scientific-plotting">Matplotlib &amp; Scientific Plotting</a> can communicate the result. Plotting cannot repair an incorrectly joined or aggregated table.</Prose>
+    </Checkpoint></div></section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H3>Connect the checked report to a chart</H3>
+    <Prose>You should be able to explain the grain, key rules, missingness policy and row-count changes at every stage. Once those checks hold, <a href="/learn/topic/matplotlib-scientific-plotting">Matplotlib &amp; Scientific Plotting</a> can communicate the result. Plotting cannot repair an incorrectly joined or aggregated table.</Prose></section>
     <Sources alternatives={<LearningResources>
         <li><a href="https://www.youtube.com/playlist?list=PL5-da3qGB5ICCsgW1MxlZ0Hq8LL5U3u9y">Data School / Kevin Markham — pandas video playlist</a> · Short question-led videos. Use the index, groupby, missing-values and merging entries in the <a href="https://github.com/justmarkham/pandas-videos">creator's notebook and chapter guide</a>. Older recordings predate Pandas 3; follow current copy-on-write rules here rather than old chained-assignment advice.</li>
         <li><a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/">Pandas getting-started articles</a> · A written second route through selection, derived columns, summary statistics and reshaping. Work one tutorial after its corresponding investigation.</li>

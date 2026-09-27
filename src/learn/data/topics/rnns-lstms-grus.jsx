@@ -3,6 +3,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { RecurrentDirectionProductFigure } from '../../components/lesson-labs/RecurrentIntuitionFigures.jsx';
 import { PenRepresentationLab, RecurrentCreditLab, LstmMemoryLab, LstmRetentionLab, GruResetLab, RecurrentPenLab, RecurrentBoundaryLab, RecurrentPaddingLab, RecurrentMeasuredLab, RecurrentProgram } from '../../components/lesson-labs/RecurrentLabs.jsx';
 export default {
   title: 'RNNs, LSTMs & GRUs',
@@ -10,11 +11,11 @@ export default {
   hasIntegratedGuide: true,
   content: () => <div className="neural-lesson recurrent-lesson">
     <LessonIntro prerequisites="Vectors, affine transforms, activations and the chain rule. Sequence axes, gates and state ownership are introduced here." sections={[["1-keep-a-running-description","1. Keep a running description"],["2-build-and-train-the-simplest-recurrence","2. Build and train the simplest recurrence"],["3-lstm-retain-write-then-expose","3. LSTM: retain, write, then expose"],["4-gru-blend-old-state-with-a-new-proposal","4. GRU: blend old state with a new proposal"],["5-recognize-real-pen-trajectories","5. Recognize real pen trajectories"],["6-state-belongs-to-a-stream","6. State belongs to a stream"],["7-different-lengths-stacks-and-directions","7. Different lengths, stacks and directions"],["translate-gate-equations-into-a-reusable-recurrent-implementation","Translate gate equations into a reusable recurrent implementation"],["8-deeper-questions-and-practical-model-choices","8. Deeper questions and practical model choices"],["9-practice-change-the-problem-before-checking-the-answer","9. Practice: change the problem before checking the answer"],["10-continue-and-learn-another-way","10. Continue and learn another way"]]}>Trace a sequence into state, follow how it learns, and control what crosses a boundary.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit sequence entries, recurrent weights, LSTM gates, GRU reset placement and supported pen-trajectory coordinates. Update state trajectories, retained/injected terms, shared-weight credit and exact learned outputs. Step, rewind and reset state explicitly; padding and request boundaries remain visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose what must persist or reset, and diagnose saturation, reset-order differences and accidental cross-sequence leakage."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit sequence entries, recurrent weights, LSTM gates, GRU reset placement and supported pen-trajectory coordinates. Update state trajectories, retained/injected terms, shared-weight credit and exact learned outputs. Step, rewind and reset state explicitly; padding and request boundaries remain visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose what must persist or reset, and diagnose saturation, reset-order differences and accidental cross-sequence leakage."}</Prose>
 
 <Prose>{"A pen stroke is more than a collection of points. The order tells you how the pen travelled between them. A recurrent neural network processes that order by repeatedly updating a small collection of numbers: its current state. An LSTM or GRU changes the update rule so that the network can selectively retain, replace and expose information."}</Prose>
 
-<Prose>{""}<strong>{"Your first pass:"}</strong>{" follow the pen trajectory and the three-step calculation in sections 1–2; learn the retain/write/read roles in sections 3–4; run or inspect the complete handwriting experiment in section 5; then work through state boundaries and padding in sections 6–7. Finish the core practice. Section 8 opens the deeper derivative and architecture questions when you are ready. You do not need its full Jacobian derivation to understand the next lesson."}</Prose>
+<Prose opening="route">{""}<strong>{"Your first pass:"}</strong>{" follow the pen trajectory and the three-step calculation in sections 1–2; learn the retain/write/read roles in sections 3–4; run or inspect the complete handwriting experiment in section 5; then work through state boundaries and padding in sections 6–7. Finish the core practice. Section 8 opens the deeper derivative and architecture questions when you are ready. You do not need its full Jacobian derivation to understand the next lesson."}</Prose>
 
 <Prose>{"The previous "}<a href={"/learn/path/full-curriculum/capsule-networks?module=deep-learning-fundamentals"}>{"Capsule Networks lesson"}</a>{" organized parts inside one input. Here we follow observations across positions in a sequence. The distinction matters: routing iterations within a capsule model are not elapsed time, and the hidden state of an RNN is not a routing coefficient."}</Prose>
 
@@ -114,7 +115,7 @@ export default {
 
 <Prose>{"If the old cell is "}<InlineMath>{"0.8"}</InlineMath>{", retention "}<InlineMath>{"f=0.9"}</InlineMath>{", input gate "}<InlineMath>{"i=0.2"}</InlineMath>{", candidate "}<InlineMath>{"g=-0.5"}</InlineMath>{", and output gate "}<InlineMath>{"o=0.6"}</InlineMath>{", then:"}</Prose>
 
-<ol><li>{"Keep "}<InlineMath>{"0.9\\times0.8=0.72"}</InlineMath>{" from the old cell."}</li><li>{"Write "}<InlineMath>{"0.2\\times(-0.5)=-0.10"}</InlineMath>{"."}</li><li>{"Add them to get "}<InlineMath>{"c=0.62"}</InlineMath>{"."}</li><li>{"Expose "}<InlineMath>{"h=0.6\\tanh(0.62)\\approx0.330677"}</InlineMath>{"."}</li></ol>
+<ol start={1}><li>{"Keep "}<InlineMath>{"0.9\\times0.8=0.72"}</InlineMath>{" from the old cell."}</li><li>{"Write "}<InlineMath>{"0.2\\times(-0.5)=-0.10"}</InlineMath>{"."}</li><li>{"Add them to get "}<InlineMath>{"c=0.62"}</InlineMath>{"."}</li><li>{"Expose "}<InlineMath>{"h=0.6\\tanh(0.62)\\approx0.330677"}</InlineMath>{"."}</li></ol>
 
 <Prose>{"An output gate near zero can hide the cell from the current readout while leaving its stored value present. An input gate near zero can avoid writing a distracting candidate. The forget gate controls the old term; it does not itself decide what new value replaces it."}</Prose>
 
@@ -151,6 +152,8 @@ export default {
 <Prose>{"If an old coordinate is "}<InlineMath>{"0.8"}</InlineMath>{", its candidate is "}<InlineMath>{"-0.4"}</InlineMath>{", and "}<InlineMath>{"z=0.75"}</InlineMath>{", the new state is "}<InlineMath>{"0.75(0.8)+0.25(-0.4)=0.5"}</InlineMath>{". A large "}<InlineMath>{"z"}</InlineMath>{" means a small replacement in this convention. Some presentations use the complementary convention, so read the equation before interpreting the word “update.”"}</Prose>
 
 <Prose>{"The reset gate "}<InlineMath>{"r_t"}</InlineMath>{" controls how the old state influences the candidate. The update gate decides how much candidate actually replaces the old state. Resetting the candidate's dependence on history is therefore not the same as clearing the entire carried state."}</Prose>
+
+<Prose>{"There is also a useful range invariant. This GRU update is a coordinatewise convex blend: its old-state and candidate coefficients add to one. If both values lie in [−1,1], the new value stays in that interval; zero initialization and tanh candidates preserve it at every step. An LSTM's retain and write gates are independent, so they can both be nearly one. Repeated positive writes can accumulate a cell value much larger than one, even though its exposed hidden value is bounded by the output gate and tanh. The GRU's one-state design and the LSTM's cell/readout separation therefore impose different update constraints, not merely different parameter counts."}</Prose>
 
 <Prose>{"For the PyTorch variant used in the program:"}</Prose>
 
@@ -270,6 +273,12 @@ export default {
 
 <Prose>{"The summary concatenates the final forward and final backward states. It does not take both halves of the output at the last valid index: at that index, the backward component has only just started reading from the end."}</Prose>
 
+<Prose>{"Read the dependencies for a four-symbol sequence A B C D:"}</Prose>
+
+<NeuralTable caption={"7. Different lengths, stacks and directions"} headers={[<>{"Output position"}</>,<>{"Forward component has read"}</>,<>{"Backward component has read"}</>]} rows={[[<>{"A"}</>,<>{"A"}</>,<>{"D C B A"}</>],[<>{"B"}</>,<>{"A B"}</>,<>{"D C B"}</>],[<>{"C"}</>,<>{"A B C"}</>,<>{"D C"}</>],[<>{"D"}</>,<>{"A B C D"}</>,<>{"D"}</>]]} />
+
+<Prose>{"The last row pairs a complete forward history with a one-symbol backward history. To obtain both complete histories, use the forward final state from D and the backward final state from A. Native "}<code>{"h_n"}</code>{" gathers these directional endpoints for you. The table describes information dependencies; the hidden values are learned summaries, not literal stored strings."}</Prose>
+
 <Prose>{"The "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html"}>{"PyTorch LSTM API"}</a>{" documents the hidden/cell shapes, projections and bidirectional final-state distinction. With "}<code>{"batch_first=True"}</code>{", inputs and sequence outputs use batch first, but final hidden states still use "}<InlineMath>{"[\\text{layers}\\times\\text{directions},B,H]"}</InlineMath>{". An LSTM additionally returns a cell-state tensor. With a projection, hidden width and cell width can differ."}</Prose>
 
 <Prose>{"In a stack, layer 2 consumes layer 1's output at each position. This adds depth across layers as well as the recurrence across positions. In a bidirectional stack, that input has both directions' features. Do not simply multiply a one-layer parameter count by the number of layers without checking the next layer's input width."}</Prose>
@@ -338,6 +347,8 @@ export default {
 
 <Prose>{"The forget value 0.746494 appears in the lower-right entry. It is not the whole matrix. Products of these complete Jacobians describe total state sensitivities. A plot of "}<InlineMath>{"f^T"}</InlineMath>{" must therefore be labeled a direct-path, fixed-gate illustration rather than a measured full LSTM gradient."}</Prose>
 
+<Prose>{"Track a tiny cell perturbation through two steps to see the extra route. There is a direct path c→c→c and a second path c→h→c. If, as a constructed local linear illustration, both steps had exactly the displayed rounded Jacobian, the final cell multiplier would be "}<InlineMath>{"0.746494^2+0.458119\\times0.318697\\approx.703254"}</InlineMath>{". Retaining only the direct route gives approximately .557253. The added term is hidden-state feedback into the next cell. Actual gates change with the trajectory, so the complete calculation multiplies the successive actual Jacobians; it does not simply square this one example everywhere."}</Prose>
+
 <H3>{"A matrix's eigenvalues are not the whole temporal story"}</H3>
 
 <Prose>{"For tanh, "}<InlineMath>{"\\|J_t\\|_2\\leq\\|W_h\\|_2"}</InlineMath>{". If every local Jacobian norm is bounded by a common "}<InlineMath>{"q<1"}</InlineMath>{", the product norm is at most "}<InlineMath>{"q^{T-k}"}</InlineMath>{". This is a sufficient contraction condition, not a necessary diagnosis for every trajectory."}</Prose>
@@ -347,6 +358,10 @@ export default {
 <div className="neural-equation"><MathBlock>{"A=\\begin{bmatrix}0&2\\\\0&0\\end{bmatrix},\\quad\nB=\\begin{bmatrix}0&0\\\\2&0\\end{bmatrix}."}</MathBlock></div>
 
 <Prose>{"Each has only zero eigenvalues, but "}<InlineMath>{"BA=\\operatorname{diag}(0,4)"}</InlineMath>{" amplifies one direction. This constructed counterexample explains why inspecting each step's spectral radius is insufficient for a temporal product. It is not a claim that these are the Jacobians of our fitted pen model."}</Prose>
+
+<Prose>{"Follow the direction as well as the magnitude. A maps the vertical unit vector into a horizontal vector of length 2; B maps that horizontal vector into a vertical vector of length 4. A would destroy its own output if repeated alone. Alternating with B avoids that destruction. This is why the sequence of compatible stretching directions matters beyond the eigenvalues of each isolated step."}</Prose>
+
+<RecurrentDirectionProductFigure />
 
 <H3>{"Initialization, regularization and variants"}</H3>
 
@@ -358,11 +373,15 @@ export default {
 
 <Prose>{"Peephole LSTMs let gates inspect cell state; projected LSTMs use a narrower hidden output than their cell width. These are concrete architectural choices, not synonyms for every LSTM. More specialized descendants appear later in the module."}</Prose>
 
+<Prose>{"A peephole can let a gate react to a stored quantity even when the output gate has hidden it from h. For a constructed forget rule "}<InlineMath>{"f=\\sigma(c_{\\rm old})"}</InlineMath>{", cell values +2 and −2 produce factors about .881 and .119 despite an identical hidden output of zero. This is a direct cell-to-gate connection; the standard non-peephole equations above do not contain it. Changing that connection also changes the derivative paths."}</Prose>
+
+<Prose>{"A projection instead controls the cost of communicating state. With cell width H=32 and projected hidden width P=12, the ordinary gated cell first produces a 32-vector, then a learned 12×32 matrix forms the hidden output used by the next step and readout. The cell still carries 32 values. For input width D=2 and the two-bias native convention, the single-layer recurrent parameter count is "}<InlineMath>{"4H(D+P+2)+PH=2,432"}</InlineMath>{", compared with 4,608 without projection; a ten-class head now adds 130 rather than 330. The 12-dimensional feedback is a bottleneck, so a smaller count does not imply equal accuracy. The linked native LSTM documentation gives the distinct hidden/cell shapes and projection parameter explicitly."}</Prose>
+
 <Prose>{"Choose candidate architectures from the evidence and deployment constraints. Fixed-length ordered features can be a strong baseline; a causal recurrent state can serve streaming inputs; temporal convolutions supply local receptive fields; attention supplies direct content-dependent access to other positions. No length threshold makes one architecture automatically correct. Measure quality, memory and latency under the actual input-availability contract."}</Prose>
 
-<H2>{"9. Practice: change the problem before checking the answer"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"9. Practice: change the problem before checking the answer"}</H2>
 
-<H3>{"1. Alter the middle observation"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Alter the middle observation"}</H3>
 
 <Prose>{"In the scalar RNN from section 2, replace "}<InlineMath>{"x_2=-0.2"}</InlineMath>{" with "}<InlineMath>{"0.2"}</InlineMath>{", leaving all other inputs and weights fixed. Which state values change? Calculate the final value."}</Prose>
 
@@ -380,9 +399,9 @@ export default {
 
 <Prose>{"Only "}<InlineMath>{"h_2"}</InlineMath>{" and "}<InlineMath>{"h_3"}</InlineMath>{" change. "}<InlineMath>{"h_2=\\tanh(0.16+0.6(0.396930432)+0.1)"}</InlineMath>{", and "}<InlineMath>{"h_3=\\tanh(0.56+0.6h_2+0.1)"}</InlineMath>{". The final state rises to approximately 0.733564. The earlier state cannot depend on a later input in this causal recurrence."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Retain a negative memory"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Retain a negative memory"}</H3>
 
 <Prose>{"Let "}<InlineMath>{"c_{\\text{old}}=-0.6,f=0.8,i=0.25,g=0.4,o=0.5"}</InlineMath>{". Calculate the retained term, write term, new cell and hidden output. Would changing only "}<InlineMath>{"o"}</InlineMath>{" change the new cell?"}</Prose>
 
@@ -400,9 +419,9 @@ export default {
 
 <Prose>{"The retained term is −0.48 and the write is +0.10, so "}<InlineMath>{"c=-0.38"}</InlineMath>{" and "}<InlineMath>{"h=0.5\\tanh(-0.38)\\approx-0.18135"}</InlineMath>{". Changing only the output gate leaves this step's cell value unchanged. It changes "}<InlineMath>{"h"}</InlineMath>{", which can affect gates at later steps."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. A reset gate is not a reset command"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. A reset gate is not a reset command"}</H3>
 
 <Prose>{"A GRU coordinate has old state 0.8 and update/retain gate 0.9. After closing the candidate's reset gate, its candidate is −0.2. Is its new state zero? What update gate would retain none of the old state?"}</Prose>
 
@@ -420,9 +439,9 @@ export default {
 
 <Prose>{"The new state is "}<InlineMath>{"0.9(0.8)+0.1(-0.2)=0.7"}</InlineMath>{". Closing the reset gate does not erase the retained term. In our convention "}<InlineMath>{"z=0"}</InlineMath>{" makes the state equal to the candidate, which is still not necessarily zero."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Longer retention without a promise"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Longer retention without a promise"}</H3>
 
 <Prose>{"You want a fixed direct cell path to retain 80% after 50 steps with no writes. Derive the forget factor. Explain why setting that bias does not guarantee 80% total gradient retention in a trained LSTM."}</Prose>
 
@@ -440,9 +459,9 @@ export default {
 
 <Prose>{""}<InlineMath>{"f=0.8^{1/50}\\approx0.99555"}</InlineMath>{". A sigmoid preactivation "}<InlineMath>{"\\log(f/(1-f))"}</InlineMath>{" produces that factor in isolation. Real preactivations also contain input and hidden-state terms, and full gradients include other paths. The calculation describes a specified direct-path experiment."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. The batch reordered itself"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. The batch reordered itself"}</H3>
 
 <Prose>{"Two ongoing sessions A and B occupy batch rows 0 and 1. The scheduler next returns rows B, A. An implementation passes its old state tensor unchanged. What is wrong, and what additional event requires more than swapping state rows?"}</Prose>
 
@@ -460,9 +479,9 @@ export default {
 
 <Prose>{"B receives A's history and A receives B's. Gather states by session identity in the new row order. If a previous observation was corrected, swapping rows is insufficient: recompute the affected state suffix from a valid prefix. Ending a session requires retiring its state before that identifier or slot is reused."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Padding changes the wrong result"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Padding changes the wrong result"}</H3>
 
 <Prose>{"You batch sequences of lengths 4 and 2 with right padding. You only change the second sequence's padded values. Predict the effect on its valid forward outputs, its padded final hidden state, and its valid backward outputs."}</Prose>
 
@@ -480,9 +499,9 @@ export default {
 
 <Prose>{"The valid forward outputs are unchanged. The padded final state can change because it includes the extra updates. Valid backward outputs can change because the reverse recurrence visits padding first. Packing with the true lengths removes those padding updates; reading the correct directional final states then represents the actual sequence."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. Detach or reset?"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Detach or reset?"}</H3>
 
 <Prose>{"A later-chunk loss should use preceding context, but you can retain an autograd graph for only the current chunk. Choose carry, detach-and-carry, or reset. What agreement can you expect with a whole-sequence evaluation before any optimizer update?"}</Prose>
 
@@ -500,9 +519,9 @@ export default {
 
 <Prose>{"Detach and carry. With identical weights and deterministic behavior, forward outputs match the unbroken recurrence. Gradients through the detached boundary do not match full BPTT. Resetting would change the forward computation too."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"8. Design an honest follow-up"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Design an honest follow-up"}</H3>
 
 <Prose>{"You want to claim that a model recognizes a digit before the pen finishes and that it generalizes to new writers. Can you use the current intermediate probabilities as your evidence? Design the missing data and evaluation conditions."}</Prose>
 
@@ -522,9 +541,9 @@ export default {
 
 </details>
 
-<Prose>{"You are ready for the next topic when you can distinguish weights from state, execute a gated update, explain a shared-weight gradient, and keep state ownership, sequence lengths and available inputs consistent with the task. The optional full-Jacobian analysis can be revisited as you study more specialized recurrent models."}</Prose>
+<Prose>{"You are ready for the next topic when you can distinguish weights from state, execute a gated update, explain a shared-weight gradient, and keep state ownership, sequence lengths and available inputs consistent with the task. The optional full-Jacobian analysis can be revisited as you study more specialized recurrent models."}</Prose></div></section>
 
-<H2>{"10. Continue and learn another way"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"10. Continue and learn another way"}</H2>
 
 <Prose>{"The next "}<a href={"/learn/path/full-curriculum/sequence-to-sequence-encoder-decoder?module=deep-learning-fundamentals"}>{"Sequence-to-Sequence Encoder–Decoder lesson"}</a>{" changes the output from one digit into a sequence. It introduces decoder inputs, teacher forcing, stopping and generated-prefix evaluation. The following "}<a href={"/learn/path/full-curriculum/attention-mechanism-bahdanau-luong?module=deep-learning-fundamentals"}>{"Bahdanau & Luong Attention lesson"}</a>{" lets a decoder consult source positions instead of relying only on one final summary."}</Prose>
 
@@ -532,6 +551,6 @@ export default {
 
 <ul><li>{""}<a href={"https://colah.github.io/posts/2015-08-Understanding-LSTMs/"}>{"Christopher Olah: Understanding LSTM Networks"}</a>{" is an approachable diagram-led walkthrough of cell, gate and output paths. Use it after section 3; read its strong long-memory intuition together with our fixed-gate and full-derivative qualifications."}</li><li>{""}<a href={"https://www.youtube.com/watch?v=6niqTuYFZLQ"}>{"Stanford CS231n Lecture 10: Recurrent Neural Networks"}</a>{", with "}<a href={"https://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture10.pdf"}>{"official slides"}</a>{", offers a spoken route through recurrence, language modeling, image captioning and gated models. It is a 2017 conceptual lecture, not a current framework installation guide; its captioning/attention branches lead beyond this page."}</li><li>{""}<a href={"https://d2l.ai/chapter_recurrent-neural-networks/bptt.html"}>{"D2L: Backpropagation Through Time"}</a>{" develops the gradient chain and truncation more formally. Its surrounding chapters also provide text-model implementations; our real pen example offers a different applied route."}</li><li>{""}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.GRU.html"}>{"PyTorch GRU"}</a>{" and "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html"}>{"LSTM"}</a>{" document the exact native gate conventions and tensor shapes used here. Check them when transferring weights or changing directions, layers or projections."}</li><li>{""}<a href={"https://proceedings.mlr.press/v28/pascanu13.pdf"}>{"Pascanu et al., On the Difficulty of Training Recurrent Neural Networks"}</a>{" is the mathematical route to temporal gradient products and clipping. "}<a href={"https://www.bioinf.jku.at/publications/older/2604.pdf"}>{"Hochreiter & Schmidhuber's LSTM paper"}</a>{" and "}<a href={"https://arxiv.org/abs/1406.1078"}>{"Cho et al.'s encoder–decoder paper"}</a>{" provide historical mechanisms; their original algorithms and experimental claims should be read in their own settings."}</li></ul>
 
-<Prose>{"The "}<a href={"/learn-assets/rnns-lstms-grus/calculated-inputs.json"}>{"saved numerical results"}</a>{" and "}<a href={"/learn-assets/rnns-lstms-grus/mechanics-results.json"}>{"mechanics calculations"}</a>{" separate fitted-model evidence from exact constructed examples. They let you inspect the numbers behind the lesson rather than treating an attractive plot as evidence by itself."}</Prose>
+<Prose>{"The "}<a href={"/learn-assets/rnns-lstms-grus/calculated-inputs.json"}>{"saved numerical results"}</a>{" and "}<a href={"/learn-assets/rnns-lstms-grus/mechanics-results.json"}>{"mechanics calculations"}</a>{" separate fitted-model evidence from exact constructed examples. They let you inspect the numbers behind the lesson rather than treating an attractive plot as evidence by itself."}</Prose></section>
   </div>,
 };

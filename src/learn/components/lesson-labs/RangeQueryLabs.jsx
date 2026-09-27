@@ -70,7 +70,7 @@ function RangeTree({
       </svg>
     </div>
     <p className="range-key">Amber outline: current event. Green: selected query interval. Dashed: padding{lazy ? ' or a parent awaiting repair. Tags are already included in that node’s sum' : ''}.</p>
-    <details className="range-data"><summary>Read the exact node table</summary><div className="range-scroll" tabIndex="0" role="region" aria-label="Exact interval node table"><table><thead><tr><th>Node ID</th><th>Range</th><th>Stored summary</th>{lazy && <th>Pending map for children</th>}</tr></thead><tbody>{geometry.nodes.map(node => <tr key={node.id}><td>{node.id}</td><td>[{node.left},{node.right}){node.padding ? ' padding' : ''}</td><td>{displayRangeValue(node.value)}{dirty.includes(node.id) ? ' · awaiting repair' : ''}</td>{lazy && <td>{pending(node) ? mapLabel(node) : 'identity'}</td>}</tr>)}</tbody></table></div></details>
+    <section className="range-data lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Read the exact node table</h4><div className="range-scroll" tabIndex="0" role="region" aria-label="Exact interval node table"><table><thead><tr><th>Node ID</th><th>Range</th><th>Stored summary</th>{lazy && <th>Pending map for children</th>}</tr></thead><tbody>{geometry.nodes.map(node => <tr key={node.id}><td>{node.id}</td><td>[{node.left},{node.right}){node.padding ? ' padding' : ''}</td><td>{displayRangeValue(node.value)}{dirty.includes(node.id) ? ' · awaiting repair' : ''}</td>{lazy && <td>{pending(node) ? mapLabel(node) : 'identity'}</td>}</tr>)}</tbody></table></div></section>
   </>;
 }
 export function SegmentRangeLab() {

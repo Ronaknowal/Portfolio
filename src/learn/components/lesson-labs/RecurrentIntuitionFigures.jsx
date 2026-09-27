@@ -1,0 +1,6 @@
+import './recurrent-intuition.css';
+
+export function RecurrentDirectionProductFigure() {
+  const stages=[{label:'Start: e₂',v:[0,1]},{label:'A sends it sideways',v:[2,0]},{label:'B sends it back, larger',v:[0,4]}];
+  return <figure className="recurrent-intuition" data-figure="recurrent-direction-product" data-constructed-fixture="true"><div className="recurrent-intuition-stages">{stages.map(({label,v})=><section key={label}><h4>{label}</h4><svg viewBox="0 0 150 145" role="img" aria-label={`${label}: resulting vector (${v.join(', ')}). Same axis scale in every panel.`}><path d="M28 113H133M28 113V18" stroke="#666" fill="none"/>{[1,2,3,4].map(t=><g key={t}><path d={`M${28+20*t} 110v6M25 ${113-20*t}h6`} stroke="#666"/><text x="18" y={117-20*t} textAnchor="end">{t}</text></g>)}<path d={`M28 113L${28+20*v[0]} ${113-20*v[1]}`} stroke="#e8b44a" strokeWidth="3"/><circle cx={28+20*v[0]} cy={113-20*v[1]} r="4" fill="#e8b44a"/><text x="75" y="139" textAnchor="middle">({v.join(', ')})</text></svg></section>)}</div><figcaption>Both matrices have zero eigenvalues. Applying A twice would erase the result, but B accepts exactly the direction A produces. Alternation gives B·A·e₂=4e₂. The arrows show forward perturbations; reverse-mode credit uses transposed Jacobians in reverse order and inherits the same amplification issue.</figcaption></figure>;
+}

@@ -1,0 +1,10 @@
+.loss-intuition-figure { margin: 1.7rem 0; padding: 1.2rem; border: 1px solid #39352c; border-radius: 6px; background: #10100f; color: #dedbd3; }
+.loss-intuition-figure h3, .loss-intuition-figure h4 { color: #edcc80; line-height: 1.5; }
+.loss-intuition-figure figcaption { margin-top: 1rem; color: #b8b4aa; font-size: .92rem; line-height: 1.7; }
+.loss-quantile-case { border-top: 1px solid #39352c; margin-top: 1rem; }
+.loss-quantile-votes { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .5rem; text-align: center; }
+.loss-quantile-votes > div { display: flex; flex-direction: column; padding: .5rem 0; border-bottom: 2px solid #b48e3e; }
+.loss-quantile-arrow { font-size: 1.5rem; color: #e4b752; }
+.loss-intuition-figure svg { display: block; width: min(100%, 400px); height: auto; }
+.loss-intuition-figure svg text { fill: #dedbd3; font: 12px ui-monospace, monospace; }
+@media (max-width: 480px) { .loss-intuition-figure { padding: .8rem; } .loss-quantile-votes { gap: .25rem; font-size: .84rem; } }

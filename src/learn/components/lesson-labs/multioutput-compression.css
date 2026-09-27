@@ -1,0 +1,4 @@
+.mo-compression-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; color: #e3e3e3; }
+.mo-compression-intuition svg { display: block; width: min(100%, 440px); height: auto; margin-inline: auto; }
+.mo-compression-intuition svg text { fill: #d4d4d4; font: 13px ui-monospace, monospace; }
+.mo-compression-intuition figcaption { line-height: 1.7; font-size: .95rem; }

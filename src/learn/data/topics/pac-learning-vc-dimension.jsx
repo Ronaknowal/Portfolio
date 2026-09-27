@@ -10,6 +10,7 @@ import {
 import { asInput, fixed } from '../../components/lesson-labs/PacShared.jsx';
 import { pacExamples } from '../pac-examples.js';
 import { pacData } from '../pac-data.js';
+import { SauerExtensionFigure, FatMarginFigure } from '../../components/lesson-labs/PacIntuitionFigures.jsx';
 import {
   candidateBandGeometry, finiteFamilyRadii, finiteRadius, finiteWorldProbability, fixtures, growthTable,
   intervalExperiment, intervalPatterns, realizableVcSampleBound, sauerSum, sineWitness, twoStripBound, vcRadius,
@@ -101,7 +102,7 @@ const pacLearningContent = {
       to one that does not. Every investigation updates its topic-specific results from valid control changes, with no expected-answer input.
     </LessonIntro>
 
-    <div className="pac-route"><Prose><strong>First pass.</strong> Read sections 1–7 and do practice 1–7. That
+    <div className="pac-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–7 and do practice 1–7. That
       route gets you both meanings of “probably approximately correct”, the union-bound argument in full, the
       difference between a gap and an excess risk, the one labelling intervals cannot make, and what a VC bound
       does and does not promise. Run the three short programs on the way and do the small constructions by hand
@@ -414,6 +415,7 @@ const pacLearningContent = {
       analysis. <a href="https://web.uvic.ca/~nmehta/ml_theory_fall2021/lecture12.pdf">Mehta's lecture notes,
       sections 1–4</a>.</Prose>
 
+    <SauerExtensionFigure />
     <H3>Why we cannot simply replace K with the observed pattern count</H3>
     <Prose>The patterns realized on the training inputs are themselves sample-dependent. Plugging their observed
       number into a fixed-family bound without further argument skips the reason the theorem works.</Prose>
@@ -499,6 +501,8 @@ const pacLearningContent = {
       high-probability sample-complexity theorem. It explains why an arbitrarily large shattered set can defeat
       any proposed fixed sample size. The full lower-bound argument converts this remaining uncertainty into the
       appropriate failure probability.</Prose>
+
+    <Prose>To see what is being averaged, imagine four equally likely shattered inputs and a training draw that reveals only the first two. Fix the learner's predictions on the two unseen inputs. There are four equally likely completions of their independent target labels: the learner gets zero, one, one or two of those labels wrong. The average is one wrong input out of four, risk 1/4, even if both observed labels are correct. Another learner can change which completion defeats it; it cannot remove that average unseen-label uncertainty. This is an illustrative conditional calculation, not a claim that every target causes risk 1/4.</Prose>
 
     {/* ============================================================ §8 */}
     <H2 id={headingId(headings[7])}>{headings[7]}</H2>
@@ -640,6 +644,11 @@ const pacLearningContent = {
       inspecting outcomes and then charging for that narrow family alone is not the same procedure — the
       difference is exactly the {fixed(bandFigure.radius, 6)} against {fixed(bandFigure.shrunkRadius, 6)} of
       figure 3.</Prose>
+    <LessonTable caption="Confidence is a budget across a declared search" headers={['Family', 'Prior allocation π', 'Failure allowance with δ=.05']} rows={[
+      ['First', '1/2', '.025'], ['Second', '1/4', '.0125'], ['Third', '1/8', '.00625'], ['All later families', '1/8 in total', '.00625 in total'],
+    ]} />
+    <Prose>For an infinite sequence, π_j=2⁻ʲ adds to one. If each family's event fails with probability at most its assigned allowance, the union fails with probability at most .05. A later family pays a stricter confidence requirement, so its bound typically grows by a log(1/π_j) term. This budget permits searching all protected families; it is not a probability that one family is the true model, and it must account for the actual declared search.</Prose>
+
     <Prose>The distinction also matters in transfer learning. A representation chosen using independent prior
       data can help make a target task simpler. If it is adapted using the target evaluation labels, the
       analysis must include that adaptation. “Pretrained” is not a mathematical exemption from selection or
@@ -714,6 +723,7 @@ const pacLearningContent = {
       loss ranges or tails. Substituting a dimension into a bounded binary formula does not control arbitrary
       unbounded squared losses.</Prose>
 
+    <FatMarginFigure />
     <H3>Computation is a separate question</H3>
     <Prose>Our interval enumeration requires only counting contiguous blocks. Trying every labeling
       of <Math>{'n'}</Math> points takes <Math>{'2^n'}</Math> requests; random trials can find witnesses but
@@ -726,45 +736,45 @@ const pacLearningContent = {
       that separation rather than promising a scalable generic “VC calculator.”</Prose>
 
     {/* ============================================================ §11 */}
-    <H2 id={headingId(headings[10])}>{headings[10]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2 id={headingId(headings[10])}>{headings[10]}</H2>
 
-    <Practice title="1. Interpret the two tolerances"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. Interpret the two tolerances"
       question="A procedure promises population error at most .08 with probability at least .99 over independent training draws. Explain what ε and δ mean, and whether a particular fitted model is promised 99% accuracy."
       hint="One probability concerns new examples given a fitted rule; the other concerns which fitted rule training produces.">
       <Prose>ε = .08 and δ = .01. At least 99% of training draws produce a rule whose population classification
         error is at most 8%, under the specified setting. The success target is at least 92% population
         accuracy, not 99%. The statement permits a small fraction of training draws to miss that target and does
         not identify them from their training scores.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. A family selected on shared validation examples"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. A family selected on shared validation examples"
       question="Twelve candidate predictors are fitted independently of 800 evaluation outcomes. For bounded 0–1 losses and δ = .02, compute the simultaneous two-sided radius. Must the twelve predictors' errors be independent? May we replace 12 with 1 after selecting the best observed rule?"
       hint="Use the radius formula of section 4. Distinguish independence of observations from dependence across rules.">
       <Prose>The radius is <Math>{'\\sqrt{\\ln(1200)/1600}'}</Math> = {fixed(finiteFamilyRadii.practice, 10)}.
         The union bound does not require independence across predictors. Independent sampled observations are
         needed by the fixed-rule concentration argument. Replacing 12 with 1 after selecting on the same
         outcomes would omit the search; the simultaneous event already covers the selected member.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Find the missing interval patterns"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Find the missing interval patterns"
       question="Four points have coordinates [.1, .3, .6, .9]. How many labelings can a single interval realize? List the impossible patterns. Does shifting every coordinate right by 2 change the answer for unrestricted intervals on the real line?"
       hint="Positive labels must form one contiguous run.">
       <Prose>There are 1 + 4×5/2 = {patternsOnFour.length} realizable patterns. The five impossible ones are
         0101, 1001, 1010, 1011 and 1101. Each has separated positive runs. A common translation preserves point
         order and the available interval witnesses, so the count and feasibility of each ID-attached pattern are
         unchanged. Investigation 2's “translate everything by +2” button is exactly this check.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. A counterexample is not the whole VC proof"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. A counterexample is not the whole VC proof"
       question="Three collinear plane points cannot be shattered by affine half-planes. Does that prove the class has VC dimension at most 2? Supply the missing reasoning for its actual dimension."
       hint="The lower-bound part of VC dimension is existential over point sets.">
       <Prose>No. A noncollinear triangle can be shattered, giving a lower bound 3. An upper bound requires ruling
         out every four-point configuration: an interior point versus the surrounding triangle, alternating
         vertices of a convex quadrilateral, and degenerate cases. The combination gives VC dimension 3. A
         failure on one triple says only that that triple is not shattered.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. A box proof without a false geometric claim"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. A box proof without a false geometric claim"
       question="Show that axis-aligned rectangles in the plane shatter the four points (−1, 0), (1, 0), (0, −1), (0, 1), but cannot shatter any set of five distinct points."
       hint="For the upper bound choose representatives attaining minimum and maximum x and y. A fifth point lies in their bounding box; it need not lie in their convex hull.">
       <Prose>For any nonempty chosen subset of the four cross-shaped points, its tight bounding rectangle
@@ -774,17 +784,17 @@ const pacLearningContent = {
         rectangle containing the representatives contains the bounding box and therefore the negative point.
         This impossible labeling proves the upper bound 4, including coordinate ties. The bounding-box argument
         does not require the point to lie in the convex hull of the chosen extrema.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Agnostic risk versus absolute risk"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Agnostic risk versus absolute risk"
       question="A uniform event bounds all empirical/population gaps by .04. An exact ERM searches a class whose best population risk is .15. What does the standard ERM comparison guarantee? What changes if its empirical optimization is .01 suboptimal?"
       hint="The comparison crosses the empirical/population boundary twice.">
       <Prose>Excess risk is at most 2 × .04 = .08, giving population risk at most .23. With optimization
         error .01, the ceiling becomes .24. Neither result promises absolute error .08 or .04, and neither says
         the ceiling equals the actual error.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Repair a guarantee report"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Repair a guarantee report"
       question="An author says: “The sufficient VC radius is 1.2, therefore the classifier cannot learn. A deeper model has twice as many parameters, so it requires exactly twice as much data. We verified the theorem because no simulated run violated it.” Rewrite the claims correctly."
       hint="Separate vacuity, representation capacity, sufficient bounds and empirical evidence.">
       <Prose>A radius 1.2 adds nothing beyond the 0–1 gap range, so that bound is numerically vacuous; it does
@@ -792,9 +802,9 @@ const pacLearningContent = {
         dimension or a task-specific sample ratio. A finite simulation checks the examples and can expose
         implementation errors, but cannot prove a distribution-free theorem or zero failure probability. State
         the exact inequality, family, assumptions and observed simulation counts separately.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Change the interval experiment"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Change the interval experiment"
       question="Use target [.25, .75] and observed inputs [.05, .3, .4, .7, .95]. Determine the tight learned interval and exact uniform-input risk. Compare adding .26 with adding .99. Then explain why the same lengths need not equal risk under a nonuniform input distribution."
       hint="Add lengths of missed target pieces. An exterior negative does not move the fitted positive extrema.">
       <Prose>The learned interval is [{practiceFit.interval[0]}, {practiceFit.interval[1]}], missing .05 at each
@@ -806,9 +816,9 @@ const pacLearningContent = {
         probability mass of the disagreement regions rather than their geometric lengths; a short high-density
         region can matter more than a long low-density one. Reproduce all three in investigation 3 by changing
         the target and then using the two preset buttons.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="9. A meaningful learning-curve follow-up"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="9. A meaningful learning-curve follow-up"
       question={`The measured tree fits all 80 training labels but gets ${curveRows.find(row => row.model === 'depth5_tree' && row.n === 80).developmentCorrect}/80 development labels right. The RBF SVC gets ${curveRows.find(row => row.model === 'rbf_svc' && row.n === 80).trainCorrect}/80 training and ${curveRows.find(row => row.model === 'rbf_svc' && row.n === 80).developmentCorrect}/80 development labels right. What can you conclude, and what should remain undecided?`}
       hint="These counts come from one shared development set and different algorithms, not measured VC dimensions.">
       <Prose>On this particular development set the SVC makes one error and the tree six. Perfect training fit
@@ -816,10 +826,10 @@ const pacLearningContent = {
         inspection and further development experiments. It does not identify either class's VC dimension,
         establish a universal ranking, quantify independent-run uncertainty, or give an untouched final estimate
         after selecting a procedure on these same outcomes.</Prose>
-    </Practice>
+    </Practice></div>
 
-    {/* ============================================================ §12 */}
-    <H2 id={headingId(headings[11])}>{headings[11]}</H2>
+    {/* ============================================================ §12 */}</section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2 id={headingId(headings[11])}>{headings[11]}</H2>
     <Prose>You can now separate the two randomness levels behind “probably approximately correct”; run the
       union-bound argument over a predeclared finite class and say what breaks when the class is chosen after
       the fact; distinguish a gap bound from an excess-risk bound and explain the factor of two; decide whether
@@ -848,13 +858,14 @@ const pacLearningContent = {
         record by {provenance.selection}, retrieved {provenance.retrieved}. This lesson serves its own copy:
         two other lessons use the same extract under their own directories, and none of them reads another's.
         The {provenance.testRows} test rows are not evaluated anywhere on this page.</Prose>
-      <Prose>Every other number is either an exact construction or a theorem expression evaluated in the
+      <Prose>The added pattern-extension table, confidence budget and margin illustration are finite teaching constructions, checked directly in this page's conceptual-review evidence. They do not alter the recorded simulation or development measurements.</Prose>
+      <Prose>The retained numerical examples are either exact constructions or theorem expressions evaluated in the
         browser from the same definitions the downloadable program uses. The three displayed programs are
         assembled from that program: each one's <em>algorithm</em> is a byte-exact slice of it, pinned by
         SHA-256, with only an adapted import line and a short printing block added so the snippet prints a few
         lines instead of writing a 60 KB file. Running the whole program fresh reproduces its recorded results
         file exactly.</Prose>
-    </Callout>
+    </Callout></section>
 
     <Sources alternatives={<>
       <p>For a visual lecture route, Caltech's Learning From Data course

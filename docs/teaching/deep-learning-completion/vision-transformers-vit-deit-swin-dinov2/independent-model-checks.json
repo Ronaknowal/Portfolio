@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "comparisons": 4499,
+  "maximumError": 1.432249874255831e-10,
+  "nativeFullModels": 12,
+  "spatialTrials": 40,
+  "dinoFiniteDifferenceCoordinates": 120,
+  "checks": [
+    "Independent functional PyTorch conv/LN/SDPA/GELU on 12 new inputs and arbitrary permutations",
+    "Direct spatial room enumeration with fresh signed values and nonzero relative bias",
+    "Two-layer coefficients versus changed-input derivative",
+    "Fresh DINO finite differences and common-shift invariance",
+    "Gram angle identity and orthogonal null",
+    "Patch projection and exact BigInt MAC totals"
+  ],
+  "reusedEvidence": [
+    "native-checks.json",
+    "library-checks.json",
+    "model-checks.json"
+  ],
+  "limitations": "No retraining or optional pretrained checkpoint execution."
+}

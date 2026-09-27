@@ -1,0 +1,35 @@
+{
+  "topicId": "ensemble-methods-stacking",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/ensemble-methods-stacking.jsx",
+    "src/learn/components/lesson-labs/EnsembleIntuition.jsx",
+    "src/learn/components/lesson-labs/ensemble-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/ensemble-methods-stacking.jsx": "5d58f3b9ec8823e0321375a69175b11653c53825fc3955cd0e8cb838cbc06b51",
+    "src/learn/components/lesson-labs/EnsembleIntuition.jsx": "c9d0ab2869d0ad479248791d6eac6c53dec4551e2303dc2e1cbd9476fc183798",
+    "src/learn/components/lesson-labs/ensemble-intuition.css": "f55b4d59c29007b4394e5e7d9a15e63c5269612059be179aa8a2e29aeb4da569"
+  },
+  "scope": "Entire lesson read. Added exact AdaBoost loss-balance, OOF-to-serving lifecycle and mixed-score interpretation at their conceptual transitions; canonical programs unchanged.",
+  "checks": [
+    {
+      "name": "Changed lesson and topic-specific JSX parse",
+      "passed": true
+    },
+    {
+      "name": "AdaBoost coefficient, balanced loss terms and all plotted coordinates",
+      "passed": true
+    },
+    {
+      "name": "OOF A/D line values and served blend",
+      "passed": true
+    },
+    {
+      "name": "Mixed-score logistic result and twelve retained practice blocks",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

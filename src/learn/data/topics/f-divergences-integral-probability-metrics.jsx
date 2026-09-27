@@ -54,10 +54,10 @@ export default {
     <MathBlock>{String.raw`\begin{gathered}\ell_f(p,q)=\\\begin{cases}qf(p/q),&q>0,\\pf_\infty,&q=0,\ p>0,\\0,&p=q=0.\end{cases}\\D_f(P\Vert Q)=\sum_i\ell_f(p_i,q_i).\end{gathered}`}</MathBlock>
     <Prose>Forward KL has infinite f∞: a possible P event assigned zero probability by Q makes KL(P∥Q) infinite. Reversing direction changes which excluded event matters. H², JS and TV remain finite for disjoint laws because their boundary penalties are finite. An outcome impossible under both laws must not produce NaN through 0/0.</Prose>
     <Prose>Two separately observed continuous samples, treated as empirical point masses, may have disjoint supports and infinite empirical KL. That is a property of those empirical measures, not an estimate of KL between unknown population densities. Smoothing or binning changes what is compared and introduces further choices.</Prose>
-    <details><summary>Deeper: discrete, continuous and singular laws in one definition</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Deeper: discrete, continuous and singular laws in one definition</h3>
       <Prose>Choose a common dominating measure μ, for example P+Q, and write p=dP/dμ, q=dQ/dμ. Integrate qf(p/q) over q&gt;0 and add f∞P(q=0); absent singular mass contributes zero even if f∞ is infinite. The result does not depend on the common dominating measure. You need not pretend a point mass has a Lebesgue density.</Prose>
       <Prose>When P is absolutely continuous with respect to Q, the singular term vanishes and the expression is E_Qf(dP/dQ). Absolute continuity means every Q-null event is also P-null, not that observations must be continuously valued. Measure Theory develops these derivative and null-set ideas.</Prose>
-    </details>
+    </section>
     <H3>Why nonnegativity and data processing belong together</H3>
     <Prose>For positive qᵢ, Jensen's inequality gives E_Qf(p/q)≥f(E_Q[p/q])=f(1)=0. Appropriate strict convexity at 1 forces all ratios to equal 1 in the equality case, hence P=Q. Convexity alone does not guarantee separation: f(t)=t−1 is convex but produces zero for every pair. Boundary cases use the extended definition.</Prose>
     <Prose>Now process both laws through the <em>same</em> channel K(y|i), a table of output probabilities for each input i. Output masses are p′ᵧ=ΣᵢpᵢK(y|i) and q′ᵧ=ΣᵢqᵢK(y|i). For q′ᵧ&gt;0 and positive input qᵢ, the new ratio is an average of old ratios:</Prose>
@@ -80,9 +80,9 @@ export default {
     <Prose>Enumerating all events checks the optimum. Merging A with B erases the difference; keeping A separate preserves TV while reducing KL. Printed <Code>-0.0</Code> is rounded floating-point cancellation in a direct log sum, not negative mathematical KL. The browser’s centered computation avoids that near-equality cancellation.</Prose>
     <H3>Small KL limits every bounded decision gap</H3>
     <Prose><strong>Pinsker's inequality</strong> says KL(P∥Q)≥2TV(P,Q)² for natural logarithms. Thus TV≤√(KL/2). A log-ratio comparison bounds every event-probability difference, though not always tightly. Here 2(0.3)²=0.18≤0.208473.</Prose>
-    <details><summary>Derive Pinsker in the finite case</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Derive Pinsker in the finite case</h3>
       <Prose>Process the outcome into the indicator of X belonging to E*. Data processing lower-bounds the original KL by binary KL d(a∥b), where a=P(E*) and b=Q(E*), so a−b=TV. For fixed 0&lt;b&lt;1, d(b∥b)=0, its first derivative in a at b is zero, and its second derivative is 1/[a(1−a)]≥4. Integrating that curvature twice gives d(a∥b)≥2(a−b)². Boundary cases agree or have the appropriate infinite binary KL. Changing log base changes the constant.</Prose>
-    </details>
+    </section>
     <H3>A metric makes an additional promise</H3>
     <Prose>A finite metric is nonnegative, symmetric, zero only for equal objects, and satisfies d(P,R)≤d(P,Q)+d(Q,R). KL is directional. Symmetry alone is insufficient too: JS and H² can violate the triangle inequality.</Prose>
     <MetricTriangleFigure />
@@ -144,10 +144,10 @@ export default {
     <Example name="permutation" />
     <Prose>The second run defines a <em>complete statistic</em>: maximize over the same three bandwidths for every allocation. It does not choose using observed labels and then pretend the choice was fixed. Prespecification, label-independent choice and separate training data are other possible designs. Trying tests until one is significant is not repaired by quoting only the final p-value.</Prose>
     <Prose>A small p-value is evidence against equal laws under the design, not the probability H₀ is true or proof of practically important harm. A large p-value does not prove equality or adequate power. Report the statistic, representation, kernel, sample unit, allocation rule and a practically meaningful effect measure.</Prose>
-    <details><summary>Computation and approximation have their own contracts</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Computation and approximation have their own contracts</h3>
       <Prose>All pair similarities require O((n+m)²) kernel evaluations; a stored Gram matrix takes quadratic memory. Blockwise sums reduce storage. Exact enumeration uses C(n+m,n) allocations and grows rapidly; this browser fixes eight observations. Random permutations, linear-time estimators and random-feature approximations trade computation against statistical properties. Check any approximation against a small exact reference before interpreting it.</Prose>
       <Prose>Empirical KL usually requires a density, smoothing or binning model; fitted critics add optimization and generalization error. MMD estimates kernel expectations directly but still depends on sample size and kernel choice. Empirical transport has statistical error; Sinkhorn adds regularization and numerical residuals. These are parts of the measurement procedure.</Prose>
-    </details>
+    </section>
 
     <H2>8. Build a variational critic</H2>
     <Prose>An f-divergence admits a critic lower bound, but not the same formula as an IPM. The IPM evaluates g under both laws. Here P supplies a linear reward for T, while Q supplies a convex penalty.</Prose>
@@ -171,11 +171,11 @@ export default {
     <Prose>Draw X from Q but seek expectations under P. When P≪Q, the weight w=p/q gives E_Q[wh]=E_P[h] whenever the expectation is well-defined. In particular E_Qw=1. The weight variance E_Q[(w−1)²]=χ²(P∥Q), possibly infinite. Thus this divergence measures a concrete source of sampling variability.</Prose>
     <Prose>For P=(.9,.1), proposal Q=(.99,.01) gives the rare event weight 10 and weight variance about .818182. Giving it probability .001 raises its weight to 100 and the variance to 9.810811. The proposal creates rare, large corrections. Variance of an importance estimate also depends on h; self-normalized estimates have a different finite-sample bias/variance contract.</Prose>
     <Example name="weights" />
-    <details><summary>Deeper: why chi-square appears near matching laws</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Deeper: why chi-square appears near matching laws</h3>
       <Prose>On a fixed finite alphabet with positive qᵢ, write pᵢ=qᵢ+εδᵢ, Σδᵢ=0, with small enough ε to preserve nonnegativity. If f is twice differentiable near 1, expand f(1+εδᵢ/qᵢ). The constant term is zero and linear terms cancel:</Prose>
       <MathBlock>{String.raw`\begin{gathered}D_f(P\Vert Q)\\=\frac{f''(1)}2\varepsilon^2\sum_i\frac{\delta_i^2}{q_i}+o(\varepsilon^2).\end{gathered}`}</MathBlock>
       <Prose>For KL, f″(1)=1, so nearby KL is about half χ². The program checks this as ε shrinks. This local expansion fixes a positive reference; it does not establish a global bound, apply unchanged to shrinking qᵢ, or cover nonsmooth TV.</Prose>
-    </details>
+    </section>
     <H3>A small bounded score can hide an important omission</H3>
     <Prose>Suppose P assigns .01 probability to a rare failure and Q assigns zero. TV=.01 and JS≈.003478 nats, but forward KL is infinite. If failure costs 100, expected cost differs by 1. The correct loss bound is range×TV; the consequence depends on the task's cost.</Prose>
     <Example name="stress" />
@@ -193,41 +193,41 @@ export default {
       <details><summary>Implementation practice: identical samples and changed block size</summary><Prose>Set both samples to [[0],[1]], use σ=1, and vary the block size from 1 to 7. Compare the biased and unbiased statistics.</Prose><details><summary>Solution and checks</summary><Prose>The biased statistic is zero up to roundoff. The unbiased statistic is exp(−½)−1, about −.39346934: removing the within-sample diagonals changes the finite-sample estimate. Both should be invariant to block size and row order. The sign difference is an estimator distinction, not a negative population squared distance.</Prose></details></details>
       <Prose><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html" target="_blank" rel="noreferrer">SciPy permutation_test</a> specifies the exact/Monte Carlo and tail conventions; <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.jensenshannon.html" target="_blank" rel="noreferrer">Jensen–Shannon distance</a> specifies the square root.</Prose>
     </section>
-    <H2>10. Practise changed laws and assumptions</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Practise changed laws and assumptions</H2>
     <Prose>State the alphabet or geometry, log units, metric convention, population versus sample status, and sampling assumptions before calculating. Form a prediction before opening a hint.</Prose>
-    <Practice prompt="For P=(.5,.3,.2), Q=(.25,.5,.25), find the event achieving TV, optimal equal-prior classification accuracy, and Pinsker’s lower bound on KL. Compute KL to check it." hint={<Prose>Select positive p−q differences. Use nats and the half factor in TV.</Prose>}>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="For P=(.5,.3,.2), Q=(.25,.5,.25), find the event achieving TV, optimal equal-prior classification accuracy, and Pinsker’s lower bound on KL. Compute KL to check it." hint={<Prose>Select positive p−q differences. Use nats and the half factor in TV.</Prose>}>
       <Prose>The event is the first label, with gap .25. TV=.25 and accuracy=(1+.25)/2=.625. Pinsker gives KL≥2(.25)²=.125 nats. Directly, .5ln2+.3ln.6+.2ln.8≈.148697 nats. The inequality holds, but a trained classifier need not attain the optimal accuracy.</Prose>
-    </Practice>
-    <Practice prompt="Repair the claim that every convex f with f(1)=0 distinguishes unequal laws. Use f(t)=t−1. Explain also why TV’s bounded-score formula doubles when scores range from −1 to 1." hint={<Prose>Sum the affine generator. Write a [−1,1] score as 2h−1 for h in [0,1].</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="Repair the claim that every convex f with f(1)=0 distinguishes unequal laws. Use f(t)=t−1. Explain also why TV’s bounded-score formula doubles when scores range from −1 to 1." hint={<Prose>Sum the affine generator. Write a [−1,1] score as 2h−1 for h in [0,1].</Prose>}>
       <Prose>The affine generator gives Σq(p/q−1)=Σ(p−q)=0 with the proper support extension. Convexity gives nonnegativity, not separation for every generator; appropriate strict convexity at 1 is sufficient. For g=2h−1, constants cancel and the expectation gap doubles to 2TV.</Prose>
-    </Practice>
-    <Practice prompt="Compare P=(1,0), Q=(.5,.5). Which KL direction is infinite? Compute TV and H². What happens under a shared constant observation map?" hint={<Prose>Check which source produces the event the other law excludes. Use square-root masses and the half factor for H².</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="Compare P=(1,0), Q=(.5,.5). Which KL direction is infinite? Compute TV and H². What happens under a shared constant observation map?" hint={<Prose>Check which source produces the event the other law excludes. Use square-root masses and the half factor for H².</Prose>}>
       <Prose>KL(P∥Q)=ln2 is finite. KL(Q∥P)=∞ because Q can emit the second event. TV=.5 and H²=1−1/√2≈.292893. A shared constant map produces identical point masses and zero divergence, losing the original distinction.</Prose>
-    </Practice>
-    <Practice prompt="On locations (−2,0,4), compare P=(.5,0,.5), Q=(0,1,0). Compute the best linear gap, TV and W1. Give a 1-Lipschitz critic attaining W1." hint={<Prose>Cumulative imbalances are .5 and −.5; interval widths are 2 and 4.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="On locations (−2,0,4), compare P=(.5,0,.5), Q=(0,1,0). Compute the best linear gap, TV and W1. Give a 1-Lipschitz critic attaining W1." hint={<Prose>Cumulative imbalances are .5 and −.5; interval widths are 2 and 4.</Prose>}>
       <Prose>The means differ by 1, so the best linear gap is 1. TV=1 because supports are disjoint. W1=.5×2+.5×4=3 location units. Scores (0,−2,2) are 1-Lipschitz and give gap 3. Scaling locations by 10 scales W1 and the linear gap by 10, while TV stays unchanged.</Prose>
-    </Practice>
-    <Practice prompt="P puts equal mass at −1,+1. Q puts masses (.25,.5,.25) at (−√2,0,√2). Does φ(x)=(x,x²) distinguish them? What about a fixed positive-bandwidth Gaussian kernel?" hint={<Prose>Calculate both feature means. Kernel validity and separation of distributions are different properties.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="P puts equal mass at −1,+1. Q puts masses (.25,.5,.25) at (−√2,0,√2). Does φ(x)=(x,x²) distinguish them? What about a fixed positive-bandwidth Gaussian kernel?" hint={<Prose>Calculate both feature means. Kernel validity and separation of distributions are different properties.</Prose>}>
       <Prose>Both mean vectors are (0,1), so this finite-feature MMD is zero. The laws differ, including their probability at zero. A Gaussian kernel with fixed positive bandwidth is characteristic on the real line, so population MMD is positive. That does not guarantee high power in a small sample. Enter (−1,−1,1,1) and (−√2,0,0,√2), using numeric approximations, to inspect the contrast.</Prose>
-    </Practice>
-    <Practice prompt="Why does replacing a negative unbiased MMD² estimate by its absolute value invalidate unbiasedness? Interpret the identical two-point empirical preset at bandwidth 1." hint={<Prose>Unbiasedness describes an average over repeated samples; it does not constrain each realization’s sign.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="Why does replacing a negative unbiased MMD² estimate by its absolute value invalidate unbiasedness? Interpret the identical two-point empirical preset at bandwidth 1." hint={<Prose>Unbiasedness describes an average over repeated samples; it does not constrain each realization’s sign.</Prose>}>
       <Prose>Absolute value pushes negative realizations upward without balancing positive ones, changing the expectation. Identical empirical laws at (−1,+1) give B=0 but U=−(1−e⁻²)≈−.864665. Report the signed estimate with its definition; do not take a real square root of U. The empirical-law distance √B=0 is valid but answers a different question.</Prose>
-    </Practice>
-    <Practice prompt="A researcher tries ten bandwidths on the same labeled samples and reports the smallest permutation p-value as though the test were prespecified. Give two defensible redesigns." hint={<Prose>Find where labels influenced selection. A permutation reference must include the complete rule.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="A researcher tries ten bandwidths on the same labeled samples and reports the smallest permutation p-value as though the test were prespecified. Give two defensible redesigns." hint={<Prose>Find where labels influenced selection. A permutation reference must include the complete rule.</Prose>}>
       <Prose>Fix bandwidth using prior knowledge or separate training data and run one untouched held-out test. Alternatively define a combined statistic or selection rule in advance and repeat that entire rule in every permutation with suitable calibration. A multiplicity-adjusted prespecified family is another option. Freezing the selected bandwidth after looking at test labels ignores selection. None of these repairs nonexchangeable sampling automatically.</Prose>
-    </Practice>
-    <Practice prompt="Add c=−.5 to the optimal KL critic with both laws fixed. Calculate its loss of tightness. Why is a constant shift harmless for an IPM critic but not here?" hint={<Prose>The KL-bound gap is exp(c)−1−c. An IPM applies the same score linearly under both laws.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="Add c=−.5 to the optimal KL critic with both laws fixed. Calculate its loss of tightness. Why is a constant shift harmless for an IPM critic but not here?" hint={<Prose>The KL-bound gap is exp(c)−1−c. An IPM applies the same score linearly under both laws.</Prose>}>
       <Prose>The gap is e⁻⁰·⁵−1+.5≈.106531 nats. For the original pair, the bound falls from .208473 to .101942 while true KL stays fixed. In an IPM the two added constants cancel because total masses are one. The Fenchel objective instead has exp(T−1) under Q, so its nonlinear penalty changes.</Prose>
-    </Practice>
-    <Practice prompt="A failure has true probability 2% and cost 50; a simulator omits it. Compute expected-cost error, TV and the probability that 30 true-law observations never show the failure. What should a useful report include?" hint={<Prose>The probability error is .02; independent repeated nonoccurrence has probability .98 to the power 30.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="A failure has true probability 2% and cost 50; a simulator omits it. Compute expected-cost error, TV and the probability that 30 true-law observations never show the failure. What should a useful report include?" hint={<Prose>The probability error is .02; independent repeated nonoccurrence has probability .98 to the power 30.</Prose>}>
       <Prose>The cost error is 50×.02=1 and TV=.02. The miss probability is .98³⁰≈.545484. Forward KL is infinite because a possible event is excluded. Report support failure, rare-event sample coverage and application cost alongside bounded scores or test results. A small aggregate discrepancy does not remove the concern.</Prose>
-    </Practice>
-    <Practice prompt="Build an exact Gaussian-kernel permutation test for X=(−1,−.5,0), Y=(.5,1,1.5), bandwidth .75. Include every three-versus-three allocation and ties. Check label-swap invariance and repeatability. Can this symmetric exact test reject at level .05?" hint={<Prose>There are C(6,3)=20 allocations. Every allocation has a label-swap complement with the same MMD. Generalize the earlier code using actual group and pool sizes.</Prose>}>
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice prompt="Build an exact Gaussian-kernel permutation test for X=(−1,−.5,0), Y=(.5,1,1.5), bandwidth .75. Include every three-versus-three allocation and ties. Check label-swap invariance and repeatability. Can this symmetric exact test reject at level .05?" hint={<Prose>There are C(6,3)=20 allocations. Every allocation has a label-swap complement with the same MMD. Generalize the earlier code using actual group and pool sizes.</Prose>}>
       <Prose>The statistic is about 1.096713; two of 20 allocations are at least as extreme. Thus p=.1 and this test does not reject at .05. Equal group sizes and a symmetric statistic pair every allocation with its complement, so the minimum inclusive-tail p-value here is at least 2/20. More visually dramatic separation cannot overcome this reference resolution.</Prose>
       <Example name="project" />
       <Prose>Acceptance checks: all 20 distinct allocations appear; the observed allocation is included; ties count; swapping labels preserves the result; changing data or bandwidth recomputes every score; oversized/invalid inputs fail explicitly. The result .1 is not a 10% posterior probability of equal laws.</Prose>
-    </Practice>
-    <Prose>You are ready to continue when you can name the allowed observables, calculate a changed comparison, find a difference it misses, and distinguish a population quantity from an estimate, bound or test. The next topic in this module is <a href="/learn/path/full-curriculum/graph-fundamentals-adjacency-laplacian-connectivity?module=math-foundations">Graph Fundamentals (Adjacency, Laplacian, Connectivity)</a>. It begins a new branch: representing entities and relations as a graph. Checking what a representation preserves remains a useful habit.</Prose>
+    </Practice></div>
+    <Prose>You are ready to continue when you can name the allowed observables, calculate a changed comparison, find a difference it misses, and distinguish a population quantity from an estimate, bound or test. The next topic in this module is <a href="/learn/path/full-curriculum/graph-fundamentals-adjacency-laplacian-connectivity?module=math-foundations">Graph Fundamentals (Adjacency, Laplacian, Connectivity)</a>. It begins a new branch: representing entities and relations as a graph. Checking what a representation preserves remains a useful habit.</Prose></section>
     <Sources alternatives={<>
       <Prose>For a spoken route, Arthur Gretton's <a href="https://www.youtube.com/watch?v=eANiXrWO1dM">MLSS 2020 lecture on MMD, two-sample testing and generative models</a> is linked from his <a href="https://www.gatsby.ucl.ac.uk/~gretton/teaching.html">official teaching page</a> with slides. Use it after the finite feature-mean example. The creator's course description and video target were verified; the recording was not watched in full and the large slide PDF was not fully reviewed.</Prose>
       <Prose>For a written route, <a href="https://jmlr.org/papers/volume13/gretton12a/gretton12a.pdf">Gretton et al., A Kernel Two-Sample Test</a>, sections 2–3, develops mean embeddings, witnesses, estimators and testing. It is a research paper; first work through the finite examples and keep its population/sample notation separate.</Prose>

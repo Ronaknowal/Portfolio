@@ -1,0 +1,45 @@
+{
+  "topicId": "naive-bayes-probabilistic-classifiers",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+    "src/learn/components/lesson-labs/NaiveBayesIntuition.jsx",
+    "src/learn/components/lesson-labs/naive-bayes-intuition.css",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "3575e51104affc4c5e4dbc2a4f7c47506df3f7136d96c8fd0a71ef2445ce9fbe",
+    "src/learn/components/lesson-labs/NaiveBayesIntuition.jsx": "9a60946be16cffe3b23722f43c34d297ccd804a99267ca8939d80125e29c2fe2",
+    "src/learn/components/lesson-labs/naive-bayes-intuition.css": "0059fb8e97ea994b63bc84fc9df32da493df967f8ee1e5fb7d2cb4db6d08aa8e",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "61563d4a48073c3bc1da80743e703bf35ad3905d91d10d9abdcc8aa842ed7424"
+  },
+  "scope": "Full text and practice review; three concept-specific native HTML figures and local bridges; old canonical programs unchanged",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Within-class independence and pooled joint probability",
+      "passed": true
+    },
+    {
+      "name": "Observed-absent versus missing posterior",
+      "passed": true
+    },
+    {
+      "name": "Stable normalization and integrated token prediction",
+      "passed": true
+    },
+    {
+      "name": "Responsive prose names semantic branches instead of desktop position; changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Scoped live-lab copy review replaces two predict-first instructions; JSX parsed; no calculation/control changes",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

@@ -1,0 +1,49 @@
+{
+  "topicId": "mixture-of-experts-transformers-moe",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/mixture-of-experts-transformers-moe/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/mixture-of-experts-transformers-moe/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/author-checks.json",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/calculated-inputs.json",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/check_author_packet.py",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/data-provenance.md",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/design.md",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/fitted-models.json",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/lesson.md",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_calculations.py",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_study.py",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/optical-digits.csv",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/study-results.json",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/author-checks.json": "08042a45d8f49e4663a0bae77173b661d0303d46db1afc74faa358ebd2b95bf8",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/calculated-inputs.json": "ea7f9fad8da6aa312ace7b385d1f9685e5814cd5bd7b7b010ca847501afb2d71",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/check_author_packet.py": "3f3ee29a2e4bdefeb6b85b77ea5e1ec92c548fd2efb33c0a417010f91b1779df",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/data-provenance.md": "c35d0dc12cd0daeaaf876833727e5e9e8db18d70b0dd7728d4591de042c26396",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/design.md": "bc68a12cbe681299331fab3adf26e37c2a215a41c60934c27b871f862f74b2c1",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/fitted-models.json": "3fa32169c5d1ef6d3c5fee1be71ea81be92b5bb514ba5b82054f30ffa164dc27",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/lesson.md": "32c2901e8506e0e9c5bdfeeba847e8861e4cf218de7084affa974b44f2678cce",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_calculations.py": "cac5dc8f449333c6572eaa78157998627c6f5a130c7a98a1adc60f2c6df08d08",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_study.py": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/optical-digits.csv": "9ad440c38a738b66ba8ca85ed9097ccafe9e99846517f02cdd6512a79dde9c24",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/study-results.json": "40c3d1a65940733a5c8cb9a052f4aaf7218c66897fc1b0c47ad9c1fb0b65d136",
+    "docs/teaching/drafts/mixture-of-experts-transformers-moe/visual-specifications.md": "ab5fef52ae1ebd73c2397a4767656db7623d9a714bb4f4034900b9654a8ace9e"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

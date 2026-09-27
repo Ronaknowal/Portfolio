@@ -180,15 +180,15 @@ export function ImagePanel({ title, values, side = 8, maximum, tone = 'sequentia
 /** The numeric backing for a set of image panels: one row of the grid per row
  * of the picture, so the exact values are always selectable as text. */
 export function ImageValues({ summary, panels, side = 8 }) {
-  return <details className="nm-values">
-    <summary>{summary}</summary>
+  return <section className="nm-values lesson-teaching-section" data-lesson-teaching="">
+    <h4 className="lesson-teaching-section__title">{summary}</h4>
     <Table caption={summary}
       headings={['panel', 'row', ...Array.from({ length: side }, (_, index) => `c${index + 1}`)]}
       rows={panels.flatMap(panel => Array.from({ length: side }, (_, row) => [
         row === 0 ? panel.title : '', `r${row + 1}`,
         ...panel.values.slice(row * side, row * side + side).map(value => round(value, 3)),
       ]))} scroll />
-  </details>;
+  </section>;
 }
 
 /** A legend that states what the colours mean in numbers. */

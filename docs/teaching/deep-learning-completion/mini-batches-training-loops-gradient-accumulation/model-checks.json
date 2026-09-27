@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "comparisons": 82096,
+  "maxError": 1.4210854715202004e-14,
+  "checks": [
+    {
+      "name": "54 actual PyTorch scalar policies agree in all backward weights/gradients, final weights and optimizer buffers",
+      "passed": true
+    },
+    {
+      "name": "12 weighted objective variants match autograd, including null denominators",
+      "passed": true
+    },
+    {
+      "name": "27 noncontiguous normalization cases match true BatchNorm outputs, autograd scale gradients and running means",
+      "passed": true
+    },
+    {
+      "name": "Twelve actual full networks, all per-row67-parameter derivatives and four physical partitions match PyTorch",
+      "passed": true
+    },
+    {
+      "name": "Constructed fixtures and meaningful nulls remain defined and distinct",
+      "passed": true
+    },
+    {
+      "name": "All five public learner downloads are exact current source copies",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "No CUDA AMP or multiprocess DDP execution; those are explicitly scoped mechanism/API diagrams.",
+    "Browser control behavior and actual painted geometry remain integration checks."
+  ]
+}

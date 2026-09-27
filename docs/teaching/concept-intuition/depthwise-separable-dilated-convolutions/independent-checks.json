@@ -1,0 +1,45 @@
+{
+  "topicId": "depthwise-separable-dilated-convolutions",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:44:08.056Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx",
+    "src/learn/components/lesson-labs/DepthwiseIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/depthwise-intuition.css",
+    "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md",
+    "scripts/generate-depthwise-convolution-lesson.mjs",
+    "docs/teaching/concept-intuition/depthwise-separable-dilated-convolutions/independent-review.md",
+    "scripts/review-convolution-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "1e7cb43b2f82fbb5b0511cdb1d133e5f5b5db69dce05bc55650759ec30ed142e",
+    "src/learn/components/lesson-labs/DepthwiseIntuitionFigures.jsx": "aac8f12c5248a9cce19bce018922e0b9cd0014bb5f40172bb7089aa5e00a575e",
+    "src/learn/components/lesson-labs/depthwise-intuition.css": "780aec098bc3b585f863f87df59b9ec0fb38193150070a74e635e44e37fd6f86",
+    "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md": "9e2ffafa8e11dcbab93e526385f09c7925667c7a69ca0eb07f765ad84d36e5b3",
+    "scripts/generate-depthwise-convolution-lesson.mjs": "d04527ee65846c8371667748e22a2685d4a16359da49f1c7112d3af1f6462106",
+    "docs/teaching/concept-intuition/depthwise-separable-dilated-convolutions/independent-review.md": "59f09433f7c275b3ccb6d1db9f14cf4d97ce136530ed42f52ad397953c608536",
+    "scripts/review-convolution-sequence-intuition.mjs": "4b0e76a35ef4ecc4904244361dd2b381bf93f18b90168612d7ba41e4c7b3ce06"
+  },
+  "checks": [
+    {
+      "name": "Different reachable interval verifies exact discrete join threshold and two holes",
+      "status": "passed"
+    },
+    {
+      "name": "Changed stencil enumeration reproduces the output-size formula",
+      "status": "passed"
+    },
+    {
+      "name": "Signed expansion reconstructs before narrow clipping; rank error remains input-dependent",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/depthwise-separable-dilated-convolutions/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged scientific campaigns retained; no new native fit or library-execution claim."
+}

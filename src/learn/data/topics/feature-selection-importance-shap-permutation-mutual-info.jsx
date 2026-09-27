@@ -66,7 +66,7 @@ const featureSelectionContent = {
     <LessonIntro prerequisites={<>Training versus validation, a prediction function and an average, from the preceding <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a> lesson and the earlier <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a>. Entropy and coalition notation are introduced here before they are used.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
       A laboratory measures thirteen properties of each sample and wants to stop paying for some of them. Learn to tell four different questions apart — what a measurement reveals in the data, what a fitted model relies on, what survives removal and refitting, and how one prediction is allocated against a reference — then calculate each of them by hand on tables you edit yourself, and finally run all four on 178 real chemical analyses with a protected reserve. Every investigation updates its topic-specific results from valid control changes, with no expected-answer input.
     </LessonIntro>
-    <Prose className="fs-route"><strong>First pass.</strong> Read sections 1–6, work through the small count, permutation and coalition examples, then try practice 1–6. Section 6 connects them in a reproducible observed-data workflow. Section 7 explores deeper questions about dependence, search and stability; it is optional on a first visit.</Prose>
+    <Prose opening="route" className="fs-route"><strong>First pass.</strong> Read sections 1–6, work through the small count, permutation and coalition examples, then try practice 1–6. Section 6 connects them in a reproducible observed-data workflow. Section 7 explores deeper questions about dependence, search and stability; it is optional on a first visit.</Prose>
 
     <Prose>A laboratory measures thirteen properties of each sample. A classifier makes useful predictions, but running every assay takes time. Which measurements could the laboratory stop collecting? Now imagine a second request: explain why the classifier gave one particular sample a high score. These sound similar, yet they need different experiments.</Prose>
     <Prose>The preceding <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a> lesson showed why different coefficient vectors can represent the same predictor. Here we ask more precisely what an input contributes: to the information in the data, to a fitted model&rsquo;s performance, or to one prediction relative to a reference. That precision makes an explanation useful rather than merely persuasive.</Prose>
@@ -172,6 +172,7 @@ const featureSelectionContent = {
     <Prose>A negative measured importance means the shuffled version scored better on this assessment. Sampling variability, harmful fitted reliance or a metric-insensitive effect are possible explanations. Zero importance can arise because a feature is unused, because the metric did not change, or because the chosen perturbations did not alter relevant decisions. It does not alone prove independence from the target. Importance on training rows is permitted but describes training behavior; use suitable unseen assessment rows to investigate predictive behavior beyond fitting.</Prose>
     <Prose>Tree impurity importance asks something else. For a split node t, weighted impurity reduction is its sample fraction times the parent impurity minus the child-weighted impurities. Sum the reductions at splits using a feature, then apply the estimator&rsquo;s normalization. It records how that particular fitted tree partitioned its training criterion. Many candidate splits can favor chance reductions, so a high-cardinality measurement can receive excessive training importance. Held-out perturbation tests a different property; neither score should be disguised as the other by normalizing all bars to a common-looking scale.</Prose>
 
+    <Prose>For a concrete impurity calculation, take a node containing four equally weighted observations: two from each class, so its Gini impurity is 0.5. A split sends a mixed group of three (two of one class, one of the other) left, and a pure observation right. The child-weighted impurity is <Math>{'(3/4)(4/9)+(1/4)0=1/3'}</Math>, so this split removes 1/6 of local impurity. If only half the training observations reach this node, its whole-tree weighted contribution is 1/12. This is bookkeeping for training partitions; it contains no held-out perturbation.</Prose>
     <H2>{headings[4]}</H2>
     <Prose>Permutation importance begins with performance across labeled cases. <strong>Shapley attribution</strong> begins with one output and asks how to allocate its difference from a reference among input features. SHAP applies this idea to model explanations. The allocation can be useful, but it is incomplete until we define what a prediction means when only some inputs are supplied.</Prose>
 
@@ -192,6 +193,7 @@ const featureSelectionContent = {
     <Prose>Here <Math>{'\\Delta_j(S)'}</Math> is what feature <Math>{'j'}</Math> adds to the coalition <Math>{'S'}</Math>, and <Math>{'w_s'}</Math> is the share of orderings in which a subset of size <Math>{'s'}</Math> arrives first. The notation <Math>{'v'}</Math> matters: it is the <strong>specified coalition game</strong>, not an ordinary model <Math>{'f'}</Math> mysteriously accepting missing columns. A telescoping sum along each ordering gives <Math>{'v(F)-v(\\varnothing)'}</Math>; averaging preserves that total. Thus <Math>{'v(\\varnothing)+\\sum_j\\phi_j=v(F)'}</Math>, commonly called efficiency or local accuracy when <Math>{'v(F)=f(x)'}</Math>.</Prose>
     <Prose>The Shapley rule also treats players symmetrically when all their marginal contributions match, gives zero to a player that changes no coalition value, and is linear when two games are added. These properties characterize the allocation <strong>for a fixed game</strong>. They do not uniquely choose a background population, certify causal truth, or prove that this is the best explanation for every user. The <a href="https://proceedings.neurips.cc/paper_files/paper/2017/file/8a20a8621978632d76c43dfd28b67767-Paper.pdf">original SHAP paper</a> explicitly specifies the simplified-input mapping behind its uniqueness result.</Prose>
 
+    <Prose>With three features, a particular feature is first, middle or last in two of the six equally likely orders each. The empty predecessor set therefore has weight 1/3, either particular one-feature predecessor set has weight 1/6, and the full two-feature predecessor set has weight 1/3. Giving all four subsets weight 1/4 would answer a different averaging question. The factorials count arrival orders; they are not an arbitrary weighting trick.</Prose>
     <H3>Replace missing coordinates using actual reference rows</H3>
     <Prose>One zero reference is often not meaningful. Instead, take a declared background collection B. For every background row, retain the instance values in S and fill the remaining coordinates from that row. Average the model outputs:</Prose>
     <MathBlock>{'v_{x,B}(S)=\\frac1{|B|}\\sum_{b\\in B}f(x_S,b_{\\bar S}).'}</MathBlock>
@@ -292,6 +294,24 @@ const featureSelectionContent = {
     <Prose>Grouping columns for a valid perturbation is often useful, but “add their individual Shapley values” and “treat the group as one player” can differ. Consider three players A,B,C with value one only when all three are present, and zero for every other coalition. Each individual Shapley value is {num(threePlayer.individual[0], 6)}, so A+B sum to {num(threePlayer.summedIndividual[0], 6)}. Now form two players: group G=&#123;A,B&#125;, and C. Both are needed for the value one, so each grouped player receives {num(threePlayer.grouped[0], 6)}. The possible arrival orders changed.</Prose>
     <Prose>Use summed individual values when that is the declared aggregation, and grouped-game values when groups are the explanatory players. A valid one-hot feature can be treated as one original variable, avoiding impossible partial-category coalitions. Feature engineering can create similar choices: explaining alcohol and alcohol² as separate players is different from explaining the single raw alcohol measurement that generates both. The decision should follow what the learner or application regards as a meaningful change.</Prose>
 
+    <figure className="fs-figure" data-intuition="shap-group-arrival-orders">
+      <figcaption><strong>The last arrival receives the unit in this unanimity game.</strong> Grouping changes how many arrival orders there are.</figcaption>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 245px), 1fr))', gap: '1.4rem' }}>
+        <div><p><strong>Three separate players: six orders</strong></p>
+          {['ABC', 'ACB', 'BAC', 'BCA', 'CAB', 'CBA'].map(order => <p key={order} style={{ margin: '.55rem 0', fontFamily: 'var(--font-mono, monospace)' }}>
+            {order[0]} → {order[1]} → <strong style={{ color: '#e7b94a' }}>{order[2]}</strong>
+            {' · '}{order[2]} receives 1
+          </p>)}
+          <p>A or B is last in four orders: summed allocation 4/6 = 2/3.</p>
+        </div>
+        <div><p><strong>G = {'{A,B}'} and C: two orders</strong></p>
+          <p>G → <strong style={{ color: '#e7b94a' }}>C</strong> · C receives 1</p>
+          <p>C → <strong style={{ color: '#e7b94a' }}>G</strong> · G receives 1</p>
+          <p>G is last in one order: grouped allocation 1/2.</p>
+        </div>
+      </div>
+      <Prose>Both games return one when everyone is present. The changed allocations come from changed players and averaging, not a changed model output or a numerical approximation.</Prose>
+    </figure>
     <H3>Scale computation to the mechanism</H3>
     <Prose>For <Math>{'d'}</Math> raw inputs, exhaustive coalition enumeration requires <Math>{'2^d'}</Math> coalition values per explained instance; background replacement additionally evaluates <Math>{'|B|'}</Math> hybrid rows per coalition. Cached coalition values avoid recomputing the same subset for every feature. The local Wine calculation uses sixteen coalitions and {split.fitting} background rows per instance, not an exponential native search over all thirteen source columns.</Prose>
     <Prose>Sampling arrival orders estimates Shapley values using their average marginal increments; sampling coalitions with the Shapley kernel instead yields a weighted regression problem. These are related approximations, not identical algorithms. KernelSHAP uses special coalition-size weights and constraints at empty/full coalitions. Its cost depends on the evaluated coalitions, background size, model prediction cost and regression solve; there is no universal O(d²) end-to-end guarantee or fixed number of seconds.</Prose>
@@ -299,61 +319,61 @@ const featureSelectionContent = {
     <Prose>For differentiable models, gradients measure local sensitivity, while integrated gradients accumulates gradients along a specified path from a reference. Deep SHAP and gradient-based approximations make additional choices. They are useful extensions, but sharing an additive-looking plot does not make all methods exact Shapley estimators. Nor are attention weights automatically causal or faithful explanations. A later interpretability investigation should define its intervention, reference and evaluation just as carefully as this tabular lesson.</Prose>
     <Prose>Finally, a global sum of mean absolute SHAP values is an attribution-magnitude total over a declared set of predictions. If you plot a cumulative <strong>fraction</strong> of that total, it must finish at one when the total is positive. If every attribution is zero, the fraction is undefined and should be labeled accordingly. Even a correct 95% cumulative fraction does not imply 95% retained accuracy, explained variance or information. For a measurement-removal decision, refit and assess the reduced-input recipe.</Prose>
 
-    <H2>{headings[7]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[7]}</H2>
     <Prose>Attempt the first six before opening solutions. The remaining questions use the deeper branches.</Prose>
 
-    <Practice title="1. A different count table"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A different count table"
       question="The counts are [[2,0],[0,6]]. What are H(Y), H(Y|X) and I(X;Y) in bits? Why is perfect prediction now less than one bit of information?"
       hint="The target probabilities are 1/4 and 3/4. Conditional on either occupied row, the answer is certain.">
       <Prose>H(Y) = −(1/4) log₂(1/4) − (3/4) log₂(3/4) ≈ {bits(practiceTable.targetEntropy)} bits. Conditional entropy is {num(practiceTable.conditionalEntropy, 6)}, so MI is {bits(practiceTable.mutualInformation)} bits. Perfectly revealing a target cannot reveal more uncertainty than it originally had; this target is not balanced. The first investigation loads this exact table from its practice preset.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. A feature that becomes useful later"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. A feature that becomes useful later"
       question="For fair independent A and B with Y=A XOR B, give I(A;Y) and I(B;Y). After A is known, how many additional bits about Y does B reveal? Would adding a perfect duplicate C=A create a second independent bit about Y?">
       <Prose>The first two values are {num(xor.projections[0].information, 4)} and {num(xor.projections[1].information, 4)}, and the conditional value is one bit. C supplies no information beyond A because it is determined by A. A and B together determine Y; copying A does not create new target information.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. A partial permutation"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. A partial permutation"
       question={<>Use the duplicate rows (−1,−1),(−1,−1),(1,1),(1,1), target (−1,−1,1,1), and predictor <Math>{'(x_1+x_2)/2'}</Math>. Shuffle only the first column using donors (0,2,1,3). What is the MSE increase? What happens if both columns use that same permutation?</>}>
       <Prose>The first-column perturbation gives predictions (−1,0,0,1), with squared errors (0,1,1,0), so MSE rises by 0.5. Perturbing both gives (−1,1,−1,1), squared errors (0,4,4,0), and increase two. Some donor rows preserve values; a shuffle need not alter every case. The donor investigation loads this exact case from its practice preset.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Change the interaction strength"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Change the interaction strength"
       question={<>For <Math>{'f(a,b)=a+b+2ab'}</Math>, instance (1,2), and reference (0,0), calculate all four coalition values and the Shapley values. Then explain why the A-first increment differs from the A-second increment.</>}>
       <Prose>Coalition values are 0,1,2,7. A receives (1+5)/2=3 and B receives (2+6)/2=4. The interaction term contributes four only after both variables are present; averaging arrival orders allocates two of that interaction to each. The coalition investigation loads this case from its practice preset.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Information flow rather than a score test"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Information flow rather than a score test"
       question="A colleague selects the six highest-MI inputs using every development label, then cross-validates a model on those columns. After moving the selector inside the folds, the score unexpectedly increases slightly. Was the original procedure free of leakage?">
       <Prose>No. Validation labels influenced the original selected representation regardless of the observed score direction. The corrected experiment changes the information boundary; one realized difference is not a universal test for whether leakage occurred. Preserve an independent assessment of the full selection procedure.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Read the actual Wine result"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Read the actual Wine result"
       question="Malic acid has zero permutation importance and zero replacement SHAP in the four-field tree. What precisely has been established? A proposed reduced model is judged only by retaining 95% of mean absolute SHAP. What calculation is missing?">
       <Prose>The saved tree never uses malic acid, so replacing that coordinate cannot change its output. This does not establish population independence or that no other model can use it. To judge a reduced measurement set, fit the reduced-input learning procedure and assess it on appropriate protected data; attribution magnitude is not a retained-performance guarantee.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Explain a different output — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Explain a different output — deeper"
       question="A binary model's raw margin explanation has baseline −0.2 and contributions +0.8 and −0.1. What is the reconstructed margin and its probability under the sigmoid? Can the two contributions be separately passed through the sigmoid and added?">
       <Prose>The margin is 0.5 and sigmoid(0.5)=1/(1+exp(−0.5))≈{num(sigmoid(0.5), 6)}. The sigmoid is nonlinear, so transforming and adding the individual terms does not yield an additive probability explanation. A probability-space coalition game must explain that output directly.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Count the search fits — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Count the search fits — deeper"
       question="Forward selection chooses three of six inputs using fourfold validation. Count candidate fits and one final refit. Compare simple RFE removing one at a time from six to three, including its final retained-model fit and no CV.">
       <Prose>Forward selection assesses 6+5+4={forwardSix.subsets} candidate subsets, with four fits each: {forwardSix.candidateFits} plus one final refit, {forwardSix.total} in all. RFE fits six-, five- and four-feature models to select removals, then the final three-feature model: {rfeSix.total} fits. These methods use different selection quantities and do not have identical statistical guarantees.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="9. Change the players — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="9. Change the players — deeper"
       question="Four players A,B,C,D receive value one only when all four are present. Compare the sum of individual A+B+C Shapley values with the value assigned when G={A,B,C} is one player and D the other.">
       <Prose>The individual game is symmetric, so each receives {num(unanimityGame(4).phi[0], 4)} and the sum is {num(fourPlayer.summedIndividual[0], 4)}. The two-player game is symmetric, so G receives {num(fourPlayer.grouped[0], 4)}. Grouping changes possible arrival orders and the allocation target; it is not generally the same as summing afterward.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="10. Design a useful deployment investigation — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="10. Design a useful deployment investigation — deeper"
       question="A factory wants to replace an expensive sensor with two cheaper correlated sensors. A fitted model gives the expensive sensor the largest permutation score. Propose a comparison that answers the factory's question, including the unit of assessment and actual costs.">
       <Prose>Define the future task, such as predicting faults on new machines or later operating periods, and split by that unit and information availability. Compare predeclared full and cheaper-sensor learning procedures, fitting every transform/selection stage within their development folds. Assess the locked procedures on protected machines or later periods, using relevant error costs and actual acquisition/maintenance costs. A fixed-model permutation tests present reliance; it does not evaluate the retrained substitute. Preserve calibration/threshold assessment if decisions depend on predicted probabilities.</Prose>
-    </Practice>
+    </Practice></div></section>
 
-    <H2>{headings[8]}</H2>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[8]}</H2>
     <Prose>You are ready to continue when you can distinguish data information, fixed-model reliance, removal-and-refit performance and local attribution; calculate MI from a small table; trace a permutation donor; derive a two-feature Shapley allocation; and state the reference, output units and protected data boundary in an actual analysis. You should be able to explain why an excluded feature can still be informative and why an exact explanation can still answer the wrong question.</Prose>
     <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
       ['Say which of the five questions a request is actually asking', 'Section 1, figure 1'],
@@ -366,7 +386,7 @@ const featureSelectionContent = {
       ['Read the recorded Wine study without inventing a winner', 'Section 6, figure 4, practices 5 and 6'],
       ['Separate conditional information, stability, grouping and computation cost', 'Section 7, practices 7 to 10'],
     ]} />
-    <Prose>Next is <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias–Variance Tradeoff &amp; Learning Curves</a>. It develops what changes when training samples change, why prediction and selection stability can differ, and how to read learning curves. After that, Imbalanced Learning connects the metric and measurement choices here to rare events and unequal error costs.</Prose>
+    <Prose>Next is <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias–Variance Tradeoff &amp; Learning Curves</a>. It develops what changes when training samples change, why prediction and selection stability can differ, and how to read learning curves. After that, Imbalanced Learning connects the metric and measurement choices here to rare events and unequal error costs.</Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
       <li><a href="https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance_multicollinear.html">Permutation with correlated features: a visual and code example</a>: inspected tree/permutation plots, a correlation dendrogram and a removal-and-refit comparison. Its correlation grouping is exploratory and uses the full X; for a protected assessment, fit grouping within the development boundary and choose a linkage appropriate to the distance. Its particular result is not a universal fallback rule for every fixed model.</li>

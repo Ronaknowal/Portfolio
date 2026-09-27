@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "scalarComparisons": 50671,
+  "groups": {
+    "functional-native-full-network": {
+      "comparisons": 44064,
+      "maxError": 1.1102230246251565e-14
+    },
+    "network-input-gradient-central-difference": {
+      "comparisons": 60,
+      "maxError": 1.0745604406281473e-9
+    },
+    "native-PyG-new-directed-and-empty-graphs": {
+      "comparisons": 112,
+      "maxError": 8.881784197001252e-16
+    },
+    "native-PyG-input-gradient": {
+      "comparisons": 56,
+      "maxError": 2.4819890587224336e-10
+    },
+    "all-64-four-node-graph-eigenspaces": {
+      "comparisons": 5504,
+      "maxError": 4.429258070709097e-14
+    },
+    "native-energy-force-geometry": {
+      "comparisons": 477,
+      "maxError": 2.842170943040401e-14
+    },
+    "SciPy-erf-and-normal-CDF": {
+      "comparisons": 254,
+      "maxError": 8.881784197001252e-16
+    },
+    "chirality-role-scale-and-orthogonal-parity": {
+      "comparisons": 72,
+      "maxError": 3.552713678800501e-15
+    },
+    "safe-exact-budget-boundary": {
+      "comparisons": 72,
+      "maxError": 0
+    }
+  },
+  "nativeVersions": {
+    "torch": "2.14.0+cpu",
+    "pyg": "2.8.0.post1",
+    "numpy": "2.3.5"
+  },
+  "limits": [
+    "New inputs and parameter state only; no repeated graph fitting or additional dataset claim.",
+    "Central differences verify selected full-network gradients and every new GPS input gradient; they are not an exhaustive parameter-gradient proof.",
+    "Browser review remains root-owned."
+  ]
+}

@@ -8,7 +8,7 @@ let manuscript = fs.readFileSync(folder + 'lesson.md', 'utf8');
 // disclosures. Normalize those two forms at authoring time, never in the browser.
 manuscript = manuscript.replace(/(?<!\\)\$([^$\n]+)\$/g, (_, math) => '\\(' + math + '\\)');
 manuscript = manuscript.replace(/(<details>|<\/details>|<summary>[^<]*<\/summary>)/g, '\n\n$1\n\n');
-const { jsx, sections } = renderPreparedLesson(manuscript, {
+const { jsx, sections } = renderPreparedLesson(manuscript, { preserveOpeningFrom: 'src/learn/data/topics/dropout-droppath-stochastic-depth.jsx',
   assetBase: '/learn-assets/dropout-droppath-stochastic-depth/',
   additions: [
     ['That is not a promise', '<DropoutUpdateLab />'],
@@ -22,6 +22,9 @@ const { jsx, sections } = renderPreparedLesson(manuscript, {
     ['The recorded run used', '<DropoutProgram />'],
     ['**Investigate:**', '<DropoutMeasuredLab />'],
     ['In the actual run,', '<DropoutMonteCarloLab />'],
+    ['**DropBlock**', '<DropBlockFootprintFigure />'],
+    ['**DropConnect**', '<DropConnectTopologyFigure />'],
+    ['For independent Gaussian weights,', '<LocalNoiseFigure />'],
   ],
 });
 const lesson = `// Full prepared revision-3 manuscript, rendered at authoring time.
@@ -29,6 +32,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { DropBlockFootprintFigure, DropConnectTopologyFigure, LocalNoiseFigure } from '../../components/lesson-labs/DropoutNoiseIntuition.jsx';
 import { DropoutUpdateLab, DropoutExpectationLab, DropoutGeometryLab, DropoutBranchLab, DropoutDepthLab, DropoutModeLab, DropoutMeasuredLab, DropoutMonteCarloLab, DropoutProgram } from '../../components/lesson-labs/DropoutLabs.jsx';
 
 export default {

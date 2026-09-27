@@ -7,13 +7,18 @@ const assets = `public/learn-code/${id}/`;
 fs.mkdirSync(assets, { recursive: true });
 for (const file of ['convolution-factorization.py', 'context-blocks.py', 'author-checks.py', 'digits-400.csv', 'calculated-inputs.json', 'author-check-results.json', 'block-check-results.json', 'data-provenance.md']) fs.copyFileSync(draft + file, assets + file);
 const measured = JSON.parse(fs.readFileSync(draft + 'calculated-inputs.json'));
-fs.writeFileSync(assets + 'digit-inference.json', JSON.stringify({ runs: measured.runs.filter(run => run.seed === 1).map(({ dilation, dense_state, factorizations, examples }) => ({ dilation, dense_state, factorizations: factorizations.map(({ multiplier, factorized_spatial_state }) => ({ multiplier, factorized_spatial_state })), examples })) }) + '\n');
+const inference = JSON.stringify({ runs: measured.runs.filter(run => run.seed === 1).map(({ dilation, dense_state, factorizations, examples }) => ({ dilation, dense_state, factorizations: factorizations.map(({ multiplier, factorized_spatial_state }) => ({ multiplier, factorized_spatial_state })), examples })) });
+const inferenceFile = assets + 'digit-inference.json';
+// A prose-only rebuild must preserve identical frozen numerical asset bytes.
+if (!fs.existsSync(inferenceFile) || fs.readFileSync(inferenceFile, 'utf8').trimEnd() !== inference) {
+  fs.writeFileSync(inferenceFile, inference + '\n');
+}
 let manuscript = fs.readFileSync(draft + 'lesson.md', 'utf8').replaceAll('\r\n', '\n');
 manuscript = manuscript.replace(/<details><summary>(.*?)<\/summary>(.*?)<\/details>/g, '<details>\n<summary>$1</summary>\n\n$2\n\n</details>');
 // Convert this packet's dollar delimiters to the renderer's explicit delimiters.
 manuscript = manuscript.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => `\\[\n${math.trim()}\n\\]`).replace(/\$([^$\n]+)\$/g, (_, math) => `\\(${math}\\)`);
 manuscript = manuscript.replace('its newly prepared [pullback program]', 'its published [pullback program]').replace('Those improved pages are still prepared, so the source links are the exact reuse contract, not a claim that their new website versions are already published.', 'The improved [Convolution, Pooling & Receptive Fields lesson](/learn/path/full-curriculum/convolution-pooling-receptive-fields?module=deep-learning-fundamentals) is published. Reuse those actual operators while this lesson opens their factorization and sampling choices.').replace('[convolution packet, `direct_conv2d`]', '[convolution program, `direct_conv2d`]');
-const rendered = renderPreparedLesson(manuscript, {
+const rendered = renderPreparedLesson(manuscript, { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-code/${id}/`,
   replacements: [
     ['**Visual: follow two colored channel lanes.**', '<Prose>Follow one channel through its own spatial filter, then combine the two channel results. The channel investigation below exposes each scalar term beside the editable input.</Prose>'],
@@ -23,6 +28,7 @@ const rendered = renderPreparedLesson(manuscript, {
     ['**Investigation: inspect a compressed prediction.**', '<Prose>Inspect the saved seed-one dense model alongside its rank-one replacement on the same real image. Source 299 (digit 1) and source 32 (digit 9) are deliberately selected disagreement cases for dilations 1 and 2 respectively; they are diagnostic selections, not random representatives. Change a pixel to compare the actual signed logits and inspect original/reconstructed filters.</Prose><DepthwiseDigitLab />'],
   ],
   additions: [
+    ['Compare the three shifted copies', '<DilationIntervalFigure />'],
     ['Try changing B\'s first input', '<DepthwiseChannelLab />'],
     ['Repeated even rates', '<DepthwiseCoverageLab />'],
     ['These are exact operation counts', '<DepthwiseSupportingFigure kind="cost" />'],
@@ -38,6 +44,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { DilationIntervalFigure } from '../../components/lesson-labs/DepthwiseIntuitionFigures.jsx';
 import { DepthwiseChannelLab, DepthwiseRankLab, DepthwiseStencilLab, DepthwiseCoverageLab, DepthwiseContextLab, DepthwiseDigitLab, DepthwiseProgram, DepthwiseSupportingFigure } from '../../components/lesson-labs/DepthwiseConvolutionLabs.jsx';
 export default {
   title: 'Depthwise Separable & Dilated Convolutions',

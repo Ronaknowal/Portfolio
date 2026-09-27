@@ -70,7 +70,7 @@ Use \(x=[0.4,-0.2,0.7]\), input weight \(w_x=0.8\), recurrent weight \(w_h=0.6\)
 
 The second input is negative, yet the second state is positive. The state includes both the new observation and a transformed contribution from the past. It is not simply a copy of the current input.
 
-**Investigation: edit an observation, then trace its consequences.** Change the middle input before stepping the recurrence. Observe whether the final state will rise, fall or remain equal, and enter an approximate value. The display then recomputes the input contribution, old-state contribution, preactivation and tanh at each affected position. Changing \(x_2\) cannot alter \(h_1\), because this recurrence only moves forward.
+**Investigation: edit an observation, then trace its consequences.** Change the middle input and inspect the final state immediately. The display recomputes the input contribution, old-state contribution, preactivation and tanh at each affected position. Changing \(x_2\) cannot alter \(h_1\), because this recurrence only moves forward.
 
 ### Learning assigns credit to repeated uses of the same weight
 
@@ -184,6 +184,8 @@ h_t=z_t\odot h_{t-1}+(1-z_t)\odot n_t.
 If an old coordinate is \(0.8\), its candidate is \(-0.4\), and \(z=0.75\), the new state is \(0.75(0.8)+0.25(-0.4)=0.5\). A large \(z\) means a small replacement in this convention. Some presentations use the complementary convention, so read the equation before interpreting the word “update.”
 
 The reset gate \(r_t\) controls how the old state influences the candidate. The update gate decides how much candidate actually replaces the old state. Resetting the candidate's dependence on history is therefore not the same as clearing the entire carried state.
+
+There is also a useful range invariant. This GRU update is a coordinatewise convex blend: its old-state and candidate coefficients add to one. If both values lie in [−1,1], the new value stays in that interval; zero initialization and tanh candidates preserve it at every step. An LSTM's retain and write gates are independent, so they can both be nearly one. Repeated positive writes can accumulate a cell value much larger than one, even though its exposed hidden value is bounded by the output gate and tanh. The GRU's one-state design and the LSTM's cell/readout separation therefore impose different update constraints, not merely different parameter counts.
 
 For the PyTorch variant used in the program:
 
@@ -490,6 +492,17 @@ print(torch.allclose(final, separate, atol=1e-6))  # True
 
 The summary concatenates the final forward and final backward states. It does not take both halves of the output at the last valid index: at that index, the backward component has only just started reading from the end.
 
+Read the dependencies for a four-symbol sequence A B C D:
+
+| Output position | Forward component has read | Backward component has read |
+| --- | --- | --- |
+| A | A | D C B A |
+| B | A B | D C B |
+| C | A B C | D C |
+| D | A B C D | D |
+
+The last row pairs a complete forward history with a one-symbol backward history. To obtain both complete histories, use the forward final state from D and the backward final state from A. Native `h_n` gathers these directional endpoints for you. The table describes information dependencies; the hidden values are learned summaries, not literal stored strings.
+
 The [PyTorch LSTM API](https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html) documents the hidden/cell shapes, projections and bidirectional final-state distinction. With `batch_first=True`, inputs and sequence outputs use batch first, but final hidden states still use \([\text{layers}\times\text{directions},B,H]\). An LSTM additionally returns a cell-state tensor. With a projection, hidden width and cell width can differ.
 
 In a stack, layer 2 consumes layer 1's output at each position. This adds depth across layers as well as the recurrence across positions. In a bidirectional stack, that input has both directions' features. Do not simply multiply a one-layer parameter count by the number of layers without checking the next layer's input width.
@@ -553,6 +566,8 @@ For the explicitly defined scalar cell in the retained mechanics program, at \((
 \]
 The forget value 0.746494 appears in the lower-right entry. It is not the whole matrix. Products of these complete Jacobians describe total state sensitivities. A plot of \(f^T\) must therefore be labeled a direct-path, fixed-gate illustration rather than a measured full LSTM gradient.
 
+Track a tiny cell perturbation through two steps to see the extra route. There is a direct path c→c→c and a second path c→h→c. If, as a constructed local linear illustration, both steps had exactly the displayed rounded Jacobian, the final cell multiplier would be \(0.746494^2+0.458119\times0.318697\approx.703254\). Retaining only the direct route gives approximately .557253. The added term is hidden-state feedback into the next cell. Actual gates change with the trajectory, so the complete calculation multiplies the successive actual Jacobians; it does not simply square this one example everywhere.
+
 ### A matrix's eigenvalues are not the whole temporal story
 
 For tanh, \(\|J_t\|_2\leq\|W_h\|_2\). If every local Jacobian norm is bounded by a common \(q<1\), the product norm is at most \(q^{T-k}\). This is a sufficient contraction condition, not a necessary diagnosis for every trajectory.
@@ -564,6 +579,8 @@ B=\begin{bmatrix}0&0\\2&0\end{bmatrix}.
 \]
 Each has only zero eigenvalues, but \(BA=\operatorname{diag}(0,4)\) amplifies one direction. This constructed counterexample explains why inspecting each step's spectral radius is insufficient for a temporal product. It is not a claim that these are the Jacobians of our fitted pen model.
 
+Follow the direction as well as the magnitude. A maps the vertical unit vector into a horizontal vector of length 2; B maps that horizontal vector into a vertical vector of length 4. A would destroy its own output if repeated alone. Alternating with B avoids that destruction. This is why the sequence of compatible stretching directions matters beyond the eigenvalues of each isolated step.
+
 ### Initialization, regularization and variants
 
 Orthogonal recurrent initialization can preserve norms for a linear transformation at initialization, but tanh derivatives and training updates still matter. The [initialization lesson](/learn/path/full-curriculum/weight-initialization-xavier-kaiming-p?module=deep-learning-fundamentals) explains the broader variance and singular-value picture.
@@ -573,6 +590,10 @@ When setting a PyTorch LSTM forget bias, its two bias vectors add. Setting both 
 Native recurrent-module dropout is applied between stacked layers, excluding the last layer. It is not an automatic recurrent-state dropout mechanism, and with one layer there is no intervening layer on which to apply it. A separate input/output mask or a specialized recurrent dropout method needs its own declared behavior. `eval()` changes training-dependent module behavior; `no_grad()` independently disables autograd recording.
 
 Peephole LSTMs let gates inspect cell state; projected LSTMs use a narrower hidden output than their cell width. These are concrete architectural choices, not synonyms for every LSTM. More specialized descendants appear later in the module.
+
+A peephole can let a gate react to a stored quantity even when the output gate has hidden it from h. For a constructed forget rule \(f=\sigma(c_{\rm old})\), cell values +2 and −2 produce factors about .881 and .119 despite an identical hidden output of zero. This is a direct cell-to-gate connection; the standard non-peephole equations above do not contain it. Changing that connection also changes the derivative paths.
+
+A projection instead controls the cost of communicating state. With cell width H=32 and projected hidden width P=12, the ordinary gated cell first produces a 32-vector, then a learned 12×32 matrix forms the hidden output used by the next step and readout. The cell still carries 32 values. For input width D=2 and the two-bias native convention, the single-layer recurrent parameter count is \(4H(D+P+2)+PH=2,432\), compared with 4,608 without projection; a ten-class head now adds 130 rather than 330. The 12-dimensional feedback is a bottleneck, so a smaller count does not imply equal accuracy. The linked native LSTM documentation gives the distinct hidden/cell shapes and projection parameter explicitly.
 
 Choose candidate architectures from the evidence and deployment constraints. Fixed-length ordered features can be a strong baseline; a causal recurrent state can serve streaming inputs; temporal convolutions supply local receptive fields; attention supplies direct content-dependent access to other positions. No length threshold makes one architecture automatically correct. Measure quality, memory and latency under the actual input-availability contract.
 

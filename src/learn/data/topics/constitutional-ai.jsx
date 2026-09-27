@@ -852,9 +852,9 @@ for batch in alignment_prompts:
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Write a principle for factual precision</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Write a principle for factual precision</H3>
 
       <Prose>
         Write a constitutional principle for the following behavioral goal: "prefer responses that state well-established facts over responses that include speculative, uncertain, or unverifiable claims." Your principle must be: (a) specific enough that a capable language model critic can evaluate it reliably on a novel (prompt, response) pair without ambiguity; (b) written so that the principle does not over-penalize appropriate hedging ("current evidence suggests...") while correctly flagging unqualified speculation; and (c) implementable in a single-pass critique — the critic should be able to evaluate the response against the principle without needing to run external fact-checking. Test your principle against three response examples: a confidently stated correct fact, a confidently stated incorrect fact, and a well-hedged uncertain claim. Does your principle correctly rank all three?
@@ -862,31 +862,31 @@ for batch in alignment_prompts:
 
       <Callout accent="green">
         Starting point: distinguish between "the response makes a specific empirical claim" and "the response presents that claim with calibrated confidence." A good principle penalizes the combination of specificity and overconfidence, not either alone.
-      </Callout>
+      </Callout></div>
 
-      <H3>Exercise 2 — Design an over-refusal failure-mode test</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Design an over-refusal failure-mode test</H3>
 
       <Prose>
         Over-refusal is one of the most common CAI failure modes and one of the hardest to catch during training. Design a test suite to detect it. Your test suite should: (a) cover at least 5 distinct categories of benign requests that a cautious critic might incorrectly flag as problematic (e.g., requests about historical violence, medical information, creative fiction with conflict); (b) define a clear standard for "over-refusal" in each category — the criterion by which a human evaluator would say "this refusal was unnecessary"; (c) specify how you would measure the over-refusal rate across your test suite; and (d) specify what over-refusal rate would trigger an intervention in your training pipeline, and what that intervention would be (more permissive principle wording? critic temperature adjustment? explicit non-refusal training examples?).
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Analyze CAI scaling limits</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Analyze CAI scaling limits</H3>
 
       <Prose>
         CAI's quality bound states that the trained model cannot exceed the critic's accuracy at applying each principle. Consider the following scenario: you are training a model for advanced mathematical reasoning, and your constitution includes the principle "prefer responses that contain mathematically correct proofs over responses with errors." Your critic model is the same model family but one generation older than the policy being trained. (a) Under what conditions does this principle contribute useful training signal? (b) Under what conditions does it contribute noise? (c) Propose a test you would run before including this principle in a production constitution to determine whether your critic is capable enough for it to be useful. (d) If the critic fails the test, what are your options — abandon the principle, modify it, or supplement it with something else?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Compare CAI for math versus ethics</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Compare CAI for math versus ethics</H3>
 
       <Prose>
         Constitutional AI behaves differently when applied to mathematical correctness versus ethical behavior. Analyze the differences along three dimensions. First, <strong>evaluability</strong>: a principle like "prefer the mathematically correct proof" has a ground truth; a principle like "prefer the more ethically balanced response" does not. How does this affect critique quality, label noise, and training signal? Second, <strong>specification completeness</strong>: can a finite constitution fully specify correct mathematical behavior in a given domain? Can it fully specify ethical behavior? What are the implications of each answer for constitution maintenance? Third, <strong>failure mode character</strong>: if the CAI pipeline fails on mathematical reasoning, what does the resulting model look like? If it fails on ethical reasoning, what does that look like? Which failure is more dangerous and why?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Evaluate the Collective Constitutional AI tradeoffs</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Evaluate the Collective Constitutional AI tradeoffs</H3>
 
       <Prose>
         The Collective Constitutional AI paper (Huang et al., 2024) showed that a democratically derived constitution produces a model with different behavioral patterns than an expert-derived one. (a) Identify two specific cases where the public constitution's emphasis on "objectivity and impartiality" would produce different model behavior than Anthropic's standard constitution. In which case is the public constitution better? In which is it worse? (b) The public deliberation process involved approximately 1,000 US participants. What selection biases might this introduce into the resulting constitution, and how would you test whether those biases are present in the trained model? (c) If you were running a similar process for a model deployed globally, what changes would you make to the deliberation design? What tradeoffs do your changes introduce?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

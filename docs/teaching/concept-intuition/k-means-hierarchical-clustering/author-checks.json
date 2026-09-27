@@ -1,0 +1,36 @@
+{
+  "topicId": "k-means-hierarchical-clustering",
+  "date": "2026-09-26T15:56:14.989Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx",
+    "src/learn/components/lesson-labs/KMeansStructureFigures.jsx",
+    "src/learn/components/lesson-labs/k-means-structure.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "65394fbbce5ab09c717caa5cd823308bc620e4bcea21597e22c9c3f033eafce8",
+    "src/learn/components/lesson-labs/KMeansStructureFigures.jsx": "abcc557f84465ce08bf13791570a4717719d11aec6b5e1d18a9b2a738e87e084",
+    "src/learn/components/lesson-labs/k-means-structure.css": "a0ee7af2f5dcb5e9b73522d6698ffb4851abea43690e6e4327142da624da796a"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Single-link retained edge lengths and endpoint separation",
+    "Incremental mean arrival trace",
+    "BIRCH restricted-scatter identity",
+    "Direct mapped versus kernel mean distance",
+    "Spherical normalization contrast",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/k-means-hierarchical-models.js",
+    "src/learn/data/k-means-hierarchical-examples.js",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

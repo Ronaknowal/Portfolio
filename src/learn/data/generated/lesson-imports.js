@@ -231,4 +231,7 @@ export const lessonModules = {
   "end-to-end-supervised-learning-error-analysis": () => import("../topics/end-to-end-supervised-learning-error-analysis.jsx"),
   "ml-problem-formulation-baselines-data-leakage": () => import("../topics/ml-problem-formulation-baselines-data-leakage.jsx"),
   "time-series-validation-forecasting-baselines": () => import("../topics/time-series-validation-forecasting-baselines.jsx"),
+  "long-context-sequence-models-transformer-xl-griffin-perceiver": () => import("../topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx"),
+  "mini-batches-training-loops-gradient-accumulation": () => import("../topics/mini-batches-training-loops-gradient-accumulation.jsx"),
+  "neural-training-diagnostics-reproducible-experiments": () => import("../topics/neural-training-diagnostics-reproducible-experiments.jsx"),
 };

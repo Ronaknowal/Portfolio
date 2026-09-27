@@ -185,7 +185,7 @@ export function LiveResult({ state, calculateInputs, blocked, describe }) {
 /** Earlier attempts, kept as history and never as the answer to edited inputs. */
 export function Attempts({ entries, label = 'Saved comparison snapshots' }) {
   if (!entries.length) return null;
-  return <details><summary>{label} ({entries.length})</summary><ol>{entries.map((entry, index) => <li key={index}><code>{entry.key}</code></li>)}</ol></details>;
+  return <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">{label} ({entries.length})</h4><ol>{entries.map((entry, index) => <li key={index}><code>{entry.key}</code></li>)}</ol></section>;
 }
 
 /** A framed plot with one shared scale for everything drawn on it. */

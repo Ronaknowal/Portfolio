@@ -1,0 +1,35 @@
+{
+  "topicId": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx",
+    "src/learn/components/lesson-labs/EvaluationMetricsIntuition.jsx",
+    "src/learn/components/lesson-labs/evaluation-metrics-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "c81b99ec9c2fd4de03ee5a4d6fb74d24338ece21e201ff89b5a09191a65b3850",
+    "src/learn/components/lesson-labs/EvaluationMetricsIntuition.jsx": "5b69632e26f7636fdecc3d16c9083acce5ef1eef974bb321a241a410a5810bd9",
+    "src/learn/components/lesson-labs/evaluation-metrics-intuition.css": "581462e8046c22e901d744bf60e4f321cdf462a34b9eaf2599d600632ee6e3db"
+  },
+  "scope": "Complete eleven-section reading; local forecast-objective, averaging-weight and MCC transitions. Existing live labs, full programs and outcomes retained.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "All 121 coordinates per objective lie inside labeled bounds and have claimed minima",
+      "passed": true
+    },
+    {
+      "name": "Finite-difference slopes verify mean, median and quantile argument",
+      "passed": true
+    },
+    {
+      "name": "MCC from binary covariance equals count formula; aggregation contributions sum to existing values",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

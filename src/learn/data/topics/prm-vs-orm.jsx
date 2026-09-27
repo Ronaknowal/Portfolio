@@ -775,9 +775,9 @@ trainer.train()  # trains BCE loss on step-boundary positions only`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Design PRM labels for a 5-step proof</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Design PRM labels for a 5-step proof</H3>
 
       <Prose>
         Consider the following 5-step proof that <Code>√2</Code> is irrational. For each step, write a binary label (1 = correct, 0 = incorrect) and a one-sentence justification for your label. Then explain: would an ORM trained on binary correct/incorrect outcomes be able to distinguish a student who makes an error at step 3 versus step 5, given that both reach the same (incorrect) conclusion?
@@ -785,31 +785,31 @@ trainer.train()  # trains BCE loss on step-boundary positions only`}
 
       <Prose>
         Step 1: Assume <Code>√2 = p/q</Code> in lowest terms. Step 2: Then <Code>2 = p²/q²</Code>, so <Code>p² = 2q²</Code>. Step 3: Therefore <Code>p² is even</Code>, which means <Code>p is even</Code> (since odd squares are odd). Step 4: Let <Code>p = 2k</Code>, then <Code>4k² = 2q²</Code>, so <Code>q² = 2k²</Code>. Step 5: Therefore <Code>q is even</Code>, contradicting the assumption that <Code>p/q</Code> is in lowest terms. QED.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Variance reduction derivation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Variance reduction derivation</H3>
 
       <Prose>
         In the REINFORCE policy gradient estimator with a T-step trajectory and a terminal reward <Code>R</Code>, the gradient estimator for token <Code>t</Code> is <Code>R · ∇log π(aₜ | sₜ)</Code>. The variance of this estimator is dominated by <Code>Var[R]</Code>. Now suppose instead you have a per-step reward <Code>rₜ</Code> for each step <Code>t</Code>, and the total return is <Code>R = Σ rₜ</Code>. Show that under the assumption of independent step rewards, the variance of the return-to-go from step <Code>t</Code> is <Code>Σₛ₌ₜ Var[rₛ]</Code>, which is strictly less than <Code>Var[R] = Σₜ Var[rₜ]</Code> for all but the last step. What does this imply about sample efficiency?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — When does Math-Shepherd auto-labeling fail?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — When does Math-Shepherd auto-labeling fail?</H3>
 
       <Prose>
         Identify three scenarios in which Math-Shepherd automatic labeling produces systematically incorrect step labels. For each scenario: (a) describe the failure, (b) explain why the majority-vote-over-completions criterion gives the wrong answer, and (c) propose a mitigation. Consider: model capability relative to problem difficulty; error cancellation within completions; and positional bias in the completion model.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — PRM score aggregation variants</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — PRM score aggregation variants</H3>
 
       <Prose>
         For best-of-N response selection using PRM scores, three aggregation functions are common: (a) minimum step score, (b) product of all step scores, (c) mean step score. For each, derive the mathematical object being approximated (e.g., the product approximates a joint probability under step independence). Then construct a synthetic example where the three criteria rank three candidate responses differently. Under what conditions does (a) outperform (c)? Can you construct a case where (c) selects a response with a catastrophically wrong middle step over a response that is uniformly mediocre?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — PRM transfer between domains</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — PRM transfer between domains</H3>
 
       <Prose>
         A research team trains a PRM on 100,000 algebra problems labeled via Math-Shepherd. They then deploy it as a reranker for code generation (Python debugging) tasks. Predict what happens to best-of-N accuracy compared to using the same ORM trained on code-generation preference data. What specific features of algebra-step correctness does the PRM likely generalize to code (if any), and which features are strictly domain-specific? Design an experiment to measure the cross-domain PRM degradation.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

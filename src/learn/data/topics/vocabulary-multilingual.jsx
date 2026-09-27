@@ -608,7 +608,7 @@ fine-tuning existing      inherit + add specials n/a              inherited     
       {/* ======================================================================
           11. SELF-CHECK
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five problems. The goal is to catch confusions rather than accumulate correct answers — if you get one wrong, the wrong answer usually tells you something specific about what you have not internalized yet.
@@ -656,7 +656,7 @@ fine-tuning existing      inherit + add specials n/a              inherited     
 
       <Prose>
         The tokenizer is the political layer of the stack. A model that wants to serve the world evenly has to decide, up front, how much parameter budget it will spend to be fair — and then spend it. The next topic steps back to look at what vocabulary means when the input is no longer text at all.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

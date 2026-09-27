@@ -1,0 +1,30 @@
+{
+  "topicId": "pca-dimensionality-reduction",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+    "src/learn/components/lesson-labs/PcaIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/pca-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx": "3a30c2abd790460e6d6f88cd2aca3bc3e058bc7cf5da0f09152deda018e02460",
+    "src/learn/components/lesson-labs/PcaIntuitionFigures.jsx": "f82db8e69c6ec5feaab34e02fef31baa50d53cce9522f1fabca3f6148b7cab53",
+    "src/learn/components/lesson-labs/pca-intuition.css": "7fbd8d39a403849550cdcf5ed10e10b54cf664061f973e513b6435db57bbcff1"
+  },
+  "checks": [
+    {
+      "name": "Full lesson and new support source reading",
+      "passed": true
+    },
+    {
+      "name": "Separate exact example computations and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Actual source identity checked against author record",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

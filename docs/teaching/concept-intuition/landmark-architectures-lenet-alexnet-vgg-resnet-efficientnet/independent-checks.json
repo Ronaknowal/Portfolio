@@ -1,0 +1,49 @@
+{
+  "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:34:40.186Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx",
+    "src/learn/components/lesson-labs/LandmarkFamilyIntuition.jsx",
+    "src/learn/components/lesson-labs/landmark-family-intuition.css",
+    "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/lesson.md",
+    "scripts/generate-landmark-architecture-lesson.mjs",
+    "docs/teaching/concept-intuition/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/independent-review.md",
+    "scripts/review-network-architecture-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx": "a27213957cec1b6e39bed2079181a3e0ae4cc7eba1dfa24f8b3b204f1a7ba1f3",
+    "src/learn/components/lesson-labs/LandmarkFamilyIntuition.jsx": "a6ba7f3e9784668a267e23c6ed7197f594fdd4db3f2e64c28a39165b418cc0a8",
+    "src/learn/components/lesson-labs/landmark-family-intuition.css": "99805f37e048160eab52f30f2ec4a5a1e15ebf90079c93715d80718b88abe5c3",
+    "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/lesson.md": "8d8acf2ae87189c9c6c25b8425479ac77d030e4c75623f7edd1ec6be28a3a126",
+    "scripts/generate-landmark-architecture-lesson.mjs": "783ef6a085a9b3cf1f019c3744ebc9a097b54711d8284a6a3d827d20b351f351",
+    "docs/teaching/concept-intuition/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/independent-review.md": "49d02072506b196c96978370ba32989434237bebefa9bdbd029f30828c17936e",
+    "scripts/review-network-architecture-intuition.mjs": "5185333ed3ee2340f3d1f1d25474db08870c76a3bd6fee4311dac897be3a78c7"
+  },
+  "checks": [
+    {
+      "name": "Changed RegNet base crosses log-space rather than arithmetic midpoint boundaries",
+      "status": "passed"
+    },
+    {
+      "name": "Changed dense-growth fixture exposes increasing layer cost",
+      "status": "passed"
+    },
+    {
+      "name": "Changed AGC threshold gives the stated SGD relative-step bound",
+      "status": "passed"
+    },
+    {
+      "name": "Frozen nontrivial feature gradient matches finite differences and has a null direction",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new fitting or library-execution claim."
+}

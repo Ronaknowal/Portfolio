@@ -13,7 +13,7 @@ let manuscript = readFileSync(`docs/teaching/drafts/${id}/lesson.md`, 'utf8');
 manuscript = manuscript.replace(/<!--.*?-->/g, '').replace(/<details><summary>(.*?)<\/summary>(.*?)<\/details>/g, '<details>\n<summary>$1</summary>\n\n$2\n\n</details>');
 manuscript = manuscript.replace(/\]\(\.\.\/([^/]+)\/lesson\.md\)/g, '](/learn/path/full-curriculum/$1?module=deep-learning-fundamentals)');
 manuscript = manuscript.replace('<summary>Check your prediction</summary>', '<summary>Worked reasoning</summary>');
-const rendered = renderPreparedLesson(manuscript, {
+const rendered = renderPreparedLesson(manuscript, { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-assets/${id}/`,
   replacements: [
     ['**Budget investigation — where did the memory go?**', '<LandmarkHeadLab />'],
@@ -24,6 +24,9 @@ const rendered = renderPreparedLesson(manuscript, {
     ['With compatible Torchvision installed,', `<Prose>With <code>torchvision==0.29.0</code> paired with <code>torch==2.14.0</code>, run <code>python landmark_builders.py --family resnet18 --compare</code>. It constructs the ordinary <code>get_model(..., weights=None)</code> route too. <code>copy_components</code> copies every convolution, linear layer and BatchNorm state in semantic order, refusing a component count/type/shape mismatch. Both models are in evaluation mode and receive the same input. Actual separate CPU comparisons for ResNet-18, EfficientNet-B0, VGG-16 and AlexNet each produced maximum absolute logit difference 0 in the recorded environment. This compares matched random weights, not trained quality. The VGG/AlexNet commands allocate both full models; run those families individually when memory permits, never in the browser.</Prose>`],
   ],
   additions: [
+    ['**DenseNet retains', '<DenseFeatureReuseFigure />'],
+    ['To see how that width rule', '<RegNetStageFigure />'],
+    ['The frozen-feature example', '<FrozenFeatureGradientFigure />'],
     ['**Reading the feature pyramid.**', '<LandmarkFeatureRoute />'],
     ['The historical model used', '<LandmarkHistoricalShapes />'],
     ['The same support does', '<LandmarkKernelFigure />'],
@@ -36,6 +39,7 @@ const rendered = renderPreparedLesson(manuscript, {
   ],
 });
 writeFileSync(`src/learn/data/topics/${id}.jsx`, `// Conserved revision-3 manuscript statically rendered at authoring time.
+import { DenseFeatureReuseFigure, RegNetStageFigure, FrozenFeatureGradientFigure } from '../../components/lesson-labs/LandmarkFamilyIntuition.jsx';
 import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';

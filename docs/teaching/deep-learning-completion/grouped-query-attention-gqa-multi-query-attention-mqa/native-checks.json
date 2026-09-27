@@ -1,0 +1,30 @@
+{
+  "topicId": "grouped-query-attention-gqa-multi-query-attention-mqa",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Executed complete supplied NumPy/PyTorch operator, masking, allocation and shared-gradient program",
+      "passed": true,
+      "stdout": "weights [[0.4223188  0.1553624  0.4223188 ]\n [0.1553624  0.4223188  0.4223188 ]\n [0.09003057 0.66524096 0.24472847]\n [0.09003057 0.24472847 0.66524096]]\noutputs [[1.68927519 1.46608721]\n [1.1553624  2.53391279]\n [0.15897503 1.60057363]\n [1.84102497 0.75954866]]\nconversion [ 1.23840584 -0.89208274] -> [2. 2.]\nchecks 2.220446049250313e-16 gradient agreement passed\n"
+    },
+    {
+      "name": "Executed exact complete displayed NumPy program",
+      "passed": true,
+      "stdout": "weights: [[0.422319 0.155362 0.422319]\n [0.155362 0.422319 0.422319]\n [0.090031 0.665241 0.244728]\n [0.090031 0.244728 0.665241]]\nhead outputs: [[1.689275 1.466087]\n [1.155362 2.533913]\n [0.158975 1.600574]\n [1.841025 0.759549]]\ntied MHA agrees: True\ncompact cache agrees: True\n"
+    },
+    {
+      "name": "Reloaded all three saved models, replayed held-out metrics, exact causal-prefix null and full/incremental equivalence on twelve cases",
+      "passed": true
+    }
+  ],
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "threads": 2
+  },
+  "limitations": [
+    "Reused original training and checkpoint-selection evidence; no new fits or GPU performance measurements.",
+    "Browser checks are separate."
+  ]
+}

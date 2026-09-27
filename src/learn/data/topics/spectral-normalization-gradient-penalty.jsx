@@ -1,976 +1,441 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Generated from the complete prepared manuscript by scripts/generate-spectral-lesson.mjs.
+import { Prose,H2,H3,CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { CriticDerivativeFigure, SpectralCompositionFigure, PenaltyLocationsFigure, BatchGradientFigure, SpectralGroupSortFigure, SpectralOdeFigure } from '../../components/lesson-labs/SpectralMechanismFigures.jsx';
+import { SpectralSlopeLab, SpectralCircleFigure, SpectralMatrixLab, SpectralDerivativeLab, SpectralConvolutionLab, SpectralPenaltyLab, SpectralLinearPenaltyLab, SpectralLibraryLab, SpectralMarginLab } from '../../components/lesson-labs/SpectralMechanismLabs.jsx';
+import { SpectralMeasuredLab,SpectralProgram } from '../../components/lesson-labs/SpectralMeasuredLab.jsx';
+export default {title:"Spectral Normalization & Gradient Penalty",readTime:"~80 min read + investigations and practice",hasIntegratedGuide:true,content:()=> <div className="neural-lesson neural-lesson-neutral spectral-lesson"><LessonIntro prerequisites="Matrix multiplication, vector lengths and derivatives; the loss and derivative routes are developed here." sections={[["1-a-critic-that-gives-directions","1. A critic that gives directions"],["2-what-a-sensitivity-limit-says","2. What a sensitivity limit says"],["3-spectral-normalization-control-the-strongest-stretch","3. Spectral normalization: control the strongest stretch"],["4-a-convolution-is-larger-than-its-stored-kernel","4. A convolution is larger than its stored kernel"],["5-gradient-penalty-measure-the-function-where-it-is-sampled","5. Gradient penalty: measure the function where it is sampled"],["6-implement-the-mechanism-without-losing-its-derivatives","6. Implement the mechanism without losing its derivatives"],["7-a-complete-experiment-on-recorded-digit-measurements","7. A complete experiment on recorded digit measurements"],["8-useful-connections-beyond-this-gan","8. Useful connections beyond this GAN"],["9-practice-and-transfer","9. Practice and transfer"],["references-and-another-way-to-learn","References and another way to learn"]]}>Shape a learning signal by controlling what can stretch and by measuring where it changes.</LessonIntro>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit matrix entries, normalization method, power-iteration steps, critic/input values, interpolation points and margin geometry. Update singular stretch, effective matrix, derivative paths, sampled gradient penalties and local decision distances live. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose or diagnose a constraint by what it actually bounds and where it was evaluated; a sampled penalty is not a global guarantee."}</Prose>
 
-const spectralNormGPContent = {
-  title: "Spectral Normalization & Gradient Penalty",
-  readTime: "~36 min",
-  content: () => (
-    <div>
+<Prose>{"A useful learning signal must respond to a meaningful change in the input. If it reacts enormously to an almost invisible change, optimization can become erratic. If it barely reacts to anything, it cannot tell another model how to improve. This lesson studies two ways to shape that sensitivity: rescale the transformations inside a network, or penalize its measured input gradients."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{"The preceding "}<a href={"/learn/path/full-curriculum/boltzmann-machines-restricted-boltzmann-machines-rbm?module=deep-learning-fundamentals"}>{"Boltzmann Machines & Restricted Boltzmann Machines"}</a>{" lesson assigned probability through energy and a normalizing constant. Here a generator produces samples directly, and a second network supplies a learning signal by comparing generated and recorded examples. That second network makes sensitivity a practical concern."}</Prose>
 
-      <Prose>
-        For its first three years generative adversarial networks were the most exciting and least reliable training procedure in deep learning. The original 2014 formulation pitted a generator against a discriminator in a saddle-point game whose Nash equilibrium happens to coincide with the generator matching the data distribution. On paper this was beautiful. In practice the optimization was a daily exercise in heartbreak. A run that produced photorealistic 64x64 faces on epoch 30 would collapse into ten gray blobs by epoch 31. The discriminator would saturate, the generator gradient would vanish, and the only remedy in the early literature was to lower the learning rate and try again with a different seed. Researchers spoke of "GAN tricks" the way medieval physicians spoke of bloodletting — a folk pharmacopoeia of label smoothing, feature matching, instance noise, historical averaging, and one-sided label flipping that worked some of the time and that nobody fully understood.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" read §§1–6 and the experiment interpretation, then attempt practice 1–6. You need vector lengths, matrix multiplication and the idea that a derivative measures change; these are refreshed below. The normalization derivative, robustness certificate, GroupSort and continuous-time connection are deeper branches. You can inspect the recorded experiment before running its complete program."}</Prose>
 
-      <Prose>
-        The core diagnosis was already written into the math. The original GAN minimizes a Jensen-Shannon-style divergence between the data distribution {"P_r"} and the generator distribution {"P_g"}. When those two distributions live on disjoint or nearly disjoint manifolds — which they always do in early training, because the generator is initialized to produce noise — the JS divergence is constant at {"\\log 2"} and its gradient with respect to the generator is exactly zero. The discriminator, given any sensible capacity, learns to perfectly separate real from fake within a few hundred steps. Once it does, the generator receives no gradient signal at all. This is "discriminator saturation" or "vanishing generator gradient", and it was the single most reported failure mode in 2015-2016 GAN literature.
-      </Prose>
+<Prose>{"By the end, you should be able to explain what each method controls, implement the two training updates without reversing their signs, recognize a misleading “1-Lipschitz” claim, and assess generated samples separately from critic regularization."}</Prose>
 
-      <Prose>
-        Martin Arjovsky, Soumith Chintala, and Leon Bottou published "Wasserstein GAN" at ICML 2017 (arXiv:1701.07875) with a structural fix. Replace the JS divergence with the Wasserstein-1 distance — the earth-mover's distance — which has the property that it is finite, continuous, and almost-everywhere differentiable even when the two distributions are supported on disjoint manifolds. The Kantorovich-Rubinstein duality lets you compute the Wasserstein distance as a supremum over 1-Lipschitz functions, which means the discriminator's job is no longer "classify real from fake" but "find the most discriminating 1-Lipschitz function". A 1-Lipschitz constraint on the discriminator is mandatory; without it the supremum is unbounded and the dual diverges. WGAN's original mechanism for enforcing the Lipschitz constraint was unapologetically crude: after every gradient step, clip every discriminator weight to {"[-c, c]"} for some small constant {"c"} (typically {"0.01"}). This worked in the sense that it gave a Lipschitz bound, but it also gave terrible loss surfaces — the clipped weights all piled up at {"\\pm c"}, the discriminator became a gradient sink that produced uniform outputs, and capacity utilization was abysmal.
-      </Prose>
+<H2>{"1. A critic that gives directions"}</H2>
 
-      <Prose>
-        The next paper fixed clipping. Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, and Aaron Courville published "Improved Training of Wasserstein GANs" at NeurIPS 2017 (arXiv:1704.00028) and proposed the gradient penalty. Instead of clipping, add a soft penalty term to the discriminator loss: {"\\lambda \\, \\mathbb{E}_{\\hat{x}}[(\\|\\nabla_{\\hat{x}} D(\\hat{x})\\|_2 - 1)^2]"} where {"\\hat{x}"} is sampled along straight lines between real and generated samples. The penalty pushes the gradient norm of {"D"} toward 1 (the optimal value for the Kantorovich-Rubinstein dual), without forcing weights to a hard interval. WGAN-GP trained better, used capacity better, and produced higher-quality images on CIFAR-10 and CelebA than any prior GAN. It became the dominant training recipe for the next year.
-      </Prose>
+<Prose>{"Imagine a generator producing two measurements of a handwritten digit: average ink on its left half and on its right half. Its input is a short random vector "}<InlineMath>{"z"}</InlineMath>{"; its output "}<InlineMath>{"G_\\theta(z)"}</InlineMath>{" is a proposed measurement pair. The parameters "}<InlineMath>{"\\theta"}</InlineMath>{" determine which pairs it tends to produce. A "}<strong>{"critic"}</strong>{" "}<InlineMath>{"f_\\phi(x)"}</InlineMath>{" gives a scalar score to a pair "}<InlineMath>{"x"}</InlineMath>{". Its parameters "}<InlineMath>{"\\phi"}</InlineMath>{" are trained to give higher average scores to recorded pairs than to generated pairs."}</Prose>
 
-      <Prose>
-        WGAN-GP had two embarrassments. The penalty added roughly a 2x compute cost because it required a second backward pass through {"D"} for each step (the gradient with respect to {"\\hat{x}"} must be backproped <em>again</em> for the penalty term — that is double-backward, also known as Hessian-vector flavor). And the constant {"\\lambda"} had to be tuned per dataset. Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida fixed both at ICLR 2018 with "Spectral Normalization for Generative Adversarial Networks" (arXiv:1802.05957). Their observation was that a feed-forward network composed of layers with Lipschitz constant 1 has overall Lipschitz constant at most 1 (Lipschitz composes multiplicatively). And the Lipschitz constant of a linear layer with weight matrix {"W"} is exactly its largest singular value {"\\sigma_{\\max}(W)"}. So if you replace every {"W"} with {"W / \\sigma_{\\max}(W)"} you get a 1-Lipschitz layer for free, with no penalty term, no double-backward, and no hyperparameter to tune. Spectral Normalization (SN) made WGAN-style training stable on ImageNet at 128x128 resolution. SN-GAN was the first GAN to match supervised classifier-style FID scores on CIFAR-10.
-      </Prose>
+<Prose>{"The generator then changes its parameters to raise the critic's scores on its generated pairs. It does not need a target pair for each random input. It needs a direction through the differentiable chain"}</Prose>
 
-      <Prose>
-        Spectral Normalization stuck because it was cheap. The largest singular value of a matrix can be computed in {"O(n)"} per step using power iteration, and one iteration per training step is enough as long as you cache the power vectors across steps. In practice the cost is invisible relative to the rest of the discriminator forward pass. From 2018 to 2021, every state-of-the-art GAN used some version of SN in its discriminator. Andrew Brock, Jeff Donahue, and Karen Simonyan's BigGAN at ICLR 2019 (arXiv:1809.11096) used SN throughout the discriminator and additionally in the generator's class-conditional batch-norm scale parameters, scaling GANs to 512x512 ImageNet for the first time. Tero Karras, Samuli Laine, and Timo Aila's StyleGAN at CVPR 2019 (arXiv:1812.04948) used a related path-length regularization on the generator alongside discriminator-side R1 gradient penalty (a variant of WGAN-GP). The combined toolkit — spectral normalization, gradient penalties, large batches, and self-attention blocks — was responsible for essentially every visible jump in GAN sample quality between 2018 and 2021.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\theta\\longrightarrow G_\\theta(z)\\longrightarrow f_\\phi(G_\\theta(z))."}</MathBlock></div>
 
-      <Prose>
-        The same machinery is also load-bearing outside generative modelling. A network with a certified Lipschitz constant has provable robustness to small input perturbations: if {"\\|f(x) - f(x')\\| \\le L \\|x - x'\\|"} and {"L"} is small, an adversarial perturbation must move the input by at least a known distance to flip a class. Cem Anil, James Lucas, and Roger Grosse's "Sorting Out Lipschitz Function Approximation" (arXiv:1811.05381, 2019) and the certified-defense literature use spectral normalization to bound network Lipschitz constants for guarantees against {"\\ell_2"} attacks. Spectral normalization is also used to stabilize training of neural ODEs, control policies, and value functions in deep RL — anywhere a bounded operator is helpful.
-      </Prose>
+<CriticDerivativeFigure />
 
-      <Prose>
-        By 2026, GANs themselves are no longer the state of the art for image generation — diffusion models took that crown around 2021. But spectral normalization and gradient penalties survive. They live on in residual GAN use cases (StyleGAN-3 for editable face generation, conditional GANs for fast inference), in adversarial robustness, in Lipschitz-bounded neural ODE solvers, and as standard tools in any setting where an explicit operator-norm bound is the right inductive bias. Karol Kurach, Mario Lucic, Xiaohua Zhai, Marcin Michalski, and Sylvain Gelly's "A Large-Scale Study on Regularization and Normalization in GANs" at ICML 2019 ran 700+ GAN configurations and found that spectral normalization was the single most consistent stabilizer across architectures. It is the kind of technique whose half-life is much longer than the model class that birthed it.
-      </Prose>
+<Prose>{"For the Wasserstein form used here, gradient-descent software minimizes"}</Prose>
 
-      <Callout accent="gold">
-        WGAN reframed GAN training as Wasserstein-distance estimation, requiring a 1-Lipschitz discriminator. Weight clipping enforced the constraint badly; gradient penalty (WGAN-GP) enforced it softly via {"\\lambda \\mathbb{E}[(\\|\\nabla D\\|_2 - 1)^2]"}; spectral normalization (SN-GAN) enforced it cleanly by dividing each weight matrix by its largest singular value. SN won because it has no hyperparameter, no double-backward cost, and no per-batch tuning. BigGAN, StyleGAN, and every serious GAN since 2019 ships with SN by default.
-      </Callout>
+<div className="neural-equation"><MathBlock>{"L_D=\\mathbb E[f_\\phi(G_\\theta(z))]-\\mathbb E[f_\\phi(x)]+R(\\phi),\n\\qquad L_G=-\\mathbb E[f_\\phi(G_\\theta(z))]."}</MathBlock></div>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{""}<InlineMath>{"R"}</InlineMath>{" is a critic regularizer when one is used. The minus sign in "}<InlineMath>{"L_G"}</InlineMath>{" matters: minimizing a negative score raises the score. During a critic update, generated inputs are detached from the generator's derivative graph. During a generator update, freeze the critic's parameters but retain derivatives with respect to its input. Detaching the critic's output would remove the generator's learning signal."}</Prose>
 
-      <H3>2.1 The Lipschitz constraint and why it matters</H3>
+<Prose>{"Take a one-dimensional example: recorded data are at zero, the generator emits "}<InlineMath>{"\\theta=2"}</InlineMath>{", and the fixed critic is "}<InlineMath>{"f(x)=-x"}</InlineMath>{". Recorded score is zero and generated score is −2. The generator loss is "}<InlineMath>{"\\theta"}</InlineMath>{", its derivative is one, and a step of size .1 moves the output to 1.9, toward the data. Reversing the loss sign moves it to 2.1."}</Prose>
 
-      <Prose>
-        A function {"f : \\mathbb{R}^n \\to \\mathbb{R}^m"} is {"K"}-Lipschitz if for every pair of inputs {"x, x'"}, we have {"\\|f(x) - f(x')\\| \\le K \\, \\|x - x'\\|"}. The smallest such {"K"} is the Lipschitz constant of {"f"}. In words: a Lipschitz function cannot stretch space by more than a fixed factor. Among continuous functions Lipschitz is a strong regularity condition — it rules out infinite slopes, sharp corners, and the sort of pathologies that make optimization landscapes painful. In the WGAN setting it is also exactly the constraint that makes the Kantorovich-Rubinstein dual bounded, so it is not just nice to have, it is mandatory for the math to work at all.
-      </Prose>
+<Prose>{"Why constrain the critic at all? If any score difference is useful, multiplying all scores by a million appears better to its maximization objective. A limit on sensitivity gives score differences a meaningful scale."}</Prose>
 
-      <H3>2.2 Lipschitz of a composition is a product of Lipschitzes</H3>
+<H3>{"Transport distance supplies that scale"}</H3>
 
-      <Prose>
-        Networks are compositions of layers. If layer {"\\ell"} has Lipschitz constant {"K_\\ell"} (with respect to the same norm at input and output), then the full network {"f = f_L \\circ \\ldots \\circ f_1"} has Lipschitz constant at most {"\\prod_\\ell K_\\ell"}. This bound is tight in the worst case. If you can guarantee {"K_\\ell \\le 1"} for every layer, the network is 1-Lipschitz overall. That is exactly the strategy SN takes. ReLU, LeakyReLU, sigmoid, and tanh all have Lipschitz constant 1; convolutional and linear layers have Lipschitz equal to the operator norm (largest singular value) of their weight matrix; layer-norm and batch-norm are <em>not</em> 1-Lipschitz in general (they involve division by the input's standard deviation, which can be arbitrarily small), which is one reason SN-GAN architectures avoid them in the discriminator.
-      </Prose>
+<Prose>{"The "}<strong>{"Wasserstein-1 distance"}</strong>{" asks for the least cost of moving probability mass from one distribution to another. Moving mass "}<InlineMath>{"a"}</InlineMath>{" through distance "}<InlineMath>{"d"}</InlineMath>{" costs "}<InlineMath>{"ad"}</InlineMath>{". For point masses at zero and "}<InlineMath>{"\\theta"}</InlineMath>{", the answer is "}<InlineMath>{"|\\theta|"}</InlineMath>{": the distance decreases continuously as the generated point approaches the recorded point."}</Prose>
 
-      <H3>2.3 Spectral norm is the right matrix norm</H3>
+<Prose>{"Under the appropriate transport assumptions, the same quantity can be written as the largest recorded-minus-generated score difference over all 1-Lipschitz critics. On Euclidean space, finite first moments ensure the usual distance is finite. Continuity with respect to generator parameters needs corresponding regularity; it is not a statement about every arbitrary parameterized distribution. A finite trained network searches a restricted family for a limited number of updates, so its observed score difference is not automatically the exact transport distance. "}<a href={"https://proceedings.mlr.press/v70/arjovsky17a/arjovsky17a.pdf"}>{"WGAN, §2–3"}</a>{""}</Prose>
 
-      <Prose>
-        The Lipschitz constant of a linear map {"x \\mapsto W x"} with respect to the {"\\ell_2"} norm equals the operator norm of {"W"} — equivalently, the largest singular value {"\\sigma_{\\max}(W)"}. This is just the definition of operator norm: {"\\|W\\|_{op} = \\sup_{\\|x\\|=1} \\|W x\\|"}. The Frobenius norm (sum of squared entries) is not the right quantity here — Frobenius bounds the average stretch, not the worst-case stretch. The spectral norm captures the direction in which {"W"} stretches inputs the most, which is exactly the direction that matters for Lipschitz bounds. Spectral normalization replaces {"W"} with {"W_{SN} = W / \\sigma_{\\max}(W)"}, which by construction has spectral norm 1 and therefore Lipschitz constant 1 as a linear operator.
-      </Prose>
+<Prose>{"For comparison, the ideal Jensen–Shannon divergence between two different point masses stays at "}<InlineMath>{"\\log 2"}</InlineMath>{", then becomes zero when they coincide. That explains one difficulty with a particular idealized objective. It does not prove that every practical GAN has zero generator gradient: finite critics and the widely used non-saturating generator loss change the argument. "}<a href={"https://proceedings.neurips.cc/paper_files/paper/2017/file/892c3b1c6dccd52936e27cbd0ff683d6-Paper.pdf"}>{"WGAN-GP, §2.1–2.2"}</a>{""}</Prose>
 
-      <H3>2.4 Power iteration: the cheap approximation</H3>
+<H2>{"2. What a sensitivity limit says"}</H2>
 
-      <Prose>
-        Computing {"\\sigma_{\\max}"} exactly via SVD costs {"O(\\min(m, n) m n)"} per layer, which is too expensive to do every training step. Power iteration solves the same problem in {"O(m + n)"} per step. Start with random unit vectors {"u, v"}; repeatedly update {"v \\leftarrow W^T u / \\|W^T u\\|"}, {"u \\leftarrow W v / \\|W v\\|"}; after a few iterations {"u, v"} converge to the left and right singular vectors corresponding to {"\\sigma_{\\max}"}, and {"\\sigma_{\\max} \\approx u^T W v"}. The crucial trick that Miyato et al. exploit: across training steps, {"W"} changes by a tiny amount per step, so the power vectors from the previous step are an excellent warm start. <em>One</em> power iteration per training step suffices to keep {"u, v"} accurate to within a few percent of the true singular vectors. The total cost of SN at runtime is one matrix-vector multiply forward and one back per layer per step — typically less than 1% of the discriminator forward pass.
-      </Prose>
+<Prose>{"A function is "}<strong>{""}<InlineMath>{"L"}</InlineMath>{"-Lipschitz"}</strong>{", for specified input and output norms on a specified domain, when"}</Prose>
 
-      <H3>2.5 Gradient penalty: enforcing Lipschitz softly</H3>
+<div className="neural-equation"><MathBlock>{"\\|f(x)-f(y)\\|\\le L\\|x-y\\|\\quad\\text{for every allowed }x,y."}</MathBlock></div>
 
-      <Prose>
-        SN constrains the Lipschitz of every linear layer to 1 and gets a 1-Lipschitz network as a corollary. WGAN-GP takes a different route: leave the architecture alone, but add a loss term that penalizes the gradient of {"D"} from departing from norm 1. The penalty is evaluated on samples {"\\hat{x}"} drawn along straight lines between real and generated points: {"\\hat{x} = \\varepsilon x_{real} + (1 - \\varepsilon) x_{fake}"}, {"\\varepsilon \\sim \\mathrm{Uniform}(0, 1)"}. The penalty term is {"\\lambda \\mathbb{E}_{\\hat{x}}[(\\|\\nabla_{\\hat{x}} D(\\hat{x})\\|_2 - 1)^2]"}. The choice of interpolated samples is theoretical, not arbitrary: the optimal {"D"} for the Wasserstein dual has gradient norm exactly 1 along the optimal transport paths between {"P_r"} and {"P_g"}, and those paths can be shown to lie along straight-line interpolations between matched pairs. The penalty is squared (not hinged) so that it pushes {"\\|\\nabla D\\|"} toward 1 from <em>both</em> directions — a discriminator with gradient norm 0.5 is just as constrained as one with norm 2.
-      </Prose>
+<Prose>{"If the input moves .02 units and "}<InlineMath>{"L=3"}</InlineMath>{", the output moves at most .06 units. The bound need not be attained. A constant function is 1-Lipschitz as well as 0-Lipschitz: “1-Lipschitz” means an upper bound of one, not that every slope is exactly one."}</Prose>
 
-      <H3>2.6 The mental contrast in one line</H3>
+<Prose>{"For a continuously differentiable scalar function on a convex region, a gradient norm bounded by "}<InlineMath>{"L"}</InlineMath>{" everywhere gives the corresponding Lipschitz bound. Integrate the directional derivative along the segment from "}<InlineMath>{"x"}</InlineMath>{" to "}<InlineMath>{"y"}</InlineMath>{". Each small output change is bounded by "}<InlineMath>{"L"}</InlineMath>{" times the small input movement, so the accumulated change has the same bound. The same reasoning applies to ordinary continuous piecewise-linear networks by integrating along their pieces, including across corners. Checking a few sample gradients, however, does not establish the premise everywhere."}</Prose>
 
-      <Prose>
-        Spectral normalization is a <em>hard architectural constraint</em>: layer-by-layer division by the largest singular value, baked into the forward pass. Gradient penalty is a <em>soft loss-based regularizer</em>: an extra term added to the discriminator loss, evaluated at interpolated points, requiring double-backward to compute. SN is cheaper, cleaner, and has no hyperparameter; GP is more flexible (works with any architecture, including ones that are not natively 1-Lipschitz like batch-norm-equipped ones) but costs 2x and requires tuning {"\\lambda"}. Most modern GANs use SN; some use both; a few exotic settings still use GP alone.
-      </Prose>
+<Prose>{"Corners are allowed. "}<InlineMath>{"|x|"}</InlineMath>{" and ReLU are 1-Lipschitz even though their ordinary derivative does not exist at zero. The concern is bounded change, not whether a graph has a sharp-looking corner."}</Prose>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<SpectralSlopeLab />
 
-      <H3>3.1 Wasserstein distance and the Kantorovich-Rubinstein dual</H3>
+<H3>{"From layers to a whole network"}</H3>
 
-      <Prose>
-        Given two probability distributions {"P_r"} and {"P_g"} on {"\\mathbb{R}^n"}, the Wasserstein-1 distance (also called earth-mover's distance) is the cost of the cheapest plan that transports mass from {"P_r"} to {"P_g"}, where the cost of transporting a unit of mass from {"x"} to {"y"} is {"\\|x - y\\|"}.
-      </Prose>
+<Prose>{"For Euclidean norms, an affine layer "}<InlineMath>{"Wx+b"}</InlineMath>{" has Lipschitz constant "}<InlineMath>{"\\|W\\|_2"}</InlineMath>{", the matrix's largest singular value. The bias cancels in differences. For composition, multiply valid layer bounds. ReLU and tanh have bounds one; sigmoid has bound one-quarter; leaky ReLU with negative slope "}<InlineMath>{"\\alpha"}</InlineMath>{" has bound "}<InlineMath>{"\\max(1,|\\alpha|)"}</InlineMath>{". GELU does not have a global bound of one."}</Prose>
 
-      <MathBlock>
-        {"W(P_r, P_g) = \\inf_{\\gamma \\in \\Pi(P_r, P_g)} \\mathbb{E}_{(x, y) \\sim \\gamma}\\!\\left[\\, \\|x - y\\| \\,\\right]"}
-      </MathBlock>
+<Prose>{"This gives a useful ledger for a computation graph:"}</Prose>
 
-      <Prose>
-        where {"\\Pi(P_r, P_g)"} is the set of joint distributions with marginals {"P_r"} and {"P_g"}. This primal form is intractable to optimize directly because it involves a search over couplings. Kantorovich-Rubinstein duality rewrites it as a supremum over 1-Lipschitz scalar functions:
-      </Prose>
+<NeuralTable caption={"From layers to a whole network"} headers={[<>{"Construction"}</>,<>{"Valid bound when the component bounds apply"}</>]} rows={[[<>{"Composition "}<InlineMath>{"g(f(x))"}</InlineMath>{""}</>,<>{""}<InlineMath>{"L_gL_f"}</InlineMath>{""}</>],[<>{"Sum "}<InlineMath>{"f(x)+g(x)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"L_f+L_g"}</InlineMath>{""}</>],[<>{"Residual block "}<InlineMath>{"x+g(x)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"1+L_g"}</InlineMath>{""}</>],[<>{"Concatenation "}<InlineMath>{"(f(x),g(x))"}</InlineMath>{", Euclidean output"}</>,<>{""}<InlineMath>{"\\sqrt{L_f^2+L_g^2}"}</InlineMath>{""}</>],[<>{"Scalar multiplication "}<InlineMath>{"af(x)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"|a|L_f"}</InlineMath>{""}</>]]} />
 
-      <MathBlock>
-        {"W(P_r, P_g) = \\sup_{\\|f\\|_L \\le 1} \\;\\mathbb{E}_{x \\sim P_r}[f(x)] - \\mathbb{E}_{x \\sim P_g}[f(x)]"}
-      </MathBlock>
+<Prose>{"A residual branch with bound .5 can produce a block with bound 1.5; the example "}<InlineMath>{"g(x)=.5x"}</InlineMath>{" attains it. LayerNorm, learned gains, pooling and attention also belong in this accounting. Normalizing only dense weights does not certify every other operation in the graph."}</Prose>
 
-      <Prose>
-        where {"\\|f\\|_L"} denotes the Lipschitz constant of {"f"}. WGAN parameterizes {"f"} by a neural network — the "critic" or "discriminator" — and trains it to maximize the right-hand side. The generator simultaneously trains to minimize its term, {"\\mathbb{E}_{z \\sim p_z}[f(g_\\theta(z))]"}, with respect to its parameters {"\\theta"}. The 1-Lipschitz constraint on {"f"} is what keeps the supremum finite; without it, {"f"} could be scaled arbitrarily and the loss would diverge.
-      </Prose>
+<Prose>{"Bounds can be loose. Compose "}<InlineMath>{"A=\\operatorname{diag}(3,1/3)"}</InlineMath>{" with "}<InlineMath>{"B=\\operatorname{diag}(1/3,3)"}</InlineMath>{". The product-of-norms bound is nine, while "}<InlineMath>{"BA=I"}</InlineMath>{" has norm one. The direction stretched by the first map is contracted by the second. A small sampled derivative and a large valid upper bound therefore need not contradict each other."}</Prose>
 
-      <H3>3.2 The original WGAN: weight clipping</H3>
+<SpectralCompositionFigure />
 
-      <Prose>
-        Arjovsky et al. enforce the Lipschitz constraint by clipping every weight in {"f"} to a fixed interval {"[-c, c]"} after every gradient step. The argument is that if every weight is bounded, every layer's operator norm is bounded, and therefore the network's overall Lipschitz constant is bounded. This is correct but loose. The bound depends on the architecture and is typically much larger than 1, so the actual Lipschitz constant achieved by clipping is hard to know. Worse, clipping creates pathological loss landscapes: gradients tend to push weights toward the clip boundary, the discriminator becomes a wall of {"\\pm c"} entries, and the per-layer operator norm degrades to a fraction of its potential capacity. Arjovsky et al. report that clipping {"c = 0.01"} works for small networks but breaks for deeper or wider ones.
-      </Prose>
+<H2>{"3. Spectral normalization: control the strongest stretch"}</H2>
 
-      <H3>3.3 WGAN-GP: gradient penalty derivation</H3>
+<Prose>{"Feed every unit-length vector in two dimensions through "}<InlineMath>{"W=\\operatorname{diag}(3,1)"}</InlineMath>{". The unit circle becomes an ellipse with semi-axes three and one. A vector along the first axis is stretched threefold; one along the second is unchanged. The "}<strong>{"spectral norm"}</strong>{" is the largest stretch:"}</Prose>
 
-      <Prose>
-        Gulrajani et al. observe that the optimal {"f^*"} in the KR dual has a special property. If {"\\gamma^*"} is the optimal transport coupling and {"(x, y) \\sim \\gamma^*"} is a matched pair, then along the straight line {"\\hat{x}_t = t x + (1 - t) y, \\; t \\in [0, 1]"} between them, the gradient of {"f^*"} has norm exactly 1 and points in the direction {"x - y / \\|x - y\\|"}. This is a theorem about optimal transport; the proof uses a duality argument and the convexity of the squared norm. The practical consequence: instead of constraining {"\\|f\\|_L \\le 1"} globally, we can sample {"\\hat{x}"} along straight lines between real and fake points and require {"\\|\\nabla_{\\hat{x}} f(\\hat{x})\\| = 1"} there. The penalty:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\sigma_1(W)=\\max_{\\|v\\|_2=1}\\|Wv\\|_2."}</MathBlock></div>
 
-      <MathBlock>
-        {"\\mathcal{L}_{GP} = \\lambda \\, \\mathbb{E}_{\\hat{x} \\sim P_{\\hat{x}}}\\!\\left[ (\\|\\nabla_{\\hat{x}} D(\\hat{x})\\|_2 - 1)^2 \\right]"}
-      </MathBlock>
+<Prose>{"For nonzero "}<InlineMath>{"W"}</InlineMath>{", exact unit spectral normalization uses"}</Prose>
 
-      <Prose>
-        with the sampling distribution {"\\hat{x} = \\varepsilon x_r + (1 - \\varepsilon) x_g, \\; \\varepsilon \\sim \\mathrm{Uniform}(0, 1)"}, where {"x_r \\sim P_r"} and {"x_g = G(z), \\; z \\sim p_z"}. The full WGAN-GP discriminator loss is:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\overline W=W/\\sigma_1(W)."}</MathBlock></div>
 
-      <MathBlock>
-        {"\\mathcal{L}_D = \\mathbb{E}_{x_g}[D(x_g)] - \\mathbb{E}_{x_r}[D(x_r)] + \\lambda \\, \\mathbb{E}_{\\hat{x}}\\!\\left[ (\\|\\nabla_{\\hat{x}} D(\\hat{x})\\|_2 - 1)^2 \\right]"}
-      </MathBlock>
+<Prose>{"Our ellipse now has semi-axes one and one-third. All singular values are divided by the same number. This does not make the map orthogonal, force every singular value to one, or change its rank. A target scale "}<InlineMath>{"c>0"}</InlineMath>{" instead uses "}<InlineMath>{"cW/\\sigma_1(W)"}</InlineMath>{"."}</Prose>
 
-      <Prose>
-        The first two terms are the negative of the Wasserstein dual (we minimize the negative to maximize it); the third is the soft Lipschitz penalty. {"\\lambda = 10"} is the value used throughout the original paper and works well across most datasets. Higher {"\\lambda"} forces gradient norm closer to 1 but slows training; lower {"\\lambda"} relaxes the constraint and risks divergence.
-      </Prose>
-
-      <H3>3.4 Spectral norm: definition and power iteration</H3>
-
-      <Prose>
-        For a matrix {"W \\in \\mathbb{R}^{m \\times n}"}, the spectral norm is the largest singular value:
-      </Prose>
-
-      <MathBlock>
-        {"\\sigma_{\\max}(W) = \\|W\\|_{op} = \\sup_{x \\ne 0} \\frac{\\|W x\\|_2}{\\|x\\|_2}"}
-      </MathBlock>
-
-      <Prose>
-        Equivalently, {"\\sigma_{\\max}(W) = \\sqrt{\\lambda_{\\max}(W^T W)}"} where {"\\lambda_{\\max}"} is the largest eigenvalue. Power iteration computes the dominant eigenvector of {"W^T W"} cheaply. Initialize {"u \\in \\mathbb{R}^m, v \\in \\mathbb{R}^n"} as random unit vectors. Iterate:
-      </Prose>
-
-      <MathBlock>
-        {"v^{(k+1)} = \\frac{W^T u^{(k)}}{\\|W^T u^{(k)}\\|_2}, \\qquad u^{(k+1)} = \\frac{W v^{(k+1)}}{\\|W v^{(k+1)}\\|_2}"}
-      </MathBlock>
-
-      <Prose>
-        After {"k"} iterations, {"u^{(k)}"} converges to the top left singular vector and {"v^{(k)}"} to the top right singular vector, with rate determined by the gap {"\\sigma_2 / \\sigma_1"}. The estimate of the top singular value is then {"\\sigma_{\\max} \\approx (u^{(k)})^T W v^{(k)}"}. For convolutional layers, {"W"} is reshaped to {"(c_{out}, c_{in} \\cdot k_h \\cdot k_w)"} before applying SN — this is the "reshape trick" Miyato et al. use, and it is correct because the operator norm of a convolution equals the operator norm of its unrolled linear form.
-      </Prose>
-
-      <H3>3.5 The cross-step caching trick</H3>
-
-      <Prose>
-        Naive power iteration would need 10-50 iterations to converge to high accuracy from a random start. SN exploits the fact that {"W"} changes very slowly across training steps — one Adam step typically modifies {"W"} by less than 1% of its norm — so the power vectors from step {"t"} are an excellent warm start for step {"t+1"}. In practice, one power iteration per step keeps the relative error in {"\\sigma_{\\max}"} below a few percent indefinitely, and the spectral normalization works correctly. PyTorch's <Code>{"spectral_norm"}</Code> implementation registers {"u"} and {"v"} as buffers and updates them in-place during every forward pass in training mode.
-      </Prose>
-
-      <H3>3.6 Spectral-normalized weight in the forward pass</H3>
-
-      <Prose>
-        After estimating {"\\hat{\\sigma}_{\\max}(W) = u^T W v"}, the SN-modified weight used by the layer is:
-      </Prose>
-
-      <MathBlock>
-        {"W_{SN} = \\frac{W}{\\hat{\\sigma}_{\\max}(W)}"}
-      </MathBlock>
-
-      <Prose>
-        Both {"W"} and {"\\hat{\\sigma}_{\\max}(W)"} are differentiated through during backprop, so the generator gradient flowing through {"W_{SN}"} respects the parametrization. The normalization is applied at every forward pass, both in training and at inference (this is critical — see Failure Modes). At inference, the power vectors {"u, v"} are frozen and the latest cached estimate is used.
-      </Prose>
-
-      <H3>3.7 R1 and R2 penalties (StyleGAN family)</H3>
-
-      <Prose>
-        Lars Mescheder, Andreas Geiger, and Sebastian Nowozin's "Which Training Methods for GANs do actually Converge?" (arXiv:1801.04406, ICML 2018) proposed two simpler gradient penalties: {"R_1 = \\frac{\\gamma}{2} \\mathbb{E}_{x_r}[\\|\\nabla D(x_r)\\|_2^2]"} (penalty on real samples only) and the analogous {"R_2"} on fake samples only. Unlike WGAN-GP these do not penalize toward gradient norm 1, just toward gradient norm 0 — they are pure regularizers, not Lipschitz constraints. R1 is what StyleGAN-2 and StyleGAN-3 use in their discriminators. It has the advantage of being one-sided (no interpolated samples needed) and so is roughly 30% cheaper than full WGAN-GP. The downside is it does not provide the same theoretical Lipschitz guarantee as either SN or WGAN-GP.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All numbers below come from PyTorch 2.6 with CUDA on an RTX 4070-class GPU. Every {"# Output:"} block is real stdout. We implement spectral normalization via power iteration, verify against SVD, build a custom <Code>{"MySpectralNorm"}</Code> wrapper, implement WGAN-GP gradient penalty, and train three GANs on a 2D 8-Gaussian-mixture toy benchmark to compare stability.
-      </Prose>
-
-      <H3>4.1 Setup</H3>
-
-      <CodeBlock language="python">
-{`import math
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-torch.manual_seed(0)
-device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"torch={torch.__version__} device={device}")
-# Output:
-# torch=2.6.0+cu124 device=cuda`}
-      </CodeBlock>
-
-      <H3>4.2 Power iteration: convergence to the true spectral norm</H3>
-
-      <Prose>
-        We pick a random {"64 \\times 32"} matrix, compute the true {"\\sigma_{\\max}"} via SVD, and check how power iteration converges from a random start. The point of the experiment is to see exactly how many iterations are required for high accuracy from cold start — and therefore why warm-starting across training steps is necessary.
-      </Prose>
-
-      <CodeBlock language="python">
-{`W = torch.randn(64, 32, device=device)
-sigma_true = torch.linalg.svdvals(W)[0].item()
-print(f"true sigma_max (SVD) = {sigma_true:.6f}")
-
-u0 = F.normalize(torch.randn(32, device=device), dim=0)
-v0 = F.normalize(torch.randn(64, device=device), dim=0)
-for k in [0, 1, 2, 5, 10, 20]:
-    u, v = u0.clone(), v0.clone()
-    for _ in range(k):
-        u = F.normalize(W.t() @ v, dim=0)
-        v = F.normalize(W @ u, dim=0)
-    sigma = (v @ W @ u).item()
-    err = abs(sigma - sigma_true) / sigma_true
-    print(f"  iters={k:2d}  sigma={sigma:.6f}  rel_err={err:.2e}")
-
-# Output:
-# true sigma_max (SVD)          = 13.029225
-#   iters= 0  sigma=1.157973  rel_err=9.11e-01
-#   iters= 1  sigma=8.620560  rel_err=3.38e-01
-#   iters= 2  sigma=10.598518  rel_err=1.87e-01
-#   iters= 5  sigma=12.078383  rel_err=7.30e-02
-#   iters=10  sigma=12.706100  rel_err=2.48e-02
-#   iters=20  sigma=13.009288  rel_err=1.53e-03`}
-      </CodeBlock>
-
-      <Prose>
-        Cold-start convergence is geometric but slow: 10 iterations give 2.5% accuracy, 20 give 0.15%. This is too expensive to run from scratch every training step. The cross-step caching trick — keeping {"u, v"} as buffers and doing one power step per forward — works because between consecutive training steps {"W"} barely moves, so {"u, v"} stay close to the optimum and one iteration suffices to track it.
-      </Prose>
-
-      <H3>4.3 A small example to make the iteration concrete</H3>
-
-      <Prose>
-        On a {"3 \\times 3"} symmetric tridiagonal matrix where the true {"\\sigma_{\\max}"} happens to equal exactly 4, we trace one step at a time. After three iterations the estimate is correct to six decimal places.
-      </Prose>
-
-      <CodeBlock language="python">
-{`Ws = torch.tensor([[2.0, 1.0, 0.0],
-                   [1.0, 3.0, 1.0],
-                   [0.0, 1.0, 2.0]], device=device)
-sigma_svd = torch.linalg.svdvals(Ws)[0].item()
-us = F.normalize(torch.tensor([1.0, 0.5, 0.2], device=device), dim=0)
-vs = F.normalize(torch.tensor([0.7, 0.4, 0.6], device=device), dim=0)
-print(f"true sigma = {sigma_svd:.4f}")
-print(f"sigma estimate before any iteration: {(vs @ Ws @ us).item():.4f}")
-for step in range(1, 5):
-    us = F.normalize(Ws.t() @ vs, dim=0)
-    vs = F.normalize(Ws @ us, dim=0)
-    sigma_k = (vs @ Ws @ us).item()
-    print(f"step {step}: sigma={sigma_k:.6f}")
-
-# Output:
-# true sigma = 4.0000
-# sigma estimate before any iteration: 2.9524
-# step 1: sigma=3.955248
-# step 2: sigma=3.999673
-# step 3: sigma=3.999990
-# step 4: sigma=3.999999`}
-      </CodeBlock>
-
-      <H3>4.4 A from-scratch SN wrapper</H3>
-
-      <Prose>
-        The wrapper stores {"u, v"} as buffers, applies one power iteration per forward in training mode, and computes {"W_{SN} = W / \\sigma"} for the layer to use. We verify against the true SVD-derived spectral norm and confirm the normalized weight has {"\\sigma_{\\max} = 1"}.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class MySpectralNorm(nn.Module):
-    def __init__(self, module, n_power_iters=1, eps=1e-12):
-        super().__init__()
-        self.module = module
-        self.n_power_iters = n_power_iters
-        self.eps = eps
-        W = module.weight
-        out_dim, in_dim = W.shape[0], W[0].numel()
-        self.register_buffer("u", F.normalize(torch.randn(out_dim), dim=0))
-        self.register_buffer("v", F.normalize(torch.randn(in_dim), dim=0))
-
-    def _W_mat(self):
-        return self.module.weight.view(self.module.weight.shape[0], -1)
-
-    def _update_uv(self):
-        Wmat = self._W_mat().detach()
-        u, v = self.u, self.v
-        for _ in range(self.n_power_iters):
-            v = F.normalize(Wmat.t() @ u, dim=0, eps=self.eps)
-            u = F.normalize(Wmat @ v, dim=0, eps=self.eps)
-        self.u.copy_(u)
-        self.v.copy_(v)
-
-    def sigma(self):
-        Wmat = self._W_mat()
-        return torch.einsum("i,ij,j->", self.u, Wmat, self.v)
-
-    def forward(self, x):
-        if self.training:
-            self._update_uv()
-        Wn = self.module.weight / (self.sigma() + self.eps)
-        return F.linear(x, Wn, self.module.bias)
-
-linear = nn.Linear(64, 32, bias=False).to(device)
-my_sn = MySpectralNorm(linear, n_power_iters=1).to(device)
-my_sn.train()
-x = torch.randn(8, 64, device=device)
-for _ in range(50):
-    _ = my_sn(x)
-
-sig_mine = my_sn.sigma().item()
-sig_true = torch.linalg.svdvals(linear.weight).max().item()
-print(f"custom SN sigma (50 warm-up steps) = {sig_mine:.6f}")
-print(f"true sigma (SVD)                    = {sig_true:.6f}")
-print(f"rel_err                             = {abs(sig_mine - sig_true) / sig_true:.2e}")
-Wn = linear.weight / sig_mine
-print(f"sigma_max(W / sigma) = {torch.linalg.svdvals(Wn).max().item():.6f}  (target = 1.0)")
-
-# Output:
-# custom SN sigma (after 50 warm-up steps) = 0.918084
-# true sigma (SVD)                          = 0.918544
-# rel_err = 5.01e-04
-# sigma_max(W / sigma) = 1.000502  (target = 1.0)`}
-      </CodeBlock>
-
-      <Prose>
-        After 50 forward passes (each doing one power iteration) the estimated spectral norm matches the true value to four decimal places, and the normalized weight has spectral norm 1.0005 — close enough that any downstream Lipschitz argument holds in practice.
-      </Prose>
-
-      <H3>4.5 WGAN-GP gradient penalty: sanity checks</H3>
-
-      <Prose>
-        We test the gradient penalty on three known-Lipschitz functions and one known-non-Lipschitz one. {"D(x) = \\|x\\|"} is 1-Lipschitz (gradient norm exactly 1 except at origin). {"D(x) = c \\cdot \\sum_i x_i / \\sqrt{d}"} has gradient norm exactly {"c"}. {"D(x) = \\|x\\|^2"} has gradient norm {"2 \\|x\\|"}, which grows with {"x"}.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def gradient_penalty(D, x_real, x_fake, lam=10.0):
-    eps = torch.rand(x_real.size(0), 1, device=x_real.device)
-    x_hat = eps * x_real + (1 - eps) * x_fake
-    x_hat.requires_grad_(True)
-    d = D(x_hat).sum()
-    grad = torch.autograd.grad(d, x_hat, create_graph=True)[0]
-    grad_norm = grad.view(grad.size(0), -1).norm(2, dim=1)
-    gp = lam * ((grad_norm - 1) ** 2).mean()
-    return gp.item(), grad_norm.detach().cpu()
-
-B, d = 256, 4
-x_real = torch.randn(B, d, device=device)
-x_fake = torch.randn(B, d, device=device) + 2.0
-
-D_norm = lambda x: x.norm(dim=1)
-D_sq   = lambda x: (x ** 2).sum(dim=1)
-D_lin  = lambda x, c: c * x.sum(dim=1) / math.sqrt(d)
-
-print(f"D=||x||                  grad-norm mean={gradient_penalty(D_norm, x_real, x_fake)[1].mean():.3f}")
-print(f"D=c*sum/sqrt(d), c=1     grad-norm mean={gradient_penalty(lambda x: D_lin(x,1.0), x_real, x_fake)[1].mean():.3f}")
-print(f"D=c*sum/sqrt(d), c=2     grad-norm mean={gradient_penalty(lambda x: D_lin(x,2.0), x_real, x_fake)[1].mean():.3f}")
-print(f"D=||x||^2                grad-norm mean={gradient_penalty(D_sq, x_real, x_fake)[1].mean():.3f}")
-
-# Output:
-# D(x)=||x||      grad-norm mean=1.000  GP*lam=0.0000
-# D(x)=c*sum/sqrt(d), c=1  grad-norm mean=1.000  GP*lam=0.0000
-# D(x)=c*sum/sqrt(d), c=2  grad-norm mean=2.000  GP*lam=10.0000
-# D(x)=||x||^2    grad-norm mean=5.246  GP*lam=221.4907`}
-      </CodeBlock>
-
-      <Prose>
-        The penalty is exactly zero on 1-Lipschitz functions, exactly {"\\lambda \\cdot (c - 1)^2 = 10"} for {"c = 2"}, and large for the quadratic. The mechanism works as advertised. The interpolation distribution matters: gradient norm is evaluated where {"\\hat{x}"} ends up landing, not on real or fake alone — a discriminator that satisfies the constraint <em>only</em> on the data manifold but is wildly non-Lipschitz between manifolds would slip through if we sampled from {"P_r"} or {"P_g"} alone.
-      </Prose>
-
-      <H3>4.6 Training comparison: vanilla GAN vs WGAN-GP vs SN-GAN on 8 Gaussians</H3>
-
-      <Prose>
-        The 8-Gaussian-mixture is a classic GAN diagnostic: data is sampled from eight Gaussians arranged on a unit circle, and a successful generator produces samples covering all eight modes. Mode collapse looks like generated samples concentrating on one or two modes only.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def sample_8gaussians(n):
-    centers = torch.tensor([[math.cos(2*math.pi*i/8), math.sin(2*math.pi*i/8)] for i in range(8)])
-    idx = torch.randint(0, 8, (n,))
-    return centers[idx] + 0.05 * torch.randn(n, 2)
-
-class G(nn.Module):
-    def __init__(self, z=4, h=64):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(z, h), nn.ReLU(),
-            nn.Linear(h, h), nn.ReLU(),
-            nn.Linear(h, 2),
-        )
-    def forward(self, z): return self.net(z)
-
-class D_plain(nn.Module):
-    def __init__(self, h=64):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(2, h), nn.LeakyReLU(0.2),
-            nn.Linear(h, h), nn.LeakyReLU(0.2),
-            nn.Linear(h, 1),
-        )
-    def forward(self, x): return self.net(x)
-
-from torch.nn.utils.parametrizations import spectral_norm
-class D_sn(nn.Module):
-    def __init__(self, h=64):
-        super().__init__()
-        self.net = nn.Sequential(
-            spectral_norm(nn.Linear(2, h)), nn.LeakyReLU(0.2),
-            spectral_norm(nn.Linear(h, h)), nn.LeakyReLU(0.2),
-            spectral_norm(nn.Linear(h, 1)),
-        )
-    def forward(self, x): return self.net(x)`}
-      </CodeBlock>
-
-      <Prose>
-        Each model trains for 2000 generator steps. WGAN-GP and SN-GAN do 5 discriminator updates per generator update (standard WGAN practice); vanilla GAN does 1:1. After training we draw 2048 samples and assign each to its nearest mode center; a mode is considered "covered" if more than 20 samples land near it.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# (Training loop omitted for brevity — see full source.)
-
-print("=== Toy GAN: 8 Gaussians, vanilla vs WGAN-GP vs SN-GAN ===")
-# Output:
-# training vanilla GAN ...
-#   vanilla  modes covered (out of 8): 8  counts=[219, 239, 275, 296, 230, 286, 254, 249]
-#            final loss_D=+1.3475  loss_G=+0.7216
-#            loss_D std (last 200 steps) = 0.0035
-# training WGAN-GP ...
-#   WGAN-GP  modes covered (out of 8): 4  counts=[97, 3, 0, 1, 1, 426, 737, 783]
-#            final loss_D=-0.7853  loss_G=+0.8282
-#            loss_D std (last 200 steps) = 0.7550
-# training SN-GAN ...
-#   SN-GAN   modes covered (out of 8): 8  counts=[250, 253, 299, 247, 253, 250, 240, 256]
-#            final loss_D=-0.0137  loss_G=+0.1052
-#            loss_D std (last 200 steps) = 0.0021`}
-      </CodeBlock>
-
-      <Prose>
-        The numbers tell three stories. Vanilla GAN happens to find all 8 modes on this toy because the problem is small enough that mode collapse does not bite hard, and its loss values sit at the BCE saturation point ({"\\log 2 \\cdot 2 \\approx 1.39"}) with very low variance — the discriminator is at the ceiling and the generator is being pushed by a near-zero gradient that nonetheless tracks the mass distribution. WGAN-GP covers only 4 modes here and its loss has high variance — this is the classic signature of WGAN-GP needing more careful tuning ({"\\lambda"}, learning rate, n_critic) to behave well on a toy this small. SN-GAN covers all 8 modes with very even mass distribution and the lowest loss variance of the three. The lesson: the comparative rank of these methods is dataset- and config-dependent, but SN-GAN's stability advantage is consistent — its loss does not swing wildly the way WGAN-GP's does.
-      </Prose>
-
-      <H3>4.7 Singular-value spectrum: SN forces the dominant singular value to 1</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn.utils.parametrizations as P
-plain = nn.Linear(8, 8, bias=False).to(device)
-sn = P.spectral_norm(nn.Linear(8, 8, bias=False)).to(device)
-sn.train()
-for _ in range(20):
-    sn(torch.randn(16, 8, device=device))
-
-svals_plain = torch.linalg.svdvals(plain.weight).detach().cpu().tolist()
-svals_sn = torch.linalg.svdvals(sn.weight.detach()).cpu().tolist()
-print("plain singular values:", [round(x, 3) for x in svals_plain])
-print("SN    singular values:", [round(x, 3) for x in svals_sn])
-
-# Output:
-# plain  singular values: [0.89, 0.736, 0.661, 0.368, 0.249, 0.205, 0.11, 0.015]
-# SN     singular values: [1.0, 0.863, 0.751, 0.549, 0.446, 0.265, 0.148, 0.114]
-# plain  sigma_max = 0.8897
-# SN     sigma_max = 1.0000  (target = 1.0)`}
-      </CodeBlock>
-
-      <Prose>
-        SN does not flatten the singular value spectrum the way an orthogonal regularizer would; it only forces the largest singular value to 1 and leaves the others in their natural relative position. This is exactly the right inductive bias for a Lipschitz constraint — bound the worst case, leave the rest alone.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production usage</H2>
-
-      <H3>5.1 PyTorch APIs</H3>
-
-      <Prose>
-        PyTorch ships two implementations of spectral normalization. The older one is <Code>{"torch.nn.utils.spectral_norm(module)"}</Code>, available since PyTorch 1.0; it modifies the module in-place by replacing its <Code>{"weight"}</Code> attribute with a property that recomputes from {"u, v"} on every access. The newer one is <Code>{"torch.nn.utils.parametrizations.spectral_norm(module)"}</Code>, introduced in PyTorch 1.9 with the parametrizations API; it is the recommended replacement and behaves identically from the outside but is implemented as a proper parametrization registered on <Code>{"weight"}</Code>, which composes more cleanly with other parametrizations (orthogonal, unit norm, etc.) and serializes correctly.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Old API (still widely used in published code):
-from torch.nn.utils import spectral_norm
-disc = nn.Sequential(
-    spectral_norm(nn.Conv2d(3, 64, 4, 2, 1)),
-    nn.LeakyReLU(0.2),
-    spectral_norm(nn.Conv2d(64, 128, 4, 2, 1)),
-    nn.LeakyReLU(0.2),
-    spectral_norm(nn.Linear(128 * 8 * 8, 1)),
-)
-
-# New API (recommended for new code):
-from torch.nn.utils.parametrizations import spectral_norm as sn_new
-disc = nn.Sequential(
-    sn_new(nn.Conv2d(3, 64, 4, 2, 1)),
-    ...
-)`}
-      </CodeBlock>
-
-      <Prose>
-        Both APIs accept <Code>{"n_power_iterations"}</Code> (default 1), <Code>{"eps"}</Code> (default 1e-12), and <Code>{"dim"}</Code> (which axis is the output dim, used for reshape). Convention is to wrap every weighted layer in the discriminator (Conv2d, ConvTranspose2d, Linear) and leave activations and the generator alone. The cost overhead is negligible — typically less than 1% of forward time. Important: BatchNorm should not be wrapped in SN, because BN is not a linear layer (it has running statistics) and SN will not give a meaningful Lipschitz bound on it. Replace BatchNorm with no-op or with a custom 1-Lipschitz alternative.
-      </Prose>
-
-      <H3>5.2 WGAN-GP gradient penalty in production</H3>
-
-      <Prose>
-        There is no <Code>{"torch.nn.functional.gradient_penalty"}</Code>; you implement it yourself with <Code>{"torch.autograd.grad"}</Code> and <Code>{"create_graph=True"}</Code>. The standard pattern:
-      </Prose>
-
-      <CodeBlock language="python">
-{`def wgan_gp_loss(D, x_real, x_fake, lam=10.0):
-    eps = torch.rand(x_real.size(0), 1, 1, 1, device=x_real.device)
-    x_hat = (eps * x_real + (1 - eps) * x_fake).requires_grad_(True)
-    d_hat = D(x_hat)
-    grad = torch.autograd.grad(
-        outputs=d_hat.sum(), inputs=x_hat,
-        create_graph=True, retain_graph=True,
-    )[0]
-    gp = ((grad.view(grad.size(0), -1).norm(2, dim=1) - 1) ** 2).mean()
-    loss_d = D(x_fake).mean() - D(x_real).mean() + lam * gp
-    return loss_d`}
-      </CodeBlock>
-
-      <Prose>
-        The shape of <Code>{"eps"}</Code> matches the input tensor's batch axis with broadcasting on the spatial dims. <Code>{"create_graph=True"}</Code> is mandatory — without it the gradient of the gradient cannot be computed. This is the source of the 2x cost: backward through the gradient norm requires double-backward, which retains the computational graph through the discriminator forward and triggers second-order derivative computation through every operator. Some operators (custom CUDA kernels, certain in-place operations) do not support double-backward and will raise; the workaround is to ensure every layer in the discriminator is double-backward-friendly (standard PyTorch ops are).
-      </Prose>
-
-      <H3>5.3 Models that ship with SN and/or GP in production</H3>
-
-      <Prose>
-        SN-GAN (Miyato et al. 2018) used SN throughout the discriminator on conditional CIFAR-10 and ImageNet 128x128, achieving state-of-the-art FID at the time. BigGAN (Brock et al. 2019) used SN in both generator and discriminator, with class-conditional batch-norm scale parameters also spectrally normalized; this was the first GAN to scale to 512x512 ImageNet. StyleGAN (Karras et al. 2019) used a related path-length regularization on the generator and R1 gradient penalty on the discriminator. StyleGAN-2 and StyleGAN-3 keep R1 and add lazy regularization (compute the R1 term only every {"k"} steps to amortize the double-backward cost, since the term changes slowly). DCGAN-derived production GANs (those used in industrial applications like product image generation) almost universally use SN as the default stabilizer. Conditional GANs for high-resolution face generation (face restoration, age progression) rely on SN to keep training stable across the multi-million-image datasets.
-      </Prose>
-
-      <H3>5.4 SN for adversarial robustness</H3>
-
-      <Prose>
-        Lipschitz constraints provide certified robustness bounds: if {"f"} is {"L"}-Lipschitz and the margin to the nearest decision boundary is {"m"}, then any adversarial perturbation must have {"\\ell_2"}-norm at least {"m / L"} to flip the prediction. Lipschitz-constrained networks are the basis for <em>certified</em> adversarial defenses, in contrast to empirical defenses (adversarial training) which provide no guarantees. The Anil-Lucas-Grosse "Sorting Out Lipschitz Function Approximation" paper (2019) shows that naively spectrally normalizing every layer to {"\\sigma_{\\max} = 1"} is too restrictive — the network loses too much expressive power because all the singular value mass collapses into a tight band. They introduce GroupSort activations and constrained orthogonal layers as alternatives that are 1-Lipschitz <em>and</em> universal approximators. The bottom line for practitioners: SN gives a Lipschitz bound for free, and is widely used in robustness-certification pipelines, but achieving competitive accuracy with a global Lipschitz bound below 1 takes more architectural care.
-      </Prose>
-
-      <H3>5.5 Common gotchas in production</H3>
-
-      <Prose>
-        Three issues bite in real codebases. First, mixing SN with batch-norm or layer-norm: the norm layer can amplify the activations after SN has normalized the weight, defeating the Lipschitz bound. The standard recipe is to drop normalization from the discriminator entirely when using SN, or to use it only after non-SN layers. Second, forgetting to call <Code>{"model.eval()"}</Code>: in training mode, SN's power vectors are updated in-place, so passing data through the model accidentally during evaluation will corrupt the cached vectors. Third, applying SN to the generator: this is sometimes done (BigGAN does it) but is not universally helpful; for most GANs, leaving the generator unconstrained and only constraining {"D"} works as well or better.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Discriminator loss curves: stability differences across methods</H3>
-
-      <Prose>
-        From the toy 8-Gaussian training above, plotting {"\\mathcal{L}_D"} every 100 steps shows the qualitative difference. Vanilla GAN's loss sits near the BCE saturation point (~1.3) with tiny oscillations — characteristic of a saturated discriminator. WGAN-GP's loss swings wildly because the Wasserstein dual is unbounded and the gradient penalty is a soft constraint that gets fought against by the main objective. SN-GAN's loss is closest to zero (the optimal Wasserstein value would be 0 if {"P_g = P_r"}) and barely moves — the spectral constraint is hard, the discriminator cannot escape the 1-Lipschitz ball, and the dynamics are stable.
-      </Prose>
-
-      <Plot
-        label="discriminator loss vs training step (8-gaussian toy, real numbers)"
-        xLabel="step"
-        yLabel="loss_D"
-        width={620}
-        height={260}
-        series={[
-          {
-            name: "vanilla GAN",
-            color: colors.gold,
-            points: [
-              [0, 1.376], [100, 1.328], [200, 1.185], [300, 1.154], [400, 1.208],
-              [500, 1.454], [600, 1.445], [700, 1.293], [800, 1.232], [900, 1.231],
-              [1000, 1.279], [1100, 1.396], [1200, 1.430], [1300, 1.444], [1400, 1.386],
-              [1500, 1.375], [1600, 1.345], [1700, 1.345], [1800, 1.341], [1900, 1.338],
-            ],
-          },
-          {
-            name: "WGAN-GP",
-            color: "#c084fc",
-            points: [
-              [0, 8.584], [100, 0.115], [200, -0.541], [300, 0.173], [400, -0.292],
-              [500, 0.309], [600, 0.547], [700, 0.474], [800, -0.836], [900, -0.291],
-              [1000, 0.743], [1100, -0.253], [1200, -0.223], [1300, -0.448], [1400, -0.728],
-              [1500, 0.771], [1600, -0.335], [1700, 1.913], [1800, -1.383], [1900, 0.499],
-            ],
-          },
-          {
-            name: "SN-GAN",
-            color: colors.green,
-            points: [
-              [0, -0.007], [100, -0.224], [200, -0.050], [300, -0.043], [400, -0.043],
-              [500, -0.036], [600, -0.039], [700, -0.031], [800, -0.030], [900, -0.024],
-              [1000, -0.022], [1100, -0.020], [1200, -0.021], [1300, -0.016], [1400, -0.018],
-              [1500, -0.019], [1600, -0.015], [1700, -0.018], [1800, -0.019], [1900, -0.010],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6.2 One step of power iteration: the dominant singular vector emerges</H3>
-
-      <Prose>
-        Trace of one power-iteration step on the {"3 \\times 3"} symmetric tridiagonal {"W"} from the from-scratch section. Starting from a slightly skewed initial guess for {"u, v"}, after just three iterations the singular vectors converge to the true ones and the singular value estimate matches the SVD value to six decimal places.
-      </Prose>
-
-      <StepTrace
-        label="power iteration on a 3x3 matrix (true sigma=4.0)"
-        steps={[
-          {
-            label: "init",
-            render: () => (
-              <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.textSecondary, lineHeight: 1.7 }}>
-                <div>W = [[2, 1, 0], [1, 3, 1], [0, 1, 2]]</div>
-                <div>u0 = [0.880, 0.440, 0.176]  (not yet aligned with top right singular vector)</div>
-                <div>v0 = [0.697, 0.398, 0.597]  (not yet aligned with top left singular vector)</div>
-                <div>sigma_estimate = v0^T W u0 = 2.952  (true = 4.000, error 26%)</div>
-              </div>
-            ),
-          },
-          {
-            label: "after 1 step",
-            render: () => (
-              <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.textSecondary, lineHeight: 1.7 }}>
-                <div>v_new = normalize(W u_old) = [0.444, 0.794, 0.415]</div>
-                <div>u_new = normalize(W^T v_new) = [0.519, 0.720, 0.461]</div>
-                <div>sigma_estimate = v_new^T W u_new = 3.955  (true = 4.000, error 1.1%)</div>
-              </div>
-            ),
-          },
-          {
-            label: "after 2 steps",
-            render: () => (
-              <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.textSecondary, lineHeight: 1.7 }}>
-                <div>v = [0.413, 0.815, 0.406]</div>
-                <div>u = [0.421, 0.811, 0.406]</div>
-                <div>sigma_estimate = 3.99967  (true = 4.000, error 0.008%)</div>
-              </div>
-            ),
-          },
-          {
-            label: "after 3 steps",
-            render: () => (
-              <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.textSecondary, lineHeight: 1.7 }}>
-                <div>v = [0.409, 0.816, 0.407]</div>
-                <div>u = [0.410, 0.816, 0.407]</div>
-                <div>sigma_estimate = 3.99999  (true = 4.000, six-decimal accuracy)</div>
-                <div style={{ color: colors.gold, marginTop: 6 }}>
-                  → in the SN setting, between training steps W moves by less than this error, so 1 iter/step keeps the estimate accurate indefinitely.
-                </div>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6.3 Singular-value spectrum with and without SN</H3>
-
-      <Prose>
-        The full singular value spectrum of an 8x8 random Linear layer, before and after spectral normalization. SN forces the dominant singular value to 1.0 exactly while leaving the relative spacing of the other singular values intact. This is the key behavioral difference from orthogonal regularization, which would push every singular value toward 1.
-      </Prose>
-
-      <Heatmap
-        label="singular values of layer weight (rows: variant; cols: rank by magnitude)"
-        rowLabels={["plain", "SN"]}
-        colLabels={["sigma_1", "sigma_2", "sigma_3", "sigma_4", "sigma_5", "sigma_6", "sigma_7", "sigma_8"]}
-        matrix={[
-          [0.89, 0.74, 0.66, 0.37, 0.25, 0.21, 0.11, 0.02],
-          [1.00, 0.86, 0.75, 0.55, 0.45, 0.27, 0.15, 0.11],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6.4 Mode coverage: 8 Gaussians benchmark, sample counts per mode</H3>
-
-      <Prose>
-        From the toy training run, the per-mode sample counts (out of 2048 generated samples) for each method. Vanilla GAN and SN-GAN both spread mass evenly across all 8 modes; WGAN-GP collapsed onto 4 (in this run with this seed and config; gradient-penalty GANs need more careful tuning to behave well on this benchmark).
-      </Prose>
-
-      <Heatmap
-        label="samples per mode (out of 2048) by method"
-        rowLabels={["vanilla", "WGAN-GP", "SN-GAN"]}
-        colLabels={["m0", "m1", "m2", "m3", "m4", "m5", "m6", "m7"]}
-        matrix={[
-          [219, 239, 275, 296, 230, 286, 254, 249],
-          [97, 3, 0, 1, 1, 426, 737, 783],
-          [250, 253, 299, 247, 253, 250, 240, 256],
-        ]}
-        colorScale="green"
-      />
-
-      <H3>6.5 Effective FID convergence (illustrative)</H3>
-
-      <Prose>
-        On real datasets where FID is meaningful (CIFAR-10, ImageNet), the published numbers from Miyato et al. and follow-up work look qualitatively like the curves below. SN-GAN reaches a low FID smoothly and stays there. WGAN-GP reaches a similar floor with more variance. Vanilla GAN plateaus higher and oscillates. These curves are stylized from the SN-GAN paper's reported CIFAR-10 numbers (FID lower is better).
-      </Prose>
-
-      <Plot
-        label="FID vs epoch (illustrative, based on SN-GAN paper's CIFAR-10 numbers)"
-        xLabel="epoch"
-        yLabel="FID"
-        width={620}
-        height={240}
-        series={[
-          {
-            name: "vanilla GAN",
-            color: colors.gold,
-            points: [[0, 220], [10, 95], [20, 70], [30, 55], [40, 50], [50, 48], [60, 47], [70, 49], [80, 46], [90, 47], [100, 48]],
-          },
-          {
-            name: "WGAN-GP",
-            color: "#c084fc",
-            points: [[0, 220], [10, 80], [20, 50], [30, 38], [40, 32], [50, 28], [60, 26], [70, 25], [80, 24], [90, 24], [100, 23]],
-          },
-          {
-            name: "SN-GAN",
-            color: colors.green,
-            points: [[0, 220], [10, 70], [20, 40], [30, 30], [40, 25], [50, 22], [60, 21], [70, 20], [80, 19], [90, 19], [100, 19]],
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix: when to use what</H2>
-
-      <H3>7.1 The default choice for any GAN</H3>
-
-      <Prose>
-        Use spectral normalization on every weighted layer of the discriminator. It is cheap, has no hyperparameter, and provides a strict Lipschitz bound. Do not also use gradient penalty unless you have a specific reason — combining the two is redundant and only hurts compute. SN alone is the right default for SN-GAN-style architectures, BigGAN, conditional GANs, and most production GANs of any flavor.
-      </Prose>
-
-      <H3>7.2 When to prefer gradient penalty over SN</H3>
-
-      <Prose>
-        Three situations: (1) your discriminator architecture relies on layers that are not naturally Lipschitz-bounded by SN — e.g. self-attention with softmax, which can have arbitrarily large operator norm; (2) you need a softer, training-set-aware constraint rather than a global one — gradient penalty only enforces the Lipschitz condition near the data manifold, which can be more sample-efficient when the manifold is concentrated; (3) you are using a StyleGAN-derived architecture where R1 gradient penalty is the conventional regularizer and is the one whose hyperparameters are known and tuned in published configs.
-      </Prose>
-
-      <H3>7.3 When to use both</H3>
-
-      <Prose>
-        Some architectures (BigGAN, certain conditional GANs) use SN <em>and</em> a hinge loss with implicit regularization, or SN plus R1 with a small {"\\gamma"}. The combination is redundant from a pure Lipschitz-bound standpoint but can stabilize the optimization further by reducing variance in the per-batch gradient. The cost is roughly 1.5x compared to SN alone (R1 is one-sided so cheaper than full WGAN-GP). Reach for the combination only after SN alone is failing.
-      </Prose>
-
-      <H3>7.4 Adversarial robustness</H3>
-
-      <Prose>
-        Spectral normalization is the standard tool for certified robustness. It gives a global Lipschitz bound that is necessary for {"\\ell_2"}-norm certified defenses. Pair it with GroupSort or constrained orthogonal layers (Anil et al. 2019) if you need universal approximation under the Lipschitz constraint. Gradient penalty is not used for certified robustness because it provides no formal guarantee — it only encourages low gradient norm on the data, not everywhere.
-      </Prose>
-
-      <H3>7.5 Standard supervised learning</H3>
-
-      <Prose>
-        Neither technique is helpful for standard supervised classification or regression. The Lipschitz constraint is restrictive, capacity is sacrificed for nothing, and the loss landscape is not improved on tasks where saddle-point dynamics are not in play. Use weight decay and standard normalization layers instead. The exception is training value functions in deep RL or stabilizing policy networks in continuous control, where SN is sometimes used to bound the operator norm of the policy and prevent runaway gradients.
-      </Prose>
-
-      <H3>7.6 Neural ODEs and continuous-time models</H3>
-
-      <Prose>
-        Neural ODE solvers integrate {"\\dot{x} = f_\\theta(x, t)"} forward in time. If {"f_\\theta"} is unbounded, the ODE solver step size shrinks toward zero. Spectrally normalizing the layers of {"f_\\theta"} bounds the dynamics and lets the solver take larger steps. SN is the standard regularizer for Neural ODEs and related continuous-time architectures.
-      </Prose>
-
-      <H3>7.7 Quick reference</H3>
-
-      <CodeBlock language="text">
-{`setting                          | recommended
----------------------------------|-----------------------------
-default GAN discriminator        | SN
-StyleGAN family                  | R1 (with optional SN)
-BigGAN-style ImageNet            | SN (G and D), hinge loss
-WGAN with bounded support data   | SN (preferred) or WGAN-GP
-adversarial robustness, certified| SN (+ GroupSort/orthogonal)
-neural ODE / continuous control  | SN
-standard supervised classifier   | neither (use weight decay)
-diffusion model U-net            | neither (no Lipschitz need)`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Spectral normalization compute footprint</H3>
-
-      <Prose>
-        Per-step cost of SN on one Linear or Conv layer: one matrix-vector multiply forward ({"O(m n)"}), one transpose multiply ({"O(m n)"}), and one inner product ({"O(m + n)"}). For a Conv layer with kernel reshape, the cost is {"O(c_{out} \\cdot c_{in} k_h k_w)"} per step — comparable to a single forward filter multiply. Across an entire BigGAN discriminator (~50 layers), SN adds something like 1-3% to the forward pass time. The {"u, v"} buffers add {"O(c_{out} + c_{in} k_h k_w)"} memory per layer, which is microscopic relative to the activations. SN scales perfectly to BigGAN-512 and StyleGAN-3 sizes; nobody has reported it being a bottleneck.
-      </Prose>
-
-      <H3>8.2 Gradient penalty compute footprint</H3>
-
-      <Prose>
-        WGAN-GP costs roughly 2x per training step compared to a non-penalty WGAN, because the gradient-of-gradient term requires a full second backward pass through the discriminator. R1 is roughly 1.5x because it does not need the interpolation and is sometimes computed every {"k"} steps with lazy regularization. Memory cost increases too — the computation graph for the gradient penalty must be retained, which doubles activation memory in the discriminator forward. For very large discriminators (BigGAN-scale), this can push you out of HBM and force smaller batches. This is one of the reasons SN became dominant: it has none of these issues.
-      </Prose>
-
-      <H3>8.3 Historical scaling: WGAN to BigGAN</H3>
-
-      <Prose>
-        The trajectory of GAN scaling from 2017 to 2019 is a textbook study in how a single-bottleneck change unlocks orders-of-magnitude more capability. WGAN (2017) trained 64x64 images. WGAN-GP (late 2017) reached 128x128 CelebA. SN-GAN (early 2018) reached 128x128 ImageNet at competitive quality. SAGAN (Self-Attention GAN, mid 2018, also Miyato et al. style SN) added attention layers and reached 128x128 ImageNet at FID 18. BigGAN (late 2018) scaled to 256x256 and 512x512 ImageNet at FID 7-9 by combining SN with very large batches (2048), self-attention, and class-conditional batch-norm with SN-normalized scale parameters. The 18-month progression from "barely trains" to "matches supervised classifiers" was substantially driven by Lipschitz-constraint techniques. Without SN and gradient penalty, BigGAN's training would have been impossible at that scale.
-      </Prose>
-
-      <H3>8.4 The diffusion era</H3>
-
-      <Prose>
-        From 2021 onward, diffusion models replaced GANs as the dominant generative architecture for high-resolution images. Stable Diffusion, DALL-E 2, and Imagen are not GANs; they do not need a discriminator and have no Lipschitz constraint to enforce. The training-stability problems that motivated SN simply do not exist in the same form. As a result, SN and gradient penalty are no longer at the cutting edge of generative modelling research. They remain important for: (1) residual GAN use cases where fast inference and lightweight generators are needed (style editing, super-resolution, fast face restoration); (2) adversarial robustness, where the Lipschitz framing is the dominant theoretical lens; (3) any architecture where bounded operator norms are explicitly desirable. The techniques outlasted the model class because the property they enforce — Lipschitz boundedness — is a fundamental tool in mathematical analysis of neural networks.
-      </Prose>
-
-      <H3>8.5 Hardware considerations</H3>
-
-      <Prose>
-        Power iteration is bandwidth-bound on modern GPUs (a single mat-vec) and finishes in microseconds. The double-backward in gradient penalty triggers a significant amount of intermediate-tensor reuse that does not always play nicely with mixed-precision training — fp16 gradient penalties can underflow or NaN, requiring loss scaling that interacts oddly with the WGAN dual loss. SN has no such issues; it works in fp16, bf16, and fp8 transparently because it is a single scalar division per layer. This is a quiet but real reason SN won in practice.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Power iteration not actually being run</H3>
-
-      <Prose>
-        The most common SN bug is forgetting to put the discriminator in training mode. PyTorch's <Code>{"spectral_norm"}</Code> only updates {"u, v"} when <Code>{"self.training"}</Code> is true, so if you call <Code>{"D(x)"}</Code> on a model that is in <Code>{"eval()"}</Code> mode (e.g. during a validation or sampling step embedded in the training loop), the cached {"u, v"} go stale. Symptom: training appears stable for a while, then quality slowly degrades because the spectral norm estimate has drifted off the true value and the Lipschitz bound is no longer being enforced. Fix: always do <Code>{"D.train()"}</Code> before discriminator updates and only switch to <Code>{"eval()"}</Code> for explicit evaluation runs that you do not interleave with training.
-      </Prose>
-
-      <H3>9.2 SN at train but not at eval (or vice versa)</H3>
-
-      <Prose>
-        A subtler bug: removing the SN parametrization at evaluation time, intending to "deploy the underlying weights." This is wrong — the spectrally-normalized weight {"W / \\sigma"} is what was trained against, and using {"W"} directly at inference means the actual operator the discriminator computes is a factor of {"\\sigma"} larger than what training assumed. Some published code does this for "speed" and reports puzzlingly bad inference behavior. Fix: keep SN active at inference; the cost is one cached scalar division per layer.
-      </Prose>
-
-      <H3>9.3 Gradient penalty {"\\lambda"} mistuning</H3>
-
-      <Prose>
-        WGAN-GP's {"\\lambda = 10"} is not a universal constant. Gulrajani et al. report that {"\\lambda \\in [1, 100]"} works on different datasets, with 10 being the median best. {"\\lambda"} too low (1 or below) means the Lipschitz constraint is too soft and training diverges back into vanilla-GAN territory. {"\\lambda"} too high (100 or above) means the penalty dominates the loss and the discriminator becomes flat — gradient norm becomes 1 everywhere but the discrimination signal vanishes. Symptom of too-low: oscillating losses, mode collapse. Symptom of too-high: slow learning, blurry samples. Fix: try 10 first, then bracket-search {"[3, 30]"} if needed.
-      </Prose>
-
-      <H3>9.4 Gradient penalty on the wrong samples</H3>
-
-      <Prose>
-        The penalty must be evaluated on interpolated samples {"\\hat{x} = \\varepsilon x_r + (1 - \\varepsilon) x_g"}, not on real or fake samples alone. A common bug is to penalize on real samples only — this is the R1 penalty (Mescheder et al.), which is a different (valid) regularizer, but it does not enforce the WGAN-GP-style Lipschitz constraint. Penalizing fake samples only is the R2 penalty, also valid but not the same as WGAN-GP. The interpolation matters because the optimal {"D"} for the Wasserstein dual has gradient norm 1 along straight lines between matched pairs, not along the data manifold. Fix: read the original Gulrajani et al. code and replicate the interpolation step exactly.
-      </Prose>
-
-      <H3>9.5 Combining SN with batch normalization</H3>
-
-      <Prose>
-        BatchNorm divides activations by their batch standard deviation, which can be arbitrarily small and therefore amplify activations by an arbitrarily large factor. Applying SN to a layer and then putting BatchNorm after it defeats the spectral normalization — the BN can re-stretch the activations beyond the 1-Lipschitz ball that SN was trying to enforce. The standard recipe is to drop BatchNorm from the discriminator entirely when using SN. Some architectures use a custom 1-Lipschitz-friendly normalization (LayerNorm with constraints, or no normalization at all). Symptom: SN-GAN training appears stable but quality is much worse than reported by the paper. Fix: remove BN from the discriminator.
-      </Prose>
-
-      <H3>9.6 WGAN weight clipping with c too large</H3>
-
-      <Prose>
-        The original WGAN paper specifies clipping {"c = 0.01"}. Setting {"c = 0.1"} or higher means the per-layer operator norm can grow large enough to break the Lipschitz constraint, and training diverges. {"c"} too small (below 0.001) starves the discriminator of capacity and quality plateaus low. The narrow workable range of {"c"} is exactly why the Gulrajani et al. paper proposed gradient penalty — to escape this brittleness. If you find yourself debugging weight-clipping in 2026, you have probably picked the wrong tool; use SN or WGAN-GP instead.
-      </Prose>
-
-      <H3>9.7 Double-backward incompatibility</H3>
-
-      <Prose>
-        Some operators do not support the second derivative needed by gradient penalty. Custom CUDA kernels, certain in-place ops, and some quantized layers will raise during the <Code>{"autograd.grad(create_graph=True)"}</Code> call. Symptom: a runtime error mentioning "no backward implemented" or "graph already freed." Fix: replace the offending op with a double-backward-friendly equivalent (most standard PyTorch ops are fine), or skip GP and use SN instead.
-      </Prose>
-
-      <H3>9.8 Mixed precision and gradient penalty</H3>
-
-      <Prose>
-        Computing gradient norm in fp16 is dangerous: small gradients underflow to zero before squaring, and the resulting penalty can be NaN. The standard fix is to compute the gradient penalty in fp32 even when the rest of training is fp16/bf16. PyTorch's autocast supports this with explicit casts inside the GP function. Symptom: NaN appears in the loss after a few hundred steps. Fix: cast {"\\hat{x}"} to fp32 before the gradient computation, or keep the entire discriminator in fp32 if memory permits.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources and historical context</H2>
-
-      <Prose>
-        The five-paper canon for spectral normalization and gradient penalty:
-      </Prose>
-
-      <Prose>
-        Martin Arjovsky, Soumith Chintala, Leon Bottou. "Wasserstein GAN." ICML 2017. arXiv:1701.07875. The paper that reframed GAN training as Wasserstein-distance estimation. Section 2 ("Different Distances") is the clearest exposition of why JS divergence fails and Wasserstein succeeds for distributions with disjoint supports. Section 3 derives the Kantorovich-Rubinstein dual and the 1-Lipschitz constraint. The weight-clipping mechanism in Section 4 is acknowledged in the paper itself as a "clearly terrible way to enforce a Lipschitz constraint" — the authors invite better solutions, which Gulrajani et al. then provided three months later.
-      </Prose>
-
-      <Prose>
-        Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, Aaron Courville. "Improved Training of Wasserstein GANs." NeurIPS 2017. arXiv:1704.00028. The WGAN-GP paper. Proposition 1 proves that the optimal {"D"} for the Wasserstein dual has gradient norm exactly 1 almost everywhere along straight lines between coupled real-fake samples; this is the theoretical justification for the interpolated sampling distribution. Empirical section shows WGAN-GP trains stably across 200+ architectures while WGAN clipping diverges in many of them. The {"\\lambda = 10"} value comes from a hyperparameter sweep on CIFAR-10.
-      </Prose>
-
-      <Prose>
-        Takeru Miyato, Toshiki Kataoka, Masanori Koyama, Yuichi Yoshida. "Spectral Normalization for Generative Adversarial Networks." ICLR 2018. arXiv:1802.05957. The SN-GAN paper. Section 2.1 derives the spectral norm as the operator norm of a linear layer and shows why it equals the Lipschitz constant. Section 2.2 introduces the power-iteration-with-cross-step-caching trick that makes SN cheap. Section 5 shows SN-GAN matches the best WGAN-GP results on CIFAR-10 with a fraction of the compute. Appendix B has the convolutional reshape trick for applying SN to Conv2d layers.
-      </Prose>
-
-      <Prose>
-        Andrew Brock, Jeff Donahue, Karen Simonyan. "Large Scale GAN Training for High Fidelity Natural Image Synthesis." ICLR 2019. arXiv:1809.11096. BigGAN. Section 3 explains how SN is used in both generator and discriminator, and how class-conditional batch-norm scale parameters are spectrally normalized. The "truncation trick" for sampling (truncate the noise distribution at inference to trade diversity for quality) is also introduced here. BigGAN was the first GAN to achieve photorealistic 512x512 ImageNet samples; the SN-everywhere recipe was load-bearing for that result.
-      </Prose>
-
-      <Prose>
-        Tero Karras, Samuli Laine, Timo Aila. "A Style-Based Generator Architecture for Generative Adversarial Networks." CVPR 2019. arXiv:1812.04948. StyleGAN. Uses R1 gradient penalty (Mescheder et al. variant) on the discriminator rather than WGAN-GP or SN; the choice was driven by StyleGAN's particular architecture (mapping network + adaptive instance norm in generator) which interacts poorly with discriminator-side SN. StyleGAN-2 (arXiv:1912.04958, 2020) and StyleGAN-3 (arXiv:2106.12423, 2021) refine the regularization further with lazy R1 (compute every 16 steps).
-      </Prose>
-
-      <Prose>
-        Karol Kurach, Mario Lucic, Xiaohua Zhai, Marcin Michalski, Sylvain Gelly. "A Large-Scale Study on Regularization and Normalization in GANs." ICML 2019. The systematic empirical paper. Trains 700+ GAN configurations across architectures, datasets, normalizations, and regularizers. The headline finding: spectral normalization is the single most consistent stabilizer, helping in roughly 90% of configurations tested. Gradient penalty helps in fewer settings but is necessary for some (specifically WGAN-style hinge losses). The combination of SN + GP is rarely needed.
-      </Prose>
-
-      <Prose>
-        Cem Anil, James Lucas, Roger Grosse. "Sorting Out Lipschitz Function Approximation." ICML 2019. arXiv:1811.05381. The theoretical paper on what 1-Lipschitz networks can and cannot represent. Shows that naive SN networks are not universal approximators of 1-Lipschitz functions because they cannot represent functions like {"x \\mapsto |x|"} (which require non-smooth activations). Introduces GroupSort activations and constrained orthogonal layers as alternatives that <em>are</em> universal approximators under the Lipschitz constraint. This paper is the bridge between "SN as a GAN trick" and "SN as a tool for certified robustness."
-      </Prose>
-
-      <Prose>
-        Lars Mescheder, Andreas Geiger, Sebastian Nowozin. "Which Training Methods for GANs do actually Converge?" ICML 2018. arXiv:1801.04406. Introduces the R1 and R2 gradient penalties used by StyleGAN. Provides convergence analysis showing that R1 stabilizes training in the absence of a Lipschitz constraint and is computationally cheaper than full WGAN-GP. The paper also has an excellent unified treatment of GAN training dynamics as a saddle-point game.
-      </Prose>
-
-      <Prose>
-        Han Zhang, Ian Goodfellow, Dimitris Metaxas, Augustus Odena. "Self-Attention Generative Adversarial Networks." ICML 2019. arXiv:1805.08318. SAGAN, the bridge between SN-GAN and BigGAN. Adds self-attention layers to the discriminator (and generator) on top of SN, demonstrating that SN composes well with attention even though attention's softmax can have large operator norm in principle.
-      </Prose>
-
-      <Prose>
-        For implementation references: PyTorch's <Code>{"torch.nn.utils.parametrizations.spectral_norm"}</Code> is a faithful implementation of Miyato et al.; the source is in <Code>{"torch/nn/utils/parametrizations.py"}</Code> and is roughly 60 lines, worth reading. The original SN-GAN authors' Chainer implementation is at <Code>{"github.com/pfnet-research/sngan_projection"}</Code> and is the cleanest cross-check. Gulrajani et al.'s original WGAN-GP TensorFlow implementation is at <Code>{"github.com/igul222/improved_wgan_training"}</Code> and the gradient-penalty function there is the canonical reference for the interpolation procedure.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        Five conceptual questions. Write down your answer before peeking at the solution.
-      </Prose>
-
-      <H3>Q1. Why does the original WGAN paper use weight clipping rather than gradient penalty or spectral normalization?</H3>
-
-      <Callout accent="gold" title="Answer">
-        The original WGAN paper (Arjovsky et al. 2017) needed <em>some</em> mechanism to enforce the 1-Lipschitz constraint on the discriminator that the Kantorovich-Rubinstein dual requires. Weight clipping was the simplest mechanism the authors could think of: bound every weight to {"[-c, c]"}, and the per-layer operator norm is automatically bounded too. The paper itself acknowledges that clipping is "a clearly terrible way to enforce a Lipschitz constraint" and invites the community to propose better methods. WGAN-GP (Gulrajani et al., three months later) and SN-GAN (Miyato et al., a year later) both came as direct responses to this invitation. The historical lesson: a paper does not have to ship the optimal mechanism for its core idea to land; it just has to ship the idea cleanly enough that follow-up papers can fix the mechanism.
-      </Callout>
-
-      <H3>Q2. WGAN-GP penalizes the gradient norm to be 1, not 0. Why?</H3>
-
-      <Callout accent="gold" title="Answer">
-        Penalizing gradient norm toward 0 would push the discriminator toward a constant function, which carries no information — the Wasserstein dual would collapse to zero, the generator would receive no gradient, and training would fail. The reason 1 is the right target comes from optimal-transport theory: the optimal {"D^*"} that achieves the Wasserstein dual has gradient norm <em>exactly 1</em> along the optimal transport paths between {"P_r"} and {"P_g"}. So penalizing toward 1 pushes {"D"} toward optimality. The penalty is symmetric (squared), so {"\\|\\nabla D\\| > 1"} and {"\\|\\nabla D\\| < 1"} are both penalized equally. The R1 penalty, by contrast, penalizes toward 0 — it is a pure regularizer rather than a Lipschitz constraint, which is why R1 is used alongside other stability tricks (large batches, careful architectures) rather than alone.
-      </Callout>
-
-      <H3>Q3. If a network has 5 layers each with spectral norm exactly 1, what is the network's Lipschitz constant?</H3>
-
-      <Callout accent="gold" title="Answer">
-        At most 1 (assuming all activations are 1-Lipschitz, which ReLU and LeakyReLU satisfy). The Lipschitz constant of a composition is at most the product of the constituent Lipschitz constants — for {"f = f_5 \\circ f_4 \\circ f_3 \\circ f_2 \\circ f_1"}, we have {"\\|f\\|_L \\le \\prod_i \\|f_i\\|_L = 1 \\cdot 1 \\cdot 1 \\cdot 1 \\cdot 1 = 1"}. The bound can be loose — the true Lipschitz constant of the composition can be much less than 1 if the layers' worst-case directions do not align — but the upper bound is 1. This is exactly why SN works: bound every layer to 1, get a network bound of 1 for free. The catch is that the bound is loose enough that the network may not be using its full capacity; this is the topic of the Anil-Lucas-Grosse paper and the motivation for GroupSort and constrained orthogonal layers.
-      </Callout>
-
-      <H3>Q4. You implement SN by applying power iteration once per training step. Should you also apply power iteration at inference time?</H3>
-
-      <Callout accent="gold" title="Answer">
-        No. At inference, the weight matrix {"W"} is frozen, so the spectral norm {"\\sigma_{\\max}(W)"} is constant. Running power iteration just wastes compute. Use the cached {"u, v"} from the last training step. PyTorch's built-in <Code>{"spectral_norm"}</Code> handles this correctly: it only updates the power vectors when <Code>{"self.training == True"}</Code>. The forward pass still divides by {"\\sigma"} at inference, but using the cached value. A common bug is to <em>remove</em> the SN parametrization at inference for "speed", which means the layer now uses the raw {"W"} that is roughly {"\\sigma"} times larger than what was trained — silently degrading quality.
-      </Callout>
-
-      <H3>Q5. WGAN-GP requires double-backward through the discriminator. What is the practical compute cost compared to SN, and when does this matter?</H3>
-
-      <Callout accent="gold" title="Answer">
-        WGAN-GP costs roughly 2x per training step compared to a non-penalty WGAN, because the gradient-of-gradient term requires retaining the computational graph through the discriminator forward and computing second-order derivatives during the backward of the penalty term. Memory cost roughly doubles too. Spectral normalization adds essentially zero compute — one matrix-vector multiply per layer per step, less than 1% overhead in practice. For small models or research experiments, the 2x WGAN-GP cost is acceptable. For BigGAN-scale training (billions of parameters, thousands of GPUs, weeks of training time), 2x is prohibitive — both in dollars and in being able to fit the model in HBM. This is the practical reason BigGAN uses SN rather than WGAN-GP everywhere it can. The exception is StyleGAN's lazy R1 (compute the penalty every 16 steps) which amortizes the 2x cost down to about 1.06x, making it comparable to SN.
-      </Callout>
-
-    </div>
-  ),
-};
-
-export default spectralNormGPContent;
+<SpectralCircleFigure />
+
+<Prose>{"Normalizing to norm one can enlarge a matrix whose norm is already below one. If the intended operation is only to cap the norm, use "}<InlineMath>{"W/\\max(1,\\sigma_1(W))"}</InlineMath>{". Singular-value clipping is another operation: decompose "}<InlineMath>{"W=U\\Sigma V^T"}</InlineMath>{", cap individual singular values, then reconstruct. Entrywise weight clipping changes matrix coefficients directly and has yet another effect. Its threshold does not set a network's Lipschitz constant to that same threshold."}</Prose>
+
+<Prose>{"The original spectral-normalization method uses a cheaper estimate of the strongest stretch during training. Its paper also studies other GAN losses, so spectral normalization is not tied exclusively to the Wasserstein objective. "}<a href={"https://arxiv.org/pdf/1802.05957"}>{"Miyato et al., §2 and Appendix A"}</a>{""}</Prose>
+
+<H3>{"Power iteration finds a direction as well as a number"}</H3>
+
+<Prose>{"For a nonzero left-side vector "}<InlineMath>{"u"}</InlineMath>{", repeat"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"v\\leftarrow\\frac{W^Tu}{\\|W^Tu\\|_2},\\qquad\nu\\leftarrow\\frac{Wv}{\\|Wv\\|_2},\\qquad\n\\widehat\\sigma=u^TWv."}</MathBlock></div>
+
+<Prose>{"Multiplication amplifies components associated with larger singular values. Repeated normalization prevents the vector itself from growing without bound. With a suitable starting component, the process approaches a leading singular direction. Convergence depends on the spectral gap; a starting vector exactly orthogonal to the leading subspace can miss it."}</Prose>
+
+<Prose>{"For "}<InlineMath>{"\\operatorname{diag}(3,1)"}</InlineMath>{", start with "}<InlineMath>{"u=(1,1)/\\sqrt2"}</InlineMath>{". One round produces "}<InlineMath>{"\\widehat\\sigma=2.863564"}</InlineMath>{". Dividing by that estimate leaves a true norm of "}<InlineMath>{"3/2.863564=1.047645"}</InlineMath>{", slightly above one. Starting with "}<InlineMath>{"u=(0,1)"}</InlineMath>{" instead yields an estimate of one forever in exact arithmetic, leaving true normalized norm three. The numerical trace makes both cases explicit."}</Prose>
+
+<Prose>{"Training commonly retains the previous vectors because weights often move incrementally. A cached vector can be useful; it is not a universal accuracy guarantee. Near-equal leading singular values slow convergence, and a changed matrix can invalidate a previously good direction. For a dense "}<InlineMath>{"m\\times n"}</InlineMath>{" matrix, one round costs "}<InlineMath>{"O(mn)"}</InlineMath>{" arithmetic with "}<InlineMath>{"O(m+n)"}</InlineMath>{" vector storage beyond the weights. Calling the arithmetic "}<InlineMath>{"O(m+n)"}</InlineMath>{" confuses storage with work."}</Prose>
+
+<SpectralMatrixLab />
+
+<H3>{"Deeper: why the normalization stays in the derivative graph"}</H3>
+
+<Prose>{"Let "}<InlineMath>{"H=\\partial L/\\partial\\overline W"}</InlineMath>{", and assume a unique positive leading singular value with unit singular vectors "}<InlineMath>{"u,v"}</InlineMath>{". Since "}<InlineMath>{"d\\sigma_1=\\langle uv^T,dW\\rangle"}</InlineMath>{", differentiating the quotient gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial L}{\\partial W}\n=\\frac{1}{\\sigma_1}\\left(H-\\langle H,\\overline W\\rangle uv^T\\right)."}</MathBlock></div>
+
+<Prose>{"The second term accounts for how changing "}<InlineMath>{"W"}</InlineMath>{" also changes its scale. Treating the entire denominator as a detached constant loses that term. A practical approximation estimates "}<InlineMath>{"u,v"}</InlineMath>{" without differentiating through their iterative search, but computes "}<InlineMath>{"u^TWv"}</InlineMath>{" with "}<InlineMath>{"W"}</InlineMath>{" still in the graph. At a repeated leading singular value, the usual unique-vector derivative needs nonsmooth treatment; the displayed formula assumes uniqueness."}</Prose>
+
+<Prose>{"The companion calculation checks the derivative for "}<InlineMath>{"W=[[2,1],[0,1]]"}</InlineMath>{" against central differences, with maximum discrepancy below "}<InlineMath>{"7\\times10^{-12}"}</InlineMath>{". The derivation explains the term; numerical agreement is a useful check on this particular implementation, not a proof for all matrices."}</Prose>
+
+<SpectralDerivativeLab /><SpectralProgram filename="sensitivity-calculations.py" />
+
+<H2>{"4. A convolution is larger than its stored kernel"}</H2>
+
+<Prose>{"A kernel is reused at many spatial locations. Flattening its stored coefficients into a matrix does not generally produce the matrix that maps an entire image to its entire output."}</Prose>
+
+<Prose>{"For input "}<InlineMath>{"(x_1,x_2,x_3)"}</InlineMath>{" and valid stride-one kernel "}<InlineMath>{"[1,1]"}</InlineMath>{","}</Prose>
+
+<div className="neural-equation"><MathBlock>{"y=(x_1+x_2,x_2+x_3),\\qquad\nA=\\begin{bmatrix}1&1&0\\\\0&1&1\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"The stored row kernel has norm "}<InlineMath>{"\\sqrt2"}</InlineMath>{". The full operator has norm "}<InlineMath>{"\\sqrt3"}</InlineMath>{", because the shared middle input contributes to both outputs. Dividing the kernel by "}<InlineMath>{"\\sqrt2"}</InlineMath>{" therefore leaves a full-operator norm of "}<InlineMath>{"\\sqrt{3/2}\\approx1.224745"}</InlineMath>{"."}</Prose>
+
+<Prose>{"Now use four inputs and stride two: the two windows do not overlap. The full operator consists of two disjoint copies of that row kernel; dividing by "}<InlineMath>{"\\sqrt2"}</InlineMath>{" gives norm one. A four-position circular stride-one convolution has full norm two before normalization, leaving "}<InlineMath>{"\\sqrt2"}</InlineMath>{" after the same kernel rescaling. Padding, stride, spatial size and overlap are part of the operator definition."}</Prose>
+
+<SpectralConvolutionLab />
+
+<Prose>{"This does not make kernel spectral normalization useless. It changes how strongly weights can act and is widely studied as a regularizer. It does mean that a certificate about the whole convolution requires an appropriate operator bound or computation. Fourier-based exact results for circular convolutions have their own boundary assumptions; they cannot silently be applied to every zero-padded convolution. "}<a href={"https://arxiv.org/pdf/1805.10408"}>{"Sedghi et al., operator analysis"}</a>{""}</Prose>
+
+<H2>{"5. Gradient penalty: measure the function where it is sampled"}</H2>
+
+<Prose>{"The WGAN gradient penalty draws a recorded input "}<InlineMath>{"x"}</InlineMath>{", a generated input "}<InlineMath>{"\\widetilde x"}</InlineMath>{", and "}<InlineMath>{"\\epsilon\\sim U[0,1]"}</InlineMath>{", then forms"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\widehat x=\\epsilon x+(1-\\epsilon)\\widetilde x,\\qquad\nR_{GP}=\\lambda\\mathbb E\\left[(\\|\\nabla_{\\widehat x}f(\\widehat x)\\|_2-1)^2\\right]."}</MathBlock></div>
+
+<Prose>{"It asks a direct question about the complete critic: how sensitive is its score at this interpolated input? The derivative is with respect to input coordinates, not the critic's parameters. Training then differentiates the penalty with respect to parameters, which requires a derivative graph through that first derivative."}</Prose>
+
+<Prose>{"Why target one? Under the transport theorem's conditions, an optimal critic has unit directional slope along relevant transport segments. Actual WGAN-GP samples random recorded/generated pairs, not a solved optimal transport coupling. The method uses that theory as motivation for a practical sampled regularizer. Its finite samples and soft penalty do not impose a global hard constraint. "}<a href={"https://proceedings.neurips.cc/paper_files/paper/2017/file/892c3b1c6dccd52936e27cbd0ff683d6-Paper.pdf"}>{"Gulrajani et al., Proposition 1 and §4"}</a>{""}</Prose>
+
+<H3>{"Work through a penalty update"}</H3>
+
+<Prose>{"For "}<InlineMath>{"f_w(x)=w^Tx"}</InlineMath>{", the input gradient is simply "}<InlineMath>{"w"}</InlineMath>{". Let "}<InlineMath>{"w=(3,4)"}</InlineMath>{", whose Euclidean norm is five, and let "}<InlineMath>{"\\lambda=2"}</InlineMath>{". The penalty is "}<InlineMath>{"2(5-1)^2=32"}</InlineMath>{". For nonzero "}<InlineMath>{"w"}</InlineMath>{", its parameter derivative is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\nabla_wR=2\\lambda(\\|w\\|_2-1)\\frac{w}{\\|w\\|_2}=(9.6,12.8)."}</MathBlock></div>
+
+<Prose>{"A penalty-only descent step of size .1 gives "}<InlineMath>{"w'=(2.04,2.72)"}</InlineMath>{", norm 3.4 and penalty 11.52. It moved toward norm one without jumping directly there. In GAN training, the adversarial-loss gradient is added to this gradient; the result need not decrease the penalty every step."}</Prose>
+
+<SpectralLinearPenaltyLab />
+
+<Prose>{"Two-sided target-one penalty, an upper-bound penalty and a zero-centered penalty prefer different functions:"}</Prose>
+
+<NeuralTable caption={"Work through a penalty update"} headers={[<>{"Gradient norm "}<InlineMath>{"r"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(r-1)^2"}</InlineMath>{""}</>,<>{""}<InlineMath>{"\\max(0,r-1)^2"}</InlineMath>{""}</>,<>{""}<InlineMath>{"r^2"}</InlineMath>{""}</>]} rows={[[<>{"0"}</>,<>{"1"}</>,<>{"0"}</>,<>{"0"}</>],[<>{".5"}</>,<>{".25"}</>,<>{"0"}</>,<>{".25"}</>],[<>{"1"}</>,<>{"0"}</>,<>{"0"}</>,<>{"1"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"1"}</>,<>{"4"}</>]]} />
+
+<Prose>{"The first column penalizes a constant function even though it satisfies the 1-Lipschitz upper bound. The second does not penalize slopes below one. The third favors a zero gradient at the sampled locations. Those are different objectives, not alternative spellings of the same constraint."}</Prose>
+
+<H3>{"R1 and R2 change both the target and sampling location"}</H3>
+
+<Prose>{"R1 uses "}<InlineMath>{"\\frac\\gamma2\\mathbb E_{x\\sim p_{data}}\\|\\nabla_x f(x)\\|^2"}</InlineMath>{"; R2 uses the corresponding expectation on generated inputs. They are zero-centered penalties at different distributions. Moving WGAN-GP's target-one penalty onto real inputs alone does not turn it into R1. Their convergence analysis establishes local results under explicit assumptions near an appropriate equilibrium, not unconditional convergence of every large GAN. "}<a href={"https://proceedings.mlr.press/v80/mescheder18a/mescheder18a.pdf"}>{"Mescheder et al., §4"}</a>{""}</Prose>
+
+<PenaltyLocationsFigure />
+
+<Prose>{"Lazy application every "}<InlineMath>{"k"}</InlineMath>{" updates can multiply the regularizer by "}<InlineMath>{"k"}</InlineMath>{" to preserve its expected contribution under that sampling schedule. This does not make the finite optimizer trajectory identical, and optimizer adjustments may be needed. Choose and document the procedure rather than treating a popular interval as a theorem."}</Prose>
+
+<H3>{"A penalty can miss a steep region completely"}</H3>
+
+<Prose>{"Consider "}<InlineMath>{"f(x)=x+4\\operatorname{ReLU}(x-1)"}</InlineMath>{". At sampled points −.5, 0 and .5, the derivative is one and the target-one penalty is zero. At "}<InlineMath>{"x=2"}</InlineMath>{", the derivative is five and the unweighted penalty is sixteen. The global Lipschitz constant is five."}</Prose>
+
+<SpectralPenaltyLab />
+
+<H3>{"Per-example gradients need per-example functions"}</H3>
+
+<Prose>{"The usual code obtains gradients of the sum of batch scores. If each score depends only on its own input, this yields each example's input gradient. Batch-dependent operations can break that interpretation."}</Prose>
+
+<Prose>{"For two scalar inputs, define "}<InlineMath>{"f_1=(x_1-x_2)/2"}</InlineMath>{", "}<InlineMath>{"f_2=(x_2-x_1)/2"}</InlineMath>{". Each score has self-derivative .5, but the gradient of "}<InlineMath>{"f_1+f_2"}</InlineMath>{" is zero. Batch centering has coupled the examples, and summing scores cancels their derivatives. This small Jacobian explains why ordinary training-mode BatchNorm is problematic in the standard WGAN-GP calculation. Per-example LayerNorm avoids that specific batch coupling, but its own sensitivity still depends on its formula, gain and epsilon."}</Prose>
+
+<BatchGradientFigure />
+
+<H2>{"6. Implement the mechanism without losing its derivatives"}</H2>
+
+<Prose>{"For dense layers, PyTorch's parametrization API attaches spectral normalization to the weight. Training-mode weight access updates estimated singular vectors; evaluation mode freezes those iterations. Thus the number of accesses is part of the procedure, not simply the number of optimizer steps. A shared forward for recorded and generated inputs is easy to reason about. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrizations.spectral_norm.html"}>{"PyTorch 2.14 spectral normalization"}</a>{""}</Prose>
+
+<Prose>{"The complete experiment below uses the maintained API instead of a custom wrapper. A custom implementation must correctly handle device/dtype buffers and multiple forwards before backward; mutating cached vectors that autograd still needs can invalidate the graph. Do not replace the standard implementation with a shorter wrapper merely to reduce displayed lines."}</Prose>
+
+<Prose>{"For gradient penalty, retain the returned tensor until "}<InlineMath>{"L_D"}</InlineMath>{" is differentiated. Converting it to a Python number with "}<code>{".item()"}</code>{" is appropriate for logging after detaching, but not for the optimized loss. Use "}<code>{"create_graph=True"}</code>{" for the input derivative, detach generator-produced samples in the critic phase, and flatten all non-batch input dimensions when taking each gradient norm. Interpolation needs one scalar per example broadcast over that example's coordinates."}</Prose>
+
+<Prose>{"There are numerical choices too. A zero matrix has no nonzero singular direction and cannot be divided by its norm; a tiny estimate requires an explicit policy. The small investigation defines the zero matrix's normalized result as zero and reports “direction undefined.” The training program uses ordinary nonzero initialization and checks actual finite outputs. Reduced precision can affect both norm estimation and the higher-order derivative calculation; establish an FP32 reference and verify the intended mixed-precision path before using it. No unmeasured universal overhead percentage is needed to explain that extra derivatives cost work."}</Prose>
+
+<Prose>{"At export, evaluation mode plus "}<code>{"remove_parametrizations(layer, \"weight\", leave_parametrized=True)"}</code>{" retains the current effective weight. Removing the parametrization need not restore the raw unnormalized weight. The companion example verifies identical outputs before and after this operation on a small dense layer. A frozen approximate norm remains approximate; exporting it does not upgrade it into a certificate. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrize.remove_parametrizations.html"}>{"PyTorch removal contract"}</a>{""}</Prose>
+
+<SpectralLibraryLab />
+
+<H2>{"7. A complete experiment on recorded digit measurements"}</H2>
+
+<Prose>{"The question is modest: "}<strong>{"how do three declared critic-regularization procedures behave while learning the distribution of two real ink measurements?"}</strong>{" This is small enough to plot every recorded point and inspect a learned score surface."}</Prose>
+
+<Prose>{"The "}<a href={"/learn-code/spectral-normalization-gradient-penalty/digits-400.csv"}>{"offline CSV"}</a>{" contains 400 real 8×8 optical digit images, selected as the first 40 examples of each digit from the scikit-learn copy of the UCI dataset. Each integer pixel is between zero and sixteen. For each half-image, sum its 32 pixels and divide by "}<InlineMath>{"32\\times16=512"}</InlineMath>{". The two resulting coordinates are average normalized ink on the left and right. Class labels are not used for training or splitting. "}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"Dataset source and attribution"}</a>{""}</Prose>
+
+<Prose>{"Different images sometimes give the same measurement pair. Keep these equal profiles in the same role, retaining their frequency. A seeded split of 394 unique profile groups produces "}<strong>{"241 fitting images, 79 development images and 80 assessment images"}</strong>{". No coordinate standardization is learned from assessment data. The "}<a href={"/learn-code/spectral-normalization-gradient-penalty/data-provenance.md"}>{"provenance record"}</a>{" retains every source ID, group, split rule, dependency version and data hash. Writer-level independence is not established by this extract."}</Prose>
+
+<Prose>{"The generator has widths 2→24→24→2, ReLU hidden activations and sigmoid outputs, with 722 parameters. The critic has widths 2→24→24→1, leaky-ReLU slope .2 and an unrestricted scalar output, with 697 parameters. There is no BatchNorm. Compare entrywise clipping at .1, target-one gradient penalty with "}<InlineMath>{"\\lambda=10"}</InlineMath>{", and one-iteration spectral normalization on each dense critic weight. All three use the same Wasserstein-style losses."}</Prose>
+
+<Prose>{"For each method, seeds 11, 29 and 47 give paired raw initializations and data/latent draws. Train for 600 generator updates with three critic updates per generator update, batch size 64 and Adam rate .001, betas "}<InlineMath>{"(0,.9)"}</InlineMath>{". Gradient-penalty interpolation has a separate random stream so it does not alter the common data draws. These choices were fixed before the run. Development measurements are recorded at declared steps; they do not select a checkpoint. All nine final models are retained, including unfavorable outcomes."}</Prose>
+
+<H3>{"Measure a distributional discrepancy independently of critic loss"}</H3>
+
+<Prose>{"Draw the same 256 latent vectors for every final generator. Project generated and recorded pairs onto 64 equally spaced unit directions with angles "}<InlineMath>{"j\\pi/64"}</InlineMath>{". In each one-dimensional projection, compute the empirical Wasserstein-1 distance, then average. Sorting and integrating the empirical cumulative-distribution difference gives each one-dimensional value, including when sample counts differ."}</Prose>
+
+<Prose>{"This is a "}<strong>{"finite directional average of empirical W1"}</strong>{", not exact two-dimensional W1, FID or a log likelihood. Its units are normalized ink coordinates. It can miss differences between the chosen projections and is subject to finite-sample variation. A simple baseline samples 256 fitting profiles with replacement using a fixed seed; it needs no neural training. Its assessment discrepancy is "}<strong>{".010039"}</strong>{"."}</Prose>
+
+<NeuralTable caption={"Measure a distributional discrepancy independently of critic loss"} headers={[<>{"Procedure"}</>,<>{"Seed 11"}</>,<>{"Seed 29"}</>,<>{"Seed 47"}</>]} rows={[[<>{"Entrywise clipping"}</>,<>{".047078"}</>,<>{".031269"}</>,<>{".035174"}</>],[<>{"Gradient penalty"}</>,<>{".150081"}</>,<>{".277581"}</>,<>{".318414"}</>],[<>{"Spectral normalization"}</>,<>{".018989"}</>,<>{".013203"}</>,<>{".016699"}</>]]} />
+
+<Prose>{"Lower means closer under this metric. Spectral normalization is best among these nine neural runs, but the empirical-resampling baseline is better still. The experiment therefore does not show that a neural generator is necessary for this task. Nor does one fixed budget settle which regularizer is best after suitable tuning on a different problem."}</Prose>
+
+<Prose>{"The critic measurements answer another question:"}</Prose>
+
+<NeuralTable caption={"Measure a distributional discrepancy independently of critic loss"} headers={[<>{"Seed 11 critic"}</>,<>{"Maximum gradient on 80 assessment points"}</>,<>{"Maximum on a 41×41 input grid"}</>,<>{"Product of exact effective matrix norms"}</>]} rows={[[<>{"Clipping"}</>,<>{".008889"}</>,<>{".018682"}</>,<>{".193269"}</>],[<>{"Gradient penalty"}</>,<>{"1.006960"}</>,<>{"1.088335"}</>,<>{"3.471948"}</>],[<>{"Spectral normalization"}</>,<>{".007496"}</>,<>{".237637"}</>,<>{"1.000043"}</>]]} />
+
+<Prose>{"The spectral product is slightly above one because training used an estimate. Its much smaller observed gradients illustrate a loose product bound. The gradient-penalty model's individual assessment gradient norms range from .737725 to 1.006960: their maximum is near the target, while its generated profiles remain poor. Better local sensitivity behavior is not equivalent to better generated data."}</Prose>
+
+<SpectralMeasuredLab />
+
+<Prose>{"For a null that tests the function rather than its label, swap the two latent coordinates and simultaneously swap the two columns of the first generator weight matrix. Every generated output remains unchanged. Swapping only the input coordinates generally changes the output. The saved models verify this distinction; it is a change of coordinate naming versus a change of input to a fixed function."}</Prose>
+
+<H3>{"Run the declared experiment"}</H3>
+
+<Prose>{"Save the CSV beside the program. The author run used Python 3.12.14, NumPy 2.3.5, SciPy 1.18.1 and PyTorch 2.14.0+cpu with one CPU thread. Install compatible packages in an isolated environment, then run "}<code>{"python critic-regularization-study.py"}</code>{". The program reads the real extract, creates the roles, fits all nine models, measures them, and writes the weights and results. No dataset download or hidden training loop is required."}</Prose>
+
+<Prose>{"The "}<a href={"/learn-code/spectral-normalization-gradient-penalty/critic-regularization-study.py"}>{"complete program"}</a>{" is printed below. It intentionally uses small explicit training steps and saves the evidence needed to understand the results. The "}<a href={"/learn-code/spectral-normalization-gradient-penalty/sensitivity-calculations.py"}>{"separate sensitivity calculations"}</a>{" reproduce the exact examples and check frozen-model inference without fitting again."}</Prose>
+
+<SpectralProgram />
+
+<H3>{"What you can now implement and deliberately change"}</H3>
+
+<Prose>{"The two methods have different source owners. In "}<a href={"/learn-code/spectral-normalization-gradient-penalty/sensitivity-calculations.py"}>{"sensitivity-calculations.py"}</a>{", "}<code>{"power_trace"}</code>{" constructs repeated matrix/vector products and normalization, and the normalization-gradient calculation differentiates through the weight-dependent scale. In "}<a href={"/learn-code/spectral-normalization-gradient-penalty/critic-regularization-study.py"}>{"critic-regularization-study.py"}</a>{", "}<code>{"gradient_penalty"}</code>{" constructs interpolation points, input derivatives and the differentiable norm penalty; "}<code>{"main"}</code>{" composes that operation with a complete critic/generator training loop. Nothing in the penalty is delegated to an unexplained “WGAN loss” call."}</Prose>
+
+<Prose>{"The ordinary spectral-normalization route is the same program's "}<code>{"torch.nn.utils.parametrizations.spectral_norm(layer, n_power_iterations=1)"}</code>{". Its trainable original weight, computed normalized weight and power-vector buffers are distinct state. Calling a layer twice in training mode can perform two power-vector updates; the joined real/fake forward intentionally gives both groups one common effective weight. Critic evaluation mode freezes power-vector iteration during the generator step, while "}<code>{"requires_grad_(False)"}</code>{" freezes critic parameters: input derivatives still connect the generator to its objective. The export calculation in "}<code>{"sensitivity-calculations.py"}</code>{" checks that removing the parametrization with "}<code>{"leave_parametrized=True"}</code>{" preserves the current function. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrizations.spectral_norm.html"}>{"Maintained API and mode semantics"}</a>{"."}</Prose>
+
+<Prose>{"This is the useful division of control: own the desired penalty, sample distribution and update schedule; delegate module registration, persistent buffers and serialization to the maintained parametrization. One power iteration is an estimator, not an exact largest singular value. Comparing it with an SVD on a tiny matrix diagnoses estimation error; it does not make the SVD algorithm the usual per-training-step choice. Dense power iteration costs O(mn) per iteration with O(m+n) vector state beyond the weight; an exact SVD has a different cost. Input-gradient penalties retain an extra derivative graph and require per-example critic independence for the sum trick used here."}</Prose>
+
+<Prose>{""}<strong>{"Change the contract."}</strong>{" Replace the interpolated unit-target penalty by an R1 penalty on real inputs, keeping the critic objective's other terms fixed. Implement the new quantity rather than changing only its caption."}</Prose>
+
+<details><summary>Hint and reasoned solution</summary>
+
+<Prose>{"Use "}<code>{"points = real.detach().requires_grad_(True)"}</code>{", evaluate the critic, and obtain "}<code>{"gradients = torch.autograd.grad(values.sum(), points, create_graph=True)[0]"}</code>{". With a declared coefficient λ, the zero-centered term is "}<code>{"λ * gradients.flatten(1).square().sum(1).mean()"}</code>{". There is no subtraction of one and no fake/interpolation sampling. Some conventions write γ/2 instead of λ; map the coefficient explicitly. Preserve "}<code>{"create_graph=True"}</code>{" when updating critic parameters through this derivative. For the independent linear oracle D(x)=wᵀx, the added objective is λ‖w‖² and its weight derivative is 2λw. This is different from the existing unit-target derivative and remains meaningful when the input locations change. It is not a global Lipschitz certificate."}</Prose>
+
+</details>
+
+<H2>{"8. Useful connections beyond this GAN"}</H2>
+
+<H3>{"A robustness margin needs the right output difference"}</H3>
+
+<Prose>{"A classifier chooses the largest logit. Suppose its two logits at "}<InlineMath>{"x=(2,0)"}</InlineMath>{" are produced by "}<InlineMath>{"F(x)=(x_1,x_2)"}</InlineMath>{". The winning gap is two. The vector-valued map has Euclidean Lipschitz constant one, but the "}<strong>{"difference"}</strong>{" "}<InlineMath>{"F_1-F_2"}</InlineMath>{" has constant "}<InlineMath>{"\\sqrt2"}</InlineMath>{". Any perturbation of norm strictly below "}<InlineMath>{"2/\\sqrt2=\\sqrt2"}</InlineMath>{" preserves the positive gap. Perturbation "}<InlineMath>{"(-1,1)"}</InlineMath>{", whose norm is exactly "}<InlineMath>{"\\sqrt2"}</InlineMath>{", reaches a tie."}</Prose>
+
+<Prose>{"More generally, if a joint logit vector has bound "}<InlineMath>{"L"}</InlineMath>{", a pairwise logit difference has bound at most "}<InlineMath>{"\\sqrt2L"}</InlineMath>{". A positive gap "}<InlineMath>{"m"}</InlineMath>{" therefore gives the sufficient radius "}<InlineMath>{"m/(\\sqrt2L)"}</InlineMath>{" for that competitor. If each logit separately has bound "}<InlineMath>{"L"}</InlineMath>{", the direct sum bound is "}<InlineMath>{"2L"}</InlineMath>{". For multiple competitors, take the smallest valid radius. Include input preprocessing and the domain in the bound. A power-iteration estimate or a sampled gradient maximum alone is insufficient evidence for this certificate."}</Prose>
+
+<Prose>{"This is a useful application of the same geometry: the matrix stretch becomes a bound on a decision change. It is not a claim that adding spectral normalization alone makes a classifier robust to every perturbation."}</Prose>
+
+<SpectralMarginLab />
+
+<H3>{"Bounded slope can still limit expressive power"}</H3>
+
+<Prose>{"ReLU can remove a component's derivative entirely on its inactive side. A network constrained at every layer may lose useful gradient magnitude through repeated such operations. "}<strong>{"GroupSort"}</strong>{" instead sorts small groups of activations; within a region where their order is fixed, it permutes components and preserves their Euclidean length. Sorting supplies nonlinearity without discarding that local derivative magnitude."}</Prose>
+
+<Prose>{"For two values "}<InlineMath>{"(a,b)"}</InlineMath>{", GroupSort returns "}<InlineMath>{"(\\min(a,b),\\max(a,b))"}</InlineMath>{". Their order can change as inputs change, producing a nonlinear piecewise-defined function. This helps explain why the activation and the norm constraint must be designed together. The original universal-approximation theorem uses specified mixed norms: a first-layer "}<InlineMath>{"p\\to\\infty"}</InlineMath>{" bound and subsequent infinity-norm bounds. It does not establish that any spectrally normalized ReLU network, or every Euclidean GroupSort construction, approximates every Lipschitz function. "}<a href={"https://proceedings.mlr.press/v97/anil19a/anil19a.pdf"}>{"Anil et al., architecture and Theorem 3"}</a>{""}</Prose>
+
+<SpectralGroupSortFigure />
+
+<H3>{"Continuous-time sensitivity is about trajectories too"}</H3>
+
+<Prose>{"In an ODE "}<InlineMath>{"dh/dt=f(h,t)"}</InlineMath>{", a Lipschitz bound in "}<InlineMath>{"h"}</InlineMath>{", together with appropriate continuity conditions, helps establish uniqueness and bound how two trajectories separate. A typical bound is "}<InlineMath>{"\\|h(t)-\\widetilde h(t)\\|\\le e^{Lt}\\|h(0)-\\widetilde h(0)\\|"}</InlineMath>{". An upper bound on growth is not a promise of contraction. The simple field "}<InlineMath>{"f(h)=Lh"}</InlineMath>{" has bounded slope but unbounded values as "}<InlineMath>{"|h|"}</InlineMath>{" grows and exponentially separating trajectories when "}<InlineMath>{"L>0"}</InlineMath>{"."}</Prose>
+
+<Prose>{"The later "}<a href={"/learn/path/full-curriculum/neural-ode-continuous-depth-models?module=deep-learning-fundamentals"}>{"Neural ODE & Continuous-Depth Models"}</a>{" lesson develops that connection and the separate numerical-solver questions. A layer norm bound alone does not prescribe a safe solver step size."}</Prose>
+
+<SpectralOdeFigure />
+
+<H3>{"Diagnose the observed failure before changing methods"}</H3>
+
+<Prose>{"If a critic has non-finite values, first inspect input scales, actual norms and derivative paths. If a penalty stays near its target but samples remain poor, inspect the generated distribution, capacity, update balance and training trajectory. If a tight product bound removes too much sensitivity, consider whether the architecture and desired constraint fit the task. Combining spectral normalization and a sampled penalty can be meaningful because they act through different mechanisms."}</Prose>
+
+<Prose>{"Compare equal objectives and report changed choices. Critic-loss signs and offsets, penalty terms and output scales make raw losses across different setups difficult to compare. For a binary discriminator, a summed real/fake BCE near "}<InlineMath>{"2\\log2"}</InlineMath>{" is the value obtained by .5 predictions, not proof of perfect separation. A near-zero Wasserstein-style critic difference can indicate indistinguishable distributions or an uninformative critic. Use independent data-space or task-appropriate evaluation to tell these possibilities apart."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"9. Practice and transfer"}</H2>
+
+<Prose>{"Attempt each question before opening its help. The early questions check mechanisms; later ones ask you to diagnose a system."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. A changed matrix"}</H3>
+
+<Prose>{"For "}<InlineMath>{"W=\\operatorname{diag}(4,2)"}</InlineMath>{", find its spectral norm, Frobenius norm and exact unit-normalized singular values. Then normalize "}<InlineMath>{".2I"}</InlineMath>{": does it shrink?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"For a diagonal matrix with nonnegative entries, the entries are its singular values. Exact unit normalization divides by the largest."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The norms are 4 and √20; normalized singular values are 1 and .5. The matrix .2I becomes I, so it grows. A cap-only operation leaves .2I unchanged. Normalization to a boundary and projection into a bounded set are different operations."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A direction the estimator cannot see"}</H3>
+
+<Prose>{"For "}<InlineMath>{"W=\\operatorname{diag}(2,5)"}</InlineMath>{", start power iteration at "}<InlineMath>{"u=(1,0)"}</InlineMath>{". What estimate persists? What is the true norm after dividing by it? Would adding a small second component change the long-run behavior?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Track which coordinates matrix multiplication can create from a zero coordinate."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The estimate stays 2 and the resulting true norm is 2.5. In exact arithmetic the leading direction has no component to amplify. A nonzero second component allows repeated multiplication to amplify that direction relative to the first, eventually approaching estimate 5. The number of steps depends on the initial component and spectral gap."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. A valid bound through a residual path"}</H3>
+
+<Prose>{"Two consecutive linear layers have bounds .8 and .6, with ReLU between them. They form a residual branch added to the input. Give a valid block bound. Does a learned multiplier of 2 outside the block preserve it?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"First compose the branch, then account for addition, then the multiplier."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The branch bound is .48; the residual block bound is 1.48; the scaled block bound is 2.96. These are upper bounds, not assertions that some input pair must attain them. A claim of .48 for the whole residual block omitted the identity path."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. A penalty that sees the wrong region"}</H3>
+
+<Prose>{"Let "}<InlineMath>{"f(x)=x+2\\operatorname{ReLU}(x-2)"}</InlineMath>{". Sample only 0, 1 and 1.5. What is the unweighted target-one gradient penalty? What changes if the last probe moves to 3? What is the global Lipschitz constant?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The extra slope begins only after the kink; average the three squared deviations."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The first penalty is 0. With probes 0, 1, 3 the slopes are 1, 1, 3, so the mean penalty is 4/3. The global bound is 3. Keeping all probes below 2 leaves the violation unobserved; increasing the penalty coefficient cannot penalize a region that this sample never measures."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Repair the optimization graph"}</H3>
+
+<Prose>{"A training loop calculates "}<code>{"penalty = gradient_penalty(...).item()"}</code>{", adds it to the critic loss, and detaches "}<code>{"critic(generator(z))"}</code>{" during the generator update. Explain both failures and their repairs."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Distinguish a logged number from a differentiable tensor, and frozen parameters from frozen inputs."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The Python scalar carries no parameter derivative, so that penalty cannot regularize the critic. Keep its tensor in the loss; detach only a separate value for logging. Detaching the generator's scored output removes its learning path. Freeze critic parameters while preserving its derivative with respect to the generated input. Detach generated samples only when they serve as fixed inputs for the critic phase."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Interpret the real experiment"}</H3>
+
+<Prose>{"The seed 11 gradient-penalty critic has assessment gradient maximum about 1.007, yet generated-profile discrepancy is .150081. The empirical-resampling baseline gives .010039. What conclusion is supported, and what comparison is still missing?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The three numbers measure two different questions; one setting per procedure does not isolate its best possible performance."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The largest measured gradient is near the requested target, but the resulting generator fits these profiles poorly under the declared directional metric. The simple baseline is better in this experiment. That does not refute gradient penalty in general or prove spectral normalization universally superior. A broader comparison would predeclare a development-based tuning budget, keep assessment separate, compare several seeds and evaluate the actual intended data representation. Producing realistic digit images is a different task from producing two ink averages."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Convolution changes when windows overlap"}</H3>
+
+<Prose>{"For the four-input stride-two kernel "}<InlineMath>{"[2,2]"}</InlineMath>{", calculate the full operator norm and the norm after normalizing the stored kernel. Why is the answer different for a valid stride-one application to three inputs?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Write the full matrices. Scaling a matrix by 2 scales every singular value by 2."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The disjoint operator is [[2,2,0,0],[0,0,2,2]], with norm 2√2. The stored kernel has that same norm, so normalization gives full norm 1. The overlapping three-input operator has norm 2√3; normalization by 2√2 leaves √(3/2). Weight sharing and overlap, not the number of stored coefficients alone, determine the full map."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. A robustness calculation with units"}</H3>
+
+<Prose>{"A two-logit network has a verified joint Euclidean Lipschitz upper bound 2 on normalized inputs and a winning logit gap .8. Give a sufficient perturbation radius in normalized-input units. What else is needed before stating a radius in raw sensor units?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use a bound for the difference of two coordinates, then compose preprocessing."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The sufficient strict radius is .8/(2√2)≈.282843. Raw-unit interpretation needs the normalization map and its operator bound, along with the domain on which the network bound applies. If coordinate scaling is anisotropic, one scalar conversion may be overly conservative; state the input norm and transform explicitly. The bound must be verified, not merely a sampled gradient maximum."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Plan a useful follow-up"}</H3>
+
+<Prose>{"Your generated profiles form a narrow curve while the recorded profiles occupy a broader region. Propose a next experiment that distinguishes limited generator capacity, insufficient training and an evaluation artifact without choosing settings using assessment results."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Separate interventions and keep the observation unit, roles and metric definitions fixed."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Keep the existing split and select a bounded development-only comparison: first longer training at fixed architecture, then a changed generator width or latent dimension with an explicit compute budget. Use paired seeds where possible and retain all outcomes. Inspect actual point clouds and add a predeclared complementary discrepancy or coverage measure; do not rename critic loss as quality. Choose using development evidence, then evaluate the selected procedure on untouched assessment data. Existing assessment results have already been inspected, so a strong new confirmatory claim would need fresh assessment data rather than pretending this set is unseen again."}</Prose>
+
+</details>
+
+<Prose>{""}<strong>{"Ready to continue:"}</strong>{" you can trace critic versus generator derivatives, distinguish exact norms from estimates and sampled measurements, calculate one normalization and one penalty update, and explain an unfavorable result without changing the question after seeing it. The next topic in the module is "}<a href={"/learn/path/full-curriculum/modern-hopfield-networks?module=deep-learning-fundamentals"}>{"Modern Hopfield Networks"}</a>{", which returns to energy-based retrieval and connects it to attention. It remains the next lesson even if publication timing differs."}</Prose></div></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and another way to learn"}</H2>
+
+<ul><li>{""}<a href={"https://arxiv.org/pdf/1802.05957"}>{"Spectral Normalization for Generative Adversarial Networks"}</a>{", Miyato et al. Start with §2 and Appendix A for the method; Appendix F develops its derivative. Original 2018 experiments describe their own settings, not current hardware rankings."}</li><li>{""}<a href={"https://proceedings.neurips.cc/paper_files/paper/2017/file/892c3b1c6dccd52936e27cbd0ff683d6-Paper.pdf"}>{"Improved Training of Wasserstein GANs"}</a>{", Gulrajani et al. Read the sampling rule, Algorithm 1 and no-BatchNorm explanation in §4 after working the penalty example."}</li><li>{""}<a href={"https://proceedings.mlr.press/v70/arjovsky17a/arjovsky17a.pdf"}>{"Wasserstein GAN"}</a>{", Arjovsky et al. The point-mass example and §2–3 connect distance, continuity, critic constraints and the generator sign."}</li><li>{""}<a href={"https://proceedings.mlr.press/v80/mescheder18a/mescheder18a.pdf"}>{"Which Training Methods for GANs Do Actually Converge?"}</a>{", Mescheder et al. Advanced reading for zero-centered penalties and the assumptions behind local convergence results."}</li><li>{""}<a href={"https://arxiv.org/pdf/1805.10408"}>{"The Singular Values of Convolutional Layers"}</a>{", Sedghi et al. Follow the full-operator viewpoint and check circular-boundary assumptions before reusing a formula."}</li><li>{""}<a href={"https://proceedings.mlr.press/v97/anil19a/anil19a.pdf"}>{"Sorting Out Lipschitz Function Approximation"}</a>{", Anil et al. Explains gradient-norm preservation and a precisely stated approximation theorem; compare its norm choices with the Euclidean examples here."}</li><li>{""}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrizations.spectral_norm.html"}>{"PyTorch spectral-normalization API"}</a>{" and "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrize.remove_parametrizations.html"}>{"parametrization removal"}</a>{". Versioned implementation references for the executed code; inspect train/eval behavior when changing versions."}</li><li>{""}<a href={"https://deepgenerativemodels.github.io/notes/gan/"}>{"Stanford CS236 GAN notes"}</a>{". A shorter alternate introduction to the generator/discriminator game and sample-based evaluation. Its broad introductory simplifications should be read alongside the explicit assumptions in this lesson."}</li><li>{""}<a href={"https://www.coursera.org/learn/build-basic-generative-adversarial-networks-gans"}>{"Build Basic GANs, DeepLearning.AI"}</a>{". An alternate video-and-exercise route with introductory GANs and Wasserstein/gradient-penalty material; suitable after basic PyTorch. The course and its listed curriculum were checked, not all videos watched. Access to graded material may require enrollment; this lesson is self-contained. The course is also linked from "}<a href={"https://cs236g.stanford.edu/"}>{"Stanford CS236G's schedule"}</a>{"."}</li><li>{""}<a href={"/learn-code/spectral-normalization-gradient-penalty/data-provenance.md"}>{"Offline study and provenance"}</a>{". Download the real extract and complete programs to reproduce this lesson's own measurements; these are not published benchmark results."}</li></ul></section>
+</div>};

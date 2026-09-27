@@ -132,7 +132,7 @@ export function KernelGeometryFigure() {
 }
 
 export function ForecastTable({ rows, mean, latentSD, observationSD }) {
-  return <details><summary>Monthly values and interval checks</summary><LessonTable caption="Historical forecast details (ppm)" headers={['month', 'actual', 'mean', 'latent SD', 'observation SD', 'inside 95%?']} rows={rows.map((row, i) => [row.month, row.co2, gpNumber(mean[i]), gpNumber(latentSD[i]), gpNumber(observationSD[i]), Math.abs(row.co2 - mean[i]) <= normal95 * observationSD[i] ? 'yes' : 'no'])} /></details>;
+  return <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Monthly values and interval checks</h4><LessonTable caption="Historical forecast details (ppm)" headers={['month', 'actual', 'mean', 'latent SD', 'observation SD', 'inside 95%?']} rows={rows.map((row, i) => [row.month, row.co2, gpNumber(mean[i]), gpNumber(latentSD[i]), gpNumber(observationSD[i]), Math.abs(row.co2 - mean[i]) <= normal95 * observationSD[i] ? 'yes' : 'no'])} /></section>;
 }
 
 export function ForecastResult({ forecast, cutoff, title, showPrefix = false, yDomain }) {

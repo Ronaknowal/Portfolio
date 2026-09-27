@@ -1413,9 +1413,9 @@ trainer.train()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Why asymmetric clipping preserves exploration</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Why asymmetric clipping preserves exploration</H3>
 
       <Prose>
         Explain in one paragraph why symmetric clipping accelerates entropy collapse
@@ -1427,9 +1427,9 @@ trainer.train()`}
         (advantage +1.7) and one wrong (advantage −0.7) — and compute the policy
         update under ε = 0.2 symmetric versus ε_low = 0.2, ε_high = 0.28. Show
         numerically what fraction of the gradient is clipped in each case.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Dynamic sampling variance threshold trade-off</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Dynamic sampling variance threshold trade-off</H3>
 
       <Prose>
         The dynamic sampling filter drops groups where <Code>std(rewards) = 0</Code>.
@@ -1440,9 +1440,9 @@ trainer.train()`}
         the expected gradient magnitude for a group with std(rewards) = 0.05 versus
         std(rewards) = 0.4? Is filtering the 0.05 group worth the compute saved?
         Design an experiment to measure the optimal threshold empirically.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — When does overlong filtering over-penalize?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — When does overlong filtering over-penalize?</H3>
 
       <Prose>
         Suppose you are training on a problem class where correct solutions legitimately
@@ -1455,9 +1455,9 @@ trainer.train()`}
         encourage and what does it discourage? (c) Propose a cap-setting heuristic
         that minimizes the fraction of genuinely correct solutions that are zeroed
         while still penalizing pathological length inflation.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Ablation study isolating each DAPO fix</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Ablation study isolating each DAPO fix</H3>
 
       <Prose>
         Design an ablation study that isolates the contribution of each of the four
@@ -1471,9 +1471,9 @@ trainer.train()`}
         number of training steps needed to see a statistically significant difference
         between GRPO baseline and full DAPO on MATH-500, assuming a base pass rate of
         40% and a DAPO improvement to 48%.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Curriculum interaction with dynamic sampling</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Curriculum interaction with dynamic sampling</H3>
 
       <Prose>
         You are training with DAPO on competition-level math problems. Your curriculum
@@ -1496,7 +1496,7 @@ trainer.train()`}
         patches are simple enough to understand in an afternoon and reproducible
         enough to re-implement in any GRPO codebase. That narrowness and
         reproducibility is the contribution.
-      </Callout>
+      </Callout></div></section>
 
     </div>
   ),

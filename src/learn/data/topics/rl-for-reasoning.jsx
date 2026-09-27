@@ -1123,9 +1123,9 @@ for step in range(50):
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Derive why KL regularization is critical in the long-rollout setting</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Derive why KL regularization is critical in the long-rollout setting</H3>
 
       <Prose>
         In standard RLHF, the KL penalty prevents the policy from exploiting the learned
@@ -1137,9 +1137,9 @@ for step in range(50):
         (b) distribution shift — how does removing the KL anchor affect the model's
         performance on problems outside the training distribution? Show mathematically
         why the KL term becomes more important, not less, as rollout length increases.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Design a multi-step algebra verifier</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Design a multi-step algebra verifier</H3>
 
       <Prose>
         DeepSeek-R1's math verifier uses regex extraction of a boxed final answer with
@@ -1152,9 +1152,9 @@ for step in range(50):
         but make an arithmetic error at the final step. Describe the engineering
         tradeoffs between each of these additions and the risk of introducing new
         exploitable failure modes.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Why does R1-Zero struggle to bootstrap without SFT warmup?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Why does R1-Zero struggle to bootstrap without SFT warmup?</H3>
 
       <Prose>
         DeepSeek-R1-Zero applies pure RL with no SFT cold-start phase. The paper reports
@@ -1167,9 +1167,9 @@ for step in range(50):
         affects the reward distribution and GRPO's group advantage estimates. Why does
         the cold-start phase help even when its data is a tiny fraction of the eventual
         RL training volume?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Predict the test-time compute curve for an untuned base model</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Predict the test-time compute curve for an untuned base model</H3>
 
       <Prose>
         You are given a strong base model (e.g., Llama-3-70B) that has not received any
@@ -1182,9 +1182,9 @@ for step in range(50):
         that the base model does not; (c) at what point on the token budget axis the
         curves are most similar and why. Design a benchmark experiment to verify your
         predictions empirically.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Detect reward hacking from chain-of-thought content statistics</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Detect reward hacking from chain-of-thought content statistics</H3>
 
       <Prose>
         Without running human evaluation, design a set of automatic statistics you would
@@ -1202,8 +1202,8 @@ for step in range(50):
 
       {/* ======================================================================
           CLOSING — SECTION FINALE
-          ====================================================================== */}
-      <H2>The Post-Training section: what this has all been building toward</H2>
+          ====================================================================== */}</div></section>
+      <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>The Post-Training section: what this has all been building toward</H2>
 
       <Prose>
         This topic is the summit of the Post-Training section, and it is worth pausing
@@ -1308,7 +1308,7 @@ for step in range(50):
         specific architectures, training configurations, and benchmark numbers will age.
         The principles will not, or at least they will age more slowly. Treat them as
         the right abstraction level to hold onto as the frontier continues moving.
-      </Prose>
+      </Prose></section>
 
     </div>
   ),

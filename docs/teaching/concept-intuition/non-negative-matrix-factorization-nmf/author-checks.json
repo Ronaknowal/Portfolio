@@ -1,0 +1,41 @@
+{
+  "topicId": "non-negative-matrix-factorization-nmf",
+  "reviewedAt": "2026-09-26T14:17:33.787Z",
+  "sourceFiles": [
+    "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx",
+    "docs/teaching/concept-intuition/non-negative-matrix-factorization-nmf/review.md",
+    "scripts/verify-representation-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx": "0deff84e93725925557bf4a8cc992de1b9bba406a837d1645f785b3d735a4209",
+    "docs/teaching/concept-intuition/non-negative-matrix-factorization-nmf/review.md": "751886ac511f79706304035268647ba43d264283b773793ce5c02c1d9e772889",
+    "scripts/verify-representation-concept-intuition.mjs": "665d4e670b6977ebc15815db6b352af7cf6f7d95ceb51ee7f98692ff3fd4d14d"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/non-negative-matrix-factorization-nmf/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Touching upper bound and coordinate update",
+      "status": "passed"
+    },
+    {
+      "name": "Nonorthogonal dictionary transform counterexample",
+      "status": "passed"
+    },
+    {
+      "name": "Streaming sufficient-statistic update",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing numerical models, native programs, datasets and fit campaigns retained; no claim of a fresh native campaign.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

@@ -1,0 +1,16 @@
+.ode-lesson { overflow-wrap: anywhere; }
+.ode-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:.8rem; margin:1rem 0; }
+.ode-controls > * { min-width:0; }
+.ode-two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.ode-figure { margin:1.5rem 0; padding:1rem; border:1px solid #555; background:#171717; min-width:0; max-width:100%; }
+.ode-figure figcaption { font-weight:650; color:#eddbb4; margin-bottom:.8rem; }
+.ode-diagram-scroll,.ode-plot-scroll { overflow-x:auto; max-width:100%; min-width:0; }
+.ode-diagram-scroll svg { display:block; width:100%; height:auto; }
+.ode-diagram-scroll text { fill:#eee; font:12px system-ui,sans-serif; }
+.ode-diagram-scroll path,.ode-diagram-scroll polyline { stroke:#999; fill:none; }
+.ode-diagram-scroll rect { stroke:#a8a8a8; fill:#242424; }
+.ode-diagram-scroll circle { stroke:#ddd; fill:#ddd; }
+.ode-plot-scroll .neural-plot,.ode-plot-scroll .neural-chart { min-width:340px; max-height:none; }
+.ode-program { overflow-x:auto; max-width:100%; padding:1rem; background:#111; font-size:.8rem; line-height:1.6; }
+.ode-source-links { display:flex; flex-wrap:wrap; gap:.75rem; }
+@media(max-width:700px){.ode-two{grid-template-columns:minmax(0,1fr)}.ode-figure{padding:.6rem}}

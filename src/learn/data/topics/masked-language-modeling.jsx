@@ -687,7 +687,7 @@ famous users         BERT,          GPT-4, Llama,  UniLM,         T5, mT5, UL2
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five short problems. The problems are chosen so that getting them wrong tells you something specific about what has not been internalized.
@@ -735,7 +735,7 @@ famous users         BERT,          GPT-4, Llama,  UniLM,         T5, mT5, UL2
 
       <Prose>
         Masked language modeling was the objective that opened the door to large-scale self-supervised pretraining in NLP. It did not end up being the objective that built frontier models for generation, because causal LM extracts more supervision per token and scales further on every capability that requires producing new text. But it remains the objective of choice when the task is to <em>understand</em> a fixed input: classification, NER, retrieval, the embedding half of every RAG pipeline. The next topic covers its direct descendant — T5-style span corruption — which takes MLM's bidirectional encoding and grafts autoregressive generation onto it, combining the best properties of both.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

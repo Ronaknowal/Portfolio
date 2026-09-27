@@ -1,0 +1,4 @@
+.rademacher-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; }
+.rademacher-intuition svg { display: block; width: 100%; max-width: 490px; height: auto; }
+.rademacher-intuition svg text { fill: #ddd; font: 13px ui-monospace, monospace; }
+.rademacher-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }

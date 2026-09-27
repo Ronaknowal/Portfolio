@@ -340,8 +340,8 @@ export function LearningCurveFigure() {
       restricted tree has {series.tree_leaf20.trainingMeans.at(-1).toFixed(4)} and
       {' '}{series.tree_leaf20.validationMeans.at(-1).toFixed(4)}: the smaller gap belongs to the worse predictor.
     </p>
-    <details>
-      <summary>Every recorded fold value</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Every recorded fold value</h4>
       <Table caption="Five folds per fitted size, training and validation, in squared decibels. These folds share training rows, so a standard deviation across them is not a confidence interval for a difference."
         headings={['procedure', 'fitted rows', 'training folds', 'training mean', 'validation folds', 'validation mean']}
         rows={order.flatMap(key => series[key].sizes.map((size, index) => [
@@ -351,7 +351,7 @@ export function LearningCurveFigure() {
           series[key].validation[index].folds.map(value => value.toFixed(3)).join(', '),
           series[key].validationMeans[index].toFixed(4),
         ]))} scroll />
-    </details>
+    </section>
     <p className="bv-caption">
       Source: the {provenance.name} collection, {provenance.rows.toLocaleString('en-US')} rows, licensed
       {' '}<a href={provenance.licenseUrl}>{provenance.license}</a>; this page serves

@@ -1,0 +1,2113 @@
+[
+  {
+    "topicId": "linear-logistic-regression",
+    "desktop": [
+      1280,
+      1000
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "normal-equation-balance",
+      "logistic-learning-flow",
+      "penalty-response"
+    ],
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/linear-logistic-regression.jsx": "073b125f33d564758c884beab929d3758d6887fc9f13ba1c1505f50aee27be7f",
+      "src/learn/components/lesson-labs/LinearLogisticIntuition.jsx": "58adbf0c8ad17eaaddc0f58b5be278e4d196e7b064a65d8ef5afc695e0a1dee6",
+      "src/learn/components/lesson-labs/linear-logistic-intuition.css": "2173d55700b62698ff1140391deb69f7ea0a793631756b3d9c966a60dbeefac1"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "decision-trees-random-forests",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "gini-pairs (narrow)",
+      "prefix-scan (desktop)"
+    ],
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/decision-trees-random-forests.jsx": "d379d3b49a78e9ca3605833f866b51d492d9f0c0c046612ffb18612614084073",
+      "src/learn/components/lesson-labs/DecisionTreeIntuition.jsx": "8232cf18f9c3aa3a03011a0b3af879b934067632dffbd1aec186d0a08a3832af",
+      "src/learn/components/lesson-labs/decision-tree-intuition.css": "9fe5560ebd8358eaed7366304f41668a3b700a9918a998adf86a3b0d96b5e054"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "k-nearest-neighbors-knn",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "ball-pruning-bound (desktop)",
+      "neighbor-label-noise (narrow)"
+    ],
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "ball-pruning-bound",
+          "width": 334.66668701171875
+        },
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "neighbor-label-noise",
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/k-nearest-neighbors-knn.jsx": "86de3a90c9bb1324ccc49decb9f86eb0059f2901ef18cf5d94ef8e2dc310bbad",
+      "src/learn/components/lesson-labs/KnnIntuition.jsx": "3d84d9a24e6781ca6ec5eb9adcfc344ed0a5f041fc012050fda635768ec0584c",
+      "src/learn/components/lesson-labs/knn-intuition.css": "8d713fa4a616c6fbcf032ead99606eb89fbdfb34cd1f6f89446e68d97ebc50d0"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "curvature-step (narrow)",
+      "restricted-correction (desktop)"
+    ],
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx": "cd35a4a052fa051a5d8b0faba84f433bdd4c7fb87077348c2fad9ab3f203c7d3",
+      "src/learn/components/lesson-labs/BoostingIntuition.jsx": "5ff3232f6aaeedf03108a450cac20402a469df1a7c6056887f5878777e6a2eb4",
+      "src/learn/components/lesson-labs/boosting-intuition.css": "4508fb3444fdb25c7cfe2aeb5000f045eb1d09a59009e9304a0e6701918087b4"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "support-vector-machines-svm",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "primal-dual-bounds (desktop)",
+      "hinge-shortfall (narrow)"
+    ],
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "hinge-shortfall",
+          "width": 334.66668701171875
+        },
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "primal-dual-bounds",
+          "width": 334.66668701171875
+        },
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "kernel-column-identity",
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/support-vector-machines-svm.jsx": "592732250b4a568657c8dea9ab27ddb0e8d9ea6f6ffc3dc0e19d7f11c424bfde",
+      "src/learn/components/lesson-labs/SvmIntuition.jsx": "7ed117c551eed899198f7833dd42d8ad2ba7bc0869c394bb98b9a0e02acf6b16",
+      "src/learn/components/lesson-labs/svm-intuition.css": "59af3e68d5c9211d7316e714fd8122c008dbb52b42ff2679498eff95679a6c2c"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "conditional-mixture (desktop)",
+      "integrated-token-prediction (narrow)"
+    ],
+    "findings": [
+      "Replace left/right branch wording for stacked narrow layout; requested from author."
+    ],
+    "sourceHashes": {
+      "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "3575e51104affc4c5e4dbc2a4f7c47506df3f7136d96c8fd0a71ef2445ce9fbe",
+      "src/learn/components/lesson-labs/NaiveBayesIntuition.jsx": "8b7f625472dc8d3475d1fd479bf83673fd3f425786c0bd9646bdcc069ae4f69a",
+      "src/learn/components/lesson-labs/naive-bayes-intuition.css": "0059fb8e97ea994b63bc84fc9df32da493df967f8ee1e5fb7d2cb4db6d08aa8e"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "ensemble-methods-stacking",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visuallyInspected": [
+      "adaboost-vote-balance (desktop)",
+      "stack-training-serving (narrow)"
+    ],
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "adaboost-vote-balance",
+          "width": 334.66668701171875
+        },
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "stack-training-serving",
+          "width": 334.66668701171875
+        },
+        {
+          "caption": true,
+          "contentWidth": 333,
+          "id": "mixed-stack-scores",
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/ensemble-methods-stacking.jsx": "5d58f3b9ec8823e0321375a69175b11653c53825fc3955cd0e8cb838cbc06b51",
+      "src/learn/components/lesson-labs/EnsembleIntuition.jsx": "c9d0ab2869d0ad479248791d6eac6c53dec4551e2303dc2e1cbd9476fc183798",
+      "src/learn/components/lesson-labs/ensemble-intuition.css": "f55b4d59c29007b4394e5e7d9a15e63c5269612059be179aa8a2e29aeb4da569"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "selector": ".rec-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 2
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Constructed scalar block: fixed item factors 1 and 2, observed ratings 4 and 2, λ=1. Predictions are p and 2p. Loss is (4−p)² + (2−2p)² + p². Its slope 12p−16 becomes zero at p=4/3, where loss is 28/3. ALS finds this block's bottom before switching which side is allowed to move.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Same factors and counts as the confidence lab: q₁=(1,0), q₂=(0,1), q₃=(1,1), with weights 5, 1, 3. The all-item Gram gives one copy of every outer product. Sparse corrections add only 5−1 and 3−1 copies. The unobserved item contributes [[0,0],[0,1]] to the baseline; skipping its stored row does not erase its loss.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Each bar is one full probability mass. A's reward probability stays .4; B's stays .8. Multipliers .5/.8=.625 and .5/.2=2.5 turn the logging contributions .32 and .16 into target contributions .20 and .40. A rare logged B click counts more because B is more common in the target policy.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "2823f927016f9ada735bcc2cffaa3f60e9e8ab56d8c19170658baa3db7b0d4c0",
+      "src/learn/components/lesson-labs/RecommenderIntuitionFigures.jsx": "2b0a67400623e4c31ab95ab101869165ffbf50515696ee60fe7628056856a4d2",
+      "src/learn/components/lesson-labs/recommender-intuition.css": "dbe79b75e25859e9aba6114bb3f06ac61025c2a41fa627bee739885a65d238a5"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "multi-label-multi-output-learning",
+    "selector": ".mo-compression-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Calculated positions from the program's 200-row fixture. At each common state, 99 rows have rare label 0 (white dot) and one has rare label 1 (amber dot). Marker size does not encode count. The amber crosses show the rank-one reconstruction: centered rare coordinate 0. Adding its mean .01 makes every rare score .01, below a .5 threshold. The common coordinate varies by ±√.5; axes use the same physical unit scale.",
+          "contentWidth": 317,
+          "width": 316.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/multi-label-multi-output-learning.jsx": "5f12d12fcfface09fd8e14f4e64ff2468ed3993a72cc7114d4dcf1bb7be570c0",
+      "src/learn/components/lesson-labs/MultioutputCompressionFigure.jsx": "348141e9f32cf1edc56ddbec1d12bc01350ca7265d7f95744a7234fbf375a410",
+      "src/learn/components/lesson-labs/multioutput-compression.css": "d7582d1773c05f164acf27861528e5a79d1c3335d8cc329998109beec173cdb0"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "selector": ".sv-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 2
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "All bars use the same 0–6.5 risk-weight scale. The tied failures carry total weight 3. Efron subtracts half that mass before the second factor; it does not claim that a particular subject with weight 1.5 actually failed first. Both numerators remain the product 1×2. The figure isolates the denominator approximation before the full likelihood multiplies event-time contributions.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Calculated illustration: reference rate .1/day; event-time percentiles 25%, 50%, 75%. Matching dots denote the same percentile in two distributions, not the same subject's observed counterfactual. Medians move from 6.93 to 13.86 days. At day 10, the stretched survival reads the original curve at day 5: S₁(10)=S₀(5). AFT changes where you read the time axis.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Constructed snapshot, separate from the six-record lab. Both descriptions concern the same next infinitesimal cause-1 probability increment dF₁. Cause-specific hazard divides it by .20; subdistribution hazard divides it by .70. The latter bookkeeping includes cause-2 outcomes, although those subjects cannot experience a new first cause-1 event. This is why its denominator is not an ordinary physical risk set.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "65815bfe3587ec567f6a20d76c5d3a77dbe04166268ed6ef15c28e92294a38a9",
+      "src/learn/components/lesson-labs/SurvivalIntuitionFigures.jsx": "9b865b1781eb518d4bbc5376c400de080fca7b52a8bd0b9954f313ce69da44fb",
+      "src/learn/components/lesson-labs/survival-intuition.css": "53768fc075eb20791b755f5c8bca68e384a0849f7e3b0cd7c3f782adf811367b"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+          "contentWidth": 301,
+          "width": 300.66668701171875
+        },
+        {
+          "caption": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+          "contentWidth": 301,
+          "width": 300.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "d0c0d177271bf522d2504bc7c8693c0678c6429f1e3b50e482f30665d653e6fa",
+      "src/learn/components/lesson-labs/KMeansStructureFigures.jsx": "abcc557f84465ce08bf13791570a4717719d11aec6b5e1d18a9b2a738e87e084",
+      "src/learn/components/lesson-labs/k-means-structure.css": "eb3cf2f36176c93eb713076f75b529380c83a73631f6b82cedd92a9b42ca7772"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "pca-dimensionality-reduction",
+    "selector": ".pca-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "The same four observations, now drawn in score coordinates. Divide score 1 by √6 and score 2 by √(2/3). Both new coordinate magnitudes become √3/2≈.8660. A/B's original score distance √2 becomes √3, while A/C's 3√2 becomes √3: unequal separations become equal. Every panel uses the same numeric scale on both axes. Whitening rescales distances; it is more than another rotation.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Constructed observations with true signal (2,2), shown by a white circle, and measured input shown by an amber diamond. The fixed retained line is x₂=x₁. Orthogonal noise (1,−1) disappears on projection; parallel noise (1,1) survives unchanged. Axes use equal scales. These examples inspect a given projection; estimating its direction from noisy data remains a separate fitting step.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/pca-dimensionality-reduction.jsx": "3a30c2abd790460e6d6f88cd2aca3bc3e058bc7cf5da0f09152deda018e02460",
+      "src/learn/components/lesson-labs/PcaIntuitionFigures.jsx": "2b48d3f440785b23d5d383734786b563b2eb5e63e01c30bf9305f529bf8a1d9d",
+      "src/learn/components/lesson-labs/pca-intuition.css": "7fbd8d39a403849550cdcf5ed10e10b54cf664061f973e513b6435db57bbcff1"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+    "selector": ".ce-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "DB combines the average distance to each center (2/3 on either side) with center separation 7: (2/3+2/3)/7=4/21. Dunn instead uses the closest cross-group pair and the widest within-group pair: 5/2. Neither is the silhouette's average distance from a selected observation to all members of a group.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Trace upward from each leaf until the paths meet. AB meets at 1; AC and BC both meet at 2. The horizontal leaf positions merely lay out the tree; their printed values give the original locations. The tree preserves AB's distance but compresses original AC=3 and BC=2 into the same height.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "1a9ad0dc3ced936b6e2a0519b0fd35a810ff0dee582ea73c76639a4a649a3117",
+      "src/learn/components/lesson-labs/ClusteringEvaluationIntuitionFigures.jsx": "6f45d829587ee89e66c0e2b481c43a9ddd95004c6c3a91d65a801635981cec9f",
+      "src/learn/components/lesson-labs/clustering-evaluation-intuition.css": "9c57a9a9cfae9af3ac933d698e6f9c3bdc053fa2f578276ca28b5dab646999f1"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "dbscan-density-based-clustering",
+    "selector": ".db-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "A declared finite condensed branch with minimum cluster size 2 is born at λ=2. One row leaves at 3 and the remaining two leave at 5. Sum lifetimes: (3−2)+(5−2)+(5−2)=7. Or sum the shaded count-by-density areas: 3×1+2×2=7. The area counts retained rows through density levels; it is not geographic area or a probability. This tree is illustrative, not an Iris fit.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Use the original trail, ε=1 and m=4. Add a distinct observation I′ at the same position as I. Each zero row now counts D, E, I and I′ and becomes core. The graph acquires a path between the former components. I and I′ are offset vertically only to show two row identities; both physical positions are x=0. Other original core neighbors of D and E are omitted from this graph excerpt; J remains isolated.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/dbscan-density-based-clustering.jsx": "62a8fdca81b809b88af3691ab27ea0958dc7aebc55167dad1611e391a0eb693b",
+      "src/learn/components/lesson-labs/DbscanIntuitionFigures.jsx": "513e77f04217c27bdceb9e2c2c6aa19515900fbe00d521b5f471c0c541e0619c",
+      "src/learn/components/lesson-labs/dbscan-intuition.css": "b9088e276c391f1892bf3762a722088a166bbf31a203504043b382758554114d"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "dbscan-density-based-clustering",
+    "selector": ".db-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "A declared finite condensed branch with minimum cluster size 2 is born at λ=2. One row leaves at 3 and the remaining two leave at 5. Sum lifetimes: (3−2)+(5−2)+(5−2)=7. Or sum the shaded count-by-density areas: 3×1+2×2=7. The area counts retained rows through density levels; it is not geographic area or a probability. This tree is illustrative, not an Iris fit.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Use the original trail, ε=1 and m=4. Add a distinct observation I′ at the same position as I. Each zero row now counts D, E, I and I′ and becomes core. The graph acquires a path between the former components. I and I′ are offset vertically only to show two row identities; both physical positions are x=0. Other original core neighbors of D and E are omitted from this graph excerpt; J remains isolated.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/dbscan-density-based-clustering.jsx": "62a8fdca81b809b88af3691ab27ea0958dc7aebc55167dad1611e391a0eb693b",
+      "src/learn/components/lesson-labs/DbscanIntuitionFigures.jsx": "513e77f04217c27bdceb9e2c2c6aa19515900fbe00d521b5f471c0c541e0619c",
+      "src/learn/components/lesson-labs/dbscan-intuition.css": "b9088e276c391f1892bf3762a722088a166bbf31a203504043b382758554114d"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "selector": "[data-intuition=\"support-weight-budget\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "The support-vector bound is a weight budget · constructed n = 8, nu = 1/2",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": "a0cf3f762b6e22d28049c66dcad488a78df9d57d231aace1a409aa8697a0e591"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "gaussian-mixture-models-gmm-em-algorithm",
+    "selector": "[data-intuition=\"mixture-variance-budget\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Choosing one source and averaging two sources create different populations",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "77aaba034776ce1d3e999caac76e843144e1c376f8cc75d3b5611432f80124a0"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "t-sne-umap-manifold-learning",
+    "selector": "[data-intuition=\"tsne-shared-denominator\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Move C, and the preference for unchanged pair A–B changes too",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [
+      "New figure inherited green background; neutral override awaiting rendered recheck"
+    ],
+    "sourceHashes": {
+      "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "5876a9c6dc8f8d9caa238b6c20cb22f9dff2cfbedeb56b898df04795b82107e9"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "independent-component-analysis-ica",
+    "selector": "[data-intuition=\"ica-projection-mass\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Equal variance, different distributions · exact independent fair binary sources",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [
+      "Black SVG labels on dark background; corrected source awaiting rendered recheck"
+    ],
+    "sourceHashes": {
+      "src/learn/data/topics/independent-component-analysis-ica.jsx": "426b547283664685f68d468e25913d711a12a1d1f2ea7ef0497a84c73f2ab07a"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "non-negative-matrix-factorization-nmf",
+    "selector": "[data-intuition=\"nmf-touching-upper-bound\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Lower an easier upper bound from its touching point · exact constructed coordinate update",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx": "0deff84e93725925557bf4a8cc992de1b9bba406a837d1645f785b3d735a4209"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "feature-scaling-encoding-imputation",
+    "selector": "[data-intuition=\"cyclic-feature-geometry\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Keep the seam from becoming a false distance · constructed unit-circle representation",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "e1adbbe06c4592c357f74b24c76f16445b28edaf20b2503e4789e6444cd881e5"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "cross-validation-hyperparameter-tuning",
+    "selector": "[data-intuition=\"cv-shared-variance\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Which uncertainty survives averaging? A constructed four-fold comparison.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx": "8cb9526317b7c948e7cf2114a9611658e6a6457eeca20704497fa6d32a7c9fc1"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "bayesian-networks-causal-graphical-models",
+    "selector": ".bn-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Each rule asks a different question in a specifically edited graph.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "A message preserves every way the other cluster can be affected.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx": "8c778a4a0fb7e3ad0dd5f8b01820e5639e7976d316d83cbda7c8ec098f880a4a",
+      "src/learn/components/lesson-labs/BayesNetIntuition.jsx": "4908370ad439fb32c8408c7f41819ad6734988df77264efd3016bc2ec1154efe",
+      "src/learn/components/lesson-labs/bayesnet-intuition.css": "d76c42a580cfd77f7e845d543542784e992cd44700ed2b6a02704f35bef7062a"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "conditional-random-fields-crf",
+    "selector": ".crf-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "A second-order score needs the last two labels before choosing the next one.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Incomplete labels teach a set of possible paths, not a guessed completion.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Sample a whole path by keeping its label dependencies intact.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "interactionChecks": [
+      "Factor keyboard End changes compatible/all mass to 99/102 and loss .029853",
+      "No-label selection produces loss zero; stays zero at Home with changed all-path mass",
+      "Reset restores factor 4, partial labels, mass 27/30 and loss .105361"
+    ],
+    "sourceHashes": {
+      "src/learn/data/topics/conditional-random-fields-crf.jsx": "97773a50e538899059dbb236f0a566c8f0f68a133277bbf6204216e7d9db278f",
+      "src/learn/components/lesson-labs/CrfIntuition.jsx": "459f435bb6a0214202c3dbbc5843bf62a7d1b82022e25fdb031c5170f9a48a0d",
+      "src/learn/components/lesson-labs/crf-intuition.css": "8a06649143b2c657b553f834b9093caac26d083c99f651cebefca8cf401190f3",
+      "src/learn/data/crf-models.js": "e9464061389ee7d0e7be57b6b49b62838210862e0289b3e20de2b40544f87682"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "gaussian-processes-gp",
+    "selector": ".gp-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Recurrence and persistence are two different assumptions.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "A long length scale expects observations to move together.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "One inducing value leaves uncertainty about how the function bends around it.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/gaussian-processes-gp.jsx": "35928a1d36c8c013d542b74d1fcd6bb30da4b571a277586d49ade650ec4759d6",
+      "src/learn/components/lesson-labs/GaussianProcessIntuition.jsx": "09ed0841589f0fcfbc178002928c222e2facff043cf1e3456463db04470bc6cb",
+      "src/learn/components/lesson-labs/gaussian-process-intuition.css": "70a32fe55aaa20384e477b8ef80eb18116bf1c9d1ea3043d0fddca064bc006cc"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "pac-learning-vc-dimension",
+    "selector": ".pac-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "There are 4 distinct prefixes and 3 prefixes with both extensions, giving 4+3=7 full patterns. Prefix 10 cannot extend to 101. The extra-copy collection contains 00, 01 and 11 but not 10: its flexibility has dropped from the interval class's two-point shattering to at most one-point shattering. This small enumeration exposes the two collections in Sauer's recurrence.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "The comparison threshold is .5 and the required separation γ is .1. Output .55 is above the threshold, but it cannot witness the positive margin condition f(x)≥.6. Output .65 can; output .35 satisfies the negative condition f(x)≤.4. Shattering asks for every requested pattern across all selected inputs with their thresholds fixed in advance. A single point crossing a threshold does not establish the dimension.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/pac-learning-vc-dimension.jsx": "82f27f1aa76ba161946a8ec05515c3584143c385fe0619263d4c5a85514ec11a",
+      "src/learn/components/lesson-labs/PacIntuitionFigures.jsx": "3e086a4eac920b3675f82430fdae620d9305e47d93568fb602e1695e588b5fb6",
+      "src/learn/components/lesson-labs/pac-intuition.css": "5510c2f90a4dc88880880528665db7dcb2b1687fe103e77acf7e2e10fc107ffb"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "calibration-conformal-prediction",
+    "selector": ".cal-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Solid amber: τ=.8. Dashed neutral: τ=.2. At τ=.8, predicting 1 when y=2 costs .8; predicting 3 costs .2. The asymmetric cost pushes a fitted upper quantile upward. At τ=.5 the two sides have equal slope, giving absolute-error median fitting. These are single-outcome loss curves, not fitted quantiles.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Constructed intermediate values at one new input. Each center and residual belong to the same leave-one-out fit. Keep lower candidates [9,12,7] and upper candidates [11,16,9], then apply the method's finite-sample lower/upper order-statistic rules. Replacing all three centers by one final prediction discards the between-fit variation. These segments are intermediate candidates, not three separately guaranteed intervals.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/calibration-conformal-prediction.jsx": "0a677e90b4820dd39b610ce9d845423f370290a28b97513028dc5ee80505edd4",
+      "src/learn/components/lesson-labs/CalibrationIntuitionFigures.jsx": "ae126ca540b692a028872fa39deb5677d3f06b68cba6941ad77e3166e6360c57",
+      "src/learn/components/lesson-labs/calibration-intuition.css": "7d368961e37df429560ce118ccb6c77dd55f21dc2e4c8167154fa112aacab9c6"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "rademacher-complexity-generalization-bounds",
+    "selector": ".rademacher-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Constructed constant prediction vectors fₜ=(t,t), with t in [0,1]. Grids spaced .5, .25 and .125 cover this class in empirical RMS distance with radii .25, .125 and .0625. The highlighted target .68 is represented as .5 + (.75−.5) + (.625−.75) + (.68−.625). Corrections can point either way; their permitted magnitude shrinks with scale. This is a decomposition to understand chaining, not a computed generalization bound.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "475957bc7b925c9bcde5d9e0103f9a34118f37e096c127175643358789cb4c82",
+      "src/learn/components/lesson-labs/RademacherIntuitionFigures.jsx": "d770049d3f0032e50e15389f7d5e5ea1ad66a4a2d4fc77d43054e48574893ba1",
+      "src/learn/components/lesson-labs/rademacher-intuition.css": "d2676e196ef2c89e1e2cc1e57f757525a2efbae550b69b34bef68d1040deadf4"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "A mistaken row supplies the direction of its own correction",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "A batch adds examples, not extra neurons",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "One score rises; every probability can change",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "A hard cutoff becomes an input-dependent fraction",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "389c79a2ee580692b7e43d10ca34819c4dceada66334eb9858ff2ebb90a5e404",
+      "src/learn/data/perceptron-intuition.js": "7e56bf591e7b3fad2e370af780309242ac64855a74d482d256496f65dea0195d",
+      "src/learn/components/lesson-labs/PerceptronIntuitionFigures.jsx": "09d45416bc4a2b1cb3aa7057c4fd7000aa9c8669f842c6388863936acbff4d68",
+      "src/learn/components/lesson-labs/perceptron-intuition.css": "1c83e131d33393fcb08352af980f772a2533238f1a3a17d0c6c6befb04962451"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "backpropagation-automatic-differentiation",
+    "selector": "[data-backprop-figure=\"matrix-sensitivity\"], [data-backprop-figure=\"ce-signal\"], [data-backprop-figure=\"microbatch-weights\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 2
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Constructed linear example. Arrows carry local derivatives, not forward values. The incoming output sensitivities (2, −1) already include the rest of the loss.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "One unweighted example, true class B. These are logit derivatives; a parameter gradient also multiplies by the derivatives of its logits. No batch averaging factor is needed for this one row.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Five examples split into groups of two and three. Column heights encode each example's coefficient on a common 0–0.5 scale. These are objective weights, not loss magnitudes.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/backprop.jsx": "fd25192b27586e41456dc7db2a82022385eb8dfaa37170d65e45ae48690f8281",
+      "src/learn/components/lesson-labs/BackpropIntuitionFigures.jsx": "8023eab989f114ffcdcb2b83fd3ba434efc02e913f29c596b1a892f7883480d8",
+      "src/learn/components/lesson-labs/backprop-intuition.css": "8a22ae459d41298cc054fa5b7a338ba9cb1ce038d6dae59e79a01450ae30fb81"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "loss-functions-ce-mse-focal-contrastive-triplet",
+    "selector": ".loss-intuition-figure",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Arrows show gradient-descent direction for the estimate, not positions on a number line. The optimum is the kink at 4: a valid subgradient there includes zero. We sum here; averaging divides every derivative by five without moving the optimum.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "The feature remains on the solid ray. The dashed ray visualizes the angle used to score the true class, not a transformed embedding. On this decreasing-cosine branch, recovering the old target score requires stronger alignment. This local geometric example is not a complete ArcFace boundary-policy implementation.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "30ba7db1eeb36060c58966a07d4521cff773c76e1fbe351026dfdbeeafea14d5",
+      "src/learn/components/lesson-labs/LossIntuitionFigures.jsx": "9c4f4efc23bcaa10db5263112c183e45ad58885db2094c0e4639aeb230a6b973",
+      "src/learn/components/lesson-labs/loss-intuition.css": "9a0abc534dbf8a2e37445b41371ebc1a390f7eca0999f4520d5c9a9d18ee0729"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "batch-layer-group-rms-normalization",
+    "selector": ".normalization-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "ε = 10⁻⁵, identity affine parameters. Time-and-feature normalization changes the present output even though its input is fixed. Per-token LayerNorm uses [1, 3] alone and keeps the first output at approximately −.999995 in both cases. A causal attention mask cannot block this separate statistics route.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "The strip encodes weights, not statistic values. A batch's weight is multiplied by .9 after every subsequent update. This is fixed momentum, not the optional cumulative-average setting.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "h is the normalized input; d is the arriving output derivative. Row membership determines statistics. Column reuse determines γ-gradient sums. Across a batch, each column also collects the other examples' contributions. β collects d over the same parameter-sharing uses.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "d4c18f31bb243fdfcfac3a4d84d4690085ff88bb8f0cfe00b47af2b15b374e27",
+      "src/learn/components/lesson-labs/NormalizationIntuitionFigures.jsx": "e308030c2925d93ccfa3cdf345fee93ace411bdda80c5cbf1d3ee288661d7944",
+      "src/learn/components/lesson-labs/normalization-intuition.css": "9d19ed37bc6f8b9175c1c6f0c633ed7297c44fe0320a714215de46cce5e9b502"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "transfer-learning-fine-tuning-strategies",
+    "selector": ".transfer-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 2
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Constructed four-row example. The left problem is a restriction of the head; the right problem is lost information. Optimization and regularization can also weaken a measured probe, so its score alone does not identify the cause.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "This shows the added correction, not the full output Wx + BAx. The base W can still produce outputs outside this line. Learning B can change the line; a fixed rank-one adapter still offers only one correction direction at a time.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "The intermediate bottleneck is one number, yet it affects two output coordinates. Doubling h does not generally double the correction because tanh is nonlinear. Unlike a fixed linear LoRA path, this detour cannot generally be absorbed into one constant matrix.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [
+      "Layout-dependent left/right caption; revised source awaiting rendered recheck"
+    ],
+    "sourceHashes": {
+      "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "770cb9cd08371cb50a4730b8e89eef10368bc1b02f9e694f0cc0b6e81d3e802b",
+      "src/learn/components/lesson-labs/TransferIntuitionFigures.jsx": "1e3fc1875816454c8a535b0063c0f9356959412ecaafc96f5579e100043784c6",
+      "src/learn/components/lesson-labs/transfer-intuition.css": "5cab16803eefd65eb5617d4568980844ffaf813a10b34d22a3ebe891baed2a20"
+    },
+    "buildStartedAt": "2026-09-26T14:41:37.118Z"
+  },
+  {
+    "topicId": "regularization-l1-l2-elastic-net-dropout",
+    "selector": "[data-intuition=\"regularization-group-threshold\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Same data preference, a different unit of selection — one constructed orthonormal group, λ=4.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx": "b213ab6051001ca35cc356e6050acdefdec4fd870f3f9cbfab96655a4666b4df"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "feature-selection-importance-shap-permutation-mutual-info",
+    "selector": "[data-intuition=\"shap-group-arrival-orders\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "The last arrival receives the unit in this unanimity game. Grouping changes how many arrival orders there are.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx": "0fabbf0a48248c7af4bd7a4f7b88fa9dc18cbee7a5bf9003214c47f3d2dc82fb"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "bias-variance-tradeoff-learning-curves",
+    "selector": "[data-intuition=\"smoother-direction-budget\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Two noise directions, two different summaries. Constructed orthogonal directions retained by factors 0.8 and 0.2.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx": "14f179d6355ed77f46702344f5171fd4df2b9737fadaaf16d6f95230544486ed"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "imbalanced-learning-smote-cost-sensitive-learning",
+    "selector": "[data-intuition=\"nearmiss-opposite-neighborhoods\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Nearest and farthest minority points can favor different majority rows. One-dimensional constructed data, retaining one majority row, using one neighbor for either rule. The three minority points and two competitive candidates are drawn below; the other majority points, at 20, 30 and 40, lie outside this view and lose under both rules.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx": "3d64216db38bfa1d484460ab4dca75ea150996b6ba68300b282f8121034e10de"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "automl-neural-architecture-search-nas",
+    "selector": "[data-intuition=\"naswot-agreement-kernel\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Turn shared activation decisions into a dot product. Append each code’s inactive bits to its active bits.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/automl-neural-architecture-search-nas.jsx": "dd99d92b0b3a6fa50688b8373db76929339379db805b229a9fde9a2b0e9fcd24"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "hidden-markov-models-hmm",
+    "selector": "[data-intuition=\"factorial-shared-evidence\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "One shared measurement connects two initially independent explanations. A constructed one-time slice: two devices independently have on-probability 1/2, each draws exactly one unit when on, and a noiseless meter reads their sum.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/hidden-markov-models-hmm.jsx": "e7f3354291dffc3d7a12019ec12c47bdae54a1a4c073088e984691da12debe0e"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "independent-component-analysis-ica",
+    "selector": "[data-intuition=\"ica-projection-mass\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Equal variance, different distributions · exact independent fair binary sources",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/independent-component-analysis-ica.jsx": "83c64f97a9d05b3796d862926f5fde141301d7df04dadec112ade60d85b8a8f3"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "t-sne-umap-manifold-learning",
+    "selector": "[data-intuition=\"tsne-shared-denominator\"]",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Move C, and the preference for unchanged pair A–B changes too",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "adf872a6073393df294673a4520b2f5f6bb3ebcaf69c31b28504ba528e9082f7"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "semi-supervised-learning-label-propagation-self-training-co-training",
+    "selector": ".ssl-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "White bars show fᵢ; amber bars show fᵢ / √dᵢ. The normalized smoothness term compares amber bars across edges. Zero smoothness cost alone does not make these scores the fitted solution: label fidelity still contributes to the full objective.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Move the weak score across the threshold, then change the strong score. Once accepted, making the weak score more confident does not further scale this hard-label loss. Confidence selects a target; it does not establish that the target is correct.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "a3285d0604cd73266c7075405c0b502d2ecf684827ee1863a4fe2c5a7d6e6a61",
+      "src/learn/components/lesson-labs/SemiSupervisedIntuition.jsx": "f6eb52e42e52b3050eccf6959de2ed6ff4eb0258d2f710a2f8cf95919e8d8338",
+      "src/learn/components/lesson-labs/semi-supervised-intuition.css": "3dc0c83844a5a720bc846877f30f8ac0a4a342220ad619cea474bc720d278aa6"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z",
+    "interactionChecks": [
+      "Weak Home .51 falls below threshold .95: loss and derivative zero",
+      "Strong End .99 leaves rejected example zero",
+      "Weak End .99 accepts: strong .99 loss .0101, derivative -.0100",
+      "Reset restores weak .98, threshold .95, strong .40 and loss .9163"
+    ]
+  },
+  {
+    "topicId": "active-learning",
+    "selector": ".active-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "White = remaining target variance; amber = reduction. A has the larger uncertainty about itself, but B is more informative about this target. These bars compute the stated GP formula; they do not show measured prediction error or refitted kernel parameters.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Constructed conditional sampling step with A already selected. For varying probabilities the gradient geometry need not preserve feature distances this simply. The true label remains unobserved; acquisition still asks the oracle before training on the selected item.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/active-learning.jsx": "b094df7c85750b32629f4a896a95d1e93913a2fe8099e2ae2753cb45cb4ecd9d",
+      "src/learn/components/lesson-labs/ActiveLearningIntuition.jsx": "2ab31ee678da00b05b566b862a3c21442d038d1ab21d5293f7d97b80289ba18f",
+      "src/learn/components/lesson-labs/active-learning-intuition.css": "6133e74096e18879e4a6e5d853506a58bcf2087e84e7a8a4564820e64dd3dc35"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "selector": ".metric-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "The different vertical scales are labeled; compare each curve's minimizer, not their heights across panels. These exact empirical objectives explain median, mean and upper-quantile targets. They are not fitted-model performance curves.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Every weight bar has a fixed 0–1 scale. Class 2 contributes zero in both averages because its F1 is zero; its missing performance receives more weight under macro averaging. Micro averaging follows a different route: pool the individual decision counts first, then form the ratio.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "c81b99ec9c2fd4de03ee5a4d6fb74d24338ece21e201ff89b5a09191a65b3850",
+      "src/learn/components/lesson-labs/EvaluationMetricsIntuition.jsx": "5b69632e26f7636fdecc3d16c9083acce5ef1eef974bb321a241a410a5810bd9",
+      "src/learn/components/lesson-labs/evaluation-metrics-intuition.css": "581462e8046c22e901d744bf60e4f321cdf462a34b9eaf2599d600632ee6e3db"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "selector": ".formulation-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Constructed counts. The observed 20/100 describes the selected branch. Without further assumptions, the whole production batch could have as few as 20 defective parts or as many as 920: between 2% and 92%. The width of that range comes from absent evidence about the 900, not a poor classifier. Random inspection of some previously uninspected cases can supply information the old rule omitted.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "2373775cafebb2d23dca5cb910665a381db7aa9f7c86c07017fa9df6444987ef",
+      "src/learn/components/lesson-labs/FormulationIntuitionFigures.jsx": "60be5082c4ff626d352d50fac3c3f61d1414c0c546ee13b4489d0a778d45940b",
+      "src/learn/components/lesson-labs/formulation-intuition.css": "24ee87ceec34f80987cc4b252acc06ed33909d777c1918168334c8c02c0975ab"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "time-series-validation-forecasting-baselines",
+    "selector": ".ts-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Dot = inside that day's interval; × = outside. Each column has the same 90% empirical coverage in both constructions. Requiring all seven entries in a row to be inside leaves three complete paths on the left and nine on the right. Daily coverage alone does not determine their joint coverage. These are counting examples, not fitted interval results or an independence assumption.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "1785ee1e4c11d647b6078ae095a73a8872a0ff9463f5c6b21852c900db2d09b7",
+      "src/learn/components/lesson-labs/TimeSeriesIntuitionFigures.jsx": "2ffbedbd7c12230612903b28073524bf423a92b717505c633530ff9ed455c2be",
+      "src/learn/components/lesson-labs/timeseries-intuition.css": "6bb5bd0f0c7c577763b2945843cd2064ba0346e4830e928295a11135ee07c922"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": ".ete-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "The observed fraction is one, but a small perfect sample does not establish a perfect population. Wilson's approximate 95% interval remains about [0.722, 1]. A naive plug-in normal interval uses zero estimated variance at this boundary and collapses to [1,1]. Neither interval repairs dependence or unrepresentative sampling.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "2f8d36b1493d1a3540d2bb5a884bd5017ff54f28154ef60586884428b6b43639",
+      "src/learn/components/lesson-labs/EndToEndIntuitionFigures.jsx": "a37fbbec0f7897026d238f8cfacc639cad6051c37d0e0b0f965255dc0535fbc8",
+      "src/learn/components/lesson-labs/endtoend-intuition.css": "7cd17e681c6a427cc106abecd67a0e54511144f433edd674dd2ecc06853e67ac"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "weight-initialization-xavier-kaiming-p",
+    "selector": ".init-update-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Random-change RMS is an expectation over independent sign draws; gradient change is exact for this constructed state. Neither is a measured deep-network training curve. This SGD example explains why independence cannot be reused after an update; it does not derive the later architecture-specific Adam μP recipe.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx": "1716759348d5c54a348ef20ebead15eaeb59b666e3dbfb6d9ebc4b9632cb5aec",
+      "src/learn/components/lesson-labs/InitializationUpdateIntuition.jsx": "8cca86a9d7af53d6e0f0b76aea310990f075e15dcf369da066d507b4239f08bc",
+      "src/learn/components/lesson-labs/initialization-update-intuition.css": "72374b475e8d07da25e62ed002d89af452de36aa2cec5c7cbe48eada3e9c7973"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "residual-connections-skip-connections",
+    "selector": ".res-gate-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Holding the gate fixed would give derivative 1.7311 and omit 0.1966. The extra term appears because changing x also changes how much of H(x) replaces x. The sigmoid gate is between 0 and 1; a ReZero scalar need not be.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/residual-connections-skip-connections.jsx": "64bd10b321d19de901b81e21f6e5df654773c9efcceb3d4c522f0802d4831245",
+      "src/learn/components/lesson-labs/ResidualGateIntuition.jsx": "5c8c433beba7cc479c15890f3e721ca9b01cfb1ba765d0930875921c0822f55f",
+      "src/learn/components/lesson-labs/residual-gate-intuition.css": "46bef1d18a254e3ac69fb6d58d4befcf099475e83c56493c773ce437b9b32081"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 1
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "A local detector can often use neighboring retained activations around scattered gaps. A block removes an entire neighborhood. These are chosen mask shapes, not samples or measured results from the DropBlock algorithm; its center sampling, overlap and rescaling still matter.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Rows are recipients; columns are inputs. Activation masking removes a whole column of the effective weight matrix. Connection masking can retain part of that column. This example applies our inverted convention to both operations; it does not assert that the original DropConnect paper used that convention.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        },
+        {
+          "caption": "Each ε is standard normal. Both routes give the same single-example distribution N(0, 0.08), not identical draws. Independent local draws across examples preserve the sum of expected per-example losses; they do not preserve the joint covariance produced by one shared weight draw. Batch-coupled computations need additional analysis.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx": "91fc3a6e5c2f05b829c09c5c08e26ae1f29f6642207f29889cbec34bd387cf65",
+      "src/learn/components/lesson-labs/DropoutNoiseIntuition.jsx": "e271b69a6b2f937c09ce17937b4474de5d21e023a2b01212d0e4179e42191baa",
+      "src/learn/components/lesson-labs/dropout-noise-intuition.css": "c140c7c7e43109e3c9ac559077b894df2cb8919470aa3b35196d06715f64d219"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "depthwise-separable-dilated-convolutions",
+    "selector": ".depthwise-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Each amber three-dot segment is a shifted copy of the previous reachable set. At d=3 the copies touch as consecutive integers: −2 is followed by −1, and 1 by 2. At d=4, −2 and 2 are missing (crosses). Compare the right end of the left copy, −d+S, with the left end of the middle copy, −S: no missing integer requires −S≤−d+S+1, or d≤2S+1.",
+          "contentWidth": 335,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "1e7cb43b2f82fbb5b0511cdb1d133e5f5b5db69dce05bc55650759ec30ed142e",
+      "src/learn/components/lesson-labs/DepthwiseIntuitionFigures.jsx": "aac8f12c5248a9cce19bce018922e0b9cd0014bb5f40172bb7089aa5e00a575e",
+      "src/learn/components/lesson-labs/depthwise-intuition.css": "1947b3d1ffc25e8015e78657900e4aa8e98e28913bd7933428d6c684934c5733"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "convnext-modern-cnn-designs",
+    "selector": ".convnext-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Constructed two-location, two-channel map. LayerNorm uses unit scale, zero shift and ε=10⁻⁶, so displayed ±1 values are approximate. Local normalization removes each location’s scale before pooling; the stronger second location can no longer dominate the pooled channel contrast. The reference head uses the left-hand order.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/convnext-modern-cnn-designs.jsx": "8f6a32297452b54656296075dbbb5a3c1d2619be7bf82a29aff65bc245435799",
+      "src/learn/components/lesson-labs/ConvNeXtIntuitionFigures.jsx": "8652002184fdf9a5e0eccb9511bc07996bea5537828aae97c04b274aa4f12c90",
+      "src/learn/components/lesson-labs/convnext-intuition.css": "bd35126cb57605ebde96ca053a4d04a58b969902dfa5468b582b1d6ba89ab9dd"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "capsule-networks",
+    "selector": ".capsule-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Local, first-order changes for a small input perturbation of size δ at radius 5. The two amber input segments have equal length. The output multipliers are calculated derivatives, not measured classification effects; terms of order δ² and higher are omitted.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {
+      "src/learn/data/topics/capsule-networks.jsx": "9f3faf515d26298e8bf985a45432666f6d64cb325f736418bcb353d2832bea2b",
+      "src/learn/components/lesson-labs/CapsuleIntuitionFigures.jsx": "cfce8d475148edb8778dedd445a68aae72f8c02d020a8f14b8ea50704e3704ad",
+      "src/learn/components/lesson-labs/capsule-intuition.css": "dbec2178e13510a619a1063912cd42f827e5661aae202d9083e7f1ede7fb2964"
+    },
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  },
+  {
+    "topicId": "rnns-lstms-grus",
+    "selector": ".recurrent-intuition",
+    "desktop": [
+      1280,
+      1200
+    ],
+    "narrow": [
+      390,
+      1600
+    ],
+    "visualIndices": {
+      "desktop": 0,
+      "narrow": 0
+    },
+    "layout": {
+      "documentWidth": 375,
+      "figures": [
+        {
+          "caption": "Both matrices have zero eigenvalues. Applying A twice would erase the result, but B accepts exactly the direction A produces. Alternation gives B·A·e₂=4e₂. The arrows show forward perturbations; reverse-mode credit uses transposed Jacobians in reverse order and inherits the same amplification issue.",
+          "contentWidth": 333,
+          "width": 334.66668701171875
+        }
+      ],
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "findings": [],
+    "sourceHashes": {},
+    "buildStartedAt": "2026-09-26T15:09:47.230Z"
+  }
+]

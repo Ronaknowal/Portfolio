@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "date": "2026-09-26T11:31:58.379Z",
+  "topics": [
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 32
+    },
+    {
+      "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 32
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 29
+    }
+  ],
+  "preservedOtherRows": 172,
+  "metadataRepairs": [
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "file": "src/learn/data/curriculum/blueprints/depthwise-separable-dilated-convolutions.js",
+      "oldHash": "295a887422347d975467f94ef48f4326c8173b6d6225cd63ac4ceb663a6bd969",
+      "currentHash": "0aeda40afde207ef41193977d9ebada0a6a54f21240435ed4f1d28d6c53fedfe"
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "file": "src/learn/data/curriculum/blueprints/convnext-modern-cnn-designs.js",
+      "oldHash": "ad10d31a918cf57a4db2f8205b811257aea1d2af21295d7dff80f3f05be17b3d",
+      "currentHash": "5a707cec701d11c890327083d64d44c5d3f545b75ff9a3d40881e8caa097601d"
+    }
+  ],
+  "receipts": [
+    {
+      "file": "docs/teaching/evidence/recurrent-attention-models.json",
+      "sha256": "676f50f4c3dca12b53321b2f6329df4a780602fc8b018a7bd62cd5ed2c6c0881"
+    },
+    {
+      "file": "docs/teaching/evidence/recurrent-attention-native.json",
+      "sha256": "5da02ce95c49044c001386c9bce274ed40a9ef20d431c0b59b7fdfcf1ba52eec"
+    },
+    {
+      "file": "docs/teaching/evidence/recurrent-attention-browser.json",
+      "sha256": "c14145bc1bcf8a6847bf3e4258a0810123f1bb1c8bbc6e1d9deec8db8280d044"
+    },
+    {
+      "file": "docs/teaching/evidence/long-context/model-checks.json",
+      "sha256": "88d26354f70196cc14e0ca400be37e932cc52d9d031566b23e0c1e9fba20156b"
+    },
+    {
+      "file": "docs/teaching/evidence/long-context/native-checks.json",
+      "sha256": "bf6baaac0d64b15cc6f37bbdccd5ad433f79d59edd52b34e8e2114c74389c16f"
+    },
+    {
+      "file": "docs/teaching/evidence/long-context/independent-checks.json",
+      "sha256": "98acda37d4b269c39ce4ea1a0440f539e2c2ba3039775892b25e1f7f01d8f84b"
+    },
+    {
+      "file": "docs/teaching/evidence/long-context/browser-review.json",
+      "sha256": "8452b2c23dda9f3a386692f800b099287e6dbb4c504ec8793af3a12b21ef7ae4"
+    },
+    {
+      "file": "docs/teaching/evidence/state-space-models.json",
+      "sha256": "8b1f4d44e2fff78ff676dfc912ffbc65b0ac154475bf3141901ff39e1b592b25"
+    },
+    {
+      "file": "docs/teaching/evidence/state-space-native.json",
+      "sha256": "1ec7734ae210a6a889e66d95e09621fad2a4fe6c1fc7e93d8d2b1aa8af6e4953"
+    }
+  ],
+  "sequence": [
+    "sequence-to-sequence-encoder-decoder",
+    "attention-mechanism-bahdanau-luong",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "state-space-models-s4-mamba-mamba-2",
+    "rwkv-linear-attention-models"
+  ],
+  "independentAttentionBindings": 17,
+  "chunks": [
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "file": "dist/assets/attention-Db2oLVW4.js",
+      "bytes": 103688,
+      "gzipBytes": 32361,
+      "sha256": "93e122e7a3d9a18607f6a0172fbba6d4b9e9af245fff0574e019f1152674aa20"
+    },
+    {
+      "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "file": "dist/assets/long-context-sequence-models-transformer-xl-griffin-perceiver-CNtZpelV.js",
+      "bytes": 109641,
+      "gzipBytes": 35822,
+      "sha256": "b7a3aded97d71352448cc9333a206840c1f19e90e9b25c1a04283e88859f305b"
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "file": "dist/assets/state-space-models-s4-mamba-mamba-2-C73qXxUk.js",
+      "bytes": 143777,
+      "gzipBytes": 50948,
+      "sha256": "12f0329deb8dbe1c584d1a523cef07ab3e40f6480c84c7e18487dc3d6e703eee"
+    }
+  ],
+  "buildManifestHash": "499b59290f91940dbec66979550a829eb2ea61b4c50560f54549c9f60b2fd990",
+  "recordedCounts": {
+    "contentComplete": 177,
+    "implementationComplete": 153,
+    "preparedRemaining": 24
+  }
+}

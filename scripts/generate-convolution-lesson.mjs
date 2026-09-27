@@ -8,10 +8,12 @@ manuscript = manuscript.replace(/<details><summary>(.*?)<\/summary>(.*?)<\/detai
 const visualNames = ['ConvolutionPatchLab', 'ConvolutionChannelsLab', 'ConvolutionUpdateLab', 'ConvolutionGeometryLab', 'ConvolutionPoolingLab', 'ConvolutionReceptiveLab', 'ConvolutionMeasuredLab', 'ConvolutionInfluenceLab', 'ConvolutionTransposeLab'];
 const visualParagraphs = manuscript.match(/^\[Visual placement:.*\]$/gm);
 assert.equal(visualParagraphs.length, visualNames.length);
-const rendered = renderPreparedLesson(manuscript, {
+const rendered = renderPreparedLesson(manuscript, { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-code/${id}/`,
   replacements: visualParagraphs.map((paragraph, i) => [paragraph, `<${visualNames[i]} />`]),
   additions: [
+    ['Adaptive average pooling specifies', '<AdaptivePoolingBinsLab />'],
+    ['The [PyTorch folding tutorial]', '<BatchNormFoldingFigure />'],
     ['It needs no GPU,', '<ConvolutionProgram file="convolution-experiments.py" title="Read the complete convolution and digit experiment program" />'],
     ['Max pooling can tolerate', '<ConvolutionShiftLab />'],
     ['Folding those columns back', '<ConvolutionPatchMatrixFigure />'],
@@ -20,6 +22,7 @@ const rendered = renderPreparedLesson(manuscript, {
 });
 assert.ok(!rendered.jsx.includes('[Visual placement:'));
 fs.writeFileSync(`src/learn/data/topics/${id}.jsx`, `// Full prepared revision-3 manuscript rendered statically; no Markdown parser in the browser.
+import { AdaptivePoolingBinsLab, BatchNormFoldingFigure } from '../../components/lesson-labs/ConvolutionOperatorIntuition.jsx';
 import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';

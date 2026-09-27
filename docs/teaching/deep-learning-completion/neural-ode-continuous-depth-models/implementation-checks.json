@@ -1,0 +1,270 @@
+{
+  "topicId": "neural-ode-continuous-depth-models",
+  "passed": true,
+  "productionPath": "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+  "sourceFiles": [
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/author-checks.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/calculated-inputs.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/fitted-models.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/study-results.json",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md",
+    "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md",
+    "src/learn/data/topics/neural-ode-continuous-depth-models.jsx",
+    "src/learn/data/neural-ode-models.js",
+    "src/learn/data/neural-ode-study.js",
+    "src/learn/components/lesson-labs/NeuralOdeLabs.jsx",
+    "src/learn/components/lesson-labs/NeuralOdeDiagrams.jsx",
+    "src/learn/components/lesson-labs/NeuralOdeStudy.jsx",
+    "src/learn/components/lesson-labs/neural-ode-labs.css",
+    "scripts/generate-neural-ode-lesson.mjs",
+    "scripts/check-neural-ode-native.py",
+    "scripts/check-neural-ode-models.mjs",
+    "scripts/check-neural-ode-render.mjs",
+    "scripts/lib/prepared-lesson-renderer.mjs",
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/design.md",
+    "src/learn/data/sequence-tensor-operations.js",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/content/Callout.jsx",
+    "src/learn/components/content/Code.jsx",
+    "src/learn/components/content/Figure.jsx",
+    "src/learn/components/content/Headings.jsx",
+    "src/learn/components/content/index.js",
+    "src/learn/components/content/Math.jsx",
+    "src/learn/components/content/Prose.jsx",
+    "public/learn-assets/neural-ode-continuous-depth-models/calculated-inputs.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/data-provenance.md",
+    "public/learn-assets/neural-ode-continuous-depth-models/fitted-models.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/iris.csv",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-augmented_ode-13.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-augmented_ode-37.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-augmented_ode-61.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-neural_ode-13.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-neural_ode-37.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-neural_ode-61.json",
+    "public/learn-assets/neural-ode-continuous-depth-models/neural_ode_study.py",
+    "public/learn-assets/neural-ode-continuous-depth-models/ode_calculations.py",
+    "public/learn-assets/neural-ode-continuous-depth-models/solver_library_bridge.py",
+    "public/learn-assets/neural-ode-continuous-depth-models/study-results.json"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/author-checks.json": "7de0b5a019d030e3a54873c3797801c46c6d33a4e9d0c633081fcd5b5f777715",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/calculated-inputs.json": "0c1be5a1e205387f244d36a9d5df909fb5fa95a49894428418bff825e697aa1e",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py": "f02445d85c27c145a7a80ea5bd9c7752c3208f165372b30d572e3585e2d52a37",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md": "ff91ae872fd75007c0d7c212197b52cc0b7191220f0333c428a17d4edf24651b",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md": "799aa9ee3efee11085e97a42e74cfc1b2ff6ebca3280bae39bb0863721469efa",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/fitted-models.json": "346542dd802b87063454a57e19d39b64aea0ae12218a7f689345dc4b50f31b6f",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md": "26ad10503731b34d7551e49deb58f45e303f1a8274ed36fe8e40624c3d7d8617",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py": "a8c05ebe2ee0096362cf7f4ced5ae41bdb8707d481e5c096ed0a0b1f043fb65b",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py": "4ee845ecd7f34c5cc702bfa09efccbb344b9c421e827c8b4e26f2a08f0b9b0eb",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/study-results.json": "72bba64186b3e38137c8fc2a7137d5f41bbf75131aa04b5914bc90a1b1616b6b",
+    "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md": "d6ae3f84246400d624f18a54b8fb9cdcbceb3063c46f0214fc9742039bdec687",
+    "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md": "14ea0bcf313545e6958a904741a3ec1cb5b4f279a3be46f4b508355e06774e06",
+    "src/learn/data/topics/neural-ode-continuous-depth-models.jsx": "656484aa0ca3d6de4005587cad3d5651800e65e5115afc191659c8fec4032c66",
+    "src/learn/data/neural-ode-models.js": "5274e1217587735a18420cc9b119782c277712ebb0e8ae7a57586d354bfb3a26",
+    "src/learn/data/neural-ode-study.js": "40822ed21aca0cef3f1add04fc2a93888fc79a8cdf9cf5d18b06eb15802861c8",
+    "src/learn/components/lesson-labs/NeuralOdeLabs.jsx": "6e9cc3d3254bcab363343d7d4f8f0c9d0c3b63042d3a2ba6c7c79056a35ee05f",
+    "src/learn/components/lesson-labs/NeuralOdeDiagrams.jsx": "e129c7dc86586aa1e9448745d51d8be6ecfdc6829e0a7d7cd6257f3a51002e91",
+    "src/learn/components/lesson-labs/NeuralOdeStudy.jsx": "f71c379df07d6ba4f71c005e34a143edeab5237c6df8ea064536dfdc27b08ac0",
+    "src/learn/components/lesson-labs/neural-ode-labs.css": "24a4b60488fd0eed7aa10a488248da56a42d6414ddb5f8d3263f99f509526fd8",
+    "scripts/generate-neural-ode-lesson.mjs": "77bd3590c77d9653b208b3d933c082d12e7de756741bcee1a5854731f9a6a404",
+    "scripts/check-neural-ode-native.py": "f4297a1b6dd4c1907cc286afa8b58a79dcf3d32d04eb447531fb978a4d7bdd06",
+    "scripts/check-neural-ode-models.mjs": "faaba9764408e20ab304875dd86870cf53119d09da10dbcec59cce4a7b518ac5",
+    "scripts/check-neural-ode-render.mjs": "9d696e4aa5df7c086eafb6e5c5edd93d44240bbcce125ad0b5a710fe9644a3b4",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/design.md": "c12043f96e9c9f6bb3774bbe2ca7a01fd65e6f95c7fcd995c423ad24fee58a2b",
+    "src/learn/data/sequence-tensor-operations.js": "d9bb0a81927032a6e76beff864e5df8fa548fd59e12cd7158e5d49a07e16a21f",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/content/Callout.jsx": "810f228309aa7c3e616fcbbb87bc76e768e1ef5c599e57699a9595bee873e758",
+    "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+    "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+    "src/learn/components/content/Headings.jsx": "225f4f43fbedadbda344b660ade02ab99f90e9cdb8bf73c4c31414ecf7f368cd",
+    "src/learn/components/content/index.js": "c7a7e0b98f308758c789b286ad74af82d762e48b29982506ef9a1307ce947c4f",
+    "src/learn/components/content/Math.jsx": "427a466aaa33b2733c7b87cf9c2c8e2ed338a2f234764590b69fafc1b5952459",
+    "src/learn/components/content/Prose.jsx": "1528b2a39390da2527d707430ab7ed363b740990071315716d2bd25699988494",
+    "public/learn-assets/neural-ode-continuous-depth-models/calculated-inputs.json": "0c1be5a1e205387f244d36a9d5df909fb5fa95a49894428418bff825e697aa1e",
+    "public/learn-assets/neural-ode-continuous-depth-models/data-provenance.md": "ff91ae872fd75007c0d7c212197b52cc0b7191220f0333c428a17d4edf24651b",
+    "public/learn-assets/neural-ode-continuous-depth-models/fitted-models.json": "346542dd802b87063454a57e19d39b64aea0ae12218a7f689345dc4b50f31b6f",
+    "public/learn-assets/neural-ode-continuous-depth-models/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-augmented_ode-13.json": "7a2fe72cd291f0d633ec5df317f595a3cadc1f948124f031f4f985021028c8fb",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-augmented_ode-37.json": "5368f66dbd06937c5b0ce37a0d3de0876f37709ee7144f9fca03c9ad3fb9ca86",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-augmented_ode-61.json": "e0356a0fc81a83f36f1c4a0aeb1ec87619c1135f08448994b198154dc730dd5c",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-neural_ode-13.json": "24c889cdfa31081109cfa48107ea09af9cc90546254c498812ddab79056f9719",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-neural_ode-37.json": "0ca9f7a9184bde463dafa5955e71211881435738b0b79c627bc502c8d78f55a8",
+    "public/learn-assets/neural-ode-continuous-depth-models/model-neural_ode-61.json": "16fd760a431901bedb4489e12908dc655a2721bb408a8cbb59915a3616426b9e",
+    "public/learn-assets/neural-ode-continuous-depth-models/neural_ode_study.py": "a8c05ebe2ee0096362cf7f4ced5ae41bdb8707d481e5c096ed0a0b1f043fb65b",
+    "public/learn-assets/neural-ode-continuous-depth-models/ode_calculations.py": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0",
+    "public/learn-assets/neural-ode-continuous-depth-models/solver_library_bridge.py": "4ee845ecd7f34c5cc702bfa09efccbb344b9c421e827c8b4e26f2a08f0b9b0eb",
+    "public/learn-assets/neural-ode-continuous-depth-models/study-results.json": "72bba64186b3e38137c8fc2a7137d5f41bbf75131aa04b5914bc90a1b1616b6b"
+  },
+  "checks": [
+    {
+      "name": "Complete unchanged published ode_calculations.py executed in isolated temporary directory",
+      "passed": true
+    },
+    {
+      "name": "All12 selected checkpoints replay all149 unique rows by declared fit/validation/assessment roles",
+      "passed": true
+    },
+    {
+      "name": "Validation-only selected checkpoint identity",
+      "passed": true
+    },
+    {
+      "name": "Actual torchdiffeq Euler state/gradient and dopri5 direct/adjoint analytic checks",
+      "passed": true
+    },
+    {
+      "name": "21 SciPy matrix exponentials covering repeated, complex, zero and real eigenvalues",
+      "passed": true
+    },
+    {
+      "name": "Additional native gradient fixtures including exact-zero Euler amplification",
+      "passed": true
+    },
+    {
+      "name": "21 independent SciPy matrix exponentials, including Jordan repeated eigenvalues and oscillatory modes",
+      "passed": true
+    },
+    {
+      "name": "Full Euler/classical RK4 trajectories and global errors",
+      "passed": true
+    },
+    {
+      "name": "Every adaptive Euler\u00e2\u20ac\u201cHeun attempted step, acceptance, ratio, endpoint and evaluation count plus zero state",
+      "passed": true
+    },
+    {
+      "name": "19 native gradient fixtures: direct tangent, central difference, exact continuous and backward accumulator; exact-zero Euler amplification",
+      "passed": true
+    },
+    {
+      "name": "Augmented lifting and explicit equality threshold",
+      "passed": true
+    },
+    {
+      "name": "Irregular observations including omission versus zero, future exclusion, exact event-time update and empty state",
+      "passed": true
+    },
+    {
+      "name": "Density trace/probes/volume preservation relation",
+      "passed": true
+    },
+    {
+      "name": "72 prepared Iris solver variants plus12 fresh cases across all6 field checkpoints; complete4/6-coordinate traces/logits/probabilities and48 input derivatives per centimeter",
+      "passed": true
+    },
+    {
+      "name": "All8 deployed source/data files and6 selected-model assets equal intended canonical bytes/objects",
+      "passed": true
+    },
+    {
+      "name": "Complete initial lesson renders without exceptions or React warnings",
+      "passed": true
+    },
+    {
+      "name": "All six semantic investigations present with immediate arithmetic or honest asset loading state",
+      "passed": true
+    },
+    {
+      "name": "Finite initial numeric output",
+      "passed": true
+    },
+    {
+      "name": "All13 manuscript sections,12 original figure anchors,6 semantic investigations and9 changed practice tasks preserved",
+      "passed": true
+    },
+    {
+      "name": "Full author concept-map and all10 learning-experience checklist review completed",
+      "passed": true
+    },
+    {
+      "name": "Only explicit8 learner downloads plus6 lazy individual model assets published; no authoring documents",
+      "passed": true
+    },
+    {
+      "name": "Independent representation fixes: availability/null mode, all-attempt error ratios, state-loss lane, persistent Iris edits and solver API time grids; SSR passes",
+      "passed": true
+    },
+    {
+      "name": "Final independent wording/download correction: numerical-loss label names direct/finite-difference routes; inherited GMM provenance has a published link and explicit repository path",
+      "passed": true
+    }
+  ],
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/native-checks.json",
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/model-checks.json",
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/render-checks.json",
+    "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/design.md"
+  ],
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limitations": [
+    "Recorded12-fit campaign retained; all saved checkpoints and new-input scientific calculations freshly executed.",
+    "No JAX/Diffrax, official package example suite, GPU execution or hardware timing.",
+    "Source/SSR and author review do not certify independent or painted browser acceptance."
+  ],
+  "browserInventory": {
+    "labs": [
+      "ode-fixed",
+      "ode-adaptive",
+      "ode-gradients",
+      "ode-topology",
+      "ode-iris",
+      "ode-observations"
+    ],
+    "figures": [
+      "raw measurement/shared field/readout",
+      "decay tangent and endpoint residual",
+      "separate-parameter residual versus shared ODE field",
+      "RK4 tentative stage vectors and weighted accepted move",
+      "equal-axis matrix-field exact/Euler/RK4 paths plus scaled residual",
+      "accepted/rejected attempt time intervals",
+      "discrete reverse dependencies versus continuous(z,a,g)backsolve",
+      "gradient common scale and enlarged residuals",
+      "noncrossing scalar trajectories and movable threshold",
+      "augmentation/lifted tracks and coarse Euler order artifact",
+      "all12 native validation curves and seed-specific assessment counts",
+      "worked/current all4/6-coordinate real flower traces plus lazy complete inference",
+      "observation decay/jump/availability geometry",
+      "density parallelogram/probe values",
+      "colliding conditional paths and mean velocity",
+      "Hamiltonian/PINN/CDE/SDE/event distinctions",
+      "Current scalar state-to-terminal-residual-to-loss lane",
+      "Requested output times versus fixed/internal adaptive grids beside solver API"
+    ],
+    "actions": [
+      "fixed:all A/z/T/steps entries, same intervals/calls, residual route, RK4stage selection, zero field/state and reset",
+      "adaptive:rates/initial/tolerance/T/initialstep, selected attempt including reject and zero-state/reset",
+      "gradients:theta/initial/target/T/solver/steps, residual values and reconstructed initial, changed decay/reset",
+      "topology:ordered input records/depth/threshold, depth0/.7/reset; scalar-threshold impossible pattern",
+      "iris:all6 model/seed choices,3validationflowers,4rawcm edits and \u00b1.6cm petal contrasts, Euler/RK4 and4/16/64intervals,allcoordinates and selected projection/reset, lazy failure/retry",
+      "observations:2\u20138events/times/values/query, invalid-order recovery, future-unavailable/exact-time update, omitted vszero event, extraquerymarkers, add/remove/reset",
+      "density rotation null; flow crossing velocity edit; all code/details/practice disclosures",
+      "Observation no-observations mode and per-event presence/availability status",
+      "Adaptive all-attempt ratio strip selection and local bounded-failure state",
+      "Iris raw edits and solver settings preserved across architecture/seed/retry loading"
+    ]
+  }
+}

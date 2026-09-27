@@ -3,19 +3,20 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { ConvNeXtHeadOrderFigure } from '../../components/lesson-labs/ConvNeXtIntuitionFigures.jsx';
 import { ConvNeXtGenealogy, ConvNeXtBlockFigure, ConvNeXtNormalizationLab, ConvNeXtHierarchy, ConvNeXtBudgetLab, ConvNeXtResponseLab, ConvNeXtMaskFigure, ConvNeXtReconstructionLab, ConvNeXtRecordedExperiment, ConvNeXtFusionLab, ConvNeXtProgram, convnextAsset } from '../../components/lesson-labs/ConvNeXtLabs.jsx';
 export default {
  title: 'ConvNeXt & Modern CNN Designs',
  readTime: '~70 min read + live investigations, implementation and practice',
  hasIntegratedGuide: true,
  content: () => <div className="neural-lesson convnext-lesson"><LessonIntro prerequisites="Depthwise convolution, channel normalization, residual paths, tensor shapes and supervised training. The relevant axis and masking contracts are refreshed locally." sections={[["1-start-with-the-comparison-not-the-model-name","1. Start with the comparison, not the model name"],["2-read-one-block-from-the-input-outward","2. Read one block from the input outward"],["3-from-the-block-to-a-feature-hierarchy","3. From the block to a feature hierarchy"],["4-global-response-normalization-look-across-the-feature-map","4. Global response normalization: look across the feature map"],["5-learn-from-missing-pixels-without-giving-away-the-answer","5. Learn from missing pixels without giving away the answer"],["6-an-actual-masked-digit-experiment","6. An actual masked-digit experiment"],["7-deeper-routes-deploy-reparameterize-or-combine-mechanisms","7. Deeper routes: deploy, reparameterize, or combine mechanisms"],["match-the-block-you-built-to-the-maintained-implementation","Match the block you built to the maintained implementation"],["8-practice-reason-about-a-changed-design","8. Practice: reason about a changed design"],["9-readiness-connections-and-other-ways-to-learn","9. Readiness, connections and other ways to learn"]]}>Read a modern convolutional block, build its complete hierarchy, and investigate how a masked reconstruction model uses available evidence.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function."}</Prose>
 
 <Prose>{"A visual model has two jobs inside each layer: combine nearby evidence and combine different kinds of evidence. A dark curve beside a vertical stroke is a spatial relationship. Combining “curve,” “stroke” and “enclosed region” detectors is a channel relationship. ConvNeXt organizes these jobs into a small repeated block, then asks an equally important question: how much of a model's success comes from its architecture, and how much comes from how it was trained?"}</Prose>
 
 <Prose>{"The preceding "}<a href={"/learn/path/full-curriculum/depthwise-separable-dilated-convolutions?module=deep-learning-fundamentals"}>{"Depthwise Separable & Dilated Convolutions"}</a>{" lesson explained inexpensive spatial filtering and its restrictions. Here we use those operations to read a complete modern network. We will also train a small model to reconstruct hidden parts of real handwritten digits, then test what its representation makes available to a separate classifier."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow §§1–6, run or inspect the small experiment, and attempt practice 1–5. You should be able to trace one block, identify which numbers a normalizer sees, prevent hidden-input leakage, and distinguish reconstruction from recognition. The deployment, kernel-fusion and hybrid-design branches in §7 and practice 6–8 deepen that understanding; they are not prerequisites for the next lesson."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow §§1–6, run or inspect the small experiment, and attempt practice 1–5. You should be able to trace one block, identify which numbers a normalizer sees, prevent hidden-input leakage, and distinguish reconstruction from recognition. The deployment, kernel-fusion and hybrid-design branches in §7 and practice 6–8 deepen that understanding; they are not prerequisites for the next lesson."}</Prose>
 
 <H2>{"1. Start with the comparison, not the model name"}</H2>
 
@@ -99,6 +100,10 @@ export default {
 
 <Prose>{"Between stages, channel LayerNorm precedes a 2×2 stride 2 convolution. For classification, average the final map over its two spatial axes, apply LayerNorm to the resulting 768-vector, and use a linear classifier. Averaging before versus after a nonlinear normalization is a real ordering choice; these operations generally do not commute."}</Prose>
 
+<Prose>{"Follow two locations through both head orders. At the first location channel B is larger; at the second, channel A is larger by more. Averaging first preserves that imbalance. Normalizing each location first makes their opposite channel contrasts almost cancel. The operation names and final tensor shape can match while the information passed to the classifier differs."}</Prose>
+
+<ConvNeXtHeadOrderFigure />
+
 <Prose>{"The hierarchy is useful beyond classification. A segmentation head can use fine-grid features to locate boundaries and coarse-grid features for context. A detector can attach heads to multiple scales. This explains why exposing stage outputs matters even when the original model's final head produces only one label."}</Prose>
 
 <Prose>{"Increasing channels while decreasing area also explains stage cost. Doubling "}<InlineMath>{"C"}</InlineMath>{" and dividing "}<InlineMath>{"HW"}</InlineMath>{" by 4 leaves the leading "}<InlineMath>{"8HWC^2"}</InlineMath>{" term unchanged "}<strong>{"per block"}</strong>{". The depthwise term halves. Adding more blocks to the third stage concentrates work there. The Tiny stage depths are 3,3,9,3:18 blocks. Small, Base, Large and XLarge V1 configurations use 3,3,27,3:36 blocks."}</Prose>
@@ -145,6 +150,8 @@ export default {
 
 <Prose>{"Those parameters can change on the first optimizer update. The initial input derivative equals "}<InlineMath>{"X"}</InlineMath>{" for this loss; afterward the learned GRN response changes the input derivative too. The "}<a href={"/learn-assets/convnext-modern-cnn-designs/author-checks.py"}>{"author calculations"}</a>{" check the scale gradients against independent central differences."}</Prose>
 
+<Prose>{"You can obtain those gradients without differentiating the norm yet. Holding the input fixed, a small change in "}<InlineMath>{"\\gamma_c"}</InlineMath>{" changes output location "}<InlineMath>{"h,w"}</InlineMath>{" by "}<InlineMath>{"X_{h,w,c}R_c"}</InlineMath>{". At identity, the upstream squared-loss derivative is "}<InlineMath>{"Y=X"}</InlineMath>{". Summing over locations therefore gives "}<InlineMath>{"\\partial L/\\partial\\gamma_c=R_c\\sum_{h,w}X_{h,w,c}^2"}</InlineMath>{": for A, multiply "}<InlineMath>{"5/(8.5+\\epsilon)"}</InlineMath>{" by "}<InlineMath>{"3^2+4^2=25"}</InlineMath>{"; for B, multiply "}<InlineMath>{"12/(8.5+\\epsilon)"}</InlineMath>{" by 144. The bias gradient sums the upstream values, giving 7 and 12. A zero parameter value does not imply a zero slope with respect to that parameter. Derivatives through the shared norm matter for the input path once its multiplier is nonzero."}</Prose>
+
 <Prose>{"V2 removes the V1 LayerScale and adds two GRN vectors at width "}<InlineMath>{"4C"}</InlineMath>{". Thus its block has "}<InlineMath>{"8C^2+65C"}</InlineMath>{" parameters: "}<InlineMath>{"8C"}</InlineMath>{" added and "}<InlineMath>{"C"}</InlineMath>{" removed, a net "}<InlineMath>{"7C"}</InlineMath>{". At "}<InlineMath>{"C=96"}</InlineMath>{", this is 79,968 parameters; 672 more than V1. GRN itself starts as identity; removing LayerScale does not make the "}<strong>{"whole V2 residual branch"}</strong>{" tiny."}</Prose>
 
 <H2>{"5. Learn from missing pixels without giving away the answer"}</H2>
@@ -164,6 +171,8 @@ export default {
 <Prose>{"In a multistage convolutional encoder, masking the raw input alone is not the same as maintaining a fixed set of active feature locations. Convolution can write features into inactive locations; biases and channel transformations can make zero inputs nonzero. A masked-dense implementation must keep its intended active set masked at the relevant operations. A sparse implementation explicitly represents and computes on active coordinates. Their runtime costs and normalization behavior must be checked separately."}</Prose>
 
 <Prose>{"The published "}<strong>{"fully convolutional masked autoencoder"}</strong>{", FCMAE, masks 60% of 32×32 input patches, matching the final encoder-grid granularity, and propagates that mask through the hierarchy. Its lightweight decoder receives encoded visible features and mask tokens at missing positions. Its loss uses patch-normalized hidden targets. Our small experiment below preserves the visibility/target distinction while deliberately using smaller patches and a simpler loss. "}<a href={"https://arxiv.org/pdf/2301.00808"}>{"FCMAE construction"}</a>{""}</Prose>
+
+<Prose>{"Patch normalization changes the question asked by the loss. In a constructed two-pixel patch, subtracting the patch mean and dividing by its population standard deviation maps both [1, 3] and [11, 13] to [−1, 1] before the numerical ε. The second patch is brighter, but their within-patch contrast is identical. A normalized-target loss asks the decoder to recover that contrast; raw-pixel loss also penalizes the brightness difference. This target transformation belongs on the scoring path. Passing its hidden-pixel mean or scale into the encoder would cross the information boundary. Neither loss alone establishes that the features preserve everything a downstream task needs."}</Prose>
 
 <ConvNeXtMaskFigure />
 
@@ -273,6 +282,8 @@ export default {
 
 <Prose>{"A hybrid can use local convolution where the grid is large and more global input-dependent interactions after the grid has shrunk. "}<a href={"https://arxiv.org/pdf/2106.04803"}>{"CoAtNet"}</a>{" studies such stage arrangements. "}<a href={"https://arxiv.org/pdf/2204.01697"}>{"MaxViT"}</a>{" alternates local block attention with a sparse grid arrangement that connects distant positions. These are concrete choices about which positions communicate, not evidence that adding attention anywhere must help."}</Prose>
 
+<Prose>{"Count the possible conversations to see the cost motivation. Full attention over a 56×56 grid has 3,136 query positions and 3,136 potential keys per query: 9,834,496 position pairs per head. At 14×14 there are 196²=38,416 pairs, 256 times fewer. A local 7×7 stencil instead inspects at most 49 grid offsets per output. This counts spatial connections, not complete runtime or memory: projections, channel width, boundaries and fused implementations still matter. Downsampling makes global communication cheaper but can discard the fine detail needed for localization. Choosing the stage is therefore a trade between evidence resolution and communication, not merely a preference for one layer name."}</Prose>
+
 <Prose>{"For a factory-defect application, local texture may matter alongside long-range alignment between repeated parts. A ConvNeXt feature hierarchy, a larger convolutional receptive field and a hybrid interaction pattern are competing hypotheses. Split by production unit or scene when multiple images share an origin, establish a simple baseline, then examine the errors that distinguish those hypotheses. A smaller-input label classifier and a high-resolution localization system need different evaluation and memory budgets."}</Prose>
 
 <Prose>{"The later attention and vision-transformer lessons develop the weighted-sum mechanism in full. Here the useful connection is to ask "}<strong>{"which evidence can reach this output, through which operation, at what resolution and cost?"}</strong>{""}</Prose>
@@ -307,9 +318,9 @@ export default {
 
 </details>
 
-<H2>{"8. Practice: reason about a changed design"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"8. Practice: reason about a changed design"}</H2>
 
-<H3>{"1. Catch a shape-correct normalization error"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Catch a shape-correct normalization error"}</H3>
 
 <Prose>{"A tensor has shape "}<InlineMath>{"N,32,7,32"}</InlineMath>{". Someone applies "}<code>{"nn.LayerNorm(32)"}</code>{" directly and says it normalizes channels. Explain what it actually does and give a correct channel-normalization route."}</Prose>
 
@@ -323,9 +334,9 @@ export default {
 
 <Prose>{"It normalizes the final width axis of length 32, independently for each specimen/channel/row. Permute to "}<InlineMath>{"N,7,32,32"}</InlineMath>{" with the original channel axis last, apply LayerNorm(32), and permute back. Name the axes explicitly: both trailing dimensions happen to be 32 after the permutation, so shape inspection alone is insufficient. The unchanged intended output shape does not prove the operation is correct."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Change the expansion and count what changed"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Change the expansion and count what changed"}</H3>
 
 <Prose>{"Use a 5×5 depthwise kernel, input/output width 64 and expansion factor 3 in a V1-style block. Include all biases, channel LayerNorm and LayerScale. How many parameters and convolution/linear MACs does the block use on a 14×14 grid?"}</Prose>
 
@@ -339,9 +350,9 @@ export default {
 
 <Prose>{"Depthwise has "}<InlineMath>{"25C+C"}</InlineMath>{"; LayerNorm "}<InlineMath>{"2C"}</InlineMath>{"; the two linear layers "}<InlineMath>{"3C^2+3C"}</InlineMath>{" and "}<InlineMath>{"3C^2+C"}</InlineMath>{"; LayerScale "}<InlineMath>{"C"}</InlineMath>{". Total "}<InlineMath>{"6C^2+33C=26,688"}</InlineMath>{". Conv/linear MACs are "}<InlineMath>{"196(25\\cdot64+6\\cdot64^2)=5,130,496"}</InlineMath>{". Normalization, activations and additions are excluded from that declared operation count."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Predict a cross-channel effect"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Predict a cross-channel effect"}</H3>
 
 <Prose>{"For the GRN example, keep "}<InlineMath>{"\\gamma_A=.5"}</InlineMath>{", set "}<InlineMath>{"\\gamma_B=0"}</InlineMath>{", and change B's second value 12→24. Does A's first output rise or fall? Does setting both scales to zero make the statistics stop changing?"}</Prose>
 
@@ -355,9 +366,9 @@ export default {
 
 <Prose>{"A's relative response becomes "}<InlineMath>{"5/(14.5+\\epsilon)"}</InlineMath>{", smaller than before, so its first output falls to approximately "}<InlineMath>{"3(1+.5\\cdot5/14.5)=3.517241"}</InlineMath>{". Zero scales remove the response-dependent contribution from the output; the norms still change internally. GRN's identity initialization and its statistic computation are different facts."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Diagnose suspiciously good reconstruction"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Diagnose suspiciously good reconstruction"}</H3>
 
 <Prose>{"The encoder masks pixel values, but first subtracts each full image's mean, calculated using visible and hidden pixels. A hidden-pixel edit changes the model's prediction. Is this necessarily a defect in the convolution code? Propose a repair and a direct check."}</Prose>
 
@@ -371,9 +382,9 @@ export default {
 
 <Prose>{"The full-image mean carries hidden information into the centered visible pixels. The convolution can be implemented correctly while the input contract leaks. Use a fixed permitted scale, training-set statistics learned without the evaluated image, or a clearly specified visible-only statistic. Change one hidden target while holding mask and visible values fixed; predictions should stay unchanged under the repaired contract. The hidden-target loss can still change. Target-only patch normalization is a separate path and must not be reused to normalize the encoder input."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Choose the conclusion supported by the experiment"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Choose the conclusion supported by the experiment"}</H3>
 
 <Prose>{"A colleague reports, “GRN learns more diverse channels, therefore it improves digit recognition and should replace the raw baseline.” Use the saved outcomes to rewrite the conclusion and name one additional experiment that would answer a genuinely missing question."}</Prose>
 
@@ -387,9 +398,9 @@ export default {
 
 <Prose>{"On this development split the GRN variants' probes get 116/120 versus 115/120, while the raw-pixel probe gets 118/120. GRN does not increase the measured diversity in all seeds and does not improve masked MSE in seed 1. This supports a small paired probe difference in this setting, not the proposed causal explanation or replacement decision. For a pretraining question, predeclare matched random-encoder and pretrained-encoder probes with the same architecture and label budget. For a deployment choice, select using development data and evaluate once on a new appropriately grouped final set."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Check a branch-fusion boundary"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Check a branch-fusion boundary"}</H3>
 
 <Prose>{"For scalar input "}<InlineMath>{"x=-2"}</InlineMath>{", compare "}<InlineMath>{"\\operatorname{ReLU}(x)+\\operatorname{ReLU}(-x)"}</InlineMath>{" with "}<InlineMath>{"\\operatorname{ReLU}(x-x)"}</InlineMath>{". Can the separate branch activations be removed while preserving the function?"}</Prose>
 
@@ -403,9 +414,9 @@ export default {
 
 <Prose>{"The first gives "}<InlineMath>{"0+2=2"}</InlineMath>{"; the second gives 0. Linear branch kernels can be added only where the intermediate operations permit the algebra. Keeping one shared activation after an equivalent linear sum is valid; replacing separate nonlinear branches with that shared activation is a different model."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. Budget a finer stem"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Budget a finer stem"}</H3>
 
 <Prose>{"Replace a 4×4 stride 4 stem with a 2×2 stride 2 stem on 224×224 inputs while keeping all later stage widths and depths unchanged. What happens to the first grid, the block MACs and the head's parameter count?"}</Prose>
 
@@ -419,9 +430,9 @@ export default {
 
 <Prose>{"The first grid becomes 112×112 instead of 56×56. Every corresponding later grid has twice the side length, so block conv/linear MACs and transition MACs become four times larger. Stem MACs happen to remain equal here: four times as many outputs each use one quarter as many spatial weights. Stem parameters fall, but the global-average-pooling classifier's input width and head parameter count stay unchanged. Activation memory also grows; accuracy and latency cannot be deduced from this count alone."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"8. Design an informative masked-learning extension"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Design an informative masked-learning extension"}</H3>
 
 <Prose>{"You have 20 labeled specimens per class and many unlabeled images from repeated capture sessions. Propose a comparison to ask whether masked pretraining helps when labels are scarce. Include the split unit, baseline, preprocessing, model comparison and final evaluation."}</Prose>
 
@@ -435,9 +446,9 @@ export default {
 
 <Prose>{"Split capture sessions before training so related views do not cross partitions. Restrict both supervised and unlabeled pretraining inputs to training sessions. Fix the same labeled subset and feature-readout recipe for raw pixels, a random frozen encoder and the pretrained frozen encoder; optionally add a separately declared end-to-end supervised model. Fit preprocessing on training data, select any settings on development sessions, and report the chosen protocol once on held-out sessions. Record reconstruction and downstream task outcomes separately and repeat paired seeds. Do not call extra unlabeled access “the same data budget” unless that is explicitly the question."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"9. Readiness, connections and other ways to learn"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"9. Readiness, connections and other ways to learn"}</H2>
 
 <Prose>{"You are ready to move on when you can explain a block using spatial and channel operations, mark the inputs used by each normalization statistic, trace a masked target without leaking it into the encoder, and state what the actual experiment demonstrates. Memorizing every model size or reproducing ImageNet training is not required."}</Prose>
 
@@ -447,6 +458,6 @@ export default {
 
 <ul><li>{""}<a href={"https://github.com/facebookresearch/ConvNeXt/blob/main/models/convnext.py"}>{"Official ConvNeXt source"}</a>{": inspect the block, channel-first LayerNorm, stage transitions and initialization after working through §§2–3. Code reading is particularly useful for distinguishing logical axes from the diagram."}</li><li>{""}<a href={"https://arxiv.org/pdf/2201.03545"}>{"ConvNeXt V1 paper"}</a>{": read §2 as an experiment-design argument, then compare the small-regime roadmap in Appendix C with the final result table. The roadmap's roughly 82.0% average and final 82.1% checkpoint report are different records."}</li><li>{""}<a href={"https://arxiv.org/pdf/2301.00808"}>{"ConvNeXt V2 paper"}</a>{" and "}<a href={"https://cvpr.thecvf.com/media/cvpr-2023/Slides/22892_lw8881R.pdf"}>{"authors' CVPR slides"}</a>{": the paper supplies the mask/GRN details; the slides offer a visual second pass through masking, feature maps and co-design. Their full-scale experiments differ from our bounded dense-masked probe experiment."}</li><li>{""}<a href={"https://docs.pytorch.org/tutorials/intermediate/memory_format_tutorial.html"}>{"PyTorch channels-last tutorial"}</a>{": a hands-on storage-stride explanation. Its hardware results belong to the measured configurations; use the concepts to inspect your own workload."}</li><li>{""}<a href={"https://en.d2l.ai/chapter_convolutional-modern/cnn-design.html"}>{"Dive into Deep Learning: Designing Convolution Network Architectures"}</a>{": study the AnyNet→RegNet design-space argument as an alternative to memorizing model families. The chapter's broader historical rankings are time-specific; its distribution-of-designs perspective is the useful complement here."}</li><li>{""}<a href={"https://arxiv.org/pdf/2203.06717"}>{"RepLKNet"}</a>{", "}<a href={"https://arxiv.org/pdf/2206.04040"}>{"MobileOne"}</a>{", "}<a href={"https://arxiv.org/pdf/2106.04803"}>{"CoAtNet"}</a>{" and "}<a href={"https://arxiv.org/pdf/2204.01697"}>{"MaxViT"}</a>{": optional mechanism-focused extensions for large kernels, inference-time branch folding, stage ordering and local/global communication. Read the ablation conditions before generalizing a result."}</li></ul>
 
-<Prose>All local experimental numbers come from the accompanying programs and retained results. Read the <a href={convnextAsset+"data-provenance.md"}>dataset provenance</a> and <a href={convnextAsset+"native-verification.json"}>current native verification record</a> for execution boundaries. The six original fits are conserved, with fresh native reconstruction and independent browser-model comparisons; no ImageNet training, pretrained photograph run or hardware timing is claimed.</Prose>
+<Prose>All local experimental numbers come from the accompanying programs and retained results. Read the <a href={convnextAsset+"data-provenance.md"}>dataset provenance</a> and <a href={convnextAsset+"native-verification.json"}>current native verification record</a> for execution boundaries. The six original fits are conserved, with fresh native reconstruction and independent browser-model comparisons; no ImageNet training, pretrained photograph run or hardware timing is claimed.</Prose></section>
 </div>
 };

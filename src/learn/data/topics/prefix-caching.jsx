@@ -885,9 +885,9 @@ Multi-tenant self-hosted deployment  | Enable with tenant-scoped hashing     | W
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Compute prefill savings for a 10K-token prompt with 9K cached prefix</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Compute prefill savings for a 10K-token prompt with 9K cached prefix</H3>
 
       <Prose>
         A production agent sends a request consisting of a 9,000-token system prompt (tool definitions, instructions, few-shot examples) followed by a 1,000-token user message and current context. The serving stack has the system prompt's KV blocks cached from the previous request, which was sent 90 seconds ago. Compute: (a) the prefill savings fraction, (b) the absolute token count that must be prefilled, (c) whether the cache would hit for Anthropic's ephemeral tier (5-minute TTL) at this inter-request interval. Now change the scenario: the user modifies one word in the instructions at position token 4,500. How many blocks are still cacheable, assuming a block size of 16 tokens?
@@ -904,15 +904,15 @@ Multi-tenant self-hosted deployment  | Enable with tenant-scoped hashing     | W
 # Block 281 onward: all diverge (hash includes prefix)
 # Cacheable tokens = 281 * 16 = 4,496
 # Savings = 4496 / 10000 = 44.96% (still meaningful, but far less than unmodified)`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2: Design a cache-aware rate limiter</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Design a cache-aware rate limiter</H3>
 
       <Prose>
         You operate a multi-tenant inference API with prefix caching enabled. Each tenant is allocated a rate limit of 1,000,000 tokens per minute. With prefix caching, a tenant's effective token throughput is higher than their raw request count would suggest — cached tokens are not prefilled, so the GPU can process more requests in the same time. Design a rate limiter that: (a) counts cache-hit tokens at a discounted rate (reflecting their lower GPU cost), (b) still enforces a per-tenant memory cap on cached prefix blocks to prevent one tenant from monopolizing the cache, and (c) degrades gracefully when a tenant approaches their memory cap (evict cold blocks within the tenant's namespace before evicting hot ones).
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: When does hash-based caching miss on semantically identical but byte-different prefixes?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: When does hash-based caching miss on semantically identical but byte-different prefixes?</H3>
 
       <Prose>
         Identify four concrete scenarios where two prompts are semantically equivalent but byte-different, causing the prefix cache to miss even though the KV outputs would be identical. For each, explain whether the miss is avoidable and what the fix would require.
@@ -935,9 +935,9 @@ Multi-tenant self-hosted deployment  | Enable with tenant-scoped hashing     | W
 #    Avoidable with normalization at the API boundary.
 #    Note: none of these are addressable by improving the hash function —
 #    the hash is correct; the issue is upstream byte representation.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 4: Estimate memory for caching the top-100 most-used system prompts</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Estimate memory for caching the top-100 most-used system prompts</H3>
 
       <Prose>
         Your platform serves 500 distinct system prompts, of which the top 100 account for 95% of traffic. The average length of a top-100 system prompt is 8,000 tokens. You are deploying Llama 3 8B (32 layers, 8 KV heads, head dimension 128) in BF16 on an A100 80GB. The model weights consume approximately 16 GB. Compute: (a) the KV cache memory required to permanently hold the top-100 system prompts, (b) how much of the A100's remaining memory this occupies, and (c) whether it is feasible to hold all top-100 prefixes simultaneously alongside a 32-concurrent-session workload at average context 4,096 tokens.
@@ -962,9 +962,9 @@ Multi-tenant self-hosted deployment  | Enable with tenant-scoped hashing     | W
 # (c) concurrent session memory at 4k context, BF16:
 #   = 32 * 4096 * 128 KB = 16,777,216,000 bytes ≈ 15.6 GB
 # Combined (FP8 prefixes + BF16 sessions): ~49 + 15.6 = 64.6 GB < 64 GB avail → tight`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 5: Predict impact of prefix caching on a workload with zero prefix reuse</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Predict impact of prefix caching on a workload with zero prefix reuse</H3>
 
       <Prose>
         A content generation pipeline produces unique, fully personalized documents. Each request consists of a 500-token system prompt that is unique per user (includes their name, preferences, account data), followed by a 200-token topic specification. No two requests share any prefix beyond the first token (a standard role marker). Predict: (a) the expected block hit rate, (b) the prefill savings, (c) the net impact of enabling prefix caching on this workload, and (d) what optimizations would actually help this workload if prefix caching does not.
@@ -992,7 +992,7 @@ Multi-tenant self-hosted deployment  | Enable with tenant-scoped hashing     | W
 #     - KV cache quantization (increase concurrent session count)
 #     - Move shared boilerplate to the front and user-specific data to a
 #       non-cached tail (restructure the prompt so shared portions CAN be cached)`}
-      </CodeBlock>
+      </CodeBlock></div></section>
 
     </div>
   ),

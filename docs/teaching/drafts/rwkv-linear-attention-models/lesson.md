@@ -220,7 +220,7 @@ Adding the same small ε to the raw and rescaled denominators does not preserve 
 
 The complete [linear_memory_mechanisms.py](linear_memory_mechanisms.py) implements direct log-weight enumeration, the stable recurrence, chunked positive-kernel attention and the later memory updates. Run `python linear_memory_mechanisms.py` with NumPy installed. It writes [mechanism-results.json](mechanism-results.json); the direct and recurrent outputs above agree, and the large key-shift test remains finite.
 
-**Investigation — which change affects today's read, and which changes tomorrow's memory?** Edit values, key strengths, retention and current bonus. inspect a chosen output and whether stored history changes. Compare read and write contributions on separate timelines; then add a common large key offset. The lab begins with an visible sequence, includes a constant-value case, and lets you inspect the stable state without displaying overflowing raw values as valid numbers. Its goal is to separate memory semantics from numerical representation.
+**Investigation — which change affects today's read, and which changes tomorrow's memory?** Edit values, key strengths, retention and current bonus. inspect a chosen output and whether stored history changes. Compare read and write contributions on separate timelines; then add a common large key offset. The lab begins with a visible sequence, includes a constant-value case, and lets you inspect the stable state without displaying overflowing raw values as valid numbers. Its goal is to separate memory semantics from numerical representation.
 
 
 ## 5. From one memory channel to a trainable sequence model
@@ -274,15 +274,15 @@ M_new=M_old+β error kᵀ.
 
 This is one gradient-descent step on the local loss ½||M k−v||². Its gradient is (M k−v)kᵀ. With unit-norm keys and β=1, retrieval at that key becomes exactly the new value. With 0<β<1, it moves part of the way. If keys are not unit norm, the effective step on the retrieved value is multiplied by ||k||²; normalization is substantive.
 
-For the same three writes and β=1, the states are [2,0], then[2,7], then[5,7]. A's outdated reading is replaced while B survives. At the final write the residual is 5−2=3, so we add[3,0], not[5,0].
+For the same three writes and β=1, the states are [2,0], then [2,7], then [5,7]. A's outdated reading is replaced while B survives. At the final write the residual is 5−2=3, so we add[3,0], not[5,0].
 
 **Inline visual — the address that gets corrected.** Show a two-coordinate key compass above a one-row memory matrix. The additive branch deposits a full value; the delta branch first reads, displays its signed error, and deposits only that correction. A neighboring independent key stays highlighted to show whether its answer changes.
 
 The gradient interpretation is real arithmetic, not a metaphor. Starting from M=[2,7], key [1,0] and target 5, loss=4.5, gradient=[−3,0], and a step β=.5 produces M=[3.5,7]. Our NumPy and autograd calculations agree. It is **fast state adaptation inside the forward pass**, while the outer training process learns the projections and update parameters.
 
-Keys interfere when they are not orthogonal. Replace B's key by[.6,.8]. After the first two delta writes the memory is [5.48,4.64]. It retrieves B as7, but it no longer retrieves A as2. Updating A to 5 produces [5,4.64], after which B retrieves 6.712. A finite vector space cannot provide arbitrarily many mutually orthogonal address directions.
+Keys interfere when they are not orthogonal. Replace B's key by [.6,.8]. After the first two delta writes the memory is [5.48,4.64]. It retrieves B as7, but it no longer retrieves A as2. Updating A to 5 produces [5,4.64], after which B retrieves 6.712. A finite vector space cannot provide arbitrarily many mutually orthogonal address directions.
 
-**Investigation — can a memory update one address without damaging another?** Create or edit a sequence of key–value writes, choose a retrieval query and Show the current computed result and its contributing terms immediately. Compare additive writes, partial correction and full correction. Rotate a key toward another key, alter a repeated value, and inspect the residual and final retrieval error. The fresh starting task uses different keys, values and a partial update; a zero-update-rate case shows what “no learning” really means.
+**Investigation — can a memory update one address without damaging another?** Create or edit a sequence of key–value writes, choose a retrieval query and show the current computed result and its contributing terms immediately. Compare additive writes, partial correction and full correction. Rotate a key toward another key, alter a repeated value, and inspect the residual and final retrieval error. The fresh starting task uses different keys, values and a partial update; a zero-update-rate case shows what “no learning” really means.
 
 ### RWKV-5 and 6: a matrix state with structured forgetting
 
@@ -330,7 +330,7 @@ The transition is diag([.2,.9]), and the new memory is [[5.4,6.3],[1.8,2.7]]. Fi
 
 and M_new=[[4.152,5.212],[.552,2.412]]. Off-diagonal entries now couple key directions. A set of independent scalar forget gates cannot express that same cross-direction transition.
 
-**Inline visual — erase direction, write direction.** Show the initial 2×2 matrix, a diagonal decay, a rank-one subtraction tile and a rank-one addition tile. A compass indicates removal and replacement directions separately. Include both checked fixtures and reveal the resulting matrix after the learner has interpreted the signs. A negative tile means subtraction, not a negative probability.
+**Inline visual — erase direction, write direction.** Show the initial 2×2 matrix, a diagonal decay, a rank-one subtraction tile and a rank-one addition tile. A compass indicates removal and replacement directions separately. Show both checked fixtures and every resulting matrix immediately as the removal direction changes. A negative tile means subtraction, not a negative probability.
 
 The full model learns those vectors from token-shifted input using projections and small low-rank branches. It normalizes κ per head; uses a sigmoid to keep a in(0,1); constrains w via exp[−exp(−.5)σ(d)]; and mixes a value precursor from the first layer with the current layer's precursor. The readout applies receptance to the updated matrix, normalizes within the head, adds a separately weighted current-token value term, then gates and projects the combined heads. Its feed-forward branch retains squared ReLU but removes the earlier receptance gate. Thus “change the recurrence” alone does not recreate a released RWKV-7 block.
 

@@ -295,12 +295,12 @@ export function SelectionLab() {
         rows={applied.enumeration.byOnesCount.map(row => [
           row.ones, row.patterns, `${row.patterns}/16`, row.bestCorrect.join(' or '),
         ])} />
-      <details>
-        <summary>Inspect all 16 label patterns and reconstruct the average</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Inspect all 16 label patterns and reconstruct the average</h4>
         <Table id="enumeration-detail" caption="Each row has probability 1/16. Sum the best correct counts and divide by 16 × 4 to recover the average selected accuracy."
           headings={['labels', 'selected rule', 'best correct count', 'selected accuracy', 'probability']} numeric={[2, 3, 4]}
           rows={applied.enumeration.rows.map(row => [row.labels.join(' '), row.winner, row.bestCorrect, `${row.bestCorrect}/4`, '1/16'])} />
-      </details>
+      </section>
       <div className="cv-readout">
         <dl>
           <dt>Patterns enumerated</dt><dd>{applied.enumeration.patternCount}</dd>

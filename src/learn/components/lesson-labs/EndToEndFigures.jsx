@@ -44,8 +44,8 @@ export function StudyProgram() {
       download <a href={example.download} download>the program itself</a>. The CSV already contains the input,
       so running the example downloads nothing.
     </Prose>
-    <CodeBlock language="sh">{example.setup}</CodeBlock>
-    <CodeBlock language={example.language}>{example.code}</CodeBlock>
+    <CodeBlock language="sh" filename="wine-study-setup.sh">{example.setup}</CodeBlock>
+    <CodeBlock language={example.language} filename={example.file}>{example.code}</CodeBlock>
     <Prose dim>What it prints, up to the moment it opens the test set:</Prose>
     {/* Declared program output. The shared CodeBlock renders a styled <div>
         rather than a <pre>, so the unbadged-score sweep cannot recognise it by
@@ -53,7 +53,7 @@ export function StudyProgram() {
         place a role badge cannot go — the bytes are the program's, not the
         page's — and the surrounding prose names what the three numbers are. */}
     <div data-program-output="the study program's own stdout, which the page reproduces verbatim">
-      <CodeBlock language="output">{example.developmentOutput}</CodeBlock>
+      <CodeBlock language="output" filename="wine-study-development-output.txt">{example.developmentOutput}</CodeBlock>
     </div>
     <Prose>
       The three numbers after each candidate name are balanced accuracy, accuracy and log loss, all measured on
@@ -69,7 +69,7 @@ export function StudyHeldOutOutput() {
   return <HeldOutOnly placeholder={'The last four lines the program printed open the test set. They appear '
     + 'here once the decision they report on has been frozen in the investigation above.'}>
     <div data-program-output="the study program's own stdout, which the page reproduces verbatim">
-      <CodeBlock language="output">{example.heldOutOutput}</CodeBlock>
+      <CodeBlock language="output" filename="wine-study-held-out-output.txt">{example.heldOutOutput}</CodeBlock>
     </div>
   </HeldOutOnly>;
 }

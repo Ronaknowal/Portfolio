@@ -1,0 +1,18 @@
+.spectral-two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.spectral-two > *, .spectral-figure, .spectral-plane { min-width:0; }
+.spectral-figure, .spectral-plane { border:1px solid #444; border-radius:.4rem; background:#141414; padding:1rem; margin:1rem 0; }
+.spectral-figure figcaption, .spectral-plane figcaption { color:#e6b854; font-weight:650; line-height:1.5; margin-bottom:.6rem; }
+.spectral-scroll { overflow-x:auto; max-width:100%; }
+.spectral-scroll svg { display:block; height:auto; }
+.spectral-vector { padding:.7rem; border:1px solid #555; margin:.8rem 0; min-width:0; }
+.spectral-vector .neural-number-control--numeric { grid-template-columns:minmax(0,1fr); }
+.spectral-cell { display:inline-block; min-width:56px; padding:.3rem; font-family:monospace; }
+.spectral-card { border-left:3px solid #e6b854; padding:.8rem; background:#181818; }
+.spectral-lesson p, .spectral-lesson a { overflow-wrap:anywhere; }
+.spectral-plane svg { min-width:320px; }
+.spectral-plot-size { min-width:340px; }
+.spectral-data-canvas { width:320px; height:320px; max-width:none; }
+.spectral-image { image-rendering:pixelated; }
+.spectral-stores { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:1rem; }
+.spectral-code { white-space:pre; overflow:auto; max-width:100%; padding:1rem; background:#101010; font-size:.8rem; }
+@media(max-width:720px) { .spectral-two { grid-template-columns:minmax(0,1fr); } .spectral-figure, .spectral-plane { padding:.7rem; } }

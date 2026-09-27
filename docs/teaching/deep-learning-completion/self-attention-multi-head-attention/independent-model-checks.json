@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T18:40:50.625Z",
+  "checks": [
+    "80 independently enumerated attention reads: random dimensions, masks, signed values; common score shift and donor reorder invariants",
+    "80 value finite differences and all query-coordinate finite differences against the stated analytic gradient",
+    "30 random two-head map relabelings with corresponding output columns; row permutation equivariance",
+    "12 new frozen-model donor reorderings and arbitrary masked-padding cases, complete duplicate-point invariance, empty-pool rejection; native comparison reused from author evidence",
+    "Empty legal set, zero-mass mixtures, distinct distributions with equal mixtures; independently derived storage units and length scaling"
+  ],
+  "sourceHashes": {
+    "scripts/review-self-attention.mjs": "6c5f30b061106b28a7829fd5550012ceb24fbab2bbb5cffad091e70867e1e471",
+    "src/learn/data/self-attention-models.js": "47afb9f5870b77dbb6d62ea52fa0c3587dcf60cea352b747e57db92054688971",
+    "public/learn-assets/self-attention-multi-head-attention/trajectory-model.json": "e822bcaa9899e5579ac29e80a683b8f62f567225e09d64458bd12592209761d0"
+  }
+}

@@ -961,7 +961,7 @@ Downstream rate-shaping (outbound)    Leaky bucket                Smooth output;
       {/* ======================================================================
           11. EXERCISES
           ====================================================================== */}
-      <H2>11. Exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Exercises</H2>
 
       <Prose>
         <strong>Exercise 1 — Burst vs. sustained.</strong> A client has a token bucket with capacity 60,000 and refill rate 1,000 tokens/second. They want to send a single 55,000-token request every 60 seconds. Show that this pattern is feasible without any rejections. Then show what happens if they try to send two 30,000-token requests 10 seconds apart. Derive the minimum idle time between requests of cost <em>N</em> given a bucket with capacity <em>C</em> and refill rate <em>R</em>.
@@ -981,7 +981,7 @@ Downstream rate-shaping (outbound)    Leaky bucket                Smooth output;
 
       <Prose>
         <strong>Exercise 5 — Quota refund impact.</strong> Given a system where clients set <Code>max_tokens=4096</Code> but the model stops at a token count drawn uniformly from [100, 4096], compute the expected fraction of quota consumed versus reserved across one million requests. How much would the per-user monthly budget need to increase if the provider switched to charging reservations rather than actual output? At what distribution of actual token counts does the reservation model break even with the actual model?
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

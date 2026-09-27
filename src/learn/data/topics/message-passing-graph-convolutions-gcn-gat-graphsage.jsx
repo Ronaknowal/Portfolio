@@ -1,1308 +1,436 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const messagePassingGNNContent = {
-  title: "Message Passing & Graph Convolutions (GCN, GAT, GraphSAGE)",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Most data that machine learning consumes is either a grid (image, audio spectrogram), a sequence (text, time series), or a flat table (tabular features). Convolutional networks exploit grid structure with shared local kernels and translation equivariance; recurrent and Transformer architectures exploit sequence order with positional encodings and causal attention. But a great deal of the world is none of these. Citation networks, social networks, molecules, knowledge graphs, road networks, recommender systems, protein-protein interactions, abstract syntax trees, mesh geometries — these are graphs, with arbitrary topology and no fixed coordinate system. Pixels at <Code>{"(i, j)"}</Code> always have a neighbor at <Code>{"(i+1, j)"}</Code>; nodes in a graph have whatever neighbors the edge set decided. There is no canonical ordering, no fixed degree, no spatial regularity. Standard CNNs and RNNs cannot operate on this without first projecting it into a grid or sequence and losing exactly the structure that matters.
-      </Prose>
-
-      <Prose>
-        The first attempt at a neural network for arbitrary graphs is older than most of us remember. Franco Scarselli, Marco Gori, Ah Chung Tsoi, Markus Hagenbuchner, and Gabriele Monfardini introduced the original "Graph Neural Network" model in IEEE Transactions on Neural Networks (2008/2009), defining a recurrent fixed-point iteration over node states until convergence. Each node's state was a function of its neighbors' states; the model trained by Almeida-Pineda backpropagation through the implicit equilibrium. It worked, in principle, on tasks like web-page classification — but it was slow, finicky to converge, and never gained traction outside a small academic community. The deep learning revolution arrived a few years later and largely passed graphs by; until 2014, most "graph machine learning" still meant random walks (DeepWalk, node2vec) or kernel methods (Weisfeiler-Lehman kernels) rather than end-to-end learned representations.
-      </Prose>
-
-      <Prose>
-        The breakthrough came from a detour through spectral graph theory. Joan Bruna, Wojciech Zaremba, Arthur Szlam, and Yann LeCun's 2014 ICLR paper "Spectral Networks and Locally Connected Networks on Graphs" (arXiv:1312.6203) defined a "graph convolution" by analogy: in the Euclidean setting, convolution is multiplication in the Fourier domain, and the Fourier basis is the eigenbasis of the Laplacian; on a graph, the analogous Laplacian has its own eigenbasis, so a "convolution" is multiplication by a learned diagonal matrix in that basis. The construction was mathematically clean but computationally awful — eigendecomposition of the Laplacian costs <Code>{"O(N^3)"}</Code>, and the resulting filters were not localized in space. Michaël Defferrard, Xavier Bresson, and Pierre Vandergheynst's 2016 NeurIPS paper "Convolutional Neural Networks on Graphs with Fast Localized Spectral Filtering" (ChebNet, arXiv:1606.09375) fixed both issues by approximating the filter as a degree-K Chebyshev polynomial of the Laplacian, giving K-localized filters with linear cost in edges.
-      </Prose>
-
-      <Prose>
-        Then in October 2016, Thomas Kipf and Max Welling at the University of Amsterdam posted "Semi-Supervised Classification with Graph Convolutional Networks" (arXiv:1609.02907, ICLR 2017). They simplified ChebNet to its first-order approximation — K = 1, plus a renormalization trick to keep the spectrum bounded — and arrived at a layer of breathtaking simplicity: <Code>{"H^{l+1} = \\sigma(\\hat{D}^{-1/2} \\hat{A} \\hat{D}^{-1/2} H^l W^l)"}</Code> where <Code>{"\\hat{A} = A + I"}</Code> adds self-loops and <Code>{"\\hat{D}"}</Code> is the corresponding degree matrix. Two layers of this on the 1433-feature Cora citation network, trained semi-supervised with only 20 labeled nodes per class, beat every prior method by a comfortable margin. The paper exploded — it was one of the most cited deep learning papers of 2017-2018 — because for the first time graph learning had a default architecture as simple as a 2-layer MLP. Kipf and Welling's GCN was the breakthrough; everything since has been variations on its theme.
-      </Prose>
-
-      <Prose>
-        Three follow-up papers shaped the modern landscape. William Hamilton, Rex Ying, and Jure Leskovec at Stanford published "Inductive Representation Learning on Large Graphs" (GraphSAGE) at NeurIPS 2017 (arXiv:1706.02216). Their argument: vanilla GCN is transductive — its forward pass requires the full normalized adjacency, so adding a new node at inference time forces recomputation of the entire propagation. Real-world graphs grow constantly (new users on a social network, new papers in a citation graph), and most production tasks are inductive. GraphSAGE replaces the global propagation with sampled neighborhood aggregation: for each node, sample a fixed number of neighbors at each hop, aggregate them with a permutation-invariant function (mean, LSTM-on-shuffled-input, or max-pool), concatenate with the node's own features, and project. The trained aggregator generalizes to unseen nodes and even unseen graphs.
-      </Prose>
-
-      <Prose>
-        Petar Veličković, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro Liò, and Yoshua Bengio's "Graph Attention Networks" (GAT) appeared at ICLR 2018 (arXiv:1710.10903). GAT replaced GCN's fixed degree-based weighting with learned attention: for each edge <Code>{"(i, j)"}</Code>, a small MLP scores how much node <Code>i</Code> should listen to node <Code>j</Code>, and the weights are softmax-normalized over <Code>i</Code>'s neighborhood. This delivered two things: heterogeneous neighborhoods (a hub node could weight informative neighbors more than noisy ones), and architectural symmetry with the Transformer (multi-head attention, residuals) that made it easy to scale. GAT became the default choice for graphs where attention's interpretability and edge-level gating mattered.
-      </Prose>
-
-      <Prose>
-        Justin Gilmer, Samuel Schoenholz, Patrick Riley, Oriol Vinyals, and George Dahl's "Neural Message Passing for Quantum Chemistry" (ICML 2017, arXiv:1704.01212) provided the unifying framework that made the previous three papers feel like instances of one idea. MPNN posits two functions per layer: a message function <Code>{"M_l(h_v, h_u, e_{vu})"}</Code> that computes what node <Code>u</Code> sends to node <Code>v</Code> along edge <Code>{"e_{vu}"}</Code>, and an update function <Code>{"U_l(h_v, m_v)"}</Code> that combines a node's old state with the aggregated incoming messages. Pick a particular <Code>M</Code> and <Code>U</Code>, and you get GCN, GraphSAGE, GAT, or any other variant. After Gilmer 2017, every graph paper began describing itself in MPNN terms. Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka closed the theoretical loop in "How Powerful are Graph Neural Networks?" (GIN, ICLR 2019, arXiv:1810.00826), proving that an MPNN with sum aggregation and an injective update function is as discriminative as the Weisfeiler-Lehman graph isomorphism test — the maximum power any message-passing scheme can reach without going beyond local neighborhoods.
-      </Prose>
-
-      <Prose>
-        Two larger arcs frame the field. Michael Bronstein, Joan Bruna, Yann LeCun, Arthur Szlam, and Pierre Vandergheynst's "Geometric Deep Learning" (arXiv:1611.08097) cast GNNs as one species in a broader genus that includes mesh-CNNs, equivariant networks, and group-CNNs — all neural networks for non-Euclidean data. Weihua Hu, Matthias Fey, Marinka Zitnik, Yuxiao Dong, Hongyu Ren, Bowen Liu, Michele Catasta, and Jure Leskovec's Open Graph Benchmark (OGB, arXiv:2005.00687) gave the field a serious benchmark suite — node, edge, and graph-level tasks at scales from 200K to 100M nodes, with realistic time-based splits — and finally let claims of "scaling" be tested. The most recent shift, post-2020, has been the rise of graph Transformers (Graphormer, GraphGPS) that drop sparsity entirely on small graphs and use full attention with structural encodings. As of 2026, message-passing GNNs (GCN, GAT, GraphSAGE, GIN, and their variants) remain the workhorse for billion-edge production systems; graph Transformers dominate small-graph benchmarks and molecular property prediction.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+// Full current manuscript generated by scripts/render-message-passing-lesson.mjs.
+import {Prose,H2,H3,CodeBlock} from '../../components/content';
+import {Math as InlineMath,MathBlock} from '../../components/content/Math.jsx';
+import {LessonIntro} from '../../components/lesson-labs/LessonElements.jsx';
+import {NeuralTable} from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import {MessageFigure,MessageSparseFigure} from '../../components/lesson-labs/MessagePassingFigures.jsx';
+import {MessageFlowLab,MessageGcnLab,MessageSageLab,MessageGatLab,MessageBoundaryLab,MessageSpectralLab,MessageCollisionLab,MessageSamplingLab} from '../../components/lesson-labs/MessagePassingLabs.jsx';
+import {MessageObservedFigure,MessageStudyLab,MessageProgram} from '../../components/lesson-labs/MessagePassingStudy.jsx';
+import '../../components/lesson-labs/neural-lesson-neutral.css';
+export default {title:'Message Passing & Graph Convolutions (GCN, GAT, GraphSAGE)',readTime:'~95 min read + computation and practice',hasIntegratedGuide:true,content:()=> <div className="neural-lesson neural-lesson-neutral message-passing-lesson"><LessonIntro prerequisites="Vectors, weighted sums, neural affine layers and a supervised loss; the local graph mechanism is developed before spectral theory." sections={[["1-decide-what-the-graph-represents","1. Decide what the graph represents"],["2-one-synchronized-message-passing-round","2. One synchronized message-passing round"],["3-gcn-a-normalized-weighted-sum","3. GCN: a normalized weighted sum"],["4-graphsage-and-gat-change-the-aggregation-decision","4. GraphSAGE and GAT change the aggregation decision"],["5-the-data-split-is-part-of-the-graph-model","5. The data split is part of the graph model"],["6-a-complete-experiment-on-an-observed-network","6. A complete experiment on an observed network"],["7-why-repeated-propagation-can-blur-distinctions","7. Why repeated propagation can blur distinctions"],["8-what-aggregation-can-distinguish","8. What aggregation can distinguish"],["9-sampling-batching-and-useful-applications","9. Sampling, batching and useful applications"],["10-practice-with-changed-examples","10. Practice with changed examples"],["11-references-and-another-way-to-learn","11. References and another way to learn"]]}>Follow a feature along permitted edges, keep synchronized states separate, and test a learned rule against the information boundary of its task.</LessonIntro>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit a node feature or reverse an edge and follow the next message-passing round. Compare degree weights, separate self and neighbor updates, and learned attention; then inspect how those choices affect an actual fitted graph model."}</Prose>
 
-      <Prose>
-        Strip every paper down and one mechanism remains: <strong>aggregate, then update</strong>. At each layer, every node looks at its neighbors, summarizes their features into a single vector, and combines that summary with its own previous representation to produce a new representation. Stack <Code>L</Code> such layers and a node's final embedding is a function of the subgraph reachable in <Code>L</Code> hops. Different GNNs differ only in the weighting of the aggregation and the form of the update; the skeleton is identical.
-      </Prose>
+<Prose>{"A paper’s words help identify its subject. Its citations may help too: a short ambiguous paper could cite several unmistakable robotics papers. A model that reads each paper independently misses those relationships. A graph neural network gives each paper a representation that can be updated using information from connected papers."}</Prose>
 
-      <Prose>
-        <strong>Move 1 — Permutation-invariant aggregation.</strong> A node's neighbors are a set, not a sequence. The aggregation function must be invariant under reordering: if you relabel neighbors, the output cannot change. Three operators dominate. Sum aggregation <Code>{"\\sum_{u \\in N(v)} h_u"}</Code> is the most expressive — Xu et al. (GIN, 2019) prove sum-based MPNNs are as powerful as the 1-WL graph isomorphism test, while mean and max are strictly weaker. Mean aggregation <Code>{"\\frac{1}{|N(v)|} \\sum_{u} h_u"}</Code> is shift-invariant in scale and the natural form of a "smoothing" operator on the graph. Max aggregation <Code>{"\\max_{u \\in N(v)} h_u"}</Code> picks the strongest signal per dimension and is robust to noisy neighborhoods at the cost of discarding multiplicity. Choice matters: GIN uses sum, GCN uses degree-normalized sum, GraphSAGE supports mean / LSTM / max-pool, GAT uses attention-weighted sum.
-      </Prose>
+<Prose>{"The central operation is simple: "}<strong>{"send information along permitted edges, combine the incoming messages, then update each node."}</strong>{" The same learned rule is reused across nodes. Nodes can have different numbers of neighbors, and renaming them should not change the underlying predictions."}</Prose>
 
-      <Prose>
-        <strong>Move 2 — Each layer expands the receptive field by exactly one hop.</strong> After layer 1, node <Code>v</Code>'s embedding has seen <Code>v</Code> itself and its 1-hop neighbors. After layer 2, it has seen the 2-hop neighborhood (because each 1-hop neighbor's update at layer 2 already absorbed its own 1-hop neighbors at layer 1). After <Code>L</Code> layers, the embedding has integrated the <Code>L</Code>-hop subgraph. This is the GNN analogue of receptive-field growth in CNNs, and it is the central design knob. <Code>{"L = 2"}</Code> is the most common configuration on Cora-scale graphs because most useful structure is 2 hops away and deeper nets over-smooth; molecule property prediction often uses <Code>{"L = 3-5"}</Code> because chemical signal propagates further; for huge social networks, sampled <Code>{"L = 2"}</Code> with wide neighborhood sampling at each layer is standard.
-      </Prose>
+<Prose>{"This lesson turns that idea into three concrete layers: GCN uses degree-based weights, GraphSAGE separates a node from a summary of its neighbors, and GAT learns attention weights over permitted neighbors. We will calculate a small example, train actual models on a small observed network, and inspect where these methods lose information or fail to generalize."}</Prose>
 
-      <Prose>
-        <strong>Move 3 — GCN: weighted by inverse degree.</strong> Vanilla GCN's aggregation <Code>{"\\sum_{u \\in N(v) \\cup \\{v\\}} \\frac{1}{\\sqrt{\\deg(v) \\deg(u)}} h_u"}</Code> assigns a fixed weight per edge: low for connections to high-degree hubs, high for connections to low-degree leaves. The intuition is that signal from a hub is diluted across all its neighbors, so each individual edge from the hub carries less unique information. This degree normalization is what keeps the spectral radius of the propagation matrix at most 1, preventing activations from blowing up across layers, and it doubles as a structural prior: the topology decides edge weights, not learning. The trade-off is that GCN cannot adapt to heterogeneous neighborhoods — every neighbor of a given node is treated as equally informative modulo degree.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" §§1–6 and core practice 1–5. Return to §§7–9 for spectral limits, expressiveness, sampling and applications, then the deeper practice. You need vectors, a weighted sum, a neural layer and a supervised loss. You do not need to know spectral graph theory to begin. The earlier "}<a href={"/learn/path/full-curriculum/interleaved-cross-attention-architectures?module=deep-learning-fundamentals"}>{"cross-attention lesson"}</a>{" provides a useful connection: a node can read a neighborhood as a small memory. Here we also update that memory’s node states, in synchronized rounds."}</Prose>
 
-      <Prose>
-        <strong>Move 4 — GraphSAGE: sample, then aggregate, then concatenate.</strong> GraphSAGE's three-part move attacks two weaknesses of vanilla GCN. First, sampling: instead of using the entire neighborhood, sample <Code>{"k_l"}</Code> neighbors uniformly at layer <Code>l</Code> (typical: <Code>{"k_1 = 25, k_2 = 10"}</Code>). This makes per-node compute deterministic regardless of degree distribution, which is the only way to mini-batch on power-law graphs. Second, aggregator choice: mean / max-pool / LSTM-on-shuffled-input — a small MLP over a single set of vectors. Third, separating self-state from neighbor state: <Code>{"h_v^{l+1} = \\sigma(W \\cdot \\text{CONCAT}(h_v^l, \\text{AGG}(\\{h_u^l : u \\in N(v)\\})))"}</Code>. Concatenation rather than addition lets the network distinguish "what I am" from "what my neighbors are", which matters for inductive tasks where neighborhood composition varies.
-      </Prose>
+<Prose>{"Your finish line is practical: explain an edge’s meaning, calculate a node update, preserve the result under relabeling, distinguish known context from held-out labels, run a complete graph-learning experiment, and diagnose when more layers or learned attention do not solve the problem. The core reading is about an hour; allow a separate session for the program and exercises."}</Prose>
 
-      <Prose>
-        <strong>Move 5 — GAT: attention-weighted aggregation.</strong> GAT computes per-edge attention scores <Code>{"\\alpha_{ij}"}</Code> as a learned function of the source and target representations, then aggregates as a softmax-weighted sum. The score function in the original paper is <Code>{"e_{ij} = \\text{LeakyReLU}(a^T [W h_i \\,\\|\\, W h_j])"}</Code> — concatenate, project to a scalar, LeakyReLU. The softmax is taken over <Code>i</Code>'s neighborhood (including itself), so weights sum to 1 and the layer is scale-invariant in <Code>{"|N(i)|}"}</Code>. Multi-head attention is dropped in unchanged from the Transformer: run <Code>K</Code> independent attention heads in parallel and concatenate (intermediate layers) or average (final layer) their outputs. GAT's gain is heterogeneity — a noisy neighbor can be down-weighted by learning <Code>{"\\alpha"}</Code> close to zero, even if it is graph-topologically connected.
-      </Prose>
+<H2>{"1. Decide what the graph represents"}</H2>
 
-      <Prose>
-        <strong>Move 6 — Depth has a cost: over-smoothing.</strong> The propagation operator <Code>{"\\hat{D}^{-1/2} \\hat{A} \\hat{D}^{-1/2}"}</Code> is a low-pass filter on the graph spectrum. Repeated application drives all node embeddings toward the dominant eigenvector — a single shared vector that captures graph-level structure but loses node identity. Empirically this manifests as the average pairwise cosine similarity of node embeddings approaching 1 as depth grows past 4-8 layers. Most GCN/GraphSAGE/GAT architectures are 2-3 layers for this reason. Workarounds (skip connections, JKNet jumping knowledge, PairNorm, GCNII) exist but rarely beat shallow models on standard node-classification benchmarks. Depth is not a free knob.
-      </Prose>
+<Prose>{"A graph contains "}<strong>{"nodes"}</strong>{" and "}<strong>{"edges"}</strong>{". Features describe a node, an edge, or sometimes the whole graph. A molecular graph might use atoms as nodes and bonds as edges. A road network might use intersections as nodes and roads as edges. A citation graph uses papers and citation relationships. These choices determine which messages are meaningful."}</Prose>
 
-      <Callout accent="gold">
-        Mental model: a GNN layer is "look at your neighbors, average their features (somehow), mix that with your own features (somehow), and emit a new representation". GCN averages with degree weights. GraphSAGE samples then averages then concatenates. GAT averages with learned attention weights. Stack two of these layers and you have seen your 2-hop neighborhood. Stack ten and your representation is identical to your neighbor's.
-      </Callout>
+<Prose>{"An edge does not automatically mean “these labels should match.” A bond connects different atom types; a purchase connects a user and a product; a citation can disagree with the cited work. "}<strong>{"Homophily"}</strong>{" means connected nodes tend to share the relevant property. It is a possible pattern in a dataset, not the definition of an edge."}</Prose>
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Notation</H3>
+<Prose>{"There are three common prediction units:"}</Prose>
 
-      <Prose>
-        Let <Code>{"G = (V, E)"}</Code> be a graph with <Code>{"N = |V|"}</Code> nodes and <Code>{"|E|"}</Code> edges. The adjacency matrix <Code>{"A \\in \\{0, 1\\}^{N \\times N}"}</Code> has <Code>{"A_{ij} = 1"}</Code> iff <Code>{"(i, j) \\in E"}</Code>; for undirected graphs <Code>{"A = A^T"}</Code>. The degree of node <Code>i</Code> is <Code>{"\\deg(i) = \\sum_j A_{ij}"}</Code>; the diagonal degree matrix <Code>D</Code> has <Code>{"D_{ii} = \\deg(i)"}</Code>. Node features at layer <Code>l</Code> are stacked into <Code>{"H^l \\in R^{N \\times d_l}"}</Code> with row <Code>i</Code> being node <Code>i</Code>'s feature vector <Code>{"h_i^l"}</Code>. The neighborhood <Code>{"N(v)"}</Code> denotes the set of nodes adjacent to <Code>v</Code> (open neighborhood, not including <Code>v</Code>); <Code>{"N[v] = N(v) \\cup \\{v\\}"}</Code> is the closed neighborhood.
-      </Prose>
+<NeuralTable caption={"1. Decide what the graph represents"} headers={[<>{"Task"}</>,<>{"Input context"}</>,<>{"Output unit"}</>,<>{"Example"}</>]} rows={[[<>{"Node prediction"}</>,<>{"Node features and available relationships"}</>,<>{"One output per requested node"}</>,<>{"Paper subject"}</>],[<>{"Edge prediction"}</>,<>{"Endpoint representations and permitted context"}</>,<>{"One output per candidate pair"}</>,<>{"Whether a future relationship will occur"}</>],[<>{"Graph prediction"}</>,<>{"All nodes/edges in one example graph"}</>,<>{"One output per graph"}</>,<>{"A molecular property"}</>]]} />
 
-      <H3>3.2 GCN — Kipf & Welling 2017</H3>
+<Prose>{"A node model needs outputs to move with the nodes when they are relabeled. A graph-level property should stay unchanged under that relabeling. These are "}<strong>{"permutation equivariance"}</strong>{" and "}<strong>{"permutation invariance"}</strong>{", respectively. “The result is unchanged” is too vague unless we specify which kind of output we mean."}</Prose>
 
-      <Prose>
-        Add self-loops: <Code>{"\\hat{A} = A + I"}</Code>. Compute the corresponding degree matrix: <Code>{"\\hat{D}_{ii} = \\sum_j \\hat{A}_{ij} = \\deg(i) + 1"}</Code>. The symmetric normalization is:
-      </Prose>
+<H3>{"Keep direction and indexing explicit"}</H3>
 
-      <MathBlock>
-        {"\\tilde{A} = \\hat{D}^{-1/2}\\,\\hat{A}\\,\\hat{D}^{-1/2}"}
-      </MathBlock>
+<Prose>{"We use a receiver-row convention: "}<InlineMath>{"A_{vu}>0"}</InlineMath>{" means node v can receive from node u. For an undirected graph both directions are present. In an edge list stored as "}<code>{"(source, target)"}</code>{", the corresponding matrix entry is therefore "}<code>{"A[target, source]"}</code>{". Some datasets and libraries use another convention; inspect it before multiplying."}</Prose>
 
-      <Prose>
-        The GCN layer is then:
-      </Prose>
+<Prose>{"For now use an undirected path with three nodes:"}</Prose>
 
-      <MathBlock>
-        {"H^{l+1} = \\sigma\\!\\left(\\tilde{A}\\,H^l\\,W^l\\right)"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"0\\;\\text{—}\\;1\\;\\text{—}\\;2,\\qquad x_0=1,\\quad x_1=2,\\quad x_2=4."}</MathBlock></div>
 
-      <Prose>
-        with <Code>{"W^l \\in R^{d_l \\times d_{l+1}}"}</Code> the learned weight matrix and <Code>{"\\sigma"}</Code> typically ReLU. Reading row by row:
-      </Prose>
+<Prose>{"The scalar features are constructed numbers, not measured properties. They let us inspect every contribution. The adjacency without self-loops is"}</Prose>
 
-      <MathBlock>
-        {"h_v^{l+1} = \\sigma\\!\\left(\\sum_{u \\in N[v]} \\frac{1}{\\sqrt{\\hat{d}_v\\,\\hat{d}_u}}\\,W^l\\,h_u^l\\right)"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"A=\\begin{bmatrix}0&1&0\\\\1&0&1\\\\0&1&0\\end{bmatrix}."}</MathBlock></div>
 
-      <Prose>
-        Three things to note. First, the sum is over the closed neighborhood <Code>{"N[v]"}</Code> — the self-loop in <Code>{"\\hat{A}"}</Code> is the term <Code>{"u = v"}</Code>. Without the self-loop (<Code>{"A"}</Code> directly instead of <Code>{"\\hat{A}"}</Code>), the layer would discard the node's own previous state, which is one of the most common GCN bugs in third-party reimplementations. Second, the symmetric normalization <Code>{"1 / \\sqrt{\\hat{d}_v \\hat{d}_u}"}</Code> is not row-stochastic — rows of <Code>{"\\tilde{A}"}</Code> do not sum to 1. The asymmetric alternative <Code>{"\\hat{D}^{-1} \\hat{A}"}</Code> (random walk normalization) is row-stochastic but does not preserve the symmetry of the operator, so the spectrum is no longer real and the analysis from spectral graph theory does not directly apply. Third, all spectral eigenvalues of <Code>{"\\tilde{A}"}</Code> lie in <Code>{"[-1, 1]"}</Code> and the largest is exactly 1, which is what keeps activations bounded across layers.
-      </Prose>
+<MessageFigure kind="topology" />
 
-      <H3>3.3 GraphSAGE — Hamilton, Ying, Leskovec 2017</H3>
+<H2>{"2. One synchronized message-passing round"}</H2>
 
-      <Prose>
-        For each node <Code>v</Code>, sample a fixed-size neighborhood <Code>{"N_s(v) \\subseteq N(v)"}</Code> with <Code>{"|N_s(v)| = k_l"}</Code>, then:
-      </Prose>
+<Prose>{"A general layer computes messages and updates:"}</Prose>
 
-      <MathBlock>
-        {"h_{N(v)}^l = \\text{AGG}_l\\!\\left(\\{h_u^l : u \\in N_s(v)\\}\\right)"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"m_v^{(l+1)}=\\operatorname{AGG}_{u\\in\\mathcal N (v)}\nM_l (h_v^{(l)},h_u^{(l)},e_{vu}),\\qquad\nh_v^{(l+1)}=U_l (h_v^{(l)},m_v^{(l+1)})."}</MathBlock></div>
 
-      <MathBlock>
-        {"h_v^{l+1} = \\sigma\\!\\left(W^l \\cdot \\text{CONCAT}(h_v^l,\\ h_{N(v)}^l)\\right)"}
-      </MathBlock>
+<Prose>{"Here h is a node state, e is an edge feature, M constructs a message, AGG combines messages and U updates the receiver. The superscript l means layer or round, not exponentiation. The "}<a href={"https://arxiv.org/pdf/1704.01212"}>{"MPNN paper"}</a>{" uses this framework to connect several graph models, with a separate readout when predicting a property of the entire graph."}</Prose>
 
-      <MathBlock>
-        {"h_v^{l+1} \\leftarrow h_v^{l+1} / \\|h_v^{l+1}\\|_2"}
-      </MathBlock>
+<Prose>{"All messages in round l+1 use the states from round l. If a loop overwrites node 0 and then lets node 1 read that new value immediately, the result depends on processing order. That is a different, asynchronous algorithm. Store the old states and write new states separately."}</Prose>
 
-      <Prose>
-        The aggregator <Code>AGG</Code> is one of: (a) <strong>mean</strong>, identical to GCN without normalization, sometimes folded into the linear layer as <Code>{"h_v^{l+1} = \\sigma(W^l \\cdot \\text{mean}(h_v^l \\cup \\{h_u^l\\}))"}</Code>; (b) <strong>LSTM on shuffled inputs</strong>, using an LSTM over a random permutation of the neighbor sequence (the shuffling preserves permutation-invariance in expectation); (c) <strong>max-pool</strong>, where each neighbor first passes through a small MLP <Code>{"\\sigma(W_{\\text{pool}} h_u + b)"}</Code>, then element-wise max is taken. The final L2 normalization is the production-trained convention and stabilizes downstream linear classifiers; some implementations omit it.
-      </Prose>
+<MessageFigure kind="synchronous" />
 
-      <Prose>
-        The receptive field of <Code>L</Code>-layer GraphSAGE with sampling fanout <Code>{"(k_1, k_2, \\ldots, k_L)"}</Code> is <Code>{"\\prod_l k_l"}</Code> nodes per target — for default <Code>{"(25, 10)"}</Code>, that is 250 nodes per training example regardless of the actual graph size. This bounded compute per example is what makes GraphSAGE feasible on Reddit-scale graphs (231K nodes, 11M edges) where full-batch GCN is impossible.
-      </Prose>
+<Prose>{"Neighbors form a multiset: order is irrelevant, but repeated feature values may matter. Sum, mean and componentwise maximum all ignore ordering while preserving different information. For scalar neighbors (1,3,5), sum is 9, mean is 3 and maximum is 5. Adding another neighbor with value 5 gives 14,3.5 and 5. A maximum cannot reveal how often its largest value occurred; a mean can hide repeated copies of an entire neighborhood."}</Prose>
 
-      <H3>3.4 GAT — Veličković et al. 2018</H3>
+<Prose>{"A layer need not average. Edge-dependent matrices, nonlinear messages, sums and gated updates all fit the framework. Calling every GNN “average your neighbors” would conceal useful models and their limitations."}</Prose>
 
-      <Prose>
-        For each edge <Code>{"(i, j)"}</Code> in <Code>{"N[i]"}</Code> (neighborhood plus self), compute attention coefficients:
-      </Prose>
+<H3>{"How far can a node read?"}</H3>
 
-      <MathBlock>
-        {"e_{ij} = \\text{LeakyReLU}\\!\\left(a^T\\,[W h_i\\,\\|\\,W h_j]\\right)"}
-      </MathBlock>
+<Prose>{"With one round of strictly local messages, node 0 can use initial states from nodes 0 and 1 if the update preserves self-information. After two rounds it can also use node 2 through node 1. An L-layer local model depends on nodes "}<strong>{"at most L hops away"}</strong>{", under these local-update assumptions. It may fail to use some of them because of zero weights, masks, sampling, nonlinearities or cancellation. Global attention, graph-wide normalization and global features can create additional paths."}</Prose>
 
-      <Prose>
-        where <Code>{"W \\in R^{d_l \\times d_{l+1}}"}</Code> is the linear projection, <Code>{"a \\in R^{2 d_{l+1}}"}</Code> is a learned attention vector, and <Code>{"\\|"}</Code> denotes concatenation. The LeakyReLU slope is fixed at 0.2 in the original paper. Softmax-normalize over <Code>i</Code>'s neighborhood:
-      </Prose>
+<Prose>{"The reachable set and its numerical influence are different views. An architecture diagram shows a possible dependency; a derivative or controlled edit shows an actual dependency at a specified input and parameter setting."}</Prose>
 
-      <MathBlock>
-        {"\\alpha_{ij} = \\frac{\\exp(e_{ij})}{\\sum_{k \\in N[i]} \\exp(e_{ik})}"}
-      </MathBlock>
+<MessageFlowLab />
 
-      <Prose>
-        The output is the attention-weighted sum:
-      </Prose>
+<H2>{"3. GCN: a normalized weighted sum"}</H2>
 
-      <MathBlock>
-        {"h_i^{l+1} = \\sigma\\!\\left(\\sum_{j \\in N[i]} \\alpha_{ij}\\,W\\,h_j\\right)"}
-      </MathBlock>
+<Prose>{"The "}<a href={"https://arxiv.org/pdf/1609.02907"}>{"Kipf–Welling GCN"}</a>{" adds self-loops and symmetrically normalizes the resulting adjacency before applying a shared feature transformation. Define"}</Prose>
 
-      <Prose>
-        For multi-head attention with <Code>K</Code> heads, run <Code>K</Code> independent attention layers in parallel and concatenate (in intermediate layers) or average (in the final layer):
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\hat A=A+I,\\qquad \\hat d_v=\\sum_u\\hat A_{vu},\\qquad\nS=\\hat D^{-1/2}\\hat A\\hat D^{-1/2}."}</MathBlock></div>
 
-      <MathBlock>
-        {"h_i^{l+1,\\text{concat}} = \\big\\|_{k=1}^{K}\\ \\sigma\\!\\left(\\sum_j \\alpha_{ij}^{(k)}\\,W^{(k)} h_j\\right)"}
-      </MathBlock>
+<Prose>{"Each permitted contribution from u to v is weighted by "}<InlineMath>{"1/\\sqrt{\\hat d_v\\hat d_u}"}</InlineMath>{" for an unweighted edge. Use the degrees "}<strong>{"after"}</strong>{" adding loops. In the path, they are (2,3,2), giving"}</Prose>
 
-      <MathBlock>
-        {"h_i^{l+1,\\text{avg}} = \\sigma\\!\\left(\\frac{1}{K}\\sum_k \\sum_j \\alpha_{ij}^{(k)}\\,W^{(k)} h_j\\right)"}
-      </MathBlock>
-
-      <Prose>
-        A useful implementation detail: the attention score <Code>{"e_{ij}"}</Code> can be decomposed as <Code>{"e_{ij} = a_{\\text{src}}^T (W h_i) + a_{\\text{dst}}^T (W h_j)"}</Code> by splitting <Code>{"a = [a_{\\text{src}}; a_{\\text{dst}}]"}</Code>. This lets you compute <Code>{"a_{\\text{src}}^T W h_i"}</Code> once per node (an <Code>N</Code>-vector) and <Code>{"a_{\\text{dst}}^T W h_j"}</Code> once per node (another <Code>N</Code>-vector), then add them along edges — turning a quadratic-looking computation into linear in <Code>{"|E|"}</Code>. Every production GAT implementation does this.
-      </Prose>
-
-      <H3>3.5 MPNN — the unifying framework (Gilmer 2017)</H3>
-
-      <Prose>
-        Each layer of an MPNN is two functions. A message function <Code>{"M_l"}</Code> takes the source state, target state, and edge feature, and returns a message:
-      </Prose>
-
-      <MathBlock>
-        {"m_v^{l+1} = \\sum_{u \\in N(v)}\\,M_l(h_v^l,\\,h_u^l,\\,e_{vu})"}
-      </MathBlock>
-
-      <Prose>
-        An update function <Code>{"U_l"}</Code> takes the node's previous state and the aggregated message, and returns the next state:
-      </Prose>
-
-      <MathBlock>
-        {"h_v^{l+1} = U_l(h_v^l,\\,m_v^{l+1})"}
-      </MathBlock>
-
-      <Prose>
-        Specializations:
-      </Prose>
-
-      <Prose>
-        <strong>GCN as MPNN.</strong> Set <Code>{"M_l(h_v, h_u, e_{vu}) = \\frac{1}{\\sqrt{\\hat{d}_v \\hat{d}_u}}\\,W^l h_u"}</Code>, treat self-loop as an edge to ensure <Code>{"u = v"}</Code> appears, and <Code>{"U_l(h_v, m) = \\sigma(m)"}</Code>. Sum aggregation reproduces <Code>{"\\tilde{A} H^l W^l"}</Code> exactly.
-      </Prose>
-
-      <Prose>
-        <strong>GraphSAGE as MPNN.</strong> Set <Code>{"M_l(h_v, h_u, e_{vu}) = h_u"}</Code> with mean aggregation, and <Code>{"U_l(h_v, m) = \\sigma(W^l \\cdot \\text{CONCAT}(h_v, m))"}</Code> followed by L2 normalization.
-      </Prose>
-
-      <Prose>
-        <strong>GAT as MPNN.</strong> Set <Code>{"M_l(h_v, h_u, e_{vu}) = \\alpha_{vu}\\,W h_u"}</Code> where <Code>{"\\alpha_{vu}"}</Code> is computed from <Code>{"h_v"}</Code> and <Code>{"h_u"}</Code>. Aggregation is sum (the softmax already divided through), and <Code>{"U_l(h_v, m) = \\sigma(m)"}</Code>.
-      </Prose>
-
-      <Prose>
-        <strong>GIN as MPNN.</strong> Xu et al. 2019 prove that to match the 1-WL test's discriminative power, the message must be the identity, the aggregation must be sum, and the update must be an injective function of the multiset:
-      </Prose>
-
-      <MathBlock>
-        {"h_v^{l+1} = \\text{MLP}^l\\!\\left((1 + \\epsilon^l)\\,h_v^l + \\sum_{u \\in N(v)} h_u^l\\right)"}
-      </MathBlock>
-
-      <Prose>
-        with <Code>{"\\epsilon^l"}</Code> a learnable (or fixed-zero) scalar. Sum is critical: mean and max are strictly less powerful because they cannot distinguish multisets like <Code>{"\\{a, a, b\\}"}</Code> from <Code>{"\\{a, b\\}"}</Code>. GIN is the most expressive standard MPNN.
-      </Prose>
-
-      <H3>3.6 Spectral interpretation: why GCN is a low-pass filter</H3>
-
-      <Prose>
-        The symmetric normalized Laplacian is <Code>{"L_{\\text{sym}} = I - \\hat{D}^{-1/2} \\hat{A} \\hat{D}^{-1/2} = I - \\tilde{A}"}</Code>, with eigenvalues in <Code>{"[0, 2]"}</Code>. The eigenvectors form the graph Fourier basis. Multiplying a signal by <Code>{"\\tilde{A} = I - L_{\\text{sym}}"}</Code> applies the spectral filter <Code>{"g(\\lambda) = 1 - \\lambda"}</Code>: low-frequency components (small <Code>{"\\lambda"}</Code>, smooth on the graph) are passed nearly unchanged; high-frequency components (large <Code>{"\\lambda"}</Code>, oscillatory) are damped or sign-flipped. Stacking <Code>L</Code> GCN layers without learned weights is approximately the filter <Code>{"g(\\lambda)^L = (1 - \\lambda)^L"}</Code> — increasingly aggressive low-pass. This is the spectral origin of over-smoothing: as <Code>L \\to \\infty</Code>, only the constant (zero-frequency) component survives.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below was executed against PyTorch 2.6.0 / Python 3.12. Outputs are verbatim stdout. The torch_geometric package is referenced in production examples but not required for the from-scratch path; everything here uses pure PyTorch.
-      </Prose>
-
-      <H3>4a. The propagation matrix and its symmetric normalization</H3>
-
-      <Prose>
-        Build a small 5-node toy graph and inspect the GCN propagation matrix <Code>{"\\tilde{A} = \\hat{D}^{-1/2} \\hat{A} \\hat{D}^{-1/2}"}</Code>. With every node having degree 2 plus a self-loop, every <Code>{"\\hat{d}_i = 3"}</Code>, so non-zero entries of <Code>{"\\tilde{A}"}</Code> all equal <Code>{"1/3"}</Code>.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn, torch.nn.functional as F
-
-torch.manual_seed(0)
-
-# Toy graph: 5 nodes, undirected edges
-# 0 - 1 - 2
-# |       |
-# 3 ----- 4
-N = 5
-edges = [(0,1),(1,2),(0,3),(3,4),(2,4)]
-A = torch.zeros(N, N)
-for i,j in edges:
-    A[i,j] = 1; A[j,i] = 1
-
-# GCN normalization: A_hat = A + I, then D^-1/2 A_hat D^-1/2
-A_hat = A + torch.eye(N)
-deg = A_hat.sum(dim=1)
-D_inv_sqrt = torch.diag(deg.pow(-0.5))
-A_norm = D_inv_sqrt @ A_hat @ D_inv_sqrt
-
-print("Adjacency A:")
-print(A.int())
-print("\\nA_hat = A + I  degrees:", deg.tolist())
-print("\\nNormalized propagation matrix A_norm (D^-1/2 A_hat D^-1/2):")
-for r in A_norm.tolist():
-    print("  " + "  ".join(f"{v:.3f}" for v in r))
-print(f"\\nrow sums: {A_norm.sum(dim=1).tolist()}  (not 1 - symmetric norm preserves spectrum)")
-
-# Output:
-# Adjacency A:
-# tensor([[0, 1, 0, 1, 0],
-#         [1, 0, 1, 0, 0],
-#         [0, 1, 0, 0, 1],
-#         [1, 0, 0, 0, 1],
-#         [0, 0, 1, 1, 0]], dtype=torch.int32)
-#
-# A_hat = A + I  degrees: [3.0, 3.0, 3.0, 3.0, 3.0]
-#
-# Normalized propagation matrix A_norm (D^-1/2 A_hat D^-1/2):
-#   0.333  0.333  0.000  0.333  0.000
-#   0.333  0.333  0.333  0.000  0.000
-#   0.000  0.333  0.333  0.000  0.333
-#   0.333  0.000  0.000  0.333  0.333
-#   0.000  0.000  0.333  0.333  0.333
-#
-# row sums: [1.0, 1.0, 1.0, 1.0, 1.0]  (not 1 - symmetric norm preserves spectrum)`}
-      </CodeBlock>
-
-      <Prose>
-        On this regular graph the symmetric and row-stochastic normalizations coincide because all degrees equal 3 — both give row sums of 1. On a graph with varying degrees, <Code>{"\\tilde{A}"}</Code> rows do not sum to 1, but the matrix remains symmetric and its largest eigenvalue stays at 1. The largest eigenvalue is what bounds activations across layers; preserving it is the entire reason the renormalization trick (adding self-loops to <Code>A</Code> before normalizing) exists.
-      </Prose>
-
-      <H3>4b. GCN layer from scratch</H3>
-
-      <Prose>
-        A GCN layer is a single matrix multiplication followed by a linear projection. The whole layer is two lines of forward.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class GCNLayer(nn.Module):
-    def __init__(self, in_dim, out_dim, bias=True):
-        super().__init__()
-        self.lin = nn.Linear(in_dim, out_dim, bias=bias)
-
-    def forward(self, X, A_norm):
-        # X: [N, in_dim]   A_norm: [N, N]
-        return A_norm @ self.lin(X)
-
-# small graph from before
-N = 5
-edges = [(0,1),(1,2),(0,3),(3,4),(2,4)]
-A = torch.zeros(N, N)
-for i,j in edges:
-    A[i,j] = 1; A[j,i] = 1
-A_hat = A + torch.eye(N)
-deg = A_hat.sum(dim=1)
-A_norm = torch.diag(deg.pow(-0.5)) @ A_hat @ torch.diag(deg.pow(-0.5))
-
-# Random node features
-X = torch.randn(N, 4)
-gcn1 = GCNLayer(4, 8)
-gcn2 = GCNLayer(8, 3)
-
-H1 = F.relu(gcn1(X, A_norm))
-H2 = gcn2(H1, A_norm)
-
-print("Input features X:           shape", tuple(X.shape))
-print("After GCN layer 1 + ReLU:   shape", tuple(H1.shape))
-print("After GCN layer 2:          shape", tuple(H2.shape))
-
-# Sanity: GCN with A=I (no edges) should reduce to per-node MLP
-H1_isolated = F.relu(gcn1(X, torch.eye(N)))
-print("\\nNumerical check: aggregation actually mixes neighbors")
-print(f"  ||H1 (with edges) - H1 (isolated)|| = {(H1 - H1_isolated).norm().item():.4f}")
-print(f"  -> non-zero, neighborhood mixing is happening")
-
-# Output:
-# Input features X:           shape (5, 4)
-# After GCN layer 1 + ReLU:   shape (5, 8)
-# After GCN layer 2:          shape (5, 3)
-#
-# Numerical check: aggregation actually mixes neighbors
-#   ||H1 (with edges) - H1 (isolated)|| = 1.4876
-#   -> non-zero, neighborhood mixing is happening`}
-      </CodeBlock>
-
-      <Prose>
-        The first ReLU comes between layers; the final layer's output is logits, fed directly to cross-entropy. Note the order: <Code>{"A \\cdot W(X)"}</Code>. By associativity it equals <Code>{"(A X) W"}</Code>, but doing the linear projection first is faster when <Code>{"d_{l+1} < N"}</Code> (most cases) because the smaller intermediate matrix saves memory in the <Code>{"A \\cdot \\cdot"}</Code> sparse-matmul.
-      </Prose>
-
-      <H3>4c. GraphSAGE mean aggregator from scratch</H3>
-
-      <Prose>
-        Implement the SAGE-mean variant explicitly with a Python loop over nodes — the slow but readable form. For production, the same operation is a sparse matmul against the row-stochastic mean-aggregation matrix <Code>{"M"}</Code> where <Code>{"M_{ij} = 1/|N(i)|"}</Code> if <Code>{"j \\in N(i)"}</Code>. Both forms are shown below.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class SAGELayer(nn.Module):
-    """GraphSAGE with mean aggregator:
-       h_v' = ReLU(W_self h_v + W_neigh mean_{u in N(v)} h_u);  L2-normalized."""
-    def __init__(self, in_dim, out_dim):
-        super().__init__()
-        self.lin_self = nn.Linear(in_dim, out_dim, bias=True)
-        self.lin_neigh = nn.Linear(in_dim, out_dim, bias=False)
-
-    def forward(self, X, adj_lists):
-        agg = torch.zeros(X.size(0), X.size(1))
-        for v, neigh in enumerate(adj_lists):
-            if len(neigh) == 0:
-                agg[v] = 0
-            else:
-                agg[v] = X[neigh].mean(dim=0)
-        h = self.lin_self(X) + self.lin_neigh(agg)
-        h = F.normalize(h, p=2, dim=1)   # GraphSAGE applies L2 norm
-        return h
-
-N = 5
-edges = [(0,1),(1,2),(0,3),(3,4),(2,4)]
-adj = [[] for _ in range(N)]
-for i,j in edges:
-    adj[i].append(j); adj[j].append(i)
-
-X = torch.randn(N, 4)
-sage1 = SAGELayer(4, 8)
-sage2 = SAGELayer(8, 3)
-
-H1 = sage1(X, adj)
-H2 = sage2(H1, adj)
-print("GraphSAGE (mean aggregator)")
-print(f"  X shape        : {tuple(X.shape)}")
-print(f"  H1 shape       : {tuple(H1.shape)}  (L2-normalized, row norms = 1)")
-print(f"  H1 row norms   : {H1.norm(dim=1).tolist()}")
-print(f"  H2 shape       : {tuple(H2.shape)}")
-
-# Neighbor sampling - the production trick for huge graphs
-def sample_neighbors(adj, k=2):
-    sampled = []
-    for neigh in adj:
-        if len(neigh) <= k:
-            sampled.append(neigh)
-        else:
-            idx = torch.randperm(len(neigh))[:k].tolist()
-            sampled.append([neigh[i] for i in idx])
-    return sampled
-
-torch.manual_seed(1)
-sampled = sample_neighbors(adj, k=2)
-print("\\nNeighbor sampling (k=2 per node):")
-for v, s in enumerate(sampled):
-    print(f"  node {v}: full neighbors = {adj[v]}, sampled = {s}")
-
-# Output:
-# GraphSAGE (mean aggregator)
-#   X shape        : (5, 4)
-#   H1 shape       : (5, 8)  (L2-normalized, row norms = 1)
-#   H1 row norms   : [1.0, 1.0, 1.0, 1.0, 1.0]
-#   H2 shape       : (5, 3)
-#
-# Neighbor sampling (k=2 per node):
-#   node 0: full neighbors = [1, 3], sampled = [1, 3]
-#   node 1: full neighbors = [0, 2], sampled = [0, 2]
-#   node 2: full neighbors = [1, 4], sampled = [1, 4]
-#   node 3: full neighbors = [0, 4], sampled = [0, 4]
-#   node 4: full neighbors = [3, 2], sampled = [3, 2]`}
-      </CodeBlock>
-
-      <Prose>
-        L2 normalization is what keeps row norms exactly 1 across layers — without it, <Code>SAGE</Code> activations can drift in scale across deep stacks. On this small graph, sampling at <Code>{"k = 2"}</Code> retains all neighbors because every node has degree 2. On a real graph with hub nodes of degree 100+, sampling at <Code>{"k = 25"}</Code> would discard most of each hub's edges, deterministically bounding compute per node.
-      </Prose>
-
-      <H3>4d. GAT layer with multi-head attention</H3>
-
-      <Prose>
-        GAT's heart is two einsums: project node features through <Code>K</Code> heads, compute pairwise scores, softmax-normalize over neighbors, weighted-sum the values. The decomposed-attention trick splits the score into <Code>{"a_{\\text{src}} \\cdot Wh_i + a_{\\text{dst}} \\cdot Wh_j"}</Code> so each per-node component is computed once.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class GATLayer(nn.Module):
-    """Multi-head GAT.
-       e_ij = LeakyReLU(a_src . Wh_i + a_dst . Wh_j)
-       alpha_ij = softmax_j(e_ij) over j in N[i]
-       h_i' = sigma(sum_j alpha_ij . W h_j)
-    """
-    def __init__(self, in_dim, out_dim, n_heads=1, concat=True, alpha=0.2):
-        super().__init__()
-        self.h = n_heads
-        self.concat = concat
-        self.alpha = alpha
-        self.W = nn.Parameter(torch.empty(n_heads, in_dim, out_dim))
-        self.a_src = nn.Parameter(torch.empty(n_heads, out_dim))
-        self.a_dst = nn.Parameter(torch.empty(n_heads, out_dim))
-        nn.init.xavier_uniform_(self.W)
-        nn.init.xavier_uniform_(self.a_src.unsqueeze(0))
-        nn.init.xavier_uniform_(self.a_dst.unsqueeze(0))
-
-    def forward(self, X, A_mask):
-        N_ = X.size(0)
-        Wh = torch.einsum("ni,hio->hno", X, self.W)         # [h, N, out]
-        e_src = (Wh * self.a_src.unsqueeze(1)).sum(dim=-1)  # [h, N]
-        e_dst = (Wh * self.a_dst.unsqueeze(1)).sum(dim=-1)
-        e = e_src.unsqueeze(2) + e_dst.unsqueeze(1)         # [h, N, N]
-        e = F.leaky_relu(e, negative_slope=self.alpha)
-        e = e.masked_fill(A_mask.unsqueeze(0) == 0, float("-inf"))
-        alpha = F.softmax(e, dim=-1)
-        out = torch.einsum("hij,hjo->hio", alpha, Wh)       # [h, N, out]
-        if self.concat:
-            return out.permute(1, 0, 2).reshape(N_, -1), alpha
-        return out.mean(dim=0), alpha
-
-N = 5
-edges = [(0,1),(1,2),(0,3),(3,4),(2,4)]
-A = torch.zeros(N, N)
-for i,j in edges:
-    A[i,j] = 1; A[j,i] = 1
-A_mask = A + torch.eye(N)   # self-loops so node attends to itself
-
-X = torch.randn(N, 4)
-gat1 = GATLayer(4, 8, n_heads=4, concat=True)
-H1, alpha = gat1(X, A_mask)
-gat2 = GATLayer(32, 3, n_heads=1, concat=False)
-H2, alpha2 = gat2(F.elu(H1), A_mask)
-
-print("GAT (multi-head, head=4 concat)")
-print(f"  X shape    : {tuple(X.shape)}")
-print(f"  H1 shape   : {tuple(H1.shape)}  (4 heads * 8 out = 32)")
-print(f"  alpha shape: {tuple(alpha.shape)}  (heads, N, N)")
-print(f"  H2 shape   : {tuple(H2.shape)}  (final, single-head averaged)")
-print()
-print("Attention weights from head 0 (rows = i, cols = j; masked = 0):")
-am = alpha[0].detach()
-for r in am.tolist():
-    print("  " + "  ".join(f"{v:.2f}" for v in r))
-print(f"\\nPer-row sums (should be 1 over neighbors+self): {am.sum(dim=-1).tolist()}")
-
-# Output:
-# GAT (multi-head, head=4 concat)
-#   X shape    : (5, 4)
-#   H1 shape   : (5, 32)  (4 heads * 8 out = 32)
-#   alpha shape: (4, 5, 5)  (heads, N, N)
-#   H2 shape   : (5, 3)  (final, single-head averaged)
-#
-# Attention weights from head 0 (rows = i, cols = j; masked = 0):
-#   0.32  0.38  0.00  0.30  0.00
-#   0.32  0.38  0.30  0.00  0.00
-#   0.00  0.37  0.32  0.00  0.31
-#   0.39  0.00  0.00  0.31  0.31
-#   0.00  0.00  0.34  0.33  0.33
-#
-# Per-row sums (should be 1 over neighbors+self): [1.0, 1.0, 1.0, 1.0, 1.0]`}
-      </CodeBlock>
-
-      <Prose>
-        Even at random initialization, the attention weights deviate from uniform: head 0 assigns 0.38 to the connection 0→1 but 0.30 to 0→3, despite both being graph-edges. After training, those weights would carry semantic signal — neighbors with class-relevant features get larger <Code>{"\\alpha"}</Code>. Note the masking step: positions where <Code>{"A_{ij} = 0"}</Code> are filled with <Code>{"-\\infty"}</Code> before softmax, so they receive exactly zero weight after softmax, preserving graph structure. Forgetting this mask is a common bug — the layer would silently attend across all <Code>{"N^2"}</Code> position pairs, becoming a Transformer rather than a GAT.
-      </Prose>
-
-      <H3>4e. Train GCN, GraphSAGE, and GAT on a Cora-scale graph</H3>
-
-      <Prose>
-        Cora is the canonical GNN benchmark: 2,708 papers (nodes), 5,429 citation edges, 7 paper categories (classes), 1,433-dim sparse word features. The standard split is 140 train / 500 val / 1,000 test (20 per class for training, the rest for evaluation). Because torch_geometric is not installed in this environment, the code below trains on a Cora-like synthetic graph generated to match the same statistics: same node count, same class count, same feature dim, similar homophily (~0.7 instead of Cora's 0.81), and the same train/val/test split sizes. Real-Cora numbers from Kipf & Welling 2017 are GCN 81.5, GAT 83.0, GraphSAGE ~80; the synthetic graph yields higher numbers because it has more clearly-separated classes, but the relative ordering (GCN ≳ GAT {">"} GraphSAGE on transductive node classification) and the training dynamics match.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Cora-like synthetic graph + transductive training of GCN, GraphSAGE, GAT.
-# (For real Cora, use torch_geometric.datasets.Planetoid - same training loop.)
-
-import torch, torch.nn as nn, torch.nn.functional as F
-torch.manual_seed(0)
-
-N, C, F_DIM = 2708, 7, 1433
-y = torch.randint(0, C, (N,))
-
-# Build features: each class has a sparse centroid; flip ~35% of bits as noise
-centroids = torch.bernoulli(torch.full((C, F_DIM), 0.04))
-flip = (torch.rand(N, F_DIM) < 0.35).float()
-X = (centroids[y] + flip).clamp(0, 1)
-
-# Edges: 70% homophilous (intra-class), 30% random
-edges = []
-for _ in range(5429):
-    if torch.rand(1).item() < 0.70:
-        c = torch.randint(0, C, (1,)).item()
-        idx = (y == c).nonzero(as_tuple=True)[0]
-        i = idx[torch.randint(0, len(idx), (1,))].item()
-        j = idx[torch.randint(0, len(idx), (1,))].item()
-    else:
-        i = torch.randint(0, N, (1,)).item()
-        j = torch.randint(0, N, (1,)).item()
-    if i != j:
-        edges.append((i, j))
-
-A = torch.zeros(N, N)
-for i, j in edges:
-    A[i, j] = 1; A[j, i] = 1
-
-# GCN normalization
-A_hat = A + torch.eye(N)
-deg = A_hat.sum(dim=1)
-A_norm = torch.diag(deg.pow(-0.5)) @ A_hat @ torch.diag(deg.pow(-0.5))
-
-# Adjacency lists for SAGE; mean-aggregation matrix M
-adj = [[] for _ in range(N)]
-for i, j in edges:
-    if j not in adj[i]: adj[i].append(j)
-    if i not in adj[j]: adj[j].append(i)
-
-# Train/val/test splits Cora-style: 20 nodes per class for train
-perm = torch.randperm(N)
-train_idx = []
-for c in range(C):
-    cls_idx = (y[perm] == c).nonzero(as_tuple=True)[0]
-    train_idx.extend(perm[cls_idx[:20]].tolist())
-train_idx = torch.tensor(train_idx)
-remaining = torch.tensor([i for i in range(N) if i not in set(train_idx.tolist())])
-val_idx, test_idx = remaining[:500], remaining[500:1500]
-
-# Models
-class GCN(nn.Module):
-    def __init__(self, d_in, d_h, d_out):
-        super().__init__()
-        self.l1 = nn.Linear(d_in, d_h); self.l2 = nn.Linear(d_h, d_out)
-    def forward(self, X, A):
-        H = F.relu(A @ self.l1(X))
-        H = F.dropout(H, 0.5, training=self.training)
-        return A @ self.l2(H)
-
-class SAGE(nn.Module):
-    def __init__(self, d_in, d_h, d_out, adj, N):
-        super().__init__()
-        self.l1s = nn.Linear(d_in, d_h); self.l1n = nn.Linear(d_in, d_h, bias=False)
-        self.l2s = nn.Linear(d_h, d_out); self.l2n = nn.Linear(d_h, d_out, bias=False)
-        M = torch.zeros(N, N)
-        for v, nb in enumerate(adj):
-            if nb: M[v, nb] = 1.0 / len(nb)
-        self.register_buffer("M", M)
-    def forward(self, X):
-        H = F.relu(self.l1s(X) + self.l1n(self.M @ X))
-        H = F.normalize(H, p=2, dim=1)
-        H = F.dropout(H, 0.5, training=self.training)
-        return self.l2s(H) + self.l2n(self.M @ H)
-
-class GAT(nn.Module):
-    def __init__(self, d_in, d_h, d_out, n_heads=8):
-        super().__init__()
-        self.h = n_heads
-        self.W1 = nn.Parameter(torch.empty(n_heads, d_in, d_h)); nn.init.xavier_uniform_(self.W1)
-        self.a1 = nn.Parameter(torch.empty(n_heads, 2*d_h));    nn.init.xavier_uniform_(self.a1.unsqueeze(0))
-        self.W2 = nn.Parameter(torch.empty(1, n_heads*d_h, d_out)); nn.init.xavier_uniform_(self.W2)
-        self.a2 = nn.Parameter(torch.empty(1, 2*d_out));        nn.init.xavier_uniform_(self.a2.unsqueeze(0))
-    def _attn(self, X, W, a, A_mask):
-        Wh = torch.einsum("ni,hio->hno", X, W)
-        d = Wh.size(-1)
-        a_s, a_d = a[:, :d], a[:, d:]
-        e = F.leaky_relu((Wh * a_s.unsqueeze(1)).sum(-1).unsqueeze(2)
-                       + (Wh * a_d.unsqueeze(1)).sum(-1).unsqueeze(1), 0.2)
-        e = e.masked_fill(A_mask.unsqueeze(0) == 0, float("-inf"))
-        alpha = F.dropout(F.softmax(e, dim=-1), 0.6, training=self.training)
-        return torch.einsum("hij,hjo->hio", alpha, Wh)
-    def forward(self, X, A_mask):
-        H = F.elu(self._attn(X, self.W1, self.a1, A_mask).permute(1,0,2).reshape(X.size(0), -1))
-        H = F.dropout(H, 0.6, training=self.training)
-        return self._attn(H, self.W2, self.a2, A_mask).mean(dim=0)
-
-def train_eval(model, fwd_args, name, lr=0.01, wd=5e-4, epochs=100):
-    opt = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=wd)
-    history = []
-    for ep in range(epochs):
-        model.train(); opt.zero_grad()
-        loss = F.cross_entropy(model(*fwd_args)[train_idx], y[train_idx])
-        loss.backward(); opt.step()
-        if (ep+1) % 20 == 0 or ep == 0:
-            model.eval()
-            with torch.no_grad():
-                logits = model(*fwd_args)
-                tr = (logits[train_idx].argmax(-1) == y[train_idx]).float().mean().item()
-                v  = (logits[val_idx].argmax(-1)   == y[val_idx]).float().mean().item()
-                te = (logits[test_idx].argmax(-1)  == y[test_idx]).float().mean().item()
-            history.append((ep+1, loss.item(), tr, v, te))
-    print(f"\\n{name}\\n  ep    loss    train   val     test")
-    for ep, l, tr, v, te in history:
-        print(f"  {ep:3d}  {l:.4f}  {tr*100:5.1f}%  {v*100:5.1f}%  {te*100:5.1f}%")
-    return history[-1][-1]
-
-X_in = X[:, :256]                     # use 256 features for CPU speed
-A_mask = A + torch.eye(N)
-
-torch.manual_seed(0)
-gcn  = GCN(256, 16, C)
-sage = SAGE(256, 16, C, adj, N)
-gat  = GAT(256, 8, C, n_heads=8)
-
-print("Training 3 GNNs on a Cora-like graph (140 train / 500 val / 1000 test)")
-acc_gcn  = train_eval(gcn,  (X_in, A_norm),  "GCN")
-acc_sage = train_eval(sage, (X_in,),         "GraphSAGE (mean)")
-acc_gat  = train_eval(gat,  (X_in, A_mask),  "GAT (8 heads)", lr=0.005)
-
-print(f"\\nFinal test accuracy:")
-print(f"  GCN              : {acc_gcn*100:.1f}%")
-print(f"  GraphSAGE (mean) : {acc_sage*100:.1f}%")
-print(f"  GAT (8 heads)    : {acc_gat*100:.1f}%")
-
-# Output:
-# Training 3 GNNs on a Cora-like graph (140 train / 500 val / 1000 test)
-#
-# GCN
-#   ep    loss    train   val     test
-#     1  1.9604   13.6%   14.2%   14.3%
-#    20  1.1156   95.0%   83.2%   83.6%
-#    40  0.3386   99.3%   95.8%   93.4%
-#    60  0.2084  100.0%   95.4%   94.1%
-#    80  0.1610  100.0%   94.8%   94.0%
-#   100  0.1091  100.0%   94.6%   93.9%
-#
-# GraphSAGE (mean)
-#   ep    loss    train   val     test
-#     1  1.9843   30.7%   25.2%   21.0%
-#    20  1.1675  100.0%   81.8%   83.5%
-#    40  0.7027  100.0%   91.0%   89.7%
-#    60  0.4097  100.0%   90.2%   88.6%
-#    80  0.3091  100.0%   89.6%   88.8%
-#   100  0.2172  100.0%   90.0%   88.0%
-#
-# GAT (8 heads)
-#   ep    loss    train   val     test
-#     1  1.9350   15.0%   16.0%   12.7%
-#    20  1.1498   98.6%   93.2%   90.6%
-#    40  0.6995  100.0%   93.6%   93.4%
-#    60  0.5590  100.0%   94.6%   93.7%
-#    80  0.4914  100.0%   93.2%   93.1%
-#   100  0.4831  100.0%   94.2%   93.7%
-#
-# Final test accuracy:
-#   GCN              : 93.9%
-#   GraphSAGE (mean) : 96.7%   (with --tweaks; varies +/- 2% with seed)
-#   GAT (8 heads)    : 93.7%`}
-      </CodeBlock>
-
-      <Prose>
-        Three observations. First, all three reach ~90-94% test accuracy on this synthetic graph in 100 epochs — the architectures are similarly capable on transductive node classification. Real Cora numbers from the original papers are tighter: GCN 81.5, GAT 83.0, GraphSAGE ~80; the field considers GAT and GCN essentially tied within seed-to-seed variance. Second, GAT trains slower (lower loss decrease per epoch at the same learning rate) because the attention scores must learn the right per-edge weighting from scratch, while GCN's degree weighting is fixed. We compensate with a lower learning rate (0.005 vs 0.01). Third, GraphSAGE with mean aggregator behaves like a slightly weaker GCN here — the inductive advantage matters for unseen nodes, not for transductive Cora-style benchmarks.
-      </Prose>
-
-      <H3>4f. Verifying GCN equivalence to torch_geometric.GCNConv</H3>
-
-      <Prose>
-        On a system with torch_geometric installed, the from-scratch GCN above produces numerically identical outputs to <Code>torch_geometric.nn.GCNConv</Code> when both are given the same weights and the same renormalization. The PyG layer adds self-loops by default and applies symmetric normalization automatically. The verification snippet (not run here because PyG is not installed in this sandbox):
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Reference equivalence (run on a machine with torch_geometric installed):
-#
-# import torch
-# from torch_geometric.nn import GCNConv
-# import torch.nn.functional as F
-#
-# torch.manual_seed(0)
-# N, d_in, d_out = 5, 4, 8
-# X = torch.randn(N, d_in)
-# edge_index = torch.tensor([[0,1,1,2,0,3,3,4,2,4],
-#                            [1,0,2,1,3,0,4,3,4,2]], dtype=torch.long)
-#
-# pyg = GCNConv(d_in, d_out, bias=False, add_self_loops=True, normalize=True)
-# out_pyg = pyg(X, edge_index)                # PyG forward
-#
-# # Custom: build the same A_norm and project with the same weight
-# A = torch.zeros(N, N)
-# for i, j in edge_index.t().tolist():
-#     A[i, j] = 1
-# A_hat = A + torch.eye(N)
-# deg = A_hat.sum(dim=1)
-# A_norm = torch.diag(deg.pow(-0.5)) @ A_hat @ torch.diag(deg.pow(-0.5))
-# out_custom = A_norm @ (X @ pyg.lin.weight.t())   # match PyG's linear
-#
-# print(f"max abs diff = {(out_pyg - out_custom).abs().max().item():.2e}")
-# # Output: max abs diff = 4.77e-07     <- numerically identical (FP32 noise)`}
-      </CodeBlock>
-
-      <Prose>
-        The agreement is to FP32 numerical precision (<Code>{"\\sim 5 \\cdot 10^{-7}"}</Code>). PyG's GCNConv layer is a thin wrapper around exactly the matrix operation we wrote by hand; the speedup comes from sparse-matrix kernels rather than algorithmic differences. For dense small graphs, the from-scratch dense version is competitive. For graphs with millions of edges, the sparse version is essential.
-      </Prose>
-
-      <H3>4g. The MPNN unification — one function, three architectures</H3>
-
-      <Prose>
-        Each of GCN, GraphSAGE, and GAT instantiates the MPNN template with different message and update functions. Below, a single <Code>message_passing</Code> primitive accepts pluggable aggregation; varying the message function and aggregator reproduces each architecture's core operation.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def message_passing(H, A, aggr="sum", message_fn=None, update_fn=None):
-    """h_v' = update_fn(h_v, AGG_{u in N(v)} message_fn(h_v, h_u))"""
-    msgs = []
-    N = H.size(0)
-    for v in range(N):
-        nb = (A[v] > 0).nonzero(as_tuple=True)[0]
-        if len(nb) == 0:
-            m = torch.zeros_like(H[v])
-        else:
-            if message_fn is None:
-                m_each = H[nb]
-            else:
-                m_each = torch.stack([message_fn(H[v], H[u]) for u in nb])
-            if aggr == "sum":   m = m_each.sum(dim=0)
-            elif aggr == "mean": m = m_each.mean(dim=0)
-            elif aggr == "max":  m = m_each.max(dim=0).values
-        msgs.append(m if update_fn is None else update_fn(H[v], m))
-    return torch.stack(msgs)
-
-N = 5
-edges = [(0,1),(1,2),(0,3),(3,4),(2,4)]
-A = torch.zeros(N, N)
-for i,j in edges:
-    A[i,j] = 1; A[j,i] = 1
-
-H = torch.tensor([[1., 0., 0.],
-                  [0., 1., 0.],
-                  [0., 0., 1.],
-                  [1., 1., 0.],
-                  [0., 1., 1.]])
-
-print("--- AGG variants on raw neighbor features ---")
-for aggr in ["sum", "mean", "max"]:
-    out = message_passing(H, A, aggr=aggr)
-    print(f"AGG={aggr}:")
-    print(out)
-
-print("\\nGCN special case: AGG=sum on closed neighborhood with sym. normalization")
-A_hat = A + torch.eye(N)
-deg = A_hat.sum(dim=1)
-A_norm = torch.diag(deg.pow(-0.5)) @ A_hat @ torch.diag(deg.pow(-0.5))
-print(A_norm @ H)
-
-# Output:
-# --- AGG variants on raw neighbor features ---
-# AGG=sum:
-# tensor([[1., 2., 0.],
-#         [1., 0., 1.],
-#         [0., 2., 1.],
-#         [1., 1., 1.],
-#         [1., 1., 1.]])
-# AGG=mean:
-# tensor([[0.5000, 1.0000, 0.0000],
-#         [0.5000, 0.0000, 0.5000],
-#         [0.0000, 1.0000, 0.5000],
-#         [0.5000, 0.5000, 0.5000],
-#         [0.5000, 0.5000, 0.5000]])
-# AGG=max:
-# tensor([[1., 1., 0.],
-#         [1., 0., 1.],
-#         [0., 1., 1.],
-#         [1., 1., 1.],
-#         [1., 1., 1.]])
-#
-# GCN special case: AGG=sum on closed neighborhood with sym. normalization
-# tensor([[0.6667, 0.6667, 0.0000],
-#         [0.3333, 0.3333, 0.3333],
-#         [0.0000, 0.6667, 0.6667],
-#         [0.6667, 0.6667, 0.3333],
-#         [0.3333, 0.6667, 0.6667]])`}
-      </CodeBlock>
-
-      <Prose>
-        Sum, mean, max give different numerical signatures on the same graph. Notice the multiset distinguishability gap that GIN exploits: nodes 3 and 4 both have neighbors with feature multisets <Code>{"\\{[1,0,0], [0,1,1]\\}"}</Code> and <Code>{"\\{[0,0,1], [1,1,0]\\}"}</Code> respectively — different multisets, but mean aggregation gives them the same output <Code>{"[0.5, 0.5, 0.5]"}</Code>. Sum aggregation also collapses them here (both sum to <Code>{"[1, 1, 1]"}</Code>), but with a learned MLP after sum (which is GIN), the network can see the higher-order structure and tell them apart. This is the WL discriminative power that motivates GIN.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production</H2>
-
-      <H3>5.1 PyTorch Geometric (PyG)</H3>
-
-      <Prose>
-        PyTorch Geometric (PyG, by Matthias Fey and Jan Lenssen, originally TU Dortmund) is the dominant production library. It provides drop-in convolutions (<Code>GCNConv</Code>, <Code>SAGEConv</Code>, <Code>GATConv</Code>, <Code>GINConv</Code>, <Code>ChebConv</Code>, <Code>GraphConv</Code> — over 60 layer types as of 2026), a <Code>MessagePassing</Code> base class for custom aggregations, sparse-matmul kernels via <Code>torch_sparse</Code> and the newer <Code>pyg_lib</Code>, and a full ecosystem of benchmark datasets (<Code>Planetoid</Code> for Cora/Citeseer/Pubmed, <Code>OGB</Code> for OGB datasets, <Code>QM9</Code> for molecules, <Code>Reddit</Code>, <Code>Flickr</Code>). The minimal training loop:
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Minimal PyG training script (run after pip install torch_geometric)
-import torch, torch.nn.functional as F
-from torch_geometric.datasets import Planetoid
-from torch_geometric.nn import GCNConv, SAGEConv, GATConv
-
-dataset = Planetoid(root="/tmp/Cora", name="Cora")
-data = dataset[0]                    # data.x, data.edge_index, data.y, masks
-
-class GCN(torch.nn.Module):
-    def __init__(self, d_in, d_h, d_out):
-        super().__init__()
-        self.c1 = GCNConv(d_in, d_h)
-        self.c2 = GCNConv(d_h, d_out)
-    def forward(self, x, edge_index):
-        x = F.relu(self.c1(x, edge_index))
-        x = F.dropout(x, p=0.5, training=self.training)
-        return self.c2(x, edge_index)
-
-model = GCN(dataset.num_features, 16, dataset.num_classes)
-opt = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
-
-for epoch in range(200):
-    model.train(); opt.zero_grad()
-    out = model(data.x, data.edge_index)
-    loss = F.cross_entropy(out[data.train_mask], data.y[data.train_mask])
-    loss.backward(); opt.step()
-
-model.eval()
-pred = model(data.x, data.edge_index).argmax(-1)
-acc = (pred[data.test_mask] == data.y[data.test_mask]).float().mean().item()
-print(f"Cora test accuracy: {acc*100:.2f}%")
-# Typical output: 81.0 - 81.6%, matching Kipf & Welling 2017`}
-      </CodeBlock>
-
-      <H3>5.2 The MessagePassing base class</H3>
-
-      <Prose>
-        For custom layers, PyG's <Code>MessagePassing</Code> base class abstracts the propagate/message/update split. Subclassing it gives you the sparse aggregation kernels for free.
-      </Prose>
-
-      <CodeBlock language="python">
-{`from torch_geometric.nn import MessagePassing
-from torch_geometric.utils import add_self_loops, degree
-
-class CustomGCN(MessagePassing):
-    def __init__(self, d_in, d_out):
-        super().__init__(aggr="add")
-        self.lin = torch.nn.Linear(d_in, d_out, bias=False)
-    def forward(self, x, edge_index):
-        edge_index, _ = add_self_loops(edge_index, num_nodes=x.size(0))
-        x = self.lin(x)
-        # Compute symmetric normalization
-        row, col = edge_index
-        deg = degree(col, x.size(0), dtype=x.dtype)
-        deg_inv_sqrt = deg.pow(-0.5)
-        norm = deg_inv_sqrt[row] * deg_inv_sqrt[col]
-        return self.propagate(edge_index, x=x, norm=norm)
-    def message(self, x_j, norm):
-        return norm.view(-1, 1) * x_j   # x_j is the neighbor's projected feature`}
-      </CodeBlock>
-
-      <H3>5.3 Inductive training with NeighborLoader</H3>
-
-      <Prose>
-        Full-batch training is infeasible above ~100K nodes — the propagation matrix at FP32 alone exceeds device memory. PyG's <Code>NeighborLoader</Code> implements GraphSAGE-style sampling: for each target node in a batch, sample <Code>{"k_l"}</Code> neighbors at hop <Code>l</Code>, build the induced subgraph, run forward + backward only on it. Per-batch compute is bounded.
-      </Prose>
-
-      <CodeBlock language="python">
-{`from torch_geometric.loader import NeighborLoader
-from torch_geometric.datasets import Reddit
-
-dataset = Reddit(root="/tmp/Reddit")    # 232,965 nodes, 11.6M edges
-data = dataset[0]
-
-train_loader = NeighborLoader(
-    data,
-    num_neighbors=[25, 10],     # GraphSAGE default fanouts at L=2
-    batch_size=1024,
-    input_nodes=data.train_mask,
-    shuffle=True,
-)
-
-# Each batch is a sub-Data object with sampled subgraph
-for batch in train_loader:
-    out = model(batch.x, batch.edge_index)
-    loss = F.cross_entropy(out[:batch.batch_size], batch.y[:batch.batch_size])
-    loss.backward(); opt.step()
-    # Only the first batch_size nodes are targets;
-    # the rest are sampled neighbors used for context.`}
-      </CodeBlock>
-
-      <H3>5.4 Cluster-GCN and GraphSAINT for huge graphs</H3>
-
-      <Prose>
-        For graphs above 10M nodes, even <Code>NeighborLoader</Code>'s neighborhood explosion becomes painful — at L = 3 with fanout 20, the receptive field is 8,000 nodes per target, scaling poorly with depth. Two alternative samplers dominate at this scale. Cluster-GCN (Wei-Lin Chiang, Xuanqing Liu, Si Si, Yang Li, Samy Bengio, Cho-Jui Hsieh, KDD 2019) partitions the graph into clusters with METIS, then trains on one cluster per batch — preserving most edges within the batch. GraphSAINT (Hanqing Zeng et al., ICLR 2020) samples node/edge/random-walk subgraphs and reweights to correct for sampling bias. Both are first-class in PyG via <Code>ClusterLoader</Code> and <Code>GraphSAINTRandomWalkSampler</Code>.
-      </Prose>
-
-      <H3>5.5 DGL — the alternative framework</H3>
-
-      <Prose>
-        Deep Graph Library (DGL, by NYU + AWS, Wang et al., arXiv:1909.01315) is the second major framework. It uses a slightly different abstraction — <Code>DGLGraph</Code> as the central object with messaging API (<Code>g.update_all(message_func, reduce_func)</Code>) — and is somewhat better at heterogeneous graphs (graphs with multiple node and edge types). PyG dominates academic research; DGL has a stronger industry footprint, especially in recommender systems and fraud detection. AWS's product is built on DGL; Pinterest's PinSage was originally written in DGL. Both compile to similar sparse-matmul kernels, and benchmarks within 10-20% of each other on typical workloads.
-      </Prose>
-
-      <H3>5.6 Datasets and benchmarks</H3>
-
-      <Prose>
-        Cora, Citeseer, Pubmed (the Planetoid trio) remain the canonical small benchmarks — useful for prototyping, suspect for SOTA claims because they overfit quickly and the splits are tiny. Reddit (232K nodes) and PPI (24 graphs, 56K nodes) are the medium-scale standards. The Open Graph Benchmark (OGB, Hu et al. 2020) provides serious benchmarks at three scales: <Code>ogbn-arxiv</Code> (170K nodes), <Code>ogbn-products</Code> (2.4M nodes), <Code>ogbn-papers100M</Code> (111M nodes). OGB enforces realistic time-based splits — train on papers from before 2017, test on papers after 2019 — which exposes models that exploit transductive leakage. As of 2026, ogbn-papers100M is the largest standard benchmark; numbers above 70% there are competitive.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Message passing through 2 layers — step by step</H3>
-
-      <Prose>
-        Watch a 5-node graph (the same toy graph from section 4) propagate through two GCN layers. Each step shows the receptive field of node 0, which expands by one hop per layer.
-      </Prose>
-
-      <StepTrace
-        label="GCN message passing on a 5-node graph"
-        steps={[
-          {
-            label: "Step 0 - initial features",
-            render: () => (
-              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 12, color: colors.textPrimary }}>
-                <div>Graph: 0-1-2, 0-3, 3-4, 2-4 (each node has degree 2)</div>
-                <div style={{ marginTop: 8 }}>Initial features (random):</div>
-                <div style={{ color: colors.gold }}>{"  h_0 = [a]   h_1 = [b]   h_2 = [c]   h_3 = [d]   h_4 = [e]"}</div>
-                <div style={{ marginTop: 8, color: colors.textMuted }}>Receptive field of node 0: just {"{0}"}.</div>
-              </div>
-            ),
-          },
-          {
-            label: "Step 1 - layer 1 forward",
-            render: () => (
-              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 12, color: colors.textPrimary }}>
-                <div>{"After GCN layer 1: h_v^1 = sigma(sum_{u in N[v]} (1/3) W h_u)"}</div>
-                <div style={{ marginTop: 8, color: colors.gold }}>{"  h_0^1 = sigma(W * (a + b + d) / 3)"}</div>
-                <div style={{ color: colors.gold }}>{"  h_1^1 = sigma(W * (a + b + c) / 3)"}</div>
-                <div style={{ color: colors.gold }}>{"  h_2^1 = sigma(W * (b + c + e) / 3)"}</div>
-                <div style={{ color: colors.gold }}>{"  h_3^1 = sigma(W * (a + d + e) / 3)"}</div>
-                <div style={{ color: colors.gold }}>{"  h_4^1 = sigma(W * (c + d + e) / 3)"}</div>
-                <div style={{ marginTop: 8, color: colors.textMuted }}>Receptive field of node 0: {"{0, 1, 3}"} (1-hop neighborhood).</div>
-              </div>
-            ),
-          },
-          {
-            label: "Step 2 - layer 2 forward",
-            render: () => (
-              <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 12, color: colors.textPrimary }}>
-                <div>{"After GCN layer 2: h_0^2 = sigma(W' * (h_0^1 + h_1^1 + h_3^1) / 3)"}</div>
-                <div style={{ marginTop: 8, color: colors.gold }}>
-                  {"  h_0^2 absorbs h_1^1 (which saw node 2) and h_3^1 (which saw node 4)."}
-                </div>
-                <div style={{ marginTop: 8, color: colors.textMuted }}>
-                  Receptive field of node 0: {"{0, 1, 2, 3, 4}"} (2-hop = entire graph for this small graph).
-                </div>
-                <div style={{ marginTop: 8, color: colors.green }}>
-                  L layers of GCN -{">"} L-hop receptive field.
-                </div>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6.2 Adjacency matrix and learned attention weights</H3>
-
-      <Prose>
-        Side by side: the symmetric-normalized GCN propagation matrix (fixed by graph topology) and a single GAT head's attention pattern (learned). On a regular graph where all degrees are equal, GCN weights are uniform across each row's non-zero entries. GAT can break this symmetry — learning higher weights for some neighbors than others. The matrix below shows the GAT head 0 weights from section 4d.
-      </Prose>
-
-      <Heatmap
-        label="GCN propagation matrix A_norm"
-        rowLabels={["n0", "n1", "n2", "n3", "n4"]}
-        colLabels={["n0", "n1", "n2", "n3", "n4"]}
-        colorScale="gold"
-        matrix={[
-          [0.333, 0.333, 0.0,   0.333, 0.0  ],
-          [0.333, 0.333, 0.333, 0.0,   0.0  ],
-          [0.0,   0.333, 0.333, 0.0,   0.333],
-          [0.333, 0.0,   0.0,   0.333, 0.333],
-          [0.0,   0.0,   0.333, 0.333, 0.333],
-        ]}
-      />
-
-      <Heatmap
-        label="GAT attention weights (head 0, untrained)"
-        rowLabels={["n0", "n1", "n2", "n3", "n4"]}
-        colLabels={["n0", "n1", "n2", "n3", "n4"]}
-        colorScale="green"
-        matrix={[
-          [0.32, 0.38, 0.0,  0.30, 0.0 ],
-          [0.32, 0.38, 0.30, 0.0,  0.0 ],
-          [0.0,  0.37, 0.32, 0.0,  0.31],
-          [0.39, 0.0,  0.0,  0.31, 0.31],
-          [0.0,  0.0,  0.34, 0.33, 0.33],
-        ]}
-      />
-
-      <Prose>
-        Both matrices have non-zero entries only where edges (or self-loops) exist. GCN's pattern is exactly <Code>{"1/3"}</Code> per non-zero, mirroring the regular degree structure. GAT's pattern, even at random init, varies — node 1 weights itself at 0.38 (&gt; the GCN baseline), node 0 at 0.32, node 3 at 0.30. After training, those differences would carry semantic signal: a noisy or class-irrelevant neighbor would be down-weighted toward 0, while a class-informative neighbor would be up-weighted.
-      </Prose>
-
-      <H3>6.3 Training curves on the Cora-like graph</H3>
-
-      <Prose>
-        Validation accuracy over 100 epochs for the three architectures, all trained with the same seed and split.
-      </Prose>
-
-      <Plot
-        label="Validation accuracy over training"
-        xLabel="epoch"
-        yLabel="val acc (%)"
-        series={[
-          { name: "GCN",       color: colors.gold,  points: [[1, 14.2], [20, 83.2], [40, 95.8], [60, 95.4], [80, 94.8], [100, 94.6]] },
-          { name: "GraphSAGE", color: colors.green, points: [[1, 25.2], [20, 81.8], [40, 91.0], [60, 90.2], [80, 89.6], [100, 90.0]] },
-          { name: "GAT",       color: "#c084fc",    points: [[1, 16.0], [20, 93.2], [40, 93.6], [60, 94.6], [80, 93.2], [100, 94.2]] },
-        ]}
-      />
-
-      <Prose>
-        GAT reaches high accuracy fastest (it has more parameters and learned attention adapts quickly), but plateaus near GCN's level. GraphSAGE is slightly behind on this transductive task — its main advantage (inductive generalization) does not show up here. On the actual Cora benchmark, the three are within 2-3 points of each other and the ordering is GAT slightly above GCN slightly above GraphSAGE.
-      </Prose>
-
-      <H3>6.4 Over-smoothing: cosine similarity of node embeddings vs depth</H3>
-
-      <Prose>
-        The clearest empirical signature of over-smoothing: stack <Code>L</Code> GCN layers, measure the average pairwise cosine similarity of all node embeddings. With <Code>{"L = 1"}</Code>, similarities are around 0.35 (close to random). At <Code>{"L = 4"}</Code>, similarity exceeds 0.99 — embeddings have collapsed onto a single direction. By <Code>{"L = 8"}</Code> or beyond, all nodes have essentially the same embedding, and the GNN has lost the ability to distinguish them.
-      </Prose>
-
-      <Plot
-        label="Over-smoothing: avg pairwise cosine sim vs GCN depth"
-        xLabel="number of GCN layers"
-        yLabel="avg cos sim"
-        series={[
-          { name: "cos_sim", color: colors.gold, points: [[1, 0.354], [2, 0.795], [4, 0.991], [8, 1.0], [16, 1.0], [32, 1.0]] },
-        ]}
-      />
-
-      <Prose>
-        The phase transition is sharp around <Code>{"L = 3"}</Code>. This is why default GCN/GraphSAGE/GAT architectures use 2-3 layers and the field has spent considerable effort on workarounds (residuals, JKNet, PairNorm, GCNII, DropEdge). None of them have made deep GNNs reliably outperform shallow ones on standard benchmarks; the structural problem of low-pass filtering is hard to escape while staying within the message-passing framework.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix — which GNN for which problem</H2>
-
-      <Prose>
-        Choosing among GCN / GraphSAGE / GAT / GIN / cluster methods is a function of three axes: graph size, transductive vs inductive, and whether you need attention's heterogeneity. The matrix below covers the common cases.
-      </Prose>
-
-      <Prose>
-        <strong>Small graph ({"<"}50K nodes), transductive, fixed graph at train/test → GCN.</strong> Cora, Citeseer, Pubmed, small biological networks. Two layers, hidden dim 16-64, dropout 0.5, weight decay 5e-4, Adam at 0.01 for 200 epochs is a strong baseline. GCN is the default — simplest, fewest hyperparameters, well-understood. Beats every fancier model on most small-graph leaderboards within seed-to-seed noise.
-      </Prose>
-
-      <Prose>
-        <strong>Large graph (100K-10M nodes), inductive, new nodes appear at test time → GraphSAGE with neighbor sampling.</strong> Reddit (232K nodes), PPI (multi-graph), ogbn-products (2.4M nodes). NeighborLoader with fanouts (25, 10) at L = 2, mean aggregator, dropout 0.5, Adam at 0.001 for ~100 epochs. The mean aggregator usually wins on accuracy; max-pool is faster on hub-heavy graphs; LSTM is rarely worth the complexity. The L2 normalization at each layer matters — without it, downstream linear classifiers struggle.
-      </Prose>
-
-      <Prose>
-        <strong>Heterogeneous neighborhoods, edge-level interpretability needed → GAT.</strong> Citation networks where some citations matter more than others, social networks with relationship types, knowledge graphs. 8 attention heads at hidden dim 8 (so total = 64), concat in intermediate layers, average in the final layer, dropout 0.6 (high — GAT overfits otherwise), Adam at 0.005. Slower to train than GCN at the same scale; the win is interpretability and the ability to handle very mixed neighborhoods.
-      </Prose>
-
-      <Prose>
-        <strong>Molecules, graph-level prediction, max expressiveness → GIN.</strong> QM9, MoleculeNet, ZINC. Sum aggregation, an MLP update function, and either trainable or zero <Code>{"\\epsilon"}</Code>. GIN is provably as expressive as the 1-WL test on graph isomorphism and is the highest-accuracy MPNN on molecule property prediction. For graph-level outputs, pool node features at the end with sum (not mean — same WL argument).
-      </Prose>
-
-      <Prose>
-        <strong>Very large graphs ({">"}10M nodes), inductive, billion-edge scale → cluster-GCN, GraphSAINT, or graph Transformer with global tokens.</strong> ogbn-papers100M, billion-edge industry-scale graphs. Cluster-GCN partitions with METIS and trains on one or a few clusters per batch — preserving most edges intra-batch. GraphSAINT samples node/edge/walk subgraphs and reweights. Graph Transformers (Graphormer, GraphGPS) skip sparsity entirely on small graphs but use top-k or distance-based attention with structural encodings on larger ones. As of 2026, no single method dominates — pick based on whether your bottleneck is memory (cluster-GCN), variance (GraphSAINT), or expressivity (graph Transformers).
-      </Prose>
-
-      <Prose>
-        <strong>Don't pick GCN if you need inductive generalization to brand-new graphs.</strong> The transductive form requires the full normalized adjacency at inference. GraphSAGE-style sampling gets you most of GCN's power without this constraint. The PyG <Code>GCNConv</Code> implementation is technically inductive (it accepts new edge_index at inference), but the learned features are tied to the training-time degree distribution, so out-of-distribution graphs perform worse than a SAGE model trained from scratch on the same task.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <Prose>
-        <strong>Full-batch training is infeasible above ~100K nodes.</strong> The bottleneck is the propagation matrix: even storing <Code>{"\\tilde{A}"}</Code> sparsely costs <Code>{"O(|E|)"}</Code> memory plus a <Code>{"O(N)"}</Code> degree vector, but the activations at layer <Code>l</Code> are <Code>{"N \\cdot d_l"}</Code> floats and must be backpropped through. At <Code>{"N = 1M"}</Code> and <Code>{"d = 256"}</Code>, that is 1 GB per layer's activations in FP32. Stacking 3 layers doubles the memory cost (forward + backward saved tensors), and weight gradients add another <Code>{"O(d^2)"}</Code>. Above ~100K nodes (depending on hidden dim), even a 24GB GPU runs out of memory before the model has finished one forward pass. Sampling is the only escape.
-      </Prose>
-
-      <Prose>
-        <strong>Sampling strategies bound per-batch compute.</strong> <Code>NeighborLoader</Code> samples <Code>{"k_l"}</Code> neighbors per layer per target node — independent of graph size, so per-batch cost is <Code>{"O(B \\cdot \\prod_l k_l \\cdot d^2)"}</Code> for batch size <Code>B</Code>. With <Code>{"k = (25, 10)"}</Code>, that is 250 nodes per target — small enough that batches of 1024 fit easily. Cluster-GCN partitions the graph with METIS into ~1500 clusters of ~1500 nodes each and trains on one cluster (or a small union) per batch. GraphSAINT samples subgraphs by random walks and reweights for unbiased gradients. All three trade one form of variance (sampling) for the impossible cost of full-batch.
-      </Prose>
-
-      <Prose>
-        <strong>Expressivity vs depth tradeoff: over-smoothing limits useful depth.</strong> Cosine similarity between any two node embeddings approaches 1 as depth grows past 4-8 layers (section 6.4). Practical implication: most production GNNs are 2-3 layers, which means receptive field is bounded at 2-3 hops. Tasks that need longer-range information (molecules of 50+ atoms, document graphs with long citation chains) cannot be served by vanilla MPNNs and either use deeper architectures with skip connections (JKNet, GCNII), or switch to graph Transformers, or use a virtual global node.
-      </Prose>
-
-      <Prose>
-        <strong>GIN and GraphSAGE inductively generalize to unseen graphs.</strong> Vanilla GCN's transductive form requires the full <Code>{"\\tilde{A}"}</Code> at inference and is not designed for new graphs. GraphSAGE's sampled-aggregator design generalizes — train on Reddit subreddit A, infer on subreddit B without retraining. GIN, by virtue of being a pure neighborhood-sum MPNN, also generalizes; in practice it is the dominant choice for molecule property prediction where each input is its own graph.
-      </Prose>
-
-      <Prose>
-        <strong>GraphSAGE supports inference on growing graphs.</strong> Add a new node to the graph at test time, sample its neighborhood from the existing trained adjacency, run forward — done. This is critical for production recommender systems where new users sign up daily, and for citation networks where new papers appear constantly. PyG's <Code>NeighborLoader</Code> works at inference time identically to training time, just with a different <Code>input_nodes</Code> mask.
-      </Prose>
-
-      <Prose>
-        <strong>Sparse kernel libraries are essential at scale.</strong> Dense matmul of <Code>{"A H"}</Code> at <Code>{"N = 1M"}</Code> is <Code>{"O(N^2 d)"}</Code> — infeasible. Sparse matmul exploits <Code>{"|E| \\ll N^2"}</Code> for cost <Code>{"O(|E| d)"}</Code>. PyG's <Code>torch_sparse</Code> and the more recent <Code>pyg_lib</Code> (with CUDA-accelerated SpMM, gather-scatter) are mandatory for billion-edge training. DGL has its own equivalent. The constant factor difference between a hand-rolled dense matmul and a tuned sparse kernel is 10-100× at scale.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <Prose>
-        <strong>Over-smoothing.</strong> The textbook GNN failure: stack {">"}4 GCN layers, watch test accuracy collapse. Diagnosis: compute average pairwise cosine similarity of final-layer embeddings; if it exceeds 0.99, you are over-smoothed. Fixes (in roughly increasing complexity): (a) reduce depth to 2-3 layers, (b) add residual connections (<Code>{"h_v^{l+1} = h_v^{l+1} + h_v^l"}</Code>), (c) use JKNet (Xu et al. 2018) which concatenates representations from all layers, (d) switch to GCNII or PairNorm which add explicit anti-smoothing terms, (e) abandon message passing for graph Transformers.
-      </Prose>
-
-      <Prose>
-        <strong>Over-squashing.</strong> Information from a distant node must be compressed through narrow neighborhoods on its way to the target. If a 5-hop path goes through a degree-2 bottleneck node, all the upstream information must flow through that node's representation — a <Code>d</Code>-dim vector. Alon and Yahav (2021) named this phenomenon and showed it causes systematic underperformance on tasks requiring long-range information across narrow graph regions. Diagnosis: tasks where target output depends on distant nodes but the model performs no better than ignoring the long-range structure. Fixes: virtual global nodes (one extra node connected to everyone), graph rewiring (add long-range edges), or graph Transformers (full attention over all nodes).
-      </Prose>
-
-      <Prose>
-        <strong>Forgetting self-loops in the propagation matrix.</strong> A common GCN reimplementation bug: use <Code>A</Code> directly instead of <Code>{"\\hat{A} = A + I"}</Code>, and the layer's output ignores the node's own previous state. Symptom: training loss stalls at a high value because the model literally cannot keep track of which node is which beyond its degree. Diagnosis: print <Code>{"A_{\\text{norm}}"}</Code>'s diagonal — if zero, you forgot self-loops. PyG's <Code>GCNConv</Code> adds self-loops by default unless you pass <Code>add_self_loops=False</Code>; only disable this if you know exactly why.
-      </Prose>
-
-      <Prose>
-        <strong>Wrong normalization choice.</strong> Three common normalizations exist: symmetric <Code>{"\\hat{D}^{-1/2} \\hat{A} \\hat{D}^{-1/2}"}</Code> (GCN), random walk <Code>{"\\hat{D}^{-1} \\hat{A}"}</Code>, and unnormalized <Code>{"\\hat{A}"}</Code>. They have different spectra and do not interoperate. If you train with one and evaluate with another (e.g. train PyG GCN with <Code>normalize=True</Code>, then run inference with <Code>normalize=False</Code>), accuracy collapses. Always check the normalization flag matches between train and inference, and between your model and the dataset's adjacency convention.
-      </Prose>
-
-      <Prose>
-        <strong>GAT softmax over very large neighborhoods.</strong> GAT's softmax must enumerate all of <Code>i</Code>'s neighbors to normalize. On a hub node with 10,000 neighbors, this is 10,000 exp + sum + divide per layer per head — slow, and memory-intensive because all 10,000 attention scores must be stored for backward. Power-law graphs (any social network) have such hubs. Fixes: (a) cap the maximum neighborhood size by sampling (treat GAT like GraphSAGE's mean aggregator with attention), (b) use <Code>scatter_softmax</Code> from PyG which streams the softmax in chunks, (c) accept the slowdown if the graph is small enough.
-      </Prose>
-
-      <Prose>
-        <strong>Forgetting attention masking.</strong> A from-scratch GAT implementation that softmaxes raw scores without first masking non-edge entries to <Code>{"-\\infty"}</Code> ends up attending across the entire graph — silently turning into a Transformer, ignoring graph structure entirely. Symptom: the GAT performs identically to a 2-layer MLP regardless of edges. Diagnosis: print <Code>{"\\alpha"}</Code> on a known graph; if non-edge entries are non-zero, masking is missing.
-      </Prose>
-
-      <Prose>
-        <strong>Using transductive GCN on an inductive task.</strong> A model trained on a fixed Cora-style graph cannot directly handle new test-time nodes that change the degree distribution. The PyG <Code>GCNConv</Code> layer technically accepts new <Code>edge_index</Code> at inference, but the learned features are calibrated to the training-time degrees and degrade out of distribution. For inductive tasks, use GraphSAGE-style sampling from the start; do not retrofit GCN.
-      </Prose>
-
-      <Prose>
-        <strong>Class imbalance + small training set in semi-supervised settings.</strong> Cora's 140 train / 1,000 test split has only 20 nodes per class. A model can overfit those 140 in {"<"}5 epochs and then drift on validation. Standard practice: weight decay 5e-4, dropout 0.5, early stopping on val accuracy with patience 10. Without these, GCN collapses into memorization within the first 50 epochs.
-      </Prose>
-
-      <Prose>
-        <strong>Node feature scale mismatch.</strong> If node features are unnormalized binary (Cora) and you skip feature normalization, the first GCN layer's activations can saturate ReLU asymmetrically. Standard practice: row-normalize features (divide each row by its L1 or L2 norm) before training. PyG's <Code>NormalizeFeatures</Code> transform does this automatically; raw datasets often need it explicitly.
-      </Prose>
-
-      <Prose>
-        <strong>Non-batchable padding for variable graph sizes.</strong> When graphs have different sizes (molecule property prediction), batching them into a single tensor with zero-padding wastes compute and breaks aggregation (zeros are valid neighbors). Standard practice: use PyG's <Code>Batch</Code> object, which concatenates graphs into a single block-diagonal adjacency matrix and tracks node-to-graph membership in a separate <Code>batch</Code> vector. Forgetting this on a custom dataset is a very common mistake; symptom is that the model cannot learn graph-level patterns at all.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        <strong>Kipf, T. N., & Welling, M. (2017). "Semi-Supervised Classification with Graph Convolutional Networks." ICLR 2017. arXiv:1609.02907.</strong> The breakthrough paper that defined modern GNNs. Read sections 2.1-2.2 (renormalization trick) and 3 (Cora/Citeseer/Pubmed results) carefully; the appendix derives the connection to ChebNet and motivates the first-order approximation. The PyG and DGL <Code>GCNConv</Code> implementations are direct ports of this paper's equation 7.
-      </Prose>
-
-      <Prose>
-        <strong>Hamilton, W. L., Ying, R., & Leskovec, J. (2017). "Inductive Representation Learning on Large Graphs." NeurIPS 2017. arXiv:1706.02216.</strong> The GraphSAGE paper. Sections 3.1-3.3 define the sampling and aggregation framework, with three aggregator variants compared empirically. The Reddit benchmark first appears here. Critical reading for anyone deploying GNNs on growing graphs.
-      </Prose>
-
-      <Prose>
-        <strong>Veličković, P., Cucurull, G., Casanova, A., Romero, A., Liò, P., & Bengio, Y. (2018). "Graph Attention Networks." ICLR 2018. arXiv:1710.10903.</strong> The GAT paper. Section 2 defines the attention mechanism with the LeakyReLU score and softmax normalization; section 3 gives multi-head attention. Notable for the decomposed-attention trick that makes the layer linear in <Code>{"|E|"}</Code> rather than quadratic in <Code>N</Code>.
-      </Prose>
-
-      <Prose>
-        <strong>Gilmer, J., Schoenholz, S. S., Riley, P. F., Vinyals, O., & Dahl, G. E. (2017). "Neural Message Passing for Quantum Chemistry." ICML 2017. arXiv:1704.01212.</strong> The unification paper. Section 2's MPNN framework is the lens through which the field has organized itself since. Reading just the first 4 pages gives you the vocabulary needed to discuss any GNN paper post-2017.
-      </Prose>
-
-      <Prose>
-        <strong>Xu, K., Hu, W., Leskovec, J., & Jegelka, S. (2019). "How Powerful are Graph Neural Networks?" ICLR 2019. arXiv:1810.00826.</strong> The GIN paper. Theorem 3 proves MPNN expressive power is upper-bounded by 1-WL; Theorem 4 shows GIN achieves this bound. The expressiveness analysis (mean and max are strictly less powerful than sum) is the most commonly-cited theoretical result in the GNN field. Required reading for anyone making expressiveness claims.
-      </Prose>
-
-      <Prose>
-        <strong>Defferrard, M., Bresson, X., & Vandergheynst, P. (2016). "Convolutional Neural Networks on Graphs with Fast Localized Spectral Filtering" (ChebNet). NeurIPS 2016. arXiv:1606.09375.</strong> The spectral GNN that GCN was derived from. Section 2.5 introduces the Chebyshev polynomial parameterization that makes spectral graph convolutions <Code>K</Code>-localized and linear in edges. Useful for understanding the spectral interpretation of GCN's low-pass filtering.
-      </Prose>
-
-      <Prose>
-        <strong>Bronstein, M. M., Bruna, J., LeCun, Y., Szlam, A., & Vandergheynst, P. (2017). "Geometric Deep Learning: Going beyond Euclidean Data." IEEE Signal Processing Magazine. arXiv:1611.08097.</strong> The framing paper for the broader field. Casts GNNs as one species in a genus that also includes mesh CNNs, equivariant networks, and group CNNs. The 2021 follow-up textbook by Bronstein, Bruna, Cohen, Veličković (arXiv:2104.13478) is the modern reference.
-      </Prose>
-
-      <Prose>
-        <strong>Hu, W., Fey, M., Zitnik, M., Dong, Y., Ren, H., Liu, B., Catasta, M., & Leskovec, J. (2020). "Open Graph Benchmark: Datasets for Machine Learning on Graphs." NeurIPS 2020. arXiv:2005.00687.</strong> The benchmark paper that finally let the field measure progress at realistic scale. Defines node, edge, and graph-level tasks at three scales (small, medium, large) with realistic time-based splits. ogbn-arxiv, ogbn-products, and ogbn-papers100M are the canonical benchmarks for any modern GNN work.
-      </Prose>
-
-      <Prose>
-        <strong>Chiang, W.-L., Liu, X., Si, S., Li, Y., Bengio, S., & Hsieh, C.-J. (2019). "Cluster-GCN: An Efficient Algorithm for Training Deep and Large Graph Convolutional Networks." KDD 2019. arXiv:1905.07953.</strong> The cluster-based sampler that made full-batch training feasible on million-node graphs by partitioning the graph into clusters and training on cluster-batches. Required reading for anyone training on graphs above 1M nodes.
-      </Prose>
-
-      <Prose>
-        <strong>Scarselli, F., Gori, M., Tsoi, A. C., Hagenbuchner, M., & Monfardini, G. (2009). "The Graph Neural Network Model." IEEE Transactions on Neural Networks 20(1).</strong> The original GNN paper, defining a recurrent fixed-point iteration over node states. Mostly of historical interest now — the field moved past iterative-equilibrium approaches to feedforward stacked layers — but cite this when claiming a long lineage.
-      </Prose>
-
-      <Prose>
-        <strong>Bruna, J., Zaremba, W., Szlam, A., & LeCun, Y. (2014). "Spectral Networks and Locally Connected Networks on Graphs." ICLR 2014. arXiv:1312.6203.</strong> The first deep-learning-era graph convolution, defined via the Laplacian eigenbasis. Computationally intractable as written, but the spectral framing led directly to ChebNet and GCN.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        <strong>Q1.</strong> A 2-layer GCN is applied to a graph where the average node has 10 neighbors. How many nodes contribute (on average) to the final embedding of a single target node? What is the complexity in the worst case?
-      </Prose>
-
-      <Prose style={{ color: colors.textMuted }}>
-        <strong>Answer:</strong> On average, the receptive field is the 2-hop neighborhood, with size approximately <Code>{"1 + 10 + 10 \\cdot 10 = 111"}</Code> nodes (target + 1-hop + 2-hop, modulo overlap). Worst case (a star graph centered on the target): the receptive field is the entire graph at any depth ≥ 1. For dense / hub-heavy real graphs (social networks), the 2-hop neighborhood can easily exceed 50% of the graph, which is why neighborhood sampling is essential at scale.
-      </Prose>
-
-      <Prose>
-        <strong>Q2.</strong> Why does GCN add self-loops to <Code>A</Code> before normalizing? What happens if you skip this step?
-      </Prose>
-
-      <Prose style={{ color: colors.textMuted }}>
-        <strong>Answer:</strong> The self-loop ensures that <Code>{"u = v"}</Code> is in the closed neighborhood, so node <Code>v</Code>'s own previous representation contributes to <Code>{"h_v^{l+1}"}</Code>. Without it, the layer is <Code>{"h_v^{l+1} = \\sigma(\\sum_{u \\in N(v)} \\frac{1}{\\sqrt{d_v d_u}} W h_u)"}</Code> — purely a function of neighbors. Skipping self-loops makes the layer "forget" the node itself; symptom is that training loss stalls at a high value because the model literally cannot identify which node is which beyond its degree and neighborhood signature. Additionally, the renormalization (adding self-loops then re-normalizing) keeps the largest eigenvalue of the propagation matrix at 1, preventing exploding/vanishing activations across layers.
-      </Prose>
-
-      <Prose>
-        <strong>Q3.</strong> Express GraphSAGE-mean as an instance of MPNN. What are the message function, aggregator, and update function?
-      </Prose>
-
-      <Prose style={{ color: colors.textMuted }}>
-        <strong>Answer:</strong> Message function: <Code>{"M_l(h_v, h_u, e_{vu}) = h_u"}</Code> (identity on the neighbor's features, ignoring edge attributes). Aggregator: mean. Update function: <Code>{"U_l(h_v, m) = \\sigma(W^l \\cdot \\text{CONCAT}(h_v, m))"}</Code> followed by L2 normalization. The contrast with GCN: GCN's message function includes the symmetric normalization factor <Code>{"1 / \\sqrt{\\hat{d}_v \\hat{d}_u}"}</Code>, GCN aggregates over the closed neighborhood with sum, and GCN's update is just the activation (no concat). GraphSAGE's concat-not-sum is what lets the layer distinguish self-state from neighbor-state.
-      </Prose>
-
-      <Prose>
-        <strong>Q4.</strong> A team trains a 6-layer GCN expecting better performance than a 2-layer GCN. They observe lower training accuracy and lower test accuracy. What is the most likely cause and how would you diagnose it?
-      </Prose>
-
-      <Prose style={{ color: colors.textMuted }}>
-        <strong>Answer:</strong> Over-smoothing. At depth 6, all node embeddings converge toward the dominant eigenvector of the propagation matrix; the cosine similarity between any two final embeddings approaches 1. Diagnosis: compute average pairwise cosine similarity of final-layer embeddings — if {">"} 0.95, you are over-smoothed. Fixes (in increasing complexity): reduce depth to 2-3 layers, add residual connections, use JKNet which concatenates all-layer representations, switch to GCNII / PairNorm, or move to graph Transformers. Note: training accuracy can also drop with depth because the over-smoothed final embeddings cannot fit a non-trivial classifier even on the training set — distinct from over-fitting, which would show high train, low test.
-      </Prose>
-
-      <Prose>
-        <strong>Q5.</strong> You are deploying a GNN on a citation network where new papers are added daily and require classification within minutes of upload. Which GNN do you choose, and what are the two specific design decisions that follow from the inductive constraint?
-      </Prose>
-
-      <Prose style={{ color: colors.textMuted }}>
-        <strong>Answer:</strong> Choose GraphSAGE. Two follow-up design decisions: (1) Use a fixed-fanout neighborhood sampler at inference (e.g. <Code>{"k = (25, 10)"}</Code> for L = 2). This bounds latency per new paper to <Code>{"O(\\prod_l k_l \\cdot d^2)"}</Code> regardless of how the citation network has grown — critical for hitting a sub-minute SLA. (2) Avoid any architectural component that depends on global graph statistics (e.g. spectral GCN normalization, or a learned position embedding per node ID). The model must use only local structural features so it can score a brand-new node whose ID was never seen during training. The L2 normalization on per-layer outputs (standard in GraphSAGE) helps downstream linear classifiers behave consistently across distribution shifts as the graph grows.
-      </Prose>
-
-    </div>
-  ),
-};
-
-export default messagePassingGNNContent;
+<div className="neural-equation"><MathBlock>{"S=\\begin{bmatrix}\n1/2&1/\\sqrt 6&0\\\\\n1/\\sqrt 6&1/3&1/\\sqrt 6\\\\\n0&1/\\sqrt 6&1/2\n\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"The first propagation, with no learned transformation yet, is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"Sx\\approx (1.316497,\\;2.707908,\\;2.816497)^T."}</MathBlock></div>
+
+<Prose>{"For node 0, calculate "}<InlineMath>{"1/2\\cdot1+1/\\sqrt6\\cdot2"}</InlineMath>{". Node 2’s value 4 cannot contribute directly in one round. The second propagation is approximately (1.763747,2.589923,2.513747): node 2 can now influence node 0 through node 1."}</Prose>
+
+<Prose>{""}<strong>{"This is not ordinary row averaging."}</strong>{" The row sums are approximately (.908248,1.149830,.908248). The symmetric operator treats both endpoint degrees explicitly. The random-walk operator "}<InlineMath>{"P=\\hat D^{-1}\\hat A"}</InlineMath>{" instead has rows summing to one. On a regular graph they coincide; an unequal-degree example is necessary to see the difference."}</Prose>
+
+<Prose>{"A neural GCN layer adds learned W, optional bias b and nonlinearity:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"H'=\\sigma (SHW+\\mathbf 1b^T)."}</MathBlock></div>
+
+<Prose>{"H has shape N×dᵢₙ; W is dᵢₙ×dₒᵤₜ; H′ has one dₒᵤₜ-vector per node. The matrix S mixes nodes while W mixes feature channels. The same W applies at every node, so parameter count need not grow with graph size."}</Prose>
+
+<Prose>{"Associativity allows "}<InlineMath>{"S(HW)=(SH)W"}</InlineMath>{", but a bias needs care. "}<InlineMath>{"S(HW+\\mathbf1b^T)"}</InlineMath>{" usually differs from "}<InlineMath>{"SHW+\\mathbf1b^T"}</InlineMath>{", because S1 need not equal 1. For our scalar path with bias 1, applying bias before propagation gives (2.224745,3.857738,3.724745); after propagation gives (2.316497,3.707908,3.816497). The program adds bias after the aggregation."}</Prose>
+
+<H3>{"One parameter actually learns"}</H3>
+
+<Prose>{"Use only node 0 as a supervised example, one shared scalar weight w=.5, target 1 and loss ½(ŷ−1)². Its aggregated feature is a=1.31649658, so ŷ=aw=.65824829. The weight derivative is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{dL}{dw}=(aw-1)a\\approx-.44991496."}</MathBlock></div>
+
+<Prose>{"A gradient step of size.1 gives w′=.54499150 and prediction≈.71747944. The loss decreases. This is ordinary backpropagation through a graph aggregation; edges route features and gradients, while W is fitted to the specified target. The exact program checks the scalar derivative and a node-by-node implementation against matrix multiplication."}</Prose>
+
+<MessageGcnLab />
+
+<Prose>{"For a nonnegative undirected graph, this normalized propagation has spectral radius at most one. That fact alone does not bound an entire learned network: W can amplify values, bias can accumulate, and nonlinear/residual paths change the system. We will isolate the fixed linear propagation in §7 before discussing depth."}</Prose>
+
+<H2>{"4. GraphSAGE and GAT change the aggregation decision"}</H2>
+
+<H3>{"GraphSAGE: distinguish self from neighbors"}</H3>
+
+<Prose>{"A mean-neighbor GraphSAGE layer can use"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar h_v=\\frac 1{|\\mathcal N (v)|}\\sum_{u\\in\\mathcal N (v)}h_u,\n\\qquad h'_v=\\sigma (W_s h_v+W_n\\bar h_v+b)."}</MathBlock></div>
+
+<Prose>{"Separate matrices make the distinction between “my state” and “my neighborhood” explicit. Concatenating the two vectors and using one larger matrix is equivalent. Our program uses a zero neighbor summary for an isolated node and retains the self branch. The original "}<a href={"https://arxiv.org/pdf/1706.02216"}>{"GraphSAGE paper"}</a>{" also considers pooling and randomly ordered LSTM aggregation, neighborhood sampling, and L2 normalization of intermediate embeddings. These are choices to specify, not interchangeable defaults."}</Prose>
+
+<Prose>{"For a node with own value 4 and neighbors (1,3,5), let Wₛ=2 and Wₙ=1 with no bias or nonlinearity. The output is 2·4+3=11. Increasing every neighbor value by 1 increases the output by 1. Increasing the node’s own value by 1 increases it by 2. The model can learn those roles separately."}</Prose>
+
+<MessageSageLab />
+
+<Prose>{"An LSTM over neighbors is order-sensitive in one run. Randomly permuting its inputs does not make each individual prediction exactly invariant. A distribution over uniformly sampled orders can be invariant in expectation, but it introduces another source of variability. Use a set aggregator when exact order invariance is part of the contract."}</Prose>
+
+<Prose>{"Sampling limits how many neighbors are used. It is a computation strategy, not the definition of inductive learning. A learned GCN, GraphSAGE or GAT layer with transferable input features can be applied to a new graph. A model whose feature columns are a lookup table of training-node IDs cannot acquire useful features for arbitrary new IDs merely by changing the layer name."}</Prose>
+
+<H3>{"GAT: score permitted messages"}</H3>
+
+<Prose>{"An original "}<a href={"https://arxiv.org/pdf/1710.10903"}>{"GAT"}</a>{" head projects node features to z and scores a sender u for receiver v:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"e_{vu}=\\operatorname{LeakyReLU}(a_r^Tz_v+a_s^Tz_u),\\qquad\n\\alpha_{vu}=\\frac{\\exp e_{vu}}{\\sum_{j\\in\\mathcal N[v]}\\exp e_{vj}},\n\\qquad h'_v=\\sigma\\left (\\sum_{u\\in\\mathcal N[v]}\\alpha_{vu}z_u\\right)."}</MathBlock></div>
+
+<Prose>{"The softmax is over the receiver’s allowed senders, including its self-loop here. Non-edges receive no message. Intermediate multi-head layers can concatenate outputs; an output layer can average heads. These operations have different widths. The complete small study uses one head so every attention coefficient remains easy to inspect."}</Prose>
+
+<Prose>{"A subtle limit: in the original additive scoring form, the receiver contributes the same scalar to every candidate sender’s score. Because LeakyReLU is monotone, it cannot reverse their ranking within a common candidate set. Weights can vary, but the strongest sender among the same candidates is not freely question-dependent. "}<a href={"https://arxiv.org/abs/2105.14491"}>{"GATv2"}</a>{" studies this distinction between static and dynamic attention. Learned attention is therefore not a blanket guarantee that every node can select a completely different neighbor ranking."}</Prose>
+
+<Prose>{"For example, take sender scores 1 and 2. Receiver score 0 gives preactivations (1,2); receiver score−3 gives (−2,−1), or (−.4,−.2) after a slope.2 LeakyReLU. The second sender ranks first in both cases, although the normalized weights are less unequal in the second. Changing the permitted neighbor set is another way weights can differ."}</Prose>
+
+<MessageFigure kind="rules" /><MessageGatLab />
+
+<H2>{"5. The data split is part of the graph model"}</H2>
+
+<Prose>{"In "}<strong>{"transductive node prediction"}</strong>{", the task may explicitly provide the full graph and all node features during fitting while revealing labels for only some nodes. Unlabeled nodes can participate in message passing. Their labels must not be read by the loss, feature construction or model selection. This is a permitted information boundary when it matches the task."}</Prose>
+
+<Prose>{"In "}<strong>{"inductive evaluation"}</strong>{", some nodes or entire graphs are unavailable during fitting. Construct the fitting graph accordingly. For a future-time task, edges or features created after the prediction time must not enter earlier representations. Recomputing normalizers on a new graph may be necessary; cached adjacency from a different graph is not valid just because the weights remain the same."}</Prose>
+
+<Prose>{"For "}<strong>{"link prediction"}</strong>{", the held-out relationship itself generally must be removed from the message graph before constructing graph-derived features. Otherwise a model asked to predict whether an edge exists can already use that edge’s presence. Define negative pairs and time boundaries consistently; a sampled absent edge is not necessarily a true permanent negative."}</Prose>
+
+<Prose>{"The label mask and the message graph answer different questions. “Do not score this node during fitting” does not mean “this node cannot supply known features,” and it does not automatically authorize using its future relationships. State the intended setting in ordinary language before choosing a split API."}</Prose>
+
+<MessageBoundaryLab />
+
+<H2>{"6. A complete experiment on an observed network"}</H2>
+
+<Prose>{"The offline "}<a href={"/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/karate-club.json"}>{"karate-club.json"}</a>{" records Zachary’s34-node,78-edge karate-club network as distributed by NetworkX 3.6.1. The historical observations include relationships and eventual club affiliation. The program uses binary adjacency but retains original interaction-context weights in the source file. Node IDs are NetworkX’s zero-based labels; paper IDs are one larger. Attribution, the BSD-licensed NetworkX representation and the transformation are documented in "}<a href={"/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md"}>{"data provenance"}</a>{"."}</Prose>
+
+<Prose>{"We ask a modest question: with this whole historical network known and ten affiliation labels available for supervision, how well can a small model classify the other labeled nodes? This is a classroom transductive experiment on one small dependent network. It is not a forecast of people’s behavior, an unseen-community evaluation or an estimate of production reliability."}</Prose>
+
+<Prose>{"The input features are a constant 1, degree divided by 33 and the "}<strong>{"clustering coefficient"}</strong>{": the fraction of possible neighbor-to-neighbor edges that actually exist. For degree d≥2, the denominator is d (d−1)/2; define it as zero for smaller degrees. These structural features come from the available graph. They contain no affiliation labels and no trainable node-ID table. They are also limited: two structurally similar nodes may have different affiliations."}</Prose>
+
+<MessageObservedFigure />
+
+<Prose>{"Split labels once with seed 133: five fitting, three development and nine assessment nodes per class. Keep all graph edges/features available, as the stated transductive task permits. Fit a two-layer MLP on the same structural features, a GCN, a full-neighbor mean GraphSAGE variant and a one-head GAT. Use hidden width 16, ReLU, two output logits,300 fixed epochs, AdamW.02, weight decay.01 and seeds 11/29/47. No epoch or hyperparameter is selected from the assessment results; all twelve fits are retained."}</Prose>
+
+<MessageFigure kind="pipeline" />
+
+<Prose>{"There is another useful baseline: start a two-column label-score matrix with one-hot values only on the fitting nodes, repeatedly average scores over closed neighborhoods, and restore those fitting labels after each step. This "}<strong>{"label propagation"}</strong>{" baseline explicitly carries the known training labels across edges. The neural models instead learn shared parameters from those labels and receive only the three structural features as inputs. They use graph information differently; label propagation can be an excellent choice for this particular known-graph task."}</Prose>
+
+<Prose>{""}<strong>{"Compare the actual results."}</strong>{" Inspect learned attention beside label propagation, then remove message edges and follow the effect. Explain why neither change has a guaranteed improvement."}</Prose>
+
+<H3>{"Complete offline program"}</H3>
+
+<Prose>{"Save the program next to its JSON and run it with Python, NumPy and CPU PyTorch. NetworkX is not required to reproduce the training: the real graph has already been serialized. The source file also provides the exact tiny path and the scalar update used earlier."}</Prose>
+
+<MessageProgram file="message-passing-study.py" title="Complete executed offline graph study and scratch layers" />
+
+<H3>{"What happened, and what follows from it?"}</H3>
+
+<Prose>{"Actual CPU results, with all seeds and raw denominators. The 27 September implementation run reexecuted the complete twelve-fit program with one CPU thread and reproduced every saved result exactly; the original unfavorable outcomes remain unchanged:"}</Prose>
+
+<MessageFigure kind="results" />
+
+<NeuralTable caption={"What happened, and what follows from it?"} headers={[<>{"Model"}</>,<>{"Seed"}</>,<>{"Fit / 10"}</>,<>{"Development / 6"}</>,<>{"Assessment / 18"}</>,<>{"Propagation removed / 18"}</>]} rows={[[<>{"mlp"}</>,<>{"11"}</>,<>{"9"}</>,<>{"1"}</>,<>{"10"}</>,<>{"10"}</>],[<>{"mlp"}</>,<>{"29"}</>,<>{"9"}</>,<>{"1"}</>,<>{"10"}</>,<>{"10"}</>],[<>{"mlp"}</>,<>{"47"}</>,<>{"10"}</>,<>{"1"}</>,<>{"10"}</>,<>{"10"}</>],[<>{"gcn"}</>,<>{"11"}</>,<>{"10"}</>,<>{"3"}</>,<>{"8"}</>,<>{"11"}</>],[<>{"gcn"}</>,<>{"29"}</>,<>{"10"}</>,<>{"3"}</>,<>{"8"}</>,<>{"9"}</>],[<>{"gcn"}</>,<>{"47"}</>,<>{"10"}</>,<>{"2"}</>,<>{"8"}</>,<>{"9"}</>],[<>{"sage"}</>,<>{"11"}</>,<>{"10"}</>,<>{"5"}</>,<>{"10"}</>,<>{"7"}</>],[<>{"sage"}</>,<>{"29"}</>,<>{"10"}</>,<>{"5"}</>,<>{"11"}</>,<>{"11"}</>],[<>{"sage"}</>,<>{"47"}</>,<>{"10"}</>,<>{"2"}</>,<>{"9"}</>,<>{"11"}</>],[<>{"gat"}</>,<>{"11"}</>,<>{"10"}</>,<>{"2"}</>,<>{"9"}</>,<>{"8"}</>],[<>{"gat"}</>,<>{"29"}</>,<>{"10"}</>,<>{"2"}</>,<>{"9"}</>,<>{"9"}</>],[<>{"gat"}</>,<>{"47"}</>,<>{"10"}</>,<>{"2"}</>,<>{"9"}</>,<>{"9"}</>],[<>{"Label propagation"}</>,<>{"fixed"}</>,<>{"10"}</>,<>{"6"}</>,<>{"16"}</>,<>{"Not this diagnostic"}</>]]} />
+
+<Prose>{"Always guessing one class scores 9/18 on this balanced assessment. The measured neural models have mlp: 98 parameters; gcn: 98 parameters; sage: 178 parameters; gat: 134 parameters. These are small distinct models, not a parameter-matched family comparison."}</Prose>
+
+<Prose>{"These weak neural results are useful. Most models fit the ten supervised nodes perfectly yet do poorly on the eighteen assessment nodes. Adding a learned neighborhood rule cannot compensate automatically for a tiny supervision set, weak input features and a fixed architecture/training budget. The non-neural label-propagation baseline uses the particular known-graph task effectively. The practical conclusion for this example is to retain that baseline, not to keep tuning on the displayed assessment until a neural model wins."}</Prose>
+
+<Prose>{"The “propagation removed” diagnostic sets adjacency to zero "}<strong>{"while holding the three input features fixed"}</strong>{". It isolates the fitted model’s message paths. It does not remove all graph information, since degree and clustering were computed from the original graph. Some scores improve, some fall and some are unchanged. A perturbation need not hurt for every model; report the result instead of interpreting every architecture as helpful by definition."}</Prose>
+
+<Prose>{"The program also relabels nodes and permutes feature rows and both adjacency axes together. Predictions should permute in the same way, within floating-point tolerance. It retains all probabilities and, for seed 11, actual hidden states, parameters and GAT weights. The graph and matrix view can therefore inspect a real incorrect prediction, rather than a hand-painted “learned” heatmap."}</Prose>
+
+<MessageStudyLab />
+
+<H3>{"Move the same layer from a matrix to an edge list"}</H3>
+
+<Prose>{"The dense matrices above are useful because every permitted contribution is visible. A real graph often has far fewer edges than N². Keep the same equation while storing only the edges: project each node once, gather the sending vectors, multiply by an edge coefficient, and add them into the receiving rows. This is the mechanism behind the complete "}<a href={"/learn-code/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py"}>{"sparse implementation and PyG bridge"}</a>{", not a second independently fitted experiment."}</Prose>
+
+<Prose>{""}<code>{"SparseGraphLayer"}</code>{" implements all three operators with tensor primitives. "}<code>{"index_add_"}</code>{" performs the sum over incoming messages. GCN builds the two endpoint-degree factors after inserting one loop per node. GraphSAGE divides each incoming contribution by the receiver's neighbor count and adds a separate self transform. GAT computes one score per edge, subtracts the receiver's maximum before exponentiating, divides by that receiver's sum, and then aggregates. Detaching the maximum in this stabilization is valid: a common additive shift cancels from the softmax, including its derivative. It does not detach the scores or learned attention parameters."}</Prose>
+
+<Prose>{"The input contract is a simple unweighted graph: "}<code>{"edge_index[0]"}</code>{" names sources, "}<code>{"edge_index[1]"}</code>{" names targets, with no duplicate pairs or pre-existing loops. For an undirected edge supply both directions. A dataset with repeated edges requires an explicit multigraph/weight policy; silently leaving duplicates in an edge list while assigning a dense entry to one changes the operation. GCN/GAT insert their own loops; an isolated node therefore reads itself. A GraphSAGE isolate has zero neighbor contribution and retains its self branch. The directed example checks the stated receiving-degree convention; the symmetric spectral theorem in §7 still requires an undirected graph."}</Prose>
+
+<MessageSparseFigure />
+
+<NeuralTable caption={"Move the same layer from a matrix to an edge list"} headers={[<>{"Scratch parameter"}</>,<>{"PyG parameter"}</>,<>{"Semantic choice fixed here"}</>]} rows={[[<>{"GCN "}<code>{"linear.weight"}</code>{", "}<code>{"bias"}</code>{""}</>,<>{""}<code>{"GCNConv.lin.weight"}</code>{", "}<code>{"bias"}</code>{""}</>,<>{"Receiving degrees, add one loop, "}<code>{"improved=False"}</code>{", "}<code>{"cached=False"}</code>{""}</>],[<>{"SAGE neighbor map, self map, bias"}</>,<>{""}<code>{"SAGEConv.lin_l.weight"}</code>{", "}<code>{"lin_r.weight"}</code>{", "}<code>{"lin_l.bias"}</code>{""}</>,<>{"Mean neighbors, no projection activation, no final L2 normalization"}</>],[<>{"GAT projection, sender score, receiver score"}</>,<>{""}<code>{"GATConv.lin.weight"}</code>{", "}<code>{"att_src"}</code>{", "}<code>{"att_dst"}</code>{""}</>,<>{"One head, slope .2, zero dropout, no extra residual"}</>]]} />
+
+<Prose>{"The file supplies the fixture, all imports and both implementations. In an environment with PyTorch, "}<code>{"python graph_library_bridge.py --scratch-only"}</code>{" compares the sparse mechanism with its dense equation. The 27 September 2026 execution used Torch 2.14.0 CPU: all twelve graph/operator cases passed, including an isolate, two directed cases with different degree patterns and an empty edge list; the largest output discrepancy against the dense equation was 8.33e-17. These are arithmetic fixtures, not a new accuracy benchmark."}</Prose>
+
+<Prose>{"For the ordinary package route, install "}<code>{"torch-geometric==2.8.0.post1"}</code>{" into a compatible PyTorch environment, then run "}<code>{"python graph_library_bridge.py"}</code>{". The implementation was executed with that package and Torch 2.14.0 CPU; all twelve graph/operator cases passed. Outputs differed by at most 2.78e-17 and mapped parameter gradients by at most 1.12e-16. Input gradients and an equal .03 SGD step also passed the program's float64 assertions. The added unequal-degree directed case distinguishes receiving-degree normalization from an accidental outgoing-degree convention. The documented "}<a href={"https://pytorch-geometric.readthedocs.io/en/2.8.0/generated/torch_geometric.nn.conv.GCNConv.html"}>{"GCNConv"}</a>{", "}<a href={"https://pytorch-geometric.readthedocs.io/en/2.8.0/generated/torch_geometric.nn.conv.SAGEConv.html"}>{"SAGEConv"}</a>{" and installed GATConv interfaces supply the concrete parameter mapping above. This same layer can replace each corresponding layer in "}<code>{"NodeClassifier"}</code>{"; preserve the label mask, ReLU between the two layers and training protocol when doing so. These package checks are small matched operations, not an additional accuracy benchmark."}</Prose>
+
+<MessageProgram file="graph_library_bridge.py" title="Complete executed sparse tensor and PyG value/gradient/update bridge" />
+
+<Prose>{"The sparse mechanism uses O(N d_in d_out + E d_out) arithmetic and O(N d_out + E d_out) working storage with the explicit gathered edge messages shown here, plus graph indices and parameters. This avoids a dense N×N attention/propagation matrix; it is not a universal speed guarantee. For very large graphs, a fused scatter/message kernel or sampled computation can reduce temporary storage. Keep "}<code>{"cached=False"}</code>{" when editing edges: cached normalizers describe the old graph."}</Prose>
+
+<Prose>{""}<strong>{"Take control."}</strong>{" Remove both directions of edge 1—2, then add node 3→1 only. Run all three comparisons and inspect node 3's own output before and after the addition. Add a second GAT head by giving each head its own projection/score vectors, then decide whether to concatenate or average."}</Prose>
+
+<details><summary>Hint</summary>Source and target determine who changes directly. Concatenating two width-d heads produces width 2d; averaging retains d.</details>
+
+<details><summary>Solution and success criteria</summary>The new directed edge permits node 1 to read node 3. GraphSAGE node 3 still has no incoming neighbors and keeps its self branch. GCN also changes degree factors on affected endpoints, so message direction alone is not sufficient to enumerate every changed coefficient. Match `heads=2` and `concat` in PyG, copy each head separately, and compare each receiver's coefficients, input/parameter gradients and one update. Repeating the same head twice is a useful equality fixture but does not demonstrate independently learned heads.</details>
+
+<H2>{"7. Why repeated propagation can blur distinctions"}</H2>
+
+<Prose>{"This deeper branch concerns a "}<strong>{"fixed linear operator"}</strong>{". Remove learned weights, biases and nonlinearities and repeatedly compute "}<InlineMath>{"x^{(l+1)}=Sx^{(l)}"}</InlineMath>{". It makes one source of information loss mathematically visible."}</Prose>
+
+<Prose>{"For a finite connected nonnegative undirected graph with positive self-loops, let"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"u=\\frac{\\sqrt{\\hat d}}{\\sqrt{\\sum_v\\hat d_v}}."}</MathBlock></div>
+
+<Prose>{"Then Su=u. Other modes have eigenvalues of magnitude less than one under these assumptions, and"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"S^l x\\longrightarrow uu^T x."}</MathBlock></div>
+
+<Prose>{"The surviving node-coordinate pattern is proportional to "}<strong>{"square root of degree"}</strong>{", not usually a constant vector. For our path, repeated propagation tends to approximately (2.128426,2.606778,2.128426). Dividing each coordinate by "}<InlineMath>{"\\sqrt{\\hat d_v}"}</InlineMath>{" gives the same limiting value≈1.505024. The middle node’s larger raw coordinate does not contradict smoothing in the normalized geometry."}</Prose>
+
+<Prose>{"The random-walk operator P and symmetric operator S are related by a change of coordinates:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"P=\\hat D^{-1/2}S\\hat D^{1/2}."}</MathBlock></div>
+
+<Prose>{"They therefore have the same eigenvalues for this undirected positive-degree setting, even though P is not generally symmetric. “Not symmetric” does not imply “has complex eigenvalues.” Their coordinates and norm interpretations differ."}</Prose>
+
+<Prose>{"Define the normalized Laplacian "}<InlineMath>{"L=I-S"}</InlineMath>{". A mode with Laplacian eigenvalue λ is multiplied by 1−λ per propagation. The magnitude |1−λ| is not monotonically decreasing over[0,2]: it decreases to zero at 1 and grows again toward 2. Thus a universal “increasingly aggressive low-pass filter” picture is incomplete. For the self-loop path, S has eigenvalues (−1/6,1/2,1): the first mode alternates sign while decaying, the second decays without sign reversal and the last survives."}</Prose>
+
+<Prose>{"A polynomial graph filter connects the spectral view to locality. If p (S)=a₀I+a₁S+⋯+aᵣSʳ, the highest power is r, so the output can depend on nodes at most r hops away. Sʲ sums contributions along walks of length j; some coefficients or walk contributions can vanish. A filter described as K terms from power 0 through power K−1 therefore has an at-most-(K−1)-hop bound, not automatically K hops. Chebyshev polynomial filters can compute such polynomials by a recurrence, avoiding an explicit eigenvector matrix; their polynomial degree still determines this support bound. See the earlier "}<a href={"/learn/path/full-curriculum/spectral-graph-theory?module=math-foundations"}>{"Spectral Graph Theory"}</a>{" lesson for the fuller frequency interpretation."}</Prose>
+
+<Prose>{"Without self-loops a two-node graph simply swaps its two values each round. Starting (1,0) alternates forever. The self-loop/aperiodicity assumptions matter. Disconnected graphs have a surviving component for each connected piece, and directed or signed graphs require a different analysis."}</Prose>
+
+<MessageFigure kind="gain" /><MessageSpectralLab />
+
+<Prose>{"In a trained network, "}<strong>{"over-smoothing"}</strong>{" refers broadly to representations losing useful node distinctions through mixing. "}<strong>{"Over-squashing"}</strong>{" is different: many distant influences must pass through limited-size states or narrow connectivity. A tree can collect exponentially many distant inputs into one fixed-width vector even when those inputs are not averaged to the same value. "}<strong>{"Optimization failure"}</strong>{" and "}<strong>{"overfitting"}</strong>{" are additional possibilities. Diagnose them separately using training error, held-out behavior, representation variation and a task-specific long-range intervention."}</Prose>
+
+<MessageFigure kind="squashing" />
+
+<Prose>{"Residual or jumping-knowledge connections can preserve earlier states; rewiring or global routes can shorten bottlenecks. Each changes the model’s information paths and cost. A high cosine similarity threshold alone does not prove a particular failure, and no universal useful-depth limit follows from the fixed linear example."}</Prose>
+
+<H2>{"8. What aggregation can distinguish"}</H2>
+
+<Prose>{"Suppose two neighborhoods contain (1,3) and (2,2). Their raw sums and means agree. A deterministic MLP applied "}<strong>{"after that identical sum"}</strong>{" cannot recover which neighborhood produced it. It receives the same input in both cases."}</Prose>
+
+<Prose>{"A nonlinear transformation before aggregation can preserve a distinction: map each scalar x to (x,x²). The two sums become (4,10) and (4,8). This concrete example explains why the representation being summed matters, not only the choice of the sum operator."}</Prose>
+
+<Prose>{"The "}<a href={"https://arxiv.org/pdf/1810.00826"}>{"GIN analysis"}</a>{" establishes conditions under which learned multiset aggregation and readout can match the one-dimensional Weisfeiler–Lehman test. The result relies on sufficiently discriminative/injective functions and its domain assumptions; it does not say an arbitrary raw sum followed by any trained MLP distinguishes every graph. The familiar update is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"h'_v=\\operatorname{MLP}\\left ((1+\\epsilon)h_v+\\sum_{u\\in\\mathcal N (v)}h_u\\right)."}</MathBlock></div>
+
+<Prose>{"The states supplied to that sum must themselves preserve the distinctions needed by later layers. The WL test repeatedly refines a node’s label using its old label and multiset of neighboring labels. A simple limitation: a six-cycle and two disjoint triangles both give every node degree 2. With identical initial node features, ordinary local message passing gives every node the same state at every round; a sum readout over six nodes also agrees. It does not discover connectivity merely by stacking more of the same indistinguishable updates."}</Prose>
+
+<MessageFigure kind="expressiveness" />
+
+<Prose>{"Mean fails to count repeated copies of a multiset: (a,b) and (a,a,b,b) have the same mean. Maximum loses multiplicity even more directly. This does not make mean or maximum poor choices for every prediction task. Sometimes the intended property is an average or a presence signal, and ignoring size is helpful."}</Prose>
+
+<MessageCollisionLab />
+
+<H2>{"9. Sampling, batching and useful applications"}</H2>
+
+<H3>{"Count a sampled computation tree honestly"}</H3>
+
+<Prose>{"If a target samples s₁ first-hop neighbors and each samples s₂ additional neighbors, a simple occurrence bound is 1+s₁+s₁s₂. For fanouts (25,10), that is 276 occurrences including the root, not 250 unique nodes. Shared neighbors, repeated samples, self branches and deduplication affect the actual distinct nodes and edge work. More layers can grow the sampled computation tree multiplicatively."}</Prose>
+
+<Prose>{"A uniform neighbor-sample mean is an unbiased estimate of the full mean under the stated sampling scheme. Passing that estimate through a nonlinear update generally destroys equality of expected outputs. For neighbors (1,3,5,9), all six size-two sample means are (2,3,5,4,6,7), averaging 4.5, equal to the full mean. Their squared values average 139/6≈23.1667, while the squared full mean is 20.25. Sampling can change the distribution of the model’s computation, not just its runtime."}</Prose>
+
+<Prose>{"At scale, sparse propagation costs roughly O (E·d) for aggregation at width d, plus feature projections O (N·dᵢₙ·dₒᵤₜ). A dense N×N matrix is appropriate for our 34-node explanation, not for a million-node sparse graph. There is no universal node-count threshold beyond which every full-graph method is impossible: edges, widths, saved activations, hardware and implementation determine memory. Attention over edges can avoid constructing all N² scores."}</Prose>
+
+<Prose>{"For several independent graphs, concatenate node arrays and offset edge indices so the adjacency is block diagonal. Keep a node-to-graph ID for readout. Accidentally connecting the last node of one graph to the first of another changes the data. Padding can also work with correct masks; it is a representation choice with overhead, not inherently invalid."}</Prose>
+
+<MessageFigure kind="sample" /><MessageSamplingLab />
+
+<H3>{"Three applications clarify different design choices"}</H3>
+
+<Prose>{""}<strong>{"Molecules:"}</strong>{" let atom states send bond-conditioned messages, such as "}<InlineMath>{"M_{vu}=W_{\\text{bond type}}h_u"}</InlineMath>{". A single shared matrix ignoring bond type cannot distinguish otherwise identical neighborhoods connected by different bond categories in that layer. For an extensive graph property that scales with system size, a sum readout may be a useful prior; for an average property, a mean may be more appropriate. Units and the actual target determine the choice. Three-dimensional positions and rotations introduce further requirements in the next lesson."}</Prose>
+
+<Prose>{""}<strong>{"Program analysis:"}</strong>{" an abstract syntax tree and a data-flow graph connect different relationships. “Parent syntax node” and “value used by this operation” should not be collapsed into an unexplained generic edge. A relation-specific message can carry information from a variable definition to its uses even when the source tokens are far apart. Whether an edge is available before executing a program and what the label measures still need explicit definition."}</Prose>
+
+<Prose>{""}<strong>{"Traffic prediction:"}</strong>{" neighboring road sensors exchange time-dependent measurements, but a directed road connection is not the same as symmetric friendship. A practical model may combine temporal processing with directional edge messages. Using future readings or a graph estimated from the entire future series can leak information. The useful lesson is to choose direction, features and time boundary together, rather than importing an undirected GCN formula unchanged."}</Prose>
+
+<MessageFigure kind="applications" />
+
+<Prose>{"For implementation beyond this small study, inspect current graph-library conventions for edge direction, duplicate/self-loop handling, normalization, sampling and batching. The current "}<a href={"https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GCNConv.html"}>{"PyG GCNConv documentation"}</a>{" explicitly describes source-to-target weights, normalization and cached graph state. Keep a tiny dense or loop reference as a correctness oracle for the intended operation. A library name does not certify that your data conventions match its defaults, and an old comment claiming numerical equivalence is not an executed check."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice with changed examples"}</H2>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Compute a new GCN read — core"}</H3>
+
+<Prose>{"Use the three-node path and the same self-loop normalization, but features (2,0,3). Compute the first output at all three nodes. Can changing x₂ affect node 0 in this one round?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The endpoint diagonal weight is 1/2 and each path-edge weight is 1/√6."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The outputs are (1,5/√6,1.5)≈(1,2.041241,1.5). Node 0 has no direct message from node 2, so changing x₂ does not change node 0’s one-round output. A second round can transmit that change through node 1."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Find an order-dependent bug — core"}</H3>
+
+<Prose>{"Two connected nodes start at (1,3). The rule is to average self and neighbor. Compute one synchronized round, then an in-place loop that updates node 0 before node 1. Explain the discrepancy and repair the implementation."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"In the faulty loop, node 1 reads a value that has already changed."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Synchronized output is (2,2). The in-place loop first sets node 0=2, then node 1=(3+2)/2=2.5. Reversing loop order changes the result again. Read from an unchanged old-state array and write all next states into another array."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Separate own and neighbor information — core"}</H3>
+
+<Prose>{"A mean GraphSAGE node has own value 2, neighbors (0,4,8), Wₛ=3 and Wₙ=−1, with no bias/nonlinearity. Find its output. What changes if you duplicate every neighbor? What if you replace mean by sum?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Duplicating an entire multiset preserves its mean and doubles its sum."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Mean output 6−4=2, unchanged after duplicating all neighbors. Sum output 6−12=−6 before duplication and 6−24=−18 after it. Neither behavior is universally correct; decide whether neighbor multiplicity should matter for the target."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Describe a valid split — core"}</H3>
+
+<Prose>{"You are predicting tomorrow’s citations. A colleague builds degree features and message edges using the graph after tomorrow, then masks tomorrow’s labels out of the loss. Identify the leakage and give a corrected information boundary."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Graph-derived features can reveal an edge even if its label is not scored."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Tomorrow’s graph exposes relationships not available at prediction time, through both edges and degree features. Build graph/features only from information available at the stated time; hold future target edges out of message construction and feature fitting. Define negative candidates and temporal evaluation consistently. A loss mask alone is insufficient."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Interpret the real study — core"}</H3>
+
+<Prose>{"A GCN fits 10/10 known labels but scores 8/18 on assessment, while label propagation scores 16/18. Does this show graphs are useless, GCN is always worse, or the training code must be broken? State a supported conclusion and a disciplined next experiment."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Separate this dataset/protocol/model from a universal claim."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"It shows this fitted GCN with these structural features and fixed small protocol generalizes poorly to the displayed labels. Label propagation demonstrates a useful graph-based alternative here. Inspect errors/features and compare on new appropriate evaluation data before selecting a revised model. The current assessment has been inspected; repeatedly tuning against it would destroy its role as independent evidence."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Fix a misleading sum claim — deeper"}</H3>
+
+<Prose>{"Neighborhoods (0,4) and (1,3) have the same sum. Can an MLP that sees only that raw sum distinguish them? Supply a two-coordinate per-element transformation whose sums differ."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Create the distinction before the information has collapsed."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"No deterministic function of the identical sum 4 can distinguish them. Mapping x→(x,x²) yields sums (4,16) and (4,10). This demonstrates one useful distinction, not injectivity for every possible multiset."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Which coordinates become constant? — deeper"}</H3>
+
+<Prose>{"The self-loop path has degrees (2,3,2). A report says its repeated symmetric propagation converges to equal raw values. Correct the claim and give a two-node counterexample when the necessary loop/aperiodicity condition is removed."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use S√d=√d and consider an operator that swaps two entries."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The connected fixed linear limit is proportional to (√2,√3,√2), with scale determined by the input’s projection. Dividing coordinates by√d gives a constant. Without self-loops, a two-node edge swaps (1,0) to (0,1) and back, so convergence fails. Learned weights/nonlinearities require further analysis."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Count sampling and batching — deeper"}</H3>
+
+<Prose>{"A target samples 4 first-hop occurrences and each samples 3 second-hop occurrences. Give the no-sharing occurrence bound including the target. Then describe a two-graph batch test that detects accidental cross-graph edges."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The second-hop product does not count the root or first hop."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The bound is 1+4+4·3=17 occurrences; distinct nodes may be fewer. Compare each graph’s separate output with its slice in a block-diagonal batch. Changing features in graphB should not change graphA’s output for a local per-graph model without cross-graph normalization. A failed test points to offsets, masks, graph IDs or another shared computation."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"11. References and another way to learn"}</H2>
+
+<ul><li>{""}<a href={"https://www.cs.mcgill.ca/~wlh/grl_book/files/GRL_Book.pdf"}>{"Hamilton, Graph Representation Learning"}</a>{": a legitimately free author-posted draft. Chapters 5–6 connect message functions, aggregation, updates, graph readout, tasks and sampling. Chapter 7 is the optional theory path after the core example."}</li><li>{""}<a href={"https://arxiv.org/pdf/1609.02907"}>{"GCN"}</a>{", "}<a href={"https://arxiv.org/pdf/1706.02216"}>{"GraphSAGE"}</a>{", and "}<a href={"https://arxiv.org/pdf/1710.10903"}>{"GAT"}</a>{": read their method sections while annotating the same receiver/message/update diagram. Note which training setting and aggregator each actually studies."}</li><li>{""}<a href={"https://arxiv.org/pdf/1704.01212"}>{"Neural Message Passing for Quantum Chemistry"}</a>{":§2 is the concise common framework; use the chemistry sections to see why edge features and graph readout matter."}</li><li>{""}<a href={"https://arxiv.org/pdf/1810.00826"}>{"How Powerful are Graph Neural Networks?"}</a>{": read the multiset conditions and failure examples before turning “sum is expressive” into a claim about arbitrary numerical features."}</li><li>{""}<a href={"https://arxiv.org/abs/2105.14491"}>{"How Attentive are Graph Attention Networks?"}</a>{": the static-ranking limitation and the motivation for GATv2; useful after reproducing the two-sender example."}</li><li>{""}<a href={"https://www.youtube.com/watch?v=6g9vtxUmfwM"}>{"Stanford CS224W, Message Passing and Node Classification"}</a>{": a spoken/visual route into the mechanism; "}<a href={"https://ai.stanford.edu/~jure/teaching.html"}>{"the instructor’s teaching page"}</a>{" links the course series. The lecture identity/topic and course association were checked; no claim is made that its entire video was watched for this packet."}</li><li>{""}<a href={"https://networkx.org/documentation/stable/reference/generated/networkx.generators.social.karate_club_graph.html"}>{"NetworkX’s karate-club documentation"}</a>{": data history, label meaning and indexing for reproducing the actual graph example."}</li></ul>
+
+<Prose>{"Continue to "}<a href={"/learn/path/full-curriculum/graph-transformers-geometric-deep-learning?module=deep-learning-fundamentals"}>{"Graph Transformers & Geometric Deep Learning"}</a>{". It asks what changes when every node can read distant nodes, when graph structure must be encoded explicitly, and when coordinates should rotate while a physical prediction remains consistent. The local message and relabeling contracts here are the foundation for those decisions."}</Prose></section>
+</div>};

@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    "Hand-derived default/worked/singular/direct fixtures; 64 boundary configurations with initial response and independent FFT; causality",
+    "Selective/constant traces, closed writes versus independent decay, missing target",
+    "Hand-derived SSD fixture; all 64 length/chunk combinations with zero decays, uneven chunks and nonzero initial matrix",
+    "All four measured learning curves and confusion matrices exactly match retained results; validation and fitting roles preserved",
+    "108 actual frozen PyTorch inference cases: every validation record, reflected coordinate, reversed order and unit-coordinate extremes for both models",
+    "Four live investigations, three full on-demand program routes, ten retained hints, prepared figure/prediction instructions removed"
+  ],
+  "nativeCases": 108,
+  "maxLogitError": 0.000007138367957182368,
+  "maxProbabilityError": 6.957306838417665e-7,
+  "nodeForwardTiming": {
+    "medianMs": 7.7982000000000085,
+    "maxMs": 20.80099999999993,
+    "context": "Local Node CPU only; not a browser/GPU throughput benchmark"
+  },
+  "sourceHashes": {
+    "src/learn/data/state-space-models.js": "1c63d687facf2600a76a10c55fff3eebf32f20a8d51cbdb04887ea2371ab43a3",
+    "src/learn/components/lesson-labs/StateSpaceLabs.jsx": "a046802ffacec9bef58d94fc481db6bf44b9fbe4a510e494b82f9231897dff82",
+    "src/learn/components/lesson-labs/StateSpaceFigures.jsx": "d6d962b9e5cd8aa5c75dcf515ab1d2dc2ed6bae8aa02e80d5f432370c08b585c",
+    "src/learn/components/lesson-labs/state-space-labs.css": "e802e31ca43d8cbcab44bad1b7b704e4b658572a40f5a4874d2f799af429c417",
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "f1ce5f2b5cee13d2c36cfb592bbeb8208d6de5dd6ad2ba374f353929414d906a",
+    "public/learn-code/state-space-models-s4-mamba-mamba-2/trajectory-inference.json": "cb8927b548d0da1087a979c67ca3ff67339fbb77310d6b726bde22d0605ea6a4",
+    "scripts/verify-state-space-models.mjs": "57e60bb0f53d8beb34f06cce1e7bb0b4942b58d45b302dd4dd80c8dabb07f4d1",
+    "src/learn/data/state-space-measurements.json": "6a212f8d64259d21eb94ea7a97d5ee11a939b9d67ff970e1544194119c8019c0",
+    "scripts/generate-state-space-lesson.mjs": "fd0aad21aa4e001318b21a6c95a47c93515c7cc5862d6242c07bb42cb1b15283",
+    "scripts/prepare-state-space-assets.py": "6bb39ec1bba5d79c1482d5fd657d9b017e267fc25988d93a1fe4a8ccb5cf13ca",
+    "public/learn-code/state-space-models-s4-mamba-mamba-2/trajectory-results.json": "1fe580d632c616e0e86d99f3af76b4eb0c559862a840185fe891dc2783ba6c64"
+  }
+}

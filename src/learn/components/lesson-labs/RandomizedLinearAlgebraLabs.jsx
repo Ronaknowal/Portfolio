@@ -108,9 +108,9 @@ export function WeightedColumnProbeLab() {
       <figcaption>Squared lengths of the discarded segments sum to <strong>{number(state.residualSquared)}</strong>.</figcaption>
     </figure></div>
     <p className="rla-feedback" aria-live="polite">{state.direction ? `The observed unit direction is ${pair(state.direction)}. One probe describes a line, even though these columns span a plane.` : 'The combination cancelled to zero. There is no observed direction to normalize; this says nothing about whether the original matrix is zero. The displayed zero approximation discards all columns.'}</p>
-    <details><summary>Read the column calculations</summary><ol>{state.columns.map((column, index) => <li key={index}>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read the column calculations</h4><ol>{state.columns.map((column, index) => <li key={index}>
       {weights[index]} × {pair(column)} = {pair(state.contributions[index])}; projected column {pair(state.projected[index])}.
-    </li>)}</ol></details>
+    </li>)}</ol></section>
     <p className="rla-caption">These selectable integer probes make cancellation visible. Gaussian random probes in the algorithm below have continuous distributions; exact cancellation of a nonzero map has probability zero under that ideal model, but poor coverage can still occur.</p>
   </section>;
 }
@@ -168,12 +168,12 @@ export function SpectralSketchLab() {
       <dt>Relative Frobenius error</dt><dd>{state.relativeError === null ? 'Undefined: the input norm is zero' : number(state.relativeError)}</dd>
       <dt>Full passes in the standard algorithm</dt><dd>{state.passes}</dd></dl>
     <p className="rla-feedback" aria-live="polite">{preset === 'zero' ? 'Both absolute errors are zero; dividing by the zero input norm would not define a relative error. A program can short-circuit this case.' : preset === 'flat' ? 'There is no dominant singular direction to amplify. More accurate range finding cannot remove the error imposed by the chosen final rank.' : 'Increasing width can improve the captured subspace; final truncation still limits the answer to rank at most k. Changing the seed changes which probes are drawn.'}</p>
-    <details><summary>Inspect actual matrices and numerical boundaries</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect actual matrices and numerical boundaries</h4>
       <MatrixTable matrix={state.matrix} label="Input A, rounded to four decimals" />
       <MatrixTable matrix={state.omega} label="Probe matrix Omega" />
       <MatrixTable matrix={state.approximation} label="Final rank-at-most-k approximation" />
       <p>The browser uses seeded pseudo-Gaussian probes, twice-reorthogonalized Gram–Schmidt, and a bounded symmetric eigensolver for the small Gram matrix. It drops residual columns below 10⁻¹¹ times the largest incoming column norm. The displayed modest spectra are checked against NumPy SVD; this small Gram-based routine is not a recommended general SVD implementation. Seed values are reproducible here, not shared random streams with NumPy.</p>
-    </details>
+    </section>
   </section>;
 }
 function RegressionPlot({
@@ -266,10 +266,10 @@ export function TraceEstimatorLab() {
       <span className="rla-flow-arrow" aria-hidden="true">→</span><div><span>inner product zᵀAz</span><strong>{sample ? sample.value : '—'}</strong></div></div>
     <TraceHistory state={state} />
     <p className="rla-feedback" aria-live="polite">{count ? `${count} probe${count === 1 ? '' : 's'}: mean ${number(state.mean)}, exact reference trace ${state.exactTrace}, absolute error ${number(state.absoluteError)}.` : `No probes yet. The known reference trace is ${state.exactTrace}; the estimate is not zero—it has not been calculated.`}</p>
-    <details><summary>Read every probe and the uncertainty model</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read every probe and the uncertainty model</h4>
       <div className="rla-matrix-wrap" tabIndex={0} role="region" aria-label="Trace probe data"><table className="rla-matrix"><thead><tr><th>Probe</th><th>z</th><th>zᵀAz</th><th>Mean</th></tr></thead><tbody>{state.samples.map(item => <tr key={item.count}><th>{item.count}</th><td>{pair(item.input)}</td><td>{item.value}</td><td>{number(item.mean)}</td></tr>)}</tbody></table></div>
       <p>For independent ideal uniform signs, the single-probe variance here is {state.variancePerProbe}. The variance of an average of s independent probes is that value divided by s. This statement concerns repeated random experiments; it does not force each successive error in one run to decrease. A seeded pseudo-random sequence makes this demonstration repeatable.</p>
-    </details>
+    </section>
     <p className="rla-caption">For an explicitly stored 2×2 matrix, reading the diagonal is easier. The useful setting is a large operator for which products Az are available cheaply but diagonal entries are not. The zero-trace example needs absolute error: a relative error would divide by zero.</p>
   </section>;
 }

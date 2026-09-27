@@ -712,32 +712,32 @@ class SimPOTrainer(DPOTrainer):
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — derive the SimPO gradient</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — derive the SimPO gradient</H3>
       <Prose>
         Write out the gradient of <Code>L_SimPO</Code> with respect to <Code>log π_θ(y_w|x)</Code>. Show that it is proportional to <Code>(β / |y_w|) · (1 - σ(margin))</Code>, where <Code>margin = (β/|y_w|)·logπ(y_w|x) - (β/|y_l|)·logπ(y_l|x) - γ</Code>. Interpret: when does the gradient saturate to zero, and why?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — why does length normalization introduce a different bias?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — why does length normalization introduce a different bias?</H3>
       <Prose>
         Length normalization removes the bias toward longer sequences in absolute log-probability. But dividing by <Code>|y|</Code> introduces a different bias: it favors sequences where the model is highly confident on every token — for example, short, formulaic, high-frequency phrases. Describe a concrete scenario where SimPO's per-token normalization would cause the model to prefer a lower-quality but more confidently-scored response over a higher-quality but more uncertain one. How would you detect this in practice?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — choosing γ from dataset statistics</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — choosing γ from dataset statistics</H3>
       <Prose>
         You have a preference dataset. Before training, you compute the length-normalized log-probability gap <Code>(logπ_SFT(y_w|x)/|y_w|) - (logπ_SFT(y_l|x)/|y_l|)</Code> for every pair using the SFT model. The mean gap is 0.08 and the standard deviation is 0.15. What range of <Code>γ</Code> values would you propose exploring? Justify your answer by thinking about what fraction of pairs will have the margin condition already satisfied at initialization.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — predict behavior as β → 0</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — predict behavior as β → 0</H3>
       <Prose>
         In the SimPO loss, let <Code>β → 0</Code> while keeping <Code>γ</Code> fixed. What happens to the loss value for all training pairs? What does the gradient approach? Now let <Code>β → 0</Code> while also scaling <Code>γ → 0</Code> such that <Code>γ/β = c</Code> for some constant <Code>c</Code>. Does this recover any known objective? What does this tell you about the role of <Code>β</Code> versus <Code>γ</Code> in controlling training?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — SimPO without a margin term</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — SimPO without a margin term</H3>
       <Prose>
         Set <Code>γ = 0</Code> in the SimPO loss. What probabilistic model does the resulting objective correspond to? Write down the Bradley-Terry preference probability it is maximizing. Now compare to the DPO loss with <Code>γ = 0</Code>: the two losses differ only in the reward parameterization — length-normalized log-prob vs log-ratio. If you ran both for a fixed number of steps on the same data, what systematic difference in output distribution would you expect, and why?
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

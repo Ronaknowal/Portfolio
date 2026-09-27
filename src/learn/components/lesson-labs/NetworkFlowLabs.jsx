@@ -358,8 +358,8 @@ export function BinaryCutLab() {
       }}>Reset labeling</button>
     </div>
     <p className="nf-result">Proven minimum {optimum.flow.value}. Current excess cost {current.total - optimum.flow.value}. {current.total === optimum.flow.value ? 'This labeling is optimal; another tie may also be optimal.' : 'A lower-cost labeling exists under this stated objective.'}</p>
-    <details>
-      <summary>Inspect the cut-to-energy correspondence</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Inspect the cut-to-energy correspondence</h4>
       <div className="nf-table-scroll" tabIndex={0} role="region" aria-label="Detailed flow data"><table>
           <caption>Cell costs become terminal-edge capacities</caption>
           <thead><tr>
@@ -376,7 +376,7 @@ export function BinaryCutLab() {
             </tr>)}</tbody>
         </table></div>
       <p>Each neighbor pair {PIXEL_NEIGHBORS.map(([u, v]) => `${u}–${v}`).join(', ')} becomes two opposite original edges of capacity {penalty}. Exactly one crosses out of the source side when labels differ; zero cross when labels agree.</p>
-    </details>
+    </section>
     <p className="nf-note">Calculated exactly from the displayed six-cell integer objective, independently checked against all 64 labelings. This is a small optimization model, not measured image-segmentation accuracy. Larger penalties favor fewer boundaries but need not improve an actual image label.</p>
   </section>;
 }

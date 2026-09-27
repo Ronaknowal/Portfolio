@@ -1,0 +1,12 @@
+.init-update-intuition { background: #121211; border: 1px solid #494235; padding: clamp(.8rem, 2vw, 1.35rem); margin: 2rem 0; color: #ddd9d1; }
+.init-update-intuition h4, .init-update-intuition h5 { color: #eee5d3; font-size: 1rem; margin: 0 0 .7rem; }
+.init-update-intuition p, .init-update-intuition figcaption { line-height: 1.7; }
+.init-update-intuition figcaption { color: #c9beab; margin-top: 1rem; }
+.init-update-terms { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: .7rem; }
+.init-update-terms section { border-top: 1px solid #6e582b; padding-top: .7rem; }
+.init-update-product { color: #e9b949; }
+.init-update-table { overflow-x: auto; }
+.init-update-table table { min-width: 420px; width: 100%; border-collapse: collapse; }
+.init-update-table th, .init-update-table td { padding: .6rem; border-bottom: 1px solid #494235; text-align: left; }
+.init-update-table caption { text-align: left; line-height: 1.6; padding: .7rem 0; }
+.init-update-table:focus-visible { outline: 2px solid #e9b949; outline-offset: 3px; }

@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "torch": "2.14.0+cpu",
+  "torchvision": "0.29.0+cpu",
+  "checks": [
+    "Supplied output, input-gradient, all-parameter-gradient and odd-grid merge comparisons passed",
+    "Fresh9x12 dimensions agree",
+    "Fresh5x7 padded policies differ as explained"
+  ],
+  "probes": [
+    {
+      "height": 9,
+      "width": 12,
+      "maximumError": 2.220446049250313e-16,
+      "meaning": "equivalent divisible grid"
+    },
+    {
+      "height": 5,
+      "width": 7,
+      "maximumError": 0.19520612740732612,
+      "meaning": "different documented padded-key policies"
+    }
+  ],
+  "stdout": "shifted-window output error: 1.6653345369377348e-16\ninput/parameter gradients: matched; odd-grid merge shape: (1, 3, 4, 8)\n"
+}

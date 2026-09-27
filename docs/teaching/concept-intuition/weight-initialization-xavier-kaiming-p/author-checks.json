@@ -1,0 +1,43 @@
+{
+  "topicId": "weight-initialization-xavier-kaiming-p",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx",
+    "src/learn/components/lesson-labs/InitializationUpdateIntuition.jsx",
+    "src/learn/components/lesson-labs/initialization-update-intuition.css",
+    "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md",
+    "scripts/generate-weight-initialization-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx": "0afb834fce7e584cc1f5faed48c1bd00f9d8539a9498fe0406ecc2c6ceb962a5",
+    "src/learn/components/lesson-labs/InitializationUpdateIntuition.jsx": "8cca86a9d7af53d6e0f0b76aea310990f075e15dcf369da066d507b4239f08bc",
+    "src/learn/components/lesson-labs/initialization-update-intuition.css": "72374b475e8d07da25e62ed002d89af452de36aa2cec5c7cbe48eada3e9c7973",
+    "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md": "e77b0c723c02c9dcac541628a629e705a6418de28b74be13fb0c732cca895ccf",
+    "scripts/generate-weight-initialization-lesson.mjs": "39e81e1b3671e03e1e9ff1a793a8194f9fb4c8aad5e9cdf64bbaceca6ab60da1"
+  },
+  "scope": "Full eleven-section reading; cross-term cancellation, correlated μP motivation and LSUV scaling bridges. Existing all live investigations and measured code conserved.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Exact enumeration verifies cross terms and independent-sign output RMS",
+      "passed": true
+    },
+    {
+      "name": "Explicit SGD updates for widths 4, 16 and 64 verify aligned sums; LSUV square-root rescaling checked",
+      "passed": true
+    },
+    {
+      "name": "Canonical topic generation repeats byte for byte",
+      "passed": true
+    },
+    {
+      "name": "New inline mathematics uses renderer-supported delimiters; JSX parses",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

@@ -822,9 +822,9 @@ def route_request(replicas):
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Little's Law application</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Little's Law application</H3>
 
       <Prose>
         An LLM endpoint receives 100 requests per second and the average end-to-end latency is 200 ms. How many requests are concurrently in flight at any moment? If the GPU can hold at most 40 concurrent KV caches, what must happen?
@@ -832,9 +832,9 @@ def route_request(replicas):
 
       <Prose>
         Answer: <Code>L = λ · W = 100 × 0.2 = 20</Code> concurrent requests. Since 20 &lt; 40, the system is not memory-constrained. If latency rises to 500 ms at the same arrival rate, <Code>L = 100 × 0.5 = 50</Code> — which exceeds the KV capacity of 40. The system must either reject 20% of requests or reduce average latency back below 400 ms.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Tail latency multiplier at ρ = 0.9</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Tail latency multiplier at ρ = 0.9</H3>
 
       <Prose>
         Using the M/M/1 tail probability <Code>P(W &gt; t) = ρ · exp(-(μ - λ)t)</Code>, derive the P99 threshold at <Code>ρ = 0.9</Code> with <Code>μ = 1</Code> request/second. How does this compare to the mean wait time?
@@ -842,9 +842,9 @@ def route_request(replicas):
 
       <Prose>
         Answer: Set <Code>P(W &gt; t) = 0.01</Code>: <Code>0.9 · exp(-(1-0.9)t) = 0.01</Code>. Solving: <Code>t = -ln(0.01/0.9) / 0.1 = -ln(0.0111) / 0.1 ≈ 44.9 / 0.1 = 44.9</Code> seconds. Mean wait = <Code>1/(μ-λ) = 1/0.1 = 10</Code> seconds. The P99 is approximately 4.5× the mean. In practice (from simulation), the ratio is 3.5–4.5× depending on sample size, confirming the theoretical result.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Continuous batching and M/M/1</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Continuous batching and M/M/1</H3>
 
       <Prose>
         Why does continuous batching violate the M/M/1 constant-service-rate assumption? Which queueing model is more appropriate, and what is the practical consequence for capacity planning?
@@ -852,9 +852,9 @@ def route_request(replicas):
 
       <Prose>
         Answer: M/M/1 assumes <Code>μ</Code> is a fixed constant independent of system state. In continuous batching, the effective per-request service rate during decode is <Code>μ_eff = μ_base / n_active</Code>, where <Code>n_active</Code> changes every step. This is a processor-sharing queue, not M/M/1. The practical consequence: at moderate utilization, M/M/1 (using effective <Code>μ</Code> from Little's Law measurements) gives a reasonable mean-latency estimate. At high utilization (<Code>ρ ≥ 0.8</Code>), the variance of the throughput-reduction effect inflates tails beyond M/M/1 predictions — meaning a PS-calibrated model or direct simulation is needed for P99 capacity planning.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Capacity plan for P99 &lt; 1 s at 500 QPS</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Capacity plan for P99 &lt; 1 s at 500 QPS</H3>
 
       <Prose>
         You need to serve 500 QPS with a P99 latency SLA of 1 second. Your model has a mean service time of 150 ms per request (prefill + decode combined). How many GPU replicas do you need? State your assumptions.
@@ -862,9 +862,9 @@ def route_request(replicas):
 
       <Prose>
         Answer: Step 1 — service rate per replica: <Code>μ = 1/0.15 ≈ 6.67</Code> requests/second. Step 2 — target utilization: to keep P99 within ~5× mean latency and mean latency &lt; 200 ms (leaving 800 ms for queue wait), target <Code>ρ = 0.7</Code>. Step 3 — replicas: each replica handles at most <Code>μ × ρ = 6.67 × 0.7 ≈ 4.67</Code> RPS. Replicas needed: <Code>500 / 4.67 ≈ 107</Code>. Round up to 110 to ensure no single replica exceeds <Code>ρ = 0.7</Code>. Assumption: Poisson arrivals, exponential service (adjust up by ~30% if traffic is bursty). Verify with load testing before committing to provisioning.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Reject vs queue decision</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Reject vs queue decision</H3>
 
       <Prose>
         At time t, your endpoint has 12 requests in queue and a service rate of 2 requests/second. Your SLA is P99 &lt; 5 seconds. A new request arrives with expected service time 1 second. Should you queue it or reject it immediately?
@@ -872,7 +872,7 @@ def route_request(replicas):
 
       <Prose>
         Answer: Estimated wait before service begins: <Code>12 / 2 = 6 seconds</Code>. Adding service time: total expected latency ≈ 7 seconds &gt; 5-second SLA. If you serve this request, it will violate the SLA with near certainty. Reject it immediately (or return a 429 with <Code>Retry-After: 4</Code>). Queuing it wastes GPU resources on a result the client will discard, and adds to queue depth, increasing wait time for subsequent requests. The correct decision is rejection — with a helpful retry hint so the client can try again once the queue drains.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

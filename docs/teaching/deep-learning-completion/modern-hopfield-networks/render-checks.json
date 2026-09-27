@@ -1,0 +1,167 @@
+{
+  "topicId": "modern-hopfield-networks",
+  "passed": true,
+  "checks": [
+    {
+      "name": "JSX parse HopfieldPrimitives.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldFigures.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse HopfieldDigitLab.jsx",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy associative_memory.py",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy digit_memory.py",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy digit-memory-fits.npz",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy digit-results.json",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy mechanism-results.json",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy optdigits.tra",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy optdigits.tes",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy optdigits.names",
+      "passed": true
+    },
+    {
+      "name": "Deployed exact copy data-provenance.md",
+      "passed": true
+    },
+    {
+      "name": "Every deployed image and label equal the one-based raw source row",
+      "passed": true
+    },
+    {
+      "name": "Full article render A memory is more than a label",
+      "passed": true
+    },
+    {
+      "name": "Full article render Every other feature casts a signed vote",
+      "passed": true
+    },
+    {
+      "name": "Full article render Actual energy contours",
+      "passed": true
+    },
+    {
+      "name": "Full article render Higher-order",
+      "passed": true
+    },
+    {
+      "name": "Full article render fixed training samples",
+      "passed": true
+    },
+    {
+      "name": "Full article render Hint and reasoned solution",
+      "passed": true
+    },
+    {
+      "name": "All ten independent practice solutions closed",
+      "passed": true
+    },
+    {
+      "name": "All four distinct investigations visible",
+      "passed": true
+    },
+    {
+      "name": "Prepared placeholder anchors are absent",
+      "passed": true
+    },
+    {
+      "name": "Neutral scoped body applied",
+      "passed": true
+    },
+    {
+      "name": "Blank0.1 masses use ten27px bars on fixed270px unit scale",
+      "passed": true
+    },
+    {
+      "name": "Probability axis states fixed zero-to-one scale",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render fixed 00058300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render fixed 00000300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render fixed 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie fixed",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed17 00058300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed17 00000300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed17 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie seed17",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00058300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00000300",
+      "passed": true
+    },
+    {
+      "name": "Actual digit render seed41 00000000",
+      "passed": true
+    },
+    {
+      "name": "Blank cue explicitly shows all-class tie seed41",
+      "passed": true
+    }
+  ],
+  "localNodeTiming": {
+    "millisecondsPerDigitRead": 0.6298319999999967,
+    "millisecondsPer61By41Grid": 41.731799999999566
+  },
+  "limits": [
+    "SSR verifies computed accessible content, not browser interaction/paint.",
+    "Timing is this local Node process, not claimed browser latency.",
+    "Root owns final production build and desktop/mobile browser."
+  ]
+}

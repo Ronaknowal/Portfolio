@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "htmlCharacters": 198467,
+  "checks": [
+    "Complete initial lesson renders without exceptions or React warnings",
+    "All six semantic investigations present with immediate arithmetic or honest asset loading state",
+    "Finite initial numeric output"
+  ],
+  "limitations": [
+    "Server render checks do not establish painted geometry, browser interaction or network recovery. Those remain the integration owner’s checks."
+  ]
+}

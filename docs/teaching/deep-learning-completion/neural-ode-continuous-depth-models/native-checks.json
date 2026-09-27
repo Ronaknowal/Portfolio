@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "torch": "2.14.0+cpu",
+  "torchdiffeq": "0.2.5",
+  "maximumThreads": 2,
+  "checks": [
+    "Complete unchanged published ode_calculations.py executed in isolated temporary directory",
+    "All12 selected checkpoints replay all149 unique rows by declared fit/validation/assessment roles",
+    "Validation-only selected checkpoint identity",
+    "Actual torchdiffeq Euler state/gradient and dopri5 direct/adjoint analytic checks",
+    "21 SciPy matrix exponentials covering repeated, complex, zero and real eigenvalues",
+    "Additional native gradient fixtures including exact-zero Euler amplification"
+  ],
+  "libraryOutput": "adaptive endpoint/initial-gradient/rate-gradient: tensor([[ 0.7449],\n        [-0.2483]]) tensor([[ 0.3699],\n        [-0.1233]]) tensor(0.6165)\nadjoint endpoint/initial-gradient/rate-gradient: tensor([[ 0.7449],\n        [-0.2483]]) tensor([[ 0.3699],\n        [-0.1233]]) tensor(0.6165)\nEuler endpoint, initial gradient, rate gradient: tensor([[ 0.7210],\n        [-0.2403]]) tensor([[ 0.3466],\n        [-0.1155]]) tensor(0.6330)\n",
+  "checkpointReplay": [
+    {
+      "kind": "linear",
+      "seed": 13,
+      "selectedStep": 300,
+      "assessment": {
+        "cross_entropy": 0.2204511811107761,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "linear",
+      "seed": 37,
+      "selectedStep": 300,
+      "assessment": {
+        "cross_entropy": 0.20027701250031082,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "linear",
+      "seed": 61,
+      "selectedStep": 300,
+      "assessment": {
+        "cross_entropy": 0.21245257370552925,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "residual",
+      "seed": 13,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.16762623612975155,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "residual",
+      "seed": 37,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.10539325032226493,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "residual",
+      "seed": 61,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.05132874911029413,
+        "correct": 29,
+        "count": 29
+      }
+    },
+    {
+      "kind": "neural_ode",
+      "seed": 13,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.15238800360742696,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "neural_ode",
+      "seed": 37,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.10335128674161365,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "neural_ode",
+      "seed": 61,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.06212302493901905,
+        "correct": 29,
+        "count": 29
+      }
+    },
+    {
+      "kind": "augmented_ode",
+      "seed": 13,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.04203606789006791,
+        "correct": 29,
+        "count": 29
+      }
+    },
+    {
+      "kind": "augmented_ode",
+      "seed": 37,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.1054937764443537,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "augmented_ode",
+      "seed": 61,
+      "selectedStep": 50,
+      "assessment": {
+        "cross_entropy": 0.03648194057048307,
+        "correct": 29,
+        "count": 29
+      }
+    }
+  ],
+  "limitations": [
+    "Existing12 fits reused; no duplicate fit campaign.",
+    "No JAX/Diffrax or GPU execution."
+  ]
+}

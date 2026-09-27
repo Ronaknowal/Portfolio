@@ -3,6 +3,7 @@ import { Math, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
 import { CapacityLab, TimelineLab } from '../../components/lesson-labs/FormulationLabs.jsx';
+import { SelectiveLabelsFigure } from '../../components/lesson-labs/FormulationIntuitionFigures.jsx';
 import {
   ContractFlowFigure, FittingBoundaryFigure, LineageFigure, ResultsFigure, ThresholdCostFigure,
   UnitSplitFigure, UpliftFigure,
@@ -118,7 +119,7 @@ const formulationContent = {
       chosen actions and their measured consequences together.
     </LessonIntro>
 
-    <div className="formulation-route"><Prose><strong>First pass.</strong> Read sections 1–7 and do practice 1–5.
+    <div className="formulation-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–7 and do practice 1–5.
       That route gets you the target/unit/cutoff contract, the three clocks that decide what was knowable, a
       baseline worth beating, the difference between a classification score and a limited-capacity decision, and
       the five different things people call leakage. Run the two programs on the way and do the small timeline
@@ -206,6 +207,17 @@ const formulationContent = {
       answer became ascertainable, and the rule applied to missing or censored outcomes. The
       earlier <a href="/learn/path/full-curriculum/survival-analysis-cox-regression-kaplan-meier-hazard-models?module=classical-ml">survival-analysis</a> lesson
       explains why incomplete follow-up is not automatically a negative event.</Prose>
+    <LessonTable caption="One seven-day target, three different label states at a day-20 snapshot (constructed)"
+      headers={['Signup day', 'Known history at snapshot', 'What can be labeled?']}
+      rows={[
+        ['10', 'No event through day 17; full reliable follow-up', 'Negative: the entire target window was observed'],
+        ['18', 'No event yet', 'Unresolved: days 21–25 are still in the future'],
+        ['18', 'Event on day 19, reliably recorded by day 20', 'Positive: an event within the window is already established'],
+      ]} />
+    <Prose>The rule is asymmetric: one observed qualifying event can establish an “at least one” positive early,
+      but a negative needs the whole window. Training only on early positives while dropping unresolved rows can also
+      distort the selected sample. Decide the cohort and maturity policy together; simply replacing unresolved values
+      with zero does not complete their observation windows.</Prose>
     <Prose>For repeated hourly rows from one parcel, a random row split can place nearly identical states from
       that parcel on both sides. That might assess interpolation among already represented parcels. It does not
       automatically assess predictions for entirely new parcels. The <strong>evaluation unit</strong> should
@@ -233,6 +245,16 @@ const formulationContent = {
       about that proxy; check the downstream outcome
       separately. <a href="https://developers.google.com/machine-learning/problem-framing/ml-framing">Google's
       framing discussion</a> distinguishes model outputs, proxy labels and success measures.</Prose>
+    <LessonTable caption="A proxy can improve while the intended outcome worsens (constructed equal-size trials)"
+      headers={['Recommendation rule', 'Clicked out of 100 recommendations', 'Clicked videos later rated useful']}
+      rows={[
+        ['Current rule', '40', '30 of those 40'],
+        ['Click-focused variant', '60', '20 of those 60'],
+      ]} />
+    <Prose>Click rate rises from 40% to 60%, while useful clicked recommendations fall from 30 to 20 per 100.
+      Both are simultaneously possible: the variant may attract attention with promises the content does not fulfill.
+      These invented counts do not show that click prediction is always harmful; they identify what the proxy alone
+      cannot establish. The usefulness measurement also has its own response and missing-rating assumptions.</Prose>
 
     {/* ============================================================ §3 */}
     <H2 id={headingId(headings[2])}>{headings[2]}</H2>
@@ -321,6 +343,11 @@ const formulationContent = {
       + '=\\sum_i(y_i-\\bar y)^2+n(c-\\bar y)^2.\\end{gathered}'}</MathBlock>
     <Prose>The first term does not depend on <Math>{'c'}</Math>, and the second is smallest
       at <Math>{'c=\\bar y'}</Math>. Baselines have assumptions too.</Prose>
+    <Prose>The median has a different mechanism. For targets 1, 2 and 12, moving a prediction rightward from 2
+      increases its distance to two observations while reducing its distance to only one. Moving leftward does the
+      reverse until 2. Thus absolute error is minimized at 2; squared error instead uses the mean 5, because the
+      distant value 12 exerts a larger pull. Their absolute-error totals are 11 and 14, respectively; their
+      squared-error totals are 101 and 74. “A constant baseline” still requires naming the loss it optimizes.</Prose>
     <Prose>A probability baseline predicts the training positive fraction for every case. Its scores all tie, so
       it supplies no ranking information. Its validation average precision equals the validation positive
       fraction; selecting a particular top 50 among tied scores depends on the tie rule and is not a learned
@@ -350,6 +377,11 @@ const formulationContent = {
     <Prose>This derivation assumes the action does not change the target's meaning and omits capacity or
       action-specific effects. With a hard capacity, decisions become coupled: selecting one case may displace
       another. Document the actual decision rule instead of treating .5 as a universal threshold.</Prose>
+    <Prose>One useful bridge is the <em>expected benefit of acting</em>: subtract acting loss from waiting loss,
+      giving <Math>{'p(C_{\\rm FP}+C_{\\rm FN})-C_{\\rm FP}'}</Math>. With common costs 3 and 9, probabilities
+      .6, .4 and .2 give benefits 4.2, 1.8 and −.6. Without a capacity restriction, the first two actions help;
+      with room for only one equal-resource action, choose the first. Ranking by probability works in this example
+      because the costs are the same across cases. Different costs or resource requirements can change that ordering.</Prose>
 
     {/* ============================================================ §5 */}
     <H2 id={headingId(headings[4])}>{headings[4]}</H2>
@@ -511,6 +543,12 @@ const formulationContent = {
     <Prose>Write the selection process into the contract: who was observed, who was omitted, which outcomes
       became known, and whether there is support for the intended population. Weighting or extrapolation needs
       assumptions; it is not a way to create evidence in a region with no relevant observations.</Prose>
+    <SelectiveLabelsFigure />
+    <Prose>Reweighting observed cases can correct a known sampling imbalance only under the relevant identification
+      assumptions and with nonzero selection probability where predictions will be used. If the old rule never
+      inspects one kind of part, its labels cannot be recovered by giving other parts larger weights.{' '}
+      <a href="https://www.cs.cornell.edu/home/kleinber/kdd17-selective.pdf">Lakkaraju and colleagues' selective-labels study</a>
+      {' '}examines this evaluation problem; its identification strategy requires assumptions beyond these counts.</Prose>
 
     <H3>The loss should preserve information needed by the action</H3>
     <Prose>Consider provisioning spare parts for a one-period demand of 10 or 20 with equal probability.
@@ -528,7 +566,7 @@ const formulationContent = {
     <Prose>which vanishes at that quantile; at a point mass use the corresponding one-sided condition. In this
       example the {round(criticalQuantile(3, 1), 6)} quantile is 20.</Prose>
     <Prose>This derivation is not new here, and its two nearest owners are both behind
-      you. <a href="/learn/path/full-curriculum/decision-theory-risk-cost-sensitive-decisions?module=classical-ml">Decision
+      you. <a href="/learn/path/full-curriculum/decision-theory-risk-cost-sensitive-decisions?module=math-foundations">Decision
       Theory (Risk &amp; Cost-Sensitive Decisions)</a> gives this same critical fraction under “absolute error
       requests a median; asymmetric error requests a quantile”, with a worked underage and overage order and
       the discrete-quantile subtlety this section
@@ -548,9 +586,9 @@ const formulationContent = {
       problem.</Prose>
 
     {/* ============================================================ §9 */}
-    <H2 id={headingId(headings[8])}>{headings[8]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2 id={headingId(headings[8])}>{headings[8]}</H2>
 
-    <Practice title="1. A changed historical snapshot"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A changed historical snapshot"
       question={`For sensor A, records are (event, available, version, value): (2, 2, 1, 8), (4, 7, 1, 11), `
         + `(2, 5, 2, 9). At cutoff ${practiceTimelineFixture.cutoff} with maximum age `
         + `${practiceTimelineFixture.maximumAge}, which value qualifies? What changes if the event-4 value `
@@ -565,18 +603,18 @@ const formulationContent = {
           : 'the answer depends on the arrival'}. Keep missingness visible rather than inventing a future
         calibration. Apply the same eligibility and version-selection steps as investigation 1 to these
         changed records.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. A convincing but invalid delivery model"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. A convincing but invalid delivery model"
       question="A model predicts whether a parcel will arrive late using a field set by the final delivery scan. Its test parcels are all different from training parcels. Explain why the split is insufficient and write a valid cutoff and feature rule.">
       <Prose>Holding out parcel identities prevents one contamination mechanism, but a post-delivery field is
         still unavailable at dispatch. Specify a dispatch-time prediction and reconstruct only fields, events
         and versions available then. Define “late” and label maturity independently. If the goal changes to
         post-delivery reporting, acknowledge that it is a different task and test whether prediction is even
         needed.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Accuracy, service cost and capacity"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Accuracy, service cost and capacity"
       question={`There are ${supportFixture.requests} support requests, ${supportFixture.urgent} truly urgent. `
         + `Policy A escalates none. Policy B escalates ${supportFixture.policies[1].escalated}: three urgent `
         + `and one ordinary. An unnecessary escalation costs ${supportFixture.unnecessaryCost} units; missing `
@@ -589,9 +627,9 @@ const formulationContent = {
         rank-and-select rule needs to state which {supportFixture.capacity} are selected; B's four-case
         confusion counts alone do not determine the new result. This is an action constraint, not something an
         accuracy number encodes.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Change the capacity on real data"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Change the capacity on real data"
       question={`Using the saved validation probabilities or rerunning the displayed fixed experiment, change `
         + `capacity from ${partition.capacity} to 25. Calculate the candidate's precision and `
         + `recall changes and explain them from the selected rows. Use the same source-row tie rule and leave model settings `
@@ -608,18 +646,18 @@ const formulationContent = {
         while recall falls; a higher precision is not guaranteed by the word “top.” Include the selected
         rows and the actual result; do not search for a favorable capacity and report it as untouched
         evaluation. Investigation 2 lets you inspect exactly this change.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Write the missing contract"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Write the missing contract"
       question="A colleague says, “Our model detects failed equipment with 97% accuracy on randomly split sensor rows.” List at least five missing definitions, then propose an evaluation for predicting failure of a new machine within the next day.">
       <Prose>Specify the machine or forecast-origin unit, the failure event and 24-hour window, feature and
         label availability, the population of machines, repeated-measurement grouping, a baseline, meaningful
         costs and metrics, and the split time. Hold out the intended new machines and respect prediction
         deadlines and mature labels within each training snapshot. Describe how many independent machines and
         events support the evaluation; thousands of rows need not mean thousands of independent units.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Derive a changed decision threshold"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Derive a changed decision threshold"
       question="For the fixed binary-cost setting in section 4, let false-positive cost be 3 and false-negative cost 9. Compute the threshold. At p = .2, compare both expected losses. Name a condition that would invalidate this simple decision calculation."
       hint="The threshold is one ratio of the two costs; the comparison at a given p is two multiplications.">
       <Prose>The threshold is <Math>{'3/12'}</Math> = {round(practiceThreshold, 6)}. Acting
@@ -628,24 +666,24 @@ const formulationContent = {
         capacity, a changed outcome under intervention, different per-case costs or probabilities invalid for
         the deployment population requires a revised calculation. Figure 3's middle setting is this exact
         case.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. A delayed label is not a negative label"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. A delayed label is not a negative label"
       question="You predict an event within seven days of signup. At a dataset snapshot on day 20, a person signed up on day 18 and has no event recorded. Explain why assigning a negative label can be wrong. How would the answer differ if the event already occurred and was reliably recorded on day 19?">
       <Prose>Only two days of the seven-day window have elapsed, so absence so far does not establish a
         complete-window negative. Wait for maturity or use a method that explicitly represents incomplete
         follow-up. A reliably observed event on day 19 establishes a positive within the window; delays in
         recording would need their own rule. The exact training policy should state which known positives and
         incomplete negatives are eligible.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Deeper transfer: rank propensity or impact?"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Deeper transfer: rank propensity or impact?"
       question="In an invented outreach example, group C has outcome probabilities .6 with action and .55 without; D has .4 with action and .1 without. Which group has greater observed-action propensity, which greater increment, and why can't a standard classifier on acted-upon cases alone settle the second question?">
       <Prose>C has higher probability under action, .6 versus .4. D has greater increment, .3 versus .05. A
         classifier on acted-upon cases does not directly observe their no-action counterfactuals; the increment
         needs an appropriate experimental or causal identification strategy. These are constructed
         probabilities, not an effect estimate from the bank data.</Prose>
-    </Practice>
+    </Practice></div>
 
     <Prose>You are ready for the next lesson when you can write a target, unit and cutoff contract; reconstruct
       a changed as-known snapshot; select and interpret a meaningful baseline; identify an actual information
@@ -670,11 +708,12 @@ const formulationContent = {
         complete <a href={provenance.program}>calculation program</a> is served beside the data; run it in a
         directory holding the CSV and it rewrites the {formulationExamples.calculations.producesBytes.toLocaleString('en-US')}-byte
         results file it was originally recorded from, byte for byte.</Prose>
-      <Prose>Every other number is exact arithmetic on a stated formula, evaluated in the browser from the same
-        definitions the verifiers use. The calibration history, the parcels, the support costs, the spare-parts
+      <Prose>The retained fixtures use exact arithmetic on stated formulas, evaluated in the browser from the same
+        definitions the verifiers use. The added label-maturity, proxy, constant-loss, capacity and selective-label
+        examples are constructed arithmetic illustrations checked separately by the author verifier. The calibration history, the parcels, the support costs, the spare-parts
         demand and the two customer groups are constructed teaching fixtures; no value in them comes from the
         bank records.</Prose>
-    </Callout>
+    </Callout></section>
 
     <Sources alternatives={<>
       <p>For a short guided route through outcomes, outputs and proxy

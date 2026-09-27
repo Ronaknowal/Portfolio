@@ -388,8 +388,8 @@ export function PathFigure() {
       {familyLabels[family]} at λ = {selected}: fold MSEs {row[3].map(value => fixed(value, 6)).join(', ')},
       mean {fixed(row[2], 6)}, nonzero counts {row[4].join(', ')} of twenty. Fold {fold + 1} keeps {row[4][fold]}.
     </p>
-    <details>
-      <summary>Inspect all eighteen fitted candidates and the two baselines</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Inspect all eighteen fitted candidates and the two baselines</h4>
       <Table caption="Recorded development results, rounded to six decimals"
         headings={['family', 'λ', 'fold 1', 'fold 2', 'fold 3', 'mean MSE', 'nonzero per fold']}
         rows={candidates.map(entry => [familyLabels[entry[0]], entry[1], fixed(entry[3][0], 6), fixed(entry[3][1], 6),
@@ -397,7 +397,7 @@ export function PathFigure() {
       <Table caption="The two comparators, on the same folds"
         headings={['fold', 'training mean prediction (dB)', 'mean-baseline MSE', 'unpenalized OLS MSE']}
         rows={baselines.map((entry, index) => [`fold ${index + 1}`, fixed(entry.meanPrediction, 6), fixed(entry.meanMse, 6), fixed(entry.olsMse, 6)])} />
-    </details>
+    </section>
     <p>
       Source: the observed {provenance.name} collection, {provenance.rows} rows, licensed {provenance.license}.
       {' '}{provenance.developmentRows} development rows and {provenance.reservedRows} reserved rows split with seed {provenance.splitSeed};

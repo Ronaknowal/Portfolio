@@ -1,0 +1,43 @@
+{
+  "topicId": "conditional-random-fields-crf",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:23:08.798Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/conditional-random-fields-crf.jsx",
+    "src/learn/components/lesson-labs/CrfIntuition.jsx",
+    "src/learn/components/lesson-labs/crf-intuition.css",
+    "src/learn/data/crf-models.js",
+    "docs/teaching/concept-intuition/conditional-random-fields-crf/independent-review.md",
+    "scripts/review-probabilistic-learning-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "97773a50e538899059dbb236f0a566c8f0f68a133277bbf6204216e7d9db278f",
+    "src/learn/components/lesson-labs/CrfIntuition.jsx": "459f435bb6a0214202c3dbbc5843bf62a7d1b82022e25fdb031c5170f9a48a0d",
+    "src/learn/components/lesson-labs/crf-intuition.css": "8a06649143b2c657b553f834b9093caac26d083c99f651cebefca8cf401190f3",
+    "src/learn/data/crf-models.js": "e9464061389ee7d0e7be57b6b49b62838210862e0289b3e20de2b40544f87682",
+    "docs/teaching/concept-intuition/conditional-random-fields-crf/independent-review.md": "3130102db8202a79c259f5b27e637a1622b724d03edd6b61b09f571460647f22",
+    "scripts/review-probabilistic-learning-intuition.mjs": "a49b42abfdb91cae81d578068628788f50b5b4f6e825ddca795e29ff19b4f106"
+  },
+  "checks": [
+    {
+      "name": "Off-table partial label likelihood",
+      "status": "passed"
+    },
+    {
+      "name": "Changed backward conditional recovers joint but independent marginals do not",
+      "status": "passed"
+    },
+    {
+      "name": "Partial-label gradient by finite differences",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/conditional-random-fields-crf/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new model-fitting claim."
+}

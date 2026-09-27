@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { renderPreparedLesson } from './lib/prepared-lesson-renderer.mjs';
 
 const id = 'rnns-lstms-grus', folder = `docs/teaching/drafts/${id}/`, destination = `public/learn-assets/${id}/`;
+const writeJsonIfChanged = (file, value) => { const serialized=JSON.stringify(value); if (!fs.existsSync(file) || fs.readFileSync(file,'utf8').trimEnd()!==serialized) fs.writeFileSync(file,serialized+'\n'); };
 fs.mkdirSync(destination, { recursive: true });
 for (const name of ['pen-sequence-learning.py', 'recurrent-mechanics.py', 'pen-trajectories.csv', 'data-provenance.md', 'data-extraction.json', 'calculated-inputs.json', 'mechanics-results.json']) fs.copyFileSync(folder + name, destination + name);
 fs.writeFileSync(destination + 'data-provenance.md', '> Implementation update, 22 September 2026: this packet now powers the implemented recurrent lesson. The historical content-first boundary below describes its preparation date; current native and browser evidence is recorded in docs/teaching/RECURRENT-IMPLEMENTATION.md. Dataset origin, split and experiment limits remain unchanged.\n\n' + fs.readFileSync(folder + 'data-provenance.md', 'utf8'));
@@ -15,8 +16,8 @@ const specimens = ['pendigits.tes:6', 'pendigits.tes:1', 'pendigits.tes:2'].map(
   if (!row) throw new Error('Missing specimen ' + id);
   return { sourceId: id, digit: Number(row.digit), points: Array.from({ length: 8 }, (_, i) => ['x', 'y'].map(axis => Number((Number(row[axis + (i + 1)]) / 50 - 1).toFixed(2)))) };
 });
-fs.writeFileSync(destination + 'pen-models.json', JSON.stringify({ weights: report.saved_models, specimens }) + '\n');
-fs.writeFileSync(destination + 'recurrent-evidence.json', JSON.stringify({ boundaries: mechanics.state_and_padding, runs: report.runs.map(({ first_two_examples, final, reversed, swapped_points_3_4, ...rest }) => ({ ...rest, final: { correct: final.correct, cross_entropy: final.cross_entropy }, reversed: { correct: reversed.correct, cross_entropy: reversed.cross_entropy }, swapped_points_3_4: { correct: swapped_points_3_4.correct, cross_entropy: swapped_points_3_4.cross_entropy } })) }) + '\n');
+writeJsonIfChanged(destination + 'pen-models.json', { weights: report.saved_models, specimens });
+writeJsonIfChanged(destination + 'recurrent-evidence.json', { boundaries: mechanics.state_and_padding, runs: report.runs.map(({ first_two_examples, final, reversed, swapped_points_3_4, ...rest }) => ({ ...rest, final: { correct: final.correct, cross_entropy: final.cross_entropy }, reversed: { correct: reversed.correct, cross_entropy: reversed.cross_entropy }, swapped_points_3_4: { correct: swapped_points_3_4.correct, cross_entropy: swapped_points_3_4.cross_entropy } })) });
 
 let manuscript = fs.readFileSync(folder + 'lesson.md', 'utf8').replaceAll('\r\n', '\n');
 const code = fs.readFileSync(folder + 'pen-sequence-learning.py', 'utf8').replaceAll('\r\n', '\n').trim();
@@ -27,7 +28,7 @@ if (!manuscript.includes('COMPLETE_RECURRENT_PROGRAM')) {
   manuscript = manuscript.replaceAll('\r\n', '\n').replace('```python\n' + code.replaceAll('\r\n', '\n') + '\n```', 'COMPLETE_RECURRENT_PROGRAM');
 }
 manuscript = manuscript.replace(/(<details>|<\/details>|<summary>[^<]*<\/summary>)/g, '\n\n$1\n\n');
-const { jsx, sections } = renderPreparedLesson(manuscript, {
+const { jsx, sections } = renderPreparedLesson(manuscript, { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-assets/${id}/`,
   replacements: [
     ['COMPLETE_RECURRENT_PROGRAM', '<RecurrentProgram file="pen-sequence-learning.py" title="Read the complete real-data training and evaluation program" />'],
@@ -40,6 +41,7 @@ const { jsx, sections } = renderPreparedLesson(manuscript, {
     ['**Visual: two arrows', '<RecurrentBoundaryLab />'],
   ],
   additions: [
+    ['Follow the direction as well as the magnitude.', '<RecurrentDirectionProductFigure />'],
     ['All nine runs remain visible', '<RecurrentMeasuredLab />'],
     ['Packing tells the native recurrent', '<RecurrentPaddingLab />'],
     ['The complete [recurrent-mechanics.py]', '<RecurrentProgram start="def manual_sequence" end="def scalar_credit" title="Read the explicit NumPy RNN, LSTM and GRU cell equations" />'],
@@ -53,6 +55,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { RecurrentDirectionProductFigure } from '../../components/lesson-labs/RecurrentIntuitionFigures.jsx';
 import { ${imports.join(', ')} } from '../../components/lesson-labs/RecurrentLabs.jsx';
 export default {
   title: 'RNNs, LSTMs & GRUs',

@@ -152,8 +152,8 @@ export function TemperatureThresholdLab() {
       </p>
     </>}
 
-    <details>
-      <summary>Inspect the actual rows around one annotated window</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Inspect the actual rows around one annotated window</h4>
       <div className="ad-buttons">
         <button type="button" disabled={window === 0} onClick={() => { setWindow(window - 1); setRowPage(0); }}>Previous window</button>
         <button type="button" disabled={window === eventWindows.length - 1} onClick={() => { setWindow(window + 1); setRowPage(0); }}>Next window</button>
@@ -196,10 +196,10 @@ export function TemperatureThresholdLab() {
         ])}
         rowClass={index => (visibleRows[index].alert && true ? 'is-alert' : undefined)} />
       {false}
-    </details>
+    </section>
 
-    <details>
-      <summary>The worked comparison the lesson already ran, at 0.95 and 0.99</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">The worked comparison the lesson already ran, at 0.95 and 0.99</h4>
       <Table caption="Every method at both published quantiles. All four windows are hit in all eight rows; the workload is what moves."
         headings={['method', 'q', 'threshold', 'test alerts', 'inside windows', 'outside windows', 'windows hit']}
         rows={methodOrder.flatMap(key => ['0.95', '0.99'].map(q => {
@@ -210,7 +210,7 @@ export function TemperatureThresholdLab() {
       <p className="ad-caption">
         Moving from the 95th to the 99th calibration percentile keeps every window hit and removes thousands of alerts for some methods and almost none for others. An event metric that only asks “did any alert land inside” cannot see that difference, which is why the row counts sit beside it.
       </p>
-    </details>
+    </section>
 
     <p className="ad-caption">
       The series holds {integer(sourceFacts.rawRows)} raw rows at {integer(sourceFacts.uniqueTimestamps)} distinct timestamps; readings sharing a timestamp were averaged, and the {sourceFacts.droppedMissingLag} rows with no reading exactly one hour earlier were dropped rather than filled. Temperature units and timezone are not stated by the source, so neither is invented here.

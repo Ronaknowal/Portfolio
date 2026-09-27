@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "date": "2026-09-26",
+  "checks": [
+    "All ten calculated reads, signed gradients, actual updates, masked and equal-value nulls",
+    "Continuous window boundaries, normalization, excluded-score null, query cancellation and repeated-copy aggregation",
+    "All sixteen saved full recurrent traces versus independent NumPy; changed source, prefix causality and padding invariance",
+    "All prepared representation anchors replaced; eight separate practice hints and solutions preserved",
+    "Ordered dependency steps preserve numbering across explanatory paragraphs"
+  ],
+  "maximumTraceError": 2.831068712794149e-15,
+  "traceCheckMilliseconds": 367.7019,
+  "timingScope": "Combined Node verification work, not a browser latency benchmark",
+  "reviewedFiles": {
+    "src/learn/data/recurrent-attention-models.js": "fb5f5507c6c52db20772b7f789e6a48a20ff9265cadf6da8678204a8fce3c7f2",
+    "src/learn/data/recurrent-attention-measurements.json": "a6d62dca596c00bfc486d3580358ad149fde37462cacc7f294c280c65373b6ae",
+    "src/learn/data/topics/attention.jsx": "5e0b7b4bcd52da5aae3c8857eefcb863454687f3dbf2121f2e5aca7f6e7c77f1",
+    "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx": "038fdee01417ac20d115c71445111bb7f2462457336ab50d18583d9d87371046",
+    "src/learn/components/lesson-labs/recurrent-attention-labs.css": "1480fd216bc08a1f641809d52b21f4a4d257e48eb2809abe0ba5fdfe91cc397a",
+    "scripts/generate-recurrent-attention-lesson.mjs": "8e2e397d2b637a1e9ba52e9437db467f06a3b0fac2b6b302fd78e98ba3e784a3",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "scripts/verify-recurrent-attention-models.mjs": "9ed2251d398423fcb575a1844bb81394f6bd4fc94385d5947f2fa7d83a2bcc74"
+  }
+}

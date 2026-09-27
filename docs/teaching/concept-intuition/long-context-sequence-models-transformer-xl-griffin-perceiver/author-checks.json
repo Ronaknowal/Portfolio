@@ -1,0 +1,50 @@
+{
+  "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+  "reviewedAt": "2026-09-26T14:57:47.788Z",
+  "canonicalManuscript": "docs/teaching/concept-intuition/long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md",
+  "sourceFiles": [
+    "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx",
+    "docs/teaching/concept-intuition/long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md",
+    "scripts/render-long-context-lesson.mjs",
+    "docs/teaching/concept-intuition/long-context-sequence-models-transformer-xl-griffin-perceiver/review.md",
+    "scripts/verify-sequence-architecture-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx": "edad76a866be280ba97ec622188e840aecb6f9cb24f0770335195b6416e3daec",
+    "docs/teaching/concept-intuition/long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md": "4710b2115f44ab5fb6c2c211a151036f57662da75ecb773b411a224602e0b1e3",
+    "scripts/render-long-context-lesson.mjs": "becabe6e41675cfe6130dcc7ae6e312e213d396a17f5735b777562059bca5e3b",
+    "docs/teaching/concept-intuition/long-context-sequence-models-transformer-xl-griffin-perceiver/review.md": "6a77b31a0939ee9b4eeb2d13fe1735070a01325705ec5441a7883ed3837fb95c",
+    "scripts/verify-sequence-architecture-concept-intuition.mjs": "630bb6d08353c42b6ba19c7d18e9f4b1e83b9f9d7b97249ec711f5fe85e9b77e"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/long-context-sequence-models-transformer-xl-griffin-perceiver/review.md"
+    },
+    {
+      "name": "Deterministic canonical generator agreement",
+      "status": "passed"
+    },
+    {
+      "name": "All revision-4 code fences retained verbatim",
+      "status": "passed"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Four-term score isolation changes preference with query",
+      "status": "passed"
+    },
+    {
+      "name": "Global distance contribution stays fixed",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Revision-4 manuscripts and receipts retained; numerical engines, native programs, measured data and fitted weights unchanged. No fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

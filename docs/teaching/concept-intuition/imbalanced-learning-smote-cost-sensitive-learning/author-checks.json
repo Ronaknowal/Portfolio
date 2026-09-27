@@ -1,0 +1,41 @@
+{
+  "topicId": "imbalanced-learning-smote-cost-sensitive-learning",
+  "reviewedAt": "2026-09-26T15:41:49.778Z",
+  "sourceFiles": [
+    "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx",
+    "docs/teaching/concept-intuition/imbalanced-learning-smote-cost-sensitive-learning/review.md",
+    "scripts/verify-model-selection-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx": "791c40319281fd5eebd5faccefe36f4ed291734fa83931200be1c1317202cdac",
+    "docs/teaching/concept-intuition/imbalanced-learning-smote-cost-sensitive-learning/review.md": "88456d4d815363092141aca57949b6992c536dcd7dfeaf5a1cb3263c4f333451",
+    "scripts/verify-model-selection-sequence-intuition.mjs": "aed7d76adb84de450a55418b72b1019c2ce39cf6b947993ec93d15802a365f92"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/imbalanced-learning-smote-cost-sensitive-learning/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "All-candidate NearMiss nearest/farthest outcomes",
+      "status": "passed"
+    },
+    {
+      "name": "Normalized ADASYN allocation",
+      "status": "passed"
+    },
+    {
+      "name": "Prior-shift odds preserve the likelihood multiplier",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing models, native programs, datasets and run outputs retained; no fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

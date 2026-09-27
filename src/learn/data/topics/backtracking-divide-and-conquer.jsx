@@ -131,35 +131,35 @@ export default {
       <Prose>No. A parent prefix that crosses the split must include every value in the left region, including negative values. L.best is not a substitute for L.total because it may omit some of that region. The intermediate return contract can be richer than the final requested answer; that extra information is what permits a correct constant-work combine.</Prose>
     </Checkpoint>
 
-    <H2>8. Practise a new contract</H2>
-    <H3>Exercise A · enumerate balanced parentheses</H3>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>8. Practise a new contract</H2>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise A · enumerate balanced parentheses</H3>
     <Prose>For n pairs, generate each balanced parenthesis string once. At any prefix, the number closed must not exceed the number opened, and neither can exceed n. Derive allowed next characters from this invariant rather than generating every length-2n string and filtering at the end. Include n=0.</Prose>
     <details className="lesson-deeper"><summary>Hint for parenthesis prefixes</summary><Prose>An opening parenthesis is allowed while some opening quota remains. A closing parenthesis needs an unmatched opening already in the prefix. The remaining length gives a decreasing progress measure.</Prose></details>
     <Checkpoint prompt="Explain soundness, completeness, restoration and the cost in terms of explored prefixes and output.">
       <Prose>Maintain 0≤closed≤opened≤n. Add '(' only if opened&lt;n and ')' only if closed&lt;opened. A state with closed=n necessarily has opened=n, so it is balanced and complete. Every valid string's next character satisfies those rules, so no valid string is pruned. Each append is followed by a pop, and each step consumes one of the remaining 2n positions. Time is O(S+nK), where S is explored prefix work and K is the number of outputs; O(n) auxiliary state excludes the Θ(nK) output characters for n≥1. The combinatorics topic studies the resulting Catalan counts; you do not need to memorize them to write a correct solver.</Prose>
       <RunnableExample example={backtrackingDivideExamples.parentheses} />
-    </Checkpoint>
-    <H3>Exercise B · return a maximum-subarray witness</H3>
+    </Checkpoint></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise B · return a maximum-subarray witness</H3>
     <Prose>Extend the four-field Python summary to return the winning interval as well as its sum. Use half-open coordinates, require nonempty answers and choose earliest start then earliest end on ties. Test [-2,4,-1,3,-5,2], an all-negative input and [0,0].</Prose>
     <details className="lesson-deeper"><summary>Hint for witness intervals</summary><Prose>Every candidate already comes from either a child interval or concatenating a left suffix with a right prefix. Carry each candidate's start and end along with its sum; use one tie comparator everywhere.</Prose></details>
     <Checkpoint prompt="Give expected witnesses and justify that the richer return value still has constant size per field.">
       <Prose>The first result is sum 6 on [1,4). For [-8,−3,−6], choose −3 on [1,2). For [0,0], choose 0 on [0,1). A crossing candidate starts where the left suffix starts and ends where the right prefix ends. Total still needs only its sum; each other field is a constant-size (sum,start,end) record. Apply the same comparator to prefix, suffix and best candidates. Brute-force every nonempty interval for small arrays to verify sums and ties independently; the browser model provides a worked implementation to inspect afterward.</Prose>
-    </Checkpoint>
-    <H3>Exercise C · count disagreements without counting ties</H3>
+    </Checkpoint></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise C · count disagreements without counting ties</H3>
     <Prose>Two reviewers rank the same four distinct items: first [A,B,C,D], second [B,D,A,C]. Convert the second ranking to first-ranking positions and count disagreements. Then decide what must change if reviewers are allowed to tie items.</Prose>
     <details className="lesson-deeper"><summary>Hint for ranking disagreement</summary><Prose>Replace each item with its position in the first ranking. An out-of-order pair in this new list corresponds to one pair on which the reviewers disagree.</Prose></details>
     <Checkpoint prompt="Show the transformed sequence and counted pairs, then state the boundary of the reduction.">
       <Prose>The transformed sequence is [1,3,0,2], with three inversions: values (1,0), (3,0) and (3,2). These correspond to the pairs B/A, D/A and D/C. Every item must occur exactly once in both total rankings for this direct mapping. Ties require a definition of disagreement and normalization before applying or adapting the counting method; breaking them arbitrarily creates preferences the reviewer did not express.</Prose>
-    </Checkpoint>
-    <H3>Exercise D · construct a bad memoization key</H3>
+    </Checkpoint></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise D · construct a bad memoization key</H3>
     <Prose>For a path that cannot reuse cells, explain why the same (cell,word_index) may admit different futures when reached through different used-cell sets. Draw a small cyclic grid and two partial paths. Then propose a complete key for a Boolean “can this state finish?” cache and explain its potential size.</Prose>
     <details className="lesson-deeper"><summary>Hint for cached path search</summary><Prose>Let the next required letter lie in a neighboring cell used by one prefix but not the other. The visible endpoint and character index agree, yet that move is legal in only one state.</Prose></details>
     <Checkpoint prompt="Explain the necessary state and why adding a cache does not guarantee a small algorithm.">
       <Prose>For a concrete counterexample, use grid rows [A,B,X] and [B,A,Y] with the word ABABX. Both prefixes (0,0)→(0,1)→(1,1) and (0,0)→(1,0)→(1,1) spell ABA and end at the same cell and word index. The first prefix has already used the upper B, so it cannot finish with B→X; its other B neighbor has no X neighbor. The second prefix can finish through (0,1)→(0,2). Thus one state fails and the other succeeds despite sharing (cell,index).</Prose>
       <Prose>The key must distinguish the used-cell subset as well as the current cell and word position, for example (cell,index,frozenset(used)). Two states with different forbidden cells cannot generally share a cached result. For N cells there can be up to 2ᴺ subsets, although a particular word/search reaches far fewer. Building and hashing a frozenset also costs work. Memoization helps when complete states repeat enough to justify the storage; it does not turn every backtracking tree into polynomial time. A later bitmask representation can make a bounded subset key compact, but cannot eliminate the number of possible subsets.</Prose>
-    </Checkpoint>
-    <H3>Ready to continue</H3>
-    <Prose>For a new recursive problem, you should be able to name the state/return contract, identify a decreasing measure, prove that the children cover the required cases, and explain how state is restored or results are combined. Demonstrate an invalid pruning rule with a counterexample, separate temporary storage from output, and compare your optimized code with an independent brute-force oracle on small cases.</Prose>
+    </Checkpoint></div></section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H3>Ready to continue</H3>
+    <Prose>For a new recursive problem, you should be able to name the state/return contract, identify a decreasing measure, prove that the children cover the required cases, and explain how state is restored or results are combined. Demonstrate an invalid pruning rule with a counterexample, separate temporary storage from output, and compare your optimized code with an independent brute-force oracle on small cases.</Prose></section>
     <DsaPractice practice={backtrackingPractice} />
     <Prose>The next topic in the module is <a href="/learn/topic/greedy-algorithms-exchange-arguments">Greedy Algorithms & Exchange Arguments</a>. Backtracking keeps alternatives available; a greedy algorithm commits to a choice. The next lesson asks what proof can make that commitment safe. Dynamic programming then revisits repeated subproblem states.</Prose>
 

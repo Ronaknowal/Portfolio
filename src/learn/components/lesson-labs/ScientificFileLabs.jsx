@@ -1,3 +1,4 @@
+import { CodeBlock } from '../content/Code.jsx';
 import { DataStepControls } from "./DataLabControls.jsx";
 import { useId, useState } from "react";
 import { LessonTable } from "./LessonElements";
@@ -29,7 +30,7 @@ export function FileSchemaLab() {
         return <li key={name} aria-current={step === index ? 'step' : undefined} className={failed ? 'is-blocked' : index <= step ? 'is-reached' : ''}><span>{index + 1}</span>{name}{failed && <strong className="data-stage-status">Blocked</strong>}</li>;
       })}</ol>
     <div className="data-stage" aria-live="polite">
-      {step === 0 && <><p><strong>The file is text, not yet measurements.</strong> Quotes keep the comma in <code>room,north</code> inside one field.</p><pre tabIndex={0} aria-label="CSV source">{model.csv}</pre></>}
+      {step === 0 && <><p><strong>The file is text, not yet measurements.</strong> Quotes keep the comma in <code>room,north</code> inside one field.</p><CodeBlock language="csv" kind="output" filename="source.csv">{model.csv}</CodeBlock></>}
       {step === 1 && <><p><strong>Parsing found four fields in each row.</strong> The empty field is the string <code>""</code>. Quotes used by CSV are removed; data inside them is retained.</p><LessonTable caption="Parsed strings — quotes here show the Python string type" headers={measurementFields} rows={model.rows.map(row => row.map(value => JSON.stringify(value)))} /></>}
       {step >= 2 && <>
         <p>{step === 2 ? 'Apply the schema: preserve the ID, map blank to None, and convert other temperatures to numbers. Conversion alone does not enforce units or uniqueness.' : 'Check the application contract across the whole batch. This importer rejects the batch if any record is invalid.'}</p>
@@ -73,8 +74,8 @@ export function FilePublicationLab() {
     </div>
     <p className="lesson-note">Switch the publication strategy and failure point. Follow the temporary file and destination to compare complete, partial and unchanged outputs.</p>
     <div className="data-state-columns" aria-live="polite">
-      <div className="data-state"><h4>Published path → measurements.csv</h4><p className="lesson-note">What a fresh reader opening this path sees</p><FileArtifact contents={state.destination} name="measurements.csv" /><details><summary>Inspect exact published text</summary><pre tabIndex={0}>{state.destination || '(empty file)'}</pre></details></div>
-      <div className="data-state"><h4>Staging path → measurements.tmp</h4><p className="lesson-note">Unpublished work in the same directory</p><FileArtifact contents={state.temporary} name="measurements.tmp" /><details><summary>Inspect exact staging text</summary><pre tabIndex={0}>{state.temporary === null ? '(no staging file)' : state.temporary || '(empty staging file)'}</pre></details></div>
+      <div className="data-state"><h4>Published path → measurements.csv</h4><p className="lesson-note">What a fresh reader opening this path sees</p><FileArtifact contents={state.destination} name="measurements.csv" /><section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect exact published text</h4><CodeBlock language="text" kind="output" filename="published-file.txt">{state.destination || '(empty file)'}</CodeBlock></section></div>
+      <div className="data-state"><h4>Staging path → measurements.tmp</h4><p className="lesson-note">Unpublished work in the same directory</p><FileArtifact contents={state.temporary} name="measurements.tmp" /><section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect exact staging text</h4><CodeBlock language="text" kind="output" filename="staging-file.txt">{state.temporary === null ? '(no staging file)' : state.temporary || '(empty staging file)'}</CodeBlock></section></div>
     </div>
     <p className="data-verdict" aria-live="polite"><strong>{state.label}.</strong> {state.note}</p>
     <DataStepControls step={step} count={trace.length} setStep={setStep} reset={() => setStep(0)} />

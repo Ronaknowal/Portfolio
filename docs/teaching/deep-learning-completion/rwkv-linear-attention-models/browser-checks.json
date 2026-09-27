@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "topicId": "rwkv-linear-attention-models",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T18:59:31.835Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T18-53-46-807Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/rwkv-linear-attention-models.jsx": "a041f1c5f8605e167ad2795f2e8f751a5e528f3710b09568b852d9ff865d8777",
+    "src/learn/data/rwkv-memory-models.js": "a4aa622d4994ea7bf6e0afe9a14b0a1110fb2b2d1d35733fa0ca263eeba5228a",
+    "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx": "63f9e0e57d88500a0b57581012054b6189fbb4b610bfb8e85eaad5ba3db5f901",
+    "src/learn/components/lesson-labs/RwkvMechanismFigures.jsx": "282bec1b83616f0d2d62f86f97c5ed6489879a505e5bafec037fb10ca44a2433",
+    "src/learn/data/rwkv-trajectory-example.json": "3f54c806cbe8eccfebc8758af5143a57b18d1a67342c11dec7ba01477662aca2",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/rwkv-memory.css": "9173f3592872357565626b3322931e0ef90a4bf3dec4901501b44ff14ef395dd",
+    "public/learn-assets/rwkv-linear-attention-models/trajectory-models.json": "13dd4a29713e9c59d9dd0b182d420b2b192696c55f4977fe52d4821ed5f344fe",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-code/rwkv-linear-attention-models/author_calculations.py": "f9762f0c2ce21c692211adedca4e3467e3eb44cdf8bcb27fbe942e99e3ddc34d",
+    "public/learn-code/rwkv-linear-attention-models/data-provenance.md": "1c505c71d7c4e606ea0c3e5c5ffe0e4fc525cb2a7477e28f341e5c9b73e429e2",
+    "public/learn-code/rwkv-linear-attention-models/investigation-checks.json": "0064599a8f8eca9de5342210deb68216b2bd3f3d9ee7036c24687060aaab7005",
+    "public/learn-code/rwkv-linear-attention-models/linear_memory_mechanisms.py": "ce8505c18962b925152b5a133488e9063bd6cf102dc637788b60b442fdda8e49",
+    "public/learn-code/rwkv-linear-attention-models/mechanism-results.json": "918d9e85647f944ae73ee6dc21c5dcbebdd0c5fd47db5a932f35bbf6251cab6d",
+    "public/learn-code/rwkv-linear-attention-models/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/rwkv-linear-attention-models/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-code/rwkv-linear-attention-models/rwkv_checkpoint_state.py": "e26716574f0fe08bfdac0e8c06fe55c5e5693abe160b4160af69b7c1fe6c334c",
+    "public/learn-code/rwkv-linear-attention-models/trajectory-memory-fits.npz": "08856481078f012d0f22b793defb28c57941b24235290491d8bfadc9f7f106b5",
+    "public/learn-code/rwkv-linear-attention-models/trajectory-results.json": "8e7dda0f7f6b41d952df8d49cb598a6fcff8ce026bbedcb64de693ab0c70fb3f",
+    "public/learn-code/rwkv-linear-attention-models/trajectory_memory_models.py": "a966ae1b5378e73fd85326f3a25a70d1fb571cd353769b697f2a23881c0af344",
+    "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/browser-review.md": "0b51896211761cb27d0a1fe42568fab8663974c380768800613899ea5afc93f8"
+  },
+  "checks": [
+    "Four topic-specific labs: real changed and null states, exact observations in browser-review.md",
+    "Kernel chunk equivalence, pinned baseline, zero overlap; signed weighted read/store, offset stability; address interference and beta0; actual coordinate/model/cut changes",
+    "One-click reset after invalid input; integer slider and local diagram scrolling work with keyboard",
+    "Deferred complete scratch code and full training/checkpoint disclosures present; independent practice preserved",
+    "1280 and320px screenshots inspected, legible nominal diagrams and magnified storage inset, no page overflow",
+    "No observed console warnings/errors or KaTeX errors"
+  ],
+  "findings": [
+    {
+      "issue": "Reset lost after invalid blur",
+      "status": "closed"
+    },
+    {
+      "issue": "Recurrent storage marks indistinguishable",
+      "status": "closed"
+    },
+    {
+      "issue": "Block diagram nominal width too small",
+      "status": "closed"
+    }
+  ],
+  "limitations": "Representative functional/visual review; optional external pretrained checkpoint not executed, no GPU performance evidence or observed beginner study."
+}

@@ -1,0 +1,58 @@
+{
+  "topicId": "pac-learning-vc-dimension",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/pac-learning-vc-dimension.jsx": "82f27f1aa76ba161946a8ec05515c3584143c385fe0619263d4c5a85514ec11a",
+    "src/learn/components/lesson-labs/PacIntuitionFigures.jsx": "3e086a4eac920b3675f82430fdae620d9305e47d93568fb602e1695e588b5fb6",
+    "src/learn/components/lesson-labs/pac-intuition.css": "5510c2f90a4dc88880880528665db7dcb2b1687fe103e77acf7e2e10fc107ffb",
+    "src/learn/components/lesson-labs/PacLabs.jsx": "e63e5166c249ea748094c1c4014778fc80c7a2b0fcd4e0e16b44c77f2690937d"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        25
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        70,
+        71
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        17
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": [
+        5
+      ]
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T14:41:37.118Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [
+      "src/learn/components/lesson-labs/PacLabs.jsx"
+    ],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

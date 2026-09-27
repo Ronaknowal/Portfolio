@@ -1,0 +1,48 @@
+{
+  "topicId": "grouped-query-attention-gqa-multi-query-attention-mqa",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json": "a69e6e932bd11d6bf7a0323a10ee875623e94f39ee1b7ec074875d5d8da435f7",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md": "5bdd2638d5d44e66377f864a8be873da74d1efeb7abbb49d74450b49361e8fdc",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md": "d7dba8fc00c75fbb7634f01d4efac6183bf69100ed58de28858c023339dade39",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json": "e844d4f22e958eaed49aeccb6be4ccc47147849279ebcb96ab0b45f9ea354247",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md": "e80befb61c99e6e9cd39f9a436d5abde5eb06b128fc6a25101451856deec550e",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json": "3166b2234c2bbed981b0d6a8dc6c6002752aa04eff65471ed73cc0756edb72f5",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md": "ed5e611e3f54aa1df9024c92626f03f0202d7912475c91dd220df36458fcbb1b"
+  },
+  "manuscript": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md",
+  "reconciliation": [
+    "Full prepared manuscript, specifications, design, provenance and native programs consumed. No topic-specific destination note exists; prepared design contains dispositions.",
+    "Preserved original dataset and selected weights; original fitting evidence reused.",
+    "Removed surviving commitment/prediction-entry wording from manuscript/specification, retaining immediate scientific forecasts.",
+    "Full current request authorizes content correction; substantive correction requires refreshed root checkpoint."
+  ],
+  "checks": [
+    {
+      "name": "Complete derivation, scratch NumPy, native SDPA, conversion training program, evidence, nine transfer exercises and primary-source annotations retained",
+      "passed": true
+    },
+    {
+      "name": "Concept map assesses cache dependency, head sharing, masks, budgets, nonlinear conversion, real-data inference, gradient sum and distributed limits",
+      "passed": true
+    }
+  ]
+}

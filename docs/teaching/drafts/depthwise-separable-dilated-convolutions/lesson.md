@@ -145,6 +145,8 @@ The kernel's **bounding span** is $k_{\rm eff}=1+d(k-1)$. A $3\times3$ kernel at
 
 Stride moves the **output centers**; dilation spaces the **taps within each output's stencil**. Zero padding supplies values outside the input. A dilated layer can also be depthwise: one choice concerns channel connectivity, the other concerns spatial sampling.
 
+The output-size formula counts where the whole stencil fits in the padded array. For input length 8, one padded position on each side, three taps, dilation 2 and stride 2, the padded length is 10 and the stencil spans 5 positions. Its leftmost index may be 0, 2 or 4: three placements. The next start, 6, would end at index 10, outside indices 0–9. Thus $\lfloor(10-5)/2\rfloor+1=3$. This explains both the floor (a partial final placement does not count) and the final one (the start at zero counts).
+
 At fixed output dimensions, changing dilation does not change the number of kernel weights or MAC terms. With no padding, larger dilation shrinks the output, so even the operation count changes. Always state the shape policy before comparing cost.
 
 ### Receptive field, jump and actual coverage
@@ -173,6 +175,8 @@ Repeated even rates never connect an output to odd offsets. This is **gridding**
 <summary>Deeper: construct a gap-free schedule and see its limit</summary>
 
 Suppose all offsets from $-S$ through $S$ are reachable. A new three-tap layer of rate $d$ makes three shifted intervals centered at $-d,0,d$. They join without missing integers if $d\leq2S+1$. The new covered interval is $[-S-d,S+d]$.
+
+Compare the three shifted copies before using the inequality. For the existing offsets −1,0,1, rate 3 joins consecutive integer positions, whereas rate 4 leaves a missing integer between neighboring copies. The overlap test is about discrete sites, so immediately adjacent integer endpoints are enough; continuous interval overlap is not required.
 
 Starting with $S=0$ forces the first rate to be 1 for this construction. Choosing the largest permitted rate each time gives rates $1,3,9,27,\ldots$ and bounding widths $3,9,27,81,\ldots$. This is the same place-value idea as representing offsets with digits −1, 0 and 1 in powers of three.
 
@@ -229,6 +233,8 @@ $$
 
 This is inference folding. Training BatchNorm depends on current batch statistics, so the same fixed-folding argument does not apply. A global-pooling branch with one image and a $1\times1$ map has only one value per channel; training-mode BatchNorm cannot estimate its usual channel variance from that singleton. Use an appropriate trained inference state or deliberately choose a different normalization design; changing only gradient tracking does not change module mode.
 
+Read the folding equation as “multiply the entire convolution by one fixed channel gain, then shift it.” In a scalar construction, let convolution output be $2x+1$, stored mean 3, $\sqrt{v+\epsilon}=2$, scale $\gamma=4$ and shift $\beta=5$. Evaluation BatchNorm gives $5+4[(2x+1)-3]/2=4x+1$. At x=3 both paths give 13. The weights double and the bias changes because subtracting the stored mean is also part of the affine operation. Folding requires all those quantities to stay fixed.
+
 ## 5. Put the two mechanisms into useful architectures
 
 ### Mobile networks: spend channel mixing carefully
@@ -243,6 +249,15 @@ $$
 Reducing both spatial dimensions by $\rho$ multiplies this by approximately $\rho^2$, subject to integer rounding and boundary stages. Width and resolution are different choices: narrowing removes feature capacity, whereas downsampling can remove fine spatial evidence. The broad architecture comparison in the previous lesson now has a mechanistic explanation.
 
 [MobileNet V2](https://arxiv.org/abs/1801.04381) expands a narrow representation with a pointwise operation, performs depthwise spatial work in the expanded space, and projects back without a final clipping activation in the branch. When shapes match, a residual path connects the narrow endpoints. Expansion provides multiple nonlinear features before compression; the linear projection avoids obligatorily zeroing every negative projected value.
+
+A scalar construction makes the information argument concrete. Expand x into the two channels (x,−x), then apply ReLU and project with weights (1,−1):
+
+| Input x | Expanded channels | After channelwise ReLU | Linear projection |
+| --- | --- | --- | --- |
+| −2 | (−2, 2) | (0, 2) | −2 |
+| 2 | (2, −2) | (2, 0) | 2 |
+
+The expanded representation retains the sign in which channel is active. A final ReLU on the narrow output would map every negative x to zero and lose those distinctions in this branch. This illustrates why extra channels before a nonlinearity can preserve useful information; it does not guarantee every learned expansion is invertible. The residual path, when present, provides a separate route for the input.
 
 For equal input/output width $C$, expansion factor $t$, stride one and a $k\times k$ spatial operation, branch weights before biases/normalization are
 
@@ -312,6 +327,8 @@ We train it separately with dilation 1 or 2 in the second convolution, always pa
 For each input channel, flatten its 12 output filters into a $12\times9$ matrix. **Singular value decomposition**, or SVD, writes this matrix as a sum of independent rank-one patterns, ordered by strength. Keeping the first $m$ patterns gives the smallest squared error between original and reconstructed weights among rank-at-most-$m$ matrices. This statement concerns the weights; it does not minimize classification loss or guarantee better predictions as $m$ increases.
 
 The saved program puts the retained right singular vectors into depthwise filters and the scaled left vectors into pointwise mixing weights. It copies the old output bias to the pointwise layer, adds no activation between the factors, and retains the original ReLU after them. Everything else stays fixed. Multipliers 1, 2, 4 and 9 are declared before observing results. No compressed model is retrained.
+
+Why can a mathematically best weight approximation damage useful outputs? Consider a two-tap matrix $W=\operatorname{diag}(4,3)$. Its best rank-one Frobenius approximation keeps $\operatorname{diag}(4,0)$, discarding squared weight energy 9. Patch (100,0) is reproduced exactly as (400,0), but patch (0,10) changes from (0,30) to (0,0). The same discarded weights matter very differently for the two inputs. Frobenius error gives each weight entry equal importance; actual output error depends on which patches occur, and classification further depends on later layers and decision margins. Inspect input-dependent effects as well as the singular-value budget.
 
 Download [the complete training and factorization program](convolution-factorization.py) beside the CSV. In a Python environment with NumPy, scikit-learn and PyTorch:
 

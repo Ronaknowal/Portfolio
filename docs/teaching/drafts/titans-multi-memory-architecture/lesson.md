@@ -1,6 +1,6 @@
 # Titans: a memory that learns while a sequence arrives
 
-**Explore as you read.** Edit key/query/value cards, rate, momentum, decay, request tokens and chunk size; step bounded writes or continue/reset request state. Show weight/update state, residual and gradient terms, current query output, gated topology and anchor/current-gradient comparison. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose write timing, state isolation and chunk semantics from the outputs they can affect, rather than from the word memory alone.
+**Explore as you read.** Write a new association and watch how it changes a later query. Then follow the same tokens through attention and neural memory, compare two update schedules, and inspect when real rental observations become available for adaptation.
 
 
 Imagine reading a long maintenance log. You need the last few entries to understand what is happening now, an impression of older recurring faults, and general knowledge about how maintenance reports are written. Keeping every entry immediately accessible costs space. Compressing everything into one small summary risks losing a detail you will need later.
@@ -536,4 +536,4 @@ Continue to [Mini-Batches, Training Loops & Gradient Accumulation](/learn/path/f
 - [PyTorch autograd.grad](https://docs.pytorch.org/docs/2.14/generated/torch.autograd.grad.html) and [no_grad](https://docs.pytorch.org/docs/2.14/generated/torch.no_grad.html). Versioned API references for implementing the two graph-lifetime modes in § 6. Relevant function semantics were read; the supplied programs were actually executed in the environment recorded with their outputs.
 - [UCI Bike Sharing](https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset), Hadi Fanaee-T, 2013, [DOI 10.24432/C5W894](https://doi.org/10.24432/C5W894). Dataset and descriptive context for the real application. Use the supplied daily CSV and provenance to reproduce this lesson's exact data input.
 
-Research and author calculations were checked on 13 September 2026. The interactive investigations and inline illustrations described here are specified for the subsequent website implementation; the offline programs and recorded results are already supplied.
+The original research and author calculations were checked on 13 September 2026. The supplied programs retain the complete experiment and its recorded results; the website investigations expose the same update equations and saved-data replay.

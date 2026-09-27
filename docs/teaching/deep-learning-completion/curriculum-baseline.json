@@ -1,0 +1,131 @@
+{
+  "createdAt": "2026-09-26T18:01:50.500Z",
+  "module": {
+    "id": "deep-learning-fundamentals",
+    "title": "Deep Learning Fundamentals & Architectures",
+    "description": "Core neural network concepts, CNNs, RNNs, transformers, GNNs, and modern architectural innovations",
+    "topicIds": [
+      "perceptrons-neurons-activation-functions",
+      "backpropagation-automatic-differentiation",
+      "loss-functions-ce-mse-focal-contrastive-triplet",
+      "batch-layer-group-rms-normalization",
+      "transfer-learning-fine-tuning-strategies",
+      "weight-initialization-xavier-kaiming-p",
+      "residual-connections-skip-connections",
+      "dropout-droppath-stochastic-depth",
+      "convolution-pooling-receptive-fields",
+      "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "depthwise-separable-dilated-convolutions",
+      "convnext-modern-cnn-designs",
+      "capsule-networks",
+      "rnns-lstms-grus",
+      "sequence-to-sequence-encoder-decoder",
+      "attention-mechanism-bahdanau-luong",
+      "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "state-space-models-s4-mamba-mamba-2",
+      "rwkv-linear-attention-models",
+      "self-attention-multi-head-attention",
+      "transformer-block-architecture",
+      "positional-encodings-sinusoidal-learned-rope-alibi",
+      "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "multi-head-latent-attention-mla",
+      "sparse-linear-attention-variants",
+      "vision-transformers-vit-deit-swin-dinov2",
+      "mixture-of-experts-transformers-moe",
+      "interleaved-cross-attention-architectures",
+      "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "graph-transformers-geometric-deep-learning",
+      "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "spectral-normalization-gradient-penalty",
+      "modern-hopfield-networks",
+      "xlstm-extended-lstm",
+      "hyena-long-convolution-models",
+      "ring-attention-sequence-parallelism",
+      "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "neural-ode-continuous-depth-models",
+      "hybrid-ssm-transformer-architectures-jamba",
+      "titans-multi-memory-architecture",
+      "mini-batches-training-loops-gradient-accumulation",
+      "neural-training-diagnostics-reproducible-experiments"
+    ],
+    "sections": [
+      {
+        "name": "Core Concepts",
+        "topicIds": [
+          "perceptrons-neurons-activation-functions",
+          "backpropagation-automatic-differentiation",
+          "loss-functions-ce-mse-focal-contrastive-triplet",
+          "batch-layer-group-rms-normalization",
+          "transfer-learning-fine-tuning-strategies",
+          "weight-initialization-xavier-kaiming-p",
+          "residual-connections-skip-connections",
+          "dropout-droppath-stochastic-depth"
+        ]
+      },
+      {
+        "name": "Convolutional Neural Networks (CNNs)",
+        "topicIds": [
+          "convolution-pooling-receptive-fields",
+          "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+          "depthwise-separable-dilated-convolutions",
+          "convnext-modern-cnn-designs",
+          "capsule-networks"
+        ]
+      },
+      {
+        "name": "Recurrent & Sequence Models",
+        "topicIds": [
+          "rnns-lstms-grus",
+          "sequence-to-sequence-encoder-decoder",
+          "attention-mechanism-bahdanau-luong",
+          "long-context-sequence-models-transformer-xl-griffin-perceiver",
+          "state-space-models-s4-mamba-mamba-2",
+          "rwkv-linear-attention-models"
+        ]
+      },
+      {
+        "name": "Transformers",
+        "topicIds": [
+          "self-attention-multi-head-attention",
+          "transformer-block-architecture",
+          "positional-encodings-sinusoidal-learned-rope-alibi",
+          "grouped-query-attention-gqa-multi-query-attention-mqa",
+          "multi-head-latent-attention-mla",
+          "sparse-linear-attention-variants",
+          "vision-transformers-vit-deit-swin-dinov2",
+          "mixture-of-experts-transformers-moe",
+          "interleaved-cross-attention-architectures"
+        ]
+      },
+      {
+        "name": "Graph Neural Networks",
+        "topicIds": [
+          "message-passing-graph-convolutions-gcn-gat-graphsage",
+          "graph-transformers-geometric-deep-learning"
+        ]
+      },
+      {
+        "name": "Alternative Architectures & Historical Models",
+        "topicIds": [
+          "boltzmann-machines-restricted-boltzmann-machines-rbm",
+          "spectral-normalization-gradient-penalty",
+          "modern-hopfield-networks",
+          "xlstm-extended-lstm",
+          "hyena-long-convolution-models",
+          "ring-attention-sequence-parallelism",
+          "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+          "neural-ode-continuous-depth-models",
+          "hybrid-ssm-transformer-architectures-jamba",
+          "titans-multi-memory-architecture"
+        ]
+      },
+      {
+        "name": "Training Mechanics & Diagnosis",
+        "topicIds": [
+          "mini-batches-training-loops-gradient-accumulation",
+          "neural-training-diagnostics-reproducible-experiments"
+        ]
+      }
+    ]
+  }
+}

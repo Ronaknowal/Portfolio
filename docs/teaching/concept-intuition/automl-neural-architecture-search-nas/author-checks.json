@@ -1,0 +1,41 @@
+{
+  "topicId": "automl-neural-architecture-search-nas",
+  "reviewedAt": "2026-09-26T14:41:49.885Z",
+  "sourceFiles": [
+    "src/learn/data/topics/automl-neural-architecture-search-nas.jsx",
+    "docs/teaching/concept-intuition/automl-neural-architecture-search-nas/review.md",
+    "scripts/verify-model-selection-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/automl-neural-architecture-search-nas.jsx": "dd99d92b0b3a6fa50688b8373db76929339379db805b229a9fde9a2b0e9fcd24",
+    "docs/teaching/concept-intuition/automl-neural-architecture-search-nas/review.md": "e9a9dcf257d2bba4ea7e3126c4b810d09e5d8ef63124ef0a0e02113afbc3f952",
+    "scripts/verify-model-selection-sequence-intuition.mjs": "aed7d76adb84de450a55418b72b1019c2ce39cf6b947993ec93d15802a365f92"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/automl-neural-architecture-search-nas/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Executable shape and affine parameter count",
+      "status": "passed"
+    },
+    {
+      "name": "Mixture relaxation gap and equal-output derivative",
+      "status": "passed"
+    },
+    {
+      "name": "NASWOT Gram determinant and singular boundary",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing models, native programs, datasets and run outputs retained; no fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

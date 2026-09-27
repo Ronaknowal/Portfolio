@@ -218,8 +218,8 @@ export function SpreadLab() {
           && ' Prediction variance and target noise did not move beyond the tolerance, so the change comes from squared bias.'}
       </p>
 
-      <details>
-        <summary>Enumerate every prediction/outcome pair</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Enumerate every prediction/outcome pair</h4>
         <Table caption={`All ${applied.pairs.length} equally weighted pairs. Each has probability ${round(applied.pairs[0].probability, 6)}; their average squared error is the total above.`}
           headings={['prediction', 'fresh outcome', 'probability', 'squared error']}
           rows={applied.pairs.map(pair => [
@@ -231,7 +231,7 @@ export function SpreadLab() {
           (prediction, outcome) pair, rather than adding the three terms. Two setups can have the same average prediction
           and different totals, which is the transfer task in the prose.
         </p>
-      </details>
+      </section>
     </>}
   </Investigation>;
 }
@@ -459,8 +459,8 @@ export function WorldsLab() {
         rowClass={index => (bothDesigns[index].design === active.design
           && bothDesigns[index].degree === active.candidate ? 'is-selected' : undefined)} />
 
-      <details>
-        <summary>Interpolation weights: the probe prediction as a fixed combination of the training outcomes</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Interpolation weights: the probe prediction as a fixed combination of the training outcomes</h4>
         <Table caption={`Each fit predicts at x = ${round(active.probe, 2)} by weighting the training outcomes. The weights depend on the design and the degree, never on the observed values, and they always sum to one.`}
           headings={['fit', ...reference.trainX.map(value => `weight at x = ${round(value, 2)}`), 'sum', 'σ² × Σ w²']}
           rows={[reference, candidate].map((record, index) => [
@@ -474,10 +474,10 @@ export function WorldsLab() {
           squared weights by σ² reproduces the prediction variance in the table above, by a route that never enumerates a
           single world.
         </p>
-      </details>
+      </section>
 
-      <details>
-        <summary>Every training world: its outcomes and its prediction at the probe</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Every training world: its outcomes and its prediction at the probe</h4>
         <Table caption={`All ${reference.worldCount} equally likely datasets, each with probability ${round(1 / reference.worldCount, 6)}.`}
           headings={['world', 'signs', 'observed targets', `reference at x = ${round(active.probe, 2)}`, `candidate at x = ${round(active.probe, 2)}`]}
           rows={reference.worlds.map((entry, index) => [
@@ -487,7 +487,7 @@ export function WorldsLab() {
             round(entry.probePrediction, 6),
             round(candidate.worlds[index].probePrediction, 6),
           ])} scroll />
-      </details>
+      </section>
     </>}
   </Investigation>;
 }

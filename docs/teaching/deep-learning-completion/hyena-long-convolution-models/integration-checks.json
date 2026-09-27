@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T23:11:41.028Z",
+  "topicId": "hyena-long-convolution-models",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T23-08-11-732Z.json",
+  "buildReceiptHash": "82dcc20a05aeb17bbd28920d2ca1c685f0a6e18ea8c43d5b8685f55778f55b2e",
+  "publicationMapping": "./topics/hyena-long-convolution-models.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

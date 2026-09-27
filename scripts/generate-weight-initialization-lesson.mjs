@@ -19,9 +19,10 @@ writeFileSync('src/learn/data/weight-initialization-measurements.json', JSON.str
 let manuscript = readFileSync(`docs/teaching/drafts/${id}/lesson.md`, 'utf8');
 // Convert the two inline practice disclosures using the same paragraph renderer.
 manuscript = manuscript.replace(/<details><summary>(.*?)<\/summary>(.*?)<\/details>/g, '<details>\n<summary>$1</summary>\n\n$2\n\n</details>');
-const rendered = renderPreparedLesson(manuscript, {
+const rendered = renderPreparedLesson(manuscript, { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-assets/${id}/`,
   replacements: [
+    ['**Inline illustration — a gradient aligns its own contributions.**', '<CorrelatedUpdateFigure />'],
     ['**Visual investigation: follow the signal.**', '<InitializationSignalLab />'],
     ['**Geometry investigation:**', '<InitializationGeometryLab />'],
     ['**Width investigation:**', '<InitializationWidthLab />'],
@@ -44,6 +45,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { CorrelatedUpdateFigure } from '../../components/lesson-labs/InitializationUpdateIntuition.jsx';
 import { InitializationSignalLab, InitializationMomentsLab, InitializationGeometryLab, InitializationSpectrumFigure, InitializationSymmetryLab, InitializationTrainingLab, InitializationWidthLab, InitializationPrecisionFigure, InitializationProgram, initializationAsset } from '../../components/lesson-labs/WeightInitializationLabs.jsx';
 export default {
  title: 'Weight Initialization: Xavier, Kaiming, Orthogonal Methods & μP',

@@ -1,0 +1,75 @@
+{
+  "topicId": "multi-head-latent-attention-mla",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Executed complete mechanism-calculations.py",
+      "passed": true,
+      "stdout": "{\n  \"hand_outputs\": [\n    [\n      0.7880584423829146,\n      0.7880584423829146\n    ],\n    [\n      1.7992648706330965,\n      0.3494486529748224\n    ]\n  ],\n  \"final_output\": [\n    1.6876908776994628,\n    0.9627827688703258\n  ],\n  \"basis_null_error\": 0.0,\n  \"full_rank_probability_determinant\": 0.024430727132077276,\n  \"decode_core_operations\": {\n    \"length\": 32768,\n    \"batch\": 1,\n    \"query_length\": 1,\n    \"multiply_add_operations\": 2,\n    \"expanded_core\": 2684354560,\n    \"absorbed_core\": 9126805504,\n    \"absorbed_to_expanded_core_ratio\": 3.4,\n    \"reconstruct_all_prefix_content_KV\": 1099511627776,\n    \"new_query_absorption\": 16777216,\n    \"latent_output_up_projection\": 16777216\n  }\n}\n"
+    },
+    {
+      "name": "Executed complete practice-calculations.py",
+      "passed": true,
+      "stdout": "{\n  \"I1_heads\": [\n    [\n      -0.1917888762754294,\n      1.5849537614524771\n    ],\n    [\n      1.4882424884857672,\n      3.7067992195635413\n    ]\n  ],\n  \"I2\": {\n    \"projection\": [\n      [\n        1.0,\n        1.0\n      ],\n      [\n        0.0,\n        2.0\n      ]\n    ],\n    \"input\": [\n      1.0,\n      -1.0\n    ],\n    \"angle\": 1.0471975511965976,\n    \"project_then_rotate\": [\n      1.7320508075688772,\n      -1.0000000000000002\n    ],\n    \"rotate_then_project\": [\n      1.7320508075688772,\n      0.732050807568877\n    ],\n    \"isotropic_control\": [\n      2.7320508075688776,\n      0.732050807568877\n    ]\n  },\n  \"I3\": {\n    \"B\": 3,\n    \"N\": 24,\n    \"L\": 8192,\n    \"H\": 24,\n    \"dk\": 64,\n    \"dv\": 64,\n    \"dc\": 192,\n    \"dr\": 32,\n    \"bytes_per_number\": 2,\n    \"payload_bytes\": 264241152,\n    \"proposed_H\": 48,\n    \"new_payload_bytes\": 264241152,\n    \"expanded_core_ops\": 188743680,\n    \"absorbed_core_ops\": 490733568\n  },\n  \"I4\": {\n    \"matrix\": [\n      [\n        3.0,\n        1.0\n      ],\n      [\n        0.0,\n        2.0\n      ]\n    ],\n    \"input\": [\n      2.0,\n      -3.0\n    ],\n    \"retained_direction\": [\n      0.8816745987679436,\n      0.47185792553202427\n    ],\n    \"singular_values\": [\n      3.25661653798294,\n      1.8424029756098448\n    ],\n    \"reduced_matrix\": [\n      [\n        2.748075441506765,\n        1.4707253433941503\n      ],\n      [\n        0.8320502943378434,\n        0.44529980377477074\n      ]\n    ],\n    \"matrix_squared_error\": 3.3944487245360104,\n    \"original_output\": [\n      3.0,\n      -6.0\n    ],\n    \"reduced_output\": [\n      1.083974852831079,\n      0.32820117735137444\n    ],\n    \"retained_input_control\": [\n      3.17892297413196,\n      1.7013079452397821\n    ],\n    \"retained_output\": [\n      11.238076867635662,\n      3.4026158904795643\n    ]\n  },\n  \"I5\": {\n    \"full\": {\n      \"prediction\": [\n        0.6383265852928162,\n        0.3148220479488373\n      ],\n      \"changed_prediction\": [\n        0.6382712721824646,\n        0.315154492855072\n      ],\n      \"earlier_output_max_error\": 0.0,\n      \"expanded_absorbed_max_error\": 1.7881393432617188e-07,\n      \"cache_bytes\": 1080\n    },\n    \"rank4\": {\n      \"prediction\": [\n        0.6740129590034485,\n        0.3336106836795807\n      ],\n      \"changed_prediction\": [\n        0.6720473766326904,\n        0.3352644145488739\n      ],\n      \"earlier_output_max_error\": 0.0,\n      \"expanded_absorbed_max_error\": 1.7881393432617188e-07,\n      \"cache_bytes\": 648\n    }\n  }\n}\n"
+    },
+    {
+      "name": "Executed complete mla_sdpa_bridge.py",
+      "passed": true,
+      "stdout": "output error: 4.440892098500626e-16\ngradient error: 3.3306690738754696e-16\nmatching one-step change: True\n"
+    },
+    {
+      "name": "Executed exact displayed NumPy reference",
+      "passed": true,
+      "stdout": "head outputs: [[0.788058 0.788058]\n [1.799265 0.349449]]\nfinal output: [1.687691 0.962783]\nsame output: True\nsame weights: True\n"
+    },
+    {
+      "name": "Complete same-state expanded/absorbed output and every parameter gradient",
+      "passed": true,
+      "result": {
+        "output_max_error": 3.885780586188048e-16,
+        "all_parameter_gradient_max_error": 7.105427357601002e-15,
+        "parameter_gradient_errors": {
+          "stem.weight": 5.551115123125783e-16,
+          "stem.bias": 1.3322676295501878e-15,
+          "norm_attention.weight": 3.3306690738754696e-16,
+          "norm_attention.bias": 2.7755575615628914e-16,
+          "kv_down.weight": 1.7763568394002505e-15,
+          "kv_norm.scale": 8.881784197001252e-16,
+          "key_up.weight": 1.098359269407676e-16,
+          "value_up.weight": 1.3322676295501878e-15,
+          "rotary_key.weight": 1.3118846287074604e-17,
+          "query_down.weight": 8.673617379884035e-17,
+          "query_norm.scale": 4.119968255444917e-17,
+          "query_content.weight": 7.772633727845557e-17,
+          "query_rotary.weight": 2.4326786245143506e-17,
+          "output.weight": 1.7763568394002505e-15,
+          "norm_feedforward.weight": 8.881784197001252e-16,
+          "norm_feedforward.bias": 6.661338147750939e-16,
+          "feedforward.0.weight": 1.1102230246251565e-15,
+          "feedforward.0.bias": 6.661338147750939e-16,
+          "feedforward.2.weight": 1.1102230246251565e-15,
+          "feedforward.2.bias": 8.881784197001252e-16,
+          "norm_final.weight": 1.7763568394002505e-15,
+          "norm_final.bias": 8.881784197001252e-16,
+          "forecast.weight": 7.105427357601002e-15,
+          "forecast.bias": 3.552713678800501e-15
+        }
+      }
+    },
+    {
+      "name": "Sixteen selected-model cases and full/rank4 held-out metric replay",
+      "passed": true
+    }
+  ],
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "threads": 2
+  },
+  "limitations": [
+    "Original selected model fitting reused; no new training.",
+    "No specialized MLA GPU execution or performance measurement.",
+    "Browser acceptance remains separate."
+  ]
+}

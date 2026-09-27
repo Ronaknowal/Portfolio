@@ -1,4 +1,5 @@
 // Conserved revision-3 manuscript statically rendered at authoring time.
+import { DenseFeatureReuseFigure, RegNetStageFigure, FrozenFeatureGradientFigure } from '../../components/lesson-labs/LandmarkFamilyIntuition.jsx';
 import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
@@ -9,7 +10,7 @@ export default {
  readTime: '~80 min read + code, investigations and practice; optional historical branches',
  hasIntegratedGuide: true,
  content: () => <div className="neural-lesson landmark-lesson"><LessonIntro prerequisites="Convolution shapes and receptive fields, residual paths, normalization, dropout, initialization and the training loop. Each architectural mechanism and evidence boundary is refreshed where used." sections={[["1-learn-to-read-the-diagram-before-learning-the-names","1. Learn to read the diagram before learning the names"],["2-lenet-learn-local-features-and-combine-them","2. LeNet: learn local features and combine them"],["3-alexnet-and-vgg-make-richer-features-practical","3. AlexNet and VGG: make richer features practical"],["4-inception-and-resnet-change-the-routes-information-can-take","4. Inception and ResNet: change the routes information can take"],["5-efficientnet-separate-the-block-from-the-scaling-rule","5. EfficientNet: separate the block from the scaling rule"],["turn-the-architecture-diagram-into-a-complete-model","Turn the architecture diagram into a complete model"],["6-read-an-architecture-comparison-as-evidence","6. Read an architecture comparison as evidence"],["7-optional-additional-branches-in-the-architecture-family","7. Optional: additional branches in the architecture family"],["8-a-complete-small-architecture-investigation","8. A complete, small architecture investigation"],["9-how-can-a-class-score-become-a-spatial-map","9. How can a class score become a spatial map?"],["10-practice-and-diagnosis","10. Practice and diagnosis"],["11-what-you-should-now-be-able-to-do","11. What you should now be able to do"],["references-another-way-to-learn-it","References & another way to learn it"]]}>Read architectures as design decisions, build their complete compositions, then compare actual outcomes under explicit resource and data contracts.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit head dimensions, channel-context cells, scaling allocations, deployment budgets and signed score-map weights. Show exact parameter/MAC counts, gate contributions, candidate eligibility and current CAM/logit arithmetic live. Recorded model/seed selectors display existing evidence immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to identify which operation consumes the budget, what information a head discards and why a smaller model is not automatically better."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit head dimensions, channel-context cells, scaling allocations, deployment budgets and signed score-map weights. Show exact parameter/MAC counts, gate contributions, candidate eligibility and current CAM/logit arithmetic live. Recorded model/seed selectors display existing evidence immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to identify which operation consumes the budget, what information a head discards and why a smaller model is not automatically better."}</Prose>
 
 <Prose>{"You can recognize a handwritten "}<strong>{"8"}</strong>{" even when one loop is wider than the other. A program receives a grid of numbers. How should its computation be arranged so that it can learn useful visual patterns, combine them, and make a decision within a resource budget?"}</Prose>
 
@@ -17,7 +18,7 @@ export default {
 
 <Prose>{"Building on "}<a href={"/learn/path/full-curriculum/convolution-pooling-receptive-fields?module=deep-learning-fundamentals"}>{"Convolution, Pooling & Receptive Fields"}</a>{", we will read famous networks as answers to concrete design questions. Then we will compare four small, fully specified networks on actual handwritten digits and inspect how their spatial features produce a class score."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow §§1–6 for the architectural ideas, §8 for the runnable investigation, and §§9–11 for interpretation and practice. The detailed historical fidelity notes and §7's additional families are optional branches. You need not memorize publication years or reproduce ImageNet training to become ready for the next topic."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow §§1–6 for the architectural ideas, §8 for the runnable investigation, and §§9–11 for interpretation and practice. The detailed historical fidelity notes and §7's additional families are optional branches. You need not memorize publication years or reproduce ImageNet training to become ready for the next topic."}</Prose>
 
 <H2>{"1. Learn to read the diagram before learning the names"}</H2>
 
@@ -51,7 +52,7 @@ export default {
 
 <Prose>{"For "}<code>{"64 → 128"}</code>{", a 3×3 kernel and 14×14 output, the bias-free weight count is "}<strong>{"73,728"}</strong>{", but the convolution uses "}<strong>{"14,450,688 MACs"}</strong>{". Each learned weight is reused at 196 positions. That is why a parameter count cannot stand in for runtime."}</Prose>
 
-<Prose>{"Before continuing, predict the effect of doubling both channel counts while leaving the spatial grid unchanged. Compare bias-free weights, convolution MACs and output-map elements."}</Prose>
+<Prose>{"Compare the effect of doubling both channel counts while leaving the spatial grid unchanged. Compare bias-free weights, convolution MACs and output-map elements."}</Prose>
 
 <details><summary>Hint</summary>
 
@@ -289,15 +290,27 @@ export default {
 
 <Prose>{""}<strong>{"DenseNet retains earlier maps by concatenation."}</strong>{" A layer receives "}<code>{"[x₀,x₁,…,xₗ₋₁]"}</code>{" and produces a small set of new channels. Starting with 8 channels and adding 3 per layer gives widths 8,11,14,17,20. Reusing prior maps can support feature and gradient access, while the widening inputs and retained activations affect computation and memory. Transition layers can compress channels and downsample. This is a different connectivity contract from residual addition. "}<a href={"https://arxiv.org/pdf/1608.06993"}>{"DenseNet, §3"}</a>{"."}</Prose>
 
-<Prose>{""}<strong>{"RegNet asks about a family of designs."}</strong>{" Start with proposed block widths "}<code>{"u_j=w₀+w_a j"}</code>{", quantize them into repeated widths, and group consecutive equal-width blocks into stages. The result is a small set of design parameters controlling an entire network. Evaluating distributions of sampled designs asks whether a design space reliably produces good candidates, rather than celebrating one searched winner. Its empirical conclusions depend on its search and evaluation protocol. "}<a href={"https://arxiv.org/pdf/2003.13678"}>{"RegNet, §3"}</a>{"."}</Prose>
+<DenseFeatureReuseFigure />
+
+<Prose>{""}<strong>{"RegNet asks about a family of designs."}</strong>{" Start with proposed block widths "}<InlineMath>{"u_j=w_0+w_a j"}</InlineMath>{", quantize them into repeated widths, and group consecutive equal-width blocks into stages. The result is a small set of design parameters controlling an entire network. Evaluating distributions of sampled designs asks whether a design space reliably produces good candidates, rather than celebrating one searched winner. Its empirical conclusions depend on its search and evaluation protocol. "}<a href={"https://arxiv.org/pdf/2003.13678"}>{"RegNet, §3"}</a>{"."}</Prose>
+
+<Prose>{"To see how that width rule becomes stages, round the exponent of a multiplicative width grid, not each proposed width to the nearest arbitrary integer. For base width 16 and multiplier 2, allowed widths are 16, 32, 64, … . The figure follows all six block proposals through that conversion. "}<a href={"https://arxiv.org/pdf/2003.13678"}>{"RegNet, equations 2–4"}</a>{"."}</Prose>
+
+<RegNetStageFigure />
 
 <Prose>{""}<strong>{"NFNet separates normalization from the requirements it helps satisfy."}</strong>{" Its construction combines scaled weight standardization, controlled residual-branch scales and adaptive gradient clipping. The clipping threshold depends on a gradient norm relative to a parameter norm; it is not the same operation as multiplying a residual branch by a constant. This illustrates a general lesson: removing BatchNorm responsibly requires addressing training behavior, not simply deleting a module and expecting the old recipe to work. "}<a href={"https://arxiv.org/pdf/2102.06171"}>{"NFNet, §§3–4"}</a>{"."}</Prose>
+
+<Prose>{"For one AGC unit, take weights [3,4] with norm 5 and gradient [6,8] with norm 10. A chosen ratio limit 0.1 permits gradient norm 0.5, so multiply the gradient by 0.5/10 to obtain [0.3,0.4]. Its direction is preserved while its size is capped relative to that unit's weights. With plain SGD at learning rate 0.01, the relative update norm is 0.001. Momentum or an adaptive optimizer changes that direct update interpretation. The paper floors the parameter norm by a small positive value to avoid forcing every zero-initialized unit's gradient to zero. This clipping example is one ingredient, not an implementation of the full NFNet recipe. "}<a href={"https://arxiv.org/pdf/2102.06171"}>{"NFNet, section 3 and equation 3"}</a>{"."}</Prose>
 
 <Prose>{""}<strong>{"Learned features can define another model's loss."}</strong>{" In perceptual-loss work, an image transformation network produces an image "}<code>{"ŷ"}</code>{". A separately pretrained, frozen feature network "}<code>{"φ"}</code>{" maps "}<code>{"ŷ"}</code>{" and a target image "}<code>{"y"}</code>{" into features. A loss such as"}</Prose>
 
 <div className="neural-equation"><MathBlock>{"L_{\\mathrm{feature}}=\\frac{1}{CHW}\\|\\phi_j(\\hat y)-\\phi_j(y)\\|_2^2"}</MathBlock></div>
 
 <Prose>{"compares one layer's representation. Gradients pass through the frozen feature computation to the generated image, even though the feature network's weights are not being updated. A deeper layer can tolerate pixel changes that a pixelwise loss heavily penalizes, but the chosen features can also overlook changes that matter to a human. This is a useful application of VGG's intermediate maps, not a guarantee of perceptual correctness. "}<a href={"https://arxiv.org/pdf/1603.08155"}>{"Johnson, Alahi and Fei-Fei, §3.2"}</a>{"."}</Prose>
+
+<Prose>{"The frozen-feature example below separates two easily confused facts: a parameter can remain unchanged while its computation still participates in backpropagation, and equal features need not imply equal inputs. Follow the derivative back to the generated image before deciding which branch can safely disable gradient tracking."}</Prose>
+
+<FrozenFeatureGradientFigure />
 
 <Prose>{"MobileNet refinements and ConvNeXt follow in their own lessons. Wide residual networks change channel capacity; grouped ResNeXt branches change the transformation grouping. Stochastic-depth training already has a "}<a href={"/learn/path/full-curriculum/dropout-droppath-stochastic-depth?module=deep-learning-fundamentals"}>{"separate home"}</a>{". These are combinations of design choices, not steps on a ladder where every later name makes every earlier one obsolete."}</Prose>
 
@@ -395,11 +408,11 @@ export default {
 
 <Prose>{"Use the original 2×2 cells alongside any enlarged overlay. Upsampling does not create extra spatial detail. A large positive cell describes a contribution from learned features whose receptive field can extend beyond that cell's displayed location. It does not prove a causal explanation, a precise object boundary, or that editing the corresponding input pixels will have the predicted effect. Editing intermediate features in the hand calculation is explicitly a different intervention from rerunning an image through the whole trained backbone."}</Prose>
 
-<H2>{"10. Practice and diagnosis"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice and diagnosis"}</H2>
 
 <Prose>{"Attempt each task before opening its hint or solution."}</Prose>
 
-<H3>{"1. A new head budget"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. A new head budget"}</H3>
 
 <Prose>{"A backbone returns 128 channels of size 7×7. Compare a direct flattened linear head for 7 classes with global averaging followed by a linear head. Include biases. Which spatial information can only the first head use?"}</Prose>
 
@@ -413,9 +426,9 @@ export default {
 
 <Prose>{"Flattened: "}<code>{"(7×7×128+1)×7=43,911"}</code>{" parameters. Averaged: "}<code>{"(128+1)×7=903"}</code>{". The flattened head can assign different weights to different positions within a channel. The averaged head cannot distinguish permutations of those positions at its input. This does not establish which trained model has better task performance."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. A bottleneck that is no longer cheap"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A bottleneck that is no longer cheap"}</H3>
 
 <Prose>{"Compare one 5×5 convolution from 32 to 32 channels with two 3×3 convolutions, first 32→64 then 64→32. Ignore biases, use the same spatial grid, and put an activation between the small convolutions. Is “two small kernels use fewer weights” true here?"}</Prose>
 
@@ -429,9 +442,9 @@ export default {
 
 <Prose>{"The 5×5 layer has "}<code>{"25×32²=25,600"}</code>{" weights. The pair has "}<code>{"9×32×64+9×64×32=36,864"}</code>{". Their interior receptive-field support is 5×5, but the pair is larger and has an intermediate nonlinearity. The familiar 18C² comparison assumes the intermediate width is C."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Repair the merge"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Repair the merge"}</H3>
 
 <Prose>{"An input has shape "}<code>{"N×24×16×16"}</code>{". A strided branch returns "}<code>{"N×48×8×8"}</code>{". Give a shape-compatible learned skip for addition. If another design concatenates two "}<code>{"N×24×8×8"}</code>{" branches, what is its output shape? Explain why these are different computations despite one matching final shape."}</Prose>
 
@@ -445,11 +458,11 @@ export default {
 
 <Prose>{"A 1×1 skip convolution 24→48 with stride 2 returns "}<code>{"N×48×8×8"}</code>{". The branch and projected skip can then be added. Concatenating two 24-channel branches also returns "}<code>{"N×48×8×8"}</code>{", but retains their outputs in separate channel ranges. Addition combines corresponding entries. With no bias, the projection has 24×48=1,152 weights; its 8×8 outputs require 73,728 convolution MACs per image."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Change the class-map question"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Change the class-map question"}</H3>
 
-<Prose>{"Use the two maps in §9 with new class weights "}<code>{"[−1,2]"}</code>{" and bias −0.5. Compute the map and score. Increase the first map's top-left cell from 1 to 5. Predict, then calculate, the new score."}</Prose>
+<Prose>{"Use the two maps in §9 with new class weights "}<code>{"[−1,2]"}</code>{" and bias −0.5. Compute the map and score. Increase the first map's top-left cell from 1 to 5. Calculate the new score and explain its direction."}</Prose>
 
 <details><summary>Hint</summary>
 
@@ -461,9 +474,9 @@ export default {
 
 <Prose>{"The original class map is "}<code>{"[[-1,0],[4,-1]]"}</code>{". Its mean is 0.5, so the score is 0. The edit reduces the top-left contribution by 4; the map's mean falls by 1 and the score becomes −1. The other class from §9 can respond differently to exactly the same features."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Can you draw this benchmark curve?"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Can you draw this benchmark curve?"}</H3>
 
 <Prose>{"A draft has a point for an old model's single-crop validation accuracy, another for a later seven-network test ensemble with extra pretraining, and invented points filling missing years. Its caption says “architecture progress.” Describe a defensible replacement."}</Prose>
 
@@ -477,9 +490,9 @@ export default {
 
 <Prose>{"Remove invented points. Either select a genuinely matched protocol or show discrete reported results with explicit weights, data, split, inference and source labels. A historical table can preserve the milestones without implying a controlled causal comparison. For this lesson's architecture budgets, use exact shape/parameter calculations separately from the recorded small-data results. Connecting points is an additional claim about what the line means."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Diagnose a failed adaptation"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Diagnose a failed adaptation"}</H3>
 
 <Prose>{"A team freezes all parameters whose name lacks the text "}<code>{"\"classifier\""}</code>{" or "}<code>{"\"fc\""}</code>{". Its supposedly frozen backbone contains SE layers named "}<code>{"fc1"}</code>{" and "}<code>{"fc2"}</code>{". It also calls "}<code>{"model.train()"}</code>{" globally. Why might this fail to implement a linear probe? Propose direct checks."}</Prose>
 
@@ -493,9 +506,9 @@ export default {
 
 <Prose>{"The substring rule can leave backbone SE weights trainable. Global train mode can update BatchNorm running statistics even for parameters with "}<code>{"requires_grad=False"}</code>{". Freeze the backbone module's actual parameters, explicitly make only the intended head trainable, and set the chosen backbone evaluation policy after any global mode change. List optimizer parameter identities and compare backbone parameters/buffers before and after a step. A chosen fine-tuning policy may deliberately update some of these; label that policy accurately."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. Design a next experiment"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Design a next experiment"}</H3>
 
 <Prose>{"You have a 5,000-parameter limit and a 60,000-convolution/linear-MAC limit for the small task. Which recorded candidates qualify? Choose one development question to investigate next and state what would remain unknown."}</Prose>
 
@@ -509,17 +522,17 @@ export default {
 
 <Prose>{"Parallel and inverted-with-gate qualify; plain/residual exceed the MAC limit. One reasonable next question is whether the parallel model's errors concentrate in a particular pair of digits, inspected on development rows with denominators. Another is measured device latency, since counted MACs omit important work. Either investigation consumes development or engineering evidence. Unseen-writer reliability and final selected-model performance remain unestablished. More than one next experiment can be sensible if its question and decision rule are explicit."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"11. What you should now be able to do"}</H2>
+<section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{"11. What you should now be able to do"}</H2>
 
 <Prose>{"Explain a network as a flow of tensors, not a list of names. Predict the shape and budget consequences of a new layer. Distinguish stacking small kernels, concatenating branches, adding a residual, gating channels and scaling a family. Follow data through a complete training/evaluation example and explain why a compelling architectural idea can still lose a particular comparison. Reconstruct a class score from its maps and identify the interpretation's limits."}</Prose>
 
 <Prose>{"You are ready to continue when you can repair the mismatched merge in practice 3, derive the changed map in practice 4, and propose a defensible comparison in practice 7 without copying an architecture recommendation."}</Prose>
 
-<Prose>{"The next topic is "}<a href={"/learn/path/full-curriculum/depthwise-separable-dilated-convolutions?module=deep-learning-fundamentals"}>{"Depthwise Separable & Dilated Convolutions"}</a>{". We have used a factorized convolution as a building block; next we examine exactly which channel/spatial interactions it can express, how dilation changes the positions a filter samples, and when those choices help or fail."}</Prose>
+<Prose>{"The next topic is "}<a href={"/learn/path/full-curriculum/depthwise-separable-dilated-convolutions?module=deep-learning-fundamentals"}>{"Depthwise Separable & Dilated Convolutions"}</a>{". We have used a factorized convolution as a building block; next we examine exactly which channel/spatial interactions it can express, how dilation changes the positions a filter samples, and when those choices help or fail."}</Prose></section>
 
-<H2>{"References & another way to learn it"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References & another way to learn it"}</H2>
 
 <Prose>{""}<strong>{"Alternate explanations and practice"}</strong>{""}</Prose>
 
@@ -527,6 +540,6 @@ export default {
 
 <Prose>{""}<strong>{"Precise technical and historical sources"}</strong>{""}</Prose>
 
-<ul><li>{""}<a href={"https://gwern.net/doc/ai/nn/cnn/1998-lecun.pdf"}>{"LeNet and document recognition"}</a>{", LeCun and colleagues, 1998, original paper mirrored as a PDF; §II.B for the actual layer contract."}</li><li>{""}<a href={"https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf"}>{"AlexNet"}</a>{", 2012, §§3–6 and Table 2; "}<a href={"https://arxiv.org/pdf/1409.1556"}>{"VGG"}</a>{", §2 and Table 1; "}<a href={"https://arxiv.org/pdf/1409.4842"}>{"GoogLeNet/Inception"}</a>{", §§4–5; "}<a href={"https://arxiv.org/pdf/1512.03385"}>{"ResNet"}</a>{", §3. Read a model's experimental conditions together with its diagram."}</li><li>{""}<a href={"https://arxiv.org/pdf/1704.04861"}>{"MobileNet V1"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/1801.04381"}>{"MobileNet V2"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/1709.01507"}>{"SE"}</a>{", §3; "}<a href={"https://proceedings.mlr.press/v97/tan19a/tan19a.pdf"}>{"EfficientNet"}</a>{", §§3–4. These supply the efficient-block and scaling definitions."}</li><li>{""}<a href={"https://arxiv.org/pdf/1608.06993"}>{"DenseNet"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/2003.13678"}>{"RegNet"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/2102.06171"}>{"NFNet"}</a>{", §§3–4. Optional family branches rather than required extra reading."}</li><li>{""}<a href={"https://arxiv.org/pdf/1512.04150"}>{"Class activation mapping"}</a>{", Zhou and colleagues, §2. Compare its pooled-feature convention with the explicit mean and bias kept here."}</li><li>{""}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"UCI optical digits"}</a>{", E. Alpaydin and C. Kaynak, 1998, "}<a href={"https://doi.org/10.24432/C50P49"}>{"DOI10.24432/C50P49"}</a>{", CC BY 4.0; "}<a href={"/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py"}>{"complete program"}</a>{", "}<a href={"/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/calculated-inputs.json"}>{"retained numerical outputs"}</a>{", "}<a href={"/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/data-provenance.md"}>{"data provenance and limits"}</a>{"."}</li></ul>
+<ul><li>{""}<a href={"https://gwern.net/doc/ai/nn/cnn/1998-lecun.pdf"}>{"LeNet and document recognition"}</a>{", LeCun and colleagues, 1998, original paper mirrored as a PDF; §II.B for the actual layer contract."}</li><li>{""}<a href={"https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf"}>{"AlexNet"}</a>{", 2012, §§3–6 and Table 2; "}<a href={"https://arxiv.org/pdf/1409.1556"}>{"VGG"}</a>{", §2 and Table 1; "}<a href={"https://arxiv.org/pdf/1409.4842"}>{"GoogLeNet/Inception"}</a>{", §§4–5; "}<a href={"https://arxiv.org/pdf/1512.03385"}>{"ResNet"}</a>{", §3. Read a model's experimental conditions together with its diagram."}</li><li>{""}<a href={"https://arxiv.org/pdf/1704.04861"}>{"MobileNet V1"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/1801.04381"}>{"MobileNet V2"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/1709.01507"}>{"SE"}</a>{", §3; "}<a href={"https://proceedings.mlr.press/v97/tan19a/tan19a.pdf"}>{"EfficientNet"}</a>{", §§3–4. These supply the efficient-block and scaling definitions."}</li><li>{""}<a href={"https://arxiv.org/pdf/1608.06993"}>{"DenseNet"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/2003.13678"}>{"RegNet"}</a>{", §3; "}<a href={"https://arxiv.org/pdf/2102.06171"}>{"NFNet"}</a>{", §§3–4. Optional family branches rather than required extra reading."}</li><li>{""}<a href={"https://arxiv.org/pdf/1512.04150"}>{"Class activation mapping"}</a>{", Zhou and colleagues, §2. Compare its pooled-feature convention with the explicit mean and bias kept here."}</li><li>{""}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"UCI optical digits"}</a>{", E. Alpaydin and C. Kaynak, 1998, "}<a href={"https://doi.org/10.24432/C50P49"}>{"DOI10.24432/C50P49"}</a>{", CC BY 4.0; "}<a href={"/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py"}>{"complete program"}</a>{", "}<a href={"/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/calculated-inputs.json"}>{"retained numerical outputs"}</a>{", "}<a href={"/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/data-provenance.md"}>{"data provenance and limits"}</a>{"."}</li></ul></section>
 </div>
 };

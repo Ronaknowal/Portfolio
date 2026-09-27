@@ -925,37 +925,37 @@ DO NOT use spec-decode | Batch size > 8-16 (compute-bound, not bandwidth-bound)
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Derive the correctness of the accept/reject scheme</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Derive the correctness of the accept/reject scheme</H3>
 
       <Prose>
         Prove that the speculative decoding accept/reject procedure produces samples from exactly the target distribution <Code>p</Code>, regardless of the draft distribution <Code>q</Code>. Work through both cases: (a) where the draft proposes token <Code>x</Code> and it is accepted, and (b) where the draft proposes token <Code>y ≠ x</Code> and is rejected, leading to <Code>x</Code> being drawn in the resampling step. Show that the sum of probabilities across both cases equals <Code>p(x)</Code>.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2: Speedup at α=0.60, K=5</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Speedup at α=0.60, K=5</H3>
 
       <Prose>
         A team deploys Llama 3 70B with a 7B draft model. Empirical measurement shows an average acceptance rate of alpha=0.60 with K=5 draft tokens per step. (a) Compute the expected number of tokens produced per target-model pass using the formula from section 3. (b) If the target model takes 42 ms per forward pass and the draft model takes 4 ms per token sequentially, compute the expected wall-clock time per token under speculative decoding and compare it to vanilla decoding at 42 ms/token. (c) At what alpha does the speculative setup break even (same latency as vanilla)?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Why does batch size hurt speculative decoding?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Why does batch size hurt speculative decoding?</H3>
 
       <Prose>
         Explain, using the memory-bandwidth roofline model, why speculative decoding provides diminishing returns at large batch sizes. Specifically: (a) at batch size 1, what fraction of H100 compute is utilized during target-model decode, and why? (b) as batch size increases, how does compute utilization change and what does this imply for the idle-compute assumption that speculative decoding exploits? (c) at what approximate batch size does speculative decoding stop helping for a 70B target model on a two-GPU H100 setup, and how would you determine this empirically?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Design a draft model for a 70B target</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Design a draft model for a 70B target</H3>
 
       <Prose>
         You are tasked with designing the optimal draft model for a Llama 3 70B deployment serving interactive chat at batch size 4. (a) What family and size of draft model would you choose, and why? (b) What acceptance rate would you expect, and what speedup does that imply at K=4? (c) How would your choice change if the workload shifted to code generation, where draft/target divergence is higher? (d) At what point would you switch from a separate small model to Medusa or EAGLE heads, and what would drive that decision in practice?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: Detect a distribution bias bug in speculative decoding</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Detect a distribution bias bug in speculative decoding</H3>
 
       <Prose>
         A colleague implements speculative decoding and reports correct-looking outputs but claims some tokens appear at unexpected frequencies. They show you the following accept/reject snippet: the resampling step samples from <Code>max(p - q, 0)</Code> without normalizing. (a) Identify what is wrong with this implementation. (b) Derive the actual emission distribution this produces — which tokens are over- or under-represented compared to <Code>p</Code>? (c) Write a test analogous to section 4b that would catch this bug empirically. (d) What is the expected KL divergence between the buggy and correct implementations as a function of the total variation distance between <Code>p</Code> and <Code>q</Code>?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

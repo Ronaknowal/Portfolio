@@ -1,0 +1,47 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+    "src/learn/data/message-passing-models.js",
+    "src/learn/data/message-passing-examples.json",
+    "src/learn/components/lesson-labs/MessagePassingFigures.jsx",
+    "src/learn/components/lesson-labs/MessagePassingLabs.jsx",
+    "src/learn/components/lesson-labs/MessagePassingStudy.jsx",
+    "src/learn/components/lesson-labs/message-passing.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/recorded-probabilities.json",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/mlp-11.json",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/gcn-11.json",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/sage-11.json",
+    "public/learn-assets/message-passing-graph-convolutions-gcn-gat-graphsage/gat-11.json",
+    "scripts/prepare-message-passing-assets.py",
+    "scripts/render-message-passing-lesson.mjs",
+    "scripts/verify-message-passing-models.mjs",
+    "scripts/check-message-passing-static-render.mjs"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/design.md",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/native-checks.json",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/library-checks.json",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/reproduced-study.json",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/model-checks.json",
+    "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/static-checks.json"
+  ],
+  "browserInventory": [
+    "All mechanism homes in design map, including real34-node topology, exact graph/matrix arrows, synchronization, GCN gradient rail, SAGE rails, local GAT score/weights, protocol timeline, sparse receive-group stable softmax, two physical propagation coordinate plots, gain curves, squashing, graph counterexample, sampled tree, batching and relation-specific applications. At320px nominal480/560diagram and340plot scrolling retains12px text, no page overflow.",
+    "message-flow default closed mean [1.5,7/3,3]. Node2feature8 leaves node0 round1 fixed and changes round2. Directed edge reversal movesreceiver; everyedgeweight/feature/control has live result. Round0..4,2..6nodes, both directions/loops, actualdependency set. Two-node fixture [1,3] sync[2,2],faultyforward[2,2.5],reverse[1.5,2]. Self-only preset null. Pin records graph/features/loop/order/mode/round; reset after invalid number first click.",
+    "message-gcn defaults aggregate[1.31649658,2.70790812,2.81649658], degree[2,3,2], w.5target1rate.1 gradient-.449914957,nextw.544991496,nextprediction.717479441. Bias-before[2.22474487,3.85773803,3.72474487] vsafter[2.31649658,3.70790812,3.81649658]. Change eachfeature/edge/receiver/rule/bias, applystep, rate0 andzero-feature null, triangle row/symmetric equality, no-loopsisolate zero convention, reset.",
+    "message-sage own4+neighbors1,3,5 maps2/1 output11;duplicate mean null;sum changes, max multiplicity null;empty preserves ownbranch8. message-gat scores1/2 receivers0/-3 produceweights[.268941,.731059]/[.450166,.549834], same ranking;editvalues changesproductswithoutweights;maskforceddonor,emptyundefined;zero scoresuniform;slope0ties;resets.",
+    "message-boundary protocol changes available nodes and edges;futureedge/heldoutfeature toggles showactual information paths, loss and message access distinct;reset. message-spectral step40 raw2.12842564/2.60677839/2.12842564 vsdegree-divided1.5050242;no-loop2nodealternation;disconnectedlimits2,2,6,6;allweightededges/features editable,selfloopzero-degree notice,reset. Gain chart explicitlyfixedpath.",
+    "message-collision defaultdistinctA[1,3]/B[2,2] equalrawsum4;transformed[4,10]/[4,8]. Variablemultisets1..6,summeanmax,identicalreverse input isnullnotcounterexample,reset. message-sampling default7occurrences,4uniqueIDs;fanouts8,8,8 replacement585;withoutreplacement40;zero fanoutrootonly. Batch Bfeature changesA onlyinwrongoffset1 mode;correctA[2,2];reset.",
+    "message-study lazyopenrecordedall12fits and actual5epochhistories;liveall4seed11models loadonlyselection, identities/staleabort/friendlyerrorretry. Defaultgcnsemanticnode2, rawsourceID3, baseline/currentsame;feature editnode2channel1=.8 and removeedge0\u20142 compare native-fixtures. Reverse storage preservessemanticoutput, row31fornode2. All-edge removal finite;MLP exactnull underedgeedits. Graph-derivedfeatures explicitlyfixed. Selectanynode/feature/edge/channel;all34probabilityrows, GATincomingweights/products andSAGEselfterms;pin/reset.",
+    "Two program disclosures resolve six explicit learner files (study,bridge,graph,calculated,provenance,license). Eight independent practice hints/solutions closed. Actual PyG version2.8.0.post1 and matched errors in prose agree with current source."
+  ],
+  "limits": [
+    "Author review only; independent and browser/shared integration remain",
+    "Twelve historical tiny fits exactly reproduced; edited real graph outputs are diagnostics, not unseen evaluation",
+    "No GPU or large-dataset speed measurement; no production graph generalization claim"
+  ]
+}

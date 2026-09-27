@@ -1,0 +1,30 @@
+{
+  "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+    "src/learn/components/lesson-labs/RecommenderIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/recommender-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "2823f927016f9ada735bcc2cffaa3f60e9e8ab56d8c19170658baa3db7b0d4c0",
+    "src/learn/components/lesson-labs/RecommenderIntuitionFigures.jsx": "2b0a67400623e4c31ab95ab101869165ffbf50515696ee60fe7628056856a4d2",
+    "src/learn/components/lesson-labs/recommender-intuition.css": "dbe79b75e25859e9aba6114bb3f06ac61025c2a41fa627bee739885a65d238a5"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson and new teaching-support source reading",
+      "passed": true
+    },
+    {
+      "name": "Independent targeted arithmetic and JSX parsing",
+      "passed": true
+    },
+    {
+      "name": "All checked bytes match author checkpoint",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

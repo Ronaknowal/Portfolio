@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Distinct signed vertical ticks at scale 1",
+      "passed": true
+    },
+    {
+      "name": "Nominal figure stays keyboard-scrollable at scale 1",
+      "passed": true
+    },
+    {
+      "name": "Distinct signed vertical ticks at scale 0.001",
+      "passed": true
+    },
+    {
+      "name": "Nominal figure stays keyboard-scrollable at scale 0.001",
+      "passed": true
+    },
+    {
+      "name": "Distinct signed vertical ticks at scale 1e-7",
+      "passed": true
+    },
+    {
+      "name": "Nominal figure stays keyboard-scrollable at scale 1e-7",
+      "passed": true
+    },
+    {
+      "name": "Distinct signed vertical ticks at scale -0.001",
+      "passed": true
+    },
+    {
+      "name": "Nominal figure stays keyboard-scrollable at scale -0.001",
+      "passed": true
+    },
+    {
+      "name": "All class bars preserve the same unit probability scale",
+      "passed": true
+    },
+    {
+      "name": "Probability axis remains explicitly zero to one",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Scoped SSR checks inspect numeric axis and probability geometry only. Root owns interactive and painted browser review."
+  ]
+}

@@ -1,6 +1,6 @@
 # xLSTM: learn what to keep, and how to read it back
 
-**Explore as you read.** Edit evidence gates/values, address vectors, chunk boundaries/state carry and supported digit pixels. Update stabilized scalar numerator/denominator, matrix-address contributions, causal chunk states and exact model outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish a probability normalization from signed matrix addressing and identify what state must cross a chunk boundary.
+**Explore as you read.** Change the evidence written into a scalar memory, move matrix addresses, and regroup a sequence into chunks. Follow the resulting state, normalization and read. Then edit real handwriting pixels and compare the evidence preserved by three trained recurrent models.
 
 
 A handwritten digit can be read one horizontal strip at a time. After the first strip, the model has a few strokes. After the fourth, it has more evidence. After the eighth, it must classify the complete image. If the original strips are no longer available, what should the model carry forward?
@@ -135,13 +135,13 @@ Starting with `n_0=1` would insert a zero-valued unit of prior mass if `c_0=0`. 
 
 ### Try it: a write-weight ledger
 
-As a second worked comparison, use candidates `[-0.4, 0.7, −0.2]`, weights `[2,1,5]`, retention `[0.8,0.6,0.4]` and output gate `0.8`. Before reading the result, consider whether weakening the last write from five to `0.5` makes the final output more or less negative.
+As a second worked comparison, use candidates `[-0.4, 0.7, −0.2]`, weights `[2,1,5]`, retention `[0.8,0.6,0.4]` and output gate `0.8`. Compare the final output before and after weakening the last write from five to `0.5`.
 
 The original final output is about `−0.124082`; after that edit it is about `−0.006957`. Earlier positive content has more influence. Now set every candidate to `0.6`. Changing positive write weights and retention does not change the normalized estimate; with output gate `0.8`, every output is `0.48`. This is a useful null experiment: the weights changed, but all the available evidence agreed.
 
-The investigation starts with a separate four-observation problem. Edit its actual candidates or gate inputs and Show the current computed result and its contributing terms immediately.
+The investigation starts with a separate four-observation problem. Edit its candidates or gate inputs and follow the current result and contributing evidence.
 
-[Investigation XA: editable candidate rows, write log-weights and retention; raw/stabilized state trace, contribution mass and Show the current computed result and its contributing terms immediately. A separate advanced control adds a common 1,000 to all write log-weights from an empty state. The stable output remains unchanged to rounding while direct raw exponentiation would overflow.]
+[Investigation XA: editable candidate rows, write log-weights and retention; raw/stabilized state trace, contribution mass and current computed output. A separate advanced control adds a common 1,000 to all write log-weights from an empty state. The stable output remains unchanged to rounding while direct raw exponentiation would overflow.]
 
 The scale shift null is a property of this normalized scalar read from an empty ledger. It is not a blanket invariance of every downstream architecture or of the matrix read's fixed floor.
 
@@ -251,7 +251,7 @@ This is why two implementations agreeing with each other is not sufficient if bo
 
 ### Try it: change the address, keep the value
 
-The matrix investigation begins with fresh keys, values and queries. Predict what happens if the last key reverses direction while its value stays unchanged. Inspect both the numerator and the normalizer before interpreting the final read. You can edit a key, a value, a query or a write weight independently.
+The matrix investigation begins with fresh keys, values and queries. Reverse the last key while keeping its value unchanged and inspect the resulting read. Inspect both the numerator and the normalizer before interpreting the final read. You can edit a key, a value, a query or a write weight independently.
 
 Then zero every value. Reads must be zero although keys, normalizer and gate history can remain nonzero. Restore the values and try a zero query: its numerator is zero and its denominator is the floor. These null cases distinguish stored address geometry from the information it points to.
 
@@ -308,7 +308,7 @@ The chunk program is a teaching reference for the decomposition. Its unscaled mo
 
 ### Try it: move the boundary without changing the story
 
-Choose a seven-write sequence, record whether splitting after the third write should change any output, and compare whole-sequence, recurrent and chunk views. Move the chunk size to two, four or larger than the sequence. Outputs should agree to rounding when state carry is correct.
+Edit the seven-write sequence and compare whole-sequence, recurrent and chunk views with a boundary after the third write. Move the chunk size to two, four or larger than the sequence. Outputs should agree to rounding when state carry is correct.
 
 Now deliberately reset the state at a boundary. The later outputs can change; this is a changed input history, not a faster execution of the same history. Finally edit a future value and check an earlier output. That earlier output must remain unchanged.
 
@@ -334,7 +334,7 @@ These are deliberately small one-head blocks. They expose the actual mechanisms 
 
 ### Run the complete programs
 
-Download the lesson's program bundle containing `row_sequence_models.py`, `memory_mechanisms.py`, `author_calculations.py` and the attributed `optdigits.tra`, `optdigits.tes`, `optdigits.names` files. Keep those files in one directory. Use a Python environment with NumPy and a CPU-capable PyTorch installation. The author run used Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu; the bundle records those versions for reproduction.
+Download [row_sequence_models.py](row_sequence_models.py), [memory_mechanisms.py](memory_mechanisms.py), [author_calculations.py](author_calculations.py) and the attributed [optdigits.tra](optdigits.tra), [optdigits.tes](optdigits.tes), [optdigits.names](optdigits.names) files. [Data provenance](data-provenance.md) records the exact roles and attribution. Keep those files in one directory. Use a Python environment with NumPy and a CPU-capable PyTorch installation. The author run used Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu; the bundle records those versions for reproduction.
 
 From that directory:
 
@@ -413,9 +413,9 @@ For the worked image at training-file source ID 3451, the true digit is one. The
 
 These intermediate predictions come from applying the classifier at each prefix. The model was trained only on final-row loss. A changing prefix score is a view of its computation, not a separately validated early-exit classifier or a calibrated measure of understanding.
 
-[Figure X17: the worked digit, current scan line, class-score trajectory and state summary. The clean and edited paths coincide until the first changed row. Reveal the true label step in the investigation.]
+[Figure X17: the worked digit, current scan line, class-score trajectory and state summary. The clean and edited paths coincide until the first changed row. Keep the true label separate from model input.]
 
-The fresh investigation starts from a different image, source ID 187. Before running it, choose which rows to alter and observe whether the final class or only intermediate confidence will change. Edit the actual 0–16 pixel values, not just a decorative corruption slider. Compare a scalar-state trace with the matrix state's changing key-by-value grid. These learned channels do not have inherent names such as “loop detector”; any such interpretation would require separate evidence.
+The fresh investigation starts from a different image, source ID 187. Alter selected rows and compare both the final class and intermediate scores. Edit the actual 0–16 pixel values, not just a decorative corruption slider. Compare a scalar-state trace with the matrix state's changing key-by-value grid. These learned channels do not have inherent names such as “loop detector”; any such interpretation would require separate evidence.
 
 [Investigation XD: editable 8×8 pixel canvas with numeric keyboard editing, eight-step scan, selected model/seed, class scores, state view and carry/reset comparison.]
 

@@ -1,0 +1,9 @@
+.ts-intuition { margin: 1.8rem 0; padding-block: 1rem; border-block: 1px solid #38332b; }
+.ts-coverage-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; }
+.ts-coverage-panels strong { color: #e8b44a; }
+.ts-coverage-panels table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.ts-coverage-panels caption { text-align: left; padding-block: .7rem; }
+.ts-coverage-panels td, .ts-coverage-panels th { text-align: center; padding: .15rem; }
+.ts-coverage-panels .ts-coverage-miss { color: #e8b44a; font-weight: 700; }
+.ts-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }
+@media(max-width: 650px) { .ts-coverage-panels { grid-template-columns: 1fr; } }

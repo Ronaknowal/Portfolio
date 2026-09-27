@@ -1,0 +1,42 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/interleaved-cross-attention-architectures.jsx",
+    "src/learn/data/cross-attention-models.js",
+    "src/learn/data/cross-attention-examples.json",
+    "src/learn/components/lesson-labs/CrossAttentionFigures.jsx",
+    "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+    "src/learn/components/lesson-labs/cross-attention.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "public/learn-assets/interleaved-cross-attention-architectures/observed-reads.json",
+    "scripts/prepare-cross-attention-assets.py",
+    "scripts/render-cross-attention-lesson.mjs",
+    "scripts/verify-cross-attention-models.mjs",
+    "scripts/check-cross-attention-static-render.mjs"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/design.md",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/native-checks.json",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/reproduced-study.json",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/reproduced-cross-11-state.json",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/model-checks.json",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/static-checks.json"
+  ],
+  "browserInventory": [
+    "All inline diagram homes in design map: rectangular contribution fan/products, shape tiles, shared/rectangular/encoder masks, event/depth views, teacher forcing, latent resampler, collision, gate bypass/derivative, frozen/no_grad, four named circuits, BLIP triptych, actual image tensor path, all nine outcome points, pair grids, native cache, causal encoder. At320px preserve nominal labels with bounded keyboard scrolling; no whole-page overflow.",
+    "cross-read opens [1.5,1.5]/[1,2.5]. Mask preset reader0 slot2 yields [4/3,4/3]/[1,2.5]; change slot2 to100,-100 leaves first, second25.5,-23. All Q/K/V entity rows/coordinates,2\u20134queries/2\u20136slots, row masks, empty-row undefined, paired reversal null, values-only contrast, equal-query null, pin/reset. Invalid number then first Reset click.",
+    "cross-shapes: changed4-head example returns4x7x11 weights,7x32 concat,32x48 output projection and7x48 output. Swap counts, all seven dimensions, reset.",
+    "cross-access: default answerB directB/indirectA; choose answerA and bidirectional encoder leaks futureB; causal encoder no future. Both access policies, all reader selections, keyboard event reorder incl no-image prefix, depth1..4, reset.",
+    "cross-compression: default stored2/2 but maxima3/2; two slots restore distinction; equal-input null; edit all four values/reset. cross-gate default alpha0 derivative-4,next.4,Y1.7598979; apply actualstep/F0/rate0/excessive proposal outside editor range explicitly disabled; all inputs and reset.",
+    "cross-budget: default72MiB prefix/2MiB cross; latents576 gives18MiB. Equal layer/token/width null; projected off zero storedKV, raw features distinct; causal/dense table; min/max integer controls and reset.",
+    "cross-cache: default valid matches fresh/native; edit query reuses KV and changes only that query. Edit slot4: rejected cache while first two fresh answers unchanged; Rebuild recovers all. Paired reverse+mask then rebuild preserves answers, unpaired reverse changes boundary. Output-weight revision invalidates; all-forbidden row explained; reset.",
+    "cross-observed: JSON fetched only when open, loading/friendly retry. Six mode/seed choices, ten actual digits, both questions, three heads, patch linkage to raw2x2 pixels, all12 probabilities; no arbitrary image inference. matched/cyclic/shuffle all9 counts and exact80/70/9 digit preservation; actual five-epoch curves. Reset restores source79/cross11/question0/head0. Two complete program disclosures and five downloads resolve; all eight practice hints/solutions remain closed."
+  ],
+  "limits": [
+    "Nine complete tiny CPU fits reexecuted; every original measurement reproduced exactly",
+    "No pretrained model/GPU benchmark or arbitrary edited-image inference claimed",
+    "Author-ready only; independent, browser and shared integration remain"
+  ]
+}

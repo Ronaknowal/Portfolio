@@ -1,6 +1,6 @@
 # Ring Attention & Sequence Parallelism: one sequence, several devices
 
-**Explore as you read.** Edit tiny Q/K/V and block ownership, merger order, causal positions, communication budgets and supported trajectory points. Show stable summary accumulation, legal work grid, circulating ownership, payload timeline and current output/error against the dense reference. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate mathematical equivalence from communication cost and identify invalid identity, masking or state-carry changes.
+Move blocks between devices while keeping the attention result the same. Change scores, values, logical positions and real trajectory points, then follow the contributions and communication they require. The comparisons separate a change to the model’s input from a change to its execution plan.
 
 
 Suppose four devices must read one long document. Giving each device a different quarter is easy. Letting a word near the end use information from the beginning is harder: that information now lives elsewhere.
@@ -58,13 +58,7 @@ Each query owner finally stores only its own output rows. Concatenating outputs 
 
 The research design combines this circulation with blockwise computation and overlapping communication. Its empirical context-length and utilization results apply to its reported setups; “near-infinite” describes a scaling ambition, not unbounded resources or unlimited learned understanding. [Liu, Zaharia and Abbeel, Ring Attention](https://arxiv.org/html/2310.01889v4)
 
-**Pause and predict:** if we reverse circulation but preserve every record's identity and visit every block once, should the mathematical answer change?
-
-<details><summary>Reveal the reasoning</summary>
-
-No. We change the order of adding the same contributions. In exact arithmetic, the answer is identical. Floating-point addition and rescaling can produce small rounding differences. Reversing the ring is not inherently a positional error; relabeling a received block as though it were local is.
-
-</details>
+Reversing circulation while preserving every record’s identity visits the same contributions in another order. In exact arithmetic, the answer is identical. Floating-point addition and rescaling can produce small rounding differences. Reversing the ring is not inherently a positional error; relabeling a received block as though it were local is.
 
 ## 3. A block's answer is not enough
 
@@ -454,7 +448,7 @@ The independent ring-flash-attention project supplies several attention layouts 
 
 The arithmetic reference above is deliberately single-process. [distributed_ring.py](distributed_ring.py) is the complete next implementation step: separate PyTorch processes keep local Q/K/V, send K/V to the next rank, receive from the previous rank, and return accumulated key/value gradients to their owners. It uses ordinary `torch.distributed` primitives; it does not import an opaque Ring Attention function. This small CPU/Gloo protocol is also the lowest useful abstraction for learning buffer ownership before a fused GPU backend.
 
-Use a PyTorch 2.14.0 environment with Gloo support and run `torchrun --standalone --nproc-per-node=3 distributed_ring.py` on one machine. The example uses two heads, equal Q/K/V width three, a single causal sequence and no dropout; the sequence length is `2*world_size+1`, making ownership uneven. Each rank knows shard lengths from `all_gather`; global starts determine the causal mask. Padded packets have a common shape for transport, but only the owner's valid rows enter the attention calculation. The complete authored program below has not yet undergone its multi-process implementation run; it does not supply invented output or timing results.
+Use a PyTorch 2.14.0 environment with Gloo support and run `torchrun --standalone --nproc-per-node=3 distributed_ring.py` on one machine. The example uses two heads, equal Q/K/V width three, a single causal sequence and no dropout; the sequence length is `2*world_size+1`, making ownership uneven. Each rank knows shard lengths from `all_gather`; global starts determine the causal mask. Padded packets have a common shape for transport, but only the owner's valid rows enter the attention calculation. The complete program has now run in separate CPU/Gloo processes with one, two and three ranks, including a fresh eight-position/three-rank case. Forward outputs and each owner’s Q/K/V gradients matched native scaled-dot-product attention and automatic differentiation at the stated float64 tolerances. The Windows verification launcher supplied the standard rank/master environment with `USE_LIBUV=0`; each rank used one CPU thread. These are correctness checks, not timings.
 
 Forward processing needs P block visits and P−1 transfers. Backward processing makes P visits **and P transfers**: the packet contains K, V, dK and dV, and after a complete circuit its partial sums are back at the original owner. dQ stays with its query owner. This is the exact missing operation in a backward implementation that only passes forward parity. The externally supplied `upstream` is ∂L/∂O; a model layer would pass these Q/K/V derivatives through its projection weights using the already taught chain rule.
 
@@ -589,7 +583,7 @@ if __name__ == "__main__":
     main()
 ```
 
-The local score tile uses O(H c c_max) memory, with O(H c d) local queries/output and O(H c_max d) circulating packet storage. Per-rank full-sequence arithmetic remains O(H c L d); distributing storage does not make dense attention subquadratic. Backward recomputes score tiles instead of retaining all probabilities. The tiny validator separately creates full arrays and uses `scaled_dot_product_attention` plus autograd as an independent oracle; those deliberately small validation allocations are not part of the ring routines' storage bound. No package parity result is claimed until the program actually runs.
+The local score tile uses O(H c c_max) memory, with O(H c d) local queries/output and O(H c_max d) circulating packet storage. Per-rank full-sequence arithmetic remains O(H c L d); distributing storage does not make dense attention subquadratic. Backward recomputes score tiles instead of retaining all probabilities. The tiny validator separately creates full arrays and uses `scaled_dot_product_attention` plus autograd as an independent oracle; those deliberately small validation allocations are not part of the ring routines' storage bound. The retained native run verifies those forward and owner-specific gradient comparisons; it does not measure this storage model on a GPU.
 
 `rotate` submits paired send/receive requests together, waits for completion, and only then returns new storage. The immediate wait makes the schedule synchronous; calling an asynchronous API is not evidence of communication overlap. Gloo/CPU proves a different engineering claim from NCCL/CUDA streams, fused kernels or multi-node performance. Those remain specialized production extensions. The concrete transport API and request-lifetime contract are in [PyTorch's distributed reference](https://docs.pytorch.org/docs/2.14/distributed.html).
 
@@ -627,7 +621,7 @@ The useful question is therefore “which information should move for this workl
 | Different layout appears fast but changes quality | Compare identical weights/input/masks and logical ordering first | Whether it is still the same attention operation |
 | Correctness differs with dropout or resume | Inspect global random identities and saved recomputation state | Whether the same stochastic computation is being compared |
 
-For a meaningful real benchmark, fix model weights, input lengths/batch, attention semantics, dtype, backward setting and hardware topology. Include warmup and proper device synchronization, measure peak memory with defined allocator semantics, and report whether tokens/second means one long sequence or several shorter ones. Count end-to-end time as well as the attention kernel. Preserve failures and out-of-memory cases rather than plot guessed replacements. These are the next implementation steps, not measurements supplied by this content packet.
+For a meaningful real benchmark, fix model weights, input lengths/batch, attention semantics, dtype, backward setting and hardware topology. Include warmup and proper device synchronization, measure peak memory with defined allocator semantics, and report whether tokens/second means one long sequence or several shorter ones. Count end-to-end time as well as the attention kernel. Preserve failures and out-of-memory cases rather than plot guessed replacements. These requirements describe a separate performance experiment; the calculations here are not measured GPU benchmarks.
 
 ## 14. Practice: repair the computation, not just the labels
 
@@ -768,4 +762,4 @@ Useful alternate routes and references:
 - [Stanford CS336 Spring 2025 course materials](https://cs336.stanford.edu/spring2025/) and [Stanford Online Lecture 7: Parallelism 1](https://www.youtube.com/watch?v=l1RJcDjzK8M): broader distributed-training background to connect the mesh dimensions. Course schedule and official indexed video identity were verified; the complete video was not watched and no timestamp is claimed. This is supporting parallelism background, not a Ring-specific implementation walkthrough.
 - [UCI Libras Movement](https://archive.ics.uci.edu/dataset/181/libras%2Bmovement): source, attribution and schema for the real example. The [data/provenance record](data-provenance.md) and [complete frozen model](movement-attention-model.json) make the exact input-to-output path reproducible offline.
 
-The visual investigations described here are specifications for later implementation. Their saved calculations support content correctness; they do not imply that browser labs, a distributed backend or a performance benchmark have already been implemented.
+The investigations distinguish live mathematical calculations, frozen-model evidence and hypothetical resource models. The CPU/Gloo program tests actual transport correctness separately; GPU execution and performance benchmarks require their own measured setup.

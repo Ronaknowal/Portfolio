@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T18:59:45.013Z",
+  "topicId": "self-attention-multi-head-attention",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T18-53-46-807Z.json",
+  "buildReceiptHash": "9afd73d77408894e9796c58ec367e4a2c8f4d5e81dcf46db493d48c4ae949646",
+  "publicationMapping": "./topics/self-attention-multi-head-attention.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

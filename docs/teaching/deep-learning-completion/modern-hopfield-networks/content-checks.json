@@ -1,0 +1,84 @@
+{
+  "topicId": "modern-hopfield-networks",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py",
+    "docs/teaching/drafts/modern-hopfield-networks/author-checks.json",
+    "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py",
+    "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py",
+    "docs/teaching/drafts/modern-hopfield-networks/data-provenance.md",
+    "docs/teaching/drafts/modern-hopfield-networks/design.md",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-memory-fits.npz",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-results.json",
+    "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py",
+    "docs/teaching/drafts/modern-hopfield-networks/investigation-checks.json",
+    "docs/teaching/drafts/modern-hopfield-networks/lesson.md",
+    "docs/teaching/drafts/modern-hopfield-networks/mechanism-results.json",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.names",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra",
+    "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+    "docs/teaching/drafts/modern-hopfield-networks/author-checks.json": "6bc81c982a9dece222a6fc5433f7198d7fcaf326a4d346c1be3c9d10bf2b5993",
+    "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py": "2ea65126d5326acd37019a8832085e5e7cb28fe5be82bb530893c041bba73c45",
+    "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py": "587c99ba4dce210f7c2b4d706d25bf5586ee6a76f40b8a6bd0439bfbde2b6ad9",
+    "docs/teaching/drafts/modern-hopfield-networks/data-provenance.md": "049b89daf5ecd3c767af2429d643ad898f6ea7e76cc6ea3475cac153d359f8da",
+    "docs/teaching/drafts/modern-hopfield-networks/design.md": "98303b78d6e0c20ecd0eefaec62546dce252ce33c0788cac4bc53fcd45b9d347",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-memory-fits.npz": "6752b5d608fa548b81c37191347b590bdfbf0170b830336de56206e39cfaec7a",
+    "docs/teaching/drafts/modern-hopfield-networks/digit-results.json": "514a0afdfd92410c0f3260edf2a913e1190a93734bf78f479b5244924d043a46",
+    "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+    "docs/teaching/drafts/modern-hopfield-networks/investigation-checks.json": "d12122c74d0c76cf6407b3582f672037042215d2c3b8275cbc68129ffc3f6218",
+    "docs/teaching/drafts/modern-hopfield-networks/lesson.md": "cf4713fee681cc19cd26d20bf901c6a133b01de2b9bb632e5dbbcd0b4d4f1733",
+    "docs/teaching/drafts/modern-hopfield-networks/mechanism-results.json": "2dd480cd1d0309f5f8c0382ae2bb77b667f1c8623e6d0c9b00ac7536e8a08a2c",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md": "e9f251b308ae63ed1b542c3f296399e97bbefba82f32db7b984ffbbacb6916c3"
+  },
+  "manuscript": "docs/teaching/drafts/modern-hopfield-networks/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md",
+  "reconciliation": [
+    "Read the complete prepared manuscript, all21 figures/four investigations, all four Python programs, design/provenance/original data description and structured complete JSON/NPZ/source-data contents. No destination note exists.",
+    "Preflight was current and finishable; preserve stable runtime path and all prior source data/numerical evidence. No broad historical hash refresh.",
+    "Removed stale predicted-repair/hidden-result/Run-only phrases that contradicted the governing21September live contract; current results and meaningful edits are immediate. Separate independent practice remains.",
+    "Formatted15 existing core mathematical equations for the renderer without changing their mathematics.",
+    "Confirmed capacity theorem parameters, current SDPA scale/dropout contract and Hopular sample-versus-original-feature ownership against primary sources. Retain qualified energy/attention distinction, native package-version limits and all unfavorable empirical results.",
+    "Original two fits are retained; implementation will replay all saved distributions/metrics and run complete mechanism/native bridges rather than fabricate new training outcomes.",
+    "Replaced the opening author-direction/guess language with a learner-facing invitation naming cue edits, energy, retrieval weights and reconstruction/classification contrasts. No numerical program/data changed."
+  ],
+  "checks": [
+    {
+      "name": "Full content and teaching-contract reconciliation",
+      "passed": true
+    },
+    {
+      "name": "All21 figure anchors/four distinct investigation contracts and ten practice tasks retained",
+      "passed": true
+    },
+    {
+      "name": "Canonical complete code and original licensed data retained",
+      "passed": true
+    },
+    {
+      "name": "Original archive all arrays finite; all source rows parsed within declared dimensions/ranges",
+      "passed": true
+    },
+    {
+      "name": "No hidden-answer or prediction-entry implementation contract remains",
+      "passed": true
+    }
+  ],
+  "primarySources": [
+    "https://arxiv.org/html/2008.02217v3",
+    "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "https://arxiv.org/html/2206.00664"
+  ],
+  "remaining": [
+    "implementation",
+    "independent",
+    "browser",
+    "integration"
+  ]
+}

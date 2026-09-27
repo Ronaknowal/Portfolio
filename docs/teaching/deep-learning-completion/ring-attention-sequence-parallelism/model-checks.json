@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scalarComparisons": 406159,
+  "maxError": 7.904787935331115e-14,
+  "checks": [
+    {
+      "name": "Sixteen native SDPA/autograd full-output/three-gradient cases, reverse and owner rename, unequal widths and empty rows",
+      "passed": true
+    },
+    {
+      "name": "Stable reference changes, four partition/order/offset invariants, parallel decode summary, named wrong alternatives and no-mass convention",
+      "passed": true
+    },
+    {
+      "name": "All18 saved layout/tile cases plus complete supported4–32 position ownership conservation and useful-pair count",
+      "passed": true
+    },
+    {
+      "name": "Exact cost/timeline units, non-default one-rank receive-buffer adaptation, BigInt extreme, token/head inverse and logical target boundaries",
+      "passed": true
+    },
+    {
+      "name": "Two complete real inputs plus both recorded edits across P1/P3/P4/P8, both layouts and directions: actual Q/K/V output, weights and full classifier",
+      "passed": true
+    },
+    {
+      "name": "All nine explicitly intended deployed program/data/model/evidence downloads byte-identical to canonical packet",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Double browser arithmetic, no browser training or GPU benchmark.",
+    "Native source program and distributed checks recorded separately; this verifies pure JavaScript against retained native evidence."
+  ]
+}

@@ -1,1097 +1,526 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Full prepared manuscript rendered by render-sparse-attention-lesson.mjs.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { SparseFigure } from '../../components/lesson-labs/SparseAttentionFigures.jsx';
+import { SparseGraphLab, SparseReadLab, SparseMemoryLab, SparseRandomLab, SparseProjectionLab, SparseTilesLab, SparseForecastLab, SparseProgram } from '../../components/lesson-labs/SparseAttentionLabs.jsx';
+import '../../components/lesson-labs/neural-lesson-neutral.css';
+export default {
+ title: 'Sparse & Linear Attention Variants',
+ readTime: '~100 min read + experiments and practice',
+ hasIntegratedGuide: true,
+ content: () => <div className="neural-lesson neural-lesson-neutral sparse-attention-lesson"><LessonIntro prerequisites="Attention weights, vector products, matrix multiplication and a recurrent update; the local examples refresh the required shapes and normalization." sections={[["1-locate-the-cost-before-choosing-a-shortcut","1. Locate the cost before choosing a shortcut"],["2-sparse-attention-choose-which-connections-exist","2. Sparse attention: choose which connections exist"],["3-linear-attention-change-the-question-the-memory-can-answer","3. Linear attention: change the question the memory can answer"],["4-approximate-softmax-with-random-features","4. Approximate softmax with random features"],["5-compress-the-sequence-instead-of-its-feature-sums","5. Compress the sequence instead of its feature sums"],["6-make-the-graph-efficient-on-the-actual-machine","6. Make the graph efficient on the actual machine"],["7-compare-three-operators-on-observed-hand-trajectories","7. Compare three operators on observed hand trajectories"],["8-deeper-connections-and-practical-judgment","8. Deeper connections and practical judgment"],["9-practice-and-transfer","9. Practice and transfer"],["10-another-way-to-learn-and-what-comes-next","10. Another way to learn, and what comes next"]]}>Trace what reaches a query, what a memory retains, and which work an implementation actually avoids.</LessonIntro>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit sparse edges, feature-memory writes/evictions, random-feature settings, compression coefficients, block layout and supported real trajectories. Show removed mass, reachability, normalized summaries, approximation error, future influence and tile occupancy live under a fixed random draw. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose sparsity or approximation by accessible information, numerical error and actual block work, not a single sparsity percentage."}</Prose>
 
-const sparseLinearAttentionContent = {
-  title: "Sparse & Linear Attention Variants",
-  readTime: "~38 min",
-  content: () => (
-    <div>
+<Prose>{"A long conversation contains many earlier tokens, but the next token may need only a few of them. A stream of hand movements has the opposite possibility: many earlier observations may matter collectively, without needing to retrieve any single observation exactly. These suggest two different ways to reduce attention's work: "}<strong>{"read fewer individual records"}</strong>{", or "}<strong>{"maintain a smaller summary that can answer a particular kind of query"}</strong>{"."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{"The distinction matters. Removing connections, approximating a similarity function, compressing the sequence, and executing the same calculation more carefully can all reduce a resource cost. They preserve different things. This lesson gives you a way to inspect those choices rather than memorize a ranking of model names."}</Prose>
 
-      <Prose>
-        The original Transformer (Vaswani et al. 2017) paid a price that nobody in 2017 thought would matter much: the attention mechanism was {"O(L^2)"} in sequence length. At 512 tokens, the default for BERT, this was invisible. At 2048 tokens, the default for GPT-2, it was annoying but tolerable. By 2019 it had become the single biggest structural limit on what Transformers could do. You could not feed an entire scientific paper into a model. You could not do genome-scale modelling. You could not attend over an hour of audio. The quadratic was a wall, and every major NLP lab from 2019 to 2022 spent a substantial fraction of its attention-research budget trying to knock a hole in it.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow §§1–3 and the opening of §4, the worked sequence-compression example in §5, and the real trajectory experiment in §7. Try the graph and memory investigations, then practice 1–5. You should be able to explain what information an operator can use, calculate a small output, and distinguish work from retained state. "}<strong>{"Deeper pass:"}</strong>{" study the random-feature derivation, approximation families, gradients and current sparse systems in §§4–6 and §8, then the remaining practice. Those branches develop implementation and research judgment; they are not hidden requirements for understanding the core story."}</Prose>
 
-      <Prose>
-        The wall's exact location is easy to calculate. Softmax attention computes {"Attention(Q, K, V) = softmax(QK^T / \\sqrt{d}) V"} where {"Q, K, V"} are {"[L, d]"} matrices. The product {"QK^T"} is an {"[L, L]"} matrix — {"L^2"} floating-point numbers that must be materialised, softmaxed row-wise, then multiplied by {"V"}. At {"L = 8192"} with 32 heads in fp16, that single tensor is 4 GB per layer per sample. At {"L = 32{,}768"} it is 64 GB, which exceeds HBM on any pre-Hopper GPU. Even when the math fits, the {"O(L^2)"} activation memory dominates the {"O(L d)"} parameter activations, so gradient checkpointing and microbatching cannot help much. The quadratic grows faster than hardware.
-      </Prose>
+<Prose>{"We build on "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention & Multi-Head Attention"}</a>{", "}<a href={"/learn/path/full-curriculum/transformer-block-architecture?module=deep-learning-fundamentals"}>{"Transformer Block Architecture"}</a>{", and the immediately preceding "}<a href={"/learn/path/full-curriculum/multi-head-latent-attention-mla?module=deep-learning-fundamentals"}>{"Multi-Head Latent Attention"}</a>{". The refreshers below supply the particular mathematics we need."}</Prose>
 
-      <Prose>
-        The response split into three broad families. The first was <em>sparse attention</em>: instead of attending to all {"L"} tokens, attend to a carefully chosen subset. Child et al.'s Sparse Transformer (arXiv:1904.10509, 2019) introduced strided and fixed attention patterns that gave {"O(L \\sqrt{L})"}. Beltagy, Peters, and Cohan's Longformer (arXiv:2004.05150, 2020) combined a sliding local window with a handful of global tokens, giving {"O(L w)"} for window size {"w"}. Zaheer et al.'s BigBird (arXiv:2007.14062, NeurIPS 2020) added random attention edges on top of window-plus-global and proved the resulting pattern was a universal approximator of full attention. These ran in production on SciFact, TriviaQA, arXiv-summarisation, and long-document classification benchmarks where the quadratic wall was a real barrier.
-      </Prose>
+<H2>{"1. Locate the cost before choosing a shortcut"}</H2>
 
-      <Prose>
-        The second family was <em>hash-based attention</em>: route queries and keys into buckets that capture approximate similarity, then attend only within buckets. Kitaev, Kaiser, and Levskaya's Reformer (arXiv:2001.04451, ICLR 2020) applied locality-sensitive hashing (LSH) with random projections to cluster similar {"Q"} and {"K"} vectors, giving {"O(L \\log L)"} expected cost. Roy et al.'s Routing Transformer (arXiv:2003.05997, TACL 2021) replaced LSH with learned {"k"}-means clustering. Both were theoretically elegant and practically fussy: the bucket assignments changed between training and inference, the worst-case scaling remained quadratic if buckets collided, and the implementations never fused well with the GPU memory hierarchy.
-      </Prose>
+<Prose>{"For one head, a "}<strong>{"query"}</strong>{" asks what to read; each "}<strong>{"key"}</strong>{" describes an available record; its "}<strong>{"value"}</strong>{" is the information returned. At position "}<InlineMath>{"t"}</InlineMath>{", let "}<InlineMath>{"J_t"}</InlineMath>{" be the legal key positions. For a causal decoder, "}<InlineMath>{"J_t=\\{0,\\ldots,t\\}"}</InlineMath>{". The head computes"}</Prose>
 
-      <Prose>
-        The third family was <em>linear attention</em>: rewrite the attention formula so the {"[L, L]"} matrix never has to exist. Katharopoulos et al.'s "Transformers are RNNs" (arXiv:2006.16236, ICML 2020) observed that if you replace {"exp(q \\cdot k)"} with {"\\phi(q) \\cdot \\phi(k)"} for some feature map {"\\phi"}, then {"\\sum_s \\phi(q) \\phi(k_s) v_s = \\phi(q) \\cdot \\sum_s \\phi(k_s) v_s^T"}, and the inner {"\\sum_s \\phi(k_s) v_s^T"} is a fixed-size {"[m, d]"} matrix that can be accumulated on the fly, giving {"O(L m d)"} total cost. Wang et al.'s Linformer (arXiv:2006.04768, 2020) compressed {"K, V"} along the sequence axis via fixed learned projections {"E, F \\in \\mathbb{R}^{k \\times L}"}, giving {"O(L k)"} with {"k"} typically {"\\sim 256"}. Choromanski et al.'s Performer (arXiv:2009.14794, ICLR 2021) introduced FAVOR+, a positive-definite random-feature approximation to softmax that provably converged to standard attention.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"s_{tj}=q_t^Tk_j/\\sqrt{d_k},\\qquad\np_{tj}=\\frac{e^{s_{tj}}}{\\sum_{u\\in J_t}e^{s_{tu}}},\\qquad\no_t=\\sum_{j\\in J_t}p_{tj}v_j."}</MathBlock></div>
 
-      <Prose>
-        These three families produced a genuine ecosystem of long-context models between 2019 and 2022. Longformer became the default for long-document NLP; BigBird was adopted at Google for legal and medical text; Reformer appeared in a handful of research pipelines; Linformer shipped in Meta's early long-context experiments. And then, almost overnight, two developments made most of them obsolete.
-      </Prose>
+<Prose>{"The row of weights sums to one. Its denominator depends on every legal score, so the ordinary softmax cannot simply be moved through a matrix multiplication. In general,"}</Prose>
 
-      <Prose>
-        The first was <strong>FlashAttention</strong> (Dao et al. arXiv:2205.14135, 2022). By reorganising standard softmax attention to tile over the sequence axis and never materialise the full {"[L, L]"} score matrix, FlashAttention made exact quadratic attention as fast as — often faster than — the approximate variants, all the way up to 32k and beyond. The quadratic wall moved from 2k to 128k in a single library release. Most of the sparse and linear variants were no longer faster than the exact thing, and they were always worse in quality. The second was the rise of <strong>state-space models</strong> — Mamba (Gu & Dao arXiv:2312.00752, 2023), RWKV (Peng et al. arXiv:2305.13048, 2023), and RetNet (Sun et al. arXiv:2307.08621, 2023) — which proved that a parallel-at-training, recurrent-at-inference architecture could genuinely beat attention for very long sequences without approximation tricks. By 2024 the frontier assumption had flipped: "linear attention" meant SSMs or linear RNNs, not Linformer or Performer.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\operatorname{softmax}(QK^T)V\\ne\n\\operatorname{softmax}(Q)(K^TV)."}</MathBlock></div>
 
-      <Prose>
-        The sparse-and-linear family still matters for three reasons. First, <em>sliding-window attention survived</em>. Mistral 7B (Jiang et al. arXiv:2310.06825, 2023) shipped with a 4096-token window on top of standard attention, giving effective {"O(L w)"} per layer while letting residual-stream information propagate across windows. Every production long-context LLM in 2024-2025 uses some version of window attention. Second, <em>Longformer and BigBird are still the academic baselines</em> for long-document understanding; thousands of papers build on them. Third, <em>the mathematical structure of linear attention</em> — the kernel trick factorisation — is the intellectual ancestor of modern SSMs, and understanding why Performers and RWKV share the same underlying "attention-as-outer-product accumulation" trick is the cleanest way to see why SSMs were inevitable.
-      </Prose>
+<Prose>{"There are several bills to pay, and paying less of one does not cancel the others."}</Prose>
 
-      <Callout accent="gold">
-        The 2019-2022 zoo of sparse and linear attention variants solved a real problem (the quadratic wall) with clever approximations, but was largely obsoleted by (a) FlashAttention making exact attention scale to 32k+ at full quality, and (b) state-space models providing a principled recurrent alternative for truly long context. What remains in production is the simplest idea of all: sliding-window attention with occasional global tokens, used in Mistral-style decoders. Understanding the full family is still essential because every modern efficient-attention design is standing on one of these papers' shoulders.
-      </Callout>
+<NeuralTable caption={"1. Locate the cost before choosing a shortcut"} headers={[<>{"Resource"}</>,<>{"What it pays for"}</>,<>{"What changes it"}</>]} rows={[[<>{"Attention arithmetic"}</>,<>{"Key comparisons and value accumulation"}</>,<>{"Fewer edges, fewer summary slots, or a different factorable kernel"}</>],[<>{"Temporary attention storage"}</>,<>{"Scores, probabilities and backward intermediates"}</>,<>{"Tiling, recomputation, checkpointing, fused kernels"}</>],[<>{"Persistent inference state"}</>,<>{"Information retained for future tokens"}</>,<>{"KV sharing, latent compression, eviction, recurrent summaries"}</>],[<>{"Whole-model work"}</>,<>{"Projections, FFNs, routing, normalization and communication"}</>,<>{"Architecture and implementation beyond the attention core"}</>]]} />
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{"For length "}<InlineMath>{"L"}</InlineMath>{", dense causal attention has "}<InlineMath>{"L(L+1)/2"}</InlineMath>{" legal pairs per head. Computing their dot products and weighted values costs order "}<InlineMath>{"L^2(d_k+d_v)"}</InlineMath>{". A simple implementation allocates a full square score tensor, including cells later masked. At batch one, 32 heads and two bytes per score, that tensor alone is 4 GiB at "}<InlineMath>{"L=8192"}</InlineMath>{", and 64 GiB at "}<InlineMath>{"L=32768"}</InlineMath>{": "}<InlineMath>{"32L^2\\times2"}</InlineMath>{" bytes, with "}<InlineMath>{"1\\text{ GiB}=2^{30}"}</InlineMath>{" bytes. These are allocation calculations, not peak memory measurements or claims about which GPU can train a model."}</Prose>
 
-      <H3>2.1 Two knobs: which pairs, and how to compute over them</H3>
+<Prose>{""}<strong>{"Exact attention need not allocate that square tensor."}</strong>{" FlashAttention tiles the same softmax computation and accumulates it using stable running statistics; it reduces transfers and intermediates while retaining the dense operator and its quadratic pair arithmetic. The relevant comparison for a proposed approximation is a strong exact implementation, not only a deliberately materialized reference. "}<a href={"https://arxiv.org/abs/2205.14135"}>{"FlashAttention paper"}</a>{""}</Prose>
 
-      <Prose>
-        Every efficient-attention method turns one of two knobs. The <strong>sparse</strong> knob picks a subset of the {"L \\times L"} query-key pairs and only computes attention over that subset. The <strong>low-rank/kernel</strong> knob keeps the {"[L, L]"} structure conceptually but rewrites the computation so it never has to be materialised. Sliding-window and Longformer are sparse. Linformer and Performer are low-rank/kernel. Reformer is sparse but the sparsity is data-dependent (LSH routing). BigBird is sparse and carefully chosen to recover expressivity. These are not disjoint strategies; some methods (like Longformer's global tokens) combine sparsity with structural guarantees that approximate the missing edges.
-      </Prose>
+<Prose>{"The previous GQA and MLA lessons reduced what is stored per past token. Sparse attention instead asks which past tokens to read. A recurrent feature method changes how the past is represented. These choices can sometimes be combined, but their equations and costs must still be checked together."}</Prose>
 
-      <H3>2.2 Local attention: most interesting interactions are nearby</H3>
+<SparseFigure kind="representations" />
 
-      <Prose>
-        The foundational empirical observation of sparse attention is that in natural text, most tokens that actually need to attend to a given query sit within a few hundred positions of it. Pronouns bind to recent referents; subject-verb agreement is a few words apart; within-paragraph coherence dominates cross-paragraph coherence. A sliding-window attention of size {"w = 256"} captures roughly 95% of the attention mass in a typical document-trained baseline (measured by Beltagy et al. via attention entropy). The remaining 5% — long-distance coreference, topic-carrying concepts, document-level structure — needs a different mechanism.
-      </Prose>
+<H2>{"2. Sparse attention: choose which connections exist"}</H2>
 
-      <H3>2.3 Global tokens: giving hubs full reach</H3>
+<Prose>{"Choose a nonempty subset "}<InlineMath>{"S_t\\subseteq J_t"}</InlineMath>{", then perform ordinary softmax over that subset:"}</Prose>
 
-      <Prose>
-        Longformer's fix for long-distance dependencies is to designate a handful of tokens (typically the [CLS] classifier, question tokens in QA, and all document-level markers) as <em>global</em>: they attend to every position and every position attends to them. These act as hubs in a small-world graph — any two tokens can communicate in two hops via a global token. With {"G"} global tokens and window {"w"}, total attention edges per layer are {"O(L w + L G)"}, which is linear in {"L"} as long as {"G"} is small.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\tilde o_t=\\sum_{j\\in S_t}\n\\frac{e^{s_{tj}}}{\\sum_{u\\in S_t}e^{s_{tu}}}v_j."}</MathBlock></div>
 
-      <H3>2.4 Random edges: expressivity from probability</H3>
+<Prose>{"This is exact attention "}<strong>{"for the specified sparse graph"}</strong>{". It generally differs from the original dense graph. The retained values are the same records, but their probabilities change because the normalization changes."}</Prose>
 
-      <Prose>
-        BigBird adds a few random attention edges to window-plus-global. The theoretical motivation is striking: the paper proves that window + global + random, with even a very sparse random graph ({"O(\\log L)"} edges per node), is a universal approximator of full attention. Intuitively, the random edges act as "shortcut" connections in a small-world graph; they do not help a specific dependency directly, but they ensure that on average any two tokens are a small number of hops apart and attention can propagate across them through stacked layers.
-      </Prose>
+<H3>{"A removed value changes the other weights too"}</H3>
 
-      <H3>2.5 Strided/fixed patterns: structured sparsity for efficient kernels</H3>
+<Prose>{"Suppose a dense row has weights "}<InlineMath>{"[0.5,0.25,0.25]"}</InlineMath>{" and scalar values "}<InlineMath>{"[2,-1,4]"}</InlineMath>{". Its output is"}</Prose>
 
-      <Prose>
-        Sparse Transformer's patterns are more regular. A <em>strided</em> pattern has token {"i"} attend to positions {"\\{i - k, i - 2k, i - 3k, \\ldots\\}"} for some stride {"k"}; a <em>fixed</em> pattern partitions positions into blocks of size {"k"} and has tokens attend to all positions within their block plus a canonical summary position of each previous block. Both give {"O(L \\sqrt{L})"} cost with {"k = \\sqrt{L}"}, and both have the enormous practical advantage that the sparsity pattern is fixed at compile time, which lets a dense-on-sparse kernel run close to dense speed.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"0.5(2)+0.25(-1)+0.25(4)=1.75."}</MathBlock></div>
 
-      <H3>2.6 LSH: hash-collision routing</H3>
+<Prose>{"Remove the final key. The two retained weights become "}<InlineMath>{"2/3"}</InlineMath>{" and "}<InlineMath>{"1/3"}</InlineMath>{", so the result becomes "}<InlineMath>{"1"}</InlineMath>{", not "}<InlineMath>{"0.75"}</InlineMath>{". The removed probability mass was "}<InlineMath>{"\\delta=0.25"}</InlineMath>{", but the output changed by "}<InlineMath>{"0.75"}</InlineMath>{". Probability mass and output error have different units."}</Prose>
 
-      <Prose>
-        Reformer observes that softmax{"(QK^T / \\sqrt{d})"} is sharply peaked — for most queries only a handful of keys matter. If we could identify those keys in {"O(L \\log L)"} time instead of the {"O(L)"} naive scan, we would save a factor of roughly {"L / \\log L"}. LSH with random projections approximates this: hash each {"Q"} and {"K"} vector by the sign pattern of a random projection {"R \\in \\mathbb{R}^{d \\times b}"}, so that vectors with small angular distance land in the same bucket. Attend only within buckets. The hash is data-adaptive: different queries end up attending to different keys, but the total count of active pairs stays {"O(L)"}.
-      </Prose>
+<Prose>{"There is a useful bound. Let "}<InlineMath>{"\\mu_{\\rm keep}"}</InlineMath>{" and "}<InlineMath>{"\\mu_{\\rm drop}"}</InlineMath>{" be the normalized weighted averages within the retained and removed sets, with "}<InlineMath>{"0<\\delta<1"}</InlineMath>{". Then"}</Prose>
 
-      <H3>2.7 Low-rank compression: the sequence axis is probably overparameterised</H3>
+<div className="neural-equation"><MathBlock>{"o=(1-\\delta)\\mu_{\\rm keep}+\\delta\\mu_{\\rm drop},\\qquad\no-\\tilde o=\\delta(\\mu_{\\rm drop}-\\mu_{\\rm keep})."}</MathBlock></div>
 
-      <Prose>
-        Linformer's observation is that the {"[L, d]"} {"K"} and {"V"} matrices are highly low-rank along the sequence axis for most inputs. If so, a fixed linear projection {"E \\in \\mathbb{R}^{k \\times L}"} can compress {"K"} to {"K' = E K \\in \\mathbb{R}^{k \\times d}"} with minimal information loss for {"k \\ll L"}. Now the attention matmul {"Q K'^T"} is {"[L, k]"} instead of {"[L, L]"} — linear in {"L"}. The projection is learned during pre-training and shared across layers. The fatal weakness of Linformer is that it breaks causality: the projection mixes future keys into the compressed representation, so you cannot use it for autoregressive generation without hacks.
-      </Prose>
+<Prose>{"If all values satisfy "}<InlineMath>{"\\|v_j\\|\\le R"}</InlineMath>{", the triangle inequality gives "}<InlineMath>{"\\|o-\\tilde o\\|\\le2R\\delta"}</InlineMath>{". Here the bound is "}<InlineMath>{"2"}</InlineMath>{", which safely exceeds "}<InlineMath>{"0.75"}</InlineMath>{". It can be loose: if every value equals the same vector, dropping keys changes the probabilities but leaves the output unchanged. A small removed mass is helpful evidence, not a complete end-to-end model guarantee; later layers may amplify or damp the change. Also, calculating the exact removed mass ordinarily requires the full reference row, so it is an evaluation diagnostic rather than a free sparse-selection algorithm."}</Prose>
 
-      <H3>2.8 Kernel trick: softmax as a feature-map inner product</H3>
+<SparseFigure kind="mass" />
 
-      <Prose>
-        The deepest idea in this family belongs to Katharopoulos and Performers. Standard attention is
-      </Prose>
+<H3>{"Windows have a precise reach"}</H3>
 
-      <MathBlock>{"\\mathrm{Attn}(q_t)_i = \\sum_s \\frac{\\exp(q_t \\cdot k_s)}{\\sum_{s'} \\exp(q_t \\cdot k_{s'})} v_s"}</MathBlock>
+<Prose>{"In this lesson, a causal window of width "}<strong>{""}<InlineMath>{"W"}</InlineMath>{" means at most "}<InlineMath>{"W"}</InlineMath>{" total keys, including the current position"}</strong>{":"}</Prose>
 
-      <Prose>
-        The numerator is an inner product inside an exponential, which looks unfactorable. But if we replace {"\\exp(q \\cdot k)"} with {"\\phi(q) \\cdot \\phi(k)"} for some non-negative feature map {"\\phi"}, the sum factors:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"S_t=\\{j:0\\le j\\le t,\\ t-j<W\\}."}</MathBlock></div>
 
-      <MathBlock>{"\\sum_s \\phi(q_t) \\cdot \\phi(k_s) \\, v_s = \\phi(q_t) \\cdot \\left( \\sum_s \\phi(k_s) \\, v_s^T \\right)"}</MathBlock>
+<Prose>{"This convention prevents a common off-by-one error. With "}<InlineMath>{"W=3"}</InlineMath>{", position 7 can directly read 5, 6 and 7. For "}<InlineMath>{"L=12"}</InlineMath>{", the first rows have 1 and 2 keys; the remaining ten have 3, giving "}<InlineMath>{"33"}</InlineMath>{" edges. In general, with "}<InlineMath>{"m=\\min(L,W)"}</InlineMath>{", the count is"}</Prose>
 
-      <Prose>
-        The inner parenthesis is an {"[m, d]"} matrix, where {"m"} is the feature-map dimension. It depends only on {"K, V"} and can be accumulated once in {"O(L m d)"}. The outer product with the query is {"O(L m d)"} as well. Total cost: linear in {"L"}. The question is which feature map {"\\phi"} actually approximates softmax well. Katharopoulos used {"\\phi(x) = \\mathrm{elu}(x) + 1"}, which is simple but not a principled approximation. Performers use random-feature maps from the FAVOR+ family that provably approximate {"\\exp(q \\cdot k)"} in expectation with variance controlled by {"m"}.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"m(m+1)/2+(L-m)m."}</MathBlock></div>
 
-      <H3>2.9 The mental model in one line</H3>
+<Prose>{"Read the attention mask as a graph: row "}<InlineMath>{"t"}</InlineMath>{", column "}<InlineMath>{"j"}</InlineMath>{" means information can travel "}<strong>{"from input "}<InlineMath>{"j"}</InlineMath>{" to output "}<InlineMath>{"t"}</InlineMath>{""}</strong>{" in one layer. A second layer reads the first layer's representations, allowing information to move again. With this window and only tokenwise operations between attention layers, "}<InlineMath>{"D"}</InlineMath>{" layers can reach at most "}<InlineMath>{"D(W-1)"}</InlineMath>{" positions into the past. Residual connections preserve already reachable information. Parallel heads in one layer do not turn a two-edge route into a two-layer computation."}</Prose>
 
-      <Prose>
-        Sparse attention picks which {"(i, j)"} pairs exist; linear attention keeps all pairs conceptually but rewrites the computation so they never get enumerated. Both buy scalability. Both give up something — sparse gives up edges the chosen pattern misses; linear gives up softmax's sharp peak and replaces it with a blunter kernel. The question every design must answer is whether the sacrifice is worth the speedup on the task at hand.
-      </Prose>
+<Prose>{"This is a statement about possible dependence. A reachable record may receive negligible weight or lose information while passing through intermediate vectors. A missing path, however, gives an exact inability to depend on that record under the stated architecture."}</Prose>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<H3>{"Global, strided and random connections"}</H3>
 
-      <H3>3.1 Longformer: window plus global</H3>
+<Prose>{"A "}<strong>{"global token"}</strong>{" can gather and redistribute information. In a bidirectional encoder, it can read the whole input and other positions can read it in a later layer. Longformer's local-plus-global pattern makes this useful for document classification or question tokens. It also uses separate projections for its global attention. Dilated windows sample nearby offsets more sparsely. "}<a href={"https://arxiv.org/html/2004.05150v2"}>{"Longformer, §3"}</a>{""}</Prose>
 
-      <Prose>
-        Let {"Q, K, V \\in \\mathbb{R}^{L \\times d}"} with row {"t"} indexed by sequence position. Define the attention mask {"M \\in \\{0, 1\\}^{L \\times L}"} as
-      </Prose>
+<Prose>{"Causality changes that picture. A global token at position 0 cannot collect information from position 2 in a causal decoder. In our 12-position example, adding a causal hub at 6 creates the path "}<InlineMath>{"2\\to6\\to11"}</InlineMath>{"; adding a hub at 0 does not. Every edge must respect time, including edges inside a pooling or routing component. Drawing an undirected star hides this distinction."}</Prose>
 
-      <MathBlock>{"M_{t,s} = \\mathbb{1}[|t - s| \\le w] \\;\\lor\\; \\mathbb{1}[t \\in \\mathcal{G}] \\;\\lor\\; \\mathbb{1}[s \\in \\mathcal{G}]"}</MathBlock>
+<SparseFigure kind="hubs" />
 
-      <Prose>
-        where {"w"} is the window half-size and {"\\mathcal{G} \\subset \\{1, \\ldots, L\\}"} is the set of global positions. The attention is
-      </Prose>
+<Prose>{"Alternating local and strided patterns offers another route. A layer can read a nearby range, then another layer can read positions separated by stride "}<InlineMath>{"s"}</InlineMath>{". With "}<InlineMath>{"s"}</InlineMath>{" around "}<InlineMath>{"\\sqrt L"}</InlineMath>{", a construction using local spans of order "}<InlineMath>{"s"}</InlineMath>{" and strided spans of order "}<InlineMath>{"L/s"}</InlineMath>{" costs order "}<InlineMath>{"L\\sqrt L"}</InlineMath>{". The exact routes depend on offsets and layer order. Sparse Transformer developed local/strided and fixed-block factorizations for sequence generation, including images and audio; the factorization changes the available computation rather than reproducing every dense head exactly. "}<a href={"https://arxiv.org/html/1904.10509v1"}>{"Sparse Transformer, §4–5"}</a>{""}</Prose>
 
-      <MathBlock>{"\\mathrm{Attn}(Q, K, V)_t = \\sum_s \\mathrm{softmax}_s\\!\\left(\\frac{Q_t K_s^T}{\\sqrt{d}} + \\log M_{t,s}\\right) V_s"}</MathBlock>
+<Prose>{"BigBird combines local, global and random connections. With fixed numbers of each, the edge count is linear in sequence length. Its universality result is an existence theorem for sufficiently expressive networks and continuous functions on a fixed-length compact domain, using an appropriate graph containing a global star. It is not a promise that a fixed small model will equal dense attention, nor that a particular number of random edges guarantees task accuracy. The paper also studies genomics, where relevant sequence context extends beyond nearby symbols. "}<a href={"https://arxiv.org/html/2007.14062v2"}>{"BigBird, §2–3 and §5"}</a>{""}</Prose>
 
-      <Prose>
-        with {"\\log M_{t,s} = -\\infty"} when {"M_{t,s} = 0"}. Edge count is {"|\\{(t, s) : M_{t,s} = 1\\}| = O(L w + L |\\mathcal{G}|)"}. Longformer uses separate projection matrices {"W_Q^g, W_K^g, W_V^g"} for the global tokens and local {"W_Q, W_K, W_V"} for windowed tokens, because the local and global regimes benefit from different feature subspaces.
-      </Prose>
+<SparseGraphLab /><SparseReadLab />
 
-      <H3>3.2 BigBird: window + global + random</H3>
+<H3>{"Content-based selection: find candidates without comparing every full pair"}</H3>
 
-      <Prose>
-        BigBird extends Longformer's mask with a random sparsity pattern:
-      </Prose>
+<Prose>{"*Deeper family comparison; continue to §3 on a first pass.*"}</Prose>
 
-      <MathBlock>{"M_{t,s} = \\mathbb{1}[|t - s| \\le w] \\;\\lor\\; \\mathbb{1}[t \\in \\mathcal{G}] \\;\\lor\\; \\mathbb{1}[s \\in \\mathcal{G}] \\;\\lor\\; \\mathbb{1}[(t, s) \\in \\mathcal{R}]"}</MathBlock>
+<Prose>{"A fixed window cannot know that an old variable definition is relevant to today's query. Content routing first obtains a manageable candidate set, then applies attention within it."}</Prose>
 
-      <Prose>
-        where {"\\mathcal{R}"} is a sparse random edge set with each token having {"r"} random attention targets. Zaheer et al. prove that for the resulting attention to be a <em>universal approximator</em> of full attention, it suffices to have {"w = O(1), |\\mathcal{G}| = O(1), r = O(1)"} — and the theorem relies on the small-world-graph argument that random edges plus window edges form a connected graph of diameter {"O(\\log L)"} with high probability. Edge count is {"O(L(w + |\\mathcal{G}| + r))"} which is linear in {"L"}.
-      </Prose>
+<Prose>{""}<strong>{"Reformer"}</strong>{" uses locality-sensitive hashing. Its actual hash chooses the largest component of concatenated positive and negative random projections, "}<InlineMath>{"h(x)=\\arg\\max[xR;-xR]"}</InlineMath>{". Similar directions tend to share a bucket; this is not the same hash as independently taking every projection's sign. Shared query/key representations, normalized keys, sorting by bucket, bounded chunks and multiple hash rounds make candidate comparisons manageable. Causal masks use original positions after sorting. Repeated candidates across rounds must be handled without accidentally multiplying their contribution. A bounded chunk can miss members of a large bucket; an uncapped all-pairs bucket instead risks quadratic work. "}<a href={"https://arxiv.org/html/2001.04451v2"}>{"Reformer, §2"}</a>{""}</Prose>
 
-      <H3>3.3 Sparse Transformer: strided and fixed patterns</H3>
+<Prose>{""}<strong>{"Routing Transformer"}</strong>{" replaces fixed random partitions with online clustering of query/key representations. It uses normalized representations and balanced candidate budgets. With "}<InlineMath>{"c"}</InlineMath>{" clusters, assignment costs roughly "}<InlineMath>{"Lcd"}</InlineMath>{"; balanced within-cluster comparisons cost roughly "}<InlineMath>{"L^2d/c"}</InlineMath>{". Balancing those terms suggests "}<InlineMath>{"c"}</InlineMath>{" of order "}<InlineMath>{"\\sqrt L"}</InlineMath>{", hence order "}<InlineMath>{"L^{3/2}d"}</InlineMath>{", not automatically linear. Original position masks still matter. "}<a href={"https://aclanthology.org/2021.tacl-1.4.pdf"}>{"Routing Transformer, §4.1"}</a>{""}</Prose>
 
-      <Prose>
-        Define stride {"k"}. The <em>strided</em> pattern has token {"t"} attend to positions {"\\{t - 1, t - 2, \\ldots, t - k\\} \\cup \\{t - k, t - 2k, t - 3k, \\ldots\\}"} — a local window of size {"k"} plus a sparse stride of size {"k"}. The <em>fixed</em> pattern partitions positions into blocks of size {"k"} and has {"t"} attend to all positions in its own block plus the last position of each previous block (as a "summary" token). Both give {"O(L \\sqrt{L})"} cost when {"k = \\sqrt{L}"}. Multi-head variants alternate heads between the two patterns so the union covers enough structure.
-      </Prose>
+<Prose>{"These are approximate search mechanisms: a relevant key can be missed. Their cost includes sorting, assignment, selection and gathers. Computing a full dense score matrix and then zeroing small probabilities produces sparse *weights*, but it has already paid for the dense score computation."}</Prose>
 
-      <H3>3.4 Reformer: LSH attention</H3>
+<H2>{"3. Linear attention: change the question the memory can answer"}</H2>
 
-      <Prose>
-        Fix a random projection {"R \\in \\mathbb{R}^{d \\times b/2}"}. The LSH bucket hash of a vector {"x"} is
-      </Prose>
+<Prose>{"Sparse attention retains individual records but skips some reads. A feature-kernel method can include every earlier record by first combining them into a small state."}</Prose>
 
-      <MathBlock>{"h(x) = \\arg\\max_{i \\in [b]} \\left[ xR; -xR \\right]_i"}</MathBlock>
+<Prose>{"A "}<strong>{"feature map"}</strong>{" transforms a vector into another vector, "}<InlineMath>{"\\phi:\\mathbb R^{d_k}\\to\\mathbb R^m"}</InlineMath>{". A "}<strong>{"kernel"}</strong>{" here is a similarity of the form"}</Prose>
 
-      <Prose>
-        — the index of the largest entry in the concatenation of {"xR"} and {"-xR"}. This is a spherical LSH: vectors with small angular distance hash to the same bucket with probability increasing in {"1 - \\theta / \\pi"}. To do attention, sort tokens by hash, chunk them into buckets of size {"\\sim L / b"}, and attend only within each bucket (and optionally the previous bucket for coverage). Total cost {"O(L \\cdot L/b)"}; with {"b = L/\\log L"} this is {"O(L \\log L)"}. The hash is repeated across {"n_{rounds}"} rounds with different {"R"} to reduce collision variance; the per-layer cost is {"O(n_{rounds} L \\log L)"}.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\kappa(q,k)=\\phi(q)^T\\phi(k)."}</MathBlock></div>
 
-      <H3>3.5 Linformer: low-rank K, V projection</H3>
+<Prose>{"For a normalized weighted average, we choose features giving nonnegative similarities and require a positive denominator. Instead of softmax, define"}</Prose>
 
-      <Prose>
-        Introduce learned projection matrices {"E, F \\in \\mathbb{R}^{k \\times L}"} with {"k \\ll L"}. Define the compressed keys and values:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"o_t=\\frac{\\sum_{j\\le t}\\phi(q_t)^T\\phi(k_j)v_j}\n{\\sum_{j\\le t}\\phi(q_t)^T\\phi(k_j)}."}</MathBlock></div>
 
-      <MathBlock>{"K' = E K \\in \\mathbb{R}^{k \\times d}, \\quad V' = F V \\in \\mathbb{R}^{k \\times d}"}</MathBlock>
+<Prose>{"Distribute the multiplication inside the sum:"}</Prose>
 
-      <Prose>
-        The attention is then
-      </Prose>
+<div className="neural-equation"><MathBlock>{"S_t=\\sum_{j\\le t}\\phi(k_j)v_j^T\\in\\mathbb R^{m\\times d_v},\\qquad\nz_t=\\sum_{j\\le t}\\phi(k_j)\\in\\mathbb R^m,"}</MathBlock></div>
 
-      <MathBlock>{"\\mathrm{Attn}(Q, K', V') = \\mathrm{softmax}\\!\\left(\\frac{Q (K')^T}{\\sqrt{d}}\\right) V'"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"o_t^T=\\frac{\\phi(q_t)^TS_t}{\\phi(q_t)^Tz_t}."}</MathBlock></div>
 
-      <Prose>
-        producing an {"[L, d]"} output. The inner softmax is over an {"[L, k]"} matrix, total cost {"O(L k d)"}. Wang et al. justify the low-rank assumption by bounding the approximation error in terms of the spectral gap of {"K^T K"}, which is small in practice for text. {"E"} and {"F"} are shared across heads and layers in the parameter-efficient version, or unique per head/layer in the full version. Typical {"k"} is 128-256 for sequences up to 4096. The method does not support causal masking directly: since {"K'"} is a linear mixture of all of {"K"}, future tokens leak into past queries. Workarounds exist but add complexity.
-      </Prose>
+<Prose>{"The same result is computed by a different order of operations. A new record adds an "}<strong>{"outer product"}</strong>{": each key-feature component scales the entire value vector, creating one row contribution to "}<InlineMath>{"S"}</InlineMath>{". The query reads a weighted combination of those rows. The normalizer "}<InlineMath>{"z"}</InlineMath>{" keeps the matching amount of key-feature evidence, so output magnitude does not simply grow with the number of records. This causal recurrence is a central construction in "}<a href={"https://proceedings.mlr.press/v119/katharopoulos20a/katharopoulos20a.pdf"}>{"Transformers are RNNs, §3"}</a>{"."}</Prose>
 
-      <H3>3.6 Linear attention via kernel feature maps</H3>
+<H3>{"Work one memory update by hand"}</H3>
 
-      <Prose>
-        Katharopoulos et al. replace the softmax kernel {"\\exp(q \\cdot k)"} with an arbitrary similarity {"\\mathrm{sim}(q, k) = \\phi(q) \\cdot \\phi(k)"} for some non-negative feature map {"\\phi : \\mathbb{R}^d \\to \\mathbb{R}^m_{+}"}. Attention becomes
-      </Prose>
+<Prose>{"Use two key features and scalar values:"}</Prose>
 
-      <MathBlock>{"y_t = \\frac{\\sum_s \\phi(q_t) \\cdot \\phi(k_s) \\, v_s}{\\sum_s \\phi(q_t) \\cdot \\phi(k_s)} = \\frac{\\phi(q_t)^T \\, S_t}{\\phi(q_t)^T \\, z_t}"}</MathBlock>
+<NeuralTable caption={"Work one memory update by hand"} headers={[<>{"Position"}</>,<>{"Key features"}</>,<>{"Value"}</>,<>{"Contribution to "}<InlineMath>{"S"}</InlineMath>{""}</>,<>{"Contribution to "}<InlineMath>{"z"}</InlineMath>{""}</>]} rows={[[<>{"0"}</>,<>{""}<InlineMath>{"[1,0]"}</InlineMath>{""}</>,<>{""}<InlineMath>{"2"}</InlineMath>{""}</>,<>{""}<InlineMath>{"[2,0]^T"}</InlineMath>{""}</>,<>{""}<InlineMath>{"[1,0]^T"}</InlineMath>{""}</>],[<>{"1"}</>,<>{""}<InlineMath>{"[0,1]"}</InlineMath>{""}</>,<>{""}<InlineMath>{"-1"}</InlineMath>{""}</>,<>{""}<InlineMath>{"[0,-1]^T"}</InlineMath>{""}</>,<>{""}<InlineMath>{"[0,1]^T"}</InlineMath>{""}</>],[<>{"2"}</>,<>{""}<InlineMath>{"[1,1]"}</InlineMath>{""}</>,<>{""}<InlineMath>{"3"}</InlineMath>{""}</>,<>{""}<InlineMath>{"[3,3]^T"}</InlineMath>{""}</>,<>{""}<InlineMath>{"[1,1]^T"}</InlineMath>{""}</>]]} />
 
-      <Prose>
-        where
-      </Prose>
+<Prose>{"After all three records, "}<InlineMath>{"S=[5,2]^T"}</InlineMath>{" and "}<InlineMath>{"z=[2,2]^T"}</InlineMath>{". A query with features "}<InlineMath>{"[2,1]"}</InlineMath>{" produces numerator "}<InlineMath>{"12"}</InlineMath>{", denominator "}<InlineMath>{"6"}</InlineMath>{", and output "}<InlineMath>{"2"}</InlineMath>{"."}</Prose>
 
-      <MathBlock>{"S_t = \\sum_{s \\le t} \\phi(k_s) \\, v_s^T \\in \\mathbb{R}^{m \\times d}, \\quad z_t = \\sum_{s \\le t} \\phi(k_s) \\in \\mathbb{R}^{m}"}</MathBlock>
+<Prose>{"Check it by explicitly comparing all keys: their similarities are "}<InlineMath>{"[2,1,3]"}</InlineMath>{", giving weights "}<InlineMath>{"[1/3,1/6,1/2]"}</InlineMath>{". The weighted values again sum to "}<InlineMath>{"2"}</InlineMath>{". The memory route has not approximated this feature-kernel operator."}</Prose>
 
-      <Prose>
-        {"S_t"} and {"z_t"} are <em>recurrent states</em> of constant size that can be updated in {"O(m d)"} per step. This is the linear-RNN reformulation of attention: training is parallel via the cumulative sum above, inference is recurrent via the state update {"S_t = S_{t-1} + \\phi(k_t) v_t^T, z_t = z_{t-1} + \\phi(k_t)"}. Katharopoulos used {"\\phi(x) = \\mathrm{elu}(x) + 1"}; quality was noticeably below softmax.
-      </Prose>
+<SparseFigure kind="memory" />
 
-      <H3>3.7 Performer FAVOR+: random-feature softmax approximation</H3>
+<SparseMemoryLab />
 
-      <Prose>
-        Choromanski et al. find a principled {"\\phi"} via random features. They prove that for {"\\omega_i \\sim \\mathcal{N}(0, I_d)"},
-      </Prose>
+<H3>{"What “linear” does and does not mean"}</H3>
 
-      <MathBlock>{"\\exp(q \\cdot k) = \\mathbb{E}_\\omega\\!\\left[ \\exp(\\omega \\cdot q - \\|q\\|^2/2) \\cdot \\exp(\\omega \\cdot k - \\|k\\|^2/2) \\right]"}</MathBlock>
+<Prose>{"For fixed "}<InlineMath>{"m,d_k,d_v"}</InlineMath>{", each write and read costs order "}<InlineMath>{"md_v"}</InlineMath>{", plus the feature-map cost. Across "}<InlineMath>{"L"}</InlineMath>{" positions, the core work is order "}<InlineMath>{"Lmd_v"}</InlineMath>{". Streaming state per head contains "}<InlineMath>{"m(d_v+1)"}</InlineMath>{" scalars. The state size is independent of how many records have arrived, but not independent of the feature width or value width."}</Prose>
 
-      <Prose>
-        Define the FAVOR+ feature map
-      </Prose>
+<Prose>{"The output is generally "}<strong>{"nonlinear in the input"}</strong>{" because feature maps, normalization and the surrounding network are nonlinear. “Linear attention” refers to sequence-length scaling or the recurrent algebra, not a linear predictive model."}</Prose>
 
-      <MathBlock>{"\\phi(x) = \\frac{1}{\\sqrt{m}} \\exp\\!\\left( W x - \\frac{\\|x\\|^2}{2} \\right)"}</MathBlock>
+<Prose>{"A frequently used map is applied componentwise:"}</Prose>
 
-      <Prose>
-        where {"W \\in \\mathbb{R}^{m \\times d}"} stacks {"m"} random Gaussian vectors. Then {"\\phi(q) \\cdot \\phi(k) \\to \\exp(q \\cdot k)"} as {"m \\to \\infty"} with variance scaling as {"1/m"}. The non-negativity (from {"\\exp"}) is the "+" in FAVOR+ and is critical: negative-feature approximations gave unstable attention in early experiments. Orthogonalising the rows of {"W"} (stacking Householder or QR-derived orthonormal blocks) further reduces variance by roughly a factor of {"d"}. Typical {"m"} in practice is 256-512.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\phi(x)=\\operatorname{ELU}(x)+1=\n\\begin{cases}x+1&x\\ge0\\\\e^x&x<0.\\end{cases}"}</MathBlock></div>
 
-      <H3>3.8 Cost summary table</H3>
+<Prose>{"It defines its own similarity. It does not approximate "}<InlineMath>{"e^{q^Tk}"}</InlineMath>{" merely because it is positive. In this lesson's model, the map receives "}<InlineMath>{"q/d_k^{1/4}"}</InlineMath>{" and "}<InlineMath>{"k/d_k^{1/4}"}</InlineMath>{"; that scale is part of the declared model, not an identity turning ELU+1 into softmax."}</Prose>
 
-      <Prose>
-        For batch size 1 and a single head, ignoring projection costs:
-      </Prose>
+<Prose>{"Strictly positive finite features give a positive denominator for a nonempty prefix in exact arithmetic. Merely nonnegative features can give zero overlap. Floating-point exponentials can also underflow. An implementation must detect or handle the problem; adding a denominator floor changes the mathematical operator where the floor is active. Our measured example stays far above its floor."}</Prose>
 
-      <MathBlock>{"\\begin{array}{lll} \\text{method} & \\text{compute} & \\text{activation memory} \\\\ \\text{softmax (naive)} & O(L^2 d) & O(L^2) \\\\ \\text{softmax + FlashAttention} & O(L^2 d) & O(L) \\\\ \\text{sliding window } w & O(L w d) & O(L w) \\\\ \\text{Longformer } w + G & O((L w + L G) d) & O(L w + L G) \\\\ \\text{BigBird } w + G + r & O(L(w+G+r) d) & O(L(w+G+r)) \\\\ \\text{Sparse Transformer} & O(L \\sqrt{L} \\, d) & O(L \\sqrt{L}) \\\\ \\text{Reformer LSH} & O(L \\log L \\, d) & O(L \\log L) \\\\ \\text{Linformer } k & O(L k d) & O(L k) \\\\ \\text{Linear (FAVOR+) } m & O(L m d) & O(L m + m d) \\end{array}"}</MathBlock>
+<H3>{"A compressed state can forget distinctions"}</H3>
 
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
+<Prose>{"Let every key have one feature equal to 1. Histories with values "}<InlineMath>{"[1,3]"}</InlineMath>{" and "}<InlineMath>{"[2,2]"}</InlineMath>{" both create "}<InlineMath>{"S=4,z=2"}</InlineMath>{". Every positive query returns their mean, "}<InlineMath>{"2"}</InlineMath>{". No read of this state can answer “what was the first value?” differently for those histories."}</Prose>
 
-      <Prose>
-        All numbers below come from PyTorch 2.6 with CUDA on an RTX 4070-class GPU. Every {"# Output:"} block is real stdout. We implement sliding-window attention, Longformer's window+global mask, Linformer's sequence-axis compression, and Performer's FAVOR+ random-feature attention from first principles, verify correctness on a tiny test case, and benchmark activation memory and wall-clock across a range of sequence lengths.
-      </Prose>
+<Prose>{"This is a concrete collision, not a claim that all useful information must be lost. More expressive key features can separate other histories. Positional features and gates can make writes depend on order. But a fixed-size state should be evaluated on the retrieval distinctions the task actually needs. A low mean prediction error on a smooth signal does not prove the ability to retrieve an arbitrary earlier identifier."}</Prose>
 
-      <H3>4.1 Setup</H3>
+<Prose>{"For a pure additive state, permuting the "}<strong>{"already formed key-feature/value pairs"}</strong>{" leaves the final sum unchanged. That does not mean a whole causal network ignores order: prefix outputs differ, and adding position to inputs changes the pairs themselves. This distinction connects the algebra to the earlier positional-encoding lesson."}</Prose>
 
-      <CodeBlock language="python">
-{`import math, time
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
+<H2>{"4. Approximate softmax with random features"}</H2>
 
-torch.manual_seed(0)
-device = "cuda"`}
-      </CodeBlock>
-
-      <H3>4.2 Sliding-window attention</H3>
-
-      <Prose>
-        The naive O(L w) implementation iterates over queries and attends to a local slice of keys. The vectorised version builds a banded mask on top of the full {"[L, L]"} score matrix — O(L^2) memory in pure PyTorch, but it serves as a correctness check for the kernel-level version. Both give the same output up to roundoff.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def sliding_window_attn(Q, K, V, w=128, causal=True):
-    """Naive O(L*w) sliding-window attention. Q,K,V: [B,H,L,d]."""
-    B, H, L, d = Q.shape
-    out = torch.zeros_like(Q)
-    scale = 1.0 / math.sqrt(d)
-    for i in range(L):
-        lo = max(0, i - w)
-        hi = i + 1 if causal else min(L, i + w + 1)
-        q_i = Q[:, :, i:i+1]
-        k_w = K[:, :, lo:hi]
-        v_w = V[:, :, lo:hi]
-        s = torch.matmul(q_i, k_w.transpose(-1, -2)) * scale
-        a = F.softmax(s, dim=-1)
-        out[:, :, i:i+1] = torch.matmul(a, v_w)
-    return out
-
-def sliding_window_banded(Q, K, V, w=128):
-    """Vectorised causal banded attention via an [L,L] mask."""
-    B, H, L, d = Q.shape
-    scores = torch.matmul(Q, K.transpose(-1, -2)) / math.sqrt(d)
-    i = torch.arange(L, device=Q.device).unsqueeze(1)
-    j = torch.arange(L, device=Q.device).unsqueeze(0)
-    band = (j <= i) & (j >= i - w)
-    scores = scores.masked_fill(~band, float("-inf"))
-    a = F.softmax(scores, dim=-1)
-    return torch.matmul(a, V)
-
-B, H, L, d, w = 1, 2, 32, 16, 4
-Q = torch.randn(B, H, L, d, device=device)
-K = torch.randn(B, H, L, d, device=device)
-V = torch.randn(B, H, L, d, device=device)
-y1 = sliding_window_attn(Q, K, V, w=w, causal=True)
-y2 = sliding_window_banded(Q, K, V, w=w)
-print("max |naive - banded|:", f"{(y1-y2).abs().max().item():.3e}")
-
-# Output:
-#   max |naive - banded|: 3.576e-07`}
-      </CodeBlock>
-
-      <H3>4.3 Longformer: window + global tokens</H3>
-
-      <CodeBlock language="python">
-{`def longformer_attn(Q, K, V, w=128, global_idx=None):
-    """Window + global tokens attention with causal mask.
-    global_idx: list of positions that attend to all and are attended by all."""
-    B, H, L, d = Q.shape
-    scores = torch.matmul(Q, K.transpose(-1, -2)) / math.sqrt(d)
-    i = torch.arange(L, device=Q.device).unsqueeze(1)
-    j = torch.arange(L, device=Q.device).unsqueeze(0)
-    band = (j <= i) & (j >= i - w)
-    if global_idx is not None and len(global_idx) > 0:
-        g = torch.zeros(L, dtype=torch.bool, device=Q.device)
-        g[list(global_idx)] = True
-        band = band | g.unsqueeze(0) | g.unsqueeze(1)
-    band = band & (j <= i)  # causal
-    scores = scores.masked_fill(~band, float("-inf"))
-    a = F.softmax(scores, dim=-1)
-    return torch.matmul(a, V), band
-
-y_lf, band = longformer_attn(Q, K, V, w=w, global_idx=[0, 5])
-edges = band.sum().item()
-total = L * L
-print(f"Longformer mask: {edges}/{total} edges active "
-      f"({100*edges/total:.1f}% of full dense)")
-
-# Output:
-#   Longformer mask: 199/1024 edges active (19.4% of full dense)`}
-      </CodeBlock>
-
-      <Prose>
-        At {"L = 32, w = 4, |\\mathcal{G}| = 2"} we get 199 active edges out of 1024, or roughly 20%. At production scale ({"L = 16384, w = 512, |\\mathcal{G}| = 128"}) the density would be {"\\sim 0.07%"}.
-      </Prose>
-
-      <H3>4.4 Linformer: low-rank sequence-axis projection</H3>
-
-      <CodeBlock language="python">
-{`class Linformer(nn.Module):
-    def __init__(self, L_max=4096, k=128, H=4, d=32):
-        super().__init__()
-        self.H, self.d, self.k = H, d, k
-        D = H * d
-        self.Wq = nn.Linear(D, D, bias=False)
-        self.Wk = nn.Linear(D, D, bias=False)
-        self.Wv = nn.Linear(D, D, bias=False)
-        # Learned projection matrices E, F: [k, L_max]
-        self.E = nn.Parameter(torch.randn(k, L_max) / math.sqrt(L_max))
-        self.Fp = nn.Parameter(torch.randn(k, L_max) / math.sqrt(L_max))
-
-    def forward(self, x):
-        B, L, D = x.shape
-        Q = self.Wq(x).view(B, L, self.H, self.d).transpose(1, 2)
-        K = self.Wk(x).view(B, L, self.H, self.d).transpose(1, 2)
-        V = self.Wv(x).view(B, L, self.H, self.d).transpose(1, 2)
-        E  = self.E[:, :L]           # crop to actual L
-        Fp = self.Fp[:, :L]
-        Kp = torch.einsum("kl,bhld->bhkd", E, K)
-        Vp = torch.einsum("kl,bhld->bhkd", Fp, V)
-        scores = torch.matmul(Q, Kp.transpose(-1, -2)) / math.sqrt(self.d)
-        a = F.softmax(scores, dim=-1)
-        out = torch.matmul(a, Vp)
-        return out.transpose(1, 2).reshape(B, L, self.H * self.d)
-
-lin = Linformer(L_max=4096, k=128, H=4, d=32).to(device)
-x = torch.randn(2, 512, 4*32, device=device)
-y = lin(x)
-print(f"Linformer out shape: {tuple(y.shape)}")
-print(f"attention is [L, k] instead of [L, L]: [512, {lin.k}]")
-
-# Output:
-#   Linformer out shape: (2, 512, 128)
-#   attention is [L, k] instead of [L, L]: [512, 128]`}
-      </CodeBlock>
-
-      <Prose>
-        The projection matrices {"E, F"} are {"[k, L_{max}]"}, so they fix a maximum sequence length at construction time — one of the reasons Linformer never became a general-purpose architecture. The attention is {"[L, k]"}: every query still looks at {"k = 128"} "summary keys" instead of {"L"} individual keys.
-      </Prose>
-
-      <H3>4.5 Performer: FAVOR+ random-feature linear attention</H3>
-
-      <CodeBlock language="python">
-{`def favor_plus_phi(x, proj, eps=1e-6):
-    """FAVOR+ feature map: phi(x) = exp(x W - ||x||^2/2) / sqrt(m).
-    Positive-definite, approximates exp(x.y) in expectation."""
-    m = proj.shape[-1]
-    x_norm_sq = (x ** 2).sum(dim=-1, keepdim=True) / 2.0
-    xw = torch.matmul(x, proj)
-    return torch.exp(xw - x_norm_sq) / math.sqrt(m) + eps
-
-def ortho_gaussian(d, m, device):
-    """Orthogonal random features: stack QR-orthonormalised Gaussian blocks."""
-    blocks = []
-    while sum(b.shape[0] for b in blocks) < m:
-        g = torch.randn(d, d, device=device)
-        q, _ = torch.linalg.qr(g.T)
-        blocks.append(q * math.sqrt(d))
-    W = torch.cat(blocks, dim=0)[:m]
-    return W.T  # [d, m]
-
-def performer_attention(Q, K, V, m=256, ortho=True):
-    """Linear attention: out = phi(Q) (phi(K)^T V) / (phi(Q) (phi(K)^T 1))."""
-    B, H, L, d = Q.shape
-    proj = ortho_gaussian(d, m, Q.device) if ortho else torch.randn(d, m, device=Q.device)
-    qp = favor_plus_phi(Q, proj)                           # [B,H,L,m]
-    kp = favor_plus_phi(K, proj)
-    kv = torch.einsum("bhlm,bhld->bhmd", kp, V)           # [B,H,m,d]
-    num = torch.einsum("bhlm,bhmd->bhld", qp, kv)         # [B,H,L,d]
-    k_sum = kp.sum(dim=2)                                  # [B,H,m]
-    denom = torch.einsum("bhlm,bhm->bhl", qp, k_sum).unsqueeze(-1) + 1e-6
-    return num / denom
-
-# Approximation check with Q,K pre-scaled by 1/d^(1/4)
-# (softmax attention folds 1/sqrt(d) into the exponent -- FAVOR+ needs this)
-torch.manual_seed(0)
-B, H, L, d = 1, 1, 128, 16
-Q = torch.randn(B, H, L, d, device=device) / (d ** 0.25)
-K = torch.randn(B, H, L, d, device=device) / (d ** 0.25)
-V = torch.randn(B, H, L, d, device=device)
-scores = torch.matmul(Q, K.transpose(-1, -2))
-y_true = torch.matmul(F.softmax(scores, dim=-1), V)
-
-def rel_err(a, b): return ((a - b).norm() / b.norm()).item()
-
-for m in [64, 256, 1024]:
-    errs = []
-    for seed in range(8):
-        torch.manual_seed(seed)
-        y = performer_attention(Q, K, V, m=m, ortho=True)
-        errs.append(rel_err(y, y_true))
-    print(f"m={m:4d}: mean rel err {sum(errs)/len(errs):.3f} (over 8 seeds)")
-
-# Output:
-#   m=  64: mean rel err 0.742 (over 8 seeds)
-#   m= 256: mean rel err 0.578 (over 8 seeds)
-#   m=1024: mean rel err 0.490 (over 8 seeds)`}
-      </CodeBlock>
-
-      <Prose>
-        The FAVOR+ approximation error shrinks with {"m"} but plateaus around 0.5 because softmax attention is sharply peaked and random-feature approximations have inherent variance on low-entropy distributions. In practice, Performer-trained models learn attention patterns that are smoother than softmax would produce, which closes the quality gap somewhat. The relative L2 error numbers here are worst-case — on real text with entropy-smoothed attention, the error is much smaller. The paper's variance-reduction technique (orthogonal rows of {"W"}) cuts this by a factor of about 2x compared to non-orthogonal Gaussians.
-      </Prose>
-
-      <H3>4.6 Activation memory across sequence length</H3>
-
-      <CodeBlock language="python">
-{`def estimate_attn_memory(L, H=8, d=64, w=128, k=128, m=256, dtype_bytes=4):
-    """Peak activation memory (bytes) for the attention score tensor."""
-    dense  = H * L * L * dtype_bytes                    # [B=1,H,L,L]
-    window = H * L * w * dtype_bytes                    # [B,H,L,w]
-    linf   = H * L * k * dtype_bytes                    # [B,H,L,k]
-    perf   = H * m * d * dtype_bytes + H * L * m * dtype_bytes
-    return dense, window, linf, perf
-
-print(f"{'L':>8s} {'Dense':>12s} {'Window w=128':>16s} "
-      f"{'Linf k=128':>14s} {'Perf m=256':>14s}")
-print("-" * 70)
-for L in [512, 1024, 2048, 4096, 8192, 16384]:
-    d_, w_, lin_, perf_ = estimate_attn_memory(L, H=8, d=64)
-    print(f"{L:>8d} "
-          f"{d_/1e6:>11.2f}M {w_/1e6:>15.2f}M "
-          f"{lin_/1e6:>13.2f}M {perf_/1e6:>13.2f}M")
-
-# Output:
-#          L        Dense     Window w=128     Linf k=128     Perf m=256
-#   ----------------------------------------------------------------------
-#        512        8.39M            2.10M          2.10M          4.72M
-#       1024       33.55M            4.19M          4.19M          8.91M
-#       2048      134.22M            8.39M          8.39M         17.30M
-#       4096      536.87M           16.78M         16.78M         34.08M
-#       8192     2147.48M           33.55M         33.55M         67.63M
-#      16384     8589.93M           67.11M         67.11M        134.74M`}
-      </CodeBlock>
-
-      <Prose>
-        At {"L = 16384"}, dense attention's score tensor alone is 8.6 GB per sample in fp32, which is why naive long-context training was infeasible pre-FlashAttention. Sliding-window with {"w = 128"} is 128x smaller. Linformer at {"k = 128"} matches (though Linformer pays extra memory for the {"E, F"} projections). Performer with {"m = 256"} uses 2x more than pure window because the feature-map vectors {"\\phi(Q), \\phi(K)"} are each {"[L, m]"}, but it has the unique property that the constant is independent of {"L"} for the kv-state {"\\sum_s \\phi(k_s) v_s^T"}: that term is {"[m, d]"}, just 32 KB per head, regardless of context length.
-      </Prose>
-
-      <H3>4.7 Wall-clock and peak GPU memory at L=2048</H3>
-
-      <CodeBlock language="python">
-{`L, H, d = 2048, 8, 64
-Q = torch.randn(1, H, L, d, device=device)
-K = torch.randn(1, H, L, d, device=device)
-V = torch.randn(1, H, L, d, device=device)
-
-def time_fn(fn, warm=3, iters=10):
-    for _ in range(warm): fn()
-    torch.cuda.synchronize()
-    t0 = time.time()
-    for _ in range(iters): fn()
-    torch.cuda.synchronize()
-    return (time.time() - t0) / iters * 1000  # ms
-
-t_dense = time_fn(lambda: torch.matmul(
-    F.softmax(torch.matmul(Q, K.transpose(-1,-2))/math.sqrt(d), -1), V))
-t_band  = time_fn(lambda: sliding_window_banded(Q, K, V, w=128))
-t_perf  = time_fn(lambda: performer_attention(Q, K, V, m=256))
-
-print(f"L={L}, H={H}, d={d}  wall-clock per forward (ms):")
-print(f"  Dense softmax   : {t_dense:.2f}")
-print(f"  Banded (w=128)  : {t_band:.2f}")
-print(f"  Performer m=256 : {t_perf:.2f}")
-
-def peak_mem(fn):
-    torch.cuda.empty_cache(); torch.cuda.reset_peak_memory_stats()
-    fn()
-    return torch.cuda.max_memory_allocated() / 1e6
-
-mem_dense = peak_mem(lambda: torch.matmul(
-    F.softmax(torch.matmul(Q, K.transpose(-1,-2))/math.sqrt(d), -1), V))
-mem_perf  = peak_mem(lambda: performer_attention(Q, K, V, m=256))
-print(f"\\nPeak activation memory (MB) at L={L}:")
-print(f"  Dense softmax   : {mem_dense:.1f}")
-print(f"  Performer m=256 : {mem_perf:.1f}")
-
-# Output:
-#   L=2048, H=8, d=64  wall-clock per forward (ms):
-#     Dense softmax   : 9.04
-#     Banded (w=128)  : 10.80
-#     Performer m=256 : 3.69
-#
-#   Peak activation memory (MB) at L=2048:
-#     Dense softmax   : 571.6
-#     Performer m=256 : 370.4`}
-      </CodeBlock>
-
-      <Prose>
-        The Performer is actually faster than dense softmax at L=2048 — 2.5x speedup — because even at this modest length the {"O(L^2)"} softmax is already bandwidth-bound on a consumer GPU. The banded version in pure PyTorch is slower than dense because the mask-and-fill operations do not benefit from the sparse pattern (the kernel still walks the full {"[L, L]"} tensor). Production sliding-window needs a fused kernel — in flash-attn's sliding-window mode, it beats dense decisively at this scale.
-      </Prose>
-
-      <Prose>
-        Peak memory tells the real story: the dense softmax peaks at 572 MB, the Performer at 370 MB — 35% reduction. Extrapolated to L=16384, dense would peak above 8 GB and Performer would stay around 1 GB, a 10x memory reduction — which matches the theoretical scaling above.
-      </Prose>
-
-      <H3>4.8 Sanity check: sliding window on a copy task</H3>
-
-      <Prose>
-        A copy task distinguishes "my attention works" from "my attention works on short-range dependencies only". We train two 2-layer window-attention LMs on a length-6 copy task (source, separator, target). Window {"w = 8"} covers the full source; window {"w = 2"} cannot see past the separator. The second should fail.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class TinyWindowAttnLM(nn.Module):
-    def __init__(self, vocab=32, d=64, H=4, w=8, L_max=32, n_layers=2):
-        super().__init__()
-        self.H, self.d, self.w = H, d // H, w
-        self.tok = nn.Embedding(vocab, d)
-        self.pos = nn.Embedding(L_max, d)
-        self.blocks = nn.ModuleList([
-            nn.ModuleDict({
-                "qkv": nn.Linear(d, 3*d, bias=False),
-                "o":   nn.Linear(d, d, bias=False),
-                "ff":  nn.Sequential(nn.Linear(d, 4*d), nn.GELU(), nn.Linear(4*d, d)),
-                "ln1": nn.LayerNorm(d),
-                "ln2": nn.LayerNorm(d),
-            }) for _ in range(n_layers)
-        ])
-        self.ln_f = nn.LayerNorm(d)
-        self.head = nn.Linear(d, vocab, bias=False)
-
-    def attn_window(self, x, qkv, w):
-        B, L, D = x.shape
-        QKV = qkv(x).view(B, L, 3, self.H, self.d).permute(2, 0, 3, 1, 4)
-        Q, K, V = QKV[0], QKV[1], QKV[2]
-        i = torch.arange(L, device=x.device).unsqueeze(1)
-        j = torch.arange(L, device=x.device).unsqueeze(0)
-        band = (j <= i) & (j >= i - w)
-        s = torch.matmul(Q, K.transpose(-1,-2)) / math.sqrt(self.d)
-        s = s.masked_fill(~band, float("-inf"))
-        a = F.softmax(s, dim=-1)
-        return torch.matmul(a, V).transpose(1,2).reshape(B, L, -1)
-
-    def forward(self, x):
-        B, L = x.shape
-        pos = torch.arange(L, device=x.device).unsqueeze(0).expand(B, L)
-        h = self.tok(x) + self.pos(pos)
-        for blk in self.blocks:
-            h = h + blk["o"](self.attn_window(blk["ln1"](h), blk["qkv"], self.w))
-            h = h + blk["ff"](blk["ln2"](h))
-        return self.head(self.ln_f(h))
-
-VOCAB, LC = 32, 6
-def sample_copy(B, L=LC, V=VOCAB):
-    SEP = V - 1
-    src = torch.randint(0, V - 1, (B, L), device=device)
-    sep = torch.full((B, 1), SEP, device=device, dtype=torch.long)
-    return torch.cat([src, sep, src], dim=1)
-
-for name, w in [("w=8 (covers src)", 8), ("w=2 (truncated)", 2)]:
-    torch.manual_seed(0)
-    model = TinyWindowAttnLM(vocab=VOCAB, d=64, H=4, w=w, L_max=2*LC+1).to(device)
-    opt = torch.optim.Adam(model.parameters(), lr=3e-4)
-    for step in range(1, 1201):
-        x = sample_copy(128)
-        logits = model(x)
-        loss = F.cross_entropy(logits[:, :-1].reshape(-1, VOCAB),
-                               x[:, 1:].reshape(-1))
-        opt.zero_grad(); loss.backward(); opt.step()
-    model.eval()
-    with torch.no_grad():
-        x = sample_copy(256)
-        pred = model(x).argmax(-1)
-        acc = (pred[:, LC:2*LC] == x[:, LC+1:2*LC+1]).float().mean().item()
-    print(f"{name}: final loss {loss.item():.3f}, copy accuracy {acc:.3f}")
-
-# Output:
-#   w=8 (covers src): final loss 1.436, copy accuracy 1.000
-#   w=2 (truncated): final loss 3.148, copy accuracy 0.027`}
-      </CodeBlock>
-
-      <Prose>
-        The first model reaches 100% copy accuracy — proof that windowed attention of adequate size learns arbitrary permutations within the window. The second model's accuracy (2.7%) is chance on a 31-vocab uniform distribution, meaning the model has no way to transmit the source across the SEP token when the window is smaller than the SEP-to-source distance. This is the classic failure mode of sliding-window architectures: if the information has to travel further than {"w \\cdot n_{layers}"} positions, it cannot reach its target. Mistral's solution is a large window (4096) times many layers (32), giving an effective "receptive field" of {"4096 \\cdot 32 = 131072"} tokens.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production</H2>
-
-      <H3>5.1 Longformer in HuggingFace Transformers</H3>
-
-      <Prose>
-        The HuggingFace implementation (<Code>{"LongformerModel"}</Code>, <Code>{"LongformerForSequenceClassification"}</Code>, <Code>{"LongformerForQuestionAnswering"}</Code>) ships with a custom CUDA kernel for the windowed attention pattern — the vanilla PyTorch implementation falls back to a chunked loop that is slow at scale. Global tokens are specified via a {"global_attention_mask"} argument of the same shape as the input, with 1s at positions that should have full attention. The pre-trained checkpoints are {"allenai/longformer-base-4096"} (window 512, max length 4096) and {"allenai/longformer-large-4096"}. The typical use case is long-document classification (legal contracts, clinical notes, patents) where the 4096-token window gives a 10x range extension over vanilla BERT at comparable training cost.
-      </Prose>
-
-      <H3>5.2 BigBird in HuggingFace Transformers</H3>
-
-      <Prose>
-        The HuggingFace <Code>{"BigBirdModel"}</Code> implementation supports two modes: <Code>{"block_sparse"}</Code>, which uses the original random-plus-window-plus-global pattern, and <Code>{"original_full"}</Code>, which falls back to dense attention for short sequences. Block-sparse mode operates at a block granularity (blocks of 64 tokens) to make the random-attention pattern GPU-efficient. Typical config: window of 3 blocks (192 tokens) each side, 2 global blocks at the start, 3 random blocks per query block. Google's pre-trained checkpoints (<Code>{"google/bigbird-roberta-base"}</Code>, <Code>{"google/bigbird-roberta-large"}</Code>) support up to 4096 tokens. BigBird was briefly the state-of-the-art on long-document QA (TriviaQA, NaturalQuestions) before being overtaken by Longformer-style models with better pre-training data.
-      </Prose>
-
-      <H3>5.3 FlashAttention's sliding-window mode</H3>
-
-      <Prose>
-        Tri Dao's flash-attn library (v2.0+) has a sliding-window kernel that is the de facto production implementation of local attention. The API is <Code>{"flash_attn_func(q, k, v, window_size=(left, right))"}</Code> — left and right half-window sizes. The kernel fuses the window mask directly into the attention computation so no explicit mask tensor is ever created; memory stays {"O(L)"} regardless of {"L"}. This is what Mistral 7B ships with: a window of 4096 tokens, enforced entirely inside the FlashAttention-2 kernel. The same kernel handles standard causal attention as a special case ({"window_size = (L, 0)"}) and is what Mistral, Mixtral, Phi-3, and Gemma-2 all use.
-      </Prose>
-
-      <H3>5.4 Mistral 7B's effective-context design</H3>
-
-      <Prose>
-        Mistral 7B (October 2023) combined sliding-window attention with two tricks that made the windowed approach production-viable. First, a <em>rolling KV cache</em>: once the cache fills to window size, older entries are overwritten in a circular buffer, so memory per sequence is fixed at {"w"} tokens instead of growing with {"L"}. Second, <em>chunked prefill</em>: at prompt-processing time, the prompt is chunked into overlapping windows to amortise the sliding mask. The effective context across 32 layers is {"32 \\cdot 4096 = 131k"} tokens, though the theoretical information-flow per layer is limited to {"w = 4096"}. Mixtral 8x7B kept the same attention design. Mistral Large (2024) dropped sliding window in favor of full attention at 32k — a signal that for models that can afford it, exact attention is always preferred.
-      </Prose>
-
-      <H3>5.5 xFormers memory-efficient attention</H3>
-
-      <Prose>
-        Facebook's xFormers library (<Code>{"xformers.ops.memory_efficient_attention"}</Code>) supports arbitrary attention biases via its {"BlockDiagonalMask"}, {"LocalAttentionFromBottomRightMask"}, and custom bias tensor API. The library is often used for sparse-attention experiments where flash-attn's built-in window mode is insufficient — e.g., varying window sizes per head, or combining window with a few global tokens in a single kernel call. The underlying kernel is a fused memory-efficient attention similar to FlashAttention but with pluggable masks. Production use in Meta's image-generation stack.
-      </Prose>
-
-      <H3>5.6 Performer and Nystromformer implementations</H3>
-
-      <Prose>
-        For pure linear attention the reference implementations are <Code>{"performer-pytorch"}</Code> (by lucidrains) and <Code>{"nystromformer"}</Code> (HuggingFace). Both are installable via pip and wrap the feature-map computation in a drop-in MultiheadAttention module. These see essentially no production deployment in 2024-2026 — the quality gap vs FlashAttention-exact is consistent at 1-3% on language benchmarks, and the compute advantage vanishes for {"L \\le 32k"} on modern hardware. Their remaining use is in research comparisons and in very-long-context settings where an actual 100k+ window is needed without a state-space model.
-      </Prose>
-
-      <H3>5.7 Reformer: mostly abandoned</H3>
-
-      <Prose>
-        Reformer's HuggingFace implementation (<Code>{"ReformerModel"}</Code>) exists but is in minimal-maintenance mode. The LSH attention has poor interaction with modern flash-attention kernels (the bucket-sort step is memory-bandwidth-bound and does not fuse), and the reversible-residual-network trick that was supposed to save memory is made redundant by gradient checkpointing in any modern training stack. Academic follow-ups to Reformer (e.g., Sinkhorn Transformer, Routing Transformer) have similarly limited deployment.
-      </Prose>
-
-      <H3>5.8 The production reality in 2024-2026</H3>
-
-      <Prose>
-        For {"L \\le 32k"}: use FlashAttention-2 or FlashAttention-3 with full softmax. For sliding window within that: add {"window_size"} to the flash-attn call. For {"32k < L \\le 256k"}: use FlashAttention with careful context-extension tricks (YaRN, rope scaling) or an SSM hybrid (Mamba-attention interleaved). For {"L > 256k"}: SSMs or retrieval-augmented architectures. The sparse-and-linear zoo of 2019-2022 is now specialist equipment for specific long-document NLP tasks and a handful of academic benchmarks.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Attention patterns across the family</H3>
-
-      <Prose>
-        Binary attention masks visualised as heatmaps for {"L = 32"}. Gold = edge present. The dense baseline (not shown) is fully gold. Each variant chooses a subset of the {"L \\times L"} edges according to a different rule.
-      </Prose>
-
-      <Heatmap
-        label="SLIDING WINDOW (w=3, causal) — LOCAL BAND ONLY"
-        rowLabels={["q0","q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"]}
-        colLabels={["k0","k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11"]}
-        matrix={[
-          [1,0,0,0,0,0,0,0,0,0,0,0],
-          [1,1,0,0,0,0,0,0,0,0,0,0],
-          [1,1,1,0,0,0,0,0,0,0,0,0],
-          [1,1,1,1,0,0,0,0,0,0,0,0],
-          [0,1,1,1,1,0,0,0,0,0,0,0],
-          [0,0,1,1,1,1,0,0,0,0,0,0],
-          [0,0,0,1,1,1,1,0,0,0,0,0],
-          [0,0,0,0,1,1,1,1,0,0,0,0],
-          [0,0,0,0,0,1,1,1,1,0,0,0],
-          [0,0,0,0,0,0,1,1,1,1,0,0],
-          [0,0,0,0,0,0,0,1,1,1,1,0],
-          [0,0,0,0,0,0,0,0,1,1,1,1],
-        ]}
-        colorScale="gold"
-      />
-
-      <Heatmap
-        label="LONGFORMER (w=2 + global=[0,6]) — WINDOW PLUS HUBS"
-        rowLabels={["q0","q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"]}
-        colLabels={["k0","k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11"]}
-        matrix={[
-          [1,0,0,0,0,0,0,0,0,0,0,0],
-          [1,1,0,0,0,0,0,0,0,0,0,0],
-          [1,1,1,0,0,0,0,0,0,0,0,0],
-          [1,0,1,1,0,0,0,0,0,0,0,0],
-          [1,0,0,1,1,0,0,0,0,0,0,0],
-          [1,0,0,0,1,1,0,0,0,0,0,0],
-          [1,1,1,1,1,1,1,0,0,0,0,0],
-          [1,0,0,0,0,1,1,1,0,0,0,0],
-          [1,0,0,0,0,0,1,1,1,0,0,0],
-          [1,0,0,0,0,0,1,0,1,1,0,0],
-          [1,0,0,0,0,0,1,0,0,1,1,0],
-          [1,0,0,0,0,0,1,0,0,0,1,1],
-        ]}
-        colorScale="gold"
-      />
-
-      <Heatmap
-        label="BIGBIRD (w=2 + global=[0] + random r=1) — WINDOW + HUB + RANDOM EDGES"
-        rowLabels={["q0","q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"]}
-        colLabels={["k0","k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11"]}
-        matrix={[
-          [1,0,0,0,0,0,0,0,0,0,0,0],
-          [1,1,0,0,0,0,0,0,0,0,0,0],
-          [1,1,1,0,0,0,0,0,0,0,0,0],
-          [1,0,1,1,0,0,0,0,1,0,0,0],
-          [1,0,0,1,1,0,1,0,0,0,0,0],
-          [1,0,1,0,1,1,0,0,0,0,0,0],
-          [1,0,0,0,0,1,1,0,0,0,0,0],
-          [1,0,0,0,0,0,1,1,0,0,1,0],
-          [1,0,0,0,1,0,0,1,1,0,0,0],
-          [1,0,0,0,0,0,0,0,1,1,0,0],
-          [1,0,0,1,0,0,0,0,0,1,1,0],
-          [1,0,0,0,0,1,0,0,0,0,1,1],
-        ]}
-        colorScale="gold"
-      />
-
-      <Heatmap
-        label="SPARSE TRANSFORMER (strided, k=3, causal) — LOCAL + REGULAR STRIDE"
-        rowLabels={["q0","q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"]}
-        colLabels={["k0","k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11"]}
-        matrix={[
-          [1,0,0,0,0,0,0,0,0,0,0,0],
-          [1,1,0,0,0,0,0,0,0,0,0,0],
-          [1,1,1,0,0,0,0,0,0,0,0,0],
-          [1,0,0,1,0,0,0,0,0,0,0,0],
-          [0,1,0,1,1,0,0,0,0,0,0,0],
-          [0,0,1,1,1,1,0,0,0,0,0,0],
-          [1,0,0,1,0,0,1,0,0,0,0,0],
-          [0,1,0,1,0,0,1,1,0,0,0,0],
-          [0,0,1,1,0,0,1,1,1,0,0,0],
-          [1,0,0,1,0,0,1,0,0,1,0,0],
-          [0,1,0,1,0,0,1,0,0,1,1,0],
-          [0,0,1,1,0,0,1,0,0,1,1,1],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        Each pattern has a different structural bias. Sliding-window says "nearby tokens are what matter." Longformer adds "some tokens are hubs." BigBird adds "random shortcuts ensure connectivity." Sparse Transformer says "local context plus regular long-range samples." BigBird's universal-approximation proof rests on the combination; no single pattern alone is expressive enough at very sparse densities.
-      </Prose>
-
-      <H3>6.2 Memory scaling: dense vs window vs low-rank vs linear</H3>
-
-      <Prose>
-        Peak attention-score memory (MB, fp32) as a function of sequence length, for {"H = 8, d = 64, w = 128, k = 128, m = 256"}. The dense curve is quadratic; the others are linear. The separation becomes unignorable past {"L = 4096"} — at {"L = 16384"} the dense memory is 128x the window, which is what forced long-context research to find alternatives before FlashAttention existed.
-      </Prose>
-
-      <Plot
-        label="PEAK ATTENTION MEMORY VS SEQUENCE LENGTH (MB, fp32)"
-        xLabel="sequence length L"
-        yLabel="score tensor memory (MB)"
-        width={580}
-        height={300}
-        series={[
-          { name: "Dense O(L^2)",    color: "#f87171", points: [[512, 8.39], [1024, 33.55], [2048, 134.22], [4096, 536.87], [8192, 2147.48], [16384, 8589.93]] },
-          { name: "Window w=128",    color: "#60a5fa", points: [[512, 2.10], [1024, 4.19],  [2048, 8.39],   [4096, 16.78],  [8192, 33.55],   [16384, 67.11]] },
-          { name: "Linformer k=128", color: "#e2b55a", points: [[512, 2.10], [1024, 4.19],  [2048, 8.39],   [4096, 16.78],  [8192, 33.55],   [16384, 67.11]] },
-          { name: "Performer m=256", color: "#c084fc", points: [[512, 4.72], [1024, 8.91],  [2048, 17.30],  [4096, 34.08],  [8192, 67.63],   [16384, 134.74]] },
-        ]}
-      />
-
-      <H3>6.3 Linformer down-projection step-by-step</H3>
-
-      <StepTrace
-        label="LINFORMER FORWARD — LOW-RANK SEQUENCE COMPRESSION"
-        steps={[
-          {
-            label: "1. Compute Q, K, V as usual",
-            render: () => (
-              <div>
-                <Prose>
-                  Input {"x \\in \\mathbb{R}^{L \\times d}"}, standard projections {"Q = x W_Q, K = x W_K, V = x W_V"}. Each is {"[L, d]"}.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"x [L=4096, d=512] --(W_Q,W_K,W_V)--> Q,K,V [L=4096, d=512]"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "2. Down-project K and V along the sequence axis",
-            render: () => (
-              <div>
-                <Prose>
-                  Learned matrices {"E, F \\in \\mathbb{R}^{k \\times L}"} mix the {"L"} keys/values into {"k"} "summary" keys/values. {"K' = E K, V' = F V"}, both {"[k, d]"}. This is the core linear-complexity move: the {"L \\to k"} reduction is a fixed linear map that does not depend on the content.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"K [L=4096, d] --(E [k=128, L=4096])--> K' [k=128, d=512]"}<br />
-                  {"V [L=4096, d] --(F [k=128, L=4096])--> V' [k=128, d=512]"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "3. Attention against compressed K', V'",
-            render: () => (
-              <div>
-                <Prose>
-                  {"Q (K')^T"} is {"[L, k]"} — linear in {"L"}. Softmax over {"k"} summary keys. Each query still has full {"[L, d]"} output — we have only compressed the attended representation, not the queries.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"scores = Q @ K'.T  => [L=4096, k=128]"}<br />
-                  {"attn   = softmax(scores)"}<br />
-                  {"out    = attn @ V'  => [L=4096, d=512]"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "4. The catch: E, F mix the whole sequence",
-            render: () => (
-              <div>
-                <Prose>
-                  Because each summary key in {"K'"} is a weighted sum over <em>all</em> positions in {"K"}, including positions that are "in the future" for a causal decoder, Linformer does not support autoregressive generation in its default form. Encoder-only use is fine; decoder use requires lower-triangular {"E, F"} or a workaround.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"K'_i = sum_j E_{i,j} K_j   (j ranges over ALL positions)"}<br />
-                  {"=> breaks causality in decoder"}
-                </div>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6.4 Sparse density vs task quality (qualitative)</H3>
-
-      <Prose>
-        Approximate composite curve from Child et al. 2019 and BigBird 2020 ablations: BLEU/accuracy on long-document language modelling vs fraction of attention edges active. Dense softmax = 1.0. Quality degrades gracefully until roughly 2-5% density, then falls off a cliff. Sparse Transformer's "fixed" pattern at {"L = 12288"} used 4% density and achieved {"\\sim -0.3"} ppl vs dense; BigBird at 1% density lost {"\\sim -0.8"} ppl vs dense. Mistral 7B's 4096 window at 32k context is roughly 25% density — comfortably above the cliff.
-      </Prose>
-
-      <Plot
-        label="RELATIVE QUALITY VS ATTENTION DENSITY (QUALITATIVE COMPOSITE)"
-        xLabel="attention density (fraction of edges)"
-        yLabel="quality (rel to dense)"
-        width={580}
-        height={280}
-        series={[
-          { name: "Sparse Transformer",  color: "#e2b55a", points: [[0.005, 0.82], [0.01, 0.90], [0.02, 0.95], [0.05, 0.98], [0.10, 0.99], [0.25, 1.00], [1.00, 1.00]] },
-          { name: "BigBird",             color: "#60a5fa", points: [[0.005, 0.85], [0.01, 0.92], [0.02, 0.96], [0.05, 0.98], [0.10, 0.99], [0.25, 1.00], [1.00, 1.00]] },
-          { name: "Linformer",           color: "#c084fc", points: [[0.005, 0.70], [0.01, 0.80], [0.02, 0.87], [0.05, 0.93], [0.10, 0.96], [0.25, 0.98], [1.00, 1.00]] },
-          { name: "Performer FAVOR+",    color: "#f87171", points: [[0.005, 0.75], [0.01, 0.85], [0.02, 0.90], [0.05, 0.94], [0.10, 0.96], [0.25, 0.98], [1.00, 1.00]] },
-        ]}
-      />
-
-      <Prose>
-        Sparse patterns (Sparse Transformer, BigBird) degrade more gracefully than low-rank/kernel methods because they preserve individual edges that dense attention would have computed exactly; low-rank methods smooth every edge through a compressed bottleneck and cannot recover fine-grained attention patterns at all densities.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>7.1 Long document classification / QA (up to 16k tokens)</H3>
-
-      <Prose>
-        Use Longformer or BigBird from HuggingFace. These are the mature options for the "feed a PDF and ask a question" workflow: pretrained checkpoints exist, the attention patterns are well-understood, and the {"[CLS]"}-as-global-token design integrates cleanly with downstream classification heads. For new projects in 2026, prefer long-context decoder models (Llama 3.1 at 128k, Claude 3, Gemini 1.5 Pro) fine-tuned via prompting — the long-document encoder regime has been eaten by long-context LLMs. Longformer and BigBird remain the right answer only if you must train a small specialised model and can't afford inference on a 70B decoder.
-      </Prose>
-
-      <H3>7.2 General long-context LLM (up to 128k tokens)</H3>
-
-      <Prose>
-        Use FlashAttention-2 with a sliding window (Mistral-style) or full attention. Sliding window with {"w = 4096"} is sufficient for any task where information flows locally and the per-layer receptive field is enough over stacked layers. Full attention via FlashAttention is faster and more accurate at this scale if you have the memory for the KV cache, which is the actual bottleneck. The sparse-attention variants add no value here — FlashAttention-exact is already linear in activation memory and faster than approximate alternatives.
-      </Prose>
-
-      <H3>7.3 Research on linear-complexity attention</H3>
-
-      <Prose>
-        Use Performer or implement FAVOR+ from scratch. Performers remain the cleanest instance of the kernel-factorisation trick and the right baseline for any new linear-attention proposal. The implementation cost is modest, the theory is clean, and the variance-vs-{"m"} behaviour is well-documented. Most modern linear-attention research (including RetNet, GLA, and early Mamba) can be derived as specialised feature maps inside the Performer framework.
-      </Prose>
-
-      <H3>7.4 Retrieval-augmented workflows</H3>
-
-      <Prose>
-        Do not use long-context attention at all. A 4-8k context model with a good retriever (BM25+cross-encoder rerank, or dense retrieval via Contriever) beats a 128k context attention model on most practical retrieval-then-answer tasks, at a fraction of the cost. The sparse/linear attention family does not help here — the bottleneck is in document selection, not attention expressivity.
-      </Prose>
-
-      <H3>7.5 Very long context (&gt; 1M tokens)</H3>
-
-      <Prose>
-        Use state-space models (Mamba, Mamba-2, Jamba) or hierarchical attention (Hyena, MoR-like architectures). At 1M+ tokens, even sliding-window attention becomes prohibitive: the per-layer {"O(L w)"} is fine, but the {"O(L)"} activation and state-propagation memory grows uncomfortably. SSMs have an inherent advantage because their state is fixed-size at inference ({"O(d^2)"} for Mamba) regardless of {"L"}. This is the regime where the ideas of linear attention (fixed-size state, parallel-train recurrent-infer) fully paid off — but in a cleaner form that did not require the FAVOR+ kernel trick.
-      </Prose>
-
-      <H3>7.6 Training on a single GPU with tight memory</H3>
-
-      <Prose>
-        Use FlashAttention and a small sequence length. The tricks the sparse/linear variants sell at 1B-scale become redundant at small scale: you can almost always shrink {"L"} to fit, and the quality gain from exact attention on shorter sequences beats the quality loss from approximate attention on longer sequences for most tasks. The one exception is if the task fundamentally requires long context (arXiv summarisation, code completion on large files) — then Longformer is the pragmatic choice.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Longformer and BigBird top out around 16k</H3>
-
-      <Prose>
-        Both were designed for the 4k-16k regime and their pretrained checkpoints are all at 4096 tokens. Scaling them to 32k+ requires retraining the positional embeddings and often the window attention kernel as well. Practically, nobody has pushed a pretrained Longformer past 16k — past that point, long-context decoder LMs are uniformly better, and training from scratch is the only option. The ceiling is architectural as much as compute: the absolute positional embedding in the original Longformer does not extrapolate, and RoPE-adapted versions exist in forks but are not the mainline release.
-      </Prose>
-
-      <H3>8.2 Linformer can reach 64k but quality drops</H3>
-
-      <Prose>
-        With {"k = 256"}, Linformer runs at 64k tokens without issue — the score tensor is {"[64k, 256]"}, or 64 MB per head in fp32. Quality, however, tends to drop by 1-3 points on language modelling as {"L"} grows because the fixed-size {"k = 256"} compression cannot preserve enough information about the full {"L = 64k"} sequence. The effective rank of the sequence-axis structure scales with the diversity of the content, not with a fixed {"k"}. For extremely long sequences with heterogeneous content, Linformer's fixed compression underfits.
-      </Prose>
-
-      <H3>8.3 FlashAttention negates most of the need for approximation at L ≤ 32k</H3>
-
-      <Prose>
-        The biggest contribution FlashAttention made to this space is obsoleting it. Pre-FlashAttention, dense attention at {"L = 32k"} was infeasible on a single 80 GB GPU — 32k² × 4 bytes × 32 heads = 128 GB for the score tensor. Post-FlashAttention-2, the same workload uses about 4 GB of peak memory (the tiled version never materialises the {"[L, L]"} tensor) and runs 2-3x faster than a naive sparse alternative. At {"L \\le 32k"} there is no memory argument for sparse or linear attention. Above {"L = 32k"} the argument returns — FlashAttention still scales {"O(L^2)"} in FLOPs — but by then one is usually in SSM territory.
-      </Prose>
-
-      <H3>8.4 Sliding window efficient but needs "reach" across layers</H3>
-
-      <Prose>
-        Sliding-window attention's effective receptive field is {"w \\cdot n_{layers}"} tokens — a 4096 window over 32 layers gives a theoretical 131k-token receptive field. In practice, the effective receptive field is smaller because each layer's attention is not a full convolution — the information bottleneck through the residual stream compresses the "long reach" heavily. Empirical studies show that sliding-window models with {"w \\ll L"} often struggle on tasks that require precise long-range retrieval (needle-in-a-haystack at 100k tokens), even when the theoretical receptive field covers the needle. Global tokens or full attention at certain layers mitigate this.
-      </Prose>
-
-      <H3>8.5 Linear attention models (2024) replaced pure linear variants</H3>
-
-      <Prose>
-        RWKV (Peng et al. 2023), Mamba (Gu & Dao 2023), RetNet (Sun et al. 2023), and GLA (Yang et al. 2023) are all variants of the kernel-factorisation idea from Katharopoulos 2020, but with better-designed state update rules. RWKV uses a time-mixing receptance-weighted update; Mamba uses an input-selective SSM; GLA uses a gated linear attention. All scale to 1M+ tokens, all outperform Performer/Linformer on every task measured. The pure linear-attention family from 2020-2021 has been superseded by these in both production and frontier research. If you need true linear attention at scale in 2026, you should start from Mamba-2 or an SSM, not from FAVOR+.
-      </Prose>
-
-      <H3>8.6 Hybrid architectures dominate frontier long-context</H3>
-
-      <Prose>
-        Jamba (AI21, 2024), Zamba (Zyphra, 2024), and Mamba-Transformer hybrids use a layer mix of (a) FlashAttention for short-range precision and (b) SSM or sliding-window attention for long-range scaling. This is the architectural lesson of the sparse-and-linear era: no single approximation replaces full attention, but a hybrid that uses exact attention on a subset of layers and linear/SSM on the rest captures both precision and scalability. Mistral's "full + sliding window" mix in Mistral Large and the Mamba-attention interleaving in Jamba are contemporary instances of this principle.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Sliding window missing global information</H3>
-
-      <Prose>
-        The canonical failure: in a sliding-window model, tokens separated by more than {"w \\cdot n_{layers}"} positions cannot influence each other. In practice the effective reach is much less because each layer's attention compresses the full-reach signal. On needle-in-a-haystack tests at {"L = 128k"} with {"w = 4096, n_{layers} = 32"}, Mistral 7B's accuracy drops from 95% (needle at position 10k) to 35% (needle at position 80k). Fix: interleave global-attention layers, add a handful of global tokens (Longformer-style), or use a hybrid architecture with SSM layers that pass long-range state.
-      </Prose>
-
-      <H3>9.2 Linformer projection too small for the task</H3>
-
-      <Prose>
-        Linformer's {"k"} is a fixed bottleneck. At {"k = 128"} and {"L = 1024"} it works; at {"k = 128"} and {"L = 32768"} it underfits because a single 128-dim summary cannot preserve the content of a 32k-token document. The paper's ablations suggest {"k \\propto \\sqrt{L}"} in the worst case, but in practice {"k"} is fixed at construction time — scaling {"L"} later means retraining {"E, F"}. Fix: start with {"k = 256-512"} and budget the cost; if that still underfits, the task is not low-rank in the sequence axis and Linformer is wrong for it.
-      </Prose>
-
-      <H3>9.3 Performer random-feature variance with too few features</H3>
-
-      <Prose>
-        At {"m = 64"}, FAVOR+ approximations have variance large enough that the attention distribution is visibly noisy — softmax peaks shift, attention entropy increases, and training loss oscillates. The paper recommends {"m \\ge 256"} and orthogonal (rather than IID Gaussian) rows of {"W"} to cut variance by {"\\sim d"}. Fix: always use at least 256 features and always orthogonalise; re-sample {"W"} periodically (every few layers or steps) if variance drift appears. Our benchmark above shows rel-L2 error of 0.74 at {"m = 64"} vs 0.49 at {"m = 1024"} — still substantial, because FAVOR+ on a hard (sharply peaked) softmax distribution has an inherent variance floor.
-      </Prose>
-
-      <H3>9.4 LSH bucket collisions underestimated</H3>
-
-      <Prose>
-        Reformer's expected {"O(L \\log L)"} cost assumes balanced buckets. In practice, the distribution of hash bucket sizes is heavy-tailed: a few large buckets dominate the wall-clock, and the {"L^2"} within-bucket attention in a large bucket dominates the entire layer. Reformer's paper recommends multi-round LSH (running the hash 4-8 times with different random projections and unioning) to reduce variance. Even so, on inputs with many similar keys (e.g., repeated boilerplate), buckets can collapse to size {"L"} and destroy the asymptotic advantage. Fix: use LSH only when the key distribution is known to be diverse; multi-round; sort-and-chunk with overflow handling.
-      </Prose>
-
-      <H3>9.5 Sparse pattern incompatible with FlashAttention</H3>
-
-      <Prose>
-        FlashAttention's kernel fuses the softmax tile-by-tile and cannot handle arbitrary sparsity patterns — it assumes either full dense, causal, or a single contiguous sliding window. BigBird's random edges, Sparse Transformer's strided pattern, and Reformer's LSH all fall outside this envelope. Implementing them with FlashAttention-level efficiency requires writing a new CUDA kernel per pattern. This is why sliding window survived and the others did not: it is the only sparse pattern that fuses into the dominant attention kernel. Fix: either restrict to sliding window (fast) or accept a 2-5x slowdown from non-fused sparse attention.
-      </Prose>
-
-      <H3>9.6 Forgetting padding masks in window attention</H3>
-
-      <Prose>
-        A subtle implementation bug: when you implement a banded sliding-window mask manually, the band includes padding positions for variable-length sequences in a batch. If you do not explicitly AND the band with the padding mask, attention weights leak onto PAD tokens, which at best adds noise and at worst corrupts the attention distribution in ways that do not show up in training loss but degrade downstream accuracy. Always validate: sum attention weights over valid positions should be 1.0 to numerical precision; sum over padding should be 0.0 exactly. FlashAttention-2's {"varlen"} API handles this automatically with a cu_seqlens argument.
-      </Prose>
-
-      <H3>9.7 Linformer losing causality in decoders</H3>
-
-      <Prose>
-        The default Linformer projection {"E K"} mixes future keys into each summary key, so a decoder using it attends to the future — a silent bug that produces spuriously good training loss and catastrophic generation. Fix: use a lower-triangular {"E"} (zero out {"E_{i, j}"} for {"j > i"} — wait, that's the wrong direction) — the correct fix is per-prefix projection, which destroys the linear complexity. There is no clean causal Linformer; this is a known limitation and the reason it shipped only as an encoder architecture.
-      </Prose>
-
-      <H3>9.8 Performer numerical stability at high temperature</H3>
-
-      <Prose>
-        The FAVOR+ feature map {"\\exp(Wx - \\|x\\|^2 / 2)"} can produce enormous values when {"\\|x\\|"} is large — up to {"\\exp(\\|W\\| \\cdot \\|x\\|)"}. In practice you must normalise {"Q"} and {"K"} to a stable magnitude (typically {"\\|q\\| \\le O(1)"}) before applying {"\\phi"}, or the exponential overflows in fp16. The standard recipe is to scale {"Q, K"} by {"1 / d^{1/4}"} — this brings the exponent into a safe range, and it also matches the {"1/\\sqrt{d}"} scaling inside standard softmax attention. Fix: scale {"Q, K"} by {"1/d^{1/4}"} before FAVOR+, or clamp before exp.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        <strong>Child, Gray, Radford, Sutskever (OpenAI, 2019).</strong> "Generating Long Sequences with Sparse Transformers." arXiv:1904.10509. The first paper in the sparse-attention family. Introduces strided and fixed attention patterns and trains on sequences up to 12288 tokens (images at {"128 \\times 128"} and raw audio). The architectural ideas — factorising attention across two or three sparse patterns alternated per layer, using a "summary" token per block — are the ancestor of every subsequent sparse-attention design. Also introduces sparsity-aware CUDA kernels, a detail that became a bottleneck for later methods without equivalent engineering.
-      </Prose>
-
-      <Prose>
-        <strong>Beltagy, Peters, Cohan (Allen AI, 2020).</strong> "Longformer: The Long-Document Transformer." arXiv:2004.05150. The production-ready variant of sparse attention. Window + global with task-specific global-token selection. Pretrained from a RoBERTa initialisation and fine-tuned for long-document tasks; became the default "feed a paper to a model" architecture for three years. The paper's Table 2 compares Longformer with full, strided, and dilated attentions — window-plus-global outperforms all pure-sparse alternatives and was the design that actually shipped.
-      </Prose>
-
-      <Prose>
-        <strong>Zaheer, Guruganesh, Dubey, Ainslie, Alberti, Ontanon, Pham, Ravula, Wang, Yang, Ahmed (Google Research, 2020).</strong> "Big Bird: Transformers for Longer Sequences." NeurIPS 2020. arXiv:2007.14062. The universal-approximation theorem for sparse attention. Proves that window + global + random with {"O(\\log L)"} edges per node is a universal approximator of full attention. Empirical results on long-document NLP (TriviaQA, WikiHop, HotpotQA) set a state of the art at the time. The paper's theoretical contribution is the most substantive in the sparse-attention line.
-      </Prose>
-
-      <Prose>
-        <strong>Kitaev, Kaiser, Levskaya (Google, 2020).</strong> "Reformer: The Efficient Transformer." ICLR 2020. arXiv:2001.04451. LSH attention, reversible residuals, and chunked feed-forward layers — a comprehensive "how do we fit a 64k-token sequence on one GPU" paper. The LSH attention mechanism is the cleanest mathematical formulation of hash-based sparsity and remains a useful baseline for data-adaptive sparse methods. The reversible-residual trick it introduced is still used in some modern architectures to save activation memory.
-      </Prose>
-
-      <Prose>
-        <strong>Wang, Li, Khabsa, Fang, Ma (Facebook AI, 2020).</strong> "Linformer: Self-Attention with Linear Complexity." arXiv:2006.04768. The low-rank sequence-axis compression approach. Proves that {"K, V"} are approximately low-rank along the sequence axis under mild assumptions, justifying a fixed learned projection {"E, F \\in \\mathbb{R}^{k \\times L}"}. The paper's main technical weakness — incompatibility with causal decoding — limits its practical use, but the low-rank insight was influential for later work on compressed attention.
-      </Prose>
-
-      <Prose>
-        <strong>Katharopoulos, Vyas, Pappas, Fleuret (EPFL, 2020).</strong> "Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention." ICML 2020. arXiv:2006.16236. The kernel-factorisation insight. Shows that attention with a replaceable similarity kernel {"\\phi(q) \\cdot \\phi(k)"} admits a constant-size recurrent state, giving {"O(L)"} inference. The paper's {"\\phi(x) = \\mathrm{elu}(x) + 1"} choice is simple but suboptimal; the bigger contribution is the structural observation that linear attention is a linear RNN, which seeded the entire SSM and linear-RNN line that followed.
-      </Prose>
-
-      <Prose>
-        <strong>Choromanski, Likhosherstov, Dohan, Song, Gane, Sarlos, Hawkins, Davis, Mohiuddin, Kaiser, Belanger, Colwell, Weller (Google / DeepMind, 2021).</strong> "Rethinking Attention with Performers." ICLR 2021. arXiv:2009.14794. The principled random-feature approximation to softmax attention. Introduces FAVOR+ (Fast Attention Via positive Orthogonal Random features), proves unbiased approximation of {"\\exp(q \\cdot k)"} with variance {"O(1/m)"}, and shows orthogonal features reduce variance by another factor of {"d"}. The paper's theoretical framework is the cleanest existing treatment of kernel-based linear attention and remains the baseline for any new linear-attention proposal.
-      </Prose>
-
-      <Prose>
-        <strong>Roy, Saffar, Vaswani, Grangier (Google, 2021).</strong> "Efficient Content-Based Sparse Attention with Routing Transformers." TACL 2021. arXiv:2003.05997. Extends Reformer's LSH routing by replacing the random hash with learned {"k"}-means clustering. Each token is routed to its nearest cluster centroid and attention runs within clusters. More sample-efficient than pure LSH but more complex to implement; never achieved wide adoption due to the same fusion-with-CUDA-kernels problem that doomed Reformer.
-      </Prose>
-
-      <Prose>
-        <strong>Jiang, Sablayrolles, Mensch, Bamford, Chaplot, de Las Casas, Bressand, Lengyel, Lample, Saulnier, et al. (Mistral AI, 2023).</strong> "Mistral 7B." arXiv:2310.06825. The production model that made sliding-window attention a mainstream design choice. Combines {"w = 4096"} sliding-window attention with a rolling KV cache, grouped-query attention, and a well-tuned training recipe. Demonstrates that sliding window scales to 32k context on a single A100 and is the simplest workable efficient-attention scheme in practice. The architectural choices influenced Mixtral, Phi-3, Gemma-2, and most subsequent long-context open models.
-      </Prose>
-
-      <Prose>
-        <strong>Dao, Fu, Ermon, Rudra, Ré (Stanford, 2022).</strong> "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness." arXiv:2205.14135. Not a sparse/linear method — but the paper that made most of the sparse/linear methods redundant. By reorganising exact softmax attention to tile over the sequence axis and never materialise the {"[L, L]"} tensor, FlashAttention achieved the memory savings that sparse/linear methods promised while keeping the quality of exact attention. Later versions (FlashAttention-2, FlashAttention-3) added sliding-window support, which is what Mistral and friends actually use.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>11.1 Why does Longformer add global tokens on top of a sliding window?</H3>
-
-      <Prose>
-        Because a pure sliding window has finite "reach": information can only propagate {"w"} tokens per layer, so tokens separated by more than {"w \\cdot n_{layers}"} positions cannot influence each other, and in practice the effective reach is much smaller. Global tokens act as hubs in a small-world attention graph: any two positions can communicate in two hops through a global token. With {"|\\mathcal{G}|"} global tokens and window {"w"}, total edges are {"O(L(w + |\\mathcal{G}|))"}, still linear in {"L"}, and the diameter of the attention graph drops from {"L/w"} (pure window) to 2 (window + global). Longformer typically uses global tokens at task-critical positions: {"[CLS]"} for classification, the question tokens for QA.
-      </Prose>
-
-      <H3>11.2 How does the kernel trick turn softmax attention into linear attention, and what does it give up?</H3>
-
-      <Prose>
-        Standard softmax attention has the form {"y_t = \\sum_s \\frac{\\exp(q_t \\cdot k_s)}{\\sum_{s'} \\exp(q_t \\cdot k_{s'})} v_s"}, which cannot be factored because {"\\exp(q \\cdot k)"} is an inner product inside an exponential. If we replace it with {"\\phi(q) \\cdot \\phi(k)"} for some feature map {"\\phi"}, the numerator factors: {"\\sum_s \\phi(q_t) \\cdot \\phi(k_s) v_s = \\phi(q_t)^T \\sum_s \\phi(k_s) v_s^T"}. The inner sum is a fixed-size {"[m, d]"} matrix, computable in {"O(L m d)"}. What we give up is the sharpness of softmax: {"\\exp(\\cdot)"} produces attention distributions that can be very peaked (one key dominating), whereas {"\\phi(q) \\cdot \\phi(k)"} for simple {"\\phi"} is smoother and puts weight on more keys. Performers use {"\\phi"} that provably converges to {"\\exp"} as {"m \\to \\infty"}, recovering softmax exactly in the limit; at finite {"m"} there is always some variance.
-      </Prose>
-
-      <H3>11.3 Why does Linformer not work for causal decoders?</H3>
-
-      <Prose>
-        Linformer compresses {"K"} to {"K' = E K"} where {"E \\in \\mathbb{R}^{k \\times L}"} is a learned dense matrix. Each row of {"K'"} is a weighted sum over all rows of {"K"}, including rows at positions that are "in the future" for a causal model. When a query at position {"t"} attends to {"K'"}, it is effectively attending to a mixture that includes future keys — which violates the causal constraint silently (no error, just wrong gradients and a model that cannot autoregressively generate). A lower-triangular {"E"} would fix it but would need a new {"E"} per prefix length, destroying the {"O(L k)"} complexity. There is no clean causal Linformer; the method is usable only in encoder settings.
-      </Prose>
-
-      <H3>11.4 Given a sliding-window attention model with w = 1024 and 24 layers, what is the theoretical maximum distance between two tokens that can influence each other?</H3>
-
-      <Prose>
-        {"w \\cdot n_{layers} = 1024 \\cdot 24 = 24576"} tokens. After one attention layer, each token sees a window of 1024 around it. After two layers, each token sees a window of 2048 (via tokens that already aggregated 1024 in the first layer), and so on. In practice the effective reach is much smaller because each layer's residual stream must carry the long-range signal, and the attention is not a full convolution — it aggregates weighted information, not all-of-it. Empirical long-context benchmarks usually show sliding-window models with this setup effectively reaching 5-10k tokens, not 24k. Global tokens or periodic full-attention layers are required to extend the practical reach.
-      </Prose>
-
-      <H3>11.5 Rank the following by quality-at-fixed-compute-budget on a modern L ≤ 32k language modelling task, best to worst: FlashAttention exact softmax, Performer FAVOR+, Linformer, sliding-window FlashAttention, Longformer-style window+global.</H3>
-
-      <Prose>
-        Best to worst: FlashAttention exact softmax, sliding-window FlashAttention, Longformer-style window+global, Performer FAVOR+, Linformer. Exact FlashAttention wins because it is exact and well-engineered; sliding-window is nearly as good for most language tasks with a sufficient window and costs less at very long {"L"}. Longformer-style with global tokens beats pure window on tasks that need long-distance information routing (QA, classification), but underperforms exact attention at the same compute budget because the global-token trick adds parameters. Performer is quality-limited by the random-feature variance and typically 1-3% behind on language modelling. Linformer is last because the fixed {"k"}-dim bottleneck and the causal-decoder incompatibility both hurt autoregressive tasks; on encoder-only tasks it is competitive with Performer but still behind sliding-window variants.
-      </Prose>
-
-    </div>
-  ),
+<Prose>{"*Read the opening distinction on a first pass. The derivation and sampling details are a deeper branch.*"}</Prose>
+
+<Prose>{"We can choose a different kernel deliberately, or approximate the existing exponential kernel. These are different experiments."}</Prose>
+
+<Prose>{"Set "}<InlineMath>{"x=q/d_k^{1/4}"}</InlineMath>{", "}<InlineMath>{"y=k/d_k^{1/4}"}</InlineMath>{", so "}<InlineMath>{"x^Ty=q^Tk/\\sqrt{d_k}"}</InlineMath>{". Draw a fixed random vector "}<InlineMath>{"\\omega\\sim\\mathcal N(0,I)"}</InlineMath>{", and define"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"f_\\omega(x)=\\exp(\\omega^Tx-\\|x\\|^2/2)."}</MathBlock></div>
+
+<Prose>{"The Gaussian identity "}<InlineMath>{"\\mathbb E[e^{\\omega^Ta}]=e^{\\|a\\|^2/2}"}</InlineMath>{" gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\mathbb E[f_\\omega(x)f_\\omega(y)]\n=e^{-\\|x\\|^2/2-\\|y\\|^2/2}e^{\\|x+y\\|^2/2}\n=e^{x^Ty}."}</MathBlock></div>
+
+<Prose>{"With "}<InlineMath>{"m"}</InlineMath>{" sampled vectors, place "}<InlineMath>{"f_{\\omega_r}(x)/\\sqrt m"}</InlineMath>{" in feature coordinate "}<InlineMath>{"r"}</InlineMath>{". The feature dot product estimates the unnormalized exponential similarity. It can then use the same "}<InlineMath>{"S,z"}</InlineMath>{" recurrence. Positive random features and orthogonal constructions are central to "}<a href={"https://arxiv.org/html/2009.14794v4"}>{"Performer and FAVOR+"}</a>{"."}</Prose>
+
+<Prose>{"The result is exact for the "}<strong>{"sampled feature operator"}</strong>{", approximate for the original softmax operator. Keep the projections fixed during a sequence. A state constructed under one set of random features cannot be read as though it had been constructed under another."}</Prose>
+
+<H3>{"Unbiased similarities do not give an unbiased normalized output"}</H3>
+
+<Prose>{"The expectation of a ratio is not generally the ratio of expectations. For a small counterexample, suppose two estimated similarities are equally likely to be "}<InlineMath>{"(1,1)"}</InlineMath>{" or "}<InlineMath>{"(3,1)"}</InlineMath>{". Their means are "}<InlineMath>{"(2,1)"}</InlineMath>{". The expected normalized first weight is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\tfrac12(1/2+3/4)=5/8,"}</MathBlock></div>
+
+<Prose>{"while normalizing the mean similarities gives "}<InlineMath>{"2/3"}</InlineMath>{". An unbiased kernel estimator therefore does not automatically make a finite-feature attention row or output unbiased."}</Prose>
+
+<Prose>{"For the independent Gaussian construction, a single pair has variance"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\operatorname{Var}(\\widehat\\kappa_m(x,y))\n=\\frac{e^{2x^Ty}}{m}\\left(e^{\\|x+y\\|^2}-1\\right)."}</MathBlock></div>
+
+<Prose>{"You can derive this by applying the same Gaussian identity to the square of "}<InlineMath>{"f_\\omega(x)f_\\omega(y)"}</InlineMath>{", then subtracting the squared mean. It explains both the "}<InlineMath>{"1/m"}</InlineMath>{" variance reduction and sensitivity to vector norms. It is a variance of the unnormalized pair estimator, not an identical formula for task loss or the normalized ratio. Increasing "}<InlineMath>{"m"}</InlineMath>{" improves this expectation-level quantity; one nested random draw can still become less accurate."}</Prose>
+
+<H3>{"Orthogonal directions still need the right radii"}</H3>
+
+<Prose>{"Using mutually orthogonal directions within a block can reduce redundant sampling. To preserve a standard Gaussian marginal for each row, combine a uniformly random orthogonal direction with an independent radius distributed as the length of a "}<InlineMath>{"d_k"}</InlineMath>{"-dimensional standard Gaussian vector. The supplied program obtains directions using a sign-corrected QR decomposition, then samples those independent radii. Independent blocks allow "}<InlineMath>{"m>d_k"}</InlineMath>{"."}</Prose>
+
+<Prose>{"Multiplying every unit direction by the fixed number "}<InlineMath>{"\\sqrt{d_k}"}</InlineMath>{" is a different distribution. In one dimension, take "}<InlineMath>{"x=y=1"}</InlineMath>{". A fixed-radius vector is "}<InlineMath>{"+1"}</InlineMath>{" or "}<InlineMath>{"-1"}</InlineMath>{", so the expected feature product is "}<InlineMath>{"e^{-1}\\cosh2\\approx1.384"}</InlineMath>{"; the Gaussian construction gives "}<InlineMath>{"e\\approx2.718"}</InlineMath>{". Both are valid things to compute, but only the latter follows the Gaussian identity above. The Performer paper also studies a fixed-radius regularized kernel; it should be named as such, not described as an unchanged Gaussian estimator."}</Prose>
+
+<H3>{"Keep the numerical stabilization consistent"}</H3>
+
+<Prose>{"Exponentials may overflow. Multiplying all feature coordinates for one query by a common scalar cancels between that query's numerator and denominator. Multiplying every key-feature vector in the whole memory by the "}<strong>{"same"}</strong>{" scalar also cancels. Multiplying each key by its own unrelated scalar usually changes their relative importance."}</Prose>
+
+<Prose>{"For streaming exponential features, if a newly arrived key requires changing the common key scale, rescale the existing "}<InlineMath>{"S"}</InlineMath>{" and "}<InlineMath>{"z"}</InlineMath>{" by the same factor before adding the new write. Otherwise old and new records use different units. Padding, state reset, query/key feature scaling, and causal prefix boundaries must agree between training and inference."}</Prose>
+
+<SparseFigure kind="random" /><SparseRandomLab />
+
+<H2>{"5. Compress the sequence instead of its feature sums"}</H2>
+
+<Prose>{"Another strategy replaces many keys and values with fewer summary slots before attention. It deserves its own picture because it is not the same operation as skipping keys or accumulating "}<InlineMath>{"\\phi(k)v^T"}</InlineMath>{"."}</Prose>
+
+<H3>{"Linformer: learned combinations along the length axis"}</H3>
+
+<Prose>{"Let "}<InlineMath>{"K\\in\\mathbb R^{L\\times d_k}"}</InlineMath>{", "}<InlineMath>{"V\\in\\mathbb R^{L\\times d_v}"}</InlineMath>{". Define learned sequence projections "}<InlineMath>{"E,F\\in\\mathbb R^{r\\times L}"}</InlineMath>{":"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar K=EK,\\quad\\bar V=FV,\\quad\nO=\\operatorname{softmax}(Q\\bar K^T/\\sqrt{d_k})\\bar V."}</MathBlock></div>
+
+<Prose>{"Each row of "}<InlineMath>{"E"}</InlineMath>{" combines positions into a key summary; each row of "}<InlineMath>{"F"}</InlineMath>{" combines positions into a value summary. Learned coefficients need not be nonnegative or sum to one. The model attends over "}<InlineMath>{"r"}</InlineMath>{" summaries. With fixed "}<InlineMath>{"r\\ll L"}</InlineMath>{", projection and attention cost order "}<InlineMath>{"Lr(d_k+d_v)"}</InlineMath>{". The original work motivates this using empirical low-rank behavior of attention maps and approximation arguments; it does not establish that every query/key matrix or task has a universally small useful rank. "}<a href={"https://arxiv.org/html/2006.04768v3"}>{"Linformer, §3–4"}</a>{""}</Prose>
+
+<Prose>{"Now inspect causality. With one value-summary row "}<InlineMath>{"F=[0.5,0,0.5]"}</InlineMath>{" and values "}<InlineMath>{"[1,2,9]"}</InlineMath>{", the summary is "}<InlineMath>{"5"}</InlineMath>{". There is only one summary slot, so its softmax weight is one. A query at position 0 would receive "}<InlineMath>{"5"}</InlineMath>{", containing future value 9. Changing that future value to 1 changes the supposedly earlier output to 1. Applying a triangular mask to the single summary slot cannot remove the particular future contribution already mixed into it."}</Prose>
+
+<SparseFigure kind="projection" />
+
+<Prose>{"A causal variant can be constructed, but must define a different prefix-dependent operator. For fixed projection columns "}<InlineMath>{"e_j,f_j\\in\\mathbb R^r"}</InlineMath>{", maintain"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar K_t=\\bar K_{t-1}+e_tk_t^T,\\qquad\n\\bar V_t=\\bar V_{t-1}+f_tv_t^T."}</MathBlock></div>
+
+<Prose>{"The current query attends only to these summaries of positions through "}<InlineMath>{"t"}</InlineMath>{". In the one-slot example, position 0 sees "}<InlineMath>{"0.5"}</InlineMath>{", not the full-sequence 5. The coefficient has not automatically become a prefix-normalized average. Define how unused summary rows participate, how columns are generated beyond the trained length, and whether coefficients depend on future inputs. This construction shows why “the usual full-sequence projection leaks” is precise, while “sequence projection can never be causal” is too strong."}</Prose>
+
+<SparseProjectionLab />
+
+<H3>{"Nyströmformer: use landmark queries and keys"}</H3>
+
+<Prose>{"Nyströmformer selects a smaller set of representative query/key vectors, called "}<strong>{"landmarks"}</strong>{". One option takes means of contiguous segments. Here "}<InlineMath>{"d=d_k"}</InlineMath>{" is query/key width, and the symbols "}<InlineMath>{"F,A,B"}</InlineMath>{" name new factors local to this construction. Define row-softmax matrices"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"F=\\operatorname{softmax}(Q\\tilde K^T/\\sqrt d),\\quad\nA=\\operatorname{softmax}(\\tilde Q\\tilde K^T/\\sqrt d),\\quad\nB=\\operatorname{softmax}(\\tilde QK^T/\\sqrt d)."}</MathBlock></div>
+
+<Prose>{"Approximate the attention output by "}<InlineMath>{"FA^+BV"}</InlineMath>{", where "}<InlineMath>{"A^+"}</InlineMath>{" is the Moore–Penrose pseudoinverse. Compute from the right to avoid forming an "}<InlineMath>{"L\\times L"}</InlineMath>{" matrix. The paper uses an iterative inverse approximation; the teaching fixture uses a direct numerical pseudoinverse. Pseudoinverse coefficients can be negative, so the approximate full matrix is not automatically a nonnegative probability matrix. Full-sequence landmarks also need a separate causal design before use in autoregressive prediction. "}<a href={"https://arxiv.org/html/2102.03902v3"}>{"Nyströmformer, §3"}</a>{""}</Prose>
+
+<SparseFigure kind="nystrom" />
+
+<Prose>{"For "}<InlineMath>{"r"}</InlineMath>{" landmarks, a straightforward implementation pays order "}<InlineMath>{"Lrd_k+Lrd_v+r^2d_v+r^3"}</InlineMath>{", including an SVD-based pseudoinverse. “Linear in "}<InlineMath>{"L"}</InlineMath>{"” assumes "}<InlineMath>{"r"}</InlineMath>{" is held fixed; increasing landmarks to preserve quality changes that tradeoff. Singular values near zero make the pseudoinverse sensitive, so approximation and numerical error must be examined together."}</Prose>
+
+<H2>{"6. Make the graph efficient on the actual machine"}</H2>
+
+<Prose>{"*Deeper practical branch; the real-data core continues in §7.*"}</Prose>
+
+<H3>{"Eight edges can occupy very different amounts of work"}</H3>
+
+<Prose>{"A hardware kernel often processes tiles instead of individual matrix cells. In an "}<InlineMath>{"8\\times8"}</InlineMath>{" mask with "}<InlineMath>{"2\\times2"}</InlineMath>{" tiles, eight diagonal edges occupy four tiles: 16 candidate cell positions inside those tiles. Place one edge per row at columns "}<InlineMath>{"2i\\bmod8"}</InlineMath>{", and the same eight edges occupy eight tiles: 32 candidate positions. Both masks have 12.5% token-edge density. They have different tile occupancy and memory access patterns. This example is a bidirectional layout exercise, not a causal mask."}</Prose>
+
+<Prose>{"An occupied tile may still contain masked cells; a fully empty tile can be skipped. Neither count alone predicts seconds. Gather overhead, head dimensions, precision, hardware, compilation and other layers matter. A dense implementation of a sparse mask still computes the dense scores if it forms "}<code>{"Q @ K.T"}</code>{" first."}</Prose>
+
+<SparseTilesLab />
+
+<Prose>{"PyTorch's FlexAttention provides a way to express custom score modifications and block masks and compile suitable attention kernels. Its "}<code>{"mask_mod"}</code>{" receives batch, head, query index and key index and returns whether that pair is allowed. A block mask can skip fully masked blocks. This does not mean every arbitrary mask is equally fast, or that an unsupported device will execute the same compiled path. "}<a href={"https://pytorch.org/blog/flexattention/"}>{"FlexAttention introduction and examples"}</a>{", "}<a href={"https://docs.pytorch.org/docs/main/nn.attention.flex_attention.html"}>{"current API"}</a>{""}</Prose>
+
+<H3>{"Modern sparse systems also pay to choose the reads"}</H3>
+
+<Prose>{"The field has continued beyond the early fixed patterns. These examples are architecture snapshots checked during 13–27 September 2026, not a leaderboard."}</Prose>
+
+<Prose>{""}<strong>{"Native Sparse Attention (NSA)"}</strong>{" combines three separately normalized branches: compressed blocks, selected fine-grained blocks, and a local window. Compressed-attention scores help select important blocks, with selection shared across grouped heads. Learned sigmoid gates combine branch outputs; their sum is not required to be one. The three-branch design preserves local access while learning coarser and selected long-range reads. With a fixed compression stride, the compressed branch still grows with the number of compressed positions, so a fixed selection budget alone does not establish linear total work. "}<a href={"https://arxiv.org/html/2502.11089v1"}>{"NSA, §3"}</a>{""}</Prose>
+
+<Prose>{""}<strong>{"DeepSeek-V3.2-Exp's DSA"}</strong>{" uses a small lightning indexer to select past positions for its main MLA read. The indexer aggregates query-head scores of the form "}<InlineMath>{"w_{tj}\\operatorname{ReLU}((q^I_{tj})^Tk^I_s)"}</InlineMath>{". It is first trained against a dense attention-derived target, then the main sparse model is adapted. Top-"}<InlineMath>{"k"}</InlineMath>{" indices are discrete; ordinary backpropagation through their integer selection is not the indexer's training method. The report explicitly distinguishes order "}<InlineMath>{"Lk"}</InlineMath>{" main attention from the indexer's still-quadratic sequence comparison, albeit with a smaller cost. "}<a href={"https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3.2-Exp/main/DeepSeek_V3_2.pdf"}>{"V3.2-Exp technical report, §1–3"}</a>{""}</Prose>
+
+<Prose>{""}<strong>{"DeepSeek-V4.1's CSA2"}</strong>{" distinguishes layers that build and index new compressed memory, layers that reuse memory but issue fresh index queries, and layers that reuse both memory and selected indices. Its hierarchical decoder indexer obtains a candidate pool from an initial full scan; later reindexing searches that pool. Local sliding-window memory remains a separate source. The architecture's causal encoder–decoder division changes which layer supplies the global memory, so memory reuse and selection reuse must not be conflated. These are separate mechanisms from NSA's three gated outputs. "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf"}>{"V4.1 report, §2.2–2.3"}</a>{""}</Prose>
+
+<Prose>{""}<strong>{"Candidate discovery"}</strong>{", "}<strong>{"main selected reads"}</strong>{", "}<strong>{"local reads"}</strong>{", and "}<strong>{"cross-layer reuse"}</strong>{" incur separate costs, as the connected paths below show. It does not invent a speedup from an edge count. Current "}<a href={"https://github.com/deepseek-ai/FlashMLA"}>{"FlashMLA source documentation"}</a>{" provides concrete examples of dense and sparse kernels with architecture-specific formats; a cache format or benchmark cannot be transplanted unchanged between model versions."}</Prose>
+
+<SparseFigure kind="architectures" />
+
+<H2>{"7. Compare three operators on observed hand trajectories"}</H2>
+
+<Prose>{"An abstract graph tells us whether an effect is possible. A trained example tells us what a particular learned system actually does. We will forecast the next two-dimensional point of an observed hand movement using the openly licensed "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement dataset"}</a>{", credited to Dias, Peres and Bíscaro, under CC BY 4.0."}</Prose>
+
+<Prose>{"The source has 360 trajectories of 45 points and 15 movement labels. Exact coordinate duplicates reduce it to 330 unique trajectories; duplicate labels agree. We retain the first row in each exact-duplicate group "}<strong>{"before splitting"}</strong>{", so identical trajectories do not appear on both sides of the evaluation. A fixed classwise seed-73 split gives 220 training, 50 validation and 60 test trajectories. Movement labels are used only for stratification, not as model inputs. Positions 0–43 predict 1–44, using fixed input scaling "}<InlineMath>{"2x-1"}</InlineMath>{"."}</Prose>
+
+<Prose>{"The source describes four performers and two recording sessions but does not supply row-level performer/session identifiers. This split tests held-out trajectories, not new-person or new-session generalization. The processed coordinate records also do not validate a live image-to-coordinate pipeline. This familiar dataset is intentionally reused from earlier lessons; the new test comparison is not an independent new benchmark across those lessons."}</Prose>
+
+<H3>{"Hold the experiment fixed"}</H3>
+
+<Prose>{"Each model has 4,946 learned parameters: a 2→24 input map, fixed sinusoidal position addition, one pre-norm block with three 8-wide heads, a 24→48→24 GELU FFN, final normalization and a two-coordinate output. There is no dropout or weight decay. The only operator change is dense causal softmax, a five-key causal softmax window, or normalized ELU+1 feature attention. Identical seed-137 initialization and 160 full-batch Adam updates at learning rate 0.003 give an equal-budget local comparison."}</Prose>
+
+<Prose>{"Each model selects its lowest validation MSE, taking the earliest exact tie. All selected update 160, the budget endpoint. We did not extend the run to make a preferred outcome emerge, and this result does not establish convergence. A persistence baseline predicts the current point as the next; a six-parameter affine baseline is fitted using training pairs only. RMSE pools both coordinates and all next-point errors in each split, in the source's original coordinate units."}</Prose>
+
+<NeuralTable caption={"Hold the experiment fixed"} headers={[<>{"Predictor"}</>,<>{"Training RMSE"}</>,<>{"Validation RMSE"}</>,<>{"Test RMSE"}</>]} rows={[[<>{"Persistence"}</>,<>{"0.027529"}</>,<>{"0.026304"}</>,<>{"0.026458"}</>],[<>{"Training-fitted affine"}</>,<>{"0.027334"}</>,<>{"0.026154"}</>,<>{"0.026222"}</>],[<>{"Dense causal softmax"}</>,<>{"0.024152"}</>,<>{"0.023358"}</>,<>{"0.023219"}</>],[<>{"Five-key causal window"}</>,<>{"0.025147"}</>,<>{"0.023907"}</>,<>{"0.024684"}</>],[<>{"ELU+1 feature kernel"}</>,<>{"0.026106"}</>,<>{"0.025327"}</>,<>{"0.024680"}</>]]} />
+
+<Prose>{"All three learned operators improve on these simple baselines in this run. Dense attention has the lowest test RMSE here. The window and kernel test results differ by only about "}<InlineMath>{"0.0000041"}</InlineMath>{", far too little to promote into an architectural verdict from a single split and seed. There is no measured GPU timing comparison in this table."}</Prose>
+
+<H3>{"Look at one actual prefix and a controlled edit"}</H3>
+
+<Prose>{"The worked example uses source row 77, first 32 observed points. The true next point is approximately "}<InlineMath>{"(0.593810,0.250000)"}</InlineMath>{". Keep the weights fixed and reflect the x coordinate at zero-based frame 23 around 0.5: "}<InlineMath>{"x\\mapsto1-x"}</InlineMath>{". This is an artificial sensitivity intervention on a real recorded trajectory, not another observed movement."}</Prose>
+
+<NeuralTable caption={"Look at one actual prefix and a controlled edit"} headers={[<>{"Operator"}</>,<>{"Original next-point forecast"}</>,<>{"Forecast after editing frame 23"}</>]} rows={[[<>{"Dense"}</>,<>{""}<InlineMath>{"(0.598713,0.250658)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(0.601801,0.252266)"}</InlineMath>{""}</>],[<>{"Window"}</>,<>{""}<InlineMath>{"(0.609244,0.247768)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(0.609244,0.247768)"}</InlineMath>{""}</>],[<>{"Feature kernel"}</>,<>{""}<InlineMath>{"(0.601817,0.248507)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(0.603256,0.248870)"}</InlineMath>{""}</>]]} />
+
+<Prose>{"The window result is an exact null in this model: at final input position 31, its single attention layer reads positions 27–31, and all other operations are tokenwise. Frame 23 has no route to that output. The other two models change modestly; a global path does not require a dramatic response. In all three models, outputs before the edited position remain exactly unchanged, as causality requires."}</Prose>
+
+<SparseFigure kind="trajectory" />
+
+<Prose>{"At this 32-point prefix, float32 numeric attention payloads are 6,144 bytes for dense K/V, 960 for window K/V, and 864 for kernel "}<InlineMath>{"S,z"}</InlineMath>{". These exclude weights, outputs, position counters, index metadata and allocator overhead. They are not peak memory measurements. Dense and window incremental forecasts agree with their full-prefix computation to below "}<InlineMath>{"2.4\\times10^{-7}"}</InlineMath>{" maximum absolute error in transformed output coordinates. The kernel's recurrent and explicit pairwise implementations agree below "}<InlineMath>{"2.7\\times10^{-7}"}</InlineMath>{". Separate float64 checks give whole-network gradient agreement below "}<InlineMath>{"3.6\\times10^{-15}"}</InlineMath>{" for this small checked input."}</Prose>
+
+<SparseForecastLab />
+
+<H3>{"Approximate one trained dense head without retraining it"}</H3>
+
+<Prose>{"Take the selected dense model's actual head-0 queries, keys and values from the worked prefix. Compare exact softmax output against positive independent Gaussian features, using seeds 0–7 and nested feature counts 16, 64 and 256. For each run, measure"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\text{relative output error}=\\frac{\\|\\widehat O-O\\|_F}{\\|O\\|_F}."}</MathBlock></div>
+
+<Prose>{"The denominator is nonzero for this saved head. The metric compares the whole prefix's head outputs, not model RMSE or probabilities of a downstream label."}</Prose>
+
+<NeuralTable caption={"Approximate one trained dense head without retraining it"} headers={[<>{"Features"}</>,<>{"Mean error over eight seeds"}</>,<>{"Smallest–largest observed error"}</>]} rows={[[<>{"16"}</>,<>{"0.043293"}</>,<>{"0.021708–0.077060"}</>],[<>{"64"}</>,<>{"0.031098"}</>,<>{"0.016960–0.042411"}</>],[<>{"256"}</>,<>{"0.017026"}</>,<>{"0.011095–0.022679"}</>]]} />
+
+<Prose>{"The average falls, but individual nested draws do not all improve at every step. Seed 5 worsens from about 0.02171 to 0.02813 when going from 16 to 64 features. Seed 6 worsens slightly from 64 to 256. Keep those outcomes in the plot. These are operator approximations of a fixed dense head, not results from training a Performer, and not a worst-case guarantee."}</Prose>
+
+<H3>{"Run the complete teaching programs"}</H3>
+
+<Prose>{"The packet includes the original small data files, "}<a href={"/learn-code/sparse-linear-attention-variants/provenance.md"}>{"data attribution and provenance"}</a>{", "}<a href={"/learn-code/sparse-linear-attention-variants/author-calculations.py"}>{"the complete CPU training and evaluation program"}</a>{", "}<a href={"/learn-code/sparse-linear-attention-variants/mechanism-calculations.py"}>{"mechanism calculations"}</a>{", and the actual saved models/results. Use Python with NumPy and PyTorch in your own environment; the recorded execution used Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu, one CPU thread."}</Prose>
+
+<CodeBlock language={"bash"}>{"python -m venv .venv\n# Activate .venv using your shell's normal activation command.\npython -m pip install numpy==2.3.5 torch==2.14.0\npython mechanism-calculations.py\npython author-calculations.py"}</CodeBlock>
+
+<Prose>{"Run from the downloaded packet directory. The programs use local data and perform no network access. The mechanism program checks sparse gathered/masked equality, graph reach, feature-state reads and the fresh numerical cases. The training program supplies data loading, duplicate handling, split construction, all model layers, training, validation selection, baselines, incremental evaluation, gradient checks, saved forecasts and the 24 random-feature trials. Every named helper is included in the downloadable source."}</Prose>
+
+<SparseProgram file="author-calculations.py" title="Read the complete trainable PyTorch models and retained study" /><SparseProgram file="mechanism-calculations.py" title="Read the independent numerical mechanisms and samplers" />
+
+<Prose>{"Expected recorded model lines are dense/window/kernel selecting update 160 with the RMSE values above; each program ends with a named PASS line. Different supported software or hardware can change last digits. If you alter the data, seed or protocol, label the new result as a new experiment. Training here computes small dense reference masks and, for kernel attention, stores prefix states for automatic differentiation. The code teaches the operator and verifies its recurrence; it is not a high-performance sparse GPU kernel or a constant-memory training implementation."}</Prose>
+
+<Prose>{"For a minimal streaming implementation you can inspect the following complete NumPy example. Inputs are already feature vectors, so it cleanly separates the recurrence from the choice of feature map."}</Prose>
+
+<CodeBlock language={"python"}>{"import numpy as np\n\ndef causal_feature_attention(query_features, key_features, values):\n    q = np.asarray(query_features, dtype=float)\n    k = np.asarray(key_features, dtype=float)\n    v = np.asarray(values, dtype=float)\n    if q.ndim != 2 or k.shape != q.shape or v.ndim != 2 or len(v) != len(q):\n        raise ValueError(\"Expected matching (length, features) Q/K and (length, values) V.\")\n    if not all(np.isfinite(x).all() for x in (q, k, v)) or (q < 0).any() or (k < 0).any():\n        raise ValueError(\"Use finite nonnegative features and finite values.\")\n    memory = np.zeros((k.shape[1], v.shape[1]))\n    normalizer = np.zeros(k.shape[1])\n    outputs = []\n    for query, key, value in zip(q, k, v):\n        memory += np.outer(key, value)\n        normalizer += key\n        denominator = query @ normalizer\n        if denominator <= 0:\n            raise ValueError(\"No positive overlap with this prefix.\")\n        outputs.append(query @ memory / denominator)\n    return np.asarray(outputs)\n\nq = [[2, 1], [2, 1], [2, 1]]\nk = [[1, 0], [0, 1], [1, 1]]\nv = [[2], [-1], [3]]\nprint(causal_feature_attention(q, k, v).ravel())\n# [2. 1. 2.]"}</CodeBlock>
+
+<H3>{"Implement the other compression choices, not just name them"}</H3>
+
+<Prose>{"The earlier program owns the trained causal dense/window/kernel comparison. The additional "}<a href={"/learn-code/sparse-linear-attention-variants/attention_compression_bridges.py"}>{"sequence-compression program"}</a>{" opens the bidirectional Linformer and Nyström operations from §5 and supplies an actual gathered-window route. It requires only PyTorch; run "}<code>{"python attention_compression_bridges.py"}</code>{"."}</Prose>
+
+<SparseProgram file="attention_compression_bridges.py" title="Read the complete scratch and SDPA compression bridges" />
+
+<Prose>{""}<code>{"linformer"}</code>{" owns two learned length-axis matrices E and F. It computes EK and FV first, then runs attention over those compressed slots. Its normal tool route calls SDPA on the same compressed arrays. E/F receive gradients alongside Q/K/V; a learned summary is not a fixed downsampling label. The program compares values and all five gradients under identical initial arrays. It intentionally has "}<strong>{"no causal mask"}</strong>{": making a full-sequence summary and applying a later triangle cannot remove future information already mixed into the summary."}</Prose>
+
+<Prose>{""}<code>{"nystrom"}</code>{" forms segment-mean query/key landmarks. Seven positions split into three segments retain the trailing positions. It constructs the three softmax factors, uses a tolerance-controlled pseudoinverse for the small middle matrix, and multiplies from the value side: "}<code>{"front @ (pinv(middle) @ (back @ V))"}</code>{". It never materializes the L×L approximate weight matrix. The cost includes O(L r d) pair/factor work and O(r³) pseudoinversion, with O(Lr+r²) factor storage, in addition to the feature/value widths. A pseudoinverse is a well-defined tool here; implementing SVD again would repeat "}<a href={"/learn/path/full-curriculum/matrix-decompositions-svd-qr-cholesky-lu?module=math-foundations"}>{"Matrix Decompositions"}</a>{". Near a rank threshold, derivatives can be sensitive: changing "}<code>{"rtol"}</code>{" changes which directions are retained and must be treated as a model/numerical decision."}</Prose>
+
+<Prose>{""}<code>{"gathered_window"}</code>{" only scores the keys actually in a causal window: O(L W (d_k+d_v)) arithmetic and O(W) temporary scores per query, beyond inputs and outputs. Its SDPA comparison deliberately uses a dense mask as an independent semantic reference, "}<strong>{"not"}</strong>{" as evidence of sparse execution. The maintained tool takes responsibility for backend selection; a genuinely sparse accelerator path needs a kernel supporting the chosen block pattern."}</Prose>
+
+<Prose>{"The author ran these small CPU float64 probes: Linformer and gathered-window maximum API differences were each 1.11e-16; using every position as a Nyström landmark reproduced the dense result to 1.45e-15. Three landmarks gave maximum output error 0.25091 for this declared random fixture. That last number is a single approximation example, not a general error guarantee or a trained accuracy result. The random-feature Gaussian-marginal sampling and stabilizations remain owned by "}<code>{"mechanism-calculations.py"}</code>{"; they are different approximations from these learned/landmark summaries."}</Prose>
+
+<Prose>{""}<strong>{"Take control."}</strong>{" Change sequence length to 11, use four landmarks and a window of width 1. Inspect both output and gradient checks. Then reduce "}<code>{"rtol"}</code>{" for nearly duplicate landmarks."}</Prose>
+
+<details><summary>Hint</summary>Width one must return each position's own V. Unequal segment lengths are allowed; the inverse problem remains small.</details>
+
+<details><summary>Solution and success criteria</summary>The window output equals V and has zero Q/K derivative. Linformer's manual/API equality should remain, while approximation quality is a separate measured quantity. Nyström with fewer landmarks need not improve monotonically for each input as count increases. Near duplicate landmarks, record singular values and chosen tolerance before interpreting a large gradient; smaller tolerance is not automatically a better model.</details>
+
+<H2>{"8. Deeper connections and practical judgment"}</H2>
+
+<H3>{"Backpropagation through a recurrent summary"}</H3>
+
+<Prose>{"Forward equivalence is not enough if the two training paths differentiate different calculations. For a local read, write "}<InlineMath>{"a=\\phi(q)"}</InlineMath>{", numerator "}<InlineMath>{"n=S^Ta"}</InlineMath>{", denominator "}<InlineMath>{"b=a^Tz>0"}</InlineMath>{", and "}<InlineMath>{"o=n/b"}</InlineMath>{". If the arriving output gradient is "}<InlineMath>{"g=\\partial\\mathcal L/\\partial o"}</InlineMath>{", ordinary quotient differentiation gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial\\mathcal L}{\\partial S}=\\frac{ag^T}{b},\\qquad\n\\frac{\\partial\\mathcal L}{\\partial z}=-\\frac{a(g^To)}{b},\\qquad\n\\frac{\\partial\\mathcal L}{\\partial a}=\\frac{Sg-z(g^To)}{b}."}</MathBlock></div>
+
+<Prose>{"In a causal sequence, a write at position "}<InlineMath>{"j"}</InlineMath>{" influences every later state. Its gradient therefore collects contributions from reads "}<InlineMath>{"t\\ge j"}</InlineMath>{", which can be accumulated by a reverse scan. For its direct outer-product contribution, if the accumulated matrix gradient is "}<InlineMath>{"G_j"}</InlineMath>{", then the value gradient includes "}<InlineMath>{"G_j^T\\phi(k_j)"}</InlineMath>{"; the key-feature gradient includes "}<InlineMath>{"G_jv_j"}</InlineMath>{" plus the normalizer contribution. The chain rule then differentiates the feature map and input projections."}</Prose>
+
+<Prose>{"You can parallelize prefix operations or process chunks, but the memory layout and backward strategy still matter. A naive "}<code>{"cumsum"}</code>{" over all outer products stores an "}<InlineMath>{"L\\times m\\times d_v"}</InlineMath>{" tensor. A custom scan/recomputation method can trade storage for work. Our saved all-parameter gradient comparison checks the defined small model, including surrounding normalization and FFN, rather than checking only one isolated final sum."}</Prose>
+
+<H3>{"Gates and delta updates change the memory, not just its speed"}</H3>
+
+<Prose>{"The additive update "}<InlineMath>{"S_t=S_{t-1}+k_tv_t^T"}</InlineMath>{" retains every write with equal temporal persistence. A decay changes it to "}<InlineMath>{"S_t=\\gamma_tS_{t-1}+k_tv_t^T"}</InlineMath>{", so earlier contributions are multiplied by later decay factors. Featurewise gates allow different parts of memory to forget differently."}</Prose>
+
+<Prose>{"A delta-style write instead uses the current prediction error for the key, for example"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"S_t=S_{t-1}+\\beta_t k_t(v_t-S_{t-1}^Tk_t)^T."}</MathBlock></div>
+
+<Prose>{"For a unit key and "}<InlineMath>{"\\beta_t=1"}</InlineMath>{", the new read at that key is exactly "}<InlineMath>{"v_t"}</InlineMath>{": multiplying by "}<InlineMath>{"k_t^T"}</InlineMath>{" cancels the old prediction error. It behaves like correcting a stored association, not merely adding another copy. With a nonunit key, the same conclusion does not follow without adjusting the update. This explains why a family can have linear sequence scaling but different overwrite, normalization and retrieval behavior."}</Prose>
+
+<Prose>{"The earlier "}<a href={"/learn/path/full-curriculum/rwkv-linear-attention-models?module=deep-learning-fundamentals"}>{"RWKV & Linear Attention Models"}</a>{" and "}<a href={"/learn/path/full-curriculum/state-space-models-s4-mamba-mamba-2?module=deep-learning-fundamentals"}>{"State Space Models"}</a>{" own the versioned recurrent mechanisms and selective dynamics. A signed recurrence or an mLSTM normalization is not automatically a positive normalized feature kernel, and none becomes exact row-softmax merely because matrix products can be reassociated. Use the update, read and normalization equations to classify a new model."}</Prose>
+
+<H3>{"Position and masking are algebraic constraints"}</H3>
+
+<Prose>{"A feature recurrence works when each write can be computed from the current/past information and each read uses the appropriate state. An arbitrary pairwise relative-position bias need not factor into a fixed-size query/key state. Some distance factors do: a scalar exponential decay corresponds to the recurrent weighting above. Other position schemes require extra features or a changed kernel. Rotating vectors before a nonlinear feature map does not establish the same relative-position identity as rotating the dot-product vectors; check the resulting similarity explicitly."}</Prose>
+
+<Prose>{"Packed documents need state resets or segmented scans at document boundaries. A single global sum over an entire batch of packed text leaks information across samples. During decoding, state updates must match whether the current token is included, the prompt prefix already processed, and the attention layer's positional convention. These are part of the operator, not cosmetic bookkeeping."}</Prose>
+
+<H3>{"Choose an experiment that can disprove your idea"}</H3>
+
+<NeuralTable caption={"Choose an experiment that can disprove your idea"} headers={[<>{"Task need"}</>,<>{"Candidate to investigate"}</>,<>{"A revealing failure test"}</>]} rows={[[<>{"Predict a locally smooth signal"}</>,<>{"Window or recurrent summary, alongside simple baselines"}</>,<>{"Insert a relevant remote change; test new entities, not duplicate rows"}</>],[<>{"Retrieve an earlier exact identifier"}</>,<>{"Individual-key access, possibly selected or hybrid"}</>,<>{"Move the target, add distractors, vary delay and compare missed candidates"}</>],[<>{"Classify a complete structured document"}</>,<>{"Local/global graph or summaries"}</>,<>{"Remove structure labels; vary document length and cross-section dependencies"}</>],[<>{"Compress an existing softmax model"}</>,<>{"Approximation plus adaptation, with exact reference"}</>,<>{"Compare operator error, final task loss and required retraining separately"}</>],[<>{"Serve a long causal prompt"}</>,<>{"Measure prefill, decode, cache and selection costs"}</>,<>{"Include routing/indexing and batch/concurrency effects, not only kernel arithmetic"}</>]]} />
+
+<Prose>{"An interesting scientific use follows from the graph picture. In a DNA sequence, a local motif and a distant regulatory context may both matter. A sparse graph can preserve cheap local comparisons while adding routes between distant regions. But graph connectivity alone does not establish biological relevance; evaluation must preserve meaningful held-out sequence/entity boundaries. Similarly, a protein's amino-acid sequence is one-dimensional while its interactions can be distant along that sequence. Efficient attention offers a way to examine longer contexts; a token-level prediction score is not itself a validated three-dimensional structure or function prediction. The research examples in the references are motivations for careful task design, not permission to infer such downstream capabilities from our hand-motion experiment."}</Prose>
+
+<Prose>{"Retrieval before the model can reduce how much context enters it; efficient attention changes how the supplied context is processed. Neither universally replaces the other. A useful system may use both, and its evaluation should include evidence that retrieval did not discard the needed information."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"9. Practice and transfer"}</H2>
+
+<Prose>{"Work these problems before opening the optional hints or solutions. They use different values and positions from both the worked explanations and the initial investigations."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Count the real connections"}</H3>
+
+<Prose>{"A causal sequence has 20 positions and a window of four total keys including self. How many legal query/key pairs exist in one head? What is the farthest possible input distance after three such layers, assuming all other operations are tokenwise? Does reaching that distance guarantee a useful learned dependence?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Count the growing first rows separately. A single layer moves information at most three positions."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The first four rows contribute "}<InlineMath>{"1+2+3+4=10"}</InlineMath>{"; the next 16 contribute 64, totaling "}<strong>{"74"}</strong>{". Three layers can span at most "}<strong>{"9"}</strong>{" positions. This is possible information flow, not a guarantee that the learned weights preserve or use the information."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Compute a summary read"}</H3>
+
+<Prose>{"Two key-feature vectors are "}<InlineMath>{"[1,2]"}</InlineMath>{" and "}<InlineMath>{"[3,1]"}</InlineMath>{", with scalar values "}<InlineMath>{"-2"}</InlineMath>{" and "}<InlineMath>{"4"}</InlineMath>{". The query features are "}<InlineMath>{"[2,1]"}</InlineMath>{". Compute "}<InlineMath>{"S,z"}</InlineMath>{", the two normalized weights and the output. Then change the second value to "}<InlineMath>{"-2"}</InlineMath>{" without changing any key or query."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The unnormalized key similarities are 4 and 7. A value edit changes the numerator, not the denominator."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{""}<InlineMath>{"S=[10,0]^T,z=[4,3]^T"}</InlineMath>{". The denominator is 11, weights are "}<InlineMath>{"4/11,7/11"}</InlineMath>{", and output is "}<strong>{""}<InlineMath>{"20/11\\approx1.81818"}</InlineMath>{""}</strong>{". With both values "}<InlineMath>{"-2"}</InlineMath>{", every normalized weighted average equals "}<strong>{""}<InlineMath>{"-2"}</InlineMath>{""}</strong>{". This is a useful null even if you later change the query."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Diagnose a misleading speed claim"}</H3>
+
+<Prose>{"An implementation forms a "}<InlineMath>{"4096\\times4096"}</InlineMath>{" score matrix, then masks all but 64 keys per row and calls softmax. Its author says “only 64 keys are visible, so the matrix multiplication is linear in sequence length.” Identify the error and propose a correctness check for a genuinely gathered implementation."}</Prose>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The full matrix multiplication has already computed all pairs; a later mask does not undo that work. Gather the legal key/value rows before comparison or use a kernel that skips masked blocks. For small fixed Q/K/V and a nonempty mask per row, compare the gathered outputs to a dense reference with illegal scores set to negative infinity. Test causal boundaries and a mask with uneven row lengths. Matching output establishes the specified sparse operator, not a speedup; timing requires the actual target implementation."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. A future value inside a summary"}</H3>
+
+<Prose>{"One sequence-summary row has coefficients "}<InlineMath>{"[0.2,0.3,0.5]"}</InlineMath>{", values "}<InlineMath>{"[5,0,6]"}</InlineMath>{", and only one attention slot. At query position 1, compare the full-sequence summary with the prefix-only summary. Change the last value to "}<InlineMath>{"-2"}</InlineMath>{". Which earlier output should remain invariant in a causal implementation?"}</Prose>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The full summary is "}<strong>{"4"}</strong>{", then becomes "}<strong>{"0"}</strong>{" after the future edit. The prefix-only summary is "}<strong>{"1"}</strong>{" before and after. These coefficients are not renormalized over the prefix. The full summary leaks; masking its sole slot cannot selectively remove the future component."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Compare the right memory quantities"}</H3>
+
+<Prose>{"For batch one, four heads, "}<InlineMath>{"d_k=d_v=16"}</InlineMath>{", "}<InlineMath>{"L=2048"}</InlineMath>{" and float32 state, calculate dense K/V payload, a 32-key window payload, and feature state with "}<InlineMath>{"m=24"}</InlineMath>{". Exclude metadata and weights. Which calculation tells you peak training memory?"}</Prose>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Dense: "}<InlineMath>{"4\\times2048\\times(16+16)\\times4=\\mathbf{1,048,576}"}</InlineMath>{" bytes. Window: "}<InlineMath>{"4\\times32\\times32\\times4=\\mathbf{16,384}"}</InlineMath>{" bytes. Kernel state: "}<InlineMath>{"4\\times24\\times(16+1)\\times4=\\mathbf{6,528}"}</InlineMath>{" bytes. "}<strong>{"None"}</strong>{" gives peak training memory; gradients, saved activations, optimizer state and temporary computations are additional quantities."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Test a random-feature claim"}</H3>
+
+<Prose>{"Someone reports that their kernel similarities are unbiased, so “the average normalized attention output must be exactly the original output.” Construct a two-outcome counterexample different from the one in §4. What else should be recorded when showing an error-versus-feature-count plot?"}</Prose>
+
+<details><summary>One solution</summary>
+
+<Prose>{"Let similarity estimates be equally likely "}<InlineMath>{"(2,1)"}</InlineMath>{" or "}<InlineMath>{"(6,1)"}</InlineMath>{", with values 1 and 0. The expected output is "}<InlineMath>{"(2/3+6/7)/2=\\mathbf{16/21}"}</InlineMath>{". Normalizing mean similarities "}<InlineMath>{"(4,1)"}</InlineMath>{" yields "}<strong>{""}<InlineMath>{"4/5"}</InlineMath>{""}</strong>{", a different result. Record the fixed Q/K/V, scale, feature distribution, seeds, counts, whether draws are nested, normalization, error metric and all declared outcomes. Do not discard seeds that worsen as features are added."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Repair a streaming feature bug"}</H3>
+
+<Prose>{"A program computes exponential key features, subtracting each key's own largest log-feature value before writing it into memory. Queries are similarly centered per row. It claims the result is unchanged because “softmax ignores additive constants.” Which centering is safe, and what state repair is needed when the common key scale changes?"}</Prose>
+
+<details><summary>Solution</summary>
+
+<Prose>{"A scalar multiplier shared by all features of one query cancels in that query's numerator and denominator. A scalar shared by "}<strong>{"all keys"}</strong>{" also cancels. Different per-key scalars change relative key contributions. Maintain a common key scale and, when it changes, multiply the existing "}<InlineMath>{"S,z"}</InlineMath>{" by the corresponding conversion factor before adding the new write. The usual row-softmax invariance does not justify unrelated rescaling of separate keys."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Explain an exact local null"}</H3>
+
+<Prose>{"A model has two causal attention layers, each with a three-key window, and tokenwise FFNs. Its last input is at position 14. Can changing raw input position 8 affect output 14? What about position 10? How would you distinguish a missing path from a learned near-zero response?"}</Prose>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The maximum distance is "}<InlineMath>{"2(3-1)=4"}</InlineMath>{". Position 8 is six positions away, so it cannot affect output 14 under these assumptions. Position 10 is reachable, so a dependence is possible but may be weak or absent for particular weights and values. Check graph reach independently of numerical sensitivity; a small observed change cannot prove a missing path. Cross-position normalization, convolution or another global operation would change the assumptions."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Design a fair comparison"}</H3>
+
+<Prose>{"You want to replace dense attention in a code-assistance model. A window model wins on next-token loss averaged over short files. Specify a test that could reveal a meaningful weakness, and separate an operator-level comparison from a trained-model comparison."}</Prose>
+
+<details><summary>One solution</summary>
+
+<Prose>{"Create held-out files or repositories requiring earlier definitions, renamed identifiers and distractors at varied distances; prevent near-duplicate leakage. Compare exact correctness on those dependencies and behavior on ordinary code. For an operator test, hold Q/K/V and weights fixed and measure output differences caused by the replacement. For a model comparison, permit declared adaptation/training and report its budget, validation selection and untouched test results. Measure prefill, decoding, cache and total latency on the target device separately. A short-file average alone does not establish long-range retrieval ability."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"10. Interpret a modern indexer's complexity"}</H3>
+
+<Prose>{"A sparse main attention layer reads a fixed 512 selected keys per query, but its indexer compares each query with every earlier key. Is the complete sequence computation linear in "}<InlineMath>{"L"}</InlineMath>{"? If a later layer reuses a candidate pool, does that erase the first layer's cost?"}</Prose>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The main read is order "}<InlineMath>{"512L"}</InlineMath>{" times its per-pair cost, but the all-prefix indexer contributes order "}<InlineMath>{"L^2"}</InlineMath>{" comparisons. A smaller indexer dimension or precision can make that term practically cheaper without changing its order. Reusing a bounded candidate pool can reduce later selection work; the initial scan still belongs in the total. The selected memory representations, selected indices and fresh queries must each be accounted for."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"10. Another way to learn, and what comes next"}</H2>
+
+<Prose>{"For a visual explanation of graph connectivity, read Google Research's "}<a href={"https://research.google/blog/constructing-transformers-for-longer-sequences-with-sparse-attention-methods/"}>{"Constructing Transformers for Longer Sequences with Sparse Attention Methods"}</a>{". Its graph, sentence/paragraph and blockification explanations are useful companions to §2 and §6. The 2021 hardware limits and broad performance wording describe that historical setting; use this lesson's explicit causal and cost distinctions when interpreting them."}</Prose>
+
+<Prose>{"For a different view of feature factorization, read the authors' "}<a href={"https://research.google/blog/rethinking-attention-with-performers/"}>{"Rethinking Attention with Performers"}</a>{". Its matrix-association and prefix-sum visuals accompany §3–4, and its protein example provides another application. Read its “unbiased attention” shorthand with the kernel-versus-normalized-ratio distinction developed here. Both articles offer a useful visual companion to the self-contained derivations here."}</Prose>
+
+<Prose>{"For implementation practice, the "}<a href={"https://pytorch.org/blog/flexattention/"}>{"FlexAttention tutorial"}</a>{" shows how score modifications and block masks connect to compiled kernels. The current "}<a href={"https://docs.pytorch.org/docs/main/nn.attention.flex_attention.html"}>{"API reference"}</a>{" is the version-sensitive companion. GPU execution and latency comparisons are separate from the CPU programs supplied here."}</Prose>
+
+<Prose>{"Primary reading, by the question it answers:"}</Prose>
+
+<ul><li>{""}<a href={"https://arxiv.org/html/1904.10509v1"}>{"Sparse Transformer"}</a>{": how alternating spatial patterns create routes through layers."}</li><li>{""}<a href={"https://arxiv.org/html/2004.05150v2"}>{"Longformer"}</a>{" and "}<a href={"https://arxiv.org/html/2007.14062v2"}>{"BigBird"}</a>{": local/global graph design and the limits of expressivity claims."}</li><li>{""}<a href={"https://arxiv.org/html/2001.04451v2"}>{"Reformer"}</a>{" and "}<a href={"https://aclanthology.org/2021.tacl-1.4.pdf"}>{"Routing Transformer"}</a>{": candidate discovery by hashing or clustering."}</li><li>{""}<a href={"https://proceedings.mlr.press/v119/katharopoulos20a/katharopoulos20a.pdf"}>{"Transformers are RNNs"}</a>{": feature-state recurrence and causal differentiation."}</li><li>{""}<a href={"https://arxiv.org/html/2009.14794v4"}>{"Performer"}</a>{": positive random features, Gaussian versus fixed-radius constructions, and approximation analysis."}</li><li>{""}<a href={"https://arxiv.org/html/2006.04768v3"}>{"Linformer"}</a>{" and "}<a href={"https://arxiv.org/html/2102.03902v3"}>{"Nyströmformer"}</a>{": two distinct routes through a small intermediate dimension."}</li><li>{""}<a href={"https://arxiv.org/html/2502.11089v1"}>{"NSA"}</a>{", "}<a href={"https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3.2-Exp/main/DeepSeek_V3_2.pdf"}>{"V3.2-Exp report"}</a>{", and "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf"}>{"V4.1 report"}</a>{": current examples where selection, compression and reuse have separate mechanisms and costs."}</li><li>{""}<a href={"https://arxiv.org/html/2009.06732v3"}>{"Efficient Transformers survey"}</a>{": a historical map of families and evaluation issues, not a current exhaustive ranking."}</li></ul>
+
+<Prose>{"You are ready for the next lesson when you can identify the legal input path, explain the stored state, calculate one sparse and one feature-kernel read, and propose a control that would expose a misleading efficiency claim. You do not need to memorize every architecture's acronym."}</Prose>
+
+<Prose>{"The next topic in the module is "}<a href={"/learn/path/full-curriculum/vision-transformers-vit-deit-swin-dinov2?module=deep-learning-fundamentals"}>{"Vision Transformers: ViT, DeiT, Swin and DINOv2"}</a>{". Image patches give the sparse graph a two-dimensional geometry; shifted windows and learned image representations will make the connection concrete. Later "}<a href={"/learn/path/full-curriculum/mixture-of-experts-transformers-moe?module=deep-learning-fundamentals"}>{"Mixture-of-Experts Transformers"}</a>{" sparsify which expert computations run, a different axis from selecting attention edges."}</Prose></section>
+ </div>,
 };
-
-export default sparseLinearAttentionContent;

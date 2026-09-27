@@ -1,0 +1,41 @@
+# Sparse and Linear Attention implementation record
+
+The complete current prepared manuscript is rendered at the existing published topic path. It retains all ten sections, the full displayed NumPy recurrence, the explained trainable PyTorch route, the ordinary SDPA compression/gather bridges, all ten changed practice problems, and annotated primary sources. No new blueprint or shared manifest registration is needed.
+
+## Concept-to-representation map
+
+| Learning transition | Exact manuscript location | Runtime explanation and mechanism view |
+| --- | --- | --- |
+| Pair work, retained state and execution are different resources | §1, four representations and allocation discussion | `SparseFigure('representations')`: six record paths, selected subset, explicit illustrative 2×6 length coefficients, feature-matrix storage; dense execution note keeps all edges |
+| Removing a donor redistributes probability mass | §2, “A removed value changes the other weights too” | `SparseFigure('mass')`: paired normalized bars and products; `SparseReadLab` computes independent dense/subset softmax, removed mass, per-record vector contributions and a pinned comparison |
+| Causal graph reach requires successive layers | §2, windows/global/strided/random connections | `SparseFigure('hubs')` draws separate input/layer1/layer2 copies for local/hub6/hub0; `SparseGraphLab` links an arbitrary causal mask to actual reachable paths, residual self routes and bounded depth |
+| Feature memory stores weighted outer products, not records | §3, causal recurrence and collisions | `SparseFigure('memory')` displays each outer product and prefix; `SparseMemoryLab` exposes a signed 2×2 matrix, z, exact numerator, denominator, explicit pair weights, append/evict/prefix inspection and immutable pinned inputs |
+| Chosen kernels and sampled softmax approximations have different contracts | §4, ELU+1 distinction, Gaussian identity, ratio and sampling discussion | `SparseFigure('random')` separates fixed projections, positive products, estimated kernel and row division; analytic Gaussian/fixed-radius and variance values remain explicit. `SparseRandomLab` uses the exact retained Gaussian draw with live Q/K/V edits and all four causal rows |
+| Approximation error need not decrease for every draw | §4 and observed operator study in §7 | `SparseRandomLab` immediately reports the fresh m8/m64 error increase; its separate measured panel plots and tabulates all 24 trained-head trials and highlights a selected seed |
+| A full length summary can already contain future values | §5, Linformer and prefix recurrence | `ProjectionPaths` draws coefficient-labelled full/prefix routes, with future paths dashed and zero paths absent; `SparseProjectionLab` exposes signed coefficients, values, query position and lengths3–6 |
+| Landmark correction differs from a learned length projection | §5, Nyströmformer; §7 library implementation | `SparseFigure('nystrom')` shows all three computed factor matrices, exact dimensions and value-side multiplication order, plus actual full/approximate outputs. Complete PyTorch program executes nondivisible segments, pseudoinverse and all-landmark comparison |
+| Equal edge counts can occupy different hardware blocks | §6, eight-edge comparison | `SparseTilesLab` has directly editable 8×8 cells, explicit tile boundaries, occupancy matrix, edge/tile/candidate counts and block sizes1/2/4/8. These are calculated counts, never timing estimates |
+| Selecting, reading and reusing consume different resources | §6, NSA/DSA/CSA2 descriptions | `SparseFigure('architectures')` supplies separate connected diagrams: NSA independently normalized/gated branches, DSA indexer→indices→main MLA, and CSA2 Full/Reindex/Reuse with fresh main queries/local KV and the initial scan retained |
+| Learned influence and structural access are different questions | §7, source77 forecast investigation | `SparseFigure('trajectory')` supplies an actual observed prefix32 with three original forecasts and true next point. `SparseForecastLab` opens the three lazy checkpoints; prefix8–44, arbitrary point edits, three recomputed forecasts, whole path, explicit coordinate zoom, original/current table, selected head weights, retained/evicted KV and actual S/z |
+| Streaming equivalence includes gradients and numerical choices | §7 full programs; §8 backward equations | Native checks execute displayed recurrence, SDPA output/all Linformer gradients, gathered-window equality, saved-network kernel reference and full-parameter gradient comparison. Pure JS separately exposes explicit erf-GELU, normalization, sinusoidal positions and streaming cache |
+
+## Deliberate adaptations and reconciliation
+
+- Residual historical prediction gates in manuscript, specifications and provenance were replaced by the current live contract. The fresh inputs and actual expected results remain intact. Practice stays separately disclosed.
+- I1 is two adjacent investigations because graph reach and numerical normalization are distinct experiments; controls do not falsely imply a shared pass state.
+- The manual feature matrix stays at the fully specified 2-feature/2-value default. Record count, query, actual key/value entries and inspected prefix are editable; general dimensional resizing adds no needed mechanism here.
+- The Gaussian experiment keeps seed5's exact64×2 draw and exposes nested8/16/32/64 subsets; all eight recorded trained-head seeds remain available in the separate measured view. Value bounds include the specified initial value3, so values use ±3 while Q/K use ±2.
+- The two length projections and landmark factors are original mechanism drawings, not screenshots from the papers. Static shape/arithmetic views retain the deeper contracts without a generic matrix editor.
+- The frozen forecast workbench computes bounded models immediately after valid edits. Its loading/error/retry path is honest. A disclosure triggers three roughly102KB weight files; only10.8KB of worked coordinates and numerical examples are in the initial semantic data import. The complete1.29MB forecast source remains a learner-requested reproduction download.
+- The full-view path preserves coordinate axes. The separate zoom explicitly shows its own local limits and shares them across all three current forecast markers. Edited paths have no assigned true-next-point label.
+- Reopened the primary V4.1 report at `https://arxiv.org/html/2609.19969v1`, §§2.2–2.3 (27 September), confirming causal encoder memory source, independent local KV, Full/Reindex/Reuse, bounded later candidate search and the retained initial scan. The original Hugging Face PDF URL could not be parsed by the web tool; no benchmark or replay guarantee was added.
+
+## Actual verification and remaining work
+
+`prepare-sparse-attention-assets.py` executes the displayed NumPy program, ordinary PyTorch bridges, complete manual fixture reproduction and15 saved-model probes without fitting. PyTorch is2.14.0+cpu with at most2 CPU threads. Native full-prefix versus incremental maximum discrepancy is3.5763e-7 in transformed coordinates. The native evidence records all environment versions and captured program output.
+
+`verify-sparse-attention-models.mjs` checks meaningful new inputs, nulls, invalid denominators, graph orientation, fixed random draws, summary leakage, exact block counts, and all15 native fixtures. Maximum JS/native forecast error is1.37e-7; maximum state-cell error3.75e-6; maximum attention-weight error9.32e-8. Streamed JS agrees with its full-prefix path for these probes. Served programs/data are byte-compared with their canonical copies. All topic JSX parses.
+
+Scope excludes measured GPU timings, a compiled FlexAttention GPU run, architecture-scale NSA/DSA/CSA2 training and a new fit campaign. These are not necessary for the stated local operator/library learning route and are not claimed as executed.
+
+Figures and NeuralPlot wrappers have bounded, keyboard-focusable horizontal scrolling at nominal SVG widths; small matrix/weight tables retain exact textual equivalents. Root owns independent review, actual desktop/phone/keyboard observations, production build and shared integration. This author record does not certify those remaining checks.

@@ -1,0 +1,33 @@
+{
+  "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+    "src/learn/components/lesson-labs/BoostingIntuition.jsx",
+    "src/learn/components/lesson-labs/boosting-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx": "cd35a4a052fa051a5d8b0faba84f433bdd4c7fb87077348c2fad9ab3f203c7d3",
+    "src/learn/components/lesson-labs/BoostingIntuition.jsx": "5a17b0180777e101fc34b1719b5c758bd3385ae8ae8d1b57049dfcdce7247b71",
+    "src/learn/components/lesson-labs/boosting-intuition.css": "4508fb3444fdb25c7cfe2aeb5000f045eb1d09a59009e9304a0e6701918087b4"
+  },
+  "checks": [
+    {
+      "name": "Complete revised lesson and new figure source review",
+      "passed": true
+    },
+    {
+      "name": "Independent mathematical checks in scripts/verify-prediction-concept-review.mjs",
+      "passed": true
+    },
+    {
+      "name": "Independent learning-experience checklist; rendered checks separate",
+      "passed": true
+    }
+  ],
+  "findings": [],
+  "browser": "Separate browser receipt required",
+  "limits": "No new native fit campaign or human learner trial."
+}

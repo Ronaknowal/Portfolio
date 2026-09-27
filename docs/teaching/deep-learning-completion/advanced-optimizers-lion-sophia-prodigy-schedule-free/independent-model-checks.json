@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "reviewer": "graph_attention_implementation (different from author)",
+  "scalarComparisons": 51116,
+  "maximumAbsoluteDifference": 3.930625824821732e-10,
+  "checks": [
+    {
+      "name": "32 random Lion sequences: closed weighted history and decayed accumulated steps, arbitrary betas",
+      "passed": true
+    },
+    {
+      "name": "32 random AdamW matrix sequences: expanded moment sums, independent corrected ratios and decay",
+      "passed": true
+    },
+    {
+      "name": "16 random Prodigy matrix trajectories: expanded four histories and a single global distance estimate",
+      "passed": true
+    },
+    {
+      "name": "24 Schedule-Free AdamW trajectories: explicit post-update weighted mean across warmup boundary",
+      "passed": true
+    },
+    {
+      "name": "64 new sampled-label instruments, independent expectation identity, sign-probe diagonal/eigenvalue invariants",
+      "passed": true
+    },
+    {
+      "name": "32 directly averaged SGD trajectories at beta 0, .9, 1 and arbitrary beta",
+      "passed": true
+    },
+    {
+      "name": "All12 actual saved states: new pixel pattern finite differences, class relabeling and snapshot immutability",
+      "passed": true
+    },
+    {
+      "name": "Curvature contour orientation corresponds to the actual quadratic eigenvectors and endpoints",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "No new fits or independent browser work",
+    "Reuses reviewed native all-four-library checkpoint evidence and author nonlinear-Hessian verification",
+    "Finite differences use absolute 1e-8; expanded state arithmetic generally 1e-10 with Prodigy parameter allowance2e-9"
+  ]
+}

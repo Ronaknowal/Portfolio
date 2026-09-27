@@ -1,6 +1,7 @@
 import { Callout, H2, H3, Prose, Code } from '../../components/content';
 import { Math, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { PerfectSampleIntervalFigure } from '../../components/lesson-labs/EndToEndIntuitionFigures.jsx';
 import {
   CandidateComparisonFigure, FitAndGeneralisationFigure, InformationLaneFigure, PairedChangeFigure,
   RecallComparisonFigure, StudyHeldOutOutput, StudyProgram,
@@ -113,7 +114,7 @@ const endToEndContent = {
       about, and the held-out result is not in this document until you have frozen the decision it reports on.
     </LessonIntro>
 
-    <div className="ete-route"><Prose><strong>First pass.</strong> Read sections 1–7, run the offline study in
+    <div className="ete-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–7, run the offline study in
       section 4, and do practice 1–4. Follow figure A where it appears and work investigation B before reading
       the paragraph after it. Section 8 is a deeper branch on uncertainty, selective prediction and iteration
       design; return to it with practice 5–6. Allow about 45–60 minutes for the core and another 60–90 to
@@ -370,8 +371,9 @@ const endToEndContent = {
     <H2 id={headingId(headings[5])}>{headings[5]}</H2>
 
     <Prose>Under our declared primary metric, the choice is made by reading the validation balanced accuracies
-      and taking the best. That reading is what turns a validation measurement into a selection criterion. Make
-      the call yourself before the page shows you what it cost.</Prose>
+      and taking the best. That reading is what turns a validation measurement into a selection criterion. Change
+      the candidates or criterion below to see the choice update, then inspect the report for the study's
+      declared comparison.</Prose>
 
     <FreezeAndReportLab />
 
@@ -463,6 +465,13 @@ const endToEndContent = {
       inputs and eventual outcomes will be monitored. A dropped column or a unit change can break the chain
       even if the classifier&apos;s coefficients are untouched. Save and apply the whole fitted pipeline, and
       validate the incoming schema before prediction.</Prose>
+    <div data-constructed-fixture="Original unit-conversion illustration, not Wine measurements">
+      <Prose>For an invented mass feature, suppose the fitted scaler expects grams with mean 10 and scale 2.
+        A 12-gram input becomes (12−10)/2=1. If an upstream sensor switches to milligrams and sends 12,000 under
+        the same field name, the unchanged scaler produces 5,995. The object has not changed; the measurement
+        contract has. A schema that checks only “is this a number?” misses the failure. Store the unit, permitted
+        range and explicit conversion with the feature definition, and keep the training-time transformation attached.</Prose>
+    </div>
 
     <Prose>The next module starts
       with <a href="/learn/path/full-curriculum/perceptrons-neurons-activation-functions?module=deep-learning-fundamentals">Perceptrons,
@@ -479,6 +488,14 @@ const endToEndContent = {
 
     <H3>A small test is uncertain, even when the score looks impressive</H3>
 
+    <Prose>Think of a confidence interval as a set of candidate population rates that the observed count does not
+      rule out under a stated sampling model. For each candidate rate p, an independent binomial sample has
+      standard deviation <Math>{'\\sqrt{p(1-p)/n}'}</Math> in its observed fraction. Wilson's construction keeps
+      candidate rates satisfying <Math>{'|\\hat p-p|\\le z\\sqrt{p(1-p)/n}'}</Math>. Notice that the uncertainty
+      on the right uses the candidate p, not simply the observed fraction. Solving this inequality gives the
+      center and radius below. This is inversion of an approximate score test, not posterior probability that
+      a fixed unknown rate lies in this particular interval.</Prose>
+
     <Prose>For <Math>{'k'}</Math> successes among <Math>{'n'}</Math> independent Bernoulli trials, a Wilson
       interval for a proportion uses</Prose>
 
@@ -486,6 +503,7 @@ const endToEndContent = {
       + 'r=\\frac{z\\sqrt{\\hat p(1-\\hat p)/n+z^2/(4n^2)}}{1+z^2/n},\\end{gathered}'}</MathBlock>
 
     <Prose>and reports <Math>{'c\\pm r'}</Math>.</Prose>
+    <PerfectSampleIntervalFigure />
 
     <HeldOutOnly placeholder={'This scale check is computed from the held-out accuracy, so it opens with the '
       + 'report in section 6.'}>
@@ -508,6 +526,18 @@ const endToEndContent = {
       pairing. A paired bootstrap resamples the same row indices for both models, then recomputes their score
       difference; dependent specimens would instead require group or block resampling. An interval around a
       validation-selected winner also does not undo the optimism caused by the selection.</Prose>
+    <div data-constructed-fixture="Original four-case paired-loss illustration, unrelated to Wine predictions">
+      <Table caption="Pairing keeps the same case on both sides of the comparison (constructed)"
+        headings={['Case ID', 'Reference error indicator', 'Candidate error indicator', 'Repair contribution: reference − candidate']}
+        rows={[
+          ['A','0','0','0'], ['B','1','0','+1'], ['C','0','1','−1'], ['D','1','0','+1'],
+        ]} />
+      <Prose>The accuracy improvement is the mean of the last column: one quarter. A paired resample selecting
+        A, B, B and D carries both models' results for each selected ID, giving improvement three quarters.
+        Resampling the two model columns independently could compare an easy case under one model with a hard case
+        under the other; it no longer preserves their within-case relationship. This is one possible resample to
+        explain the mechanism, not a confidence interval from four cases.</Prose>
+    </div>
 
     <H3>More development experiments consume more development evidence</H3>
 
@@ -517,6 +547,19 @@ const endToEndContent = {
       evaluates the selected procedure on that outer holdout. It estimates the <strong>procedure</strong>, not
       just one handpicked fit; its computation and interpretation differ from repeatedly retesting the same
       favorite model.</Prose>
+    <div data-constructed-fixture="Original finite score-noise model, not an estimate of this study's selection bias">
+      <Table caption="Selecting the larger of two unbiased scores can make the reported score optimistic"
+        headings={['Equally likely noise outcome', 'Candidate A score', 'Candidate B score', 'Selected score']}
+        rows={[
+          ['Both high','.6','.6','.6'], ['A high, B low','.6','.4','.6'],
+          ['A low, B high','.4','.6','.6'], ['Both low','.4','.4','.4'],
+        ]} />
+      <Prose>In this deliberately simple model both candidates have true score .5 and independent equally likely
+        score noise of ±.1. Each candidate's reported score averages .5, yet their selected maximum averages .55.
+        Selection favors fortunate noise along with any genuine signal. Real candidate scores often share correlated
+        errors and different true quality, so .05 is not a universal correction. An untouched outer evaluation asks
+        whether the selected procedure's advantage survives new evidence.</Prose>
+    </div>
 
     <H3>A system can choose to defer</H3>
 
@@ -531,6 +574,14 @@ const endToEndContent = {
       alternative handling. Plotting accuracy only on answered cases would hide half the work.</Prose>
 
     <AcceptanceCostLab />
+    <Prose>To connect the cost controls to a decision, suppose p is a justified probability that the proposed
+      automatic answer is correct. If correct answers cost zero, wrong answers cost C&gt;0 and a reliable defer path costs d≥0,
+      the automatic answer has expected cost <Math>{'C(1-p)'}</Math>. Prefer it when
+      <Math>{'p\\ge1-d/C'}</Math>, with the tie rule declared. If C=0, the automatic answer instead has zero
+      cost for every p; compare that directly with d rather than divide by zero. The lab's observed ledger measures actual wrong
+      and deferred cases; this formula instead requires probabilities valid for the relevant decision. Human errors,
+      queue delays, capacity or case-specific costs change the comparison. A high uncalibrated score cannot be
+      substituted for p merely because both are between zero and one.</Prose>
 
     <Prose>The threshold is another decision chosen on development evidence. Confidence rankings, calibration
       and acceptance rules are distinct; a high score should not be advertised as a verified probability
@@ -539,9 +590,9 @@ const endToEndContent = {
       &amp; Conformal Prediction</a> lesson.</Prose>
 
     {/* ============================================================ section 9 */}
-    <H2 id={headingId(headings[8])}>{headings[8]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2 id={headingId(headings[8])}>{headings[8]}</H2>
 
-    <Practice title="1. Reconstruct a score from changed counts"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. Reconstruct a score from changed counts"
       constructedFixture={'an invented confusion matrix from a different study, so none of the four evidence '
         + 'roles of this one applies to the scores derived from it'}
       question={<>A new validation study has this confusion matrix, with rows actual and columns predicted:
@@ -556,9 +607,9 @@ const endToEndContent = {
           / endToEndData.practice.balancedAccuracyDenominator, 6)}. Class 2 has the lowest recall. Its
         four-case support also means one changed outcome would move that recall by 0.25, so inspect records and
         uncertainty before announcing a stable subgroup pattern.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. Decide whether a slice is worth prioritizing"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. Decide whether a slice is worth prioritizing"
       question="Model A makes 12 errors in 100 cases and model B makes 10. In a five-case subgroup, A makes one error and B makes three. What can you conclude, and what additional question determines your decision?"
       hint="Calculate the errors outside the subgroup and distinguish an empirical comparison from a causal explanation.">
       <Prose>Outside the subgroup, A makes 11 of 95 errors and B makes 7 of 95. B gains four there and loses
@@ -567,18 +618,18 @@ const endToEndContent = {
         subgroup was predeclared or discovered during exploration. A testable follow-up is a new representative
         sample of that subgroup with a fixed comparison; “B is better everywhere” contradicts the given
         results.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Repair the experiment, not just the code"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Repair the experiment, not just the code"
       question="A team opens test predictions, notices that large purchases fail, adds a purchase-size interaction, and reports the new score on the same test rows. No test labels enter fit. Explain what happened and propose a valid continuation."
       hint="Draw the information arrow from the researcher to the feature decision.">
       <Prose>Test outcomes influenced feature selection through the team. Those rows now belong to development
         history. Keep the result as exploratory evidence and freeze the revised procedure before evaluating on
         fresh appropriate holdout data; alternatively use a genuinely independent outer evaluation of the
         selection procedure. Deleting the notebook cell does not erase the information consumed.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Guided diagnosis: inspect a different error slice"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Guided diagnosis: inspect a different error slice"
       question="In the supplied validation predictions, compare both linear models on the actual cultivar-1 specimens rather than the displayed colour slices. Reproduce the support and the errors, then explain why the result can coexist with the low-colour regression."
       hint="Use (y[valid] == 1) as the mask. Cultivar and colour range are different, overlapping partitions.">
       <Prose>Cultivar 1 has {classOneSlice.linear_two.class1.n} validation specimens. The two-feature linear
@@ -590,9 +641,9 @@ const endToEndContent = {
         direction. Record both definitions so that the figures do not imply one partition is the other — and
         note that investigation B above will reproduce the cultivar comparison only if you group by the label,
         which is a different control from the cutoff it offers.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Deeper: assess an acceptance policy"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Deeper: assess an acceptance policy"
       question="An inspection system answers 60 of 80 cases, making 6 errors among them. A stricter rule answers 40 and makes 2 errors. Calculate coverage and conditional error. If every deferred case costs 2 units of human work and every wrong automatic answer costs 10 units, compare the total observed costs, assuming the human path produces correct answers."
       hint="Account for both wrong automatic answers and all deferred cases.">
       <Prose>The first rule has coverage 0.75 and conditional error 0.10; its cost is 6(10) + 20(2) = 100. The
@@ -603,9 +654,9 @@ const endToEndContent = {
         move goes from {cheapErrorLoose.cost} to {cheapErrorStrict.cost} — the opposite direction. The
         calculation changes again if human errors, delay or capacity are included. Use development data to
         choose the policy before its final evaluation.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Deliver your own reproducible study"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Deliver your own reproducible study"
       question="Before opening any new holdout outcomes, declare one additional candidate using the supplied training and development rows — for example a different fixed regularization strength for the three-feature model. State why the change should help, what remains fixed, and how you will choose. Produce a prediction table with IDs, an aggregate comparison, a paired repair and regression count, and one clearly defined development slice. Write a final paragraph separating evidence already consumed from the independent evidence your next conclusion would require."
       hint="A useful study may reject the new candidate. Do not choose a new split seed just because it improves the result.">
       <Prose><strong>Evaluation criteria.</strong> The packet should reproduce the candidate and its
@@ -615,14 +666,14 @@ const endToEndContent = {
         choice. Because this lesson already disclosed its test result, this extension does not create a new
         independent test of the modified research process.” A production continuation would reserve new,
         appropriately sampled evaluation data.</Prose>
-    </Practice>
+    </Practice></div>
 
     <Callout title="Core readiness">
       You can explain which information each split may change, reproduce the fitted pipeline and its score,
       trace an aggregate improvement to the actual changed cases, and write a conclusion matched to the
       evidence that produced it. The deeper route adds uncertainty, selection-procedure evaluation, and
       decisions that include deferral costs.
-    </Callout>
+    </Callout></section>
 
     <Sources alternatives={<>
       <h4>Another way to learn it</h4>

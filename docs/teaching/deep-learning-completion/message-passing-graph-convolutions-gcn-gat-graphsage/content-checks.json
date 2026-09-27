@@ -1,0 +1,45 @@
+{
+  "topicId": "message-passing-graph-convolutions-gcn-gat-graphsage",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/calculated-inputs.json",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/design.md",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/karate-club.json",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/NETWORKX-LICENSE.txt",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/visual-specifications.md",
+    "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/calculated-inputs.json": "263db8e45404de8da15ee26ffa49bb2cdacd676bdaef97020474d3f8c285dd55",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md": "173c24e376483dac141c1857be162239166f49bb5e3f5d1c1e3b9a71e29af374",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/design.md": "9382265ebef3ab52c288b44ae10025d04a15787703e5f65b5c41a6b40017d47d",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py": "391415c0bd826b1c16128bf8feea0c5e225ac545706119f85a16d06799bd2590",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/karate-club.json": "2b3ec6b980c8905b7aac15482e1a7a562859e6d88ae0c83e54b0436663711812",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md": "3b195a17ea80aed55f0ac7dcb6dcd331927013ff7aba43b9d17f17c19e5885d0",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py": "9c851659a8eac177518a9fdf4f047e3a05cc124c9b89dc54075e31b6e89b9e83",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/NETWORKX-LICENSE.txt": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33",
+    "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/visual-specifications.md": "c576512c8c7e41050ea6a69eaa886e7c3cb1f6caacda5df71728b0dd1e4db523",
+    "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md": "e660b0c65f66faca25498575b2629c8fa18f0daae265c200aaa74e0d7b2f78ed"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

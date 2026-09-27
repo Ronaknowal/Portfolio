@@ -1,0 +1,63 @@
+{
+  "topicId": "depthwise-separable-dilated-convolutions",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "1e7cb43b2f82fbb5b0511cdb1d133e5f5b5db69dce05bc55650759ec30ed142e",
+    "src/learn/components/lesson-labs/DepthwiseIntuitionFigures.jsx": "aac8f12c5248a9cce19bce018922e0b9cd0014bb5f40172bb7089aa5e00a575e",
+    "src/learn/components/lesson-labs/depthwise-intuition.css": "780aec098bc3b585f863f87df59b9ec0fb38193150070a74e635e44e37fd6f86"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        50
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        1,
+        132
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        40
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": []
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T15:09:47.230Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Enlarged the dilation-reach labels and inspected their painted layout.",
+      "status": "closed",
+      "recheckIndices": [
+        1,
+        132
+      ],
+      "copyIndices": []
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

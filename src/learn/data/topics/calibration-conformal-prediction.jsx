@@ -13,6 +13,7 @@ import {
 import { KindTag, Table, round } from '../../components/lesson-labs/CalibrationShared.jsx';
 import { calibrationExamples } from '../calibration-examples.js';
 import { calibrationData } from '../calibration-data.js';
+import { PinballTiltFigure, JackknifePairedCandidatesFigure } from '../../components/lesson-labs/CalibrationIntuitionFigures.jsx';
 import {
   brierLoss, classSets, conformalRank, conformalThreshold, conformalRank as rankOf, cqrInterval,
   fitPav, fixtures, floatingBoundaryCheck, isotonicPredict, mosaicMarginal, normalizedInterval,
@@ -137,7 +138,7 @@ const calibrationContent = {
       the best-covering method is not the most useful one. The investigations update their calculations and visual explanations as you change valid inputs.
     </LessonIntro>
 
-    <div className="cal-route"><Prose><strong>First pass.</strong> Read sections 1–8 and do practice 1–6. That
+    <div className="cal-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–8 and do practice 1–6. That
       route gets you the two meanings of calibration, a reliability diagram you built yourself, a fitted
       probability map, the four separate jobs a label can do, the exact finite rank and why it has an{' '}
       <Math>{'n+1'}</Math> in it, intervals in real units, and a measured comparison you can judge. Run the three
@@ -507,8 +508,8 @@ const calibrationContent = {
         about {num(0.633333)}, while <Code>method="higher"</Code> at the same level returns {num(0.9)}. Neither is
         the eighth order statistic {num(workedThreshold.q)}: quantile conventions use different indexing rules.
         Rather than rely on a remembered recipe, the function computes <Math>{'k'}</Math> and selects the exact
-        indexed value, which also lets it handle the infinity case explicitly. The last two lines are the rotation
-        the investigation below asks you to predict.</Prose>
+        indexed value, which also lets it handle the infinity case explicitly. The last two lines show the rotation
+        you can explore in the investigation below.</Prose>
     </Program>
 
     <RankLab />
@@ -562,6 +563,8 @@ const calibrationContent = {
       probability equals <Math>{'\\tau'}</Math>. <strong>Pinball loss</strong> weights an underprediction
       by <Math>{'\\tau'}</Math> and an overprediction by <Math>{'1-\\tau'}</Math>, so fitting it targets a quantile
       rather than a mean.</Prose>
+    <PinballTiltFigure />
+    <Prose>For a continuous response distribution, move the proposed quantile q slightly upward. Outcomes below q increase loss at rate 1−τ; outcomes above q decrease it at rate τ. The expected slope is therefore (1−τ)F(q)−τ(1−F(q))=F(q)−τ. The balance occurs at F(q)=τ. With atoms, the crossing condition uses one-sided slopes, matching the quantile definition rather than demanding an impossible exact fraction.</Prose>
     <Prose>Approximate .05 and .95 quantiles supply an initial 90% interval, but fitted endpoints do not
       automatically have finite-sample coverage. Conformalised quantile regression, or <strong>CQR</strong>,
       calibrates the score</Prose>
@@ -580,6 +583,7 @@ const calibrationContent = {
       <a href="https://proceedings.neurips.cc/paper/2019/file/5103c3584b063c431bd1268e9b5e76fb-Paper.pdf">Romano,
       Patterson and Candès</a> give the score and the construction.</Prose>
 
+    <Prose>Read the CQR maximum as two simultaneous constraints. To have max(L−y,y−U)≤q, both L−y≤q and y−U≤q must hold, so y≥L−q and y≤U+q. For base endpoints 10 and 20, a candidate y=12 has score max(−2,−8)=−2. A threshold −2 keeps it exactly at the new lower boundary 12; a candidate y=11 scores −1 and is excluded. The negative sign is an inward distance to the nearer endpoint.</Prose>
     <IntervalLab />
 
     {/* ============================================================ §7 */}
@@ -595,7 +599,7 @@ const calibrationContent = {
     <Prose>Use Python {provenance.environment.python} and a virtual environment. On Windows:</Prose>
     <Code>{'py -3.12 -m venv .venv'}</Code>
     <Prose>then install the pinned versions and run the two files in order — the first
-      writes <Code>checked-results.json</Code>, the second imports from it and
+      writes <Code>checked-results.json</Code>; the second imports functions from <Code>calibration_calculations.py</Code> and
       writes <Code>experiment-results.json</Code>:</Prose>
     <Code>{'.venv\\Scripts\\python -m pip install numpy==' + provenance.environment.numpy
       + ' scipy==' + provenance.environment.scipy + ' scikit-learn==' + provenance.environment.scikitLearn}</Code>
@@ -733,6 +737,11 @@ const calibrationContent = {
       but each candidate uses its own class threshold. This is quite different from the mistaken class-calibration
       plot of section 1, which discards all the negative outcomes for a class.</Prose>
 
+    <Table caption="Class-conditional testing still works when the true class is unknown" headings={['Candidate label', 'Forecast probability', 'Score 1−p', 'Its class threshold', 'Include?']} rows={[
+      ['A', '.6', '.4', '.3', 'no'], ['B', '.3', '.7', '.8', 'yes'], ['C', '.1', '.9', '.95', 'yes'],
+    ]} />
+    <Prose>These are constructed thresholds from separately calibrated class groups. The set is {'{B,C}'}, even though A had the largest probability: each class is tested against its own reference score distribution. This demonstrates the candidate-by-candidate mechanism, not correctness for this particular input. A rare class may need a large or infinite threshold because its calibration evidence is limited.</Prose>
+
     <H3>A singleton is a selection event</H3>
     <Prose>Keeping only singleton sets changes the population under discussion. Ordinary marginal coverage does
       not guarantee the same rate among those retained predictions. A selective system should report how many
@@ -811,6 +820,7 @@ const calibrationContent = {
       <a href="https://stat.cmu.edu/~ryantibs/papers/jackknife.pdf">Barber and colleagues</a> give the
       construction and the theorems.</Prose>
 
+    <JackknifePairedCandidatesFigure />
     <H3>Shift, unusual applications, and what the guarantee targets</H3>
     <Prose>Under covariate shift, <Math>{'P(X)'}</Math> changes while <Math>{'P(Y\\mid X)'}</Math> stays fixed.
       Weighted conformal methods can account for known density ratios and support conditions using a weighted
@@ -820,6 +830,10 @@ const calibrationContent = {
       this lesson's unweighted protocol.{' '}
       <a href="https://proceedings.neurips.cc/paper/2019/file/8fb21ee7a2207526da55a679f0332de2-Paper.pdf">Tibshirani
       and colleagues</a> set out the setting.</Prose>
+    <Table caption="The future input contributes mass to a weighted conformal threshold" headings={['Score location', 'Calibration weight', 'Mass when new weight is 1', 'Mass when new weight is 6']} rows={[
+      ['1', '1', '1/5', '1/10'], ['2', '1', '1/5', '1/10'], ['3', '2', '2/5', '2/10'], ['∞: new input', 'new weight', '1/5', '6/10'],
+    ]} />
+    <Prose>For this constructed known-weight example, the .8 weighted quantile is 3 in the first column: cumulative finite mass reaches 4/5 there. In the second it is infinity: finite scores carry only 4/10. A test input with little relative representation in calibration can demand an uninformative set. Omitting its mass would falsely produce a finite threshold. These weights represent the specified covariate density ratio; they cannot be invented merely to obtain a desirable answer.</Prose>
     <Prose>One useful extension is anomaly detection. If larger scores indicate more unusual behaviour, a new
       score <Math>{'s'}</Math> can be compared with <Math>{'n'}</Math> exchangeable reference scores
       using <Math>{'p=(1+\\#\\{\\text{reference scores}\\ge s\\})/(n+1)'}</Math>. Flagging a small{' '}
@@ -858,11 +872,11 @@ const calibrationContent = {
       not be described as always zero.</Prose>
 
     {/* ============================================================ §10 */}
-    <H2>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[9]}</H2>
     <Prose>Work through 1–6 before the deeper problems. Each one changes a quantity or an assumption rather than
       repeating a trace above it.</Prose>
 
-    <Practice title="1. A misleading confidence diagram"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A misleading confidence diagram"
       question={<>In two equally common groups, forecasts for class 1
         are {num(fixtures.practiceForecastGroups[0].forecast)} and {num(fixtures.practiceForecastGroups[1].forecast)},
         but the true positive rates
@@ -874,9 +888,9 @@ const calibrationContent = {
         are ({num(0.1)}, {num(0.2)}) and ({num(0.9)}, {num(1)}), each {num(0.1)} above the diagonal. The different
         conditioning quantities conceal miscalibration when merged. Figure 1 has this exact pair as its second
         setting, so you can compare both readings side by side.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. Construct a different isotonic fit"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. Construct a different isotonic fit"
       question={<>Scores <Math>{'[1,2,3,4,5,6]'}</Math> have labels <Math>{'[0,1,0,1,0,1]'}</Math>. Find the
         monotone least-squares probabilities. Explain whether permuting the input row order changes the
         result.</>}
@@ -887,9 +901,9 @@ const calibrationContent = {
         when the scores and labels stay attached and ties are handled correctly. This fit is not an independent
         demonstration of population calibration. Investigation 2 has this fixture as a preset, and also a
         “reverse the row order” button whose result is an exact null.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Compute a rank without a percentile shortcut"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Compute a rank without a percentile shortcut"
       question={<>Fourteen calibration scores are the integers 1 through 14.
         For <Math>{'\\alpha=.2'}</Math>, compute <Math>{'k'}</Math> and <Math>{'q'}</Math>.
         For <Math>{'\\alpha=.02'}</Math>, what changes? Is the <Math>{'k'}</Math>th score counted from the largest
@@ -901,9 +915,9 @@ const calibrationContent = {
         At <Math>{'\\alpha=.02'}</Math>, <Math>{'k=\\lceil 14.7\\rceil=' + practiceRankTwo}</Math>, larger than
         the fourteen available scores, so <Math>{'q'}</Math> is infinity and every candidate answer is included.
         Clipping to 14 is a different procedure and loses the rank argument that justified the target.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Turn class scores into a set"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Turn class scores into a set"
       question={<>A three-class predictor
         returns <Math>{'[' + fixtures.practiceVector.map(value => num(value)).join(',') + ']'}</Math>. A separately
         computed threshold is <Math>{'q=' + num(fixtures.practiceQ)}</Math> for the
@@ -921,9 +935,9 @@ const calibrationContent = {
         status does not establish {percent(1 - fixtures.defaultAlpha, 0)}% correctness conditional on that status
         or on that input. The nominal conformal coverage belongs to the sampling procedure and the specified
         score, not to each displayed set.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. A negative CQR adjustment"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. A negative CQR adjustment"
       question={<>An initial interval
         is <Math>{'[' + fixtures.cqrBase.lower + ',' + fixtures.cqrBase.upper + ']'}</Math>. Five calibration CQR
         scores are <Math>{'[' + fixtures.cqrScores.join(',') + ']'}</Math> and <Math>{'\\alpha=' + num(fixtures.cqrAlpha)}</Math>.
@@ -936,9 +950,9 @@ const calibrationContent = {
         width. This constructed sample does not prove that every future response lies in the shrunken interval,
         and if the endpoints had crossed the answer would be an empty set rather than a negative width.
         Investigation 4's CQR branch has a preset that makes exactly that happen.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. A data-flow bug"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. A data-flow bug"
       question={<>A team fits a neural network, chooses an epoch using validation labels, fits temperature on
         those same labels, and computes a split-conformal threshold from the same observations. A new independent
         test set is untouched. Which step needs redesign for the ordinary split-conformal argument?</>}
@@ -948,9 +962,9 @@ const calibrationContent = {
         probability fitting first, then use separate conformal observations — or use a specifically justified
         alternative procedure. An untouched test set measures the resulting system, but it does not retroactively
         validate the threshold construction. Figure 5 is the four-lane version of exactly this argument.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Evaluate the acoustic intervals"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Evaluate the acoustic intervals"
       question={<>Ridge intervals cover {ridgeRow.covered} of {ridgeRow.n} observations,
         with {ridgeRow.frequencyGroups.below_2000_hz.covered}/{ridgeRow.frequencyGroups.below_2000_hz.n} below
         2,000 Hz and {ridgeRow.frequencyGroups.at_least_2000_hz.covered}/{ridgeRow.frequencyGroups.at_least_2000_hz.n} above.
@@ -966,9 +980,9 @@ const calibrationContent = {
       <Prose>A useful next development experiment examines residual patterns and the relevant experimental groups,
         designs a scale-normalised, quantile-based or group-specific procedure using development data, and then
         obtains an appropriate new independent assessment — rather than tuning on this final table.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Can a narrower set be worse?"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Can a narrower set be worse?"
       question={<>One system always returns all five labels. Another returns one label per observation but omits
         the true label on 30% of them. Which uncertainty report is more useful, and what is missing from that
         question?</>}
@@ -979,10 +993,10 @@ const calibrationContent = {
         usefulness. A method that targets an appropriate loss or acceptance policy may be needed — and the
         training-prior row of section 7 is the first system, measured: it covers all {classification.roleSizes.test} rows
         and returns both labels every time.</Prose>
-    </Practice>
+    </Practice></div>
 
-    {/* ============================================================ §11 */}
-    <H2>{headings[10]}</H2>
+    {/* ============================================================ §11 */}</section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[10]}</H2>
     <Prose>You are ready to move on when you can construct and read a reliability diagram with its counts, explain
       why merging bins can drive a binned ECE to zero without changing a model, fit a monotone map by pooling
       adjacent violators with their weights, name the four jobs a label can do in one experiment, calculate the
@@ -1027,7 +1041,7 @@ const calibrationContent = {
       Complexity &amp; Generalization Bounds</a>. It returns to the generalisation question from PAC and VC with a
       complexity measure sensitive to the sampled inputs. The connection is the habit you have just practised:
       define the random object, say what was fitted using which information, and name the exact event that a
-      probability statement controls.</Prose>
+      probability statement controls.</Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; each of these
       offers a second explanation or a fuller reference.</Prose><ul>

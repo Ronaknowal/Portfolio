@@ -56,8 +56,7 @@ export function FiniteWorldLab() {
   return <Investigation title="Investigation 1 · which observations remove the uncertainty?"
     question={'Four inputs 0, 1, 2 and 3 are equally likely. All sixteen binary rules on them are candidates, '
       + 'fixed before anything is seen, and the learner returns the first consistent one in the order below — '
-      + 'which means it predicts 0 wherever it has seen nothing. Choose what to observe, then say what that '
-      + 'learner will cost.'}
+      + 'which means it predicts 0 wherever it has seen nothing. Choose what to observe and inspect the fitted rule, its mistakes and its population risk.'}
     role={{ kind: 'constructed', text: 'A constructed world with a known target, so the population risk is an '
       + 'exact count and not an estimate. The learner never reads a label it has not observed.' }}
     note="Reset returns the target to 0011, the sample to 0 then 1, and ε to .25."
@@ -408,8 +407,8 @@ export function BoundaryStripLab() {
 
   return <Investigation title="Investigation 3 · explore what one more observation can change"
     question={'The target interval generates every label, so the fit is always consistent with the sample and '
-      + 'its training error is always 0. Propose a change to the sample or the target, say which way the '
-      + "population risk will move and what it will become, then look."}
+      + 'its training error is always 0. Change the sample or the target and watch which inputs become mistakes '
+      + "and how their population mass changes the risk."}
     role={{ kind: 'constructed', text: 'A constructed world: X is uniform on [0, 1] and the target is an '
       + 'interval, so a length is exactly a probability and the risk is computed rather than estimated.' }}
     note={'The drawing below shows the state currently APPLIED, whose fit section 8 has already worked '

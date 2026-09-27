@@ -1,0 +1,37 @@
+{
+  "topicId": "conditional-random-fields-crf",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/conditional-random-fields-crf.jsx",
+    "src/learn/components/lesson-labs/CrfIntuition.jsx",
+    "src/learn/components/lesson-labs/crf-intuition.css",
+    "src/learn/data/crf-models.js"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "97773a50e538899059dbb236f0a566c8f0f68a133277bbf6204216e7d9db278f",
+    "src/learn/components/lesson-labs/CrfIntuition.jsx": "459f435bb6a0214202c3dbbc5843bf62a7d1b82022e25fdb031c5170f9a48a0d",
+    "src/learn/components/lesson-labs/crf-intuition.css": "8a06649143b2c657b553f834b9093caac26d083c99f651cebefca8cf401190f3",
+    "src/learn/data/crf-models.js": "e9464061389ee7d0e7be57b6b49b62838210862e0289b3e20de2b40544f87682"
+  },
+  "scope": "Whole lesson read; pair-memory, partial-label likelihood and backward sampling expanded; code/data preserved and stale execution annotation corrected.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "All 128 factor values and three partial-label likelihood sets",
+      "passed": true
+    },
+    {
+      "name": "Backward conditional products recover all four joint probabilities",
+      "passed": true
+    },
+    {
+      "name": "Pair-state overlap enumeration for K=2,3,5",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

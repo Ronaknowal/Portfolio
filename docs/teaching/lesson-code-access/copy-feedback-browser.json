@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-28",
+  "before": {
+    "label": "Copy",
+    "width": 88
+  },
+  "success": {
+    "background": "rgb(33, 28, 18)",
+    "color": "rgb(243, 205, 129)",
+    "confirmed": true,
+    "label": "✓ Copied",
+    "width": 88
+  },
+  "reset": {
+    "confirmed": false,
+    "label": "Copy",
+    "width": 88
+  },
+  "mobile": {
+    "confirmed": true,
+    "label": "✓ Copied",
+    "right": 120.66666793823242,
+    "viewport": 390,
+    "width": 88
+  },
+  "checks": "Button text confirms successful Clipboard API resolution, width remains 88px, resets without layout shift; mobile confirmation visible. Clipboard payload identity uses existing handler tests."
+}

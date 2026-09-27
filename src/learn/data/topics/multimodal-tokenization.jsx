@@ -863,7 +863,7 @@ recon = model.decode(out.audio_codes, out.audio_scales, inputs["padding_mask"])`
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         <strong>1. Image sequence length.</strong> A ViT-style tokenizer is applied to a 1024×1024 RGB image at patch size 16. How many tokens does this produce? What if the patch size drops to 8? What is the attention cost (in FLOPs, ignoring constants) of self-attention within the image region in each case? Answer: 4,096 tokens at P=16, 16,384 at P=8. Attention is quadratic in sequence length, so P=8 is 16× more expensive than P=16 just for the image's self-attention.
@@ -887,7 +887,7 @@ recon = model.decode(out.audio_codes, out.audio_scales, inputs["padding_mask"])`
 
       <Callout accent="gold">
         The tokenizer is the interface between the world and the model. It determines what the model can perceive, what it can generate, how long its sequences are, how fast its inference runs, and how gracefully it handles inputs outside its training distribution. No amount of model scale recovers information the tokenizer discarded.
-      </Callout>
+      </Callout></section>
     </div>
   ),
 };

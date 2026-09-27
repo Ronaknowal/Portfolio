@@ -28,6 +28,19 @@ For a topic whose subject is a method applied to data, also record a **real data
 
 ## 2. Map every conceptual hurdle
 
+Plan opening guidance separately from the teaching body. The reader places one
+shared Learning compass directly below the title and metadata: topic summary,
+first-pass route, prerequisite/exploration disclosures and links to every actual
+main section. Register guidance through `LessonIntro` or explicit `Prose opening`
+annotations; do not build a second partial contents list. Keep authored section
+numbers and existing fragments stable. The common navigation format does not
+constrain the lesson's diagrams, labs or conceptual section structure. See the
+teaching standard's shared-opening contract.
+
+Apply this map to the whole lesson, including substeps within a section and advanced branches, not just the topic introduction. Enumerate new mechanisms, representations, quantities, objectives, assumptions, method variants and implementation/evaluation decisions the learner has to reason with. Locate the support in the actual manuscript or runtime. Mark existing support sufficient only after reading it; otherwise record the gap and improve it at its point of need. This is a working teaching map, not a learner-facing checklist or a quota of diagrams.
+
+For an existing lesson, include a before/after disposition: exact location, what is already explained, missing bridge or visual relationship, change made, worked interpretation and practice connection. A reuse decision names the earlier concept/figure and the small bridge that makes the extension understandable. The independent reviewer checks these dispositions against the complete reading flow rather than accepting the author's table as evidence by itself. Follow the standard's **Apply the teaching loop at every conceptual transition** requirement.
+
 | Outcome / hurdle | Required prior idea | Plain explanation and exact mechanism | Complete example and interpretation | Representation and learner question | Live exploration / independent practice / feedback | Core or deeper |
 | --- | --- | --- | --- | --- | --- | --- |
 | Complete this for each actual hurdle | Name the skill and its lesson or local bridge | Explain causality, not only terminology | Include inputs, intermediate states and result | Choose static, stepped or interactive support | Specify evidence that distinguishes understanding from copying | Keep required reasoning in core |
@@ -72,9 +85,13 @@ For the final scratch route, record the algorithm choice, time/space costs, stab
 
 For each example specify fixtures/data, environment, full inputs/code or mathematical setup, intermediate reasoning, expected output, interpretation and relevant failure case. Verify all displayed numbers and runnable results. Label approximations, rounding, simulated/illustrative values and hardware/version dependence.
 
+Plan explanations, diagrams, worked examples, optional deeper teaching and instructional code as visible sections in the reading flow. Do not put them behind dropdowns or rely on a default-open disclosure. Reserve authored collapsible feedback for practice, hints and solutions, including in-body checkpoints. Specify the shared Copy/Download controls for every code block and the common downloadable-file index for actual assets; preserve canonical names, context, source agreement and answer-only practice boundaries. If a program is large, it may load automatically near the viewport with visible feedback rather than requiring an extra opening click.
+
 Sequence support from a worked example to a partially guided variation and independent transfer. Include diagnosis or a counterexample where misconceptions matter. Give a hint before a full solution; the solution explains the reasoning and tempting wrong route. Open tasks need evaluation criteria and an example acceptable answer. A capstone combines already-taught skills and has a reproducible success check, not unexplained prerequisites.
 
 Map each promised outcome to at least one meaningful evidence opportunity. Avoid exercises that only repeat the exact demonstrated input. Completion buttons are reading bookkeeping, not automatic mastery assessment.
+
+Plan explicit boundaries for recurring ending material: independent practice, each visible task prompt and its authored hint/solution, further learning, technical references, and readiness/next study. Give each block its actual purpose while keeping topic-specific titles, content, order and volume. A combined references/readiness heading or a mixed link list needs a deliberate boundary decision; do not infer roles from keywords or URL formats. Keep substantive deeper teaching in the lesson body. Implement the shared ending/exercise presentation and preserve exact heading IDs, numbers and annotations through generators. Do not invent hints, metadata, prerequisites or readiness claims to fill a template.
 
 For DSA, also map outcomes and interview patterns to curated official LeetCode statements using [DSA-PRACTICE-STANDARD.md](DSA-PRACTICE-STANDARD.md). Plan the learner's attempt, optional hint, transfer variation and edge cases for each selected task; distinguish core readiness from extensions with later prerequisites. Record verified title/number/difficulty/access and ownership of overlapping patterns. Update the coverage map as topics are authored without turning each rewrite into a full-catalogue audit or imposing a question quota.
 
@@ -94,7 +111,7 @@ Resolve competing definitions and contradictory results. Keep qualifications nex
 
 The expansion's source URLs are research starting points with a coverage rationale, not blanket verification of every sentence a future author writes. A future lesson must verify its specific claims and implemented behavior.
 
-Curate the learner-facing “References & another way to learn it” section alongside the claim ledger. Seek appropriate articles/tutorials, interactive practice, books and videos/YouTube playlists; include the formats that actually help this topic, with no fixed number. For each selected resource record a direct URL, creator/title, format, concept and learner level, what was actually reviewed (page, transcript, notebook, video segment), verification date, relevant version/access caveats and any verified chapter/item/timestamp guidance. Publish a concise usefulness annotation beside the link. Distinguish current technical references from older alternate explanations, and keep the core lesson self-contained. Follow the standard's resource-selection rules.
+Curate learner-facing further learning and technical references alongside the claim ledger, keeping alternate explanations/practice distinct from precise claim/API sources. Seek appropriate articles/tutorials, interactive practice, books and videos/YouTube playlists; include the formats that actually help this topic, with no fixed number. For each selected resource record a direct URL, creator/title, format, concept and learner level, what was actually reviewed (page, transcript, notebook, video segment), verification date, relevant version/access caveats and any verified chapter/item/timestamp guidance. Publish a concise usefulness annotation beside the link. Choose the group from the resource's role in this lesson; retain important version and review limitations, and keep the core lesson self-contained. Follow the standard's resource-selection rules.
 
 ## 6. Implement and verify
 

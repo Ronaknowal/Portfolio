@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "reviewer": "state_space_implementation",
+  "checks": [
+    "24 fresh PyTorch masked/coordinate-edited/position-tag reassigned model cases",
+    "Six NumPy/SciPy baseline results from NPZ, compared against JSON-export JS baseline"
+  ],
+  "maxLogitError": 0.0000040396357743333056,
+  "maxBaselineError": 1.3877787807814457e-17,
+  "files": {
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/trajectory-models.json": "ca9c3e0e39566e8d0afb547412d2e94380a95c970cc80a707a506ad18d8dccf3",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/small-fits.npz": "b8984b1ac51391d982546f39c7d254211dcfbcbcb7de5c7630336ac1e38dac3f",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/latent_trajectory_classifier.py": "c810abe34f5060d04f7df2f0b4797200c734e21ef954d494da9a062b86482b5d",
+    "src/learn/data/long-context-models.js": "cd2f2f775b7d2a9f1d623e72b76f6e25c44dbae58ae2323d8af911ec287dce82",
+    "scripts/verify-long-context-independent.mjs": "0e2a82cf167408cfb3bb378a995148f2bea8c475878cbc851032420679b5059a"
+  }
+}

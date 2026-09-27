@@ -1,0 +1,9 @@
+.capsule-intuition { margin: 1.5rem 0; padding: 1rem; border: 1px solid #333; background: #101010; border-radius: 8px; }
+.capsule-intuition-directions { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.5rem; }
+.capsule-intuition h4, .capsule-intuition strong { color: #e8b44a; }
+.capsule-intuition h4 { margin: 0; }
+.capsule-intuition svg { display: block; width: 100%; max-width: 250px; height: auto; }
+.capsule-intuition svg text { fill: #ddd; font-size: 12px; }
+.capsule-intuition p { margin: .5rem 0; }
+.capsule-lesson .capsule-intuition figcaption { margin-top: 1rem; color: #b9b9b9; line-height: 1.65; font-size: .9rem; font-weight: 400; }
+@media(max-width:600px) { .capsule-intuition-directions { grid-template-columns: 1fr; } }

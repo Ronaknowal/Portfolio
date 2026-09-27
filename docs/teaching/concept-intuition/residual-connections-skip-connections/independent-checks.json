@@ -1,0 +1,45 @@
+{
+  "topicId": "residual-connections-skip-connections",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:34:40.152Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/residual-connections-skip-connections.jsx",
+    "src/learn/components/lesson-labs/ResidualGateIntuition.jsx",
+    "src/learn/components/lesson-labs/residual-gate-intuition.css",
+    "docs/teaching/drafts/residual-connections-skip-connections/lesson.md",
+    "scripts/build-residual-connections-lesson.mjs",
+    "docs/teaching/concept-intuition/residual-connections-skip-connections/independent-review.md",
+    "scripts/review-network-architecture-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/residual-connections-skip-connections.jsx": "0864b09b9cbe7d0020b61c2659d1ce17b121e088d1f403430e4235135b2bccc3",
+    "src/learn/components/lesson-labs/ResidualGateIntuition.jsx": "5c8c433beba7cc479c15890f3e721ca9b01cfb1ba765d0930875921c0822f55f",
+    "src/learn/components/lesson-labs/residual-gate-intuition.css": "46bef1d18a254e3ac69fb6d58d4befcf099475e83c56493c773ce437b9b32081",
+    "docs/teaching/drafts/residual-connections-skip-connections/lesson.md": "75a210dded04d90f5270d988038b4baaeb2d3703fb5400d9f604ac63ad51485f",
+    "scripts/build-residual-connections-lesson.mjs": "ce0bc66480a5ef4e6b8b5113d92283d24ec1ad1f324b272ca0c9cdb141dc0b05",
+    "docs/teaching/concept-intuition/residual-connections-skip-connections/independent-review.md": "ac46f4f6472846d920f0d25138a0b4e7286eaa89b848202e49775f21e9b8fbfa",
+    "scripts/review-network-architecture-intuition.mjs": "5185333ed3ee2340f3d1f1d25474db08870c76a3bd6fee4311dac897be3a78c7"
+  },
+  "checks": [
+    {
+      "name": "Nonlinear input-dependent highway gate finite difference includes the gate derivative",
+      "status": "passed"
+    },
+    {
+      "name": "Changed checkpoint-memory balance at 36 layers",
+      "status": "passed"
+    },
+    {
+      "name": "Changed projection skip plus branch obeys the transposed-Jacobian pullback",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/residual-connections-skip-connections/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new fitting or library-execution claim."
+}

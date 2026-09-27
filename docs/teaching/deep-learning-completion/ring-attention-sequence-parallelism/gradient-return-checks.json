@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "claim": "All three actual process validators reject omitted final backward rotation after forward parity; canonical program unchanged.",
+  "runs": [
+    {
+      "rank": 0,
+      "expectedFailure": true,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "[W927 04:50:29.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:53622 (system error: 10049 - The requested address is not valid in its context.).\n[rank0]: Traceback (most recent call last):\n[rank0]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\ring-gradient-return-j1llnvlu\\missing_return.py\", line 129, in <module>\n[rank0]:     main()\n[rank0]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\ring-gradient-return-j1llnvlu\\missing_return.py\", line 121, in main\n[rank0]:     torch.testing.assert_close(actual_gradient, expected[:, indices], rtol=1e-11, atol=1e-11)\n[rank0]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Lib\\site-packages\\torch\\testing\\_comparison.py\", line 1689, in assert_close\n[rank0]:     raise error_metas[0].to_error(msg)\n[rank0]: AssertionError: Tensor-likes are not close!\n\n[rank0]: Mismatched elements: 18 / 18 (100.0%)\n[rank0]: Greatest absolute difference: 1.0388910997742684 at index (1, 0, 2) (up to 1e-11 allowed)\n[rank0]: Greatest relative difference: 9.853459504422993 at index (1, 0, 1) (up to 1e-11 allowed)\n"
+    },
+    {
+      "rank": 1,
+      "expectedFailure": true,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "[W927 04:50:29.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:53622 (system error: 10049 - The requested address is not valid in its context.).\n[rank1]: Traceback (most recent call last):\n[rank1]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\ring-gradient-return-j1llnvlu\\missing_return.py\", line 129, in <module>\n[rank1]:     main()\n[rank1]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\ring-gradient-return-j1llnvlu\\missing_return.py\", line 121, in main\n[rank1]:     torch.testing.assert_close(actual_gradient, expected[:, indices], rtol=1e-11, atol=1e-11)\n[rank1]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Lib\\site-packages\\torch\\testing\\_comparison.py\", line 1689, in assert_close\n[rank1]:     raise error_metas[0].to_error(msg)\n[rank1]: AssertionError: Tensor-likes are not close!\n\n[rank1]: Mismatched elements: 12 / 12 (100.0%)\n[rank1]: Greatest absolute difference: 0.7834755766879639 at index (1, 0, 2) (up to 1e-11 allowed)\n[rank1]: Greatest relative difference: 1.1607376232420148 at index (1, 0, 0) (up to 1e-11 allowed)\n"
+    },
+    {
+      "rank": 2,
+      "expectedFailure": true,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "[W927 04:50:29.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:53622 (system error: 10049 - The requested address is not valid in its context.).\n[rank2]: Traceback (most recent call last):\n[rank2]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\ring-gradient-return-j1llnvlu\\missing_return.py\", line 129, in <module>\n[rank2]:     main()\n[rank2]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\ring-gradient-return-j1llnvlu\\missing_return.py\", line 121, in main\n[rank2]:     torch.testing.assert_close(actual_gradient, expected[:, indices], rtol=1e-11, atol=1e-11)\n[rank2]:   File \"C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Lib\\site-packages\\torch\\testing\\_comparison.py\", line 1689, in assert_close\n[rank2]:     raise error_metas[0].to_error(msg)\n[rank2]: AssertionError: Tensor-likes are not close!\n\n[rank2]: Mismatched elements: 12 / 12 (100.0%)\n[rank2]: Greatest absolute difference: 0.7146048237961712 at index (0, 1, 2) (up to 1e-11 allowed)\n[rank2]: Greatest relative difference: 286.37859878572016 at index (0, 1, 1) (up to 1e-11 allowed)\n"
+    }
+  ]
+}

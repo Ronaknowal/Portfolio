@@ -1,0 +1,47 @@
+{
+  "topicId": "semi-supervised-learning-label-propagation-self-training-co-training",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx",
+    "src/learn/components/lesson-labs/SemiSupervisedIntuition.jsx",
+    "src/learn/components/lesson-labs/semi-supervised-intuition.css",
+    "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/lesson.md",
+    "scripts/generate-semi-supervised-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "a3285d0604cd73266c7075405c0b502d2ecf684827ee1863a4fe2c5a7d6e6a61",
+    "src/learn/components/lesson-labs/SemiSupervisedIntuition.jsx": "e3add9d0953804b340da2934090e69761d00102cd89228a2c6d0b738af8e53f7",
+    "src/learn/components/lesson-labs/semi-supervised-intuition.css": "3dc0c83844a5a720bc846877f30f8ac0a4a342220ad619cea474bc720d278aa6",
+    "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/lesson.md": "4cc67d263fe6f08c0b393f841d361b3a181dcd185cfeffb93c00a3b35676887b",
+    "scripts/generate-semi-supervised-lesson.mjs": "68450405122fe43b8361a0bd4ddce711966c2664df65f59075cf139ded4be2b1"
+  },
+  "scope": "Full ten-section reading; targeted normalized-graph and deep-consistency transitions. All eight practice tasks and canonical programs retained.",
+  "checks": [
+    {
+      "name": "Changed JSX parses with esbuild",
+      "passed": true
+    },
+    {
+      "name": "Normalized edge energy equals matrix quadratic on three score columns",
+      "passed": true
+    },
+    {
+      "name": "All 49 weak scores × 50 thresholds × three strong scores: masked derivative matches finite differences",
+      "passed": true
+    },
+    {
+      "name": "Batch denominator and entropy counterexample independently calculated",
+      "passed": true
+    },
+    {
+      "name": "Topic generator reproduces canonical manuscript and imports byte for byte",
+      "passed": true
+    },
+    {
+      "name": "Reviewer-requested wording adjustment parsed; unchanged numerical behavior",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

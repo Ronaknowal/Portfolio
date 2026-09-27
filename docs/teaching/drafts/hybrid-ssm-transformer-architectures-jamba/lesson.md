@@ -1,6 +1,6 @@
 # Hybrid SSM–Transformer Architectures: Jamba and Complementary Memory
 
-**Explore as you read.** Edit record keys/values, decay, score gap, cache budget, expert probabilities/capacity and supported stroke inputs. Show retained state versus explicit memory read, probability mass, exact request memory and continued frozen-model outputs. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a hybrid arrangement by memory retention and routing costs; named architecture examples do not imply identical mechanisms.
+**Explore as you read.** Relabel a record and compare a running summary with a query-based read. Then change a memory budget, follow an expert route, and edit a real pen trajectory to see how its saved model uses recurrent state and attention history.
 
 
 A document assistant may need to follow a developing argument and then retrieve the exact amount beside an invoice number. A handwriting recognizer may need to follow a pen's movement and then compare the closing stroke with an earlier turn. These are related jobs, but the most convenient memory for one is not automatically the most convenient memory for the other.
@@ -66,7 +66,7 @@ This is a counterexample for **this two-number summary**, not a proof that every
 
 [Figure J03: two different histories converge to an identical state node, while their retained value strips remain different. Caption identifies the recurrence and avoids a universal capacity claim.]
 
-**Investigation JA — decide what information to retain.** Use the fresh record list A:3, B:8, A:1, C:5. Before running it, observe whether changing the second label from B to A will affect the running summary, the label-A read, both or neither. Then edit a value, the recency factor or the score gap and explain which weights moved. Try the constant-value case and a query that matches no label. The latter still returns a weighted mixture; a production system needs a separate way to represent “no useful match.”
+**Investigation JA — decide what information to retain.** Use the fresh record list A:3, B:8, A:1, C:5. Change the second label from B to A and compare the immediately updated running summary and label-A read. Then edit a value, the recency factor or the score gap and explain which weights moved. Try the constant-value case and a query that matches no label. The latter still returns a weighted mixture; a production system needs a separate way to represent “no useful match.”
 
 ## 2. Read a hybrid stack on two axes
 
@@ -244,7 +244,7 @@ $$
 
 Renormalizing the selected weights would give $[4/3,1/3]$. Neither convention can be inferred merely from the phrase “top-2.”
 
-**Investigation JD — selected experts, retained mass.** Use four fresh expert outputs and edit router scores. First observe whether raising the score of an expert that remains unselected can change the output. Run the comparison and trace any change through the probability calculation. Contrast that with changing an unselected expert's output while leaving its score unchanged. Then compare retained-mass and renormalized mixing, and inspect a tie at the selection boundary.
+**Investigation JD — selected experts, retained mass.** Use four fresh expert outputs and edit router scores. Raise the score of an expert that remains unselected and trace the live output change through the full-softmax denominator. Contrast that with changing an unselected expert's output while leaving its score unchanged. Then compare retained-mass and renormalized mixing, and inspect a tie at the selection boundary.
 
 The broader [Mixture-of-Experts lesson](/learn/path/full-curriculum/mixture-of-experts-transformers-moe?module=deep-learning-fundamentals) develops expert specialization, balancing losses, capacity, dispatch and training gradients. Locally, remember that storing 16 experts and executing two does not make 14 experts disappear from model memory. Across a batch, different tokens may activate many different experts, requiring weight movement and possibly communication among devices.
 
@@ -395,7 +395,7 @@ Clearing K/V also changes this example's logits while preserving its final class
 
 [Figure J16: a request timeline split after point three. Draw two compact recurrent matrices, two short buffers and the growing attention bank, each connected to its own layer. Branches show correct carry and individually cleared state types, with a logit-difference strip.]
 
-**Investigation JB — continue the same request.** Start with the different validation trace at source row 2,970. Predict what will happen when only K/V is cleared after point three. Compare the entire probability vector and each prefix logit, then inspect recurrent reset, convolution reset and position-offset reset. Edit the actual coordinate points and make a live comparison before rerunning. A digit that still looks similar to a person may change its model representation.
+**Investigation JB — continue the same request.** Start with the different validation trace at source row 2,970. Compare the complete current outputs when only K/V is cleared after point three. Compare the entire probability vector and each prefix logit, then inspect recurrent reset, convolution reset and position-offset reset. Edit the actual coordinate points and follow the immediately recomputed comparison. A digit that still looks similar to a person may change its model representation.
 
 The saved model was trained to classify after all eight points. Earlier logits reveal its computation, but are not calibrated promises that it can reliably classify every partial stroke.
 
@@ -435,7 +435,7 @@ The core implementation is [stroke_models.py](stroke_models.py). `SelectiveMixer
 
 These classes use ordinary `nn.Linear`, `nn.Conv1d`, tensor operations, parameter registration and Adam. The full study supplies fitting and `state_dict` restoration. For a released model rather than our small instructional network, [deployment_example.py](deployment_example.py) supplies the distinct Transformers tokenizer/model/generation route, with an explicit checkpoint revision and resource assumptions. Its learned projections, dimensions, routing and cache classes belong to that selected release; our tiny output is not a numerical oracle for an unrelated pretrained model. The deployment program remains unexecuted and requires appropriate CUDA, kernels and model storage.
 
-Underlying attention, SSM and expert derivations are taught in their named earlier **prepared** lessons; their new website implementations may still be pending. This packet stays self-contained for its own simplified mixers and routing calculation. It does not claim to have recreated a fused Mamba kernel or trained a full Jamba MoE checkpoint. `hybrid_mechanisms.py::route` explains the selected-expert probability contract; sparse trainable expert dispatch is owned by [the prepared MoE program](../mixture-of-experts-transformers-moe/moe_study.py), not the dense channel network used in this stroke experiment.
+Underlying attention, SSM and expert derivations are taught in their named earlier lessons. This packet stays self-contained for its own simplified mixers and routing calculation. It does not claim to have recreated a fused Mamba kernel or trained a full Jamba MoE checkpoint. `hybrid_mechanisms.py::route` explains the selected-expert probability contract; sparse trainable expert dispatch is owned by [the complete MoE program](/learn-code/mixture-of-experts-transformers-moe/moe_study.py), not the dense channel network used in this stroke experiment.
 
 **Control request identity.** Run two distinct trajectory prefixes, save each cache and position offset, then continue each with its own suffix. Compare with independent unsplit passes. Swap only the caches, then restore the correct pair.
 

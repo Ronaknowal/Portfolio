@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "figures": [
+    "patches",
+    "cls",
+    "permutation",
+    "resolution",
+    "cost",
+    "windows",
+    "hierarchy",
+    "library",
+    "deit",
+    "dino",
+    "dinov2",
+    "gram",
+    "results",
+    "atlas"
+  ],
+  "labs": [
+    "VisionPatchLab",
+    "VisionImageLab",
+    "VisionWindowLab",
+    "VisionBiasLab",
+    "VisionDinoLab",
+    "VisionGramLab"
+  ],
+  "wholeLessonRendered": true,
+  "nonemptyMarkupLengths": [
+    8152,
+    24125,
+    2330,
+    4488,
+    2978,
+    11400,
+    2089,
+    865,
+    5168,
+    4043,
+    3956,
+    5186,
+    5065,
+    53049,
+    6894,
+    287,
+    26460,
+    14151,
+    7524,
+    5624,
+    453795
+  ],
+  "scope": "Author render smoke; browser keyboard/layout/network still separate"
+}

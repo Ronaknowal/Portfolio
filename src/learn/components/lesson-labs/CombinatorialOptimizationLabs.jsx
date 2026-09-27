@@ -201,7 +201,7 @@ export function AssignmentResidualLab() {
     <ol className="combinatorial-residual-path">{state.path.filter(edge => edge.type === 'assignment').map((edge, index) => <li key={index} className={edge.delta === 'undo' ? 'is-refund' : ''}><strong>{edge.delta === 'undo' ? 'Undo / refund' : 'Add'}</strong><span>{letter(edge.worker)} ↔ job {edge.job + 1}</span><span>cost change {edge.cost > 0 ? '+' : ''}{edge.cost}</span></li>)}</ol>
     {state.path.length === 0 && <p>No augmenting path has been sent yet.</p>}
     {step === model.trace.length - 1 && <p aria-live="polite">{model.feasible ? 'Requested size reached. ' : 'Requested size is impossible: no residual source–sink path remains. '}Every positive-capacity residual edge has nonnegative reduced cost under the computed vertex potentials, certifying no negative residual cycle. This establishes minimum cost for the attained size.</p>}
-    <details><summary>Inspect the final potential certificate</summary><p>The certificate belongs to the final flow, not an earlier displayed step. Reduced cost is edge cost + potential(start) − potential(end). Summing around any cycle cancels the potentials.</p><LessonTable caption="Final residual edges; source and sink are capacity nodes." headers={['From → to', 'Cost', 'Reduced cost']} rows={model.residual.map(edge => [edge.from + ' → ' + edge.to, edge.cost, edge.reducedCost])} /><p>Vertex potentials: {model.potentials.join(', ')}. Node 0–2 are A–C; nodes 3–5 are jobs 1–3; nodes 6 and 7 are source and sink.</p></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect the final potential certificate</h4><p>The certificate belongs to the final flow, not an earlier displayed step. Reduced cost is edge cost + potential(start) − potential(end). Summing around any cycle cancels the potentials.</p><LessonTable caption="Final residual edges; source and sink are capacity nodes." headers={['From → to', 'Cost', 'Reduced cost']} rows={model.residual.map(edge => [edge.from + ' → ' + edge.to, edge.cost, edge.reducedCost])} /><p>Vertex potentials: {model.potentials.join(', ')}. Node 0–2 are A–C; nodes 3–5 are jobs 1–3; nodes 6 and 7 are source and sink.</p></section>
     <p><strong>Transfer.</strong> Step to the final reversal: 2 −1 +2 adds only 3 to the prior cost 2. Switch to missing edges and explain why a cheaper size-two answer cannot be labeled a feasible size-three solution.</p>
   </Investigation>;
 }
@@ -277,11 +277,11 @@ export function VertexCoverBudgetLab() {
     <Stepper value={Math.min(step, model.trace.length - 1)} maximum={model.trace.length - 1} setValue={setStep} />
     <Metrics values={[['Dual lower bound', state.lower], ['Selected-vertex cost', state.cost], ['Uncovered edges', state.uncovered.length], ['Tiny exact cover optimum', model.exactCost]]} />
     <p>{state.uncovered.length ? 'The loads already give a lower bound. The selected vertices do not yet cover every edge, so their cost is not yet a feasible upper bound.' : 'All edges are covered. The selected vertices now give a feasible upper bound, at most twice the current dual lower bound.'}</p>
-    <details><summary>Compare a separately solved fractional relaxation</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Compare a separately solved fractional relaxation</h4>
       <LessonTable caption="The tiny half-integral oracle is exponential; the lesson explains why its grid contains an LP optimum." headers={['Vertex', 'LP value x', 'Round x ≥ 1/2?']} rows={model.fractional.map((value, index) => [letter(index), value, value >= .5 ? 'select' : 'skip'])} />
       <Metrics values={[['LP optimum', model.fractionalCost], ['Rounded cover cost', model.roundedCost], ['Twice LP value', 2 * model.fractionalCost]]} />
       <p>The primal-dual loads above need not maximize the dual. A numerical LP solver may also return a different optimum when several exist; this bounded oracle prefers half-valued ties to expose rounding behavior.</p>
-    </details>
+    </section>
     <p><strong>Transfer.</strong> Set A's cost to 0. It is selected immediately, without a stalled edge update. In the expensive-hub star, compare the legal cover costs of the hub and all leaves.</p>
   </Investigation>;
 }

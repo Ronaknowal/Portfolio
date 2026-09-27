@@ -12,8 +12,15 @@ import mistune
 ROOT = Path(__file__).resolve().parents[1]
 PACKET = ROOT / "docs/teaching/drafts/active-learning"
 parse = mistune.create_markdown(renderer="ast", plugins=["table"])
+opening_paragraphs = {
+    "The core route is sections 1–7. Section 8 provides deeper connections to gradients, Gaussian processes, and importance weighting. You can complete the practical experiment before taking that branch.": "route",
+}
 literal = lambda value: "{" + json.dumps(value, ensure_ascii=False) + "}"
+library_bridge = '      <H3>Map the same acquisition loop to a specialist query API</H3>\n      <Prose>The full experiment already implements useful query policies with a scikit-learn learner. <a href="https://scikit-activeml.github.io/latest/generated/api/skactiveml.pool.UncertaintySampling.html">scikit-activeml\'s uncertainty sampler</a> offers a maintained query interface. This bridge keeps the same responsibilities: the controller owns IDs and budget, the strategy sees only acquired labels, and the oracle reveals the selected answer. Its invented one-dimensional pool checks this contract; it is not another accuracy benchmark.</Prose>\n      <Prose>Unlabeled entries are <Code>np.nan</Code>, not a third class. <Code>SklearnClassifier</Code> adapts the learner to that convention. Fit on acquired labels, then use <Code>query(..., fit_clf=False)</Code> so the manual entropy calculation and package utilities share exactly the same fitted probabilities. Candidate IDs index the original pool, not a shortened array, and the returned utility row uses those pool indices. Ties may be broken randomly: compare the maximizing set and utilities rather than expecting every seed to choose the same tied ID.</Prose>\n      <CodeBlock language="sh">{\'python -m pip install numpy==2.3.5 scikit-learn==1.9.1 scikit-activeml==1.0.0\\npython query-library-bridge.py\'}</CodeBlock>\n      <MechanismProgram {...activeMechanismProgram} title="Read the complete query API and budget bridge" />\n      <Prose>Every successful query adds one acquired label, spends one unit of budget and refits immediately—including the final acquisition. Zero budget or an empty eligible pool returns before touching the learner, strategy or oracle. Entropy uses 0 log 0 = 0. Scoring m candidates over K classes costs O(mK) after inference; model fitting has its own cost. Cached scores become stale when the fitted model or eligible pool changes.</Prose>\n      <details className="lesson-solution"><summary>Implementation practice: add annotation eligibility</summary><Prose>Rows 3 and 5 cannot be labeled today. Add an availability mask, retain original pool IDs, and prove neither blocked row reaches the oracle. Repeat with all remaining rows blocked.</Prose><details><summary>Hint and reasoned solution</summary><Prose>Use <Code>np.flatnonzero(np.isnan(known) &amp; available)</Code>, and apply the empty-pool return to that intersection. The same IDs select probabilities and index utilities. Assert that every recorded oracle call was eligible when selected. No eligible rows means no query and no budget spent. Do not fill missing labels with guessed classes: that changes acquisition into pseudo-labeling.</Prose></details></details>\n'
+
 figure_components = {
+    "target-directed variance reduction": "TargetVarianceFigure",
+    "gradient direction and batch redundancy": "GradientDiversityFigure",
     "an annotation queue": "AnnotationBoundaryFigure",
     "eight threshold rulers": "ThresholdFigure",
     "three probability-strip candidates": "UncertaintyFigure",
@@ -69,6 +76,8 @@ def render(nodes):
                     output.append({2: "<ThresholdInvestigation />", 4: "<CommitteeInvestigation />", 5: "<BatchInvestigation />"}[current_section])
                 if current_section == 6:
                     output.append("<ExperimentDownloads />")
+                if current_section == 7:
+                    output.append(library_bridge)
                 current_section = int(title.split(".", 1)[0])
                 if current_section == 1:
                     output.append("<ActiveLearningRoute />")
@@ -86,7 +95,8 @@ def render(nodes):
                 output.append(f"<{figure_components[name]} />")
             else:
                 body = inline(node["children"])
-                output.append(f"<Prose>{body}</Prose>" if kind == "paragraph" else body)
+                opening = f' opening="{opening_paragraphs[text]}"' if text in opening_paragraphs else ""
+                output.append(f"<Prose{opening}>{body}</Prose>" if kind == "paragraph" else body)
                 if text.startswith("For another explanation of the core idea"):
                     output.append('<Prose>Read the <a href="https://www.cs.cmu.edu/~ninamf/courses/601sp15/slides/20_al_4-1-2015.pdf">companion lecture slides</a>, especially the query settings, threshold-search example and sampling-bias discussion. Those slide sections were inspected for this lesson; the video is a course-linked alternative, not a claim of full playback review.</Prose>')
         elif kind == "block_code":
@@ -124,9 +134,12 @@ manuscript = (PACKET / "lesson.md").read_text(encoding="utf-8")
 manuscript = re.sub(r"(?m)^\\\[\s*$", "```math", manuscript)
 manuscript = re.sub(r"(?m)^\\\]\s*$", "```", manuscript)
 body = render(parse(manuscript))
-assert set(used_figures) == set(figure_components) and len(used_figures) == 7
+assert set(used_figures) == set(figure_components) and len(used_figures) == 9
 assert len(headings) == 10
-source = '''import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
+source = '''import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
+import activeMechanismProgram from '../active-mechanism-program.js';
+import { TargetVarianceFigure, GradientDiversityFigure } from '../../components/lesson-labs/ActiveLearningIntuition.jsx';
+import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
 import { MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { AnnotationBoundaryFigure, ThresholdFigure, UncertaintyFigure, CommitteeFigure,
@@ -165,4 +178,4 @@ program = (PACKET / "banknote-active-learning.py").read_text(encoding="utf-8")
     + "export const activeLearningProgram = " + json.dumps(program, ensure_ascii=False) + ";\n", encoding="utf-8")
 results = json.loads((PACKET / "checked-results.json").read_text(encoding="utf-8"))["banknotes"]
 (ROOT / "src/learn/data/active-learning-experiment.json").write_text(json.dumps(results, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-print(f"Compiled all 10 sections, {table_index} tables and 7 inline visual placements; copied 3 downloadable resources.")
+print(f"Compiled all 10 sections, {table_index} tables and 9 inline visual placements; copied 3 downloadable resources.")

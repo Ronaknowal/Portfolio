@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import RemoteCodeBlock from '../content/RemoteCodeBlock.jsx';
+import { useState } from 'react';
 import { NeuralLab, NeuralNumber, NeuralSelect, NeuralTable, formatNeural as number } from './NeuralLessonElements.jsx';
 import { activationMoments, directionalGeometry, gatedIdentity, idealSignal, initializationSchemes, symmetryState, widthConfiguration } from '../../data/weight-initialization-models.js';
 import records from '../../data/weight-initialization-measurements.json';
@@ -9,18 +10,10 @@ const seedOptions = ['1', '2', '3'].map(value => [value, `Seed ${value}`]);
 export const initializationAsset = '/learn-assets/weight-initialization-xavier-kaiming-p/';
 
 export function InitializationProgram({ file = 'initialization-experiments.py', title = 'Read the complete CPU experiment' }) {
-  const [open, setOpen] = useState(false), [source, setSource] = useState(null), [error, setError] = useState(false), [attempt, setAttempt] = useState(0);
-  useEffect(() => {
-    if (!open || source) return;
-    const controller = new AbortController();
-    setError(false);
-    fetch(initializationAsset + file, { signal: controller.signal }).then(response => { if (!response.ok) throw new Error('Source request failed'); return response.text(); }).then(setSource).catch(reason => { if (reason.name !== 'AbortError') setError(true); });
-    return () => controller.abort();
-  }, [open, source, file, attempt]);
-  return <details className="neural-program" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>
-    {open && (source ? <pre className="neural-program-source" tabIndex={0} role="region" aria-label={`${file}; scroll code horizontally`}><code>{source}</code></pre> : error ? <p role="alert">The source could not load. <button onClick={() => setAttempt(value => value + 1)}>Retry source</button></p> : <p role="status">Loading source…</p>)}
+  return <>
+    <RemoteCodeBlock source={initializationAsset + file} language="python" filename={file} title={(title)} />
     <p><a href={initializationAsset + file} download={file}>Download {file}</a></p>
-  </details>;
+  </>;
 }
 
 function Plot({ title, series, logarithmic = false, xLabel = 'Layer', yLabel, xDomain, yDomain }) {
@@ -57,7 +50,7 @@ export function InitializationSignalLab() {
     <div className="neural-two">{[['q', 'Forward second moment', 'pooled mean(h²)'], ['g', 'Backward sensitivity', 'RMS ∂probe/∂h']].map(([key, title, unit]) => <Plot key={key} title={title} yLabel={unit} logarithmic series={[{ name: initializationSchemes.find(([id]) => id === scheme)[1], values: current.layers.map(row => [row.layer, row[key]]) }, { name: 'Kaiming, same seed', values: baseline.layers.map(row => [row.layer, row[key]]) }]} />)}</div>
     <p className="neural-result" data-result="signal">Layer 20 / input mean square: {number(ratio)} — {ratio < .1 ? 'below one tenth' : ratio > 10 ? 'above tenfold' : 'within one tenth to tenfold'}. This descriptive range does not certify trainability. Input gradient RMS: {number(current.layers[0].g)}.</p>
     <p>The external output cotangent has RMS {number(records.cotangentRms)} for every scheme. Even a zero activation can have a nonzero derivative with respect to that output; the gates can still block its route back to the input.</p>
-    <details><summary>Exact forward and backward measurements</summary><NeuralTable caption="Current and reference measurements" headers={['Layer', 'Current mean square', 'Kaiming mean square', 'Current gradient RMS', 'Kaiming gradient RMS']} rows={current.layers.map((row, i) => [row.layer, number(row.q, 8), number(baseline.layers[i].q, 8), number(row.g, 8), number(baseline.layers[i].g, 8)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Exact forward and backward measurements</h4><NeuralTable caption="Current and reference measurements" headers={['Layer', 'Current mean square', 'Kaiming mean square', 'Current gradient RMS', 'Kaiming gradient RMS']} rows={current.layers.map((row, i) => [row.layer, number(row.q, 8), number(baseline.layers[i].q, 8), number(row.g, 8), number(baseline.layers[i].g, 8)])} /></section>
     <h4>Construct an idealized recurrence</h4><p>A separate assumption-based calculation: fan-in 100, symmetric ReLU inputs, one-layer factor = 100 × weight variance / 2. No new measured curve is implied.</p>
     <div className="neural-controls"><NeuralNumber label="Weight variance" value={variance} onChange={setVariance} min={0} max={.1} step={.001} /><NeuralNumber label="Idealized depth" value={depth} onChange={setDepth} min={1} max={30} step={1} integer /></div>
     <p className="neural-result" data-result="recurrence">Per-layer factor {number(theory.factor)}; after {depth} layers, q / q₀ = {number(theory.ratio)}. Variance 0.02 preserves this idealized scale at every depth.</p><button onClick={() => { setScheme('small'); setSeed('1'); setVariance(.01); setDepth(20); }}>Reset signal investigation</button>
@@ -101,7 +94,7 @@ export function InitializationGeometryLab() {
 export function InitializationSpectrumFigure() {
   const values = records.fixtures.gaussian_singular_values, bins = Array.from({ length: 10 }, () => 0);
   values.forEach(value => { bins[Math.min(9, Math.floor(value / .2))]++; });
-  return <figure><figcaption>One saved 64 × 64 Gaussian draw, seed 19</figcaption><div className="init-spectrum" role="img" aria-label={`Computed histogram of 64 singular values, ten bins from zero to two. Counts ${bins.join(', ')}.`}>{bins.map((count, i) => <span key={i} style={{ height: `${100 * count / Math.max(...bins)}%` }} title={`${number(i * .2, 1)}–${number((i + 1) * .2, 1)}: ${count}`} />)}</div><p>Ten equal bins from 0 to 2. Minimum {number(Math.min(...values))}; maximum {number(Math.max(...values))}. These are a different 64-dimensional map, not the ellipse above.</p><details><summary>Inspect every singular value and histogram bin</summary><p>{values.map(value => number(value, 7)).join(', ')}</p><NeuralTable caption="Bins recomputed from the actual saved singular values" headers={['Interval [left, right)', 'Count']} rows={bins.map((count, i) => [`${number(i * .2, 1)}–${number((i + 1) * .2, 1)}`, count])} /></details></figure>;
+  return <figure><figcaption>One saved 64 × 64 Gaussian draw, seed 19</figcaption><div className="init-spectrum" role="img" aria-label={`Computed histogram of 64 singular values, ten bins from zero to two. Counts ${bins.join(', ')}.`}>{bins.map((count, i) => <span key={i} style={{ height: `${100 * count / Math.max(...bins)}%` }} title={`${number(i * .2, 1)}–${number((i + 1) * .2, 1)}: ${count}`} />)}</div><p>Ten equal bins from 0 to 2. Minimum {number(Math.min(...values))}; maximum {number(Math.max(...values))}. These are a different 64-dimensional map, not the ellipse above.</p><section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect every singular value and histogram bin</h4><p>{values.map(value => number(value, 7)).join(', ')}</p><NeuralTable caption="Bins recomputed from the actual saved singular values" headers={['Interval [left, right)', 'Count']} rows={bins.map((count, i) => [`${number(i * .2, 1)}–${number((i + 1) * .2, 1)}`, count])} /></section></figure>;
 }
 
 export function InitializationSymmetryLab() {
@@ -139,7 +132,7 @@ export function InitializationWidthLab() {
     <Plot title={`${names[Number(coordinate)]} · mean absolute value on the same 32 training rows`} xLabel="Recorded hidden width" yLabel="Mean absolute coordinate" xDomain={[32, 128]} series={[{ name: `${mode === 'mu' ? 'μP' : 'Standard'} · seed ${seed} · rate ${recordRate} · step ${step}`, values: selectedRecords.map(row => [row.width, row.trace.find(value => value.step === Number(step)).coordinate_mean_abs[Number(coordinate)]]) }]} />
     <NeuralTable caption="Exact selected coordinates" headers={['Width', 'Mean absolute value']} rows={selectedRecords.map(row => [row.width, number(row.trace.find(value => value.step === Number(step)).coordinate_mean_abs[Number(coordinate)], 7)])} />
     <p>A μP random readout can shrink with width at step zero. Compare the same coordinate at the same update; neither perfect flatness nor one final validation grid is a theorem about all architectures.</p>
-    <details><summary>All three-seed validation means and within-row minima</summary><NeuralTable caption="Final validation CE; only these three candidate rates were tested" headers={['Parametrization', 'Width', 'LR .001', 'LR .003', 'LR .01']} rows={means.map(row => [...row.slice(0, 2), ...row.slice(2).map(value => <span key={value}>{number(value, 6)}{value === Math.min(...row.slice(2)) ? ' · row minimum' : ''}</span>)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">All three-seed validation means and within-row minima</h4><NeuralTable caption="Final validation CE; only these three candidate rates were tested" headers={['Parametrization', 'Width', 'LR .001', 'LR .003', 'LR .01']} rows={means.map(row => [...row.slice(0, 2), ...row.slice(2).map(value => <span key={value}>{number(value, 6)}{value === Math.min(...row.slice(2)) ? ' · row minimum' : ''}</span>)])} /></section>
     <button onClick={() => { setWidth(128); setRate(.003); setMode('mu'); setRecordRate('.01'); setSeed('1'); setStep('0'); setCoordinate('4'); }}>Reset width investigation</button>
   </NeuralLab>;
 }

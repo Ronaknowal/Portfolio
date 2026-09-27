@@ -1,0 +1,271 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T23:35:27.022Z",
+  "scope": "All 24 prepared DL revisions completed; unrelated historical evidence is preserved, not recertified.",
+  "catalogueTopics": 1461,
+  "modules": 29,
+  "guidedPaths": 10,
+  "dlTopics": 42,
+  "completedPreparedRevisions": 24,
+  "preservedPriorDlSourceCheckpoints": 18,
+  "preservedUnrelatedLedgerRows": 153,
+  "preservedPublicationMappings": 232,
+  "addedPublicationMappings": [
+    "mini-batches-training-loops-gradient-accumulation",
+    "neural-training-diagnostics-reproducible-experiments"
+  ],
+  "publicationCount": 234,
+  "lazyLoading": {
+    "checkedEntryPoints": [
+      "index.html",
+      "src/learn/LearnHub.jsx",
+      "src/learn/Reader.jsx"
+    ],
+    "individuallyDeferredLessonBodies": 24
+  },
+  "recordedContentComplete": 177,
+  "recordedImplementationComplete": 177,
+  "currentContentAndImplementationCheckpoints": 81,
+  "topics": [
+    {
+      "id": "rwkv-linear-attention-models",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/rwkv-linear-attention-models/integration-checks.json"
+      }
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/self-attention-multi-head-attention/integration-checks.json"
+      }
+    },
+    {
+      "id": "transformer-block-architecture",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/transformer-block-architecture/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/transformer-block-architecture/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/transformer-block-architecture/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/transformer-block-architecture/integration-checks.json"
+      }
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/integration-checks.json"
+      }
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/grouped-query-attention-gqa-multi-query-attention-mqa/integration-checks.json"
+      }
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/multi-head-latent-attention-mla/integration-checks.json"
+      }
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/integration-checks.json"
+      }
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/integration-checks.json"
+      }
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/integration-checks.json"
+      }
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/integration-checks.json"
+      }
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/message-passing-graph-convolutions-gcn-gat-graphsage/integration-checks.json"
+      }
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/graph-transformers-geometric-deep-learning/integration-checks.json"
+      }
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/boltzmann-machines-restricted-boltzmann-machines-rbm/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/boltzmann-machines-restricted-boltzmann-machines-rbm/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/boltzmann-machines-restricted-boltzmann-machines-rbm/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/boltzmann-machines-restricted-boltzmann-machines-rbm/integration-checks.json"
+      }
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/spectral-normalization-gradient-penalty/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/spectral-normalization-gradient-penalty/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/spectral-normalization-gradient-penalty/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/spectral-normalization-gradient-penalty/integration-checks.json"
+      }
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/modern-hopfield-networks/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/modern-hopfield-networks/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/modern-hopfield-networks/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/modern-hopfield-networks/integration-checks.json"
+      }
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/xlstm-extended-lstm/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/xlstm-extended-lstm/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/xlstm-extended-lstm/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/xlstm-extended-lstm/integration-checks.json"
+      }
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/hyena-long-convolution-models/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/hyena-long-convolution-models/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/hyena-long-convolution-models/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/hyena-long-convolution-models/integration-checks.json"
+      }
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/ring-attention-sequence-parallelism/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/ring-attention-sequence-parallelism/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/ring-attention-sequence-parallelism/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/ring-attention-sequence-parallelism/integration-checks.json"
+      }
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/advanced-optimizers-lion-sophia-prodigy-schedule-free/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/advanced-optimizers-lion-sophia-prodigy-schedule-free/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/advanced-optimizers-lion-sophia-prodigy-schedule-free/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/advanced-optimizers-lion-sophia-prodigy-schedule-free/integration-checks.json"
+      }
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/neural-ode-continuous-depth-models/integration-checks.json"
+      }
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/hybrid-ssm-transformer-architectures-jamba/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/hybrid-ssm-transformer-architectures-jamba/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/hybrid-ssm-transformer-architectures-jamba/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/hybrid-ssm-transformer-architectures-jamba/integration-checks.json"
+      }
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/integration-checks.json"
+      }
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/mini-batches-training-loops-gradient-accumulation/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/mini-batches-training-loops-gradient-accumulation/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/mini-batches-training-loops-gradient-accumulation/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/mini-batches-training-loops-gradient-accumulation/integration-checks.json"
+      }
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "revision": 3,
+      "evidence": {
+        "author": "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/implementation-checks.json",
+        "independent": "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/independent-checks.json",
+        "browser": "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/browser-checks.json",
+        "integration": "docs/teaching/deep-learning-completion/neural-training-diagnostics-reproducible-experiments/integration-checks.json"
+      }
+    }
+  ]
+}

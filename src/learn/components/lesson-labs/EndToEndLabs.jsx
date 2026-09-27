@@ -278,9 +278,9 @@ export function FreezeAndReportLab() {
     : null;
 
   return <Investigation investigationKey="freeze" title="Investigation D · freeze a decision, then open the test once"
-    question={'Choose which candidates are in the comparison and which measure decides it, then say which '
-      + 'candidate the rule selects. Only after that does this page show what the frozen model scored on the '
-      + '36 specimens it has never touched.'}
+    question={'Change the eligible candidates or the selection measure and see the selected model update. '
+      + 'For the study’s declared comparison, open its fixed held-out report below. That report evaluates '
+      + 'the already fitted model on the 36 specimens excluded from training and selection.'}
     role={{ kind: 'selection', text: 'The scores this rule reads are validation measurements. Reading them to '
       + 'choose is what makes them selection evidence — the same numbers, a different claim.' }}
     note="Reset returns the comparison to the three declared candidates under validation balanced accuracy, and closes the held-out report again."
@@ -311,9 +311,9 @@ export function FreezeAndReportLab() {
         <Score key={`${key}-a`} record={candidateByKey[key].validationAccuracy} />,
         <Score key={`${key}-l`} record={candidateByKey[key].validationLogLoss} />,
       ])}
-      footnote={'Every number in this table is a validation measurement. None of them is an estimate of what '
-        + 'the chosen model will do on a new specimen, and the table says nothing about which one your rule '
-        + 'picks — that is the question.'} />
+      footnote={'These validation measurements assess candidate behavior under this development split and '
+        + 'supply the live selection rule. Once used to choose, the winner’s validation score is not an '
+        + 'untouched final estimate; the held-out report evaluates the study’s frozen choice separately.'} />
 
     <LiveResult
       
@@ -360,8 +360,9 @@ function HeldOutStep({ selection, onEarned, earned }) {
   return <div className="ete-heldout-step">
     <p>
       <strong>The model is now frozen.</strong> Its fitted scaler and coefficients are exactly those learned on
-      the {endToEndData.contract.trainRows} training rows, and nothing below will change them. Before the
-      report opens, record what you expect.
+      the {endToEndData.contract.trainRows} training rows, and nothing below will change them. The live
+      comparison below shows how its held-out and validation estimates differ; open the full report for the
+      confusion matrix and reproducible conclusion.
     </p>
     <LiveResult
       
@@ -420,8 +421,8 @@ export function AcceptanceCostLab() {
   return <Investigation investigationKey="acceptance" title="Investigation C · allocate the cases the system does not answer"
     question={'Ten constructed inspection cases, each with a confidence score and a known outcome. The active '
       + 'rule answers every case at or above its threshold and defers the rest. Move the proposed threshold, '
-      + 'edit what a wrong answer and a deferral cost, or change one case\'s score, then say which way the '
-      + 'total cost will move.'}
+      + 'edit what a wrong answer and a deferral cost, or change one case\'s score, watch which cases change handling '
+      + 'and how their contributions change the total cost.'}
     role={{ kind: 'constructed', text: 'A constructed teaching fixture, not this wine classifier. The scores '
       + 'are invented to expose the coverage and cost arithmetic and are not calibrated probabilities of '
       + 'anything.' }}

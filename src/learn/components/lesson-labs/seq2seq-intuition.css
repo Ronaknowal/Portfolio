@@ -1,0 +1,10 @@
+.seq2seq-intuition { margin:1.5rem 0; padding:1rem; border:1px solid #333; background:#101010; border-radius:8px; }
+.seq2seq-intuition-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+.seq2seq-intuition h4 { color:#e8b44a; margin:0 0 .6rem; }
+.seq2seq-intuition table { width:100%; border-collapse:collapse; font-size:.9rem; }
+.seq2seq-intuition caption { text-align:left; color:#bbb; margin-bottom:.5rem; }
+.seq2seq-intuition td,.seq2seq-intuition th { padding:.45rem; text-align:center; border:1px solid #444; }
+.seq2seq-intuition td.seq2seq-intuition-mass { color:#e8b44a; background:#1d1911; }
+.seq2seq-intuition p { font-size:.95rem; line-height:1.7; }
+.seq2seq-lesson .seq2seq-intuition figcaption { color:#b9b9b9; line-height:1.7; font-size:.9rem; margin-top:1rem; font-weight:400; }
+@media(max-width:650px) { .seq2seq-intuition-panels { grid-template-columns:1fr; } }

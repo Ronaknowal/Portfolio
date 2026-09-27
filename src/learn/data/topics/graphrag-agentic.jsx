@@ -868,7 +868,7 @@ tools               LlamaIndex RAG     LlamaIndex PGI      CrewAI, Haystack    a
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five problems. Spend ten minutes per problem before looking at the answer. Each is calibrated so that getting it wrong tells you something specific about a concept that is easy to misunderstand in this material.
@@ -921,7 +921,7 @@ tools               LlamaIndex RAG     LlamaIndex PGI      CrewAI, Haystack    a
 
       <Prose>
         There is a tendency in the literature and in vendor marketing to present GraphRAG and Agentic RAG as answers to the question "how do we make retrieval better?" That framing is slightly off. The more accurate framing is: "how do we answer questions that retrieval alone cannot answer?" The distinction matters for how you evaluate these systems. If you benchmark GraphRAG against vanilla RAG on a test set of single-hop factual questions, GraphRAG will often look worse — it is more expensive, introduces extraction noise, and the community summaries are lossy. The right evaluation population is multi-hop and corpus-wide questions where the graph's relational structure is load-bearing. Similarly, if you evaluate Agentic RAG on a test set where all questions are answerable in one retrieval step, you will see higher latency and cost with no quality improvement. The questions that motivate each approach are the only questions where it makes sense to benchmark them. This is obvious in principle and routinely ignored in practice, which produces misleading ablation results and poor deployment decisions.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

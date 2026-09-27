@@ -1,0 +1,2959 @@
+{
+  "files": [
+    {
+      "file": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 59,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ActiveLearningFigures.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 30,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ActiveLearningLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 16,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AdvancedOptimizerLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 18,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 27,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AlgorithmCorrectnessLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 4,
+      "classifiedRetain": 4,
+      "contentAndGeometryChecked": 34,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 57,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 33,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 68,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlShared.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 15,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 34,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 43,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BiasVarianceFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 134,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BiasVarianceLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 34,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 69,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CausalInferenceLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 37,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 24,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 41,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 58,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 112,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 41,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 72,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConfidenceLab.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 8,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 66,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvNeXtLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 32,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 45,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrfFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 21,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrfLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 4,
+      "classifiedRetain": 4,
+      "contentAndGeometryChecked": 22,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 30,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DbscanLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 57,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 52,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 52,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DropoutLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 35,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DsaPractice.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 12,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 64,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 48,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EinsumLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 43,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 53,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 28,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ExternalMemoryLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/FlowLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GaussianProcessFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 41,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GaussianProcessLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 20,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 24,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 10,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometryLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GmmFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 136,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GmmLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 47,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 35,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 55,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphTraversalLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 35,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphTraversalLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 53,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GroupedQueryLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 52,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HashingAmortizedLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 43,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HeapTrieLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 45,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HmmLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 11,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldDigitLab.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 10,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 71,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 20,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldPrimitives.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 35,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HybridJambaLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 51,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HybridJambaStudy.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 50,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaMechanismLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 23,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaPrimitives.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 37,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaStudy.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 16,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 68,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+      "originalDetails": 6,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 27,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 36,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 32,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/KnnLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 76,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 65,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LatentAttentionLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 115,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 53,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 28,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxPathLab.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 10,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxProcessLab.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 12,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxStreamsLab.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 15,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 10,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 22,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 156,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 47,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 4,
+      "classifiedRetain": 4,
+      "contentAndGeometryChecked": 45,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 29,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 40,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 68,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MessagePassingStudy.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 12,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 19,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MoeLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 18,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 42,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MutualInformationLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 75,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 58,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NetworkFlowLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 58,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NeuralOdeStudy.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 39,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NeuralProgram.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NmfLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 18,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NmfShared.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 11,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 69,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 56,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/numpy-foundations-labs.jsx",
+      "originalDetails": 8,
+      "remainingDetails": 8,
+      "classifiedRetain": 8,
+      "contentAndGeometryChecked": 29,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/oop-foundations-labs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 39,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PcaLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 42,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 101,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PerceptronFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 11,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PermissionLab.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 16,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PersistentMapLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 48,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 51,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 76,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 27,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 58,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 67,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 72,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeDequeLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 21,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeQueryLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 32,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeQueryLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmDigitLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 8,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmElements.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 13,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 54,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 51,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 64,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RegularizationFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 167,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RegularizationLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 51,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 57,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 20,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionStudy.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 22,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionSystems.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 33,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 31,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SamplingLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 47,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ScientificFileLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 19,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 63,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SelectionShared.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 26,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SelfAttentionLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 39,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 30,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 35,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "originalDetails": 7,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 25,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 41,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+      "originalDetails": 5,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 21,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 37,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMechanismLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 54,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 25,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+      "originalDetails": 7,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 31,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 118,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StringSearchLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 57,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SurvivalFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 18,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TitansMemoryLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 72,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TitansMemoryStudy.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 18,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 121,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 65,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 44,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransferLearningLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 68,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "originalDetails": 7,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 38,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TreeLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 35,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TreeLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/UnionFindLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 26,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ValidationLabs.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 44,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 40,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VectorTensorLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 50,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VisionTransformerFigures.jsx",
+      "originalDetails": 1,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 49,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VisionTransformerLabs.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 22,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+      "originalDetails": 7,
+      "remainingDetails": 4,
+      "classifiedRetain": 4,
+      "contentAndGeometryChecked": 43,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightedGraphLibraryBridge.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 2,
+      "classifiedRetain": 2,
+      "contentAndGeometryChecked": 0,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightInitializationLabs.jsx",
+      "originalDetails": 4,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 62,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx",
+      "originalDetails": 6,
+      "remainingDetails": 3,
+      "classifiedRetain": 3,
+      "contentAndGeometryChecked": 22,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmPrimitives.jsx",
+      "originalDetails": 2,
+      "remainingDetails": 0,
+      "classifiedRetain": 0,
+      "contentAndGeometryChecked": 50,
+      "missingContentOrGeometry": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmStudy.jsx",
+      "originalDetails": 3,
+      "remainingDetails": 1,
+      "classifiedRetain": 1,
+      "contentAndGeometryChecked": 22,
+      "missingContentOrGeometry": 0
+    }
+  ],
+  "findings": [],
+  "dataHashes": {
+    "checked": 489,
+    "changed": []
+  },
+  "visibleSectionChecks": [
+    {
+      "file": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "title": "Inspect the complete composition table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "title": "Inspect the all-input certificate and one output",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ActiveLearningFigures.jsx",
+      "title": "All 31 measured checkpoints",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ActiveLearningFigures.jsx",
+      "title": "Replay acquired labels for {strategy}, seed {selectedTrace.seed}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ActiveLearningFigures.jsx",
+      "title": "Read the complete executable program",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ActiveLearningLabs.jsx",
+      "title": "Inspect your batch's own distances",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx",
+      "title": "Inspect this pixel’s persistent state before and after",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx",
+      "title": "Exact measured curve values for this candidate",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx",
+      "title": "Follow one chosen sequence of cuts instead of the average",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx",
+      "title": "Inspect the actual rows around one annotated window",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx",
+      "title": "The worked comparison the lesson already ran, at 0.95 and 0.99",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlLabs.jsx",
+      "title": "Enumerate every valid configuration",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlLabs.jsx",
+      "title": "Two sampling rules over the same space",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlLabs.jsx",
+      "title": "Hyperband&rsquo;s second loop: several brackets, not one",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlLabs.jsx",
+      "title": "Out-of-fold mistakes of the revealed candidates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlLabs.jsx",
+      "title": "The exact mixed function over the input range",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AutomlShared.jsx",
+      "title": "{label} ({entries.length})",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx",
+      "title": "Inspect actual pending call frames",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx",
+      "title": "Read saved solutions and current coordinates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx",
+      "title": "Inspect every count probability",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx",
+      "title": "Inspect interval endpoints",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx",
+      "title": "Inspect run probabilities",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BiasVarianceFigures.jsx",
+      "title": "Every recorded fold value",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BiasVarianceLabs.jsx",
+      "title": "Enumerate every prediction/outcome pair",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BiasVarianceLabs.jsx",
+      "title": "Interpolation weights: the probe prediction as a fixed combination of the training outcomes",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BiasVarianceLabs.jsx",
+      "title": "Every training world: its outcomes and its prediction at the probe",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+      "title": "All eight actual routing states",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+      "title": "Real pixel and latent-coordinate investigations",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CapsuleLabs.jsx",
+      "title": "Exact pixels, reconstructions and signed differences",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CausalInferenceLabs.jsx",
+      "title": "{caption}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx",
+      "title": "The exact row IDs in each role",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx",
+      "title": "Inspect the final potential certificate",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx",
+      "title": "Compare a separately solved fractional relaxation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "title": "{summary}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx",
+      "title": "Inspect contributions around the threshold",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "title": "Inspect the exact reference interval",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "title": "Inspect the balanced addition tree",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "title": "Inspect every fixed-time step",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConfidenceLab.jsx",
+      "title": "Read the exact intervals as a table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx",
+      "title": "Inspect all three vertex directions",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx",
+      "title": "Inspect coefficients and cost at every computed step",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvNeXtLabs.jsx",
+      "title": "Exact reconstruction and error values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+      "title": "Exact numeric values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+      "title": "Read every exact coefficient",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+      "title": "Inspect weights and signed local input sensitivity",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvolutionLabs.jsx",
+      "title": "Exact values at every recorded update",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrfFigures.jsx",
+      "title": "Original annotation and data provenance",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+      "title": "Inspect every current matrix",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+      "title": "Inspect stored projected keys and values for head 0",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CrossAttentionLabs.jsx",
+      "title": "Recorded image/question evidence",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DbscanLabs.jsx",
+      "title": "Inspect the current report's retained and noise row IDs",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DbscanLabs.jsx",
+      "title": "Inspect snapshot A and the exact common-row population",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "title": "Inspect the complete branching rule",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "title": "Inspect the selected pruned rule",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "title": "Show its questions and sampled candidate features",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+      "title": "Follow one simultaneous gradient step",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+      "title": "All reachable offsets",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+      "title": "Inspect an original and reconstructed spatial filter",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx",
+      "title": "Saved-model pixel and filter investigation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DropoutLabs.jsx",
+      "title": "Exact values at every plotted checkpoint",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+      "title": "Inspect the finite binary-grid exception",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+      "title": "Interpret this transformation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+      "title": "All computed states and interpretation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+      "title": "Compare with the eigenvalues",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx",
+      "title": "Inspect all development candidates and exact counts",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GaussianProcessFigures.jsx",
+      "title": "Monthly values and interval checks",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GaussianProcessLabs.jsx",
+      "title": "Inspect the target covariance row",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphLabs.jsx",
+      "title": "Inspect returning paths (first 40; exact total includes every path)",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphLabs.jsx",
+      "title": "See all eight conjugates in the exact finite-group average",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+      "title": "Inspect both complete 34 × 34 attention matrices and exact selected rows",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+      "title": "Inspect every current node output",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometricGraphStudy.jsx",
+      "title": "Real graph observations and fitted-model investigation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GmmFigures.jsx",
+      "title": "Inspect all 150 observation IDs, measurements and split memberships",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+      "title": "{caption}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx",
+      "title": "Inspect the full matrix power and connectivity",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx",
+      "title": "Inspect update matrix and every calculated state",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx",
+      "title": "Inspect the reduced system and outflow residuals",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx",
+      "title": "Inspect the applied requests and order",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GroupedQueryLabs.jsx",
+      "title": "Exact recorded validation losses and selected steps",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GroupedQueryLabs.jsx",
+      "title": "Inspect every observed point, head weight and generated point",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HeapTrieLabs.jsx",
+      "title": "Inspect exact prefixes and terminal flags",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldDigitLab.jsx",
+      "title": "Exact pixel values and query representation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldDigitLab.jsx",
+      "title": "All200 memory contributions",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldFigures.jsx",
+      "title": "Complete symmetric weight matrix",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldLabs.jsx",
+      "title": "Complete computed trace",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldLabs.jsx",
+      "title": "Compare the canonical opposite-pair cobwebs",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HopfieldPrimitives.jsx",
+      "title": "Exact plotted coordinates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HybridJambaLabs.jsx",
+      "title": "Expand the recurrence weights",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HybridJambaStudy.jsx",
+      "title": "Inspect actual stored coordinates at the prefix boundary",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaMechanismLabs.jsx",
+      "title": "Actual padded arrays and Fourier bins",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaMechanismLabs.jsx",
+      "title": "Selected block: exact arrays and Fourier products",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaPrimitives.jsx",
+      "title": "Exact plotted values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaPrimitives.jsx",
+      "title": "Exact matrix entries",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HyenaStudy.jsx",
+      "title": "All final hidden vectors and selected block intermediates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "title": "Inspect all 40 intervals and the sampling construction",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "title": "See both equivalence tests and the one-sided bound",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "title": "Inspect assignment counts and ties",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "title": "Inspect the complete finite coverage calculation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+      "title": "Compare all eight certificates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+      "title": "Inspect every edge's coverage",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+      "title": "See the finite branch tree",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+      "title": "Reveal this tiny graph's optimum",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+      "title": "Inspect every interval and cumulative contribution",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+      "title": "Inspect all analytic resolutions",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx",
+      "title": "Read the objective history",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/KnnLabs.jsx",
+      "title": "Read the trace so far",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+      "title": "Exact training and development checkpoint table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+      "title": "Count each convolution and linear layer",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+      "title": "Inspect actual trained feature maps, including a mistake",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx",
+      "title": "Inspect all16 raw feature maps and current class weights",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LatentAttentionLabs.jsx",
+      "title": "Inspect score contributions for every stored position",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx",
+      "title": "Inspect the actual consumed indices and rates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx",
+      "title": "Inspect exact slot contents",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxProcessLab.jsx",
+      "title": "Why is End unavailable while stopped?",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxStreamsLab.jsx",
+      "title": "Deeper: why redirection order matters",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxStreamsLab.jsx",
+      "title": "See the complete Bash command",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxStreamsLab.jsx",
+      "title": "Deeper: can useful output come from a failed command?",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxStreamsLab.jsx",
+      "title": "Try it in your own terminal",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextLabs.jsx",
+      "title": "Exact score, mask and contribution table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextLabs.jsx",
+      "title": "Read every update and each final contribution",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextLabs.jsx",
+      "title": "Exact weights and contributions",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx",
+      "title": "Complete input rows, read weights and logits",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldFigures.jsx",
+      "title": "Exact measurements for source {queryId}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldLabs.jsx",
+      "title": "All applied coordinates and edge choices",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldLabs.jsx",
+      "title": "Inspect the entropy calculation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldLabs.jsx",
+      "title": "Explore the ideal pair cost with this applied weight",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ManifoldLabs.jsx",
+      "title": "Inspect the selected image's 64 pixel values and distance rules",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx",
+      "title": "Inspect every tested step",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx",
+      "title": "Inspect the stored factors at this step",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+      "title": "Observation and residual table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+      "title": "What to notice",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+      "title": "Exact mass table (rounded for display)",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx",
+      "title": "Inspect every observable event",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx",
+      "title": "Inspect band widths and contributions",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MessagePassingStudy.jsx",
+      "title": "Inspect every semantic node’s two probabilities",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MessagePassingStudy.jsx",
+      "title": "Actual graph evidence and model inspector",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx",
+      "title": "Read every recorded epoch, including validation reversals",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MoeLabs.jsx",
+      "title": "Frozen image model and live pixel editor",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx",
+      "title": "{caption}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MutualInformationLabs.jsx",
+      "title": "Inspect the two conditional groups",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MutualInformationLabs.jsx",
+      "title": "Inspect the predictive KL values used by this update",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "title": "Check the class scores at this step",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "title": "Inspect all twelve predictions and outcomes",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NetworkFlowLabs.jsx",
+      "title": "Inspect the cut-to-energy correspondence",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NeuralOdeStudy.jsx",
+      "title": "Inspect an actual state and a two-coordinate projection",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NmfShared.jsx",
+      "title": "{summary}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx",
+      "title": "See the fixed sample realization and boundary",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+      "title": "Inspect all terminal intervals",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx",
+      "title": "Sort records while preserving their labels",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx",
+      "title": "Linear algebra after the mathematics prerequisites",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx",
+      "title": "Reproducible generators and array storage",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx",
+      "title": "Preview: train-test preprocessing without leakage",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/oop-foundations-labs.jsx",
+      "title": "Explain the different failures",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PcaLabs.jsx",
+      "title": "Training cumulative variance for comparison (a different quantity)",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "title": "{title}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PerceptronFigures.jsx",
+      "title": "Inspect recorded intermediate losses and paired errors",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PermissionLab.jsx",
+      "title": "Deeper: read an ordinary permission mode",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx",
+      "title": "Inspect physical identities and version ancestry",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx",
+      "title": "Which nodes survive if we release root handles?",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx",
+      "title": "Inspect the binary-search comparisons",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+      "title": "Inspect the full 16-position, 32-coordinate reference",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+      "title": "Change content to break a diagonal-constant score matrix",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+      "title": "Inspect every key identity and attention weight",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx",
+      "title": "Inspect the fixed arrival calculations and count probabilities",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx",
+      "title": "Inspect all possible subsets at this prefix",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx",
+      "title": "Read the column calculations",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx",
+      "title": "Inspect actual matrices and numerical boundaries",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx",
+      "title": "Read every probe and the uncertainty model",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "title": "Inspect the actual entries, eigenvalues and bin masses",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "title": "Inspect all finite null maxima",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "title": "Inspect every eigenvalue",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "title": "Probability table (rounded)",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeDequeLabs.jsx",
+      "title": "Read the exact prefix table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeQueryLabs.jsx",
+      "title": "Read the exact node table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmDigitLabs.jsx",
+      "title": "Inspect learned feature weights and every current probability",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmDigitLabs.jsx",
+      "title": "Draw eight whole conditional alternatives",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmLabs.jsx",
+      "title": "Inspect all eight normalized joint events",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RbmLabs.jsx",
+      "title": "Read every sampled probability, uniform draw and state",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+      "title": "Exact checkpoint counts for all nine runs",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+      "title": "Inspect all output probabilities and the fixed starting reference",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx",
+      "title": "The {mode === 'padding' ? 'padding' : 'source and prefix'} investigation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RecurrentLabs.jsx",
+      "title": "All current coordinates and selected state values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RegularizationFigures.jsx",
+      "title": "Inspect all eighteen fitted candidates and the two baselines",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RegularizationLabs.jsx",
+      "title": "Inspect every term: raw value, saved mean and scale, standardized value, coefficient and contribution",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RegularizationLabs.jsx",
+      "title": "Why a mean-preserving mask is not exact model averaging through a nonlinearity",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx",
+      "title": "Inspect loss-specific layer diagnostics and actual parameter movement",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx",
+      "title": "Exact intermediate values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionLabs.jsx",
+      "title": "Merge independently computed summaries for a stationary-cache decode",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionLabs.jsx",
+      "title": "Inspect all current Q/K/V records in this head",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionLabs.jsx",
+      "title": "Inspect complete gradients in the selected head",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionStudy.jsx",
+      "title": "Inspect all forty-five signed value contributions",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionStudy.jsx",
+      "title": "Inspect every arrival and owner membership",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionStudy.jsx",
+      "title": "Inspect all forty-five current points",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionSystems.jsx",
+      "title": "Inspect the full owner-pair counts",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RingAttentionSystems.jsx",
+      "title": "Exact current starts, completions and exposed waits",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx",
+      "title": "All 15 current class probabilities",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx",
+      "title": "Frozen-model stream workbench",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "title": "Inspect all six sample probabilities",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ScientificFileLabs.jsx",
+      "title": "Inspect exact published text",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ScientificFileLabs.jsx",
+      "title": "Inspect exact staging text",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx",
+      "title": "Inspect the tiny dense verification matrix",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SelectionShared.jsx",
+      "title": "{summary}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SelfAttentionLabs.jsx",
+      "title": "All class probabilities on a common 0–1 scale",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SelfAttentionLabs.jsx",
+      "title": "Measured trajectory and frozen model",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx",
+      "title": "Exact authored coordinates and labels",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx",
+      "title": "Exact counts behind the bars",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx",
+      "title": "Follow the donor’s evidence chain",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "title": "See the mask and its denominator",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "title": "Exact checkpoint values and final slice counts",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "title": "All 32 next-token probabilities",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "title": "Compare actual candidate-owned beam search",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/Seq2SeqLabs.jsx",
+      "title": "Saved inflection model",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionFigures.jsx",
+      "title": "Exact donor weights",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+      "title": "All 24 recorded trials on the real trained head",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+      "title": "Inspect the actual 8 × 8 matrix and normalizer",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+      "title": "Three frozen models and original trajectory",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx",
+      "title": "Inspect this image’s exact pixel values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx",
+      "title": "Inspect all recorded values, one grid column at a time",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx",
+      "title": "Read exact weights, measurements and fitting procedure",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralMechanismLabs.jsx",
+      "title": "Follow the actual power-iteration vectors",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceFigures.jsx",
+      "title": "Inspect assessment confusion and exact recorded losses",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+      "title": "{title}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+      "title": "Separate the content factor, decay mask and their product",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+      "title": "Exact logits, probabilities and trajectory coordinates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StateSpaceLabs.jsx",
+      "title": "Fitted trajectory investigation",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "title": "Inspect exact-model probabilities and expected transient visits",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "title": "Inspect the events and count distribution",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "title": "Inspect generator and holding intervals",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "title": "Inspect covariance and grid values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx",
+      "title": "{caption}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SurvivalFigures.jsx",
+      "title": "Inspect the risk-set calculation for this score",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TitansMemoryLabs.jsx",
+      "title": "Inspect every completed write",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TitansMemoryStudy.jsx",
+      "title": "Inspect exact forecasts in this displayed window",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+      "title": "Inspect exact cover intervals and overlap members",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx",
+      "title": "Inspect the computed prefix before saving",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+      "title": "Inspect all thirteen original chemical measurements for row {row.row_id}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+      "title": "Read every final {role} prediction, including correct rows",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx",
+      "title": "Read all seven continued update records",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransferLearningLabs.jsx",
+      "title": "Inspect all 400 specimen assignments",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransferLearningLabs.jsx",
+      "title": "Read all saved trace values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "title": "Read the operations in each lane",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "title": "Read the exact operation sequence",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "title": "Inspect all feature stages for this position",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "title": "Inspect both attention heads and hidden FFN responses",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TreeLabs.jsx",
+      "title": "Inspect exact keys, links and depths",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TreeLabs.jsx",
+      "title": "Check the four destinations",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/UnionFindLabs.jsx",
+      "title": "Exact parent and component-size table",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/UnionFindLabs.jsx",
+      "title": "Exact active component memberships",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ValidationLabs.jsx",
+      "title": "Inspect all 16 label patterns and reconstruct the average",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx",
+      "title": "{caption}",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VectorTensorLabs.jsx",
+      "title": "What does collapse discard?",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VisionTransformerFigures.jsx",
+      "title": "Inspect all 17 coefficient × value products",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VisionTransformerLabs.jsx",
+      "title": "Inspect the current patch features in the fixed training PCA basis",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VisionTransformerLabs.jsx",
+      "title": "Saved model and editable images",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+      "title": "Read the exact edge list",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+      "title": "Inspect this pass's edge candidates",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+      "title": "Why does the blocked example matter?",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightInitializationLabs.jsx",
+      "title": "Exact forward and backward measurements",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightInitializationLabs.jsx",
+      "title": "Inspect every singular value and histogram bin",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightInitializationLabs.jsx",
+      "title": "All three-seed validation means and within-row minima",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx",
+      "title": "All current input rows and normalizer states",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx",
+      "title": "Worked one-dimensional active-floor counterexample",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx",
+      "title": "Every current input and output",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmPrimitives.jsx",
+      "title": "Exact plotted values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmPrimitives.jsx",
+      "title": "Complete matrix values",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    },
+    {
+      "file": "src/learn/components/lesson-labs/XlstmStudy.jsx",
+      "title": "Every prefix, full state and full block-stage vectors",
+      "originalAttributesPreserved": true,
+      "visibleSection": true
+    }
+  ]
+}

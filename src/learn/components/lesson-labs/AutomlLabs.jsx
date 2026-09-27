@@ -246,17 +246,17 @@ export function SearchSpaceLab() {
         {' '}Multiplying every option in the whole form together instead would give
         {' '}{familyOrder.reduce((product, family) => product * Object.values(comparison.after.branches.find(branch => branch.family === family).dimensions).reduce((inner, entry) => inner * entry.size, 1), 1) === comparison.after.total ? 'the same number here only by coincidence' : `${familyOrder.map(family => comparison.after.branches.find(branch => branch.family === family)).reduce((product, branch) => product * branch.dimensions.reduce((inner, entry) => inner * entry.size, 1), 1)}, counting configurations that do not exist`}.
       </p>
-      <details>
-        <summary>Enumerate every valid configuration</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Enumerate every valid configuration</h4>
         <Table scroll caption={`All ${comparison.after.total} configurations of the applied space, written out.`}
           headings={['#', 'family', 'settings']}
           rows={enumerateConfigurations(state.active.space).map((row, index) => [
             String(index + 1), familyLabels[row.family],
             Object.entries(row.settings).map(([dimension, value]) => `${dimensionLabels[dimension]} ${describeOption(dimension, value)}`).join(', '),
           ])} />
-      </details>
-      <details>
-        <summary>Two sampling rules over the same space</summary>
+      </section>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Two sampling rules over the same space</h4>
         <p>
           Random search still needs a distribution, and the two obvious rules disagree. Choosing a family uniformly and
           then a configuration inside it is not the same as choosing uniformly among all configurations.
@@ -287,7 +287,7 @@ export function SearchSpaceLab() {
             band.label, String(band.count), band.fraction,
             samplingMeasure(state.active.space, 'configuration-uniform').bands[index].fraction,
           ])} />
-      </details>
+      </section>
       <Attempts entries={state.history} />
     </>}
   </Investigation>;
@@ -665,8 +665,8 @@ export function HalvingLab() {
         {' '}Continuation is a property of the actual training procedure and its retained state; an estimator option with
         a similar name does not establish it.
       </p>
-      <details>
-        <summary>Hyperband&rsquo;s second loop: several brackets, not one</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Hyperband&rsquo;s second loop: several brackets, not one</h4>
         <p>
           Successive halving fixes one breadth/depth choice. Hyperband runs several brackets that start different numbers
           of candidates at different initial resources, hedging that choice. With R = {brackets.maximumResource} and
@@ -680,7 +680,7 @@ export function HalvingLab() {
             bracket.stages.map(stage => `${stage.candidates}@${stage.resource}`).join(' → '),
             String(bracket.restartWork),
           ])} />
-      </details>
+      </section>
       <Attempts entries={state.history} />
     </>}
   </Investigation>;
@@ -851,8 +851,8 @@ export function SearchReplayLab() {
           ? 'Notice a step where the best score is flat and the recommendation still moves: a tie was broken by the registry rule, so a flat maximum does not mean the selected model is unchanged.'
           : 'No tie was broken at this budget.'}
       </p>
-      <details>
-        <summary>Out-of-fold mistakes of the revealed candidates</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">Out-of-fold mistakes of the revealed candidates</h4>
         <Table caption="Which revealed candidates miss which development rows. Aligning error sets is a comparison of stored class predictions; no candidate probability was retained, so nothing here supports a measured ensemble claim."
           headings={['candidate', 'out-of-fold mistakes', 'file lines']}
           rows={applied.revealed.map(index => [
@@ -863,7 +863,7 @@ export function SearchReplayLab() {
               : recordedCandidates[index].outOfFoldErrorRows.slice(0, 12).map(row => sourceRows[String(row)].line).join(', ')
               + (recordedCandidates[index].outOfFoldErrorRows.length > 12 ? ', …' : ''),
           ])} />
-      </details>
+      </section>
       <p className="am-caption">
         The replay owns no inspection outcome. The width-16 network&rsquo;s 205-of-205 result belongs to the procedure
         that was actually selected by the whole search and then refitted; it cannot be attached to a prefix that
@@ -1218,8 +1218,8 @@ export function MixtureLab() {
       </p>
       <StepStage key={`step-${appliedKey}`} applied={applied} />
       <CommitStage key={`commit-${appliedKey}`} applied={applied} />
-      <details>
-        <summary>The exact mixed function over the input range</summary>
+      <section data-lesson-teaching="" className="lesson-teaching-section">
+        <h4 className="lesson-teaching-section__title">The exact mixed function over the input range</h4>
         <Plot caption="The constructed mixed function, with the current input marked"
           width={340} height={170} domain={curve.domain}
           range={[Math.min(...curve.points.map(point => point.mixed), applied.target) - 0.5,
@@ -1237,7 +1237,7 @@ export function MixtureLab() {
           A constructed function of one scalar input. It is not a fitted banknote decision boundary, and no data from
           section 5 enters it.
         </p>
-      </details>
+      </section>
       <Attempts entries={state.history} />
     </>}
   </Investigation>;

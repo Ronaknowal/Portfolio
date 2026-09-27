@@ -1,0 +1,66 @@
+# Hyena independent content, implementation and learning review
+
+Reviewer: `graph_attention_implementation`, independent of the memory/energy author. Review date: 27 September 2026. Author receipt: 65 source/evidence paths, including the complete current packet, deployed learner programs/assets, shared rendering dependencies and topic runtime. No shared source, whole-site build or browser state was changed by this reviewer.
+
+## Complete reading and scope
+
+Read the complete manuscript, every visual/investigation contract, the historical and current implementation designs, provenance and original `splice.names`, all five original Python files (including the historical checker), generator, display extractor, native/model/render checkers, pure engine and its tensor dependency, four runtime component files and topic CSS. Inspected the generated article's replacement/addition route against all sections and disclosures. Raw records and all selected fits were consumed computationally, rather than treating minified saved arrays as explanatory prose.
+
+The original packet's three-program/twenty-disclosure checker predates the added blocked FFT route. Keeping that historical checker and receipt unchanged is appropriate: current native execution checks the four displayed programs and the current article retains twenty-one practice disclosures. The author does not claim the obsolete structural assertions ran against today's manuscript. The added ordinary SciPy route is substantive, complete and explained.
+
+## Independent numerical evidence
+
+`review-hyena-native.py` executed actual CPU PyTorch in one thread against the three saved nonlinear fits. Six fresh sequences of lengths 17 and 60 include all eight input symbols and further independent random symbols. Complete logits and every final hidden vector are retained. For a fresh signed output probe in each 60-symbol case, autograd computed every embedding parameter derivative (128), both implicit filter first-layer bias vectors (64) and both decay vectors (32): 224 coordinates per fit, 672 total.
+
+`review-hyena-models.mjs` independently compared those native results with the browser engine and central finite differences. Maximum fresh logit discrepancy was 3.9968028886505635e-15; maximum parameter derivative discrepancy was 4.4189740755484763e-10. All six cases also passed classifier-row relabeling, shorter-prefix invariance and changed-future-symbol invariance. The filter cache was intentionally not reused while perturbing a parameter.
+
+Additional complementary cases passed:
+
+- Thirty complex-input Fourier transforms were compared with a directly indexed complex DFT, inverse recovery and Parseval's identity. These exercise imaginary input as well as the real convolution use case.
+- One hundred randomized mechanisms tested nonzero incoming modal state against its closed history expansion, input-state immutability and mode relabeling. Full convolution commutation and complete blocked tails were checked for block sizes 1, 2, 5 and 17, including blocks larger than the signal.
+- Finite truncation used a signed input witness that attains the stated absolute-mass bound at the final position. This checks the quantitative bound rather than only observing errors below a loose ceiling.
+- Arbitrary signed two-filter hierarchies were compared against their conditional matrices and every intermediate path, including forbidden future senders.
+- An independently constructed graph of source-prefix connections and duplicate-sequence edges was traversed using connected components. It reproduced retained record identity, the two conflicting rows 1022/1969, and absence of a connected component spanning the fit, validation and assessment roles. It did not reuse the author's union implementation.
+
+There were 32,761 scientific comparisons before final source-identity assertions. The final model-check receipt records the additional assertions for every author source. Existing 1,036,712 author comparisons are reused as complementary evidence, including all saved validation reads, actual full-model traces, erf probes and retained fit/assessment replay. No 80-epoch campaign, pretrained checkpoint, GPU kernel or benchmark was rerun or invented.
+
+## Concept and teaching assessment
+
+| Transition | Independent assessment |
+|---|---|
+| Long memory to convolution | The opening distinguishes distance-based copying from content addressing before presenting terminology. Pulse echoes, the sum at output 2 and repeated matrix diagonals agree. |
+| Causal versus circular FFT | Zero padding, the full tail and wraparound paths explain the error. A changed final input is a counterexample; one unchanged output is explicitly insufficient to certify causality. |
+| Gates and hierarchy | Sending and receiving gates are separate signed factors. The fixed-gate conditional matrix is correctly distinguished from the whole nonlinear model Jacobian. The preceding filter adds intermediate paths rather than merely renaming the one-filter block. |
+| Implicit filters | The nine position features, fixed denominator 59, shared 864-parameter network and positive envelope are explained and displayed with actual fitted coefficients. A changed positional ruler is separated from merely receiving a longer prefix. |
+| Learning and complete architecture | The scalar gradient/update example connects loss to contributing inputs. The complete native two-block program preserves causal short preprocessing, skip, output projection, two residual paths, exact GELU and the final-position head. Teacher-forced next-symbol prediction is a separate explanatory contract from the fixed-window classifier. |
+| Real DNA work | All 60 symbols are available to the classifier. EI/IE direction, biological versus array position and ambiguity N versus class N are explicit. The historical metadata's reversed donor/acceptor names are not silently used. Synthetic edits receive no invented biological label. |
+| Evaluation | Connected observed groups travel together; validation selects the checkpoint; assessment is separate. All four runs remain visible, including the linear baseline's favorable result. Source-prefix grouping is not represented as a homology or patient-independence guarantee. |
+| Efficient ordinary route | The complete blocked FFT program uses a cached filter transform, valid tails, global offsets and a causal full-output slice. The ordinary SciPy route is executed, and centered `same` is correctly shown as a different alignment. |
+| Streaming and approximation | Modal registers carry all past input for the stated analytic filter; resetting and truncating are different changes. Negative poles, separate short-convolution history, finite-horizon error bounds and the two-mode Hankel factorization are explained without granting arbitrary neural filters an exact finite recurrence. |
+| Modern families and efficiency | SE/MR/LI and attention retain different objects; the operator strip is explicitly conceptual. Measured original research results are distinguished from this lesson. Work and BigInt storage counts do not masquerade as wall-clock timings. |
+
+The four specified investigations plus the new blocked workspace have different editable entities and causal questions. Their initial examples differ from the worked cases. Inputs are immediately playable, with current results, explicit null cases, pin/reset paths and no prediction entry or reveal gate. Ten independent exercises change a constraint, calculation or reasoning task; the additional blocked exercise transfers the new algorithm to an incomplete final block. Hints and reasoned solutions remain optional and initially closed.
+
+The full first-pass route and deeper modal/Hankel branch remain legible in the manuscript; figures do not replace that depth with checklist text. Scratch, ordinary-library and full-model programs are available at the corresponding concepts with complete source readers and downloads. Annotated references explain where and why to continue reading. No core promised mechanism is deferred to an unspecified external implementation.
+
+## Representations, controls and resolved findings
+
+Read every H01–H20 implementation plus the block, generation, Hankel and genomic adaptation insets. The figures use actual contribution ribbons, lower-triangular matrices, wraparound paths, separate gates, intermediate paths, fitted curves, gradient arrows, residual bypasses, sequence strips, group links, complete measured curves, aligned overlap tails and modal registers. Probability comparisons consistently retain a zero-to-one scale; matrix/contribution signs are explicit as numbers as well as colors.
+
+The selected fit and validation data load near the viewport. DNA draft/last-valid input, original record, semantic position, span, intervention settings and pin live above resource rendering. Model changes abort outstanding fetches; errors expose a friendly retry without discarding those inputs. A pin stores sequence/settings and is explicitly recomputed through the current model, making the comparison controlled. The linear and ungated no-op controls are honestly labeled. Optional program sources load on opening. Public downloads use a specific allowlist; private review evidence and manuscripts are not shipped.
+
+The reviewer found one quantitative display issue: the old two-decimal tick formatter collapsed small valid modal values to zero. The author replaced it with a span-aware formatter, preserving tiny signed scientific values. `review-hyena-render.mjs` passed ten separate SSR assertions, including actual modal output scales 1, .001, 1e-7 and -.001 with three distinct vertical labels, nominal keyboard-scroll geometry, and class bars of exactly 31/62/217 pixels for probabilities .1/.2/.7 on the same 310-pixel unit scale. Additional author probes cover narrow ranges near one and larger scientific labels. Natural spacing in accessible copy was improved, and actual shared article/math/source rendering dependencies were added to the author identity receipt. The mathematical engine and saved programs did not change for these fixes.
+
+No unresolved scientific, content, control-source or teaching finding remains. Nominal-width SVG regions, focus access, wrapping containers, exact tables and shared resilient numeric controls are present in source. SSR and source review do not certify painted text/edge containment, practical focus order, live fetch races or viewport behavior: root's actual browser review and final integrated build remain separately required.
+
+### Final bounded layout delta
+
+Root's subsequent painted review found that a maximum negative stem value could collide with the old index row and clip at the old figure edge. Independently inspected the author's local correction: the common signed value scale and endpoint coordinates are unchanged; the maximum negative value-label baseline remains 233, indices move to their own baseline at 268, the figure height is 285, and the selected-column highlight extends to 250. The final three changed bound paths are only `HyenaPrimitives.jsx`, its render checker and the render-check result. The author now has 66 source/SSR checks including signed, zero and tiny stems. All 65 author identities were verified again. The 32,826 numerical checks remain valid and were deliberately reused because the engine, programs, model weights and native evidence are byte-identical. Root separately reported passing all 53 painted SVG bounds and desktop/phone screenshots on its 23:08:11 build; that browser work is not represented as this reviewer's execution.
+
+## Primary-source checks
+
+The original paper's formal N-stage filter/gate recurrence and conditional matrix agree with the lesson's distinction from the practical one-long-filter implementation. [Hyena Hierarchy, §3](https://proceedings.mlr.press/v202/poli23a/poli23a.pdf). The official standalone implementation's `order=2` produces three preprocessed projections and one inner long convolution before its final receiving gate. [Author code, HyenaOperator](https://github.com/HazyResearch/hyena-dna/blob/main/standalone_hyenadna.py).
+
+HyenaDNA's main causal pretraining, fixed-model soft prompt adaptation and separately evaluated bidirectional variant support the scoped application explanation. [HyenaDNA, method and appendices A.2–A.3](https://arxiv.org/html/2306.15794v2). The SE/MR/LI parameterizations, finite histories, modal recurrence and interleaved attention are consistent with the stated conceptual comparison. [StripedHyena 2 methods, §§2.1–2.2](https://arxiv.org/html/2503.01868v1). The distillation work explicitly targets compact approximations to pretrained long filters; it is not used to claim every learned filter is already exactly two-dimensional. [Laughing Hyena Distillery](https://arxiv.org/abs/2310.18780).
+
+The ordinary convolution route's full output length and centered `same` semantics match the official API and the native executions. [SciPy oaconvolve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.oaconvolve.html). These checks substantiate specific mechanism contracts, not new external performance measurements or a claim to have watched the linked conference recording.

@@ -50,7 +50,7 @@ function Distribution({
     <text x="12" y="34">1</text><text x="12" y="180">0</text><text x="40" y="18">Probability mass</text>
     {rows.map((row, i) => <g key={i}><rect x={x(row.value) - width / 2} y={174 - 140 * row.mass} width={width} height={140 * row.mass} className="rv-mass" /><circle cx={x(row.value)} cy="174" r="2" className="rv-mass" />{(rows.length <= 6 || i === 0 || i === rows.length - 1 || i === Math.floor(rows.length / 2)) && <text x={x(row.value)} y="194" textAnchor="middle">{number(row.value)}</text>}</g>)}
     <text x="154" y="225" textAnchor="middle">{xLabel}</text>
-    </svg><details><summary>Probability table (rounded)</summary><p>Calculated from the population law; displayed to six significant digits.</p><table><thead><tr><th>Value</th><th>Probability</th></tr></thead><tbody>{rows.map((row, i) => <tr key={i}><td>{number(row.value)}</td><td>{number(row.mass)}</td></tr>)}</tbody></table></details></figure>;
+    </svg><section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Probability table (rounded)</h4><p>Calculated from the population law; displayed to six significant digits.</p><table><thead><tr><th>Value</th><th>Probability</th></tr></thead><tbody>{rows.map((row, i) => <tr key={i}><td>{number(row.value)}</td><td>{number(row.mass)}</td></tr>)}</tbody></table></section></figure>;
 }
 export function OutcomePushforwardLab() {
   const [first, setFirst] = useState(50),

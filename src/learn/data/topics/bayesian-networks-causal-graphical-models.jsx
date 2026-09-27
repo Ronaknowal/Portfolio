@@ -10,6 +10,7 @@ import {
   FrontdoorFigure, MeasuredContrastFigure, WorldAssemblyFigure, measuredContrast,
 } from '../../components/lesson-labs/BayesNetFigures.jsx';
 import { bayesnetExamples } from '../bayesnet-examples.js';
+import { DoCalculusSurgeryFigure, JunctionMessageFigure } from '../../components/lesson-labs/BayesNetIntuition.jsx';
 import { conditionalInformation, protocol, provenance, scores, trainingModels } from '../bayesnet-data.js';
 import {
   alarmNetwork, backdoorCriterion, counterfactualOfUnit, counterfactualPair, dSeparation, eliminationRun,
@@ -151,7 +152,7 @@ const bayesianNetworksContent = {
       path or decision update immediately, with the information available to the model kept explicit.
     </LessonIntro>
 
-    <div className="bn-route"><Prose><strong>First pass.</strong> Read sections 1–6 and do practice 1–6. That route
+    <div className="bn-route"><Prose opening="route"><strong>First pass.</strong> Read sections 1–6 and do practice 1–6. That route
       gets you a working network, a posterior you calculated yourself, a path you can read, a real fitted classifier,
       and the difference between observing something and doing it. Run the two programs on the way. Sections 7 and 8
       are deeper branches: 7 develops identification, do-calculus and counterfactuals, and 8 covers structure search,
@@ -275,8 +276,8 @@ const bayesianNetworksContent = {
     <Prose>Every loop below corresponds to one compatible world. It uses only the standard library.</Prose>
     <Program example={bayesnetExamples.enumerate}>
       <Prose>The printed number is the same {num(bothCalls.posterior)} the table gives, to the last digit the machine
-        can carry. This is a fine way to answer a question about a tiny network. Enumerating every world costs{' '}
-        <Math>{'2^n'}</Math> operations, so the same program on thirty binary variables would have a billion worlds to
+        can carry. This is a fine way to answer a question about a tiny network. Enumeration visits{' '}
+        <Math>{'2^n'}</Math> assignments, each requiring evaluation of its local factors. The same program on thirty binary variables would have a billion worlds to
         walk, and section 3 fixes that.</Prose>
     </Program>
 
@@ -551,7 +552,7 @@ const bayesianNetworksContent = {
       efficiency can distinguish valid choices; being earlier in the drawing cannot.</Prose>
     <Prose>Add one arrow, <Math>{'E\\to Y'}</Math>, and that changes. Practice 5 asks you to work it out; the answer
       is that <Math>{'\\{S\\}'}</Math> stops being valid while <Math>{'\\{E\\}'}</Math> and <Math>{'\\{E,S\\}'}</Math> remain
-      so. Investigation 2 grades a different question — d-separation over the whole graph, which counts the
+      so. Investigation 2 answers a different question — d-separation over the whole graph, which counts the
       direct causal path that the backdoor criterion deliberately sets aside — so it will not confirm this table.
       The practice-5 graph is one of its presets under a question it <em>can</em> settle: whether status and
       training can be separated at all.</Prose>
@@ -635,6 +636,7 @@ const bayesianNetworksContent = {
     <Prose>Here <Math>{'Z(W)'}</Math> contains the <Math>{'Z'}</Math>-nodes that are <em>not</em> ancestors of
       any <Math>{'W'}</Math>-node in <Math>{'G_{\\bar X}'}</Math>; when <Math>{'W'}</Math> is empty it is all
       of <Math>{'Z'}</Math>.</Prose>
+    <DoCalculusSurgeryFigure />
     <Prose>A worked case: in a causally sufficient <Math>{'X\\to Y'}</Math> model with no other paths, delete the
       outgoing arrow from <Math>{'X'}</Math>. Now <Math>{'X'}</Math> and <Math>{'Y'}</Math> are separated in that
       modified graph, so rule 2 justifies <Math>{'P(y\\mid do(x))=P(y\\mid x)'}</Math>. Add an unobserved common
@@ -717,6 +719,11 @@ const bayesianNetworksContent = {
       remove every cycle from the graph, and its large clusters are where treewidth reappears.{' '}
       <a href="https://ermongroup.github.io/cs228-notes/inference/jt/">Stanford's junction-tree chapter</a> is a
       useful derivation after the factor workbench in section 3.</Prose>
+    <JunctionMessageFigure />
+    <Prose>Think of the separator as the questions the next cluster can still ask. In the example, that cluster needs
+      to distinguish B=0 from B=1, but it cannot ask about A directly. A message therefore keeps one accumulated value
+      for each B state. This is the same sum-and-product work as elimination, organised so that its results can be
+      reused. New evidence changes affected messages; storing an old message does not make it valid under changed evidence.</Prose>
     <Prose>Sum-product messages are exact on an appropriate tree of factors or clusters. Loopy belief propagation
       applies similar local updates to a graph with loops, where convergence and exactness are no longer
       automatic.</Prose>
@@ -797,11 +804,11 @@ const bayesianNetworksContent = {
     </Program>
 
     {/* ============================================================ §9 */}
-    <H2>{headings[8]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[8]}</H2>
     <Prose>Work through 1–6 before the deeper problems. Each one changes a mechanism or an assumption rather than
       asking you to repeat the preceding trace.</Prose>
 
-    <Practice title="1. A different caller"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A different caller"
       question={<>Replace Mary's table by <Math>{'P(M=1\\mid A=0)=P(M=1\\mid A=1)=0.4'}</Math>. With only Mary
         calling, what is the burglary posterior? With both John and Mary calling, which earlier posterior should
         reappear?</>}
@@ -812,9 +819,9 @@ const bayesianNetworksContent = {
         conditional rows remove Mary's information from this distribution, even though the drawn graph still shows the
         arrow. Investigation 1 has both of Mary's rows as editable fields and a “Practice 1” setup that applies this
         exact change, so you can reproduce both numbers there.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. A descendant opens a path"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. A descendant opens a path"
       question={<>Draw <Math>{'R\\to S\\leftarrow T'}</Math> and <Math>{'S\\to V\\to W'}</Math>.
         Are <Math>{'R'}</Math> and <Math>{'T'}</Math> d-separated with no observations, with <Math>{'W'}</Math> observed,
         and with both <Math>{'S'}</Math> and <Math>{'W'}</Math> observed? Does the graph specify a negative
@@ -827,9 +834,9 @@ const bayesianNetworksContent = {
         too: {dSeparation(fixtures.colliderChainEdges, 'R', 'T', ['S', 'W']).paths[0].reason}. The graph supplies no
         numerical sign or strength at all. Explaining away in section 2 was a consequence of the alarm's particular
         probabilities, not a universal negative-correlation theorem. This graph is a preset in investigation 2.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Count a different network"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Count a different network"
       question={<>Let a three-state <Math>{'C'}</Math> parent three binary
         features <Math>{'F_1,F_2,F_3'}</Math>, and add <Math>{'F_1\\to F_2'}</Math>. How many free CPT parameters are
         there? Compare with a fully unrestricted joint over the four variables.</>}
@@ -839,9 +846,9 @@ const bayesianNetworksContent = {
         of {practiceParameters.free}. The unrestricted joint has {practiceParameters.jointEntries} entries
         and {practiceParameters.jointFree} free parameters. These count probabilities, not data rows and not
         bytes.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. A probability query with one hidden variable"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. A probability query with one hidden variable"
       question={<>You have <Math>{'P(C=1)=0.4'}</Math>, <Math>{'P(F=1\\mid C=0)=0.2'}</Math> and <Math>{'P(F=1\\mid C=1)=0.8'}</Math>.
         A downstream measurement <Math>{'G'}</Math> depends only on <Math>{'F'}</Math>,
         with <Math>{'P(G=1\\mid F=0)=0.1'}</Math> and <Math>{'P(G=1\\mid F=1)=0.9'}</Math>.
@@ -852,9 +859,9 @@ const bayesianNetworksContent = {
         is <Math>{'0.4(0.74)/[0.6(0.26)+0.4(0.74)]=0.296/0.452\\approx0.654867'}</Math>. Choosing the most
         likely <Math>{'F'}</Math> first and then conditioning on it would solve a different problem, and would give a
         different number.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Valid adjustment sets, changed graph"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Valid adjustment sets, changed graph"
       question={<>For <Math>{'S\\to E,\\ S\\to Y,\\ E\\to T,\\ T\\to Y'}</Math>, check <Math>{'\\{E\\}'}</Math> and{' '}
         <Math>{'\\{S\\}'}</Math>. Now add <Math>{'E\\to Y'}</Math>. Which of <Math>{'\\{E\\},\\{S\\},\\{E,S\\}'}</Math> still
         satisfy the backdoor criterion for the total effect of <Math>{'T'}</Math> on <Math>{'Y'}</Math>?</>}
@@ -873,9 +880,9 @@ const bayesianNetworksContent = {
         while <Math>{'\\{S\\}'}</Math> does not. Required support and correct graph assumptions still apply. Being
         earlier in the graph was never sufficient to be a valid adjustment variable, and this is the counterexample
         that shows why.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. A more cautious real-data claim"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. A more cautious real-data claim"
       question={<>The two Wine recipes classify the same number of validation specimens correctly, but naive Bayes has
         the lower log loss. Explain how that can happen. Would reporting the tree-augmented model's test result after
         seeing naive Bayes's test loss preserve the declared selection protocol? And in investigation 3, why must
@@ -893,9 +900,9 @@ const bayesianNetworksContent = {
       <Prose>A hidden measurement is marginalised over: the query sums across both of its states and the stored value
         never enters the calculation. It cannot be read until it becomes evidence. That is why the “edit a hidden
         value” case in investigation 3 is an exact null rather than a small change.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. Change a causal response, not its assignment"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. Change a causal response, not its assignment"
       question={<>In the service example, change the low-load procedure failure probability
         from {num(fixtures.service.outcome[1][0])} to {num(fixtures.serviceChangedResponse.outcome[1][0])}, leaving
         everything else fixed. What is the new causal difference? Under the original assignment probabilities, what is
@@ -911,9 +918,9 @@ const bayesianNetworksContent = {
         Changing one response cell moves the two averages by different amounts, because their weights differ —
         {' '}<Math>{'[1/2,1/2]'}</Math> against <Math>{'[1/4,3/4]'}</Math>. Investigation 4 has this exact edit as a
         suggested setup.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. Marginal answer versus best world"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. Marginal answer versus best world"
       question={<>Change the four masses in section 8
         to <Math>{'[' + practiceMap.entries.map(entry => num(entry.value)).join(',') + ']'}</Math> in the
         same <Math>{'(Q,H)'}</Math> order. Find both answers. Why does their matching here not justify replacing sum
@@ -925,9 +932,9 @@ const bayesianNetworksContent = {
         is {num(practiceMap.marginalMapMass)} against {num(practiceMap.rowMasses[1 - practiceMap.marginalMapQuery])}.
         They coincide here. Section 8's original table is a counterexample to the proposed general shortcut, and one
         coincidence cannot establish an algebraic identity.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="9. Break a frontdoor assumption"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="9. Break a frontdoor assumption"
       question={<>In section 7's graph, add <Math>{'U\\to M'}</Math>. Is the displayed frontdoor formula still
         justified by that criterion? What if instead you add only <Math>{'X\\to Y'}</Math>?</>}
       hint={<>Check the backdoor paths from the treatment to the mediator, and the set of directed treatment-to-outcome
@@ -940,9 +947,9 @@ const bayesianNetworksContent = {
         the mediator lies on only {frontdoorDirect.directedPaths.filter(path => path.includes('M')).length} of them.
         Neither change licenses the same formula. Failure of a sufficient criterion does not by itself prove the
         effect unidentifiable; reassess the graph and the assumptions you are prepared to make.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="10. Find what the probability tables leave unspecified"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="10. Find what the probability tables leave unspecified"
       question={<>For the two structural models in section 7, observe <Math>{'X=1,Y=0'}</Math>.
         Infer <Math>{'U'}</Math>, then set <Math>{'X=0'}</Math>. What does each model predict? Which population
         quantities remain equal?</>}
@@ -955,10 +962,10 @@ const bayesianNetworksContent = {
         are {num(counterfactuals.models[0].averageUnderZero)} and {num(counterfactuals.models[0].averageUnderOne)} in
         both — and the same observational distribution over <Math>{'X,Y'}</Math>. They disagree about paired,
         unit-level outcomes, which those distributions never specified.</Prose>
-    </Practice>
+    </Practice></div>
 
-    {/* ============================================================ §10 */}
-    <H2>{headings[9]}</H2>
+    {/* ============================================================ §10 */}</section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[9]}</H2>
     <Prose>You are ready to move on when you can explain why an unobserved variable is summed out rather than filled
       in, identify a collider's observed descendant, distinguish a causal query from a predictive one, and justify a
       small adjustment set by naming the path it blocks. For the deeper route, add distinguishing identification from
@@ -991,7 +998,7 @@ const bayesianNetworksContent = {
       separate <a href="/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations">causal-inference</a>,{' '}
       <a href="/learn/path/full-curriculum/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts?module=math-foundations">Monte
       Carlo</a> and <a href="/learn/path/full-curriculum/variational-inference?module=math-foundations">variational-inference</a> lessons
-      extend the deeper branches; none of them is a reason to skip this module's reading sequence.</Prose>
+      extend the deeper branches; none of them is a reason to skip this module's reading sequence.</Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; each of these offers
       a second explanation or a fuller reference.</Prose><ul>

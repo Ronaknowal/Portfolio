@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "scalarComparisons": 19812,
+  "maximumAbsoluteDifference": 0.000002173883729028603,
+  "maximumFloat32PortDifference": 0.000002173883729028603,
+  "checks": [
+    {
+      "name": "Exact unequal-degree path, two propagations, row sums, bias placement and actual autograd scalar step",
+      "passed": true
+    },
+    {
+      "name": "Directed source/target semantics, synchronized and deliberately faulty in-place orders, actual hop support and remote null",
+      "passed": true
+    },
+    {
+      "name": "SAGE own/neighbor roles, whole-multiset mean invariance, empty convention and GAT rank/mask/slope boundaries",
+      "passed": true
+    },
+    {
+      "name": "Fixed-linear connected/disconnected limits, degree-zero convention and two-node periodic failure",
+      "passed": true
+    },
+    {
+      "name": "All9 fresh native graph layers: projected channels, full output, every GAT coefficient; includes unequal directed degrees and empty neighborhoods",
+      "passed": true
+    },
+    {
+      "name": "All20 complete native trained-model interventions: logits, hidden states, probabilities and first-layer GAT weights",
+      "passed": true
+    },
+    {
+      "name": "Every real source identity, edge, derived feature, role and recorded outcome agrees; all twelve historical fits reproduced exactly",
+      "passed": true
+    },
+    {
+      "name": "Aggregation collision versus identical multiset; exact without-replacement distribution; capped and replacement occurrence trees; batch isolation versus wrong offset",
+      "passed": true
+    },
+    {
+      "name": "Information boundaries and zero-score/zero-rate/regular-graph nulls are represented by actual computed state",
+      "passed": true
+    },
+    {
+      "name": "All scoped JSX parses and explicit deployed learner files byte-match current prepared sources",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Author checks do not substitute for independent or real-browser review",
+    "Tiny exact/native double operations use1e-10; saved float32 trained model comparison uses1e-5",
+    "All12 original outcomes preserved; current assessment is inspected teaching evidence"
+  ]
+}

@@ -1,0 +1,30 @@
+.position-two, .position-three { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.position-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.position-figure, .position-plane { border: 1px solid #444; border-radius: .45rem; padding: 1rem; margin: 1rem 0; background: #141414; min-width: 0; }
+.position-figure figcaption, .position-plane figcaption, .position-path figcaption { color: #e6b854; font-weight: 650; line-height: 1.5; }
+.position-plane svg, .position-path svg, .position-diagram { display: block; width: 100%; height: auto; max-width: 360px; margin: auto; }
+.position-plane svg text, .position-path svg text, .position-diagram text { fill: #ddd; font-size: 12px; }
+.position-plane ul { padding-left: 1rem; font-size: .8rem; }
+.position-plane li { overflow-wrap: anywhere; }
+.position-figure figure, .position-path { margin: 0; min-width: 0; }
+.position-vector { border: 1px solid #444; padding: .7rem; margin: .8rem 0; min-width: 0; }
+.position-card, .position-key-rail section { display: flex; flex-direction: column; gap: .35rem; border: 1px solid #666; border-radius: .35rem; padding: .8rem; background: #161616; min-width: 0; }
+.position-card h4 { margin: .2rem 0; }
+.position-key-rail { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: .65rem; margin: 1rem 0; }
+.position-key-rail .is-masked { border-style: dashed; background: #222; color: #aaa; }
+.position-matrix-value { display: inline-block; min-width: 58px; padding: .2rem; font: 12px monospace; }
+.position-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; max-width: 400px; }
+.position-grid span { border: 1px solid #777; padding: .8rem; text-align: center; }
+.positional-encoding-lesson a, .positional-encoding-lesson p { overflow-wrap: anywhere; }
+.position-two > *, .position-three > * { min-width: 0; }
+@media (max-width: 700px) { .position-two, .position-three { grid-template-columns: minmax(0, 1fr); } .position-figure, .position-plane { padding: .7rem; } }
+
+.position-plot-scroll { max-width: 100%; overflow-x: auto; }
+.position-plot-size { min-width: 340px; }
+.position-plane, .position-path, .position-small-diagram { overflow-x: auto; }
+.position-plane svg, .position-small-diagram svg { min-width: 260px; }
+.position-path svg { min-width: 320px; }
+.position-mechanism-scroll { max-width: 100%; overflow-x: auto; }
+.position-mechanism-scroll svg { display: block; }
+.position-figure > .position-three { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.position-vector .neural-number-control--numeric { grid-template-columns: minmax(0, 1fr); }

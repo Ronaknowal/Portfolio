@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { tracks } from "../data/tracks";
 import { topicMap } from "../data/catalogue";
 import PlaceholderContent from "./PlaceholderContent";
 import LevelBadge from "./LevelBadge";
 import LessonGuide from "./LessonGuide";
+import { LessonOpeningContext } from "./LessonOpening.jsx";
 import useTopicResource from "../hooks/useTopicResource.js";
 import LessonBoundary, { LessonLoadError } from "./LessonBoundary.jsx";
 import "./topic-content.css";
+import "./lesson-endings.css";
+import { LessonCodeProvider, LessonCodeDownloads } from './content/LessonCodeDownloads.jsx';
+import './content/lesson-code.css';
 import { projects } from "../data/projects/catalogue.js";
 
 export default function TopicContent({ topic, context, track, currentModule, previousStep, nextStep, isComplete, toggleComplete, basePath }) {
@@ -21,6 +25,13 @@ export default function TopicContent({ topic, context, track, currentModule, pre
   const retryLesson = () => { setRenderFailed(false); retry(); };
   const lesson = topic.status === "published" ? resource : null;
   const Content = lesson?.content;
+  const articleRef = useRef(null);
+  const [openingTargets, setOpeningTargets] = useState({});
+  const openingSlots = useMemo(() => Object.fromEntries(
+    ["summary", "route", "prerequisites", "exploration"].map(kind => [kind, node => {
+      setOpeningTargets(previous => previous[kind] === node ? previous : { ...previous, [kind]: node });
+    }])
+  ), []);
   useEffect(() => {
     if (status !== "ready" || !window.location.hash) return;
     const frame = requestAnimationFrame(() => {
@@ -72,15 +83,13 @@ export default function TopicContent({ topic, context, track, currentModule, pre
         </div>
       </header>
 
-      {Content && topic.prerequisiteIds?.length > 0 && <details className="reader-prerequisites">
-        <summary>Before this lesson · {topic.prerequisiteIds.length} prerequisite {topic.prerequisiteIds.length === 1 ? "topic" : "topics"}</summary>
-        <p>Review these if their ideas are unfamiliar. The reading sequence follows the module contents; these links let you revisit supporting concepts.</p>
-        <ul>{topic.prerequisiteIds.map(id => <li key={id}><a href={`/learn/topic/${id}`}>{topicMap[id].title}</a>{isComplete(id) ? " · completed" : ""}</li>)}</ul>
-      </details>}
+      <LessonCodeProvider key={topic.id} topicId={topic.id}>
+      <LessonOpeningContext.Provider value={openingTargets}>
+      {Content && !renderFailed && <LessonGuide topic={topic} articleRef={articleRef} content={Content}
+        prerequisiteTopics={(topic.prerequisiteIds || []).map(id => topicMap[id]).filter(Boolean)}
+        isComplete={isComplete} slots={openingSlots} />}
 
-      {Content && !topic.hasIntegratedGuide && <LessonGuide topic={topic} />}
-
-      <div className="reader-article" aria-busy={status === "loading"}>
+      <div className="reader-article" ref={articleRef} aria-busy={status === "loading"}>
         {status === "loading" ? <p className="lesson-loading" role="status">{topic.status === "published" ? "Loading lesson…" : "Loading syllabus outline…"}</p>
         : status === "error" ? <LessonLoadError onRetry={retry} />
         : <LessonBoundary key={`${topic.id}:${attempt}`} onRetry={retryLesson} onError={() => setRenderFailed(true)}>{Content ? (
@@ -99,6 +108,9 @@ export default function TopicContent({ topic, context, track, currentModule, pre
           <PlaceholderContent title={topic.title} blueprint={resource} prerequisiteIds={topic.prerequisiteIds} subtopics={topic.subtopics} />
         )}</LessonBoundary>}
       </div>
+      </LessonOpeningContext.Provider>
+      {Content && !renderFailed && <LessonCodeDownloads articleRef={articleRef} content={Content} />}
+      </LessonCodeProvider>
 
       <footer className="reader-footer">
         <button

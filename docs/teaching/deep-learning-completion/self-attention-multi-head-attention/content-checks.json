@@ -1,0 +1,47 @@
+{
+  "topicId": "self-attention-multi-head-attention",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/self-attention-multi-head-attention/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/self-attention-multi-head-attention/additional-calculations.py",
+    "docs/teaching/drafts/self-attention-multi-head-attention/additional-fixtures.json",
+    "docs/teaching/drafts/self-attention-multi-head-attention/attention-model.json",
+    "docs/teaching/drafts/self-attention-multi-head-attention/author-calculations.py",
+    "docs/teaching/drafts/self-attention-multi-head-attention/author-results.json",
+    "docs/teaching/drafts/self-attention-multi-head-attention/data-provenance.md",
+    "docs/teaching/drafts/self-attention-multi-head-attention/design.md",
+    "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md",
+    "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.data",
+    "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.names",
+    "docs/teaching/drafts/self-attention-multi-head-attention/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/self-attention-multi-head-attention/additional-calculations.py": "b6cb8b4443b5dfc0fcfba17639ea95e2d214f7cd6e6c0b91a9c488edf36b8bca",
+    "docs/teaching/drafts/self-attention-multi-head-attention/additional-fixtures.json": "4d8c7d340a10281f888d749a36b89153cc047caf463d54931c7d74cec047abac",
+    "docs/teaching/drafts/self-attention-multi-head-attention/attention-model.json": "1c4f90ac50b9759cf6a7b38c2291c243e27a21fd56d55e61e19493b7958eacaf",
+    "docs/teaching/drafts/self-attention-multi-head-attention/author-calculations.py": "62bf46fd8b2c97173c5cb2cf5bfa39e9e629e2834391c33286f80e231f978fc1",
+    "docs/teaching/drafts/self-attention-multi-head-attention/author-results.json": "168c0cb0504ceae9f0638825a6a2c7427364ee5a25e5ad49aaf0b62898aa95c4",
+    "docs/teaching/drafts/self-attention-multi-head-attention/data-provenance.md": "addb7421f4812ab6321f7fc58cef8d2637722288f6768a995c52defba89079d8",
+    "docs/teaching/drafts/self-attention-multi-head-attention/design.md": "b7e2896c0ae4380f912f6bf86dcf5cfe904edffe8f4c9294930938e0874b2160",
+    "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md": "4b764408f7737715855dbe39402265644fde9670d61f596e78e06399993ef334",
+    "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/self-attention-multi-head-attention/visual-specifications.md": "7e528dbdab6393d95edd21cd1dc59ece677e3b8310f67fe0d3d0bebb95a68521"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

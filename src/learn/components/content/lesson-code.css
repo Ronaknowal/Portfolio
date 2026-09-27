@@ -1,0 +1,51 @@
+.reader-article .lesson-code,
+.reader-article .lesson-code-source { min-width: 0; max-width: 100%; margin-block: 18px 24px; }
+.reader-article .lesson-code { border: 1px solid #333; border-radius: 4px; background: #0b0b0b; overflow: hidden; color: #c9c9c9; }
+.reader-article .lesson-code__toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; padding: 12px 16px; border-bottom: 1px solid #333; white-space: normal; }
+.reader-article .lesson-code__identity { display: grid; gap: 4px; min-width: 0; flex: 1 1 200px; }
+.reader-article .lesson-code__identity > :first-child { font-size: .8rem; color: #bdbdbd; }
+.reader-article .lesson-code__filename,
+.lesson-code-downloads__filename { font-family: 'JetBrains Mono', monospace; font-size: .8rem; overflow-wrap: anywhere; }
+.reader-article .lesson-code__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.reader-article .lesson-code .lesson-code__copy { min-width: 88px; gap: 5px; }
+.reader-article .lesson-code .lesson-code__copy[data-copied] { color: #f3cd81; border-color: #e2b55a; background: #292111; }
+.reader-article .lesson-code .lesson-code__actions :is(a, button),
+.reader-article .lesson-code-source__pending :is(a, button),
+.lesson-code-downloads li > :is(a, button) {
+  display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
+  min-height: 40px; padding: 8px 12px; margin: 0; border: 1px solid #51432a; border-radius: 3px;
+  background: #15130f; color: #e2b55a; font: inherit; font-size: .8rem; line-height: 1.4; text-decoration: none; cursor: pointer;
+}
+.reader-article .lesson-code .lesson-code__actions :is(a,button):hover,
+.lesson-code-downloads li > :is(a,button):hover { border-color: #e2b55a; background: #211c12; }
+.reader-article .lesson-code pre {
+  max-width: 100%; max-height: 34rem; overflow: auto; padding: 16px; margin: 0; border: 0;
+  background: transparent; color: #c9c9c9; font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px; line-height: 1.75; white-space: pre; tab-size: 4; text-align: left;
+}
+.reader-article .lesson-code pre > code { display: block; background: transparent; color: inherit; font: inherit; line-height: inherit; white-space: inherit; padding: 0; border: 0; }
+.reader-article .lesson-code__status { flex-basis: 100%; font-size: .8rem; color: #e2b55a; white-space: normal; }
+.reader-article .lesson-code__status:empty { display: none; }
+.reader-article .lesson-code__status--success { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.reader-article .lesson-code-source__pending { padding: 18px; border: 1px solid #333; border-radius: 4px; background: #111; }
+.reader-article .lesson-code-source__pending p { margin: 0 0 12px; overflow-wrap: anywhere; }
+.reader-article .lesson-teaching-section { margin-block: 28px; min-width: 0; }
+.reader-article .lesson-teaching-section > .lesson-teaching-section__title { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; color: #e8e8e8; line-height: 1.6; margin-block: 0 16px; }
+.lesson-code-downloads { margin: 44px 0; padding-top: 28px; border-top: 1px solid #333; min-width: 0; color: #bdbdbd; }
+.lesson-code-downloads > h2 { font-size: 22px; color: #e8e8e8; margin: 0 0 16px; }
+.lesson-code-downloads > p { line-height: 1.8; }
+.lesson-code-downloads ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.lesson-code-downloads ul > li { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; padding: 16px 0; border-top: 1px solid #292929; }
+.lesson-code-downloads summary { color: #e2b55a; padding: 12px 0; min-height: 44px; cursor: pointer; }
+.lesson-code-downloads details { margin-top: 20px; border-top: 1px solid #333; }
+.lesson-code-downloads li > div { flex: 1 1 220px; display: grid; gap: 6px; min-width: 0; }
+.lesson-code-downloads__description { font-size: .85rem; line-height: 1.6; overflow-wrap: anywhere; }
+.reader-article .lesson-code :focus-visible,
+.reader-article .lesson-code-source :focus-visible,
+.lesson-code-downloads :focus-visible { outline: 2px solid #e2b55a; outline-offset: 3px; }
+@media(max-width: 600px) {
+  .reader-article .lesson-code__toolbar { padding: 12px; }
+  .reader-article .lesson-code__actions { width: 100%; }
+  .reader-article .lesson-code pre { padding: 12px; }
+  .lesson-code-downloads li > :is(a,button) { min-height: 44px; }
+}

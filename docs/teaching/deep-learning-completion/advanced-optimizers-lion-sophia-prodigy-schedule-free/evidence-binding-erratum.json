@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-09-26T22:53:11.209Z",
+  "scope": "Correct a missed nested SSR receipt hash after the already-reviewed final study display change; no runtime, numerical source or execution changed.",
+  "file": "docs/teaching/deep-learning-completion/advanced-optimizers-lion-sophia-prodigy-schedule-free/implementation-checks.json",
+  "previousAuthorHash": "3f00c2a731cf883ba0d6d604f45d790f93c2daab53980bc6699d45f17e403963",
+  "currentAuthorHash": "695205cf5cd9f9c0dca5e499dd19c6b131f211d77bc38f4f130a493156c9b2ab",
+  "attachment": "docs/teaching/deep-learning-completion/advanced-optimizers-lion-sophia-prodigy-schedule-free/render-checks.json",
+  "previousAttachmentHash": "33565b5cde3179fee19fa6000d26911eb92aa98810c926ef07010fffe633f367",
+  "currentAttachmentHash": "1964d9b50b78ac0dd914a6a038f58937a57af50f664b1440aac9a4c5b510b097",
+  "validation": "Independent review already binds the exact current passed scoped SSR receipt; current independent/browser source hashes remain valid. This is bookkeeping correction, not a new run."
+}

@@ -1,0 +1,33 @@
+{
+  "topicId": "k-nearest-neighbors-knn",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+    "src/learn/components/lesson-labs/KnnIntuition.jsx",
+    "src/learn/components/lesson-labs/knn-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/k-nearest-neighbors-knn.jsx": "86de3a90c9bb1324ccc49decb9f86eb0059f2901ef18cf5d94ef8e2dc310bbad",
+    "src/learn/components/lesson-labs/KnnIntuition.jsx": "3d84d9a24e6781ca6ec5eb9adcfc344ed0a5f041fc012050fda635768ec0584c",
+    "src/learn/components/lesson-labs/knn-intuition.css": "8d713fa4a616c6fbcf032ead99606eb89fbdfb34cd1f6f89446e68d97ebc50d0"
+  },
+  "checks": [
+    {
+      "name": "Complete revised lesson and new figure source review",
+      "passed": true
+    },
+    {
+      "name": "Independent mathematical checks in scripts/verify-prediction-concept-review.mjs",
+      "passed": true
+    },
+    {
+      "name": "Independent learning-experience checklist; rendered checks separate",
+      "passed": true
+    }
+  ],
+  "findings": [],
+  "browser": "Separate browser receipt required",
+  "limits": "No new native fit campaign or human learner trial."
+}

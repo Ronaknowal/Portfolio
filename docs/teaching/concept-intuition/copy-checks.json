@@ -1,0 +1,361 @@
+[
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "checks": [
+      "RegNet width equation renders as KaTeX; no raw dollar delimiters",
+      "Exponent sentence renders without literal emphasis markers"
+    ],
+    "passed": true,
+    "buildStartedAt": "2026-09-26T15:51:57.056Z"
+  },
+  {
+    "topicId": "weight-initialization-xavier-kaiming-p",
+    "checks": [
+      "Inspected adjacent update-size prose: KaTeX renders delta-w, delta-z and eta sqrt(n); no raw dollar paragraphs or KaTeX errors"
+    ],
+    "passed": true,
+    "buildStartedAt": "2026-09-26T15:23:34.962Z"
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "Predict which way adding"
+        },
+        {
+          "absent": true,
+          "phrase": "Predict which class gains probability"
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "Add meeting after free and follow how its likelihood contribution changes the odds."
+        },
+        {
+          "found": true,
+          "phrase": "Move the reading into either tail and compare how the two densities change the class probabilities."
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/naive-bayes-probabilistic-classifiers?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "Investigate:"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/k-means-hierarchical-clustering?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "The left route reveals"
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "The prefix-only route reveals why an eligible prefix matters"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/gradient-boosted-trees-xgboost-lightgbm-catboost?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "pac-learning-vc-dimension",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "then say what that learner will cost"
+        },
+        {
+          "absent": true,
+          "phrase": "then look."
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "Choose what to observe and inspect the fitted rule, its mistakes and its population risk."
+        },
+        {
+          "found": true,
+          "phrase": "Change the sample or the target and watch which inputs become mistakes"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/pac-learning-vc-dimension?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "Say which record it is entitled to"
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "and inspect which record is available to use and why."
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/ml-problem-formulation-baselines-data-leakage?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "time-series-validation-forecasting-baselines",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "then say which history position"
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "history position supplies the seasonal forecast at the selected horizon and how its value changes."
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/time-series-validation-forecasting-baselines?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "record what you expect"
+        },
+        {
+          "absent": true,
+          "phrase": "then say which way the total cost"
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "Change the eligible candidates or the selection measure and see the selected model update."
+        },
+        {
+          "found": true,
+          "phrase": "watch which cases change handling"
+        },
+        {
+          "found": true,
+          "phrase": "the winner’s validation score is not an untouched final estimate"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/end-to-end-supervised-learning-error-analysis?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "dbscan-density-based-clustering",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "explore the border behavior in the first lab"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/dbscan-density-based-clustering?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "imbalanced-learning-smote-cost-sensitive-learning",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "Brier score, the mean squared probability error"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "hidden-markov-models-hmm",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": false,
+          "phrase": "5.153775e-53 is still perfectly representable"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/hidden-markov-models-hmm?module=classical-ml"
+    },
+    "passed": false,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "resolution": "Initial check ran before the full lesson content settled. Waiting for the exact paragraph showed 5.153775e-53; a subsequent recorded check passed."
+  },
+  {
+    "topicId": "rademacher-complexity-generalization-bounds",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "normalization, so its constants are not interchangeable with the ones"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/rademacher-complexity-generalization-bounds?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "residual-connections-skip-connections",
+    "checks": {
+      "absent": [
+        {
+          "absent": true,
+          "phrase": "prepared content"
+        }
+      ],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "Torchvision's ResNet source"
+        },
+        {
+          "found": true,
+          "phrase": "The next module topic is"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/residual-connections-skip-connections?module=deep-learning-fundamentals"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "capsule-networks",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "whether several parts support a compatible whole."
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/capsule-networks?module=deep-learning-fundamentals"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "hidden-markov-models-hmm",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "5.153775e-53 is still perfectly representable"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/hidden-markov-models-hmm?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "calibration-conformal-prediction",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "the second imports functions from calibration_calculations.py"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/calibration-conformal-prediction?module=classical-ml"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z"
+  },
+  {
+    "topicId": "weight-initialization-xavier-kaiming-p",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "A forward sum of independent zero-mean random terms"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/weight-initialization-xavier-kaiming-p?module=deep-learning-fundamentals"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "additionalObservation": "Update-size paragraph has nine rendered KaTeX expressions and no raw dollar delimiters."
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "checks": {
+      "absent": [],
+      "mathErrors": 0,
+      "present": [
+        {
+          "found": true,
+          "phrase": "RegNet"
+        }
+      ],
+      "url": "http://127.0.0.1:4194/learn/path/full-curriculum/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet?module=deep-learning-fundamentals"
+    },
+    "passed": true,
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "additionalObservation": "Current RegNet prose contains no raw dollar-delimited math; KaTeX error count zero."
+  }
+]

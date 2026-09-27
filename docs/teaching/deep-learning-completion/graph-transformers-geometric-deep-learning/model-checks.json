@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "scalarComparisons": 92693,
+  "maximumConstructedOrSourceFeatureDifference": 2.384185793236071e-8,
+  "maximumFrozenDoublePortDifference": 3.4638958368304884e-14,
+  "maximumFloat32PortDifference": 0.000014480511565384546,
+  "checks": [
+    {
+      "name": "Exact distance preference, hard mask, disconnected category, empty-row semantics and equal-value null",
+      "passed": true
+    },
+    {
+      "name": "Return-walk counts, probabilities, enumeration, isolates and complete graph extremes",
+      "passed": true
+    },
+    {
+      "name": "Jacobi eigenpairs, orthogonality and full-eigenspace projector under basis rotations and relabeling",
+      "passed": true
+    },
+    {
+      "name": "All eight exact square actions, conjugate average, all-input commutators and constant-input false null",
+      "passed": true
+    },
+    {
+      "name": "Physical actions and nonlinearity: points, polar/axial vectors, proper and reflected orthogonal matrices",
+      "passed": true
+    },
+    {
+      "name": "Coordinate update matches complete geometry arithmetic and fresh native orthogonal/translation probes, with meaningful broken modes",
+      "passed": true
+    },
+    {
+      "name": "Energy-derived force agrees with independent native autograd, translation/rotation contracts and changed-input central differences; signed chirality",
+      "passed": true
+    },
+    {
+      "name": "All 24 complete real fitted-model interventions match float64 native functional evaluation and retained float32 study tolerance",
+      "passed": true
+    },
+    {
+      "name": "Actual PyG GPS port includes both residual rails, all five third-isolate/missing-batch/permutation cases and isolation contrast",
+      "passed": true
+    },
+    {
+      "name": "All twelve historical outcomes and geometry exactly reproduced, real identities/split/derived features match, resource accounting remains exact",
+      "passed": true
+    },
+    {
+      "name": "All scoped JSX parses and deployed learner downloads equal current required programs, data and provenance",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Author checks, independent review and real browser remain separate",
+    "Native double frozen-model parity tolerance 1e-10; original float32 logits 3e-5, probabilities 4e-6, attention 1e-5",
+    "All twelve weak historical outcomes preserved; no new benchmark or molecular training claim"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx",
+    "src/learn/components/lesson-labs/ClusteringEvaluationIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/clustering-evaluation-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "1a9ad0dc3ced936b6e2a0519b0fd35a810ff0dee582ea73c76639a4a649a3117",
+    "src/learn/components/lesson-labs/ClusteringEvaluationIntuitionFigures.jsx": "6f45d829587ee89e66c0e2b481c43a9ddd95004c6c3a91d65a801635981cec9f",
+    "src/learn/components/lesson-labs/clustering-evaluation-intuition.css": "9c57a9a9cfae9af3ac933d698e6f9c3bdc053fa2f578276ca28b5dab646999f1"
+  },
+  "checks": [
+    {
+      "name": "Full lesson and new support source reading",
+      "passed": true
+    },
+    {
+      "name": "Separate exact example computations and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Actual source identity checked against author record",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

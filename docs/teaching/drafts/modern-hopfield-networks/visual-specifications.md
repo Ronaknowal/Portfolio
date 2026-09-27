@@ -30,7 +30,7 @@ All displayed mathematical quantities are dimensionless unless marked as bytes, 
 
 **Narrow layout:** at 360 CSS px use sequential labeled panels sharing the same entity IDs, rather than compressing a desktop diagram. Keep minimum readable axes and values; wrap tables only within their own labeled scroll region when necessary. The full lesson must not overflow horizontally. Large matrices are a compact selected-row view with a full numeric disclosure. Pixel grids remain square, with a separate focused-cell editor large enough for touch.
 
-**Engineering boundary:** phase two derives topic-owned lazy assets and controls from this packet. Load only the current investigation's required weights/data. No model training in the browser. Use small pure numerical functions, memoized from active inputs; do not re-read every corpus row on keystrokes. Expensive view recalculation waits for explicit Run. Keep source data/complete downloadable programs available without bundling the full research record into the lesson entry.
+**Engineering boundary:** phase two derives topic-owned lazy assets and controls from this packet. Load only the current investigation's required weights/data. No model training in the browser. Use small pure numerical functions, memoized from active inputs; do not re-read every corpus row on keystrokes. Recalculate bounded views on valid edits; use memoization to avoid repeating an unchanged energy grid. Keep source data/complete downloadable programs available without bundling the full research record into the lesson entry.
 
 ## Inline figures
 
@@ -68,15 +68,15 @@ Input edits recompute current outputs, while a pinned baseline preserves its ori
 
 Feedback states the actual changed quantity, numerical difference and mechanism. Use explicit tolerances for comparisons, exact numeric tables and accessible category labels where helpful. No numeric guess, category prediction or correctness score is requested.
 
-Reset restores the fresh default and recomputes current outputs, answers, edits and history. A separate Restore cue preserves model settings but recompute current outputs. Back moves through an already computed trace without implying a new experiment. Do not autoplay.
+Reset restores the fresh default and recomputes current outputs and history. A separate Restore cue preserves model settings but recompute current outputs. Back moves through an already computed trace without implying a new experiment. Do not autoplay.
 
-All numbers below are checked fixtures, **not hardcoded answers for arbitrary inputs**. The implementation computes from the active model. Author results are verification oracles. Keyboard order follows inputs → Run → concise result → details. Announce one concise result through an aria-live region after computation, with no forced focus jump.
+All numbers below are checked fixtures, **not hardcoded answers for arbitrary inputs**. The implementation computes from the active model. Author results are verification oracles. Keyboard order follows inputs → concise current result → details. Announce one concise result through an aria-live region after computation, with no forced focus jump.
 
 ### Investigation A — repair a binary pattern
 
 **Question:** Which bit will this memory repair, and can visit order select another attractor when a cue is ambiguous?
 
-**Fresh inputs:** one stored pattern [1, 1, −1, −1], cue [−1, 1, −1, −1], order [1, 2, 3, 4], maximum eight sweeps. The outcome stays hidden .
+**Fresh inputs:** one stored pattern [1, 1, −1, −1], cue [−1, 1, −1, −1], order [1, 2, 3, 4], maximum eight sweeps. The current outcome is visible immediately.
 
 Every stored-pattern cell and cue cell is an editable toggle with a spoken sign and coordinate. Permit one to three patterns. Four dimensions are the core mode; an optional eight-dimensional mode must expose all coordinates. Derive W = XᵀX/d with zero diagonal. Let users reorder visits with numbered controls rather than dragging alone. Editing a pattern must actually recompute W.
 
@@ -96,7 +96,7 @@ Every stored-pattern cell and cue cell is an editable toggle with a spoken sign 
 
 **Bounds/access:** at most eight dimensions, three patterns, eight sweeps and 64 coordinate updates. Compute on a valid edit. Announce changed coordinate, sign and field. Provide a labeled numeric matrix and a text trace.
 
-**Phase-two checks:** individual flip energy differences, use of the most recently changed state, visit-order behavior, zero-field ties, the synchronous counterexample, fresh a live computed readout and reset. All primary numeric fixtures are in mechanism-results.json.
+**Phase-two checks:** individual flip energy differences, use of the most recently changed state, visit-order behavior, zero-field ties, the synchronous counterexample, fresh live computed readout and reset. All primary numeric fixtures are in mechanism-results.json.
 
 ### Investigation B — shape a continuous memory landscape
 
@@ -104,7 +104,7 @@ Every stored-pattern cell and cue cell is an editable toggle with a spoken sign 
 
 **Fresh inputs:** X = [(1, 0), (−1, 0)], q = (−0.35, 0.6), β = 2, twelve requested updates. Memory and query coordinates are genuinely editable by drag or numeric fields, range −2 to 2, step 0.05. Permit one to six memories. β has slider and numeric controls from 0.1 to 8. Stable memory IDs remain attached to edited rows.
 
-**Live observation:** display the resulting region or memory ID, or “mixture,” together with the first and final computed reads and their difference. An optional live comparison asks for the first horizontal coordinate. For arbitrary banks, use the nearest-memory ID and distance of the computed endpoint rather than claiming a proven limit. A display threshold of 0.05 means “close to this memory”; last-step norm below 10⁻⁶ means “little change at the displayed precision.” Neither is a convergence theorem.
+**Live observation:** display the resulting region or memory ID, or “mixture,” together with the first and final computed reads and their difference. The live comparison displays the first horizontal coordinate alongside the endpoint. For arbitrary banks, use the nearest-memory ID and distance of the computed endpoint rather than claiming a proven limit. A display threshold of 0.05 means “close to this memory”; last-step norm below 10⁻⁶ means “little change at the displayed precision.” Neither is a convergence theorem.
 
 **Display:** query and memory geometry, convex hull, selected update point, score/weight distribution, actual energy and step norm. A cobweb view is available for the special opposite-horizontal pair. General banks use the same energy formula for contours. Label the endpoint “12 computed updates,” with its last-step norm.
 
@@ -121,7 +121,7 @@ Changing β immediately recomputes the current retrieval and energy trace from t
 
 **Feedback:** connect the score gap and changed weight allocation to the movement. Explain why β cannot create evidence in an exact tie or reverse a wrong score ordering.
 
-**Phase-two checks:** gradient finite differences; convex-hull property; normalized positive weights; the energy decrease inequality; all contrasts and nulls; contour aspect ratio and correct stationary-point types. Use stable log-sum-exp. Bound computation to six memories, two dimensions, twelve steps and a 61 × 41 contour grid recomputed only on Run.
+**Phase-two checks:** gradient finite differences; convex-hull property; normalized positive weights; the energy decrease inequality; all contrasts and nulls; contour aspect ratio and correct stationary-point types. Use stable log-sum-exp. Bound computation to six memories, two dimensions, twelve steps and a 61 × 41 contour grid recomputed on valid memory or temperature edits; selecting a retained step does not recalculate the grid.
 
 ### Investigation C — route a query to a payload
 
@@ -143,7 +143,7 @@ Display the returned vector and its signed payload contributions beside the quer
 
 **Feedback:** identify whether the edit changed matching or payload. In one-hot mode sum class mass across memories. Display a class tie when masses differ by less than 10⁻⁶. Do not attach the fixed-key Hopfield energy-decrease label to an arbitrary value read.
 
-An optional revealed training example can display the query-gradient step from §4, with a changed target for independent transfer. It is not required to expand this investigation into another full training simulator.
+An optional immediately visible training example can display the query-gradient step from §4, with a changed target for independent transfer. It is not required to expand this investigation into another full training simulator.
 
 **Phase-two checks:** editable arrays against the matrix formula, paired-permutation invariance, equal-value invariance, weights summing to one, output dimensions and live recomputation. At most six rows and two dimensions make this a small CPU calculation.
 
@@ -174,7 +174,7 @@ The label remains “original source label”: an arbitrary edited or drawn imag
 
 **Model contract:** selected P has shape 16 × 64, float32; normalize with epsilon 10⁻¹²; score βqKᵀ; stable log-softmax; sum class mass in log space; aggregate original pixel values with the same weights. For the fixed baseline use normalized 64-dimensional images and β = 64. Preserve the NPZ memory order and class order 0–9. Cache frozen memory keys.
 
-One query needs a small projection, 200 similarity scores and a 64-dimensional weighted image. Compute only on Run. Load only selected model weights and required images; never ship a full Python runtime or train in the browser. Derive compact assets only during phase two, keeping provenance and the full downloadable reproduction separately.
+One query needs a small projection, 200 similarity scores and a 64-dimensional weighted image. Compute on every valid pixel or model edit. Load only selected model weights and required images; never ship a full Python runtime or train in the browser. Derive compact assets only during phase two, keeping provenance and the full downloadable reproduction separately.
 
 **Phase-two checks:** compare all 300 validation rows' clean and occluded distributions with the stored NPZ at absolute/relative tolerance 10⁻⁵ unless a wider justified tolerance is necessary. Check row-major image orientation, mask columns, intensity scale, memory/class mass sums, no reference leakage into inference, blank ties, edits, invalidation and restore. Inspect the informative failed-retrieval state and successful state at desktop and 360 px, including focused-cell editing and keyboard editing and result inspection.
 

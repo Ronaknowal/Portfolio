@@ -1,0 +1,43 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx",
+    "src/learn/data/vision-transformer-models.js",
+    "src/learn/data/vision-transformer-examples.json",
+    "src/learn/components/lesson-labs/VisionTransformerFigures.jsx",
+    "src/learn/components/lesson-labs/VisionTransformerLabs.jsx",
+    "src/learn/components/lesson-labs/vision-transformer.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "public/learn-assets/vision-transformers-vit-deit-swin-dinov2/plain-vit.json",
+    "scripts/prepare-vision-transformer-assets.py",
+    "scripts/check-vision-torchvision-bridge.py",
+    "scripts/render-vision-transformer-lesson.mjs",
+    "scripts/verify-vision-transformer-models.mjs",
+    "scripts/check-vision-static-render.mjs"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/design.md",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/native-checks.json",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/mechanism-results.json",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/library-checks.json",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/model-checks.json",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/static-checks.json"
+  ],
+  "browserInventory": [
+    "All fourteen inline figure families (see design map), real correspondence links, actual CLS contributions, fixed scales and exact tables; phone320 geometry and horizontal keyboard scrolling",
+    "vision-patch: fresh [2,1,4,0], output[2.5,-2]; pixel2\u21922 contrast; null[1,1,4,1]; all coefficients/biases; pin/reset; invalid numeric then first Reset click",
+    "vision-window: default source0=16,destination14 aftertwo\u21921; shift0\u21920; all cell/source/destination/window2or3/steps0\u20132; corner wraparound preset output1\u2192mask0; reset",
+    "vision-bias: default source7=10 destination14\u21922.5; offset(+1,+1)=log2\u21924; source/destination/value/offset controls; wrapped/masked; reset",
+    "vision-dino: fresh gradient0 positive; teacher2\u21920 makesgradient0 negative; +3 common offset null; everylogit/center/temperature; exactstep andrangeguard; uniformcollapse; immutablebaseline; reset",
+    "vision-gram: initialloss0; feature3\u21920 loss6; resetthencommon90 rotationloss~0; selectedangle+direction/matrix; reset",
+    "vision-image: no modelrequest untilopened; friendlyload/retry; source3wrongdefault, reflect(2,3) correctsp2>.99; reflect(2,4) null; allpixels; swaps5/6content contrast thenjointpositions invariance; sources1/2/3; all layers/heads/receivers; 17masssum; currentPCA; restores/resets",
+    "Four program disclosures load on request; actualfiledownloadlinks, datasetprotocol, nine changed practices and closedhints/solutions; no optionalpredictionfields"
+  ],
+  "limits": [
+    "No fit repeated; all retained observed outcomes kept",
+    "Optional timm/pretrained DINOv2 checkpoint extraction unexecuted because local weights/images not supplied; no large downloads",
+    "Author-ready only; independent review, browser/device/network and shared production integration remain"
+  ]
+}

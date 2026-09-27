@@ -1095,9 +1095,9 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Engine selection for a mixed workload</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Engine selection for a mixed workload</H3>
       <Prose>
         You are building an agentic system where each turn sends a 4,000-token tool
         schema plus a variable user observation (200–800 tokens), expects a structured
@@ -1105,9 +1105,9 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
         inference engine and justify every aspect of your choice: which optimizations
         are load-bearing for this workload, which engine implements them best as of
         April 2026, and what you would benchmark to validate the choice.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2: Memory budget for 32 concurrent Llama 3 70B requests</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Memory budget for 32 concurrent Llama 3 70B requests</H3>
       <Prose>
         Llama 3 70B: 80 layers, 8 KV heads (GQA), head dimension 128. Compute the
         exact KV cache requirement in GB for 32 concurrent requests at (a) 8k context
@@ -1116,9 +1116,9 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
         configuration, determine how many of the 4 GPUs are consumed by weights plus
         cache, and whether the configuration fits. Then describe what prefix caching
         with 60% hit rate on a 2k-token system prompt does to the effective capacity.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Why is tensor parallelism not in this section?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Why is tensor parallelism not in this section?</H3>
       <Prose>
         This section covered single-engine optimizations: KV cache, batching, memory
         management, speculative decoding, prefix caching, constrained decoding,
@@ -1127,9 +1127,9 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
         in a different section (AI Inference System Design) rather than here. What
         problem does it solve that the techniques in this section cannot? What new
         failure modes does it introduce that have no analog in single-node serving?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Design a fair vLLM vs TensorRT-LLM benchmark</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Design a fair vLLM vs TensorRT-LLM benchmark</H3>
       <Prose>
         A naive benchmark of vLLM vs TRT-LLM will confound several variables.
         Design a benchmark protocol that controls for: (a) tokenizer identity —
@@ -1141,9 +1141,9 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
         distributions, (e) warmup — prefix cache and compilation both need warm-up
         periods before steady-state throughput is reached. What metrics do you report
         and at what percentiles?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: Predict feature convergence by 2028</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Predict feature convergence by 2028</H3>
       <Prose>
         In 2022, continuous batching was a research result in one paper. By 2024
         it was the default in every production serving stack. Trace the same
@@ -1160,8 +1160,8 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
 
       {/* ======================================================================
           SECTION CLOSER
-          ====================================================================== */}
-      <H2>Closing: the complete Inference Optimization arc</H2>
+          ====================================================================== */}</div></section>
+      <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>Closing: the complete Inference Optimization arc</H2>
 
       <Prose>
         This section began with a single observation: autoregressive generation is
@@ -1280,7 +1280,7 @@ Mixed-precision on H100/H200      Any major engine      All support FP8 KV cache
         decoding → queueing theory → cost economics → test-time compute →
         inference engines. Every layer addresses a specific waste. Together
         they turn raw model weights into a scalable product.
-      </Callout>
+      </Callout></section>
     </div>
   ),
 };

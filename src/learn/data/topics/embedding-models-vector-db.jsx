@@ -862,7 +862,7 @@ Budget-critical       text-embedding-3-small  ≈$2 per million docs ingested.
       {/* ======================================================================
           10. EXERCISES
           ====================================================================== */}
-      <H2>10. Exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Exercises</H2>
 
       <Prose>
         <strong>Exercise 1 — Recall vs. ef_search curve.</strong> Using the SimpleHNSW class from section 4b, build an index over 5,000 random 64-dimensional vectors. For ef_search values in [10, 25, 50, 100, 200], measure Recall@10 against brute-force ground truth over 500 random queries. Plot the recall-vs-latency curve. At what ef_search value does recall plateau? How does changing M (from 8 to 32) shift the curve?
@@ -886,8 +886,8 @@ Budget-critical       text-embedding-3-small  ≈$2 per million docs ingested.
 
       {/* ======================================================================
           11. FURTHER READING
-          ====================================================================== */}
-      <H2>11. Further reading</H2>
+          ====================================================================== */}</section>
+      <section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>11. Further reading</H2>
 
       <Prose>
         The primary sources that underpin this topic are worth reading directly. Malkov and Yashunin, "Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs" (IEEE TPAMI 2018, arXiv:1603.09320) is the HNSW paper; the algorithmic detail in section 4 of the paper is dense but navigable, and the ablations on M and ef_construction are directly applicable to production tuning. Kusupati et al., "Matryoshka Representation Learning" (NeurIPS 2022, arXiv:2205.13147) is the MRL paper; the key result is Figure 3, showing that MRL representations at 64 dimensions match the accuracy of independently-trained 64-dimensional models while also scaling to full dimension. The MTEB paper — Muennighoff et al., "MTEB: Massive Text Embedding Benchmark" (EACL 2023) — describes the evaluation protocol and why the benchmark covers eight categories rather than just retrieval. The FAISS documentation at faiss.ai covers index factory strings, the IVFPQ combination, and GPU acceleration in production detail that is not available elsewhere. For the vector database landscape, the ANN benchmarks at ann-benchmarks.com and the Qdrant, Weaviate, and Milvus engineering blogs are the most reliable ongoing sources because they update with new index algorithms faster than any review article.
@@ -895,7 +895,7 @@ Budget-critical       text-embedding-3-small  ≈$2 per million docs ingested.
 
       <Prose>
         Related topics in this section: the Hybrid Search topic covers BM25+dense fusion in detail, including the RRF score fusion formula and the failure modes specific to sparse-only retrieval. The GraphRAG and Agentic RAG topic covers what happens when a single-shot retrieval step is replaced by an iterative loop where the model decides when to retrieve more. The RAG topic is the right entry point if this topic felt too deep too fast — it covers the full pipeline end-to-end before diving into any single layer.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

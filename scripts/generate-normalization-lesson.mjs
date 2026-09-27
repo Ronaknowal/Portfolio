@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { renderPreparedLesson } from './lib/prepared-lesson-renderer.mjs';
 const id = 'batch-layer-group-rms-normalization';
 writeFileSync('src/learn/data/normalization-backward-program.js', '// Generated from the canonical downloadable Python source.\nexport default ' + JSON.stringify(readFileSync(`public/learn-assets/${id}/normalization-backward.py`, 'utf8')) + ';\n');
-const rendered = renderPreparedLesson(readFileSync(`docs/teaching/drafts/${id}/lesson.md`, 'utf8'), {
+const rendered = renderPreparedLesson(readFileSync(`docs/teaching/drafts/${id}/lesson.md`, 'utf8'), { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-assets/${id}/`,
   replacements: [
     ['**Visual — shared ruler:**', '<NormalizationRulerFigure />'],

@@ -188,7 +188,7 @@ The effective query has width $d_c$, but its score is the original content dot p
 
 A generic attention call given concatenated latent and rotary features may default to $1/\sqrt{d_c+d_r}$. When $d_c\ne d_k$, that changes the logits and their concentration. It can produce valid shapes and plausible outputs while implementing the wrong model. For our real example, the intended divisor is $\sqrt6$; the accidental latent-width divisor is $\sqrt{10}$.
 
-**Investigation — two paths, one answer.** An expanded view forms per-head K/V; an absorbed view moves the two linear maps around the dot product and weighted sum. Edit actual vectors or map entries, predict agreement, and show immediately both computations. Include an intentional wrong-scale switch and a nonlinear-value-map counterexample. Equivalence should follow the algebra, not a hard-coded “all views agree” label.
+**Investigation — two paths, one answer.** An expanded view forms per-head K/V; an absorbed view moves the two linear maps around the dot product and weighted sum. Edit actual vectors or map entries and inspect both computations immediately. Include an intentional wrong-scale switch and a nonlinear-value-map counterexample. Equivalence should follow the algebra, not a hard-coded “all views agree” label.
 
 ### A complete hand example
 

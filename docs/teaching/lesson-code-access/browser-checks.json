@@ -1,0 +1,106 @@
+{
+  "recordedOn": "2026-09-28",
+  "host": "http://127.0.0.1:4197",
+  "checks": [
+    {
+      "topic": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "desktop": true,
+      "mobileWidth": 390,
+      "overflow": false,
+      "hiddenTeaching": 0,
+      "copyStatus": "Copied",
+      "clipboardAdapterReadEmpty": true,
+      "downloadEventTimedOut": true
+    },
+    {
+      "codeBlocks": 22,
+      "hiddenTeaching": 0,
+      "indexFiles": 12,
+      "missingControls": 0,
+      "overflow": false,
+      "title": "Linear & Logistic Regression",
+      "topic": "linear-logistic-regression"
+    },
+    {
+      "codeBlocks": 10,
+      "hiddenTeaching": 0,
+      "indexCopies": 1,
+      "missingControls": 0,
+      "overflow": false,
+      "programChars": 5389,
+      "programLoadedWithoutDisclosure": true,
+      "topic": "perceptrons-neurons-activation-functions"
+    },
+    {
+      "codeBlocks": 22,
+      "hiddenTeaching": 0,
+      "missingControls": 0,
+      "overflow": false,
+      "practiceFiles": 1,
+      "practiceIndexClosed": true,
+      "topic": "arrays-strings-hash-maps"
+    },
+    {
+      "canonical": [
+        "/learn/examples/gaussian-processes-gp/gp_conditioning.py",
+        "/learn/examples/gaussian-processes-gp/co2_gp.py",
+        "/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv",
+        "/learn/examples/gaussian-processes-gp/README.md"
+      ],
+      "codeBlocks": 5,
+      "hiddenTeaching": 0,
+      "missingControls": 0,
+      "overflow": false,
+      "topic": "gaussian-processes-gp"
+    },
+    {
+      "indexFiles": 7,
+      "overflow": false,
+      "scrollWidth": 375,
+      "topic": "gaussian-processes-gp",
+      "width": 390
+    },
+    {
+      "codeBlocks": 46,
+      "hiddenTeaching": 0,
+      "missingControls": 0,
+      "namedFiles": [
+        "python-generator-output.txt",
+        "readings.py",
+        "report.py",
+        "report-output.txt",
+        "check_import.py",
+        "check_import-output.txt",
+        "changed_report.py",
+        "changed_report-output.txt"
+      ],
+      "overflow": false,
+      "topic": "python-basics-types-control-flow-functions-modules"
+    },
+    {
+      "codeBlocks": 23,
+      "hiddenTeaching": 0,
+      "indexFiles": 12,
+      "missingControls": 0,
+      "overflow": false,
+      "topic": "randomized-linear-algebra"
+    },
+    {
+      "excerptChars": 896,
+      "excerptDownloadsDisplayedText": true,
+      "hiddenTeaching": 0,
+      "overflow": false,
+      "topic": "dropout-droppath-stochastic-depth"
+    }
+  ],
+  "remoteRenderedFile": {
+    "path": "public/learn-assets/perceptrons/activation-mechanisms.py",
+    "exactBytes": true,
+    "sha256": "8299fbfef1c29e216e319a0ffb98aacb433aa3a3fd1caf0b00c85804809db4f0"
+  },
+  "limits": [
+    "Representative rendered coverage; full 234 source conservation is separate.",
+    "Native download-event adapter timed out and clipboard adapter returned empty despite successful page Copy status. Actual event-handler text and Blob payloads tested in host harness.",
+    "No unchanged scientific experiments rerun."
+  ]
+}

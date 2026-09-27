@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "comparisons": 23483,
+  "freshNativeChains": 4,
+  "chainedWrites": 12,
+  "fullInitialGradientCoordinates": 132,
+  "changedRealArrivalCases": 9,
+  "realForecasts": 3294,
+  "metamorphicCases": 80,
+  "maxNativeError": 2.886579864025407e-15,
+  "maxChainedGradientError": 8.252465377722729e-10,
+  "sourceFilesVerified": 52,
+  "reusedAuthorComparisons": 11995,
+  "scope": "Three-write full higher-order derivative; independent boundary-date arrival oracles; seven-day frozen-input horizon; edited split carry; hidden/key-coordinate relabeling; all gated splits and input isolation; analytic stable/unstable residual trajectory. No fitting or browser claims."
+}

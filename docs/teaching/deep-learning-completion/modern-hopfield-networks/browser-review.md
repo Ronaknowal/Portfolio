@@ -1,0 +1,27 @@
+# Modern Hopfield Networks — rendered review
+
+Root integration review, 27 September 2026. Tested the production preview on4197 using actual browser controls at1280×960 and320×900. Initial functional review used immutable build21:41:28; the final receipt records the subsequently reviewed display correction. Browser evidence supplements the separate scientific review.
+
+## Live mechanisms
+
+- Binary recall: the ambiguous all-negative cue reaches the stored pattern with order1–4 and its inverse with reversed order; both endpoints have energy−1.5 from initial0.5. A stored cue is a null case. Adding patterns stops at the stated three-pattern bound. A blank visit field retains the last valid order, Reset works in one click, and changing a visit coordinate swaps the permutation rather than duplicating a coordinate. Each selected update exposes its field and energy change.
+- Continuous retrieval: query[−0.35,0.6], opposite memories and beta2 gives first update[−0.60437,0], then endpoint[−0.9575,0] after12 updates. At beta0.5 the same query approaches the mixture near zero (−8.431e−5). Zero query stays at zero; one memory returns that memory; duplicating an identical memory is unchanged within2.22e−16. The initial energy−0.2189587 falls to−0.46443488, and the displayed decrement satisfies the displayed bound. Desktop inspection confirmed readable equal axes, contours, hull, query square, trajectory, selected endpoint and weight bars.
+- Separate keys/values: reversing complete records leaves the returned association unchanged. Setting all payloads[4,−2] keeps the return fixed while changing the query changes retrieval weights and key average. Changing just one record's payload to[4,−5] changes only the payload return (to[4,−2.03312] in the tested state), preserving weights and key average. Pinning retains the original identities and inputs.
+- Real handwriting: edited pixel28 from16 to0 changes seed17 class1 mass0.86598661→0.79308663. Switching seed41 preserves the edited pixels and pin, producing0.39416784. Fixed beta64 yields class0 and class1 mass0.14195433; occluding two columns reduces that mass further. Blank input produces all-ten tie0.1, explicitly avoiding an arbitrary winning class. Selecting validation32 resets to original source901; pixel28 can then be set to8 and arrow navigation selects the adjacent cell.
+- Resource failure: temporarily unavailable model-seed41.json produces a useful retry state. Current source901, edited pixel8, selected cell and original seed17/source3748 pin survive the failure and successful retry. The dist-only asset was restored with exact original SHA256890b75f6c98342e62c81bcca1fa9fa4b83f42a825cd64172bd3b9314e3611d56. The retry produces current source901 class1 mass0.8649277 while keeping the original comparison0.86598661.
+
+## Inline investigations and reading
+
+The sensitivity diagram responds to query position (beta2/query1 derivative0.141302). Margin zero with100 competitors gives target-mass lower bound0.01 and error upper bound1.98. Two million stored rows at dimension64 gives512,000,000 key bytes and128,000,000 multiplies. Zero age restores equal temporal weights. Quadratic parity energy is−12 for both output signs; switching to cubic separates the four clamped input cases into correct-sign energy−24 versus incorrect-sign24.
+
+Both complete program disclosures were opened: associative_memory.py and digit_memory.py include their main entry points (7,476 and8,972 displayed characters including disclosure headings). The SDPA gradient exercise and changed binary-pattern exercise open full reasoned solutions; the latter derives field0.75 and energy drop−1.5 instead of merely giving an endpoint.
+
+## Visual and interaction checks
+
+Initial scan of31 rendered SVGs found no text outside their painted viewport. Phone document width equals scroll width305px. Large figures keep readable native widths inside keyboard-focusable local .hm-scroll containers (for example620px within265px). ArrowRight moved a focused local scroller; digit arrow navigation moved from row4/column5 to column6. Pixel buttons remain28.17px square on the320px viewport with an explicit numeric editor; principal controls are42px high. Actual screenshots inspected both the energy plot and phone reading/lab layout. Console warnings/errors were empty.
+
+One display finding was reported to the author: intensity8 on the editable grayscale image used white text over gray128, insufficient contrast. Final bounded recheck and build identity are recorded in browser-checks.json after its correction. This finding does not change model results or require retraining.
+
+Final bounded recheck on build21:54:47: intensity8 renders black rgb(0,0,0) on gray rgb(128,128,128), confirmed by actual screenshot and computed styles. Current class1 mass0.86555616 responds live to the edit. The contrast finding is closed.
+
+Final independent-review delta recheck on22:11:18 build: inline key/value diagram now uses q[0.6,−0.2],identity keys,beta1 and weights0.689974/0.310026, returning6.279694. Live association default q[−0.3,0.4],beta2 yields class masses[0.1194,0.8806], separately drawn key-average[−0.27702,0.48418]. Actual screenshot confirms query square, read diamond and triangular key hull. Blank handwriting yields ten0.1 bars, each27nominal pixels against the fixed270pixel0–1 axis. All37currently rendered SVGs pass paintedtextbounds; phone remains305/305px.

@@ -54,7 +54,7 @@ const regularizationContent = {
     <LessonIntro prerequisites={<>A weighted sum, squared error, means, and the fit/validation distinction from the preceding <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a> lesson. <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a> supplies the fit/transform mechanics used inside every fold here. The extra notation is introduced as it becomes useful.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
       A model can explain the observations you collected in several different ways. Learn to state the preference you are adding, calculate a soft-threshold and a shrinkage by hand, fit four constructed rows one coordinate at a time, separate prediction from coefficient attribution on duplicate sensors, read a real regularization path on 1,503 aeroacoustic measurements including its unhelpful end, and derive exactly why a mean-preserving dropout mask still raises the expected loss. Explore each investigation by changing its controls: calculations and diagrams update together, while algorithm traces let you step through the process.
     </LessonIntro>
-    <Prose className="rg-route"><strong>First pass.</strong> Follow sections 1–6 to understand the objectives, work a tiny fit, compare real observations and explain dropout&rsquo;s train/evaluation distinction. Try practice 1–6. Sections 7–9 deepen the connection to linear algebra, Bayesian priors, parameterization and model-selection criteria; you can return to those branches after the core route.</Prose>
+    <Prose opening="route" className="rg-route"><strong>First pass.</strong> Follow sections 1–6 to understand the objectives, work a tiny fit, compare real observations and explain dropout&rsquo;s train/evaluation distinction. Try practice 1–6. Sections 7–9 deepen the connection to linear algebra, Bayesian priors, parameterization and model-selection criteria; you can return to those branches after the core route.</Prose>
 
     <Prose>A model can explain the observations you collected in several different ways. Some explanations depend on large, finely balanced coefficients: increase one contribution and almost cancel it with another. A small change in the measurements may then change those coefficients dramatically. Other explanations use many weak contributions that might be real signal, or might just fit the particular sample.</Prose>
     <Prose><strong>Regularization adds a preference to fitting.</strong> It can favor smaller coefficients, fewer nonzero coefficients, smoother neighboring values, or predictions that remain useful when some intermediate inputs are randomly withheld. The preference changes the problem being solved. Whether it improves future predictions is something to assess using the data boundaries from the previous lesson.</Prose>
@@ -114,6 +114,7 @@ const regularizationContent = {
     <H3>Coordinate descent: let each feature explain the remaining residual</H3>
     <Prose>Lasso and elastic net can update one coefficient at a time. Temporarily remove feature <Math>{'j'}</Math>&rsquo;s current contribution from the prediction. The partial residual is</Prose>
     <MathBlock>{'r_j=t-Zw+Z_{:,j}w_j.'}</MathBlock>
+    <Prose>Why add the old contribution back? If one row has target 10, total prediction 8 and feature j currently contributes 3, the ordinary residual is 2. The other features contributed only 5, so feature j is being asked to explain 10−5=5, not 2. Subtracting the full prediction and restoring its old contribution gives exactly 10−8+3=5. The update then replaces that feature’s contribution instead of counting its old work twice.</Prose>
     <Prose>Define a data curvature and a residual association:</Prose>
     <MathBlock>{'\\begin{gathered}a_j=\\frac{Z_{:,j}^\\top Z_{:,j}}n,\\\\[4pt] c_j=\\frac{Z_{:,j}^\\top r_j}n.\\end{gathered}'}</MathBlock>
     <Prose>The exact coordinate minimizer is</Prose>
@@ -250,6 +251,7 @@ const regularizationContent = {
     <Prose>The factors matter. Writing “Gaussian variance 1/λ” without the likelihood and normalization can be wrong for the objective being used. If a prior and noise scale are held fixed while <Math>{'n'}</Math> changes, our normalized λ changes inversely with <Math>{'n'}</Math>. Holding λ fixed over different training sizes is a different convention, useful for a controlled regularization comparison but not the same fixed-prior experiment.</Prose>
     <Prose>A Laplace prior is continuous; it assigns probability zero to any exact singleton w<sub>j</sub>=0, as do other continuous densities. Its posterior mode can be exactly zero because of the density&rsquo;s kink. That does not give a posterior probability that a feature is absent. A full Bayesian analysis includes uncertainty and integrates predictions over parameter values; replacing it by one penalized fit discards that information. The <a href="https://hastie.su.domains/Papers/B67.2%20%282005%29%20301-320%20Zou%20%26%20Hastie.pdf">elastic-net paper&rsquo;s Bayesian section</a> connects the priors, while this local derivation specifies our factors explicitly.</Prose>
 
+    <Prose>One way to read the MAP tradeoff is as two sources of information with different scaling. Repeating independent measurements strengthens the accumulated likelihood, while a fixed prior still contributes the same preference once. Doubling n at fixed noise and prior halves λ under our averaged-loss convention. Duplicating rows in a file is not the same experiment: exact copies do not supply new independent evidence.</Prose>
     <H3>Same predictor, different parameter penalty</H3>
     <Prose>Suppose a one-dimensional model is written with two factors, predicting abx, and the data cost is <Math>{'\\frac12(ab-1)^2'}</Math>. Every pair with ab=1 has zero data cost. But adding <Math>{'\\lambda(a^2+b^2)'}</Math> gives different costs along that same-prediction curve: (1,1) costs 2λ, while (2,0.5) costs 4.25λ.</Prose>
     <Prose>Balancing the factors minimizes the penalty <strong>among zero-data-loss pairs</strong>, but the full regularized optimum can prefer nonzero data loss. Let p=ab. Since <Math>{'a^2+b^2\\ge2|ab|=2|p|'}</Math>, with equality attainable by equal-magnitude factors, the full problem reduces to</Prose>
@@ -267,6 +269,27 @@ const regularizationContent = {
     <Prose>Other useful penalties encode other structures. An L1 penalty on differences, often called total-variation or fused regularization in appropriate settings, can favor piecewise-constant regions rather than smooth variation. A group-lasso penalty sums Euclidean norms of predeclared coefficient groups, allowing an entire group to become zero. A multi-task penalty can select the same input across several prediction outputs. These are different assumptions about where sparsity belongs: individual coefficients, neighboring changes, predefined groups or shared tasks. They are not interchangeable names for elastic net&rsquo;s tendency to balance correlated individual coefficients.</Prose>
     <Prose>An engaging further example is reconstructing an image from a few line projections. The unknown pixel values form <Math>{'w'}</Math>, and a known projection operator maps them to measurements. If the image is sparse in the chosen representation, L1 regularization can express that prior structure. Most natural images are not sparse as raw pixels, so the representation is part of the scientific claim. The inspected <a href="https://scikit-learn.org/stable/auto_examples/applications/plot_tomography_l1_reconstruction.html">tomography reconstruction example</a> shows the actual operator, synthetic image and comparison; its particularly favorable sparse image is not a guarantee of exact recovery for arbitrary scans.</Prose>
 
+    <H3>What does selecting a group actually change?</H3>
+    <Prose>Suppose two coefficients are one declared group, with data preference z=(3,4) and the normalized quadratic data term <Math>{'\\frac12\\|w-z\\|^2'}</Math>. A group penalty <Math>{'\\lambda\\|w\\|_2'}</Math> charges for the group’s length, without choosing a direction inside it. The best direction therefore matches z, and the best length is soft-thresholded: <Math>{'w=(1-\\lambda/\\|z\\|_2)_+z'}</Math> when z is nonzero. At z=0 the answer is zero. Notice that this is the unsquared group norm, unlike ridge’s squared norm.</Prose>
+    <figure className="rg-figure" data-intuition="regularization-group-threshold">
+      <figcaption><strong>Same data preference, a different unit of selection</strong> — one constructed orthonormal group, λ=4.</figcaption>
+      <svg viewBox="0 0 300 232" role="img" aria-label="Coefficient axes show the data preference at 3,4, the group-lasso result at 0.6,0.8 on the same ray, and the coordinate-lasso result at zero."
+        style={{ width: '100%', maxWidth: 360, height: 'auto' }}>
+        <line x1="42" y1="184" x2="258" y2="184" stroke="currentColor" />
+        <line x1="42" y1="184" x2="42" y2="20" stroke="currentColor" />
+        <line x1="42" y1="184" x2="150" y2="40" stroke="currentColor" strokeDasharray="5 4" opacity=".6" />
+        <circle cx="150" cy="40" r="5" fill="currentColor" />
+        <text x="150" y="23" textAnchor="middle" fill="currentColor" style={{ fontSize: 16 }}>z = (3,4)</text>
+        <circle cx="63.6" cy="155.2" r="5" fill="#e7b94a" />
+        <text x="93" y="151" fill="currentColor" style={{ fontSize: 16 }}>(0.6,0.8)</text>
+        <circle cx="42" cy="184" r="5" fill="none" stroke="#e7b94a" strokeWidth="2" />
+        <text x="42" y="207" fill="currentColor" style={{ fontSize: 16 }}>L1: (0,0)</text>
+        <text x="264" y="189" fill="currentColor" style={{ fontSize: 16 }}>w₁</text>
+        <text x="15" y="25" fill="currentColor" style={{ fontSize: 16 }}>w₂</text>
+      </svg>
+      <Prose>The original group length is 5; subtracting 4 leaves length 1 and preserves the ratio 3:4, giving (0.6,0.8). Separate L1 thresholds of 4 set both coordinates to zero. At λ≥5, this entire group becomes zero. The diagram is a constructed coordinate problem, not a fitted result on the airfoil data.</Prose>
+    </figure>
+    <Prose>This is useful when a measurement expands into several basis terms and selection should act on that measurement together. General groups need an explicit scaling convention and a solver for their actual design; the simple formula above assumes identity curvature within this subproblem. Group selection does not guarantee every surviving coordinate is nonzero. <a href="https://www.columbia.edu/~my2550/papers/glasso.final.pdf">Yuan and Lin’s original grouped-variable paper</a>, section 2, develops the group objective and its invariance motivation.</Prose>
     <H2>{headings[8]}</H2>
     <Prose>Coefficient penalties are not the only way to control fitting flexibility. Suppose we compare candidate probability models, each fitted by maximum likelihood on the same observations. A more flexible model often has a larger training likelihood simply because it had more freedom. AIC, BIC and minimum description length account for complexity for different reasons. They do not turn a development-selected score into a fresh test result.</Prose>
 
@@ -305,62 +328,62 @@ const regularizationContent = {
     <Prose>The denominator accounts for all datasets of the stated size that the model family can fit well. Its logarithm supplies a complexity cost and makes the expression a probability distribution. Some model classes have an infinite normalizer and require another construction. Under specific fixed-dimensional regular asymptotics, an MDL expression can share BIC&rsquo;s leading complexity term; <strong>MDL and BIC are not identical in general</strong>. The inspected <a href="https://homepages.cwi.nl/~pdg/ftp/mdlintro.pdf">MDL tutorial</a> provides both the basic coding view and the refined distinction.</Prose>
     <Prose>These criteria extend the same habit as regularization: state the preference, its units and assumptions, then distinguish the quantity optimized from the outcome ultimately needed. Cross-validation remains useful when it matches the intended future use and encompasses the whole selection recipe; analytic or coding criteria are useful when their assumptions and purpose fit the problem.</Prose>
 
-    <H2>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[9]}</H2>
     <Prose>Try the first six without the deeper branches. Hints and solutions are optional so you can work independently before checking.</Prose>
 
-    <Practice title="1. Shrinkage with a different sign"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. Shrinkage with a different sign"
       question={<>For <Math>{'\\frac12(w+2.4)^2'}</Math> and λ=0.6, find ridge, lasso and elastic-net ρ=0.5 coefficients. Explain why a zero answer is not appropriate here.</>}
       hint="The data preference z is −2.4. Apply the threshold before the elastic-net denominator.">
       <Prose>Ridge is −2.4/1.6={num(scalarSolution(-2.4, 0.6, 0).coefficient)}. Lasso is {num(scalarSolution(-2.4, 0.6, 1).coefficient)}. Elastic net is (−2.4+0.3)/1.3=−21/13≈{num(Number(scalarSolution(-2.4, 0.6, 0.5).coefficient.toFixed(6)))}. The absolute data preference exceeds each relevant threshold.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. What changes under a different measurement origin?"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. What changes under a different measurement origin?"
       question="In the four-row example, fit lasso with λ=0.5, then increase every target by three. Give both sets of slopes and intercepts. Would penalizing the intercept necessarily preserve this result?">
       <Prose>The slopes are (2.5,0) in both fits. The original intercept is zero and the shifted intercept is three. Excluding the intercept allows an exact translation without changing the slope objective. An intercept penalty introduces an extra cost for that translation and can change the result.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. A missing sample-count factor"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. A missing sample-count factor"
       question={<>You want our ridge objective with λ=0.2 on eighty training rows. Which <Code>Ridge(alpha=...)</Code> matches it? Which <Code>Lasso(alpha=...)</Code> matches pure L1 at the same λ convention? What happens to ridge&rsquo;s native alpha on a sixty-row fold?</>}>
       <Prose>Ridge needs alpha=16 on eighty rows and alpha=12 on sixty rows. Lasso uses alpha=0.2 in either case. This follows from multiplying our ridge objective by 2n, not from treating the two parameter names as equivalent. It does not say that matching numerical λ gives the two penalty shapes identical effects.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Duplicate sensors"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Duplicate sensors"
       question="The duplicate-feature example now has target 3x and lasso λ=0.5. Give the optimal coefficient sum and two different minimizers. What extra fact would you need before calling one sensor causally important?">
       <Prose>The optimal sum is 2.5. Pairs (2.5,0) and (1.25,1.25) both minimize the objective, as do other nonnegative allocations of that sum. The observational duplicate design does not identify which sensor is causally relevant; that requires an appropriate causal question, assumptions and evidence beyond this fit.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. Exact dropout without uniform mask probabilities"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. Exact dropout without uniform mask probabilities"
       question="Let x=(1,2), w=(2,0), y=1 and keep probability q=0.75. Compute the clean prediction, expected noisy prediction, clean half-squared loss and expected noisy half-squared loss. Why does the second mask not affect the answer?"
       hint="Only the first coordinate contributes. Its noisy prediction is zero with probability 1/4 and 8/3 with probability 3/4.">
       <Prose>Both clean and expected predictions are two. Clean half-squared loss is 1/2. Expected noisy loss is <Math>{'(1/4)(1/2)+(3/4)(25/18)=7/6'}</Math>. The difference is 2/3, matching <Math>{'(1-q)/(2q)\\,4'}</Math>. The second coefficient is zero, so changing that mask cannot change the weighted sum. The dropout investigation loads this exact fixture from its practice preset.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Read the actual experiment"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Read the actual experiment"
       question="A learner sees the λ=0.001 lasso result and says: “Lasso always selects fewer inputs than ridge, and the smallest score proves this family will win on a new airfoil.” Identify two separate errors. What does the λ=10 result legitimately demonstrate?">
       <Prose>The final selected lasso fit keeps all twenty terms, so L1 does not guarantee sparsity at the selected setting. These are development selection scores in a row-level design, not independent evidence about a new airfoil/run or a decisive family ranking. At λ=10 all lasso slopes are zero in the three folds, and the unpenalized intercept reproduces the corresponding mean baseline.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="7. A changed factor penalty — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="7. A changed factor penalty — deeper"
       question={<>Minimize <Math>{'\\frac12(ab-1)^2+0.1(a^2+b^2)'}</Math>. Give the optimal product and balanced factors. Compare its total cost with the balanced zero-data-loss pair (1,1).</>}>
       <Prose>The product is {factorOptimum(0.1).product} and equal-sign factors have magnitude √0.8≈{factorOptimum(0.1).magnitude.toFixed(6)}. Data cost is {factorOptimum(0.1).data.toFixed(2)}, penalty is {factorOptimum(0.1).penalty.toFixed(2)} and total is {factorOptimum(0.1).total.toFixed(2)}, below the {factorOptimum(0.1).balancedZeroLoss.total.toFixed(1)} of (1,1). Minimizing the penalty while insisting on zero data loss misses the actual full optimum.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="8. A code has to pay for its chosen pattern — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="8. A code has to pay for its chosen pattern — deeper"
       question={<>Using the declared sixteen-bit code, encode <Code>1110111011101110</Code>. Give the mode, payload and total length. If someone chooses a different four-bit pattern after seeing the data but charges only the flag, what is missing?</>}>
       <Prose>Mode 1, payload 1110, total five bits. The receiver must learn which of sixteen possible patterns was selected, so the four-bit pattern description cannot be omitted. The receiver already knows the total message length and the repeat rule under this declared code.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="9. Criteria can disagree — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="9. Criteria can disagree — deeper"
       question="On n=50 observations, a smaller model has log likelihood −80 and k=2. A larger model has log likelihood −77 and k=4. Compute AIC and BIC for both. Does disagreement imply a calculation error?">
       <Prose>AIC values are {criteria(-80, 2, 50).aic} and {criteria(-77, 4, 50).aic}, favoring the larger model. BIC values are <Math>{'160+2\\log50\\approx'}</Math>{criteria(-80, 2, 50).bic.toFixed(4)} and <Math>{'154+4\\log50\\approx'}</Math>{criteria(-77, 4, 50).bic.toFixed(4)}, favoring the smaller. The different penalties reflect different goals and assumptions; disagreement alone is not an error. These formulas still require compatible regular likelihood models and correctly counted parameters.</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="10. A smoothness-preserving shift — deeper"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="10. A smoothness-preserving shift — deeper"
       question="Change the difference-penalty input from (0,2,0) to (3,5,3), keeping λ=1 and the unaveraged objective. Predict the solution without solving another matrix system. Would identity-based ridge make the same shift?">
       <Prose>The difference-penalty solution becomes ({shifted.difference.map(num).join(', ')}), because adding a constant lies in L&rsquo;s null space. Identity-based ridge gives ({shifted.identity.map(num).join(', ')}), so its output shift is only 1.5. The penalties express different preferences.</Prose>
-    </Practice>
+    </Practice></div></section>
 
-    <H2>{headings[10]}</H2>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[10]}</H2>
     <Prose>You are ready to move on when you can state the fitted objective and its normalization, calculate a shrinkage/threshold update, distinguish prediction from coefficient attribution, fit preprocessing within each validation fold, and explain why mean-preserving dropout still changes expected loss. You should also be able to read the real comparison without forcing a U shape or treating a development-selected score as independent evidence.</Prose>
     <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
       ['State the objective, its 1/2n normalization and the unpenalized intercept', 'Section 1, figure 1'],
@@ -371,7 +394,7 @@ const regularizationContent = {
       ['Explain why a mean-preserving mask still raises expected loss', 'Section 6, the mask investigation, practice 5'],
       ['Separate ridge directions, factor penalties and complexity criteria', 'Sections 7 to 9, practices 7 to 10'],
     ]} />
-    <Prose>Next is <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">Feature Selection &amp; Importance: SHAP, Permutation &amp; Mutual Information</a>. A zero or large coefficient is only one kind of statement. We will ask which features are useful to a fitted predictor, how removing or perturbing a feature changes its performance, what information exists before fitting, and why none of those questions automatically identifies causes.</Prose>
+    <Prose>Next is <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">Feature Selection &amp; Importance: SHAP, Permutation &amp; Mutual Information</a>. A zero or large coefficient is only one kind of statement. We will ask which features are useful to a fitted predictor, how removing or perturbing a feature changes its performance, what information exists before fitting, and why none of those questions automatically identifies causes.</Prose></section>
 
     <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
       <li><a href="https://scikit-learn.org/stable/auto_examples/applications/plot_tomography_l1_reconstruction.html">Compressive sensing: tomography reconstruction with an L1 prior</a>: a visual and code learning route from projections to an image. Read the synthetic image&rsquo;s sparsity assumption and operator construction before interpreting the favorable comparison.</li>

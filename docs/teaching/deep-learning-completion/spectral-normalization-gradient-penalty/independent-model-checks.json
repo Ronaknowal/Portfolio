@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "comparisons": 1621,
+  "maximumError": 1.7763568394002505e-15,
+  "tolerance": 1e-9,
+  "scope": "Independent NumPy SVD, functional PyTorch/autograd, actual parametrization modes, exact symmetries and boundary cases. All9 retained models; no refitting."
+}

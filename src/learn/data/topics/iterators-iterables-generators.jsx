@@ -91,11 +91,11 @@ export default {
       ["sorted", "Order a finite iterable", "Eagerly collects values; do not apply to an infinite source."],
     ]} />
     <Prose>Prefer a comprehension over a complicated map/lambda expression when it is easier to read. Do not mutate a source list while relying on its iterator position. Also remember that lazy expressions can observe changes to names or objects made before consumption; use stable inputs or an explicit snapshot when that timing would be surprising.</Prose>
-    <details className="lesson-deeper"><summary>Why two consumers can quietly turn a stream into stored history</summary>
+    <section className="lesson-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Why two consumers can quietly turn a stream into stored history</h3>
       <Prose>Suppose a live dashboard reads quickly but an audit summary reads slowly. tee lets them consume the same one-pass source independently. To replay a value for the slower reader, tee must retain it after the faster reader advances. The gap between positions explains the storage requirement; tee has not made the original source rewindable.</Prose>
       <PythonExample example={iterationExamples.tee}><Prose>After a has read 18 and 21, b gets those values without another “source produced” line. They were retained for b. This shows replay behavior, not an exact buffer-size measurement: Python may allocate storage in blocks and retain extra references. A reader that never catches up can force growing storage. Consume the tee outputs rather than separately advancing their original source.</Prose></PythonExample>
       <Checkpoint prompt="A consumes a million records while b stays at the start. Can you justify a constant-memory claim for this pipeline?"><Prose>No. Those records must remain available to b. Either keep readers reasonably aligned, accept bounded materialization, or redesign the task as one pass that updates both summaries.</Prose></Checkpoint>
-    </details>
+    </section>
 
     <H2>8. Write your own iterable</H2>
     <Prose>A generator is usually the shortest implementation. A custom iterator class is useful when the cursor also needs other methods or explicit inspectable state. The core contract is small: iter returns the cursor itself, and next advances or raises StopIteration.</Prose>
@@ -111,8 +111,8 @@ export default {
     <PythonExample example={iterationExamples.iterSend}><Prose>The first next starts the generator and yields total 0. send(3) resumes the suspended yield expression with value 3, updates the total and runs to the next yield. send(4) does the same. Here None is a deliberate stop command, not a reading. The generator's return value is carried by StopIteration.value; it is not yielded as an extra item.</Prose></PythonExample>
     <Prose>A just-created generator must first be started with next or send(None) before you send a non-None value. <Code>throw</Code> can inject an exception at the suspension point; <Code>close</Code> requests termination via GeneratorExit. A generator should clean up and terminate rather than yield in response to that close request. Async generators use a different asynchronous protocol and belong with asynchronous programming, not this synchronous streaming path.</Prose>
 
-    <H2>10. Practise and check</H2>
-    <H3>Independent investigation: stop an alarm scan at the first useful result</H3>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Practise and check</H2>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Independent investigation: stop an alarm scan at the first useful result</H3>
     <Prose>A sensor source can be read only once. Write <Code>first_crossing(values, threshold)</Code> to return the first <Code>(index, value)</Code> strictly above the threshold. None ends the feed; zero is valid data. Return None if the source ends first. Crucially, do not consume readings after a crossing. Assume finite numeric readings or None; this task is about consumption, not validating every possible sensor encoding.</Prose>
     <LessonTable caption="Success checks before viewing the solution" headers={["Input / threshold", "Result", "Consumption check"]} rows={[["[0, 18, 24, 30] / 20","(2, 24)","30 remains in the same cursor"],["[0, None, 24] / 20","None","24 remains after the consumed sentinel"],["[] / 20","None","No exception"],["[20, 21] / 20","(1, 21)","Equality alone does not trigger"]]} />
     <details><summary>Hint: let demand define the stopping point</summary><Prose>Use one loop and enumerate for position. Test identity with None before comparing to the threshold. Return immediately when a result is known. Calling list(values) first would consume later readings before you could stop.</Prose></details>
@@ -132,9 +132,9 @@ export default {
     </Checkpoint>
     <Checkpoint prompt="Does replacing every list with a generator guarantee less memory use and identical behaviour?">
       <Prose>No. Iterators are one-pass and change when work/errors happen. The source may already be materialised, tee/cycle can buffer, and downstream consumers may collect all results. Choose the representation according to reuse, indexing, latency and resource-lifetime needs.</Prose>
-    </Checkpoint>
-    <H3>Ready for the next topic?</H3>
-    <Prose>You should now be able to predict exactly when the generator body runs, build and consume a one-pass pipeline, explain its memory boundary, and close its resources safely. Next is <a href="/learn/topic/decorators-context-managers">Decorators &amp; Context Managers</a>, followed by testing/debugging and then the scientific Python libraries.</Prose>
+    </Checkpoint></div></section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H3>Ready for the next topic?</H3>
+    <Prose>You should now be able to predict exactly when the generator body runs, build and consume a one-pass pipeline, explain its memory boundary, and close its resources safely. Next is <a href="/learn/topic/decorators-context-managers">Decorators &amp; Context Managers</a>, followed by testing/debugging and then the scientific Python libraries.</Prose></section>
     <Sources alternatives={<LearningResources>
       <li><a href="https://cs50.harvard.edu/python/weeks/9/">CS50 Python, David Malan: Week 9 lecture video</a> and <a href="https://cs50.harvard.edu/python/notes/9/#generators-and-iterators">Generators and Iterators notes</a> — a beginner alternative comparing a growing list with yield. The complete lecture covers other topics; use its generator section. Retain the precise distinction from this lesson: calling the generator function creates the iterator, and yield suspends synchronous execution. This is the 2022 course; newer APIs need current references.</li>
       <li><a href="https://dabeaz-course.github.io/practical-python/Notes/06_Generators/03_Producers_consumers.html">David Beazley: Producers, Consumers and Pipelines</a> — an intermediate written workshop extending generators into a stock-ticker stream. Exercises depend on earlier course files; work through its preceding generator setup before trying them.</li>

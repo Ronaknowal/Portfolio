@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "reviewer": "root, independent of author",
+  "checkedAt": "2026-09-26T21:28:07.185Z",
+  "checks": [
+    "Complete manuscript, specifications, full programs, runtime and source distinctions reviewed.",
+    "Native masked attention, actual MHA and gate autograd independently verified.",
+    "Permutation, masking, cache identity, zero cases and exact budgets checked.",
+    "Concept-level learning checklist and all practice solutions reviewed.",
+    {
+      "passed": true,
+      "comparisons": 1971,
+      "maximumError": 2.6645352591003757e-15,
+      "tolerance": 1e-11,
+      "scope": "Independent native masked softmax, actual MultiheadAttention across three widths/head layouts, autograd gates; permutation/forbidden-memory/null/streaming/identity/accounting/dependency checks."
+    }
+  ],
+  "findings": [
+    {
+      "issue": "Implementation-style introductory directions",
+      "status": "closed",
+      "resolution": "Learner-facing meaningful edit invitation confirmed in final browser."
+    },
+    {
+      "issue": "Bright attention weights inherited amber text",
+      "status": "closed",
+      "resolution": "Exact rounded RGB luminance selects black/white; final 0.9994 cell readable."
+    }
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/calculated-inputs.json": "131707f3f7efed416038e28d348cefc0a0d87932f569e6f6da3e57ec62f8344f",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/data-provenance.md": "8bf22eccacbf9c693bf63431ec04275e52b473ad89560c2882a9c4bcc3f3e0d9",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/design.md": "f7753b82f1f32fe06ef93bc6dc10d66edcc88c85c866001e3344ff733c5df002",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md": "0d6a02ead0da39ff245992de7070ee4c92b33b743df7c89243aa6983eb01526b",
+    "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md": "e30350ee3141b01cf418c650ed9add31c722827e741dd4aedaf86756605d79fa",
+    "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md": "0c268b0f58ab956edc4d4a946b435ba71ffd1b192df3a839e98ecd8c7a9fc42f",
+    "src/learn/data/topics/interleaved-cross-attention-architectures.jsx": "3408750a74c592e7baadc645c51bc0d3c255d49a99da3783fc04a381e5868ae0",
+    "src/learn/data/cross-attention-models.js": "6f39bbbcbf7dc69ab6144333ef13f98fa0541bae8008852fb0a5515e8b2c7f84",
+    "src/learn/data/cross-attention-examples.json": "f5549a14ec64dba4ffc7ed48e23afb42fc26f6b8ab99885a46e91140a0534dd4",
+    "src/learn/components/lesson-labs/CrossAttentionFigures.jsx": "4a7665d89976db404357c77a33b7068b21a76fc6b061e3033eb9aad27bc4dd09",
+    "src/learn/components/lesson-labs/CrossAttentionLabs.jsx": "27ada3ec9fb005ee63295167345600722b18b9102b97ca95ff632ad1b291e9ee",
+    "src/learn/components/lesson-labs/cross-attention.css": "2d4ddb38e0c94ba581da5fa06dc7bc6f89655528b73973a6e207c96880716891",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-assets/interleaved-cross-attention-architectures/observed-reads.json": "32531575164611cafdc533a936cb4bc302d141dcdffd5226a08678a135f09158",
+    "scripts/prepare-cross-attention-assets.py": "7a135f9018520d2cd091ce64520d4dfc361f8a2e6dc3644d36ab0ff676bf032c",
+    "scripts/render-cross-attention-lesson.mjs": "77fd652d2e46ec36a3b1582b9c9cdaa8c45246c9d6c1832a7b14f7e597a1cdd8",
+    "scripts/verify-cross-attention-models.mjs": "19826517a0b8a944400d6ce0249751ca26ea0a33f000e259af8da30d713ff7e6",
+    "scripts/check-cross-attention-static-render.mjs": "dd402f6843d310d9ce4957efdc4513ce77a92149f6b6a5a59d219ba9971b3a3b",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/design.md": "db5acfae08ab2fcfaf66c89b41072ab2d4d04ac3c71ac1a53104384dcf4a37bc",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/native-checks.json": "cf1e5aeccfbca9e51fc4cc2faeed324d9804c2488d5276788f9b33e7a9721331",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/native-fixtures.json": "d06cb5a2aa3fc8bf2af5d9f59878cebed961b58bccd68b11706481aecfa31b9e",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/reproduced-study.json": "131707f3f7efed416038e28d348cefc0a0d87932f569e6f6da3e57ec62f8344f",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/reproduced-cross-11-state.json": "f544da5f56276762977bdde9a02ebc0fd5997d1c59bc77b33d203f593e8e26e1",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/model-checks.json": "d8a17c875037808b3fcacd6b6c51a8334c7cc3d9467bd4b919da2512ae12dbce",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/static-checks.json": "ef35d81fa6d4815262ca3ce023122ad327019a87f0ff132299b9c98ccdcaa4ae",
+    "public/learn-code/interleaved-cross-attention-architectures/calculated-inputs.json": "131707f3f7efed416038e28d348cefc0a0d87932f569e6f6da3e57ec62f8344f",
+    "public/learn-code/interleaved-cross-attention-architectures/cross-attention-study.py": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+    "public/learn-code/interleaved-cross-attention-architectures/cross_attention_cache.py": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+    "public/learn-code/interleaved-cross-attention-architectures/data-provenance.md": "8bf22eccacbf9c693bf63431ec04275e52b473ad89560c2882a9c4bcc3f3e0d9",
+    "public/learn-code/interleaved-cross-attention-architectures/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/independent-review.md": "12e0032eba30fad9081c41dc21e94080550ef69c6ef725b1dbccd19b31331de5",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/independent-model-checks.json": "2b34a43a38e579278ea6a591ef2430d3ca5de4a47df572df2fcb0440e3c4b9ba",
+    "docs/teaching/deep-learning-completion/interleaved-cross-attention-architectures/independent-fixtures.json": "fccb7b1fe0afd197192307782ac27e8ca8326d5b0bb67c8b2c4a5630956188d8",
+    "scripts/review-cross-attention-native.py": "97a67ed17c576b2fddddc35a5a0c196f241799d0e5f74b059520aa2136e5adfc",
+    "scripts/review-cross-attention-models.mjs": "fb193c00dbb89801d25e920bec1870a027fcbda807245783cdef4714ed4bd56b"
+  }
+}

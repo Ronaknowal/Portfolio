@@ -126,8 +126,8 @@ Review question: is the chosen terminology clear to new readers?`}</CodeBlock>
     ]} />
     <Prose>Place -- before a path when it could otherwise look like an option or revision. Short commit IDs and dates differ between repositories; the examples print stable messages and counts instead of pretending everyone will get the same hash. Hooks, submodules, worktrees, signing and advanced history repair are useful deeper topics, not prerequisites for this first collaborative change.</Prose>
 
-    <H2>12. Practise a complete change</H2>
-    <details className="nt-deeper"><summary>Use history as an experiment: find the first failing commit</summary>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>12. Practise a complete change</H2>
+    <section className="nt-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Use history as an experiment: find the first failing commit</h3>
       <Prose>Version history can answer a technical question, not just recover old text. Suppose the intended report value must stay below 50. Six commits contain 10, 11, 12, 99, 99 and 99. You know the oldest passes and the newest fails. Instead of manually reading every change, bisect checks intermediate snapshots and narrows the first good-to-bad transition using a repeatable test.</Prose>
       <div className="nt-flow"><span>Known good: 10<small>Passed the same test</small></span><span>Test a middle snapshot<small>Pass narrows toward newer; fail toward older</small></span><span>First bad: 99<small>Investigate this change and its context</small></span></div>
       <Prose>The test command returns exit status 0 for good and 1 for bad. Here test compares the number from cat with 50 using -lt, meaning less than. In real use, the predicate might verify units, a serialization round trip or a deterministic regression test. The test script lives outside the checked-out repository so changing snapshots cannot remove it.</Prose>
@@ -135,7 +135,7 @@ Review question: is the chosen terminology clear to new readers?`}</CodeBlock>
       <Checkpoint prompt="Could an intermittently failing test, or a bug that is introduced and later fixed, mislead this investigation?">
         <Prose>Yes. The result depends on reliable classifications and a suitable good-to-bad transition. Reproduce failures, check environment/data compatibility across snapshots, and use skip for an untestable revision rather than guessing. Several skipped commits can leave the first culprit ambiguous. A detected commit localizes evidence; it does not prove who is responsible or explain the root cause.</Prose>
       </Checkpoint>
-    </details>
+    </section>
     <Checkpoint prompt="Repeat the staging example but run git add again after writing version 3. What changes?">
       <Prose>The index becomes version 3, so the commit records 3. With no other changes, status becomes clean. Compare HEAD, index and working content again to verify all three agree.</Prose>
     </Checkpoint>
@@ -148,14 +148,14 @@ Review question: is the chosen terminology clear to new readers?`}</CodeBlock>
     <Checkpoint prompt="Complete a private practice change: add a report note on a branch, review it, integrate it and explain how to reverse it.">
       <Prose>Start from the first fixture, switch -c to a topic branch, create the note, inspect status/diff, add that path, inspect --staged and commit. Switch main and use --ff-only when main has not diverged. Revert the ordinary note commit if you need an auditable reversal. Verify the note's presence/absence and log rather than trusting a command's exit alone.</Prose>
     </Checkpoint>
-    <H3>Independent task: commit the explanation, retain the experiment</H3>
+    <div className="lesson-exercise" data-lesson-exercise=""><H3>Independent task: commit the explanation, retain the experiment</H3>
     <Prose>Begin with tracked result.txt containing “value 1” and note.txt containing “draft”. On an explain-units branch, change result.txt to “value 2” and note.txt to “units: ms”. Commit only the note. Predict the committed contents of both files and the remaining short status. Check the snapshots directly; a commit message alone is not evidence.</Prose>
     <details><summary>Hint: stage a path, then inspect that snapshot</summary><Prose>Stage note.txt explicitly. After committing, git show HEAD:result.txt and git show HEAD:note.txt read committed contents; cat result.txt reads the later working edit. Do not use commit -a for this task.</Prose></details>
     <details><summary>Worked solution and exact result</summary><TerminalExample example={gitPracticeExamples.transfer}/><Prose>The branch commits its staged snapshot, so result.txt remains version 1 in history while your version 2 experiment stays on disk. The leading space before M means a working-tree modification relative to the index.</Prose></details>
     <Checkpoint prompt="Now deliberately include the result change in a second commit. Which command sequence and observations demonstrate that you succeeded?">
       <Prose>Review git diff, add result.txt, inspect git diff --staged, run the relevant check, then commit. HEAD:result.txt now reads value 2; note.txt still records units: ms, and status is clean if nothing else changed. Two commits explain two coherent steps without discarding the experiment.</Prose>
     </Checkpoint>
-    <Prose>In the opening curriculum, next <a href="/learn/topic/linux-basics-filesystems-processes">learn the filesystem and process model</a> behind these commands. The reader's named Next link follows your selected route. Bash automation is a later lesson; first understand the operations being automated.</Prose>
+    <Prose>In the opening curriculum, next <a href="/learn/topic/linux-basics-filesystems-processes">learn the filesystem and process model</a> behind these commands. The reader's named Next link follows your selected route. Bash automation is a later lesson; first understand the operations being automated.</Prose></div></section>
     <Sources alternatives={<LearningResources>
       <li><a href="https://www.youtube.com/watch?v=9K8lB61dl3Y">MIT Missing Semester — Version Control and Git (2026)</a> · Video lecture with <a href="https://missing.csail.mit.edu/2026/version-control/">written notes and exercises</a>. Use its data-model section after the branch investigation and its command-line section for review. The notes give a second route through snapshots, graphs and collaboration.</li>
       <li><a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">Pro Git — Branches in a Nutshell</a> · An illustrated written explanation of movable references and HEAD. Read alongside the branch lab; connect each pointer movement to a command you already tried.</li>

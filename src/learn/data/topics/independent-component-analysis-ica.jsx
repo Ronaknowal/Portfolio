@@ -55,7 +55,7 @@ const icaContent = {
 
     <Prose><strong>{'Independent component analysis'}</strong>{' estimates a linear representation whose component signals are as statistically independent as its model and estimation method can make them. We will first separate an exact four-state mixture. Then we will ask a narrower, measurable question of a real electrical recording: does an ICA component track a simultaneously recorded reference more closely than an original channel or a principal component?'}</Prose>
 
-    <Prose><strong>{'First-pass route.'}</strong>{' Read sections 1–5, using the mixing figure and the rotation investigation as you go. Run the short NumPy example in section 5, then read and run the real-data comparison in section 6. Try practice 1, 2 and 4 in section 9 before the readiness check. Sections 7 and 8 are deeper branches for component removal, objectives, computation and extensions. Expect about 45–55 minutes of reading on the first route, plus 45–75 minutes for code and practice; the deeper branches add about 25 minutes.'}</Prose>
+    <Prose opening="route"><strong>{'First-pass route.'}</strong>{' Read sections 1–5, using the mixing figure and the rotation investigation as you go. Run the short NumPy example in section 5, then read and run the real-data comparison in section 6. Try practice 1, 2 and 4 in section 9 before the readiness check. Sections 7 and 8 are deeper branches for component removal, objectives, computation and extensions. Expect about 45–55 minutes of reading on the first route, plus 45–75 minutes for code and practice; the deeper branches add about 25 minutes.'}</Prose>
 
     <Prose>{'You need dot products, matrix multiplication, an average and variance. '}<a href="/learn/path/full-curriculum/pca-dimensionality-reduction?module=classical-ml">{'PCA & Dimensionality Reduction'}</a>{' supplies the geometry of projections, eigenvectors and reconstruction. '}<a href="/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations">{'Probability Distributions & Bayes’ Theorem'}</a>{' reviews independence and moments. We will introduce the specific probability and optimization ideas locally. Python examples need NumPy and scikit-learn; the supplied CSV lets the real example run offline.'}</Prose>
 
@@ -151,6 +151,27 @@ const icaContent = {
     <Prose>{'If an eigenvalue is zero, dividing by its square root is impossible; a constant or redundant channel provides no new direction. Very small eigenvalues can amplify noise. Estimate effective rank and choose a defensible subspace. Reducing to k < d principal coordinates before ICA chooses a '}<strong>{'variance-based subspace'}</strong>{'; it does not select the k most independent or most non-Gaussian physical sources.'}</Prose>
 
     <H2>{headings[3]}</H2>
+    <Prose>Whitening has made every unit-length projection equally variable. Variance can no longer tell us which direction separates sources. Look instead at how that variance is distributed among ordinary and extreme values. A binary source always has magnitude 1. An equal mixture of two such sources is zero half the time and has magnitude √2 the other half. Their average square is the same, but their average fourth power differs because large magnitudes receive much more weight.</Prose>
+    <figure className="ic-figure" data-intuition="ica-projection-mass" style={{ background: '#111111', color: '#dedbd5', borderColor: '#353535' }}>
+      <figcaption><strong>Equal variance, different distributions</strong> · exact independent fair binary sources</figcaption>
+      <p>Each bar is probability mass at the labelled value, not a density histogram. Both panels use the same horizontal range −1.5 to 1.5 and the same probability-height scale.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))', gap: '1rem' }}>
+        {[{title: 'One source s₁', values: [-1, 1], masses: [.5, .5], labels: ['−1', '1'], fourth: '1'},
+          {title: '(s₁ + s₂)/√2', values: [-Math.sqrt(2), 0, Math.sqrt(2)], masses: [.25, .5, .25], labels: ['−√2', '0', '√2'], fourth: '2'}].map(panel => <section key={panel.title}>
+          <h4>{panel.title}</h4>
+          <svg style={{ width: '100%', maxWidth: '320px' }} viewBox="0 0 300 145" role="img" aria-label={panel.labels.map((label, index) => label + ' has probability ' + panel.masses[index]).join('; ')}>
+            <line x1="18" x2="282" y1="112" y2="112" stroke="currentColor" />
+            {panel.values.map((value, index) => <g key={value}>
+              <rect x={150 + 80 * value - 10} y={112 - 160 * panel.masses[index]} width="20" height={160 * panel.masses[index]} fill="#e7b94a" />
+              <text x={150 + 80 * value} y={102 - 160 * panel.masses[index]} textAnchor="middle" style={{ fontSize: 16, fill: 'currentColor' }}>{panel.masses[index]}</text>
+              <text x={150 + 80 * value} y="136" textAnchor="middle" style={{ fontSize: 16, fill: 'currentColor' }}>{panel.labels[index]}</text>
+            </g>)}
+          </svg>
+          <p>Mean 0 · second moment 1 · fourth moment {panel.fourth}</p>
+        </section>)}
+      </div>
+      <p>The source has excess kurtosis 1 − 3 = −2; the mixture has 2 − 3 = −1. This fourth-moment difference supplies directional information that the equal variances cannot supply.</p>
+    </figure>
 
     <Prose>{'For a centered variable with nonzero variance, its '}<strong>{'excess kurtosis'}</strong>{' is'}</Prose>
 
@@ -180,7 +201,7 @@ const icaContent = {
 
     <H3>Investigation: rotate a distribution, not just its covariance</H3>
 
-    <Prose>{'In the rotation investigation, record whether your proposed new projection will have greater, equal or smaller absolute excess kurtosis than the active one. Enter an angle of your own before revealing the result. The covariance remains I under every orthogonal rotation, while the joint support and fourth moment can change.'}</Prose>
+    <Prose>{'Move the angle control and watch the distribution and kurtosis marker change immediately. The covariance remains I under every orthogonal rotation, while the joint support and fourth moment can change. Compare a source-aligned projection with an equal mixture, using the probability bars above to explain why equal variance does not mean equal shape.'}</Prose>
 
     <Prose>{'Start with the binary source distribution above. Try a projection halfway between its source directions, then a direction near one source. Return with the Gaussian population selected. Explain what the Gaussian null case removes from the search.'}</Prose>
 
@@ -203,6 +224,7 @@ const icaContent = {
     <MathBlock>{'\\begin{gathered} r = \\frac1n \\sum_i z_i\\, g(w^{\\mathsf T} z_i) - \\bar g\'\\, w, \\\\[4pt] \\bar g\' = \\frac1n \\sum_i g\'(w^{\\mathsf T} z_i), \\\\[4pt] w_{\\mathrm{new}} = r / \\lVert r \\rVert. \\end{gathered}'}</MathBlock>
 
     <Prose>{'The first average weights each observation by a nonlinear function of its current projection. The second term corrects the current direction; normalization restores the constraint. In the log-cosh version, g(u) = tanh u and g′(u) = 1 − tanh²u.'}</Prose>
+    <Prose>The nonlinearity is doing essential work here. If we used g(u) = u, the first average would be E[zzᵀ]w = w after whitening, and the correction would subtract exactly w. Every direction would return zero. A nonlinear g responds to distribution shape beyond covariance, creating a direction to normalize. The fixed-point rule uses that shape information; it is not simply rotating toward the largest variance again.</Prose>
 
     <Prose>{'For a hand trace, use the four whitened diamond points from section 3 and w = (0.8, 0.6). With g(u) = u³, the projections are the signed values 0.8√2 and 0.6√2. The first average is (2(0.8)³, 2(0.6)³) = (1.024, 0.432). The average derivative is E[3y²] = 3. Thus'}</Prose>
 
@@ -248,7 +270,7 @@ const icaContent = {
 
     <IcaSplitFigure />
 
-    <Prose>{'Before running, predict which of raw channels, PCA coordinates or ICA coordinates will give the largest held-out absolute correlation. The comparison uses all four coordinates for both decompositions. It chooses the coordinate within each method only on development data, then freezes the choice. The record, interval, split and ICA settings were fixed before observing the comparison; we keep an inconvenient outcome rather than search for a better seed or time window.'}</Prose>
+    <Prose>{'Compare raw channels, PCA coordinates and ICA coordinates using the same held-out absolute-correlation diagnostic. The comparison uses all four coordinates for both decompositions. It chooses the coordinate within each method only on development data, then freezes the choice. The record, interval, split and ICA settings were fixed before observing the comparison; we keep an inconvenient outcome rather than search for a better seed or time window.'}</Prose>
 
     <Program example={icaExamples.realRecording} />
 
@@ -291,6 +313,7 @@ const icaContent = {
     <Prose><strong>{'This branch connects the mechanism to the wider ICA literature.'}</strong>{' Read it when you want to distinguish a model, an estimation objective and an algorithm for that objective.'}</Prose>
 
     <H3>Independence, entropy and likelihood</H3>
+    <Prose>Return to the question “does knowing one coordinate tell us something about another?” Compare the actual joint distribution with a construction that draws each coordinate independently from its own marginal. The independent construction keeps every individual histogram but discards relationships between coordinates. Total dependence measures how distinguishable those two distributions are. This explains why inspecting nice-looking marginal histograms alone cannot establish independence.</Prose>
 
     <Prose>{'For continuous components with suitable finite entropies, total dependence can be expressed as'}</Prose>
 
@@ -309,6 +332,7 @@ const icaContent = {
     <MathBlock>{'p_x(x) = \\lvert \\det B \\rvert \\prod_j p_j\\big(b_j^{\\mathsf T}(x - \\mu)\\big).'}</MathBlock>
 
     <Prose>{'For independent observation vectors, the dataset log likelihood is n log|det B| + Σᵢⱼ log pⱼ(bⱼᵀ(xᵢ − μ)). For temporally dependent recordings, that sum is a marginal fitting contrast rather than the full time-series joint likelihood. The determinant accounts for how a linear transformation changes volume. Without it, changing scale could appear beneficial for the wrong reason. Incorrect source-density choices can also change the estimator.'}</Prose>
+    <Prose>A two-dimensional change of units makes the volume correction tangible. Let B stretch the first coordinate by 2 and leave the second unchanged. An observed rectangle of area 0.5 then covers source-coordinate area 1. If the source density is 1 on that unit area, the observed density must be 2 on its half-sized area so both assign probability 1. The determinant factor is 2. It accounts for the change in coordinate volume, rather than rewarding a model for expressing the same probability in different units.</Prose>
 
     <Prose>{'Infomax connects an appropriately chosen nonlinear output transformation to entropy maximization and this likelihood perspective. It is an alternative estimation route, not a claim that deterministic input–output mutual information equals dependence among recovered coordinates. FastICA is a fixed-point algorithm tied to specified contrasts. Picard is another optimizer using preconditioning and an approximate Hessian; its published comparisons concern stated objectives and datasets, not a universal speed or stability ranking. The lineage from early adaptive separation, Comon’s ICA formulation, Infomax and fixed-point methods helps explain why several algorithms share the ICA name. '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/bookfinal_ICA.pdf">{'Canonical book, chapters 7–14'}</a>{', '}<a href="https://arxiv.org/abs/1706.08171">{'Picard paper'}</a>{'.'}</Prose>
 
@@ -335,29 +359,29 @@ const icaContent = {
 
     <Prose>{'The real example here uses only four sensor channels and 12,000 training instants. It is a small CPU exercise. Set an iteration cap, retain convergence warnings, inspect rank, and record versions and seeds. If convergence is poor, diagnose scaling, rank, outliers, contrast and model mismatch before merely raising the cap. A fixed seed makes the computational starting point reproducible; it does not make the estimate insensitive to changed data.'}</Prose>
 
-    <H2>{headings[8]}</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{headings[8]}</H2>
 
     <Prose>{'Attempt each task before opening its hint and solution. The calculations here change the demonstrated numbers or the decision being made.'}</Prose>
 
-    <Practice title="1. A new sensor recipe"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="1. A new sensor recipe"
       hint={<Prose>{'Subtract the second sensor equation from the first. To preserve observations after rescaling, alter the corresponding column, not the corresponding row.'}</Prose>}
       solution={<Prose>{'The equations are 3s₁ + s₂ = 5 and s₁ + s₂ = −1. Subtracting gives 2s₁ = 6, hence s₁ = 3, s₂ = −4. Replace s₁ by 6 and column 1 by (1.5, 0.5)ᵀ, leaving column 2 at (1, 1)ᵀ. The reconstructed readings are 9 − 4 = 5 and 3 − 4 = −1. Changing a row instead would alter a sensor recipe and would not implement this ambiguity.'}</Prose>}>
       <Prose>{'You observe x = (5, −1)ᵀ under A = [[3, 1], [1, 1]]. Recover the two source values. Then give one different source/mixing pair that generates exactly the same observations, using scale ambiguity.'}</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="2. Equal kurtosis, changed mixing weights"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="2. Equal kurtosis, changed mixing weights"
       hint={<Prose>{'Use a² + b² = 1 for variance and fourth powers for the excess kurtosis.'}</Prose>}
       solution={<Prose>{'Variance is 1. Kurtosis is 3(9/16 + 1/16) = 30/16 = 1.875. Equal weighting gives 1.5 and a pure source gives 3. The equal marginal kurtoses are compatible with a directional contrast; there is no flat ring. The value 1.875 is the exact independent variation to reproduce in the rotation investigation at 30° from a source axis.'}</Prose>}>
       <Prose>{'Two independent standardized Laplace sources have excess kurtosis 3. A unit projection uses weights a = √3/2, b = 1/2. Find its variance and excess kurtosis. Compare it with equal weighting and a pure source. Explain whether the equal source kurtoses make separation impossible.'}</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="3. Repair two plausible implementations"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="3. Repair two plausible implementations"
       hint={<Prose>{'For A, replace E[z(wᵀz)] by E[zzᵀ]w. For B, consider two initializations entering the same attraction region.'}</Prose>}
       solution={<Prose>{'A gives r = Iw − w = 0, so normalization is undefined. Variance has no preferred direction after whitening; use a suitable nonquadratic contrast. B can converge repeatedly to the same direction. Subtracting the already found direction only at the end can leave a near-zero residual, and the intermediate search never respected the constraint. Orthogonalize inside every iteration before normalizing, or use a symmetric multi-component algorithm.'}</Prose>}>
       <Prose>{'Program A uses g(u) = u on whitened data. Program B estimates every row independently and subtracts previously found directions only after each row has converged. Explain the failure mechanism in each and state a repair.'}</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="4. Choose without looking at the answer interval"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="4. Choose without looking at the answer interval"
       hint={<Prose>{'The test column is for the already fixed choice, even if a different coordinate looks more attractive there.'}</Prose>}
       solution={<Prose>{'Select component 1 using |−0.60| = 0.60 and report test |0.15| = 0.15. Reporting 0.80 would evaluate a selection made with test information. A revised selection rule becomes a new method to develop and evaluate on fresh held-out data. An actual polarity reversal between intervals is also a useful stability finding; taking absolute values was a declared diagnostic choice, not a way to erase it from investigation.'}</Prose>}>
       <Prose>{'A new recording gives these '}<strong>{'signed'}</strong>{' correlations with an external reference:'}</Prose>
@@ -365,32 +389,32 @@ const icaContent = {
         headers={['Component', 'Development', 'Test']}
         rows={[['1', '−0.60', '0.15'], ['2', '0.45', '−0.80'], ['3', '0.20', '0.30']]} />
       <Prose>{'The protocol is “choose largest development absolute correlation, then report the test absolute correlation.” Which coordinate and result belong in the report? A colleague wants to change the selection after seeing the test column. What should happen next?'}</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="5. A nuisance component contains wanted activity"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="5. A nuisance component contains wanted activity"
       hint={<Prose>{'Multiply the whole component by its mixing column before separating wanted and nuisance terms.'}</Prose>}
       solution={<Prose>{'Exclusion removes a bₜ + 0.2a qₜ, including wanted signal (0.4qₜ, −0.2qₜ)ᵀ. In this simulation, compare reconstructed task amplitudes or task-event recovery with the known qₜ before and after exclusion. On measured data, use a justified task endpoint, auxiliary information and sensitivity to plausible exclusion sets. Reduced visible artifact amplitude alone does not answer the task-preservation question.'}</Prose>}>
       <Prose>{'In a simulation, the true task signal is qₜ, but an ICA candidate is uₜ = bₜ + 0.2qₜ, where bₜ is nuisance activity. Its mixing column is a = (2, −1)ᵀ. What task contribution is removed when the entire candidate is excluded? Propose a check before deciding whether that removal is acceptable.'}</Prose>
-    </Practice>
+    </Practice></div>
 
-    <Practice title="6. Design a modest follow-up"
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="6. Design a modest follow-up"
       hint={<Prose>{'Changing only the seed measures one kind of variability. A later block and another participant ask different questions.'}</Prose>}
       solution={<>
         <Prose><strong>{'Example solution and success criteria. '}</strong>{'Predeclare several later non-overlapping blocks and the same fitting/development/test durations; carry all four-channel inputs and the same fixed settings into each. Report each method’s selected-coordinate diagnostic for every block, including failures to converge. Keep participant identity separate, and reserve different participants for a future cross-person claim.'}</Prose>
         <Prose>{'If PCA’s advantage reverses across blocks or all correlations collapse, revise the original finding to describe its dependence on that short interval. A good answer states the question, respects information availability, keeps the baseline, records unsuccessful runs, and distinguishes within-recording robustness from population generalization. A new complete clinical study is outside this small exercise.'}</Prose>
       </>}>
       <Prose>{'Keep the real-data program’s fitting and selection boundary. Propose a follow-up that asks whether its finding persists, without using the existing test result to choose a favorable replacement. State the unit of evaluation and one outcome that would make you revise the conclusion.'}</Prose>
-    </Practice>
+    </Practice></div></section>
 
-    <H2>{headings[9]}</H2>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{headings[9]}</H2>
 
     <Prose>{'You are ready to move on from the first-pass route when you can explain why the whitened diamond is dependent, calculate a fourth-moment contrast on changed weights, trace a normalized FastICA update, and keep fitting, coordinate selection and evaluation distinct in the recording example. After the deeper component-removal branch, also distinguish a mixing column from an unmixing row and predict what component exclusion subtracts from the sensors.'}</Prose>
 
     <Prose>{'Try these from memory: What assumption makes an orthogonal search sufficient after whitening? Why can two Gaussian sources rotate without changing the observed model? Why does exact reconstruction say little about source usefulness? Why do component numbers need matching across fits?'}</Prose>
 
-    <Prose>{'Next, '}<a href="/learn/path/full-curriculum/non-negative-matrix-factorization-nmf?module=classical-ml">{'Non-Negative Matrix Factorization (NMF)'}</a>{' asks what changes when both factors must be nonnegative and combine additively. That constraint can suit counts or magnitudes. It supplies a different factorization goal; physical meaning and uniqueness still need evidence.'}</Prose>
+    <Prose>{'Next, '}<a href="/learn/path/full-curriculum/non-negative-matrix-factorization-nmf?module=classical-ml">{'Non-Negative Matrix Factorization (NMF)'}</a>{' asks what changes when both factors must be nonnegative and combine additively. That constraint can suit counts or magnitudes. It supplies a different factorization goal; physical meaning and uniqueness still need evidence.'}</Prose></section>
 
-    <H2>{headings[10]}</H2>
+    <section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{headings[10]}</H2>
 
     <ul>
       <li><strong>{'Hyvärinen & Oja — '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf">{'Independent Component Analysis: Algorithms and Applications'}</a></strong>{'. Free author-hosted tutorial, useful after sections 3–5. Sections 2–6 connect identifiability, non-Gaussianity, whitening and fixed points. The relevant model and algorithm passages were read; examples use older notation/software context.'}</li>
@@ -401,7 +425,7 @@ const icaContent = {
       <li><strong>{'MNE — '}<a href="https://mne.tools/stable/auto_tutorials/preprocessing/40_artifact_correction_ica.html">{'Repairing artifacts with ICA'}</a></strong>{'. An application tutorial showing fitted decompositions, component inspection, auxiliary-channel evidence and exclusion/reconstruction. Filtering, fitting and component-identification passages were reviewed, not executed here. It assumes knowledge of EEG/MEG recordings and uses a separate MNE API.'}</li>
       <li><strong>{'Jezewski and colleagues / PhysioNet — '}<a href="https://physionet.org/content/adfecgdb/1.0.0/">{'Abdominal and Direct Fetal ECG Database, v1.0.0'}</a></strong>{'. The source of the actual simultaneous measurements. Read the acquisition description before interpreting the example. The local extract is distributed with '}<a href="/learn-assets/ica/data-provenance.md">{'its attribution and calibration'}</a>{' under '}<a href="https://opendatacommons.org/licenses/by/1-0/">{'ODC-By 1.0'}</a>{'.'}</li>
       <li><strong>{'Ablin, Cardoso & Gramfort — '}<a href="https://arxiv.org/abs/1706.08171">{'Faster Independent Component Analysis by Preconditioning with Hessian Approximations'}</a></strong>{'. Advanced alternative-optimizer reading after section 8. The abstract and author description of its objective/preconditioner were checked; this lesson did not reproduce its benchmarks. Treat speed comparisons as specific experimental results.'}</li>
-    </ul>
+    </ul></section>
   </div>,
 };
 

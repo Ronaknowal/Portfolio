@@ -1,0 +1,153 @@
+{
+  "topicId": "positional-encodings-sinusoidal-learned-rope-alibi",
+  "passed": true,
+  "reviewer": "training_dynamics_implementation (independent of topic author)",
+  "sourceFiles": [
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md",
+    "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+    "src/learn/data/positional-encoding-models.js",
+    "src/learn/data/sequence-tensor-operations.js",
+    "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+    "src/learn/components/lesson-labs/positional-encoding-labs.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "scripts/generate-positional-encoding-lesson.mjs",
+    "scripts/check-positional-encoding-models.mjs",
+    "scripts/check_positional_encoding_native.py",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-alibi.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-learned.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-none.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-rope.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-sinusoidal.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/PositionMechanismFigures.jsx",
+    "src/learn/components/lesson-labs/PositionApplicationsDiagrams.jsx",
+    "src/learn/data/position-convention-models.js",
+    "scripts/check-position-conventions.mjs",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/convention-checks.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-native.py",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-native.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-models.mjs",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-numerical-checks.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-conventions.mjs",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-conventions.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-review.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json": "c8e7329e2348a6040d6588167ed0f531dbfe915b7317f78ce1892e67088f90f0",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md": "365ce409e2d3ce2609ce9928b0a47fb4e2d20ebb50d65ff2a033868e6275f479",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md": "0c2b1e670401d337908f012be3d40626c1d22de259afc770a066f1ea9837c33e",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md": "179d6005d9b06f41e26948235aad3a89d70fa50a27b8298d6ae6f97f43aef4ab",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json": "2cfd90c591fa862d3ec991f436c6219197801757c04818554b46f75dae7e3f95",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json": "b2efd301b3c51ef9b24462a3f9c2c0e2bc679b973eeefb623c376adb429a73de",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+    "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md": "e40b2bc4db51b72213f8cea7e9cb02da69cb0a036e4b6b5bf87e41ae382bcf19",
+    "src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx": "29aae805bee9e287cb1f7e74ba0a32f0a96b5a396235d15b0a7960860f80da96",
+    "src/learn/data/positional-encoding-models.js": "6758eebff8184bca9a293859af0a5c1da73dfd7dc9b41ae927b7f3371829da6b",
+    "src/learn/data/sequence-tensor-operations.js": "d9bb0a81927032a6e76beff864e5df8fa548fd59e12cd7158e5d49a07e16a21f",
+    "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx": "80f1b4d3099dba718186ade7c3b7f9b35b67a22d0b9ef73482dd8bb5174b2c93",
+    "src/learn/components/lesson-labs/positional-encoding-labs.css": "272a5c8b6055eda3212dfaa1a9131c0b05ec29b87b131240194a980458ca95cf",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "scripts/generate-positional-encoding-lesson.mjs": "91fda8cdd8469fa2a4a1207bab3f5394d87d7dc76e88215c320e011802de1d3c",
+    "scripts/check-positional-encoding-models.mjs": "db89b5c52cd8f8c487825cd6b031a539f09a9baaa2ad3b5fe77591ab036e2e31",
+    "scripts/check_positional_encoding_native.py": "2e3dff484e6e3d9bf954155d254569a1280341524150475aabba842eb5f6f57e",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/design.md": "e7e23707c5bab5754cf56441e565ac96d6c234150cb49527064633a3e0e7a0ee",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json": "c8e7329e2348a6040d6588167ed0f531dbfe915b7317f78ce1892e67088f90f0",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md": "365ce409e2d3ce2609ce9928b0a47fb4e2d20ebb50d65ff2a033868e6275f479",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json": "2cfd90c591fa862d3ec991f436c6219197801757c04818554b46f75dae7e3f95",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-alibi.json": "4ac353826ece7ebcdd27a7315ea598442318eaa73d8d861950c098b1360da8a8",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-learned.json": "ec486768dbdb80d3b5354387d630abd5929056e05a6e2fbd35f4f9ce585bd272",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-none.json": "126a799dce285ea12db9862eb54e8796c292354fa812ddb02ac0b6ea8dce756a",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-rope.json": "e4747694ae44f4a1eb705179136a0cfe01fe438d186b250615b67fe5b32feca4",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement-sinusoidal.json": "799063d77a95ebd5931b0ec5002bc3976a4e1bbd734cf3772a555ac1f469b678",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json": "b2efd301b3c51ef9b24462a3f9c2c0e2bc679b973eeefb623c376adb429a73de",
+    "public/learn-code/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/PositionMechanismFigures.jsx": "68c3e6bef339286dbf5661c5b2bf4e77a5d65e77542c75d6caf0e1bf2ca3916f",
+    "src/learn/components/lesson-labs/PositionApplicationsDiagrams.jsx": "54531f94d7ff56487ebc3616031e6e70a8b270db652e16405ada46c8e1be12dd",
+    "src/learn/data/position-convention-models.js": "8666d05f4273bf549533052928ab0724cbd58510a143aa2d8dbe023f109c13db",
+    "scripts/check-position-conventions.mjs": "d75e64a2d8ba147b23cf2170e7c3fd06e92b96cfdb9d9300cb7e571dc1447b66",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/convention-checks.json": "7cf732e281746c901b56f708ee89da51af41ec07800690c8e7442602e80aa5a5",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-native.py": "e4cfd5bf79c4cfdde26e6924ae1a465849a9e0df38331989704616fb7180952f",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-native.json": "42b98b05bb879a8762ed7eb46efa555dc518c3406513a6d2be867296555a73c0",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-models.mjs": "0d75da09ba2416086ad51bb5ea4f593a72104ab7e8a32fff0083ebabc98ae9f2",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-numerical-checks.json": "87ddecc08d6049648f772fb7b32568ecb4b10360a5998834a4102fc7403c93cf",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-conventions.mjs": "4dd4518d0b4e50a67008cbe5bafefa925fae59e74f5c71f04fe7a9911de00f05",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-conventions.json": "9af9a9572fbecbd9fa2c06fc26676414bdd945387975c9461548c27a5fe884c3",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-review.md": "b6e2f3155932c37b63777f30ff76ba20b5da49c3f15cb9668e7ac624b3b0d1f2"
+  },
+  "checks": [
+    {
+      "name": "Entire manuscript, prepared specifications, programs, deployed sources and actual representation implementation read",
+      "passed": true
+    },
+    {
+      "name": "All ten learning-experience checklist items independently assessed, with browser responsibilities explicitly separated",
+      "passed": true
+    },
+    {
+      "name": "Bounded representation findings corrected and final affected source inspected",
+      "passed": true
+    },
+    {
+      "name": "48657 model/mechanism scalar comparisons; fifteen new native model cases;25 input-gradient probes; validation-only selected-checkpoint identity",
+      "passed": true
+    },
+    {
+      "name": "79 complementary convention/XPos checks for newly added pure helper",
+      "passed": true
+    },
+    {
+      "name": "All canonical/deployed source copies checked byte-for-byte",
+      "passed": true
+    },
+    {
+      "name": "Author source receipt current at independent binding",
+      "passed": true
+    }
+  ],
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-review.md",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-native.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-numerical-checks.json",
+    "docs/teaching/deep-learning-completion/positional-encodings-sinusoidal-learned-rope-alibi/independent-conventions.json"
+  ],
+  "remaining": [
+    "browser",
+    "integration"
+  ],
+  "limitations": [
+    "No duplicate fit campaign; inference/gradients and recorded validation selection checked.",
+    "Source and numerical review does not establish painted browser behavior."
+  ]
+}

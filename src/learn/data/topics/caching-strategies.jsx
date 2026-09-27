@@ -1025,9 +1025,9 @@ Stochastic endpoints (temp>0)      | Skip     | Skip       | Always     | Cachin
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Compute expected cost savings from layered caching</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Compute expected cost savings from layered caching</H3>
 
       <Prose>
         A customer support API handles 100,000 requests per day. The workload is: 60,000 requests (60%) are semantically equivalent to one of 200 known FAQ questions; of those, 5,000 are exact byte-for-byte duplicates. The remaining 40,000 are novel requests. Inference costs $0.01 per request. Exact-match cache covers the 5,000 duplicates. Semantic cache (τ=0.97, precision=0.98) covers 80% of the 55,000 remaining FAQ requests. KV-cache sharing reduces inference cost by 70% on the 40,000 novel requests (shared 7,000-token system prompt). Compute: (a) daily cost without any caching, (b) daily cost with all three layers active, (c) effective cost reduction, and (d) the number of responses that are wrong per day due to semantic cache false positives.
@@ -1050,21 +1050,21 @@ Stochastic endpoints (temp>0)      | Skip     | Skip       | Always     | Cachin
 #     44,000 semantic hits × (1 - 0.98 precision) = 44,000 × 0.02 = 880 wrong answers/day
 #     This is ~0.88% of all requests served incorrectly. At scale, this is significant.
 #     Evaluate whether that rate is acceptable for the domain before deploying.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2: Design a TTL strategy for a model rollout</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Design a TTL strategy for a model rollout</H3>
 
       <Prose>
         You are deploying a new fine-tuned version of a customer support model. The exact-match cache currently holds 2.3 million entries with TTLs ranging from 1 to 24 hours. The semantic cache holds 180,000 entries with no TTL (they age out on LFU eviction). The new model produces meaningfully different responses on about 15% of cached queries. Design a rollout strategy that: (a) invalidates stale entries without a destructive flush that would cold-start both caches simultaneously, (b) handles the semantic cache where no TTL exists, and (c) bounds the window during which incorrect cached responses could be served. Explain the trade-off between correctness and performance during the transition.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Calibrate a semantic cache threshold for a new domain</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Calibrate a semantic cache threshold for a new domain</H3>
 
       <Prose>
         You are deploying a semantic cache for a medical FAQ bot that answers questions about medication dosages and drug interactions. You have assembled a held-out validation set of 500 query pairs, each labeled as "semantically equivalent" (same answer), "related but different" (different answer), or "unrelated." The pairs at various thresholds show: at τ=0.99, precision=1.0, recall=0.05; at τ=0.97, precision=0.98, recall=0.35; at τ=0.95, precision=0.91, recall=0.60; at τ=0.92, precision=0.78, recall=0.75. Given that a wrong dosage answer could cause patient harm, select the appropriate threshold and justify it. At what point, if any, should semantic caching be rejected entirely for this domain?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Debug a thundering herd on a shared exact-match cache</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Debug a thundering herd on a shared exact-match cache</H3>
 
       <Prose>
         Your monitoring shows a spike pattern: every 3,600 seconds, GPU utilization jumps from 40% to 95% for approximately 30 seconds, then falls back. The spike corresponds to a burst of identical inference calls. Cache hit rate is 85% between spikes and near 0% during spikes. Identify the root cause, explain why it happens, and propose two mitigations — one that eliminates the spike entirely at the cost of some computational overhead, and one that distributes the spike over time without additional compute.
@@ -1088,9 +1088,9 @@ Stochastic endpoints (temp>0)      | Skip     | Skip       | Always     | Cachin
 #   This spreads the re-computation over the decay window rather than at expiry.
 #   XFetch algorithm (Vattani et al., 2015) formalizes this.
 #   beta and decay_threshold are tunable per workload.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 5: Memory budget for a three-layer cache on a single A100</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Memory budget for a three-layer cache on a single A100</H3>
 
       <Prose>
         You are deploying a full three-layer caching stack on a single A100 80GB serving Llama 3 8B (model weights ~16 GB in BF16). The workload: 200 distinct FAQ queries (exact-match cache), 50,000 semantic cache entries (384-dimensional float32 embeddings, HNSW index), KV-cache sharing for a 4,000-token system prompt used on 90% of requests, and 16 concurrent inference sessions at average 2,048 tokens each. Compute: (a) KV-cache memory for the cached system prompt, (b) memory for 16 concurrent sessions at 2,048 tokens, (c) approximate HNSW index memory for 50,000 entries at 384 dimensions, and (d) whether all of this fits on the A100 after model weights. What is the first thing to reduce if it does not fit?
@@ -1123,7 +1123,7 @@ Stochastic endpoints (temp>0)      | Skip     | Skip       | Always     | Cachin
 # max_context from 2048 to 1024, halving (b) to 2.00 GB.
 # Second: quantize KV to FP8 (halves both (a) and (b)).
 # HNSW is negligible and not worth optimizing first.`}
-      </CodeBlock>
+      </CodeBlock></div></section>
 
     </div>
   ),

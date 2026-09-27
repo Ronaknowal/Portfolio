@@ -1,0 +1,43 @@
+{
+  "topicId": "hyena-long-convolution-models",
+  "passed": true,
+  "comparisons": 1036712,
+  "maximumSavedFloat32LogitError": 0.000005895015015688898,
+  "maximumFreshFloat64LogitError": 5.329070518200751e-15,
+  "maximumParameterGradientError": 5.809491998576277e-9,
+  "maximumErfError": 4.440892098500626e-16,
+  "checks": [
+    {
+      "name": "All1201 SciPy erf probes across branch and tails agree within3e-14; exact-GELU formula retained",
+      "passed": true
+    },
+    {
+      "name": "Eight native blocked/direct/SciPy references plus144 length-pair FFT/inverse/identity/zero/circular cases",
+      "passed": true
+    },
+    {
+      "name": "Canonical signed one/two-filter matrices and each intermediate path independently reproduce native results",
+      "passed": true
+    },
+    {
+      "name": "One-to-four signed modes,all split boundaries and every finite truncation bound across2–12 inputs",
+      "passed": true
+    },
+    {
+      "name": "All1840 saved validation logits and exact model argmax at every record",
+      "passed": true
+    },
+    {
+      "name": "All30 fresh complete native layer traces/logits and parameter gradient paths",
+      "passed": true
+    },
+    {
+      "name": "Full network prefix/future invariance and all60 lags unchanged",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Native float32 saved-logit tolerance1e-4; fresh double layers2e-10; centered finite differences3e-6.",
+    "No browser interaction,paint or whole-site build is implied."
+  ]
+}

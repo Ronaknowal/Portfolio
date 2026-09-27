@@ -710,32 +710,32 @@ for i in [0, 10, 20, 25, 30, 35, 40, 45, 49]:
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Chinchilla-optimal for your budget</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Chinchilla-optimal for your budget</H3>
       <Prose>
         You have a compute budget of <Code>10²³</Code> FLOPs. Using the Chinchilla formula with the Hoffmann coefficients (<Code>E = 1.69</Code>, <Code>A = 406.4</Code>, <Code>B = 410.7</Code>, <Code>α = 0.34</Code>, <Code>β = 0.28</Code>), calculate the optimal parameter count <Code>N*</Code> and token count <Code>D*</Code>. Verify that <Code>6 · N* · D* = C</Code>. What is the predicted minimum loss <Code>L*</Code>? How does this configuration compare to the 1.7 tokens-per-parameter Kaplan recommendation?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Show that GPT-3 was not compute-optimal</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Show that GPT-3 was not compute-optimal</H3>
       <Prose>
         GPT-3 was trained on 3.14 × 10²³ FLOPs (Brown et al. 2020). Using the same Chinchilla formula, compute the loss you would predict for the actual GPT-3 configuration (175B parameters, 300B tokens) versus the Chinchilla-optimal configuration for the same budget. By how much nats does the optimal configuration beat the actual? Which penalty term (<Code>A/N^α</Code> or <Code>B/D^β</Code>) is larger for each configuration, and why does that tell you which resource is being wasted?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Inference-economics over-training</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Inference-economics over-training</H3>
       <Prose>
         Suppose you have a training budget of <Code>6 × 10²³</Code> FLOPs and expect to serve <Code>T = 10¹⁴</Code> tokens over the model's deployment lifetime (approximately 100 billion queries averaging 1000 tokens each). The total cost is <Code>C_total = 6ND + 2NT</Code>. Write a short program or derivation that finds the <Code>(N, D)</Code> pair that minimizes total cost subject to a target loss <Code>L = 2.2</Code> nats (use the Chinchilla loss function as a constraint). How does the optimal <Code>N</Code> compare to the Chinchilla-optimal <Code>N</Code> for the training budget alone? By what factor are you over-training?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Data wall arithmetic</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Data wall arithmetic</H3>
       <Prose>
         Muennighoff et al. (2023) found that repeating data beyond 4 epochs yields negligible benefit. Suppose the total available corpus of high-quality English pretraining text is 30T unique tokens (a reasonable upper estimate as of 2024–2025). You want to train a model for which the Chinchilla-optimal dataset size would be 60T tokens. What is the maximum number of effective training tokens you can achieve under the 4-epoch rule? What does this constraint imply about the maximum optimal model size at this data ceiling? What are the three strategies for working around this limit, and what are the trade-offs of each?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Why perplexity is a less noisy metric than benchmark accuracy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Why perplexity is a less noisy metric than benchmark accuracy</H3>
       <Prose>
         Schaeffer et al. (2023) showed that discontinuous benchmark metrics can make smooth underlying scaling improvements look like sudden capability jumps. Consider a benchmark where the model must answer 100 multiple-choice questions correctly, and "passing" is defined as scoring above 50%. Sketch (or simulate) what the pass rate looks like as a function of model scale if per-question accuracy improves as <Code>p(N) = sigmoid(0.3 · log10(N) − 3.2)</Code>. At what scale does the pass rate jump past 50%? If instead you measured mean per-question accuracy directly, what does the curve look like? Explain why perplexity (a continuous average) gives earlier signal about scaling improvement than any threshold metric.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

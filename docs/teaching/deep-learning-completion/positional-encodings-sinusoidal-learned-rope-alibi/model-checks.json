@@ -1,0 +1,672 @@
+{
+  "topicId": "positional-encodings-sinusoidal-learned-rope-alibi",
+  "passed": true,
+  "checks": [
+    {
+      "name": "All sinusoidal entries width 8",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "All sinusoidal entries width 32",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE rotated query",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE rotated key",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE shared shift 0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE shared shift 100",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE shared shift -120",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE constant content",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "RoPE changed content",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Original ALiBi three-head schedule",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi competition",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi no-penalty control",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "ALiBi equal-content",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "T5 signed buckets",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 0
+    },
+    {
+      "name": "rope cached last",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "rope common-ID shift",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "rope cache storage permutation",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "alibi cached last",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "alibi common-ID shift",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "alibi cache storage permutation",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Wrong query rotation with correct legal mask",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Mixed-frequency cache",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Consistent new frequencies",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension original",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension pi",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Extension yarn",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 4 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 4 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 4 yarn",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 8 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 8 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 8 yarn",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 64 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 64 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 64 yarn",
+      "passed": true,
+      "maxAbsoluteError": 1.734723475976807e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 128 pi",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 128 baseScaled",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "s=1 width 128 yarn",
+      "passed": true,
+      "maxAbsoluteError": 1.734723475976807e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "none saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.000001092476451525215,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010292806937872712,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010292806937872712,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none point_edit",
+      "passed": true,
+      "maxAbsoluteError": 0.0000014679023321306772,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 4.928388874780865e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.00000128050140713043,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 7.782888840068836e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 8.95169995906997e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head query",
+      "passed": true,
+      "maxAbsoluteError": 7.782888840068836e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head key",
+      "passed": true,
+      "maxAbsoluteError": 8.95169995906997e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head value",
+      "passed": true,
+      "maxAbsoluteError": 4.7065401620471903e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000006401878827944074,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 1.224429575646946e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "none pooled features",
+      "passed": true,
+      "maxAbsoluteError": 6.371418699302467e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.000001094376016474996,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.0000016081875693352288,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 5.25192564992949e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal point_edit",
+      "passed": true,
+      "maxAbsoluteError": 8.468123047222775e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010015655060868767,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 6.551067333049332e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 0.00000114653776517315,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 6.804650611869079e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head query",
+      "passed": true,
+      "maxAbsoluteError": 0.00000114653776517315,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head key",
+      "passed": true,
+      "maxAbsoluteError": 6.804650611869079e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head value",
+      "passed": true,
+      "maxAbsoluteError": 7.087154370033488e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000003222123124757559,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 2.3969521339983757e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "sinusoidal pooled features",
+      "passed": true,
+      "maxAbsoluteError": 7.058460074205186e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.0000014926189235708875,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.000001605884104138866,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 6.724089975929104e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned point_edit",
+      "passed": true,
+      "maxAbsoluteError": 0.0000015910277566533182,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010409276181011506,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.000001575859592595208,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 0.000001695790733613478,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 8.217127440701688e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head query",
+      "passed": true,
+      "maxAbsoluteError": 0.000001695790733613478,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head key",
+      "passed": true,
+      "maxAbsoluteError": 8.217127440701688e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head value",
+      "passed": true,
+      "maxAbsoluteError": 4.319156956533732e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000006955629402227714,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 8.103018235283699e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "learned pooled features",
+      "passed": true,
+      "maxAbsoluteError": 7.351110982156683e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 7.270356578992221e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 6.874985976068615e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010324806503092532,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope point_edit",
+      "passed": true,
+      "maxAbsoluteError": 6.22411252759747e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 7.270356578992221e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 4.419472290351223e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 9.094003416976193e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 8.303352898586525e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head query",
+      "passed": true,
+      "maxAbsoluteError": 8.771175767918749e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head key",
+      "passed": true,
+      "maxAbsoluteError": 9.255912822858647e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head value",
+      "passed": true,
+      "maxAbsoluteError": 3.5601714176713983e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000004230211882116919,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 2.1076244410833667e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "rope pooled features",
+      "passed": true,
+      "maxAbsoluteError": 3.998118298653708e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi saved original logits",
+      "passed": true,
+      "maxAbsoluteError": 9.923500194908286e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 0.000001946024336119123,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi reversed_points",
+      "passed": true,
+      "maxAbsoluteError": 0.000001946024336119123,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi point_edit",
+      "passed": true,
+      "maxAbsoluteError": 0.000002840968995165838,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000012903217265769484,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000012210642368337687,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head rawQuery",
+      "passed": true,
+      "maxAbsoluteError": 0.0000013471634012773848,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head rawKey",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010468299525001612,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head query",
+      "passed": true,
+      "maxAbsoluteError": 0.0000013471634012773848,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head key",
+      "passed": true,
+      "maxAbsoluteError": 0.0000010468299525001612,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head value",
+      "passed": true,
+      "maxAbsoluteError": 4.274393594627668e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head content",
+      "passed": true,
+      "maxAbsoluteError": 0.000012046740046400828,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi both-head attention",
+      "passed": true,
+      "maxAbsoluteError": 0.000002010342996183745,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "alibi pooled features",
+      "passed": true,
+      "maxAbsoluteError": 5.222311618702236e-7,
+      "tolerance": 0.0002
+    },
+    {
+      "name": "JSX parse src/learn/data/topics/positional-encodings-sinusoidal-learned-rope-alibi.jsx",
+      "passed": true
+    },
+    {
+      "name": "JSX parse src/learn/components/lesson-labs/PositionalEncodingLabs.jsx",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "All five retained float32 models compared to JS float64 with bounded GELU approximation.",
+    "Geometry and recorded inference, not long-context performance or fresh training."
+  ]
+}

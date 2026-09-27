@@ -797,7 +797,7 @@ canonical use         early research,  frontier labs     scaling-law-style  smal
       {/* ======================================================================
           11. SELF-CHECK
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five short problems. Work them before reading the answers; the point is to surface confusions you might not know you had.
@@ -845,7 +845,7 @@ canonical use         early research,  frontier labs     scaling-law-style  smal
 
       <Prose>
         The mix and the curriculum do not get their own sections in every pretraining paper, but every lab that has trained a frontier model has paid close attention to them. The gains are quiet, distributed across domains, and usually ascribed in public writeups to "better data" without the specifics. This topic is the specifics. The next one picks up from the cooldown endpoint and looks at what happens after pre-training ends — how the base model gets turned into a chat model, an instruction follower, or a reasoner, and how many of the same mixture-design tools reappear at those later stages.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

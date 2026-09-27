@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "authorPaths": 60,
+  "deployedIdenticalFiles": 9,
+  "realTrajectories": 2,
+  "checks": [
+    {
+      "name": "Every final author source identity matches current bytes, including shared render dependencies and deployed assets",
+      "passed": true
+    },
+    {
+      "name": "All nine public downloads equal their canonical packet sources byte for byte",
+      "passed": true
+    },
+    {
+      "name": "Both compact real examples retain all 45 raw coordinate pairs and source labels exactly",
+      "passed": true
+    },
+    {
+      "name": "Generated article retains all 15 sections, eight independent hint/solution pairs and four complete program readers",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Source and data integrity; painted layout and live browser behavior are verified separately by root."
+  ]
+}

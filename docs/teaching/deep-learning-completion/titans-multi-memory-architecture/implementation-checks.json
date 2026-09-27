@@ -1,0 +1,353 @@
+{
+  "topicId": "titans-multi-memory-architecture",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/titans-multi-memory-architecture/author-checks.json",
+    "docs/teaching/drafts/titans-multi-memory-architecture/bike-sharing-daily.csv",
+    "docs/teaching/drafts/titans-multi-memory-architecture/check_author_packet.py",
+    "docs/teaching/drafts/titans-multi-memory-architecture/data-provenance.md",
+    "docs/teaching/drafts/titans-multi-memory-architecture/design.md",
+    "docs/teaching/drafts/titans-multi-memory-architecture/experiment-protocol.md",
+    "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md",
+    "docs/teaching/drafts/titans-multi-memory-architecture/mechanism-results.json",
+    "docs/teaching/drafts/titans-multi-memory-architecture/memory_mechanisms.py",
+    "docs/teaching/drafts/titans-multi-memory-architecture/neural_memory.py",
+    "docs/teaching/drafts/titans-multi-memory-architecture/rental-results.json",
+    "docs/teaching/drafts/titans-multi-memory-architecture/rental_memory_study.py",
+    "docs/teaching/drafts/titans-multi-memory-architecture/source-description.txt",
+    "docs/teaching/drafts/titans-multi-memory-architecture/visual-specifications.md",
+    "public/learn-assets/titans-multi-memory-architecture/bike-sharing-daily.csv",
+    "public/learn-assets/titans-multi-memory-architecture/check_author_packet.py",
+    "public/learn-assets/titans-multi-memory-architecture/data-provenance.md",
+    "public/learn-assets/titans-multi-memory-architecture/experiment-protocol.md",
+    "public/learn-assets/titans-multi-memory-architecture/mechanism-results.json",
+    "public/learn-assets/titans-multi-memory-architecture/memory_mechanisms.py",
+    "public/learn-assets/titans-multi-memory-architecture/neural_memory.py",
+    "public/learn-assets/titans-multi-memory-architecture/rental-results.json",
+    "public/learn-assets/titans-multi-memory-architecture/rental-seed-19.json",
+    "public/learn-assets/titans-multi-memory-architecture/rental-seed-3.json",
+    "public/learn-assets/titans-multi-memory-architecture/rental-seed-7.json",
+    "public/learn-assets/titans-multi-memory-architecture/rental_memory_study.py",
+    "public/learn-assets/titans-multi-memory-architecture/source-description.txt",
+    "scripts/check-titans-memory-models.mjs",
+    "scripts/check-titans-memory-native.py",
+    "scripts/check-titans-memory-render.mjs",
+    "scripts/generate-titans-memory-lesson.mjs",
+    "scripts/lib/prepared-lesson-renderer.mjs",
+    "src/learn/components/content/Callout.jsx",
+    "src/learn/components/content/Code.jsx",
+    "src/learn/components/content/Figure.jsx",
+    "src/learn/components/content/Headings.jsx",
+    "src/learn/components/content/Math.jsx",
+    "src/learn/components/content/Prose.jsx",
+    "src/learn/components/content/index.js",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/TitansMemoryDiagrams.jsx",
+    "src/learn/components/lesson-labs/TitansMemoryLabs.jsx",
+    "src/learn/components/lesson-labs/TitansMemoryStudy.jsx",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "src/learn/components/lesson-labs/titans-memory-labs.css",
+    "src/learn/data/titans-memory-models.js",
+    "src/learn/data/titans-memory-study.js",
+    "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+    "src/learn/styles.js"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/titans-multi-memory-architecture/author-checks.json": "5690cc4b4ff4c06ce7466da4cc33bb1c54a2fba0fe9e2c319355e16a9b775d98",
+    "docs/teaching/drafts/titans-multi-memory-architecture/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "docs/teaching/drafts/titans-multi-memory-architecture/check_author_packet.py": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604",
+    "docs/teaching/drafts/titans-multi-memory-architecture/data-provenance.md": "06fd9d703263613fd133a774ed900a81a1ad05c769f5773a81b3d904f5899666",
+    "docs/teaching/drafts/titans-multi-memory-architecture/design.md": "3d1a0e3d9edff88af6db61c3e0f8f6d99edc3d4f34c2808e7d044ef4677a8e34",
+    "docs/teaching/drafts/titans-multi-memory-architecture/experiment-protocol.md": "e1295e508c7f4f09f7af129dfa520353e31b8fd9659f44f3e82247a405a0a66a",
+    "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md": "ac95cd713f4210b19580ce16fb9e55dd72fa2c3f7c79c294d8b6a1b44530a259",
+    "docs/teaching/drafts/titans-multi-memory-architecture/mechanism-results.json": "23f58d46147a2df876dc8163b7cea92f59cdd46c2806d13a1c5f081f65d7a375",
+    "docs/teaching/drafts/titans-multi-memory-architecture/memory_mechanisms.py": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6",
+    "docs/teaching/drafts/titans-multi-memory-architecture/neural_memory.py": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258",
+    "docs/teaching/drafts/titans-multi-memory-architecture/rental-results.json": "45e6b63c663377a8c8d0b20139594fc7636d01db350258613bd07603d6ff0261",
+    "docs/teaching/drafts/titans-multi-memory-architecture/rental_memory_study.py": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037",
+    "docs/teaching/drafts/titans-multi-memory-architecture/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+    "docs/teaching/drafts/titans-multi-memory-architecture/visual-specifications.md": "b9e2338a814639085d0ff375709b5c03131be684d51d576e9a44b2f95547f757",
+    "public/learn-assets/titans-multi-memory-architecture/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "public/learn-assets/titans-multi-memory-architecture/check_author_packet.py": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604",
+    "public/learn-assets/titans-multi-memory-architecture/data-provenance.md": "06fd9d703263613fd133a774ed900a81a1ad05c769f5773a81b3d904f5899666",
+    "public/learn-assets/titans-multi-memory-architecture/experiment-protocol.md": "e1295e508c7f4f09f7af129dfa520353e31b8fd9659f44f3e82247a405a0a66a",
+    "public/learn-assets/titans-multi-memory-architecture/mechanism-results.json": "23f58d46147a2df876dc8163b7cea92f59cdd46c2806d13a1c5f081f65d7a375",
+    "public/learn-assets/titans-multi-memory-architecture/memory_mechanisms.py": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6",
+    "public/learn-assets/titans-multi-memory-architecture/neural_memory.py": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258",
+    "public/learn-assets/titans-multi-memory-architecture/rental-results.json": "45e6b63c663377a8c8d0b20139594fc7636d01db350258613bd07603d6ff0261",
+    "public/learn-assets/titans-multi-memory-architecture/rental-seed-19.json": "d4eceb123255264a249498921b9486eb096185e9e0df92e8e8d232d826250f8e",
+    "public/learn-assets/titans-multi-memory-architecture/rental-seed-3.json": "6da0916331f89967842862b956b1ef0b2fde57e621e34aace75f70dcb25e9cb3",
+    "public/learn-assets/titans-multi-memory-architecture/rental-seed-7.json": "deca18336167d5d1de3f043659ebb55b837e54f35705e098cdd7e0e48f6c04f0",
+    "public/learn-assets/titans-multi-memory-architecture/rental_memory_study.py": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037",
+    "public/learn-assets/titans-multi-memory-architecture/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+    "scripts/check-titans-memory-models.mjs": "d62c3611fa2b65ae0cf3c9f7ba3ffc96ba8d2e2263f84b9280f0fb6a80b7a75d",
+    "scripts/check-titans-memory-native.py": "b798f4329c60b6aa270ae5fc752edaa167cdb375380a0f3034abc5840a826d55",
+    "scripts/check-titans-memory-render.mjs": "6f9ba7a10e676b8c7ca1aacc9634977241c3a3794e70dbe74b2772699286a74b",
+    "scripts/generate-titans-memory-lesson.mjs": "08e692259941dcf691c45e1b8b82909df97e087d5fdada74eae33188cdbc453d",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+    "src/learn/components/content/Callout.jsx": "810f228309aa7c3e616fcbbb87bc76e768e1ef5c599e57699a9595bee873e758",
+    "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+    "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+    "src/learn/components/content/Headings.jsx": "225f4f43fbedadbda344b660ade02ab99f90e9cdb8bf73c4c31414ecf7f368cd",
+    "src/learn/components/content/Math.jsx": "427a466aaa33b2733c7b87cf9c2c8e2ed338a2f234764590b69fafc1b5952459",
+    "src/learn/components/content/Prose.jsx": "1528b2a39390da2527d707430ab7ed363b740990071315716d2bd25699988494",
+    "src/learn/components/content/index.js": "c7a7e0b98f308758c789b286ad74af82d762e48b29982506ef9a1307ce947c4f",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/TitansMemoryDiagrams.jsx": "2083ff74a427ca644f44b381952c71ec2aa5c8abf4ca9542b7a34a69fe2cb35b",
+    "src/learn/components/lesson-labs/TitansMemoryLabs.jsx": "8ce3a55f93cbee3f2a35e3c7f54f18ccf967e7056522bcc8efb10987f2c8becc",
+    "src/learn/components/lesson-labs/TitansMemoryStudy.jsx": "4cf919a49060b17bcd0419b3053c6cd7be5c56f6df72a62a29b27f5d8a40e867",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/titans-memory-labs.css": "10c3a8aab73c48ec11775499fd2392d9842dbcafdd3ace942b83866f0dc17ec1",
+    "src/learn/data/titans-memory-models.js": "120151600cc371ca6a71ad8a515e782df974b76ba23d497f5c94082f222b8655",
+    "src/learn/data/titans-memory-study.js": "8bb87ff8c102e531e4e123f07a22a2b574216e54203fc79b8bb87b966e5699fb",
+    "src/learn/data/topics/titans-multi-memory-architecture.jsx": "ce450ae130497311095cdfc4d4c810dbed5fed199b8c5935410e640b827c3e6c",
+    "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+  },
+  "productionPath": "src/learn/data/topics/titans-multi-memory-architecture.jsx",
+  "checks": [
+    {
+      "name": "Complete prepared arithmetic/data/state/causality checker executes on copied immutable inputs",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0.1: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0.25: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0.5: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Seed 3: full 366-day native replay matches all four retained trace quantities",
+      "passed": true
+    },
+    {
+      "name": "Seed 7: full 366-day native replay matches all four retained trace quantities",
+      "passed": true
+    },
+    {
+      "name": "Seed 19: full 366-day native replay matches all four retained trace quantities",
+      "passed": true
+    },
+    {
+      "name": "Arrival edit at 380 preserves that day and every prior forecast",
+      "passed": true
+    },
+    {
+      "name": "Arrival edit at 548 preserves that day and every prior forecast",
+      "passed": true
+    },
+    {
+      "name": "Arrival edit at 720 preserves that day and every prior forecast",
+      "passed": true
+    },
+    {
+      "name": "24 two-output residual/outer-product/momentum/decay writes match NumPy",
+      "passed": true
+    },
+    {
+      "name": "18 full gated sequences agree in every attention, fast-state and read field",
+      "passed": true
+    },
+    {
+      "name": "Nine nonlinear hidden/output shapes and exact manual gradients match PyTorch",
+      "passed": true
+    },
+    {
+      "name": "Outer derivative agrees with retained PyTorch graph and recomputed finite differences",
+      "passed": true
+    },
+    {
+      "name": "Seed 3: all 366 real forecasts/losses/gradient norms/update norms and final state match native",
+      "passed": true
+    },
+    {
+      "name": "Seed 7: all 366 real forecasts/losses/gradient norms/update norms and final state match native",
+      "passed": true
+    },
+    {
+      "name": "Seed 19: all 366 real forecasts/losses/gradient norms/update norms and final state match native",
+      "passed": true
+    },
+    {
+      "name": "Three edited real arrivals match native and cannot change their own recorded forecasts",
+      "passed": true
+    },
+    {
+      "name": "Arbitrary two-target gradient schedules match independent closed polynomials and nulls",
+      "passed": true
+    },
+    {
+      "name": "Associative orthogonal/correlated, zero-key, zero-gradient momentum and full-decay examples",
+      "passed": true
+    },
+    {
+      "name": "Default and large exact integer payload counts",
+      "passed": true
+    },
+    {
+      "name": "All ten deployed learner downloads are byte-identical to their canonical sources",
+      "passed": true
+    },
+    {
+      "name": "Full manuscript renders with all five investigations and four complete-code controls",
+      "passed": true
+    },
+    {
+      "name": "No render exception, React warnings, or nonfinite numerical outputs",
+      "passed": true
+    },
+    {
+      "name": "Equations render through KaTeX; practice solutions remain closed",
+      "passed": true
+    },
+    {
+      "name": "All chart/diagram containers have focusable local scrolling at native label size",
+      "passed": true
+    },
+    {
+      "name": "Complete concept map and separate ten-item learning-experience assessment recorded",
+      "passed": true
+    },
+    {
+      "name": "Entire detailed manuscript and all changed practice retained",
+      "passed": true
+    },
+    {
+      "name": "All 10 public learner downloads equal canonical sources; no authoring documents deployed",
+      "passed": true
+    },
+    {
+      "name": "Selected seed loads lazily with local error/retry and edited state preserved",
+      "passed": true
+    },
+    {
+      "name": "Every Titans select has explicit topic-local aria-label in addition to visible wrapping label",
+      "passed": true
+    },
+    {
+      "name": "All Titans plots use topic-local400px viewBox with88px left axis margin and bounded scientific tick formatting",
+      "passed": true
+    },
+    {
+      "name": "Current source-render closure: explicit overlap plus bounded compact SVG legend/numeric labels",
+      "passed": true
+    }
+  ],
+  "evidencePaths": [
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/content-checks.json",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/design.md",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/native-checks.json",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/model-checks.json",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/render-checks.json"
+  ],
+  "evidenceHashes": {
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/content-checks.json": "b7ee9599f2989cfba0f5a3cd1b578046d5a78eea68ea349cc0079146d613e5de",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/design.md": "123dfb2af8b291fa0be482a18a9830cb3f283b147bd5ea5897293f0275109228",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/native-checks.json": "07bf80b170625cf77600d2ee57f1e493720f168e0cf7b0f21b5bbe64af9f0132",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/native-fixtures.json": "80c2744233e3327bda65132006d7237073af514f86e788950bedac32a741d983",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/model-checks.json": "0d60db424390b58ca497ca6cf3674f9445656ef5f63ea9c47f6d4d0ac20fd858",
+    "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/render-checks.json": "e387926ee804c60c56b251094e80fdcd9fbe73e6369bba65f6693e52667ee64d"
+  },
+  "nativeEvidence": {
+    "program": "scripts/check-titans-memory-native.py",
+    "threads": 1,
+    "fits": "No new fits; replayed all three saved initial models",
+    "rentalForecasts": 1098,
+    "comparisons": 11995,
+    "maxAbsoluteError": 9.94176962976212e-13
+  },
+  "browserInventory": {
+    "labs": {
+      "titans-write": [
+        "two actual key/value cards",
+        "read query",
+        "rate",
+        "momentum/decay",
+        "history Write/Back",
+        "zero key",
+        "momentum-only/full decay",
+        "reset"
+      ],
+      "titans-gated": [
+        "4\u20138 actual tokens",
+        "persistent prefix",
+        "write enable",
+        "carry/fresh suffix",
+        "token inspector",
+        "separate request B",
+        "future edit",
+        "reset"
+      ],
+      "titans-outer": [
+        "write rate",
+        "retained/detached graph",
+        "forward and derivative comparison"
+      ],
+      "titans-rentals": [
+        "three lazy saved seeds",
+        "actual observation date",
+        "arrived count",
+        "selected date",
+        "restore/reset",
+        "model load failure/retry preserving edits"
+      ],
+      "titans-chunk": [
+        "two targets",
+        "initial weight",
+        "rate",
+        "chunk1/2",
+        "highlight",
+        "changed fixture",
+        "zero rate",
+        "reset"
+      ]
+    },
+    "figures": [
+      "memory lifetimes",
+      "key-to-weight update and query ruler",
+      "orthogonal/correlated vector planes",
+      "signed update decomposition",
+      "fixed-key stability",
+      "connected MLP shape and XOR",
+      "QKV projection/conv/normalization",
+      "MAC/MAG/MAL state paths",
+      "inner/outer derivative graph",
+      "predict-observe-write timeline",
+      "paired MAE with both baselines",
+      "full/date-local real forecast comparisons",
+      "current normalized feature coordinates",
+      "sequential/anchored dependency graph",
+      "affine map composition",
+      "separate exact state payloads",
+      "robust objective derivatives",
+      "vision auxiliary target availability"
+    ],
+    "sourcePrograms": 4,
+    "practice": 8
+  },
+  "remaining": [
+    "independent",
+    "browser",
+    "integration"
+  ],
+  "limitations": [
+    "Native small MAG specialization and supervised arrived-target memory replay, not a pretrained Titans benchmark.",
+    "SSR passed; painted controls/mobile/error-retry are not claimed checked by the author."
+  ]
+}

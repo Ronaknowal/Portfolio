@@ -1,0 +1,2642 @@
+{
+  "passed": true,
+  "recordedOn": "2026-09-28",
+  "scope": "Visible teaching, shared code controls, automatic program loading and a separate lesson file index; scientific evidence reused",
+  "previousReview": "docs/teaching/lesson-endings/presentation-review.json",
+  "previousReviewSha256": "78f1870942da492d78777dce968a439e64e5ef2265ea9c9ba52c236163d2a509",
+  "manifestSha256": "a82b30018548e16ccfc446b24e10c1ac6525f3855051aeea49f260586356e02a",
+  "reviewedFiles": {
+    "src/learn/data/topics/graphs-representations-bfs-dfs.jsx": "247778da9244b56359623910513331c04ea426464918d9534c412f8977686816",
+    "src/learn/data/topics/heaps-priority-queues-tries.jsx": "3815f30692970c220cd0a69fd26b3788f9ecb324b85a25211d964fb5a43a5046",
+    "src/learn/data/topics/trees-binary-search-trees.jsx": "1da4777b0d373ed7ec38f16708d442d8de102313331828de72b18823538f2850",
+    "src/learn/data/topics/threads-concurrency-locks-deadlocks.jsx": "73b0f503c06203a388f5f74caacf9bb366f6429d3097669586addbd860ab2c58",
+    "src/learn/data/topics/scientific-file-formats-schemas-reliable-data-i-o.jsx": "3b2a65d25f551a749f39dc21279258f7d18a4ea6ddc71a518f856d9c3d01a4bb",
+    "src/learn/data/topics/sql-relational-data-transactions-for-ml.jsx": "6972524093f81d17e67bc0d73abc27f52b40d25ea0a70ea27a2dcfff29820ee1",
+    "src/learn/data/topics/python-basics-types-control-flow-functions-modules.jsx": "a3307b5c132a4e8e6ede047cb62e7c509c617b63d3abb598aa75b75fe7d47fa4",
+    "src/learn/data/topics/object-oriented-programming-in-python.jsx": "425edd262544e5d228fb539028c8114c1e40e989a9357f8fa9f233805f4df1d5",
+    "src/learn/data/topics/iterators-iterables-generators.jsx": "6af7107f9e6ed65307ad3a688a373df68ee26c34c8b1a6c1838a77cc468e4e9b",
+    "src/learn/data/topics/decorators-context-managers.jsx": "a37f2fddcec3a765a1df1aca39ef43664a924008cda8fddf3edf554e31a673ca",
+    "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx": "f477d8114e7f3883aa7b1b2dfe0abb504e6b1de709dd763090e834bf03c836e4",
+    "src/learn/data/topics/pandas-data-wrangling-joins-grouping.jsx": "8c26187d05e45f02554da6b8ab35bfdcdfa204d3c6f2f7cb11f8038e30cd5004",
+    "src/learn/data/topics/code-documentation-type-hints-api-design.jsx": "1c6477138f96a7d93963df9d1dfd5bead527cbaa600ccb777ed7ce266392115a",
+    "src/learn/data/topics/git-github-collaborative-version-control.jsx": "a92068ebfd361b79e98cc7687171ada0f3f4084d2b42a1ad13706c6f71527391",
+    "src/learn/data/topics/linux-basics-filesystems-processes.jsx": "45b1ac2e67391e5710e231a013c55a22240ad0129ce39df892d3ca2146f7d535",
+    "src/learn/data/topics/os-processes-virtual-memory-isolation.jsx": "90b9a2f286ac1357ce06086060e10fce5268ca57b7efee2d7b6de4bf71dbece5",
+    "src/learn/data/topics/arrays-strings-hash-maps.jsx": "c08bca05b835c47dba86f5fea719b8299501fa710d37040e25ec8508496ef8a9",
+    "src/learn/data/topics/bash-scripting-command-line-automation.jsx": "b16731bb693a53a7bf338104b44e5a17e748e77e123b6fe4db07f7fdba36eac2",
+    "src/learn/data/topics/vectors-matrices-tensor-operations.jsx": "19f0abea3adc67232f2d6ee6aa9282c46ef658b9804e572dcd89ec40bd808b02",
+    "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx": "1a93b5bbc4c40cb46f5c580b63cde5de1a6ce24bbbdcd6420d79bcc094cbae4f",
+    "src/learn/data/topics/eigenvalues-eigenvectors.jsx": "e62aceeba7c2b5f9707197f2ef94e661b97091708d3dcb6f415e24af8a2a1b5e",
+    "src/learn/data/topics/matrix-calculus-jacobians.jsx": "06e14cfecf3be723df84ce142f5bd52ab4e4996bfcc898e932f6e5e19bd1c7c8",
+    "src/learn/data/topics/tensor-algebra-einsum-notation.jsx": "4cb78230f37005568fd978ac59e719a92dd7a4fbdf34c3c959dbd2b99b07eaed",
+    "src/learn/data/topics/randomized-linear-algebra.jsx": "c1ddc9918d401251f39a133e3c522de9fa295343f78d31390fcf8786a0e79dc2",
+    "src/learn/data/topics/multivariate-calculus-gradients.jsx": "28c66117e12796245e127f1299971add307ceb1aede9e8ced875d4f2300feb01",
+    "src/learn/data/topics/convex-optimization.jsx": "16242ea8520d7e493972a049921662cef2df5606a48baa02f71871a459b502e6",
+    "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "6fe3259115525aa2bba69fa7ef1b83978796ac72ffa61b5e23fffbe2369f6086",
+    "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx": "d0263f0747934cc07523f93e4ab1549160ddfb1e212a5816db6a551610cf5011",
+    "src/learn/data/topics/non-convex-optimization-landscape.jsx": "dec59aaaa08865c19ceea6ad64c9da5d397a9c03dfe72df4229b90fd6a9e4889",
+    "src/learn/data/topics/constrained-multi-objective-optimization.jsx": "c768e1afa8aa3a1e117e9264a3ab878f2418fe69d7dc23aa0be1e8baad81b97a",
+    "src/learn/data/topics/maximum-likelihood-map-estimation.jsx": "13fd745dd7b380482214bd27d4ed2af297d0d30bfbc99451fbd539ead70a33a7",
+    "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx": "e0505b9695c829195f9839f8ec5187650e93c835bb8303b7233c776252bbc157",
+    "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx": "95f1551e0eadc5286a9e0931917d5b2220158a676d6dca2624fd15afc5e5ab08",
+    "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx": "c25aafa3dc585fd4fd47fe575a8ad3a1d454096ba7cc87d7bb4e48c76df2505c",
+    "src/learn/data/topics/variational-inference.jsx": "035a4f36c8ede782f87bf3d89bd165639d6f7cb1ceff5fb9376b8ab1ea49dc24",
+    "src/learn/data/topics/measure-theory-probability-spaces.jsx": "4d5235a3f7dd75ea10a3ce2d4af4240c205ebbd344349ebfb4432bb42d0a8515",
+    "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx": "8eb74ac5b26d6923baedafccf28665235da3e4953ea574c064f9d3cf6da8f9f1",
+    "src/learn/data/topics/causal-inference-do-calculus.jsx": "00369a9f890e3ae1f9d2d9ac1c96c6b8c992f715fab2dbf020dba7b4d6f3f224",
+    "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx": "57e92aed15c98bac85b3eabd17e46de7385aa1d1d4a0a27e1e095f8d82834a9d",
+    "src/learn/data/topics/rate-distortion-theory.jsx": "9b05242dc7ee29a0c8e0642003f67e25561256bd56f67a8bd433c0f297e624fb",
+    "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx": "c9cd180cc2b1902a2226d6532978d0830e749286ebcf9d2ad54475d76e870909",
+    "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "4c59a2fe1ec7d93766f84fd2b17e34b717b303a97e1c5accf86533526f479bf3",
+    "src/learn/data/topics/spectral-graph-theory.jsx": "9c8e937e784c39ad1050fcea21632ac3474b96476bc77741e7987d660a43e64c",
+    "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx": "fa5308817699d71095ccbaa990a80aa0c6e961c1c9f6bf63f3b2676690b11f30",
+    "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx": "a0cc27270d81c4f2a73b486874c3a6081fec52930c349cf2113cad30dc22ea29",
+    "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx": "0659c8e03c39b43c804a735a79c90178a8746859fdb478936856b2c7d75290fc",
+    "src/learn/data/topics/dynamical-systems-theory-chaos.jsx": "15da3dcb0195a4b0a62b27d660aa2f2fff268bb63745378992d5b01782270301",
+    "src/learn/data/topics/functional-analysis-rkhs.jsx": "a1f13eec56f86f4b1be3dfb4d4bf9f84b349a13ee9cb21cb8a311871967579db",
+    "src/learn/data/topics/topology-topological-data-analysis-tda.jsx": "2540847b7e6d6a4ed0485e0055c9cf97d445756e6ecda8166aab3fd9ae633215",
+    "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx": "3ba33390e6ccdbbe319896b3e8725a9111fef825c8c8ba8238ad41c1ae9b94f8",
+    "src/learn/data/topics/linear-logistic-regression.jsx": "6cfb98adc739e8a0ff68dd1f23cc33139780b8995c81f6bfddf111b6dc58ce80",
+    "src/learn/data/topics/decision-trees-random-forests.jsx": "6599ee880982528acbec6427750228828db3cb458ec76bdb493c81a27ad7a656",
+    "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "e1f7fddbcb580114984eb6d7e375744eaaef834fdaa528a0a2664c38885661ce",
+    "src/learn/data/topics/ensemble-methods-stacking.jsx": "f300f20181f40579857ce3972fc81cbb0b76519fd6067bb291912b7cdb76d29a",
+    "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "eafa68ae841cc29e5b5107fb95cf875032c96cb6f1f3642b0dafd4236b3920ce",
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx": "329270bc13b85f4bcf2902a59058dce02670cf1d8773f488b66c78c755d9bd86",
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "3f738c239c60240d33255e23d68596f8878804501154e72a43510b16f3ace26d",
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "7b42c60310bc4c6b4b473df766a0f83ae3bd89ee5eb92bf2ce297b29744097da",
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": "a0cacacd75d6f16e1f38f25dc52618d73c7124c449b6fe649a58c0c272056924",
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "4dd6ead3a64ebcddb3f9122863b663a4230c585a4e1576400fa7006b3ed530a2",
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "bc0ffc165d73d8edcbc6baec5dd69d8cfa988903e4fbd4aa02a2aef37369cc75",
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "a3a3ff80c3239f31dfeeeb638568b6dee9ea0fcb6b51a26f2d77681dcd9fb822",
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "4e05fa19e03f296927ce699cab85ea41995caa4adc4589b887a82c0ed5d448d2",
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "a7b640a3c2180bdb740ed6b798b6cdbe7724ff135bb04eae1f4b33a5ef516cd5",
+    "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx": "d498c191bb0e78bc4f81fa4b9b8b947c58c89d1dc02795ef964deb8ec97276b7",
+    "src/learn/data/topics/neural-ode-continuous-depth-models.jsx": "f6a006873b64ac8266f3b031505bc3919c1b29fa1725cca8cda02ace239f880c",
+    "src/learn/data/topics/disjoint-sets-union-find.jsx": "ebd608d1d69bcb4715c2237e49cf245db198c64d3198a3e07a3c97f672e07540",
+    "src/learn/data/topics/complexity-analysis-recursion.jsx": "20873d4c694ad90d765dd611a1cd491a9aff1f523040e20c65291e2209b6c5d9",
+    "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx": "1800b4619789f60a6f170c9646876735f849d235bd5dbf9cae5ca7f2192931df",
+    "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx": "93328fa447b42daad7ea6ecaf2b2f06ae8e327ebe5fc9d3030781225746aceb2",
+    "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx": "3eda42f38b6834ef23f0abda3a673d4944169069ef4ae92108b3c5caac31e40c",
+    "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx": "41e696f34a779539fb41e35fae05fafc1e937c1e597e06126cbd6a390a798879",
+    "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx": "1462fb09c3db45e4c1f8c68987c80d2df1cf179f44d569d91b83df911f048979",
+    "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx": "ff29acf1015aeec0b7352aebbd29f592822d4b69f7d20e5ca90d34b7e13c33f2",
+    "src/learn/data/topics/reductions-p-np-computational-intractability.jsx": "35d354205da6a4a61c1082c8bec2b74187472ddc55d75d3998e1c317626b7299",
+    "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx": "3b568df1a82d1d3a40b111b770f30def197f0fba24a3e5e3d45c35d54728e920",
+    "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx": "7b885cebf1f1701be2bdd98197f0e69ef9a462c4b802580cc0d88eab17e7d599",
+    "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx": "0cf64691cf79acc87572345e7725abdc38fbed432c479d9d9e552a5cc607e866",
+    "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx": "d39ed51f250d5831a6e6e747ab3f9cd6a78cbd8e074edaf8bf3b784680455f46",
+    "src/learn/data/topics/random-variables-expectation-covariance.jsx": "e93627ecc000f5596e06665170c15d85d0c0375763592bb164c27eef157e48f7",
+    "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx": "401ec03278eed30b51e15c8b5ec41d1f3ac801cd9ef8a7fcd6c5b1b080d7a397",
+    "src/learn/data/topics/sampling-measurement-experimental-design.jsx": "d0caf14e109e040c96cd5c8bde09187abafe9b8347fbbd6e37d626f0d728a28e",
+    "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx": "54b843fd7d3e6db45729ebf05c1e773535243406cdecac45211f3902de61a13f",
+    "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx": "09188d1776dfd9eb5bd646ee044d1766e0404fdcfee68ed7e4bf8eb07ac66acd",
+    "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx": "767abbd4c23473b925b673bdd840b1317116068a02867dd022e078b9efa108ac",
+    "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx": "5770b63194aa3bbb2c5390cba5360a440c9aa52ea5871c609580d00887d4c81a",
+    "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx": "cdcce5fb9d609e8e566b0eb8349218e50f04c46e8b5c8fddb53e1af9623b1673",
+    "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "c02967ba8cc952a378d5eecbb0612fa92de0632c0a53fd308cecfb1cd2560460",
+    "src/learn/components/content/Code.jsx": "e410314174eb0695def5596cc1cfbef42c1ed37884c0577d7566957f5816cdfc",
+    "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx": "a2db70a06a193332f58db1fb2c57be9868f7deef286a2fca6497423b4fc375e5",
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": "e7ccd51042fa030134c339a2063be7e83a86c26a417d4c217c1e163d934f22a6",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "8692db1a9551e2df4ee64ef1d540e19fb6f61b17d83fb72642f0c17a774caac3",
+    "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx": "bbccdb6d0187fa9ad59b97d9458bf5e3b02e54c21d25e9175b47820d82dad493",
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "af338f611ada019393dc35f0ebefcfc2e71b199ad6d9b42751b11c4e863175e5",
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": "c511e97b8e88e517f810e8f592c40734878db186340467005fff6c5e4d672d1b",
+    "src/learn/components/lesson-labs/AutomlLabs.jsx": "453a050bd623c37c6646a3e73fdc5a67d6c466b0bc720940cb6f8d9d2fb623a6",
+    "src/learn/components/lesson-labs/AutomlShared.jsx": "d19a11821a5cf2dd631626c0fe2d137da7c1578cf0e96870e4630197bd14911c",
+    "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx": "8b5a700f4a730c4ed9d829e5f3f7b352eff99ee8fcfbbc8fbb99a2727658ed56",
+    "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "39021ec4c0eca5a60e08cf36bd792cb074bcad840819e5da02830b331d39d493",
+    "src/learn/components/lesson-labs/BiasVarianceFigures.jsx": "306b2745673fcb5f969c6d563455cab60599cd39041284f14b8ec2420bb18a11",
+    "src/learn/components/lesson-labs/BiasVarianceLabs.jsx": "2370d86b7211b9fb32a23621a01f0e93719ca2a95c107cf8d896dcd07b6839b8",
+    "src/learn/components/lesson-labs/CapsuleLabs.jsx": "d42bf7dac6559eb4290a162b5550b91e654ed715a9a88a58d42198fe3eaa3a32",
+    "src/learn/components/lesson-labs/CausalInferenceLabs.jsx": "031d5ab8430a323ebe5493d4e1b44e631d12f91d35c0705ca46c5e6e28f6ca9b",
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "76c3215385b0e787f03faa6d129d9e4804c2f9cfa4b7ab7e3baff6f6ceb75484",
+    "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx": "870762d3c1f69f76ce8dc2d12cd2f72a3f18fa59c6b77a1ace575dfae30534f8",
+    "src/learn/components/lesson-labs/ComplexityRecursionLabs.jsx": "1d34ad8e62429538f75e8f1c905d36bd40ef61075e81a86589f9120cf569c350",
+    "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "c18a9d69f843def9ad113bdad132d323cb68cdeb80941540abd6142928aec683",
+    "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx": "f16858c871cd52d3b7ad6030f15f64af16148084cc06dcb388efa0dc95672dc0",
+    "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "82b6eaca5d20613a6c4b06a2653572b8cb485c1141ca3a8e2819f28af937a1d9",
+    "src/learn/components/lesson-labs/ConfidenceLab.jsx": "3d067bad83722c1587d83fd5d69e4e477aa233e0e92930fb5188f57af9072574",
+    "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "880577ec7d9b2e278463595e37ec4db9b397488860cf56af490084801b66183b",
+    "src/learn/components/lesson-labs/ConvNeXtLabs.jsx": "539aac32a0dd0678f97ef69d989abb69911b7a53adae0489b20ff2bf6214320b",
+    "src/learn/components/lesson-labs/ConvolutionLabs.jsx": "d2fd89bc75722b413c090df20bb1230b084f9d68b2b0bbb0551e9e032f4606fe",
+    "src/learn/components/lesson-labs/CrfFigures.jsx": "529deca13841d4211463573356dbb713ed11201c34e008876d1f19dca51cf513",
+    "src/learn/components/lesson-labs/CrossAttentionLabs.jsx": "9dbfdc7a136fb416a85afcc399757e018ffd2ae4a0b8f033b4cd47405dc9c644",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": "27bc0c17d9306b0c5052b84d14dd0efc85c53c1cba2b87f43fe9673e5e840b00",
+    "src/learn/components/lesson-labs/DecisionTreeLabs.jsx": "24992c21ee58c569c49ab0a5e9bbeb32f8e6baea7e43d814d7501d43d275c637",
+    "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx": "f3d3248df58a61e8948afd18cdb2583e33a3d39003d2014680e2885ea44e87e0",
+    "src/learn/components/lesson-labs/DropoutLabs.jsx": "9146ac1f4ef91b327ffdcc231bcd0b1b59e4ab51451496a74c1ffce9bcd1eac9",
+    "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "3d485efefa619c5e0bc5fe9a14c9c65c28462fe39c9b223872533b82cfb1db59",
+    "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "7e6ed60e5ad9103f31669abd1748c6db73fe52d5e22f7e61b5e273b8d3a931bc",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": "207380e72de230d7c7b6c2776cd5952c4cffa998cd86c7bd9a14ed0ef77b91a1",
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": "85d6fe281d2e855610dd56ddcdcf550763ade7eee595b74716124021f4e37365",
+    "src/learn/components/lesson-labs/gaussian-process.css": "f29c154d254d31047e8a23e63995e91004f26871a53f50a6bcc0dedcc609f911",
+    "src/learn/components/lesson-labs/GaussianProcessFigures.jsx": "4fe2f3711b2636ded6242fd5c70d5e8c9a4d9d112ed444c0af7266c79e88d180",
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "2230027b5ee10b92f8710deac1fabad2256d2da0ace0ae475bf4c50e085a8041",
+    "src/learn/components/lesson-labs/GeometricGraphLabs.jsx": "25a947dc2f82f45efbff1bffe2fbcac8e27990320d01abe4c49df1364c24c7dc",
+    "src/learn/components/lesson-labs/GeometricGraphStudy.jsx": "8913a53b70f542f49868b05984c78c65ad86ec243a79d75d97d10e578eb6d3fe",
+    "src/learn/components/lesson-labs/GitFoundationsLabs.jsx": "1fda34db2b6a07e23f7565e3509587603aa4e9a1dda95742cfb495c7ba72d835",
+    "src/learn/components/lesson-labs/GitIndexLab.jsx": "457866d8dd07051e216898b7486a8a1e9efc0b2fe69792c61a69351a4dd478b0",
+    "src/learn/components/lesson-labs/GmmFigures.jsx": "212ec72648a06b2a8c5459b29756bdc6dacf7d539b76c58efb231301b47c76f3",
+    "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx": "4e053f8d2214a600382d606b52e1cd31800e7f23c7847cf9fee11613ccb8a604",
+    "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": "718db06c60e2d52edcb49532c3fcdf87faad69fd756cb83808c7c17dc6cef3d3",
+    "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx": "b9ba4734ea75f0ac40937e2630fb656947a542ac24615c1b4a822efc12d8e3d9",
+    "src/learn/components/lesson-labs/GroupedQueryLabs.jsx": "e48fd32c6a0163b3bd0ba9d893a8723c29fc1359f98c10bb161a269eb4340326",
+    "src/learn/components/lesson-labs/HeapTrieLabs.jsx": "7762c01a4108796531330fc3af973696212fbfa0834e89ecee378719e9ac5419",
+    "src/learn/components/lesson-labs/HopfieldDigitLab.jsx": "3ae1571654409c7e32f9ac54b81b380a11e70c50163f3b176218f9fad3516923",
+    "src/learn/components/lesson-labs/HopfieldFigures.jsx": "a30ad3c1db770ccca700b9d8704d8df63bb9a99af7bf325faa04b75eb74e3220",
+    "src/learn/components/lesson-labs/HopfieldLabs.jsx": "e8de6a052caa7551259ba3b05409d611b7c1861aa39b96d020cf77c485f113c0",
+    "src/learn/components/lesson-labs/HopfieldPrimitives.jsx": "3495b2bc1b912a6be0abdbb3346e7e61ad8e6389b1da49d60bb49ce8e4fe7069",
+    "src/learn/components/lesson-labs/HybridJambaLabs.jsx": "3e1cc01d6736396e38302192622ecc77ff2055147afe72586b868e9ded26cefb",
+    "src/learn/components/lesson-labs/HybridJambaStudy.jsx": "a834fd399fe2a636ff3925701da3e5c5c908aef72f255b3156d6a239be54d631",
+    "src/learn/components/lesson-labs/HyenaMechanismLabs.jsx": "438ba88ba65077d28470ea465da87cd0e5d7934e6fecf6f29c50990139943985",
+    "src/learn/components/lesson-labs/HyenaPrimitives.jsx": "e157fe177e4829c13d83afec78da99f01b371e20e1e1d34218f044dba4015f7f",
+    "src/learn/components/lesson-labs/HyenaStudy.jsx": "ddca9902d4c498d765c30310858ec650ac857a1e6828e0f0b2c3504a84caf2dc",
+    "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "13b9c5866949110d9f96d0e534d46f6042a23d72227c7fc6bf5a0726353a079e",
+    "src/learn/components/lesson-labs/IntractabilityLabs.jsx": "adcda56c27b001e7630bc066c428bcd081971a1ea2fc485655861e0eba9c4000",
+    "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "5a0268b61178203fedd85aaf262f2c9d56b2669b702ac11ca66bbe6d9127da1b",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "85ec3eb8f800cf9cf7c149ed4e9f64339783b5b28802fda5d2a853e6ae14a801",
+    "src/learn/components/lesson-labs/KnnLabs.jsx": "a9d5923ac50a943a93a4516fa722cf2c4873915cc5e441184aa3725a0e106295",
+    "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx": "3d3f3370d26111a40b408f95ebae67207379c187950e3db08e2cb61184344960",
+    "src/learn/components/lesson-labs/LatentAttentionLabs.jsx": "cdfb0889d44327a9aaf570a8f195523eab29fecfe5a1794ed6428457b7ec1e44",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "5e6d2905a34c9e6deb255569e084a35a5822d4ad7a47daa655ee3cc25ea8e31b",
+    "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx": "ff42697ea425fd639037209fe2902d2d4af14c5bbe0c0b9bd1b997fd6c811734",
+    "src/learn/components/lesson-labs/LinuxProcessLab.jsx": "67b49e5d115e7e5e87d438f8d5e355973479df1acbc68b1c3f7b8df9428daf6f",
+    "src/learn/components/lesson-labs/LinuxStreamsLab.jsx": "d3617b63c1c609626314678419d8c723c2a9dcb357f03ce8291a48ddf3fbfc07",
+    "src/learn/components/lesson-labs/LongContextLabs.jsx": "01816745ebf6e434adbc719f0e8b9d1b1df0de65bb8cf7254b24e113b8af8ab7",
+    "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx": "84eb2ea94d29702496780061fe609c7acc9675fba1b4aa6125236c2a55794647",
+    "src/learn/components/lesson-labs/ManifoldFigures.jsx": "f2ff89f63d895e9aae5f3ad471f79428c148df6665b6457857d8d0ba3427532e",
+    "src/learn/components/lesson-labs/ManifoldLabs.jsx": "2c28d1aac162caee6e3023c85f49c2a16324cd7078a406cf85cb11e9fb9dbd7a",
+    "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "87526d87d80a5e086c9a775b7e79c55770fc01b089bc62869af572ad10d6b669",
+    "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "35a612e0966219d547d44de02fc34e903b2fc8ff28740305b2d2f5c3155813bf",
+    "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "e8ccfcb98de18b4575982ecf6bdc673dd1beaddbe3c6a09f1fa4d50b6dc01431",
+    "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx": "28577dc35d751e6d3fd6c9531d92fda8e74358cf22f521f4e28bdf19e390535f",
+    "src/learn/components/lesson-labs/mechanism-program.css": "4e58d1ceab2455d0c586c5e76355c1243ede894a2ed25b689a4f30bedd70712d",
+    "src/learn/components/lesson-labs/MechanismProgram.jsx": "fbfc528a749cc8d372a2ec73ab6b18787271432aac3cc59130eadd82a2752cf2",
+    "src/learn/components/lesson-labs/MessagePassingStudy.jsx": "77680ddaff17413321130c60ccc70dc3ee4244b4aac7708361c1f9898082d23d",
+    "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx": "6df78e1dc1fbf30b73103c6ca4ddae847ebfa7a5bca841339c2124808f8aa45a",
+    "src/learn/components/lesson-labs/MoeLabs.jsx": "d130663251a6b768b75b1a7b6c487f4bbb93a9ab5735a5f53fab26d59fce9b83",
+    "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx": "330f7bee18ec81961ae9af61491474b59331cdfd80b264a64b9f33d0270168d9",
+    "src/learn/components/lesson-labs/MutualInformationLabs.jsx": "a6d53622d99005d226c5bd4a9d35c5ba24879a9bb6c03e7d278816a56175bc64",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "6ad2ea82915b01572119ae11e1d1b0f46dc0dff46222e91b38ff8c5461d7f04d",
+    "src/learn/components/lesson-labs/NetworkFlowLabs.jsx": "b9461daebc50577f2af2fa37a49eed5058b0c1c4ebea19aa301f82a28929815e",
+    "src/learn/components/lesson-labs/NeuralOdeStudy.jsx": "d05acc6a1e53196b89daedaf52c291c3068c7d181f29946c956fd57ac1fb0bab",
+    "src/learn/components/lesson-labs/NeuralProgram.jsx": "dcc67faa678823d9da422a4ea5db3fedfec7937a82c7538900c4c34f5ad2180b",
+    "src/learn/components/lesson-labs/NmfShared.jsx": "6b0f7342f26d836debd041ac42938c2ae0c97adecbe900e03d49a362851c9351",
+    "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "296e9690865153d0f690107d1b8e8d45f808ef0465c74c4ff3b8c128e9a68935",
+    "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx": "c988270cb15dd0cd39c9db3f04cf199c37aad490212dbd47ee9c1d0edfec7c5b",
+    "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx": "37edf21644e1d168bc8363d23d0a14dc1b64c8a4dae0130dd39cdb025665927f",
+    "src/learn/components/lesson-labs/oop-foundations-labs.jsx": "ef5cf4afd2efd36606ff60675ca506570a673d5473417aa74f1fa3ce03540e22",
+    "src/learn/components/lesson-labs/PcaLabs.jsx": "3ceee160d2693475fccb54527243bf69318b2a11526b1b655c6189f30d412d17",
+    "src/learn/components/lesson-labs/PdeLabs.jsx": "3ca7e7c1467a954ce855f51152844ef971e1df2994256b27c781b07cafaf44e6",
+    "src/learn/components/lesson-labs/PerceptronFigures.jsx": "cc64c63e1d4dadee2c40965b554d732a9d448a57e8a7652150477d24ace88e2e",
+    "src/learn/components/lesson-labs/PermissionLab.jsx": "96378aa89be7b609b794526b0c51680d4f74b14ecdbd1237b8bf7502b65cbf67",
+    "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx": "5c4b2a50636f6d581994f1f4b9ec20ed1c10de6d17432fab3cc0b053807dd82f",
+    "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx": "2a010e430c0caa360d39e94c47515ea5f573ce746dca0bd08bda2209b5264e9d",
+    "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "208e50426a052600287afab1aa9eab652baf1333004c5a813c2f06bf763f1f4a",
+    "src/learn/components/lesson-labs/python-foundations-labs.jsx": "57b772e3bb2204e4da8ccfb8b4db8c77d9a09dc5b90bb401881c4fee78cf2bae",
+    "src/learn/components/lesson-labs/PythonExample.jsx": "2391a0e88df62b57d5df8e8136f5424455c5bc580f403a4a712996c0c0fc526d",
+    "src/learn/components/lesson-labs/PythonTrace.jsx": "32c04da5d7908b7960da708592ca0a9522412ed5f29ca8e2690c5844f43023a9",
+    "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx": "310107d6ef75e1050a965ac041f55b791052667392751629fe42c3000a5728e8",
+    "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx": "dc92a1e7f95f2a1e5788bcc7945c09f66fdaffba7591132117dd6316bf36edca",
+    "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "69cbb184476ce3f383023b25d015502a192b3f8c29ff5833bb0a9da0a6359a63",
+    "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "47f7f2e5d71deee4c602ba163c174cb6cc3c7dcc928fecde8f96598e399f1ab1",
+    "src/learn/components/lesson-labs/RangeDequeLabs.jsx": "1d9f453656753fa704a2df0e3126877ea9a28c49c2bbdb8e93ddcf830da81ca7",
+    "src/learn/components/lesson-labs/RangeQueryLabs.jsx": "18485140b7245b896724b4358ed214a23220f4f160e8602b7e3aa9e38ddf525e",
+    "src/learn/components/lesson-labs/RbmDigitLabs.jsx": "c54595e1bb7827fedf4bb6e1e47e4d24f2397615b74feeafa7fafab5903abb42",
+    "src/learn/components/lesson-labs/RbmElements.jsx": "5e046ed72da5978436c89f4b67bdbe203b4be210071b32dede737a2b1aaa654e",
+    "src/learn/components/lesson-labs/RbmLabs.jsx": "c4017059fc96ff375efc0b85bf6a9918e5f88950c23e962dd14002378f8bf722",
+    "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx": "cd5999d564fca1791131c566353a29077caf3d28d2443a68280d489758f3c63f",
+    "src/learn/components/lesson-labs/RecurrentLabs.jsx": "835754b3edd13cb72b32a2b3c745ace025dbb23f12469759675a778c65dca2b0",
+    "src/learn/components/lesson-labs/RegularizationFigures.jsx": "bc473d255dafb5ad70efef5b5f1be98548a0e22e8bcca69cc5016d1f3779280f",
+    "src/learn/components/lesson-labs/RegularizationLabs.jsx": "1d888f1be699bde4b7cefd6006f47b3d4c9c4a63148eca7bc8c6a664e8e388e9",
+    "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx": "765a0bcc62b135951b4d7fd902faf4effd3dfe3136b5bff905e42606d7c8b3be",
+    "src/learn/components/lesson-labs/RingAttentionLabs.jsx": "2f6d8a6e6ae0424c05439d7c64523d4384b17187aa2c4986e2a783c90ad74928",
+    "src/learn/components/lesson-labs/RingAttentionStudy.jsx": "ba7ffe619de6d580b4c93f95f65478e5fea16d8fe12f9c6060e31c21faea928c",
+    "src/learn/components/lesson-labs/RingAttentionSystems.jsx": "9a7d940ee7696fa5ee9af450547bd38752810c2e354f9a146e877e411325ffae",
+    "src/learn/components/lesson-labs/RunnableExample.jsx": "ab88ea2bc0a11e9ba606168de2207ea7878b3124026d0a8950c0659fc43470a6",
+    "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx": "a71f1b589bd2e7a6e0af1c5cdf5d04baae807f7af721d55bed23a02bf28a4f8f",
+    "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "7e96c7ab72b9e83100d6b7a85f06efbb47e1a7e33a5c76993a2fe96aaa941543",
+    "src/learn/components/lesson-labs/ScientificFileLabs.jsx": "0dfcfb1397019839a57d4e79343808edf73de7d450faefb37c64ea072fde8338",
+    "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx": "e58d20e08d92075a8209e38a1e4e3d6685573bf3bc916868ec06c77a589a16d3",
+    "src/learn/components/lesson-labs/SelectionShared.jsx": "17273f3a746fe56930dcf3a1fd9727517b2a4e163b42a5e15e4442b8e7b97a78",
+    "src/learn/components/lesson-labs/SelfAttentionLabs.jsx": "5bf702beb078cf89b9d475e8ee8531ddaadcb024f22fba280156a9ce45074e10",
+    "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx": "30b3251c5ec1caa8649da38e5d16e1923184077bf48b69c430e245962d70fc99",
+    "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": "e281e625edf8934981ad2b1e52635f96cf55f9acb4418936779a885e1e3daef6",
+    "src/learn/components/lesson-labs/Seq2SeqLabs.jsx": "48eb8e2cdb9d5f8adf32d943b50d1777ac550da01a3cd79f95fbb42ba427547d",
+    "src/learn/components/lesson-labs/SparseAttentionFigures.jsx": "309346cb5aca8f0958f92a3458fcc76093cc78f2ab57dace5c64accc9cb67d20",
+    "src/learn/components/lesson-labs/SparseAttentionLabs.jsx": "064629d014130af5be7857e4fca7358570ef4d69f0855a18e7be75c548d8309e",
+    "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx": "a1533d4f921c04c29804a6e38552adcdffb9bc6845d756e59b94062e19bdea66",
+    "src/learn/components/lesson-labs/SpectralMechanismLabs.jsx": "fff5db6887e9fdcd29e59440d4a2ad64b124208eca8669edb4ba0079ee44074f",
+    "src/learn/components/lesson-labs/StateSpaceFigures.jsx": "676d90a206155b574e480caae7d399e4930aacebab2cb5b7820492f3c4f39aae",
+    "src/learn/components/lesson-labs/StateSpaceLabs.jsx": "7967a0e1ec425a5e1d9232fa837e01477290666081d360efae98692a3247a23e",
+    "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "e70ec45f3df1551f1e520bcaf449955a047dcda28f5d59641d09e96edf244916",
+    "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx": "0364410c90ba746f65776648976ecf31ef98b9a413c0457ea06dbddec1bb9e7a",
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": "ed3799a557595a4b9ca78341146ea5ba21e013cd588389514b05b8806e349b05",
+    "src/learn/components/lesson-labs/TerminalExample.jsx": "76881ce9d3565fa5a6785371f0d4d22bef388f1db02d7d8eb1748740b331b417",
+    "src/learn/components/lesson-labs/TitansMemoryLabs.jsx": "da226e220001ff564e34eb5f0f00d903196a43529a28e9b97f99620aec57dd3b",
+    "src/learn/components/lesson-labs/TitansMemoryStudy.jsx": "5ef87e8fb1652d7cba1f9a3b0662d32dc3b297e59d2761274708b0b587e1eef6",
+    "src/learn/components/lesson-labs/TopologyTdaLabs.jsx": "b38e51aa1e733b2f6c54bab1cc75e7c084d98c6025479e92dbf4b7fc0df28579",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx": "25e17b9a33cb78eeac6be5d0ca3963d84e32393db3281a38c422e90aba28208c",
+    "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx": "92735559e6e5698c78e32c4871438d320e3c5a2a2774e8fa1510c2f3f0cef4a7",
+    "src/learn/components/lesson-labs/TransferLearningLabs.jsx": "9ce4f71243c4b9a5611848dd9d1a30d039b766e108c634eb5f1f6b2411041ade",
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx": "f2c5a91350a9ed0955287057172cdb2299f73c63cf094745fa1df733080d74e1",
+    "src/learn/components/lesson-labs/TreeLabs.jsx": "0a93e8628b3c8b39bb8fb3582a2fedbf677c165ad675ddc2e82a9cd483eaa802",
+    "src/learn/components/lesson-labs/UnionFindLabs.jsx": "bd601398667b90450899f52498eb744aff8e3c712b4e5c37aabe7b6013f47154",
+    "src/learn/components/lesson-labs/ValidationLabs.jsx": "62eebceaf2f95124dd3ba9db7c26b5b703cd57dbdf2630400f2e0e23e4532ddc",
+    "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx": "261ecf5454e6860f399cf0a48fc1ae3346d05db05ff00e8d72312591bba8242a",
+    "src/learn/components/lesson-labs/VectorTensorLabs.jsx": "d7e45af0fc2be618ea0a87b88e848a1fda0ffa20cc4475fcf2720b3a7235e37e",
+    "src/learn/components/lesson-labs/VisionTransformerFigures.jsx": "2086cdbaf6879159b31a46465d109947278a1cc3b60ba05bd77d28f5493517d2",
+    "src/learn/components/lesson-labs/VisionTransformerLabs.jsx": "f2f814478910b7a8dab14e5a75f5dcd4133d3e424c1e2b20fe5335e85f85aed8",
+    "src/learn/components/lesson-labs/WeightedGraphLabs.jsx": "e9814cb8a6000a2cad4a64261d894dd43b07c3503a6034f6c4b976b9b2664ea2",
+    "src/learn/components/lesson-labs/WeightInitializationLabs.jsx": "cdb69682a6b67f712c7f75e474cf38b88433adbd7204434338998688232fc26a",
+    "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx": "71c0ed66dcb7b775880079f7a9ed45e2993f87d48fbf8d1d762ed7fe650633a3",
+    "src/learn/components/lesson-labs/XlstmPrimitives.jsx": "f8c14fb6e8aa2131dc04662baefeeac30bc07d142b2f58e733b0615192e5cc68",
+    "src/learn/components/lesson-labs/XlstmStudy.jsx": "0a203d1ba4fd6c4118060b86bf765f678a86de99feeb9903545b3a78c33777df",
+    "src/learn/components/TopicContent.jsx": "b37f0a392e215e344aaca0d1cffc2081b94c939d8f79b0126161c74aa597a0c6",
+    "scripts/lib/prepared-lesson-renderer.mjs": "5d8e1df322d173095f1aa5c0e21096de169c6820aabea61bb79d2a74a4c0b3a2",
+    "src/learn/components/content/RemoteCodeBlock.jsx": "fb3c96ec5e562175286e82537acaed027ef33ff00ee1aa505d32a92bed772290",
+    "src/learn/components/content/LessonCodeDownloads.jsx": "bccf743ce3b54fc96a0d2c122a471dee2dac08f4c9e7bd0e68eef7a45b1c0720",
+    "src/learn/components/content/code-downloads.js": "304dc9623de8903efbe9b304d9affa5ae53bc42822286b1abcd68c72f060f82d",
+    "src/learn/components/content/lesson-code.css": "aa1d7a5e6d6d3ff706c6c052018d512201beb2b84a0540dfb2ebb514dc8f4be5",
+    "src/learn/components/lesson-labs/useLessonViewport.js": "3bca9b88a8c2b10792c493b4410a0531f2e3a015e73a0838facebb692cd54838",
+    "scripts/lib/lesson-teaching-disclosures.mjs": "672b214600eca9e8b676243e42e6a77bdd195640ada1c9e7bd832676123b7ae0"
+  },
+  "sourceChanges": {
+    "src/learn/data/topics/graphs-representations-bfs-dfs.jsx": {
+      "before": "fc01d5c5425cb9aa6d7b8de5a8ff65ff01c60a9bea9310576eb0f6919f9c772a",
+      "after": "247778da9244b56359623910513331c04ea426464918d9534c412f8977686816"
+    },
+    "src/learn/data/topics/heaps-priority-queues-tries.jsx": {
+      "before": "4d47c3a74f04e579567ad3c103548091f3cbe55a2e5e9ef0c9ca6a9874a18f92",
+      "after": "3815f30692970c220cd0a69fd26b3788f9ecb324b85a25211d964fb5a43a5046"
+    },
+    "src/learn/data/topics/trees-binary-search-trees.jsx": {
+      "before": "f73b82bc36b47788a5fc812961d31770c36387b47a9abbe2993f4505765dc214",
+      "after": "1da4777b0d373ed7ec38f16708d442d8de102313331828de72b18823538f2850"
+    },
+    "src/learn/data/topics/threads-concurrency-locks-deadlocks.jsx": {
+      "before": "b788b5be36c6f2774e0b5e645b11652e91ee4ffccae81e7c1fa7b112ba741a0f",
+      "after": "73b0f503c06203a388f5f74caacf9bb366f6429d3097669586addbd860ab2c58"
+    },
+    "src/learn/data/topics/scientific-file-formats-schemas-reliable-data-i-o.jsx": {
+      "before": "3853ed578ba6bbebe272bd17e9a4a66602cf923e804acaec153769a1b6f07a17",
+      "after": "3b2a65d25f551a749f39dc21279258f7d18a4ea6ddc71a518f856d9c3d01a4bb"
+    },
+    "src/learn/data/topics/sql-relational-data-transactions-for-ml.jsx": {
+      "before": "9f444f1efc253f5d9368f35d5569e7ef866083c418804a20071957f2f4eb6397",
+      "after": "6972524093f81d17e67bc0d73abc27f52b40d25ea0a70ea27a2dcfff29820ee1"
+    },
+    "src/learn/data/topics/python-basics-types-control-flow-functions-modules.jsx": {
+      "before": "b3fcc29a95199b21558febc19e7318fededefeaa59a038afbd4d17305132a2c8",
+      "after": "a3307b5c132a4e8e6ede047cb62e7c509c617b63d3abb598aa75b75fe7d47fa4"
+    },
+    "src/learn/data/topics/object-oriented-programming-in-python.jsx": {
+      "before": "097c2da6b87284d4bd21fd79517a0a490449d24a43eb34a6ff6fc31119bdb5b8",
+      "after": "425edd262544e5d228fb539028c8114c1e40e989a9357f8fa9f233805f4df1d5"
+    },
+    "src/learn/data/topics/iterators-iterables-generators.jsx": {
+      "before": "270031e4c97aefce25d2120d0818f5281697ec1a123b1a1b721138a7332e9536",
+      "after": "6af7107f9e6ed65307ad3a688a373df68ee26c34c8b1a6c1838a77cc468e4e9b"
+    },
+    "src/learn/data/topics/decorators-context-managers.jsx": {
+      "before": "fb0ef15d27460cc94334a2e4378ba5303c0f39bc052b932de00e1581bcf46834",
+      "after": "a37f2fddcec3a765a1df1aca39ef43664a924008cda8fddf3edf554e31a673ca"
+    },
+    "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx": {
+      "before": "7d22b1e8dc6afdb725e80793a202dc6d7179c99fc045330589e347ecf259336a",
+      "after": "f477d8114e7f3883aa7b1b2dfe0abb504e6b1de709dd763090e834bf03c836e4"
+    },
+    "src/learn/data/topics/pandas-data-wrangling-joins-grouping.jsx": {
+      "before": "5f4991b2939aa1c99e8a9769469cea34eba73e26bf376809cf07db6f8987ce31",
+      "after": "8c26187d05e45f02554da6b8ab35bfdcdfa204d3c6f2f7cb11f8038e30cd5004"
+    },
+    "src/learn/data/topics/code-documentation-type-hints-api-design.jsx": {
+      "before": "aebc629ad33c39dd99c8b2884ea027e7e1e59e55527bcc1eeac37d6c45505584",
+      "after": "1c6477138f96a7d93963df9d1dfd5bead527cbaa600ccb777ed7ce266392115a"
+    },
+    "src/learn/data/topics/git-github-collaborative-version-control.jsx": {
+      "before": "1a3e9f8d1c083681efb10ad9b4a740a4bd485e523a8b3a9be68db778bc0ec4f3",
+      "after": "a92068ebfd361b79e98cc7687171ada0f3f4084d2b42a1ad13706c6f71527391"
+    },
+    "src/learn/data/topics/linux-basics-filesystems-processes.jsx": {
+      "before": "e41aea5debf53216a6ec26a471c0a8b23f06ccb2c128e0f4ab9319f30bb44c6e",
+      "after": "45b1ac2e67391e5710e231a013c55a22240ad0129ce39df892d3ca2146f7d535"
+    },
+    "src/learn/data/topics/os-processes-virtual-memory-isolation.jsx": {
+      "before": "45f6731107785aa4aea9a175c4fa1875a3f113265d5073d9d29f56e9ae2ef93f",
+      "after": "90b9a2f286ac1357ce06086060e10fce5268ca57b7efee2d7b6de4bf71dbece5"
+    },
+    "src/learn/data/topics/arrays-strings-hash-maps.jsx": {
+      "before": "84b97a3b9df311c6a45a6423fbe67feff4fab11fafc9fa837467b6fd2368c119",
+      "after": "c08bca05b835c47dba86f5fea719b8299501fa710d37040e25ec8508496ef8a9"
+    },
+    "src/learn/data/topics/bash-scripting-command-line-automation.jsx": {
+      "before": "447d554a8a102be5653a176200067a1d3ae4d87b53d1439c4366051753a013b3",
+      "after": "b16731bb693a53a7bf338104b44e5a17e748e77e123b6fe4db07f7fdba36eac2"
+    },
+    "src/learn/data/topics/vectors-matrices-tensor-operations.jsx": {
+      "before": "b507cac87ecd1ae25fc2bd63a5cdeeef3fe9668187d472457d7e5c59e7eb0f8c",
+      "after": "19f0abea3adc67232f2d6ee6aa9282c46ef658b9804e572dcd89ec40bd808b02"
+    },
+    "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx": {
+      "before": "259ead093a1d80a8d13e7ec75d39b9ea3beb3669b4c2d90eac9837c2ee06646c",
+      "after": "1a93b5bbc4c40cb46f5c580b63cde5de1a6ce24bbbdcd6420d79bcc094cbae4f"
+    },
+    "src/learn/data/topics/eigenvalues-eigenvectors.jsx": {
+      "before": "0728229153c2820396e1acf473a0f1a15c19b0a677b0e579f798a6f2a32466b1",
+      "after": "e62aceeba7c2b5f9707197f2ef94e661b97091708d3dcb6f415e24af8a2a1b5e"
+    },
+    "src/learn/data/topics/matrix-calculus-jacobians.jsx": {
+      "before": "add8440b605d51b25e90bcda0247690d59bdde626b5a41afe120eafa4b2a3ed9",
+      "after": "06e14cfecf3be723df84ce142f5bd52ab4e4996bfcc898e932f6e5e19bd1c7c8"
+    },
+    "src/learn/data/topics/tensor-algebra-einsum-notation.jsx": {
+      "before": "64f50b3d0934095b14e602e6cc7f64ec022b0dc015024ad70b7a21b454a2b43f",
+      "after": "4cb78230f37005568fd978ac59e719a92dd7a4fbdf34c3c959dbd2b99b07eaed"
+    },
+    "src/learn/data/topics/randomized-linear-algebra.jsx": {
+      "before": "94644d079d19644b516581e26d485559f614e406a7914e05aeda4291123aaaa1",
+      "after": "c1ddc9918d401251f39a133e3c522de9fa295343f78d31390fcf8786a0e79dc2"
+    },
+    "src/learn/data/topics/multivariate-calculus-gradients.jsx": {
+      "before": "f5fefebdcb4eaa5f92042a4d162ee95f683624ead0154e84d3539a49920ce792",
+      "after": "28c66117e12796245e127f1299971add307ceb1aede9e8ced875d4f2300feb01"
+    },
+    "src/learn/data/topics/convex-optimization.jsx": {
+      "before": "1500b2fb246efd518b04e8f3d3909176db15dc0fb54e9afe0c07911b66ce2031",
+      "after": "16242ea8520d7e493972a049921662cef2df5606a48baa02f71871a459b502e6"
+    },
+    "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": {
+      "before": "e847674797b2c48a58ec9b5ebada5356483829a6b89a7f5002ff8c05b7be9e39",
+      "after": "6fe3259115525aa2bba69fa7ef1b83978796ac72ffa61b5e23fffbe2369f6086"
+    },
+    "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx": {
+      "before": "8c8b6b1687040f343e1527741b071f6ffd9a24fc938c0c0b1ad3e05cc05b5d38",
+      "after": "d0263f0747934cc07523f93e4ab1549160ddfb1e212a5816db6a551610cf5011"
+    },
+    "src/learn/data/topics/non-convex-optimization-landscape.jsx": {
+      "before": "b89d4aa10f94ef522121ff0add0a492625f5ac04b0a2acd1400ccea094a97038",
+      "after": "dec59aaaa08865c19ceea6ad64c9da5d397a9c03dfe72df4229b90fd6a9e4889"
+    },
+    "src/learn/data/topics/constrained-multi-objective-optimization.jsx": {
+      "before": "7bea96d280ea6fe96f29750b6d12c9245b7db7fb0a7c627f52f0e915bc3c1d79",
+      "after": "c768e1afa8aa3a1e117e9264a3ab878f2418fe69d7dc23aa0be1e8baad81b97a"
+    },
+    "src/learn/data/topics/maximum-likelihood-map-estimation.jsx": {
+      "before": "9709522a7667f02b600cb45653d831b9f3967670d8f6ba85022b598850b4df31",
+      "after": "13fd745dd7b380482214bd27d4ed2af297d0d30bfbc99451fbd539ead70a33a7"
+    },
+    "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx": {
+      "before": "9792500a066cf83966a119b7511cc5c5257b930e16d9656a762e148d794a9408",
+      "after": "e0505b9695c829195f9839f8ec5187650e93c835bb8303b7233c776252bbc157"
+    },
+    "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx": {
+      "before": "9d8c0dc8354f49e4a46e4d4b8e7d14983b7f98b097f2966d981934dfd4be507d",
+      "after": "95f1551e0eadc5286a9e0931917d5b2220158a676d6dca2624fd15afc5e5ab08"
+    },
+    "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx": {
+      "before": "7713b1cd1e1c9269be7308ad6eaf1570d9308b6ff02312cc65aee5081e3208c0",
+      "after": "c25aafa3dc585fd4fd47fe575a8ad3a1d454096ba7cc87d7bb4e48c76df2505c"
+    },
+    "src/learn/data/topics/variational-inference.jsx": {
+      "before": "55372ca448a90f1b32d8cc58898f6c7628c7677c0541b38caae178e4343ac5e5",
+      "after": "035a4f36c8ede782f87bf3d89bd165639d6f7cb1ceff5fb9376b8ab1ea49dc24"
+    },
+    "src/learn/data/topics/measure-theory-probability-spaces.jsx": {
+      "before": "24d94a086cd61e2bb3f4dfc7ce23873c3bc14bcb25cb38426233cb43740cc9c2",
+      "after": "4d5235a3f7dd75ea10a3ce2d4af4240c205ebbd344349ebfb4432bb42d0a8515"
+    },
+    "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx": {
+      "before": "d3ee97ac5eef6b41e36203f6240d3835395e2045082ecc3b6d3cce8c7e6209cb",
+      "after": "8eb74ac5b26d6923baedafccf28665235da3e4953ea574c064f9d3cf6da8f9f1"
+    },
+    "src/learn/data/topics/causal-inference-do-calculus.jsx": {
+      "before": "6e8c920d36679a0ce73c974574b30164c316c2d0f7b16685132c7b545381685e",
+      "after": "00369a9f890e3ae1f9d2d9ac1c96c6b8c992f715fab2dbf020dba7b4d6f3f224"
+    },
+    "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx": {
+      "before": "b706dcfc846887a109a7879ab02539b721f149c23d42dfdfa5ff1b49b068a7f8",
+      "after": "57e92aed15c98bac85b3eabd17e46de7385aa1d1d4a0a27e1e095f8d82834a9d"
+    },
+    "src/learn/data/topics/rate-distortion-theory.jsx": {
+      "before": "daa5cb0189e070347b0f37e17722dd281d7bfb48f6f25ab46f7a77e96f1d0fae",
+      "after": "9b05242dc7ee29a0c8e0642003f67e25561256bd56f67a8bd433c0f297e624fb"
+    },
+    "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx": {
+      "before": "adb392ab80fcdf6ac54d0987f64de8845209216145b7640698c100cbe4b27691",
+      "after": "c9cd180cc2b1902a2226d6532978d0830e749286ebcf9d2ad54475d76e870909"
+    },
+    "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": {
+      "before": "c2978b0bb5d7e75b7b5d700f8aa616963b3213c44183ebd1dbe26d7533cbb9c9",
+      "after": "4c59a2fe1ec7d93766f84fd2b17e34b717b303a97e1c5accf86533526f479bf3"
+    },
+    "src/learn/data/topics/spectral-graph-theory.jsx": {
+      "before": "c185b49b8221be16928e61890e0c36e6057fc5f3c6701dc838f2e6ccfdf67beb",
+      "after": "9c8e937e784c39ad1050fcea21632ac3474b96476bc77741e7987d660a43e64c"
+    },
+    "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx": {
+      "before": "1d52fbd9bca016444d7e3f8d20508e4ad324759a950067759eadcc067b123c14",
+      "after": "fa5308817699d71095ccbaa990a80aa0c6e961c1c9f6bf63f3b2676690b11f30"
+    },
+    "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx": {
+      "before": "c75a3722f2f8434f17dd333799e04326d5f21666a5ef17aba23d3cfa66f2ee07",
+      "after": "a0cc27270d81c4f2a73b486874c3a6081fec52930c349cf2113cad30dc22ea29"
+    },
+    "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx": {
+      "before": "0a246b137aae1fcb304429817200fba2b25380e564c3e2d34f68a40f7b37d7dd",
+      "after": "0659c8e03c39b43c804a735a79c90178a8746859fdb478936856b2c7d75290fc"
+    },
+    "src/learn/data/topics/dynamical-systems-theory-chaos.jsx": {
+      "before": "b458d71603efbb6ffba41ddefb4a72529a6c0578bd289b2a7c26e0ec6b65c2a6",
+      "after": "15da3dcb0195a4b0a62b27d660aa2f2fff268bb63745378992d5b01782270301"
+    },
+    "src/learn/data/topics/functional-analysis-rkhs.jsx": {
+      "before": "cc5abd60fb5a08357109d67b8f3c1218a6a3e5b60be19772e1e186c6de5fbf26",
+      "after": "a1f13eec56f86f4b1be3dfb4d4bf9f84b349a13ee9cb21cb8a311871967579db"
+    },
+    "src/learn/data/topics/topology-topological-data-analysis-tda.jsx": {
+      "before": "aaf4a4c9c7007ea8d938eec36d4fedab7fb99dfb170d450872e2bb504f9c5ddf",
+      "after": "2540847b7e6d6a4ed0485e0055c9cf97d445756e6ecda8166aab3fd9ae633215"
+    },
+    "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx": {
+      "before": "19f07c73a6f3c4c3c56c79b940864da21741be1651d8296d325fc80ba1d77c1b",
+      "after": "3ba33390e6ccdbbe319896b3e8725a9111fef825c8c8ba8238ad41c1ae9b94f8"
+    },
+    "src/learn/data/topics/linear-logistic-regression.jsx": {
+      "before": "ef6c5d22bb5094845e2838974b6ee7702a800602aea2a477d28923b3f159d3d4",
+      "after": "6cfb98adc739e8a0ff68dd1f23cc33139780b8995c81f6bfddf111b6dc58ce80"
+    },
+    "src/learn/data/topics/decision-trees-random-forests.jsx": {
+      "before": "50a9da7454471adb3a2908a803d0a6171871c7d1524f4ab3db045e86ce06f2fa",
+      "after": "6599ee880982528acbec6427750228828db3cb458ec76bdb493c81a27ad7a656"
+    },
+    "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": {
+      "before": "48e68e5bbb19b79fd4845792b33d39949f76c5d397d9dfbdc668a5909831e150",
+      "after": "e1f7fddbcb580114984eb6d7e375744eaaef834fdaa528a0a2664c38885661ce"
+    },
+    "src/learn/data/topics/ensemble-methods-stacking.jsx": {
+      "before": "614b09143a438553c0e48818826304b9c55ef391f70df7bf341948d0abf7f752",
+      "after": "f300f20181f40579857ce3972fc81cbb0b76519fd6067bb291912b7cdb76d29a"
+    },
+    "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": {
+      "before": "95aa927116c1bc8f5c0cf282c858109435d59ee85c0c809fc8fcff12eca6ee17",
+      "after": "eafa68ae841cc29e5b5107fb95cf875032c96cb6f1f3642b0dafd4236b3920ce"
+    },
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx": {
+      "before": "ff6d598055501170277128535b697ce7b52d0021a47adb930174ff0adef40d08",
+      "after": "329270bc13b85f4bcf2902a59058dce02670cf1d8773f488b66c78c755d9bd86"
+    },
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": {
+      "before": "d8baab4105164493d3783c3e01a025b8a440080ade7109dc735681ef455dee3f",
+      "after": "3f738c239c60240d33255e23d68596f8878804501154e72a43510b16f3ace26d"
+    },
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": {
+      "before": "25fcae113cf73d224c101e7be00b7ebbd5e0f437595d396a763eac74a41d1005",
+      "after": "7b42c60310bc4c6b4b473df766a0f83ae3bd89ee5eb92bf2ce297b29744097da"
+    },
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": {
+      "before": "f38df0b8528861fbdb694769d28e20b4d7700b2dd6b157f2e30f36d6c3e408c3",
+      "after": "a0cacacd75d6f16e1f38f25dc52618d73c7124c449b6fe649a58c0c272056924"
+    },
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": {
+      "before": "bb6f12cfe663ff3e5680f52ad2124080824a5f2a481a9c16bd302ac8cacc07d6",
+      "after": "4dd6ead3a64ebcddb3f9122863b663a4230c585a4e1576400fa7006b3ed530a2"
+    },
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": {
+      "before": "bd1bfac182a30c1f63177a967b85bfe065925e4eeec3507f38387c0d4e41182b",
+      "after": "bc0ffc165d73d8edcbc6baec5dd69d8cfa988903e4fbd4aa02a2aef37369cc75"
+    },
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": {
+      "before": "764c4d90b29acdb376d7aa277a77cc4cc648342b3c17688cd57d97ae190534d4",
+      "after": "a3a3ff80c3239f31dfeeeb638568b6dee9ea0fcb6b51a26f2d77681dcd9fb822"
+    },
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": {
+      "before": "13963d0ce48866d820e832087e97e9543db10d7a28e7e7567cfb41cd7705fd4e",
+      "after": "4e05fa19e03f296927ce699cab85ea41995caa4adc4589b887a82c0ed5d448d2"
+    },
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": {
+      "before": "1aedcc3fc00f9094375de77f76027a811b222f97dc42243731481ef138528b17",
+      "after": "a7b640a3c2180bdb740ed6b798b6cdbe7724ff135bb04eae1f4b33a5ef516cd5"
+    },
+    "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx": {
+      "before": "184956aa5321fe250b0c3e13674567782a13ccac44b6b4ca38001cb23af8e0a0",
+      "after": "d498c191bb0e78bc4f81fa4b9b8b947c58c89d1dc02795ef964deb8ec97276b7"
+    },
+    "src/learn/data/topics/neural-ode-continuous-depth-models.jsx": {
+      "before": "a674841c9a095049476d859776b3a81a5e3a05e441fa69262da46ff9c45a9703",
+      "after": "f6a006873b64ac8266f3b031505bc3919c1b29fa1725cca8cda02ace239f880c"
+    },
+    "src/learn/data/topics/disjoint-sets-union-find.jsx": {
+      "before": "42eb9800063b1182afe0514380f3a73ad45cf7aceffd6082049c2a7e1abc2fea",
+      "after": "ebd608d1d69bcb4715c2237e49cf245db198c64d3198a3e07a3c97f672e07540"
+    },
+    "src/learn/data/topics/complexity-analysis-recursion.jsx": {
+      "before": "35dbbf30759eb242a76dd95edf29954990bf739040c62026f64cdcbbe06162b7",
+      "after": "20873d4c694ad90d765dd611a1cd491a9aff1f523040e20c65291e2209b6c5d9"
+    },
+    "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx": {
+      "before": "9719d97c7b2cc70082655945c1cabaf9df658dcbdda4c6f2d730313309266eca",
+      "after": "1800b4619789f60a6f170c9646876735f849d235bd5dbf9cae5ca7f2192931df"
+    },
+    "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx": {
+      "before": "cc9f847ee78f63f7a5d27345c3c44ce393da92d5e975a848e081e7315c1ebf73",
+      "after": "93328fa447b42daad7ea6ecaf2b2f06ae8e327ebe5fc9d3030781225746aceb2"
+    },
+    "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx": {
+      "before": "5216f9057347a9621b98ce1c95067b8cdfe8157674a71c5733e56668519b34bc",
+      "after": "3eda42f38b6834ef23f0abda3a673d4944169069ef4ae92108b3c5caac31e40c"
+    },
+    "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx": {
+      "before": "adb7189f8f32294084bfadd76aec76bdff24736af618419293a374588f2cf557",
+      "after": "41e696f34a779539fb41e35fae05fafc1e937c1e597e06126cbd6a390a798879"
+    },
+    "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx": {
+      "before": "f9e01f443807eb734a80a3164bf2c38935f61061a88544558cff0ec794b01d81",
+      "after": "1462fb09c3db45e4c1f8c68987c80d2df1cf179f44d569d91b83df911f048979"
+    },
+    "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx": {
+      "before": "d6644ae0d4b0211954cb9ca0e75670bde3a98300873c6a06e7d7b7a63bbbfde4",
+      "after": "ff29acf1015aeec0b7352aebbd29f592822d4b69f7d20e5ca90d34b7e13c33f2"
+    },
+    "src/learn/data/topics/reductions-p-np-computational-intractability.jsx": {
+      "before": "7bfb8c6969942785bb07be447c19a4c96208d56411374fff47b19fa53fcdd27b",
+      "after": "35d354205da6a4a61c1082c8bec2b74187472ddc55d75d3998e1c317626b7299"
+    },
+    "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx": {
+      "before": "00cd52d7f406ef626519d2f5f164e8b1e54d306ccdbb7868db251488486e8641",
+      "after": "3b568df1a82d1d3a40b111b770f30def197f0fba24a3e5e3d45c35d54728e920"
+    },
+    "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx": {
+      "before": "7eaa68e2fb827c00e0f94aeb29276f181cd161b7bea8a3b6995863e6ce81911e",
+      "after": "7b885cebf1f1701be2bdd98197f0e69ef9a462c4b802580cc0d88eab17e7d599"
+    },
+    "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx": {
+      "before": "1b8e0bf08281edbde4298c9298d4837e4255d9bc962ca9011e5fb36952b38883",
+      "after": "0cf64691cf79acc87572345e7725abdc38fbed432c479d9d9e552a5cc607e866"
+    },
+    "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx": {
+      "before": "56eeea034885b35f217d8134417891b057d65dfb4355625f94314af3d25dc834",
+      "after": "d39ed51f250d5831a6e6e747ab3f9cd6a78cbd8e074edaf8bf3b784680455f46"
+    },
+    "src/learn/data/topics/random-variables-expectation-covariance.jsx": {
+      "before": "028b80cd7106cac1a64186463cbc22c43a51ed1ba08dced1ca91d0e0f35ad708",
+      "after": "e93627ecc000f5596e06665170c15d85d0c0375763592bb164c27eef157e48f7"
+    },
+    "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx": {
+      "before": "9f9abe3d4162e3dbe3e7222e3e91d1fe37c70e330ed4a57a4557b5c91ae663c6",
+      "after": "401ec03278eed30b51e15c8b5ec41d1f3ac801cd9ef8a7fcd6c5b1b080d7a397"
+    },
+    "src/learn/data/topics/sampling-measurement-experimental-design.jsx": {
+      "before": "2b14e128d228288dfbe6ae7d4ae487e0edb0a8e596c247147008bd7031937ad2",
+      "after": "d0caf14e109e040c96cd5c8bde09187abafe9b8347fbbd6e37d626f0d728a28e"
+    },
+    "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx": {
+      "before": "74450e1a33d0a9e7d07957669b2d402cfe03275237f2de41d07145bad7118b7f",
+      "after": "54b843fd7d3e6db45729ebf05c1e773535243406cdecac45211f3902de61a13f"
+    },
+    "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx": {
+      "before": "8250f6718877b76289aec6a45bd3ad9930a2c9dfb5ce4a3dc3d740521e48ef62",
+      "after": "09188d1776dfd9eb5bd646ee044d1766e0404fdcfee68ed7e4bf8eb07ac66acd"
+    },
+    "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx": {
+      "before": "9e7696ab1b01cb3a277d52d8e81ce8a496b5274a4f22151b3a43253d4e32d633",
+      "after": "767abbd4c23473b925b673bdd840b1317116068a02867dd022e078b9efa108ac"
+    },
+    "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx": {
+      "before": "e04389273eba4a25212c9f1e6a3afafe2540b6841d626563167cfd2326815ea1",
+      "after": "5770b63194aa3bbb2c5390cba5360a440c9aa52ea5871c609580d00887d4c81a"
+    },
+    "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx": {
+      "before": "460f483c32bb7f41542dc427f63c66cd905e033e6ef5e212680d14e3d6f12e66",
+      "after": "cdcce5fb9d609e8e566b0eb8349218e50f04c46e8b5c8fddb53e1af9623b1673"
+    },
+    "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": {
+      "before": "0adc0cb034f3cd9ded2f1873d843c99cac9dfd0a040be29e63d9a1ff267c36d1",
+      "after": "c02967ba8cc952a378d5eecbb0612fa92de0632c0a53fd308cecfb1cd2560460"
+    },
+    "src/learn/components/content/Code.jsx": {
+      "before": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+      "after": "e410314174eb0695def5596cc1cfbef42c1ed37884c0577d7566957f5816cdfc"
+    },
+    "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx": {
+      "before": "5f884af1b9271c6285cab08b6a2551565c81cafb6d940e6988ed3fdb0335cedf",
+      "after": "a2db70a06a193332f58db1fb2c57be9868f7deef286a2fca6497423b4fc375e5"
+    },
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": {
+      "before": "aa343dad4aa0c9a39e6735138ee4271e254aeb02cdc6c4493428895632fcc35d",
+      "after": "e7ccd51042fa030134c339a2063be7e83a86c26a417d4c217c1e163d934f22a6"
+    },
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": {
+      "before": "6f8461b3afdf19a410357a02b51a56b779e8cc0ccd508ae170975cf739b34cec",
+      "after": "8692db1a9551e2df4ee64ef1d540e19fb6f61b17d83fb72642f0c17a774caac3"
+    },
+    "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx": {
+      "before": "13594991a8ae6d81f21eae76a328c44ffd1476d7794b5e2114fe6dc192ab1141",
+      "after": "bbccdb6d0187fa9ad59b97d9458bf5e3b02e54c21d25e9175b47820d82dad493"
+    },
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": {
+      "before": "3b5a5c53b3fdbf49e84072e99a7ecbedd93b16d24384fb4376100f56d86c0cf4",
+      "after": "af338f611ada019393dc35f0ebefcfc2e71b199ad6d9b42751b11c4e863175e5"
+    },
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": {
+      "before": "df0125f2b0373e93f6e7efb7748ae82e59a59b11daa7c21d515162480b7993fc",
+      "after": "c511e97b8e88e517f810e8f592c40734878db186340467005fff6c5e4d672d1b"
+    },
+    "src/learn/components/lesson-labs/AutomlLabs.jsx": {
+      "before": "c3522d2987c3a9a88d07ce44f9c9757b36dc905cfa3345ce9ef92ab6ac32ce9a",
+      "after": "453a050bd623c37c6646a3e73fdc5a67d6c466b0bc720940cb6f8d9d2fb623a6"
+    },
+    "src/learn/components/lesson-labs/AutomlShared.jsx": {
+      "before": "df0ef8b508da372ca0fb5116ff20e68a2a07b7aa4a35ac1da5b397c058583549",
+      "after": "d19a11821a5cf2dd631626c0fe2d137da7c1578cf0e96870e4630197bd14911c"
+    },
+    "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx": {
+      "before": "d0b45b6788c520c448df167c221410cc7449f81f5363df0393049703029d32cf",
+      "after": "8b5a700f4a730c4ed9d829e5f3f7b352eff99ee8fcfbbc8fbb99a2727658ed56"
+    },
+    "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": {
+      "before": "4f47de3c628f953dfc33c17a2c95543c589682f11589556947e839a6950618cb",
+      "after": "39021ec4c0eca5a60e08cf36bd792cb074bcad840819e5da02830b331d39d493"
+    },
+    "src/learn/components/lesson-labs/BiasVarianceFigures.jsx": {
+      "before": "f5028401937fbee9df678a6db74fc2b37108f81937872df61091b111c6206e80",
+      "after": "306b2745673fcb5f969c6d563455cab60599cd39041284f14b8ec2420bb18a11"
+    },
+    "src/learn/components/lesson-labs/BiasVarianceLabs.jsx": {
+      "before": "36e138f87ce071ccd35b6b84b457299b2a6d5e16f7c75736931ccd84d3ecb47b",
+      "after": "2370d86b7211b9fb32a23621a01f0e93719ca2a95c107cf8d896dcd07b6839b8"
+    },
+    "src/learn/components/lesson-labs/CapsuleLabs.jsx": {
+      "before": "41e5e91e9e68b55cb13bb65c562d17fca12dea5ffeeb20ab635a36ce9bb2cf5a",
+      "after": "d42bf7dac6559eb4290a162b5550b91e654ed715a9a88a58d42198fe3eaa3a32"
+    },
+    "src/learn/components/lesson-labs/CausalInferenceLabs.jsx": {
+      "before": "5b1d4066edf861791d42adf213b5d736725e6c6eadd623732978aea47210e720",
+      "after": "031d5ab8430a323ebe5493d4e1b44e631d12f91d35c0705ca46c5e6e28f6ca9b"
+    },
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": {
+      "before": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+      "after": "76c3215385b0e787f03faa6d129d9e4804c2f9cfa4b7ab7e3baff6f6ceb75484"
+    },
+    "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx": {
+      "before": "37de84824be5ce17432871bf6d9b9a21768537a350225745bc27d07a8679ad48",
+      "after": "870762d3c1f69f76ce8dc2d12cd2f72a3f18fa59c6b77a1ace575dfae30534f8"
+    },
+    "src/learn/components/lesson-labs/ComplexityRecursionLabs.jsx": {
+      "before": "ae01cb98b8b4e14fd95181e89548e15e891eef11015fb82a1ad23b492fd95492",
+      "after": "1d34ad8e62429538f75e8f1c905d36bd40ef61075e81a86589f9120cf569c350"
+    },
+    "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": {
+      "before": "1ef9cd8d1d844d64cef220bbb13e9eeb4553a611bb9b4766fb32bc52896a8273",
+      "after": "c18a9d69f843def9ad113bdad132d323cb68cdeb80941540abd6142928aec683"
+    },
+    "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx": {
+      "before": "a06f99af0a9baa2f1399568f44f474f781612ed4b4ea0b3b09d08ef5c5df43bd",
+      "after": "f16858c871cd52d3b7ad6030f15f64af16148084cc06dcb388efa0dc95672dc0"
+    },
+    "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": {
+      "before": "752cf9802788467d9882a4983402ce04c5776bbbc43288fc5e16fee0ee28d6a4",
+      "after": "82b6eaca5d20613a6c4b06a2653572b8cb485c1141ca3a8e2819f28af937a1d9"
+    },
+    "src/learn/components/lesson-labs/ConfidenceLab.jsx": {
+      "before": "26c80d564edae6a9dda6415700b7cf4188d6cb2fab0aea214ee4463e0a516019",
+      "after": "3d067bad83722c1587d83fd5d69e4e477aa233e0e92930fb5188f57af9072574"
+    },
+    "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": {
+      "before": "da75751594ddb88a94a81e3ed3c9039ac5d7a796fc98e523f3194af5f62a983e",
+      "after": "880577ec7d9b2e278463595e37ec4db9b397488860cf56af490084801b66183b"
+    },
+    "src/learn/components/lesson-labs/ConvNeXtLabs.jsx": {
+      "before": "2f9ff9755b0d3e9c3ef645be6ed67c83b3d5cc9dad0c5e48b09b9c9d37d0792c",
+      "after": "539aac32a0dd0678f97ef69d989abb69911b7a53adae0489b20ff2bf6214320b"
+    },
+    "src/learn/components/lesson-labs/ConvolutionLabs.jsx": {
+      "before": "b2dd8a738aea65ada676160a906e5418213466219748f68c8f84011962b137b9",
+      "after": "d2fd89bc75722b413c090df20bb1230b084f9d68b2b0bbb0551e9e032f4606fe"
+    },
+    "src/learn/components/lesson-labs/CrfFigures.jsx": {
+      "before": "a4d99fc51c6cc1ce96c0ec9368407677412c5b70288f4e70874ed2b54326576f",
+      "after": "529deca13841d4211463573356dbb713ed11201c34e008876d1f19dca51cf513"
+    },
+    "src/learn/components/lesson-labs/CrossAttentionLabs.jsx": {
+      "before": "27ada3ec9fb005ee63295167345600722b18b9102b97ca95ff632ad1b291e9ee",
+      "after": "9dbfdc7a136fb416a85afcc399757e018ffd2ae4a0b8f033b4cd47405dc9c644"
+    },
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": {
+      "before": "ed3d9281b65474455781ad572c204b8afd9ffc1d2230d89cd5586e809cceb8dd",
+      "after": "27bc0c17d9306b0c5052b84d14dd0efc85c53c1cba2b87f43fe9673e5e840b00"
+    },
+    "src/learn/components/lesson-labs/DecisionTreeLabs.jsx": {
+      "before": "2fcac5aed3b5e7364d81fbcb88ff22b8774cbe417498aaf0def0cd2b80063cd0",
+      "after": "24992c21ee58c569c49ab0a5e9bbeb32f8e6baea7e43d814d7501d43d275c637"
+    },
+    "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx": {
+      "before": "98e31d0bf013bbe7acec6621fdba95cc6a24057e3a25637cb613588c676430d8",
+      "after": "f3d3248df58a61e8948afd18cdb2583e33a3d39003d2014680e2885ea44e87e0"
+    },
+    "src/learn/components/lesson-labs/DropoutLabs.jsx": {
+      "before": "35eecbb784ba743acbef970a72277020b2edfa9e3765390f405561b7a5d85e10",
+      "after": "9146ac1f4ef91b327ffdcc231bcd0b1b59e4ab51451496a74c1ffce9bcd1eac9"
+    },
+    "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": {
+      "before": "4873feb65fdc8e875990eb98cdbf74056306f3322cbc3d842ee9b1df3042413d",
+      "after": "3d485efefa619c5e0bc5fe9a14c9c65c28462fe39c9b223872533b82cfb1db59"
+    },
+    "src/learn/components/lesson-labs/EigenvalueLabs.jsx": {
+      "before": "9a17740204189d76c99aa523fc6e16576c24bb2e48c93178000d58882a16701e",
+      "after": "7e6ed60e5ad9103f31669abd1748c6db73fe52d5e22f7e61b5e273b8d3a931bc"
+    },
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": {
+      "before": "75c3ea78a14f16b89cb812d8cd90303a56175d26b0f17edba2889c3803caef4c",
+      "after": "207380e72de230d7c7b6c2776cd5952c4cffa998cd86c7bd9a14ed0ef77b91a1"
+    },
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": {
+      "before": "b4d666361862bc12957d0ef7fec75c7b79bb1f19537716a276ed14d6cec3f6b8",
+      "after": "85d6fe281d2e855610dd56ddcdcf550763ade7eee595b74716124021f4e37365"
+    },
+    "src/learn/components/lesson-labs/gaussian-process.css": {
+      "before": "8b4440dffaa6c81cdad4123afa1558d2f103a50cf7a5b4579195abcdc4e65b05",
+      "after": "f29c154d254d31047e8a23e63995e91004f26871a53f50a6bcc0dedcc609f911"
+    },
+    "src/learn/components/lesson-labs/GaussianProcessFigures.jsx": {
+      "before": "aaa9b28ec453bf3cd95d78a714433e28054c66ee5e8a8b18760320338c11dc04",
+      "after": "4fe2f3711b2636ded6242fd5c70d5e8c9a4d9d112ed444c0af7266c79e88d180"
+    },
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": {
+      "before": "4325159e531229411b10f971f9604d6e0228a879c8326e61b5c25274cc9ca40c",
+      "after": "2230027b5ee10b92f8710deac1fabad2256d2da0ace0ae475bf4c50e085a8041"
+    },
+    "src/learn/components/lesson-labs/GeometricGraphLabs.jsx": {
+      "before": "228d7445b571b738aa044a6932c264173e5729f27c9a11ee2ec4162714463a92",
+      "after": "25a947dc2f82f45efbff1bffe2fbcac8e27990320d01abe4c49df1364c24c7dc"
+    },
+    "src/learn/components/lesson-labs/GeometricGraphStudy.jsx": {
+      "before": "1f36dd207e5f9224e06bd6f5654dfe83a46942df86ec30c8a970b7a9a3dde713",
+      "after": "8913a53b70f542f49868b05984c78c65ad86ec243a79d75d97d10e578eb6d3fe"
+    },
+    "src/learn/components/lesson-labs/GitFoundationsLabs.jsx": {
+      "before": "064ed2806e7953a9a5b9068c651a99843ea77b8f20ef56fdc05056f5c46e03bc",
+      "after": "1fda34db2b6a07e23f7565e3509587603aa4e9a1dda95742cfb495c7ba72d835"
+    },
+    "src/learn/components/lesson-labs/GitIndexLab.jsx": {
+      "before": "b211a1723ec37d32389a8e1d6e0b62da35b4754439a34d9288d0e08cd4b4a69a",
+      "after": "457866d8dd07051e216898b7486a8a1e9efc0b2fe69792c61a69351a4dd478b0"
+    },
+    "src/learn/components/lesson-labs/GmmFigures.jsx": {
+      "before": "ba77db76ac72fc96ae2e090e24385b7c3e433783c22e8088ec0a43c510284b43",
+      "after": "212ec72648a06b2a8c5459b29756bdc6dacf7d539b76c58efb231301b47c76f3"
+    },
+    "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx": {
+      "before": "cb2d658ff9793cd33dbd60bd492fb2271b13641e02b1299c1c03d51752bfbef7",
+      "after": "4e053f8d2214a600382d606b52e1cd31800e7f23c7847cf9fee11613ccb8a604"
+    },
+    "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": {
+      "before": "baaabfe965b7afeb7458bb174ef3a99148c5c127a2c68d7631a35cc676d773f8",
+      "after": "718db06c60e2d52edcb49532c3fcdf87faad69fd756cb83808c7c17dc6cef3d3"
+    },
+    "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx": {
+      "before": "f28fde6101f12effc6b06e9a18c9569674bf290ef6b371a55f284fef80b1f5f9",
+      "after": "b9ba4734ea75f0ac40937e2630fb656947a542ac24615c1b4a822efc12d8e3d9"
+    },
+    "src/learn/components/lesson-labs/GroupedQueryLabs.jsx": {
+      "before": "f9da8a3df522897770dbaa156db606c8014cd82a6738bcbdfbf1ae253dd7d969",
+      "after": "e48fd32c6a0163b3bd0ba9d893a8723c29fc1359f98c10bb161a269eb4340326"
+    },
+    "src/learn/components/lesson-labs/HeapTrieLabs.jsx": {
+      "before": "057dce1ef0817f565010f47639f0397bde34440c22d602842de8cc0ca52de3f4",
+      "after": "7762c01a4108796531330fc3af973696212fbfa0834e89ecee378719e9ac5419"
+    },
+    "src/learn/components/lesson-labs/HopfieldDigitLab.jsx": {
+      "before": "6b967308011bb39087bf5935c8a7a633b20885fa21f3219892177af31250c10c",
+      "after": "3ae1571654409c7e32f9ac54b81b380a11e70c50163f3b176218f9fad3516923"
+    },
+    "src/learn/components/lesson-labs/HopfieldFigures.jsx": {
+      "before": "10e44b91c2c3702657de0f07ce1e07830a6e257d0076078067e2bca55a7d73ff",
+      "after": "a30ad3c1db770ccca700b9d8704d8df63bb9a99af7bf325faa04b75eb74e3220"
+    },
+    "src/learn/components/lesson-labs/HopfieldLabs.jsx": {
+      "before": "5738ab9dfa010b3b3abe65103d5663dd0662a015c53f46175b910b2d8f15834b",
+      "after": "e8de6a052caa7551259ba3b05409d611b7c1861aa39b96d020cf77c485f113c0"
+    },
+    "src/learn/components/lesson-labs/HopfieldPrimitives.jsx": {
+      "before": "489355b517367d8e1c19126002ebc119a9c090d7219b31f5eb239647bc11d496",
+      "after": "3495b2bc1b912a6be0abdbb3346e7e61ad8e6389b1da49d60bb49ce8e4fe7069"
+    },
+    "src/learn/components/lesson-labs/HybridJambaLabs.jsx": {
+      "before": "5ceebeb6417424b39c0e54e1071118a7c40adb24abd251514b02afac06b9b205",
+      "after": "3e1cc01d6736396e38302192622ecc77ff2055147afe72586b868e9ded26cefb"
+    },
+    "src/learn/components/lesson-labs/HybridJambaStudy.jsx": {
+      "before": "a89f234b43b87509e9e564941feed576eac21e141782ea056a1f64a968e1865b",
+      "after": "a834fd399fe2a636ff3925701da3e5c5c908aef72f255b3156d6a239be54d631"
+    },
+    "src/learn/components/lesson-labs/HyenaMechanismLabs.jsx": {
+      "before": "61b3c3a2d886437b1eba588848c71dd435355a97d23c28201e066a9d48bba0d2",
+      "after": "438ba88ba65077d28470ea465da87cd0e5d7934e6fecf6f29c50990139943985"
+    },
+    "src/learn/components/lesson-labs/HyenaPrimitives.jsx": {
+      "before": "0d9fa1daf3c626419f034e6caefbe0ac23666a70df11aa21ac1b79e6e506f770",
+      "after": "e157fe177e4829c13d83afec78da99f01b371e20e1e1d34218f044dba4015f7f"
+    },
+    "src/learn/components/lesson-labs/HyenaStudy.jsx": {
+      "before": "29e28e4766c9b678ba932fdf8b84f236d19fc25cb33189b09ba43b2073ec19c5",
+      "after": "ddca9902d4c498d765c30310858ec650ac857a1e6828e0f0b2c3504a84caf2dc"
+    },
+    "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": {
+      "before": "9c2f4c59ba071346259e84cf61461887a87cfa85b04ba1a051ef9a847c06d488",
+      "after": "13b9c5866949110d9f96d0e534d46f6042a23d72227c7fc6bf5a0726353a079e"
+    },
+    "src/learn/components/lesson-labs/IntractabilityLabs.jsx": {
+      "before": "5638483c9a7e2020a7bbf3987348cf3434e9de9d67e565f8a04142d2fdc24763",
+      "after": "adcda56c27b001e7630bc066c428bcd081971a1ea2fc485655861e0eba9c4000"
+    },
+    "src/learn/components/lesson-labs/ItoSdeLabs.jsx": {
+      "before": "31e8f434ff940b1eeab482b3f03019ce5dcafbc9ae8c8903c84be28809c0b1ae",
+      "after": "5a0268b61178203fedd85aaf262f2c9d56b2669b702ac11ca66bbe6d9127da1b"
+    },
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": {
+      "before": "6329308535129d283d44e020a15c5535f4bd6c47bb550fafa4a5122cca4ca2f5",
+      "after": "85ec3eb8f800cf9cf7c149ed4e9f64339783b5b28802fda5d2a853e6ae14a801"
+    },
+    "src/learn/components/lesson-labs/KnnLabs.jsx": {
+      "before": "e40744494e8072a0611cca189efe562d0efe8b35cda9c9913a66e185107a3b25",
+      "after": "a9d5923ac50a943a93a4516fa722cf2c4873915cc5e441184aa3725a0e106295"
+    },
+    "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx": {
+      "before": "acc585315488445615caffad60fc06f092aacbb294c89c9804e4cbf821916d81",
+      "after": "3d3f3370d26111a40b408f95ebae67207379c187950e3db08e2cb61184344960"
+    },
+    "src/learn/components/lesson-labs/LatentAttentionLabs.jsx": {
+      "before": "0acd8631b31c7549ef01bc40af1577743766bf301ae77ff265cdb3bf4dc5a7dc",
+      "after": "cdfb0889d44327a9aaf570a8f195523eab29fecfe5a1794ed6428457b7ec1e44"
+    },
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": {
+      "before": "eb1d630d47f5637d575881d5fb7ac696f56c2c185ea3548329bfc350ed5d89c2",
+      "after": "5e6d2905a34c9e6deb255569e084a35a5822d4ad7a47daa655ee3cc25ea8e31b"
+    },
+    "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx": {
+      "before": "300d1b20542c3244e64b69dd97ef93a25db76caaf57b96775812165e65b480e8",
+      "after": "ff42697ea425fd639037209fe2902d2d4af14c5bbe0c0b9bd1b997fd6c811734"
+    },
+    "src/learn/components/lesson-labs/LinuxProcessLab.jsx": {
+      "before": "af03363319f7694b977fcce93bc295141965a7fa3dc6dfdb9073046dd4d034f7",
+      "after": "67b49e5d115e7e5e87d438f8d5e355973479df1acbc68b1c3f7b8df9428daf6f"
+    },
+    "src/learn/components/lesson-labs/LinuxStreamsLab.jsx": {
+      "before": "72936dc319aa3acd20e3c40c591650d69118debb18be4eca61b3e610881a0202",
+      "after": "d3617b63c1c609626314678419d8c723c2a9dcb357f03ce8291a48ddf3fbfc07"
+    },
+    "src/learn/components/lesson-labs/LongContextLabs.jsx": {
+      "before": "d7c23024d9a8c1ff7dcb14837eabc5ae970a3fa1eb0ec59e789a3e36ae613a89",
+      "after": "01816745ebf6e434adbc719f0e8b9d1b1df0de65bb8cf7254b24e113b8af8ab7"
+    },
+    "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx": {
+      "before": "1ffee5f2ed41e79cab617eb09ac8760641642a63fbafd4ecf5dad585c19b5a0d",
+      "after": "84eb2ea94d29702496780061fe609c7acc9675fba1b4aa6125236c2a55794647"
+    },
+    "src/learn/components/lesson-labs/ManifoldFigures.jsx": {
+      "before": "c4e813ffedd1ff4147475e77b055e19fe64d819be11e1efcf1e1a98a1879451f",
+      "after": "f2ff89f63d895e9aae5f3ad471f79428c148df6665b6457857d8d0ba3427532e"
+    },
+    "src/learn/components/lesson-labs/ManifoldLabs.jsx": {
+      "before": "0578c1aa01007467a3959b95e247c7b485bcf5d1706182977c52f9c1486e49a5",
+      "after": "2c28d1aac162caee6e3023c85f49c2a16324cd7078a406cf85cb11e9fb9dbd7a"
+    },
+    "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": {
+      "before": "5ec46ba64edd95d866140040ca03891e352904c34a272a96baf07c991bad996a",
+      "after": "87526d87d80a5e086c9a775b7e79c55770fc01b089bc62869af572ad10d6b669"
+    },
+    "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": {
+      "before": "cdd0e456727e21e12b7205c2a487bee83a88bc6760de290a9e4a09f361ca4531",
+      "after": "35a612e0966219d547d44de02fc34e903b2fc8ff28740305b2d2f5c3155813bf"
+    },
+    "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": {
+      "before": "ae9cec08beb9c925a8542c28e122fa5e36fd239352834ce00c35737d2b0cbb5a",
+      "after": "e8ccfcb98de18b4575982ecf6bdc673dd1beaddbe3c6a09f1fa4d50b6dc01431"
+    },
+    "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx": {
+      "before": "19b91867f834b940bd1d21fab870f8e81841254a5f402c453342e8f579a10cdf",
+      "after": "28577dc35d751e6d3fd6c9531d92fda8e74358cf22f521f4e28bdf19e390535f"
+    },
+    "src/learn/components/lesson-labs/mechanism-program.css": {
+      "before": "8d016129bbfdab2b2be3ab17e26dcd0fc7c2468e186f2e176a5db99c54b9816b",
+      "after": "4e58d1ceab2455d0c586c5e76355c1243ede894a2ed25b689a4f30bedd70712d"
+    },
+    "src/learn/components/lesson-labs/MechanismProgram.jsx": {
+      "before": "e3172f813e1a50a6f8a8039983371d128b613bc9ee50dca81a259734a06f7e61",
+      "after": "fbfc528a749cc8d372a2ec73ab6b18787271432aac3cc59130eadd82a2752cf2"
+    },
+    "src/learn/components/lesson-labs/MessagePassingStudy.jsx": {
+      "before": "6bdba23a7b5d7e86700ccb21aad97317b4ce9b5b1dbd5e78c85190beaa059413",
+      "after": "77680ddaff17413321130c60ccc70dc3ee4244b4aac7708361c1f9898082d23d"
+    },
+    "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx": {
+      "before": "d13294f51a19ee88b6b368ac724781d328b048ca14c3727548fd72a4ec4ad98e",
+      "after": "6df78e1dc1fbf30b73103c6ca4ddae847ebfa7a5bca841339c2124808f8aa45a"
+    },
+    "src/learn/components/lesson-labs/MoeLabs.jsx": {
+      "before": "12c67fd0c2bf3b9a548e7c36ac1f8a70a3aec3e6e9dbe1b7d49d967feb9436fb",
+      "after": "d130663251a6b768b75b1a7b6c487f4bbb93a9ab5735a5f53fab26d59fce9b83"
+    },
+    "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx": {
+      "before": "9fac2fc31344ed03ed40fcf5a4c27a2faa342030a1a80d0cd2c2aa99d1278202",
+      "after": "330f7bee18ec81961ae9af61491474b59331cdfd80b264a64b9f33d0270168d9"
+    },
+    "src/learn/components/lesson-labs/MutualInformationLabs.jsx": {
+      "before": "c38a1cba68f0de4f420ff4004fd399cf77a42e626feb90e63fe42a2bc4f8a51d",
+      "after": "a6d53622d99005d226c5bd4a9d35c5ba24879a9bb6c03e7d278816a56175bc64"
+    },
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": {
+      "before": "61563d4a48073c3bc1da80743e703bf35ad3905d91d10d9abdcc8aa842ed7424",
+      "after": "6ad2ea82915b01572119ae11e1d1b0f46dc0dff46222e91b38ff8c5461d7f04d"
+    },
+    "src/learn/components/lesson-labs/NetworkFlowLabs.jsx": {
+      "before": "34ddbeca5a95905f0b21dc5c5496ddcd94bc9e2ca8e922d3c10d6b12d996f1f1",
+      "after": "b9461daebc50577f2af2fa37a49eed5058b0c1c4ebea19aa301f82a28929815e"
+    },
+    "src/learn/components/lesson-labs/NeuralOdeStudy.jsx": {
+      "before": "f71c379df07d6ba4f71c005e34a143edeab5237c6df8ea064536dfdc27b08ac0",
+      "after": "d05acc6a1e53196b89daedaf52c291c3068c7d181f29946c956fd57ac1fb0bab"
+    },
+    "src/learn/components/lesson-labs/NeuralProgram.jsx": {
+      "before": "c052d195d27c2e527cca7192635b5cac20000f6f87a98f75db6fe6c3e972d1d9",
+      "after": "dcc67faa678823d9da422a4ea5db3fedfec7937a82c7538900c4c34f5ad2180b"
+    },
+    "src/learn/components/lesson-labs/NmfShared.jsx": {
+      "before": "0106d084dd6fd44be3bb9b7086a2bdcf69b00ddd961aa1925f16b5077b442199",
+      "after": "6b0f7342f26d836debd041ac42938c2ae0c97adecbe900e03d49a362851c9351"
+    },
+    "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": {
+      "before": "880fe09f7e24f8d695fb76401b9f86157ee25e5873739839b1f961378cc7af4c",
+      "after": "296e9690865153d0f690107d1b8e8d45f808ef0465c74c4ff3b8c128e9a68935"
+    },
+    "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx": {
+      "before": "7cf3ec92f9e55b666a740c4735942f31aa8dfa7bdb3c5b88e05421fecdcef35f",
+      "after": "c988270cb15dd0cd39c9db3f04cf199c37aad490212dbd47ee9c1d0edfec7c5b"
+    },
+    "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx": {
+      "before": "49b17971028cc8a6e558b2962c2bd6bc7d5ad806a4f365629bb4491b5e4eb654",
+      "after": "37edf21644e1d168bc8363d23d0a14dc1b64c8a4dae0130dd39cdb025665927f"
+    },
+    "src/learn/components/lesson-labs/oop-foundations-labs.jsx": {
+      "before": "99bd1b2bd3a798a609499d4066334913654929df825ad694d2233611db157ae2",
+      "after": "ef5cf4afd2efd36606ff60675ca506570a673d5473417aa74f1fa3ce03540e22"
+    },
+    "src/learn/components/lesson-labs/PcaLabs.jsx": {
+      "before": "12dc247f561702d4e8d3050965a2424388e109bd5d1ea845a35668653dab4877",
+      "after": "3ceee160d2693475fccb54527243bf69318b2a11526b1b655c6189f30d412d17"
+    },
+    "src/learn/components/lesson-labs/PdeLabs.jsx": {
+      "before": "2628c2e59ef6b7e3d15d3b91cfd1137353a3c7c9cdf55e63d30ee016f54bb599",
+      "after": "3ca7e7c1467a954ce855f51152844ef971e1df2994256b27c781b07cafaf44e6"
+    },
+    "src/learn/components/lesson-labs/PerceptronFigures.jsx": {
+      "before": "914e9264d76e3c68be60ec8e6e180a97ee76659c203b227a3e8e843d4c492919",
+      "after": "cc64c63e1d4dadee2c40965b554d732a9d448a57e8a7652150477d24ace88e2e"
+    },
+    "src/learn/components/lesson-labs/PermissionLab.jsx": {
+      "before": "d1e316014951872b0dc6d2497d7fd72cbc5e95a8c9e1260f96ff909d5953af33",
+      "after": "96378aa89be7b609b794526b0c51680d4f74b14ecdbd1237b8bf7502b65cbf67"
+    },
+    "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx": {
+      "before": "1e7ddee180fcdfd37874f88690e3f2da6923cfba67375af0a23106b73b432840",
+      "after": "5c4b2a50636f6d581994f1f4b9ec20ed1c10de6d17432fab3cc0b053807dd82f"
+    },
+    "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx": {
+      "before": "80f1b4d3099dba718186ade7c3b7f9b35b67a22d0b9ef73482dd8bb5174b2c93",
+      "after": "2a010e430c0caa360d39e94c47515ea5f573ce746dca0bd08bda2209b5264e9d"
+    },
+    "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": {
+      "before": "c8278b84b5e87deda9f9d3910cd04335feb926eaecde83ecb13c6513af323ec7",
+      "after": "208e50426a052600287afab1aa9eab652baf1333004c5a813c2f06bf763f1f4a"
+    },
+    "src/learn/components/lesson-labs/python-foundations-labs.jsx": {
+      "before": "5f43f050d85337da8b2214e72dae336e37f9c11a389fd27661826474c3ec57ea",
+      "after": "57b772e3bb2204e4da8ccfb8b4db8c77d9a09dc5b90bb401881c4fee78cf2bae"
+    },
+    "src/learn/components/lesson-labs/PythonExample.jsx": {
+      "before": "cc0f8dc1ca16dac8e5fe5e8b23772fc0f2dddab82111ca9bb6ef8d7fd48d4772",
+      "after": "2391a0e88df62b57d5df8e8136f5424455c5bc580f403a4a712996c0c0fc526d"
+    },
+    "src/learn/components/lesson-labs/PythonTrace.jsx": {
+      "before": "27e1e9b0cd10ce30a2ebd009709af4597fde28cb22a2d1993a39f2d611f2d032",
+      "after": "32c04da5d7908b7960da708592ca0a9522412ed5f29ca8e2690c5844f43023a9"
+    },
+    "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx": {
+      "before": "df56dfda4746ef46fa979a32af83d76b67df84c35fb81e000e6b36507860ad75",
+      "after": "310107d6ef75e1050a965ac041f55b791052667392751629fe42c3000a5728e8"
+    },
+    "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx": {
+      "before": "cb95918c17e6eff716a2d954661dc10d426c02f96500fecf8f9c4c814c1e8b72",
+      "after": "dc92a1e7f95f2a1e5788bcc7945c09f66fdaffba7591132117dd6316bf36edca"
+    },
+    "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": {
+      "before": "19c011a895124b36eb5c804d61b8c1d8f51d9d6ed50191ffbb8ad27803ac5932",
+      "after": "69cbb184476ce3f383023b25d015502a192b3f8c29ff5833bb0a9da0a6359a63"
+    },
+    "src/learn/components/lesson-labs/RandomVariableLabs.jsx": {
+      "before": "3ef6859c2701502efef0c0d70367e6ae4b4ef09d872572bba45626017f4101c2",
+      "after": "47f7f2e5d71deee4c602ba163c174cb6cc3c7dcc928fecde8f96598e399f1ab1"
+    },
+    "src/learn/components/lesson-labs/RangeDequeLabs.jsx": {
+      "before": "29059924a68102462d684e8b5513611f84a9e6227c979b107a4fdbf8d19db83d",
+      "after": "1d9f453656753fa704a2df0e3126877ea9a28c49c2bbdb8e93ddcf830da81ca7"
+    },
+    "src/learn/components/lesson-labs/RangeQueryLabs.jsx": {
+      "before": "558e1c7a129fbe207d4710348c17e2f6a9c79efd39d808082074820ff5d8eaf0",
+      "after": "18485140b7245b896724b4358ed214a23220f4f160e8602b7e3aa9e38ddf525e"
+    },
+    "src/learn/components/lesson-labs/RbmDigitLabs.jsx": {
+      "before": "b7e23837c02a0b8a3963417f5fda72424fa18c003947497d1c53a68c293f9294",
+      "after": "c54595e1bb7827fedf4bb6e1e47e4d24f2397615b74feeafa7fafab5903abb42"
+    },
+    "src/learn/components/lesson-labs/RbmElements.jsx": {
+      "before": "54a3a2510a0f719adfbd382a9ad1dc02aae4b650abbed100e9a343d6962040d5",
+      "after": "5e046ed72da5978436c89f4b67bdbe203b4be210071b32dede737a2b1aaa654e"
+    },
+    "src/learn/components/lesson-labs/RbmLabs.jsx": {
+      "before": "f4eed411605442149b9bd628acdc1c0d16c39a66785a2ebe86b605fe7fc66ad4",
+      "after": "c4017059fc96ff375efc0b85bf6a9918e5f88950c23e962dd14002378f8bf722"
+    },
+    "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx": {
+      "before": "a1a23a8fd44f2ca83653677f84135482ee631bcaedf10d7d92933d18885d656c",
+      "after": "cd5999d564fca1791131c566353a29077caf3d28d2443a68280d489758f3c63f"
+    },
+    "src/learn/components/lesson-labs/RecurrentLabs.jsx": {
+      "before": "4b419410b71fc7fd16e2104484d357ea03cd0c0804f9465e6e1e5853457fec4c",
+      "after": "835754b3edd13cb72b32a2b3c745ace025dbb23f12469759675a778c65dca2b0"
+    },
+    "src/learn/components/lesson-labs/RegularizationFigures.jsx": {
+      "before": "56d269df02b56c6c8bf5252bcefccba5471f7c31c516e338287200703d81863b",
+      "after": "bc473d255dafb5ad70efef5b5f1be98548a0e22e8bcca69cc5016d1f3779280f"
+    },
+    "src/learn/components/lesson-labs/RegularizationLabs.jsx": {
+      "before": "8f224ed445fcb7b39501e01eb8f4643c2362e46a8829f043474b9425fa88710b",
+      "after": "1d888f1be699bde4b7cefd6006f47b3d4c9c4a63148eca7bc8c6a664e8e388e9"
+    },
+    "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx": {
+      "before": "a7c89a5328c528fec759a413d8bb1d7ecfb94ea25611098e981fc567a74748b7",
+      "after": "765a0bcc62b135951b4d7fd902faf4effd3dfe3136b5bff905e42606d7c8b3be"
+    },
+    "src/learn/components/lesson-labs/RingAttentionLabs.jsx": {
+      "before": "9b406de9615717511f884f9180f7cf5cdd67fd8e70f1190e1d757ec7083b0b9b",
+      "after": "2f6d8a6e6ae0424c05439d7c64523d4384b17187aa2c4986e2a783c90ad74928"
+    },
+    "src/learn/components/lesson-labs/RingAttentionStudy.jsx": {
+      "before": "ea33d2dcec4202da5bf41310fbced7b0ce8802dc5230b1efed513272607c669e",
+      "after": "ba7ffe619de6d580b4c93f95f65478e5fea16d8fe12f9c6060e31c21faea928c"
+    },
+    "src/learn/components/lesson-labs/RingAttentionSystems.jsx": {
+      "before": "876081ba51d978ef44a7516aef57983a88af5e2261a28c022571f35c4211d3c5",
+      "after": "9a7d940ee7696fa5ee9af450547bd38752810c2e354f9a146e877e411325ffae"
+    },
+    "src/learn/components/lesson-labs/RunnableExample.jsx": {
+      "before": "8af92413d48db2c682daa299c96a8173da7266298f0fe916c65f3d799c1811e2",
+      "after": "ab88ea2bc0a11e9ba606168de2207ea7878b3124026d0a8950c0659fc43470a6"
+    },
+    "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx": {
+      "before": "63f9e0e57d88500a0b57581012054b6189fbb4b610bfb8e85eaad5ba3db5f901",
+      "after": "a71f1b589bd2e7a6e0af1c5cdf5d04baae807f7af721d55bed23a02bf28a4f8f"
+    },
+    "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": {
+      "before": "4ff601e8f5358a3f33d7a682e90a59c16b014085c7786ca00121d50f289ddfbc",
+      "after": "7e96c7ab72b9e83100d6b7a85f06efbb47e1a7e33a5c76993a2fe96aaa941543"
+    },
+    "src/learn/components/lesson-labs/ScientificFileLabs.jsx": {
+      "before": "1fb3b0d4630c9d4eb972adc2d5e5cfdbdadf7670eb0b5219feb6453c7fadc8b0",
+      "after": "0dfcfb1397019839a57d4e79343808edf73de7d450faefb37c64ea072fde8338"
+    },
+    "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx": {
+      "before": "1d76ff5e56fa4e01ee791eeaccb0db215a3b007a05b104713e0dfb4263038c1b",
+      "after": "e58d20e08d92075a8209e38a1e4e3d6685573bf3bc916868ec06c77a589a16d3"
+    },
+    "src/learn/components/lesson-labs/SelectionShared.jsx": {
+      "before": "a55e68432bb1fb8ea0b85383b70526531a2575d22b4b5e482354f48a1e16b9d5",
+      "after": "17273f3a746fe56930dcf3a1fd9727517b2a4e163b42a5e15e4442b8e7b97a78"
+    },
+    "src/learn/components/lesson-labs/SelfAttentionLabs.jsx": {
+      "before": "c67a9f13742dd268757deb8617dca571670f6eace11f94de2ac8cae83061c1eb",
+      "after": "5bf702beb078cf89b9d475e8ee8531ddaadcb024f22fba280156a9ce45074e10"
+    },
+    "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx": {
+      "before": "eedc70690a726029b23a70e89655de710ac070540e97be6ede33e0fc7c554a2a",
+      "after": "30b3251c5ec1caa8649da38e5d16e1923184077bf48b69c430e245962d70fc99"
+    },
+    "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": {
+      "before": "e9e0fef7a0b7b5fcaccf52a94cb1cb3e2def9bb3e53f4c9bc399a12716608277",
+      "after": "e281e625edf8934981ad2b1e52635f96cf55f9acb4418936779a885e1e3daef6"
+    },
+    "src/learn/components/lesson-labs/Seq2SeqLabs.jsx": {
+      "before": "525a722266eb8f375bf37c4d939b5c0571338542b6cae6145b97badfb3525ecd",
+      "after": "48eb8e2cdb9d5f8adf32d943b50d1777ac550da01a3cd79f95fbb42ba427547d"
+    },
+    "src/learn/components/lesson-labs/SparseAttentionFigures.jsx": {
+      "before": "e4b587e6d9815d07765bfbe5cc7077ba38b2d3246601c52b40cabaee9e96ccf1",
+      "after": "309346cb5aca8f0958f92a3458fcc76093cc78f2ab57dace5c64accc9cb67d20"
+    },
+    "src/learn/components/lesson-labs/SparseAttentionLabs.jsx": {
+      "before": "af8ac6024fc9110ac289608f14f80a147d509e1258c9e698308fc06b1a835e04",
+      "after": "064629d014130af5be7857e4fca7358570ef4d69f0855a18e7be75c548d8309e"
+    },
+    "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx": {
+      "before": "fb1b7803131da472eff80293b82adc6fae06e194decae21c5763a47a69b5962f",
+      "after": "a1533d4f921c04c29804a6e38552adcdffb9bc6845d756e59b94062e19bdea66"
+    },
+    "src/learn/components/lesson-labs/SpectralMechanismLabs.jsx": {
+      "before": "9940e9b79481371d893fbd2b9c43813e8d5dcb9366d389358f02b394bab2f90a",
+      "after": "fff5db6887e9fdcd29e59440d4a2ad64b124208eca8669edb4ba0079ee44074f"
+    },
+    "src/learn/components/lesson-labs/StateSpaceFigures.jsx": {
+      "before": "d6d962b9e5cd8aa5c75dcf515ab1d2dc2ed6bae8aa02e80d5f432370c08b585c",
+      "after": "676d90a206155b574e480caae7d399e4930aacebab2cb5b7820492f3c4f39aae"
+    },
+    "src/learn/components/lesson-labs/StateSpaceLabs.jsx": {
+      "before": "a046802ffacec9bef58d94fc481db6bf44b9fbe4a510e494b82f9231897dff82",
+      "after": "7967a0e1ec425a5e1d9232fa837e01477290666081d360efae98692a3247a23e"
+    },
+    "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": {
+      "before": "afec2a0f77ca470c65c808b816996f2dcbee94d07f296668a933a7dc9f16fe10",
+      "after": "e70ec45f3df1551f1e520bcaf449955a047dcda28f5d59641d09e96edf244916"
+    },
+    "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx": {
+      "before": "a106b1fccf77ea7d24d475f8392be8b9ec63d63e10a73626fdf661445252110d",
+      "after": "0364410c90ba746f65776648976ecf31ef98b9a413c0457ea06dbddec1bb9e7a"
+    },
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": {
+      "before": "cbcb59f28051035770b29d3ce8986f1bb645e48d84b4c5abec6a006bd88a3b1c",
+      "after": "ed3799a557595a4b9ca78341146ea5ba21e013cd588389514b05b8806e349b05"
+    },
+    "src/learn/components/lesson-labs/TerminalExample.jsx": {
+      "before": "f33ecd2e03147195be17f0c3e429a6c5c6dd0172870d43098cde666fec98c217",
+      "after": "76881ce9d3565fa5a6785371f0d4d22bef388f1db02d7d8eb1748740b331b417"
+    },
+    "src/learn/components/lesson-labs/TitansMemoryLabs.jsx": {
+      "before": "8ce3a55f93cbee3f2a35e3c7f54f18ccf967e7056522bcc8efb10987f2c8becc",
+      "after": "da226e220001ff564e34eb5f0f00d903196a43529a28e9b97f99620aec57dd3b"
+    },
+    "src/learn/components/lesson-labs/TitansMemoryStudy.jsx": {
+      "before": "4cf919a49060b17bcd0419b3053c6cd7be5c56f6df72a62a29b27f5d8a40e867",
+      "after": "5ef87e8fb1652d7cba1f9a3b0662d32dc3b297e59d2761274708b0b587e1eef6"
+    },
+    "src/learn/components/lesson-labs/TopologyTdaLabs.jsx": {
+      "before": "c8fb3fabd989a2f0d5e3e3660c3ad37706390fa889f86f31349433a4fd6857aa",
+      "after": "b38e51aa1e733b2f6c54bab1cc75e7c084d98c6025479e92dbf4b7fc0df28579"
+    },
+    "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx": {
+      "before": "6f8eeb80a30e754e4e81162717574f886a029a9b11fdfa529b1130d4e987065d",
+      "after": "25e17b9a33cb78eeac6be5d0ca3963d84e32393db3281a38c422e90aba28208c"
+    },
+    "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx": {
+      "before": "01f383252878dae7a8e0d02ffdc4483c4f9524b03905b89faa821d8c7dd1211b",
+      "after": "92735559e6e5698c78e32c4871438d320e3c5a2a2774e8fa1510c2f3f0cef4a7"
+    },
+    "src/learn/components/lesson-labs/TransferLearningLabs.jsx": {
+      "before": "35c73b10df7832dd38cfa263b0bb5a561f0dec2e9296dba4c6e845e0e86ef540",
+      "after": "9ce4f71243c4b9a5611848dd9d1a30d039b766e108c634eb5f1f6b2411041ade"
+    },
+    "src/learn/components/lesson-labs/TransformerBlockLabs.jsx": {
+      "before": "feb09397170eeb07a83fbfb2867030a3aedc48d4f77b7823aab86df24ee933bc",
+      "after": "f2c5a91350a9ed0955287057172cdb2299f73c63cf094745fa1df733080d74e1"
+    },
+    "src/learn/components/lesson-labs/TreeLabs.jsx": {
+      "before": "a5d1c25f396f498773978d88bbbd9b2f5b376d29273f09859b4c4c2a170ab0de",
+      "after": "0a93e8628b3c8b39bb8fb3582a2fedbf677c165ad675ddc2e82a9cd483eaa802"
+    },
+    "src/learn/components/lesson-labs/UnionFindLabs.jsx": {
+      "before": "fbbf616d1a458e238e81de9414d125080f7687e1ff2b9f833b9a0ca10cf27dfe",
+      "after": "bd601398667b90450899f52498eb744aff8e3c712b4e5c37aabe7b6013f47154"
+    },
+    "src/learn/components/lesson-labs/ValidationLabs.jsx": {
+      "before": "4e2783f7e0719a96a8a2454adc3827d98f6ca07d3e024b69393468f46df5ae2c",
+      "after": "62eebceaf2f95124dd3ba9db7c26b5b703cd57dbdf2630400f2e0e23e4532ddc"
+    },
+    "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx": {
+      "before": "dbef44b6dbf3a6bd04239320d612ae8b257528e0a788f184a5b6ff70d6d11261",
+      "after": "261ecf5454e6860f399cf0a48fc1ae3346d05db05ff00e8d72312591bba8242a"
+    },
+    "src/learn/components/lesson-labs/VectorTensorLabs.jsx": {
+      "before": "c68c3aaf5d8dda7f91afc1ed71e81df3f401379e142243c3fc5e88f1bffbdadd",
+      "after": "d7e45af0fc2be618ea0a87b88e848a1fda0ffa20cc4475fcf2720b3a7235e37e"
+    },
+    "src/learn/components/lesson-labs/VisionTransformerFigures.jsx": {
+      "before": "3baf75147321c134412ff76d4f041a4a7c30ce46e384540fb9464df618340b9d",
+      "after": "2086cdbaf6879159b31a46465d109947278a1cc3b60ba05bd77d28f5493517d2"
+    },
+    "src/learn/components/lesson-labs/VisionTransformerLabs.jsx": {
+      "before": "95d5ba486cca0c61cae51971af5c9eb179e43aedfeef325e9a069af0f0abd9e9",
+      "after": "f2f814478910b7a8dab14e5a75f5dcd4133d3e424c1e2b20fe5335e85f85aed8"
+    },
+    "src/learn/components/lesson-labs/WeightedGraphLabs.jsx": {
+      "before": "60628917042631046f3deb82745a4d7c78e71adbd913803b9aa2bbde61f985be",
+      "after": "e9814cb8a6000a2cad4a64261d894dd43b07c3503a6034f6c4b976b9b2664ea2"
+    },
+    "src/learn/components/lesson-labs/WeightInitializationLabs.jsx": {
+      "before": "05b5d2259180e3ca8de800efa486dd444afad21466678a7ce440b22cc44180a4",
+      "after": "cdb69682a6b67f712c7f75e474cf38b88433adbd7204434338998688232fc26a"
+    },
+    "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx": {
+      "before": "7114f4a097f9706df231d1aef132b46ae99eb6cf5df8922d0671b613388b9a83",
+      "after": "71c0ed66dcb7b775880079f7a9ed45e2993f87d48fbf8d1d762ed7fe650633a3"
+    },
+    "src/learn/components/lesson-labs/XlstmPrimitives.jsx": {
+      "before": "ad7d03a077dfaed6563d3fa0d166e3d0e4185c82f1ad880d16f7294d1b8a0a3f",
+      "after": "f8c14fb6e8aa2131dc04662baefeeac30bc07d142b2f58e733b0615192e5cc68"
+    },
+    "src/learn/components/lesson-labs/XlstmStudy.jsx": {
+      "before": "c3dc275abb23c3c10cd68885a0e7151ce80bf6ce63c604c45707471e00201ca3",
+      "after": "0a203d1ba4fd6c4118060b86bf765f678a86de99feeb9903545b3a78c33777df"
+    },
+    "src/learn/components/TopicContent.jsx": {
+      "before": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+      "after": "b37f0a392e215e344aaca0d1cffc2081b94c939d8f79b0126161c74aa597a0c6"
+    },
+    "scripts/lib/prepared-lesson-renderer.mjs": {
+      "before": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+      "after": "5d8e1df322d173095f1aa5c0e21096de169c6820aabea61bb79d2a74a4c0b3a2"
+    },
+    "src/learn/components/content/RemoteCodeBlock.jsx": {
+      "before": null,
+      "after": "fb3c96ec5e562175286e82537acaed027ef33ff00ee1aa505d32a92bed772290"
+    },
+    "src/learn/components/content/LessonCodeDownloads.jsx": {
+      "before": null,
+      "after": "bccf743ce3b54fc96a0d2c122a471dee2dac08f4c9e7bd0e68eef7a45b1c0720"
+    },
+    "src/learn/components/content/code-downloads.js": {
+      "before": null,
+      "after": "304dc9623de8903efbe9b304d9affa5ae53bc42822286b1abcd68c72f060f82d"
+    },
+    "src/learn/components/content/lesson-code.css": {
+      "before": null,
+      "after": "aa1d7a5e6d6d3ff706c6c052018d512201beb2b84a0540dfb2ebb514dc8f4be5"
+    },
+    "src/learn/components/lesson-labs/useLessonViewport.js": {
+      "before": null,
+      "after": "3bca9b88a8c2b10792c493b4410a0531f2e3a015e73a0838facebb692cd54838"
+    },
+    "scripts/lib/lesson-teaching-disclosures.mjs": {
+      "before": null,
+      "after": "672b214600eca9e8b676243e42e6a77bdd195640ada1c9e7bd832676123b7ae0"
+    }
+  },
+  "evidenceHashes": {
+    "docs/teaching/lesson-code-access/README.md": "1c6178bd83745372deb44e65f01a38e1dea4d7a96ea32850c788aec3d3bf135d",
+    "docs/teaching/lesson-code-access/topic-audit.md": "d7797da5e69f4fada9da822557feaa602a83799e5da140955c7a3b20f54d2a7d",
+    "docs/teaching/lesson-code-access/topic-disclosures.json": "aa54aa9ae00e90baf77c3ab4482e327ea51b008f143b28176dbd0556a03f1d82",
+    "docs/teaching/lesson-code-access/topic-conservation.json": "1e7bbead6ac62855e1de8a74b0a7ff84725b2bd241a64a8912a205826c1d7893",
+    "docs/teaching/lesson-code-access/topic-download-patterns.json": "6210bc14d6d767bbe11f35ae247cfda5ab6a5f67fc2094f83db5c88c034a8557",
+    "docs/teaching/lesson-code-access/lab-review.md": "070a5a3e6cbf5d127356ba06a321b6573b2d86054ec642a90b46fbda5b841d10",
+    "docs/teaching/lesson-code-access/lab-source-review.json": "5f86e95f1c6c7da938504ba319a2a56ceb9422fd1c3c57838e3a52ffae76779b",
+    "docs/teaching/lesson-code-access/lab-program-review.json": "4ac10f296fb862ca86e74bc65112d84d54d63aa6e9a43c55330caa43be13dd41",
+    "docs/teaching/lesson-code-access/lab-independent-source-review.json": "5717522ca8e4661b5a77f61b23135aed3577093f81b664c6b4859110e518a4b7",
+    "docs/teaching/lesson-code-access/shared-review.md": "b995ad5d6f59d7a613ca185eb434e8b1279a9ef577ba8e2ce8b7ab295bf4a597",
+    "docs/teaching/lesson-code-access/code-control-checks.json": "bf15ad2bc0383fb726585ff37cb8a0db4022fed1c1c147309f09000ba29d23c3",
+    "docs/teaching/lesson-code-access/browser-checks.json": "45731226b910ae50f331e4018ac871b5ffea60b7314563236291a4c9434ce6c8",
+    "docs/teaching/lesson-code-access/integration-checks.json": "244a6a75ac79d8703755c54b594794e075702b795b5c596dcb9dce83bb328c3c",
+    "scripts/check-lesson-code-controls.mjs": "25978ce6b93588c25e109550bd79a55ebff1e40a203f20ef761eff8840f57f80",
+    "scripts/check-lesson-teaching-visibility.mjs": "a51ec0bc09f7c3c2288d75d4ac46520f15e74e77f4a8eabe0ef6a0412da2557b",
+    "scripts/verify-lesson-code-access.mjs": "72a2d95d3a1f22ac2c7cdb25102e55889b998a1fda50444469af767bd2929caf",
+    "docs/teaching/lesson-code-access/images/dropout-excerpt-mobile.png": "36951979f4fe38605caa8b0634981f3dfe8e273eccd804458ba47ae7d71a2da4",
+    "docs/teaching/lesson-code-access/images/gaussian-files-mobile.png": "9ee4155daecd4d9d26355c177ad70f6b1ad6ced4927bf47918dd99aa3f7de8df",
+    "docs/teaching/lesson-code-access/images/positional-code-desktop.png": "77648d330c7f3690ae275456ccc3f5007f3e3140bdf25d7d20f58794dc40eee2",
+    "docs/teaching/lesson-code-access/images/positional-code-mobile.png": "06bccc0450ac537c26d18e6d10964b8878236cc8efe427e6cc4b7fd1d2fd8d83",
+    "docs/teaching/lesson-code-access/images/positional-diagram-desktop.png": "84043777503ec3a699fb634bca75b73e1f38b745ab4f35b78b2c4630c661869f"
+  },
+  "preservedCurrentTopics": [
+    "decision-trees-random-forests",
+    "ensemble-methods-stacking",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "k-means-hierarchical-clustering",
+    "k-nearest-neighbors-knn",
+    "linear-logistic-regression",
+    "multi-label-multi-output-learning",
+    "naive-bayes-probabilistic-classifiers",
+    "recommender-systems-collaborative-filtering-matrix-factorization",
+    "support-vector-machines-svm",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "pca-dimensionality-reduction",
+    "clustering-evaluation-validation-silhouette-ari-nmi",
+    "dbscan-density-based-clustering",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "gaussian-mixture-models-gmm-em-algorithm",
+    "t-sne-umap-manifold-learning",
+    "independent-component-analysis-ica",
+    "non-negative-matrix-factorization-nmf",
+    "feature-scaling-encoding-imputation",
+    "cross-validation-hyperparameter-tuning",
+    "regularization-l1-l2-elastic-net-dropout",
+    "feature-selection-importance-shap-permutation-mutual-info",
+    "bias-variance-tradeoff-learning-curves",
+    "imbalanced-learning-smote-cost-sensitive-learning",
+    "automl-neural-architecture-search-nas",
+    "hidden-markov-models-hmm",
+    "bayesian-networks-causal-graphical-models",
+    "conditional-random-fields-crf",
+    "gaussian-processes-gp",
+    "semi-supervised-learning-label-propagation-self-training-co-training",
+    "active-learning",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "pac-learning-vc-dimension",
+    "calibration-conformal-prediction",
+    "rademacher-complexity-generalization-bounds",
+    "ml-problem-formulation-baselines-data-leakage",
+    "time-series-validation-forecasting-baselines",
+    "end-to-end-supervised-learning-error-analysis",
+    "perceptrons-neurons-activation-functions",
+    "backpropagation-automatic-differentiation",
+    "loss-functions-ce-mse-focal-contrastive-triplet",
+    "batch-layer-group-rms-normalization",
+    "transfer-learning-fine-tuning-strategies",
+    "weight-initialization-xavier-kaiming-p",
+    "residual-connections-skip-connections",
+    "dropout-droppath-stochastic-depth",
+    "convolution-pooling-receptive-fields",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "depthwise-separable-dilated-convolutions",
+    "convnext-modern-cnn-designs",
+    "capsule-networks",
+    "rnns-lstms-grus",
+    "sequence-to-sequence-encoder-decoder",
+    "attention-mechanism-bahdanau-luong",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "state-space-models-s4-mamba-mamba-2",
+    "rwkv-linear-attention-models",
+    "self-attention-multi-head-attention",
+    "transformer-block-architecture",
+    "positional-encodings-sinusoidal-learned-rope-alibi",
+    "grouped-query-attention-gqa-multi-query-attention-mqa",
+    "multi-head-latent-attention-mla",
+    "sparse-linear-attention-variants",
+    "vision-transformers-vit-deit-swin-dinov2",
+    "mixture-of-experts-transformers-moe",
+    "interleaved-cross-attention-architectures",
+    "message-passing-graph-convolutions-gcn-gat-graphsage",
+    "graph-transformers-geometric-deep-learning",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm",
+    "spectral-normalization-gradient-penalty",
+    "modern-hopfield-networks",
+    "xlstm-extended-lstm",
+    "hyena-long-convolution-models",
+    "ring-attention-sequence-parallelism",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+    "neural-ode-continuous-depth-models",
+    "hybrid-ssm-transformer-architectures-jamba",
+    "titans-multi-memory-architecture",
+    "mini-batches-training-loops-gradient-accumulation",
+    "neural-training-diagnostics-reproducible-experiments"
+  ],
+  "rowHashesBefore": {
+    "abstract-algebra-groups-symmetry-actions": "5113403ba65ec5488ea0e0850f03ed74076e949604721dcc04988d114b6fe918",
+    "algebra-functions-exponentials-logarithms": "9305587ee0b8971bc3e8730dc55a4b17b172adddcfc7f6b0aeec70eb54c9736a",
+    "algorithm-correctness-loop-invariants-termination": "a53a2bd749efc761253958178bc106235375b56c1aa7bef7d840e741207ae8dc",
+    "arrays-strings-hash-maps": "c12d350a282c0a9f3826c0f264f08c6114be3797aa1bf7252ecd8288e40cc0c9",
+    "backtracking-divide-and-conquer": "38a59386dd6d9a315a2ddca8e75dfeca6db2983441b74a3b019c573617007872",
+    "bash-scripting-command-line-automation": "7bd513a403caf344dac1f71dc14afd7f1b54510ce1ecc838bf5a5ff6c58d210a",
+    "bayesian-inference-conjugate-priors": "658f37c4d8f9f82b8b4288c72f527a40dae5b341053fb2a09e2ad59abac1b04b",
+    "binary-search-sorting-two-pointer-patterns": "e987c39f8e0bcb645c78d1ad16184fa5935451441b6efdd52e56c75599dd5416",
+    "category-theory-emerging-use-in-ml": "558c928d8547e9e6ee12642ea7d50c04d079d7f2f626eeef217cbc3998f523ee",
+    "causal-inference-do-calculus": "04c27b0f8e4f0b06c071345db6aa0abefca53ca0127243b530d7e32a3251492f",
+    "code-documentation-type-hints-api-design": "b8772e4915f6a74cceb018290d09d1abdbe9072eac7374083e4fc94f6b8545a1",
+    "combinatorial-optimization-approximation-algorithms": "5c5b9eb7377b45f4bf7537ad0503c618910cad9668ab44fb1029390d554857d4",
+    "complex-numbers-fourier-laplace-transforms": "2cdf391b3d0fe48fb05a6783a9bc336f92151df86466b4e10f33c36da9c51eed",
+    "complexity-analysis-recursion": "cde3ee6091ed207a46856447e8c20d7d159083768eabafc7649ddb0f5a7cd569",
+    "computational-geometry-robust-predicates-convex-hulls": "16c34396cad36d93301c5817679ab850659f2ed916e8c2b60468c1807a58c0c2",
+    "concentration-inequalities-hoeffding-bernstein-chernoff": "6d629ef33fd5c5d49481be11f92d1f1600916898b6d6a46de8709c2e2d7eec69",
+    "conditioning-stability-numerical-analysis": "7f2ad4da5e85f05d8e8a090d28c7660cc5f92e30a887d6887c635258bfb6af17",
+    "constrained-multi-objective-optimization": "450d16c5dbc976bc61194f345e5191a906f0730a02b029af9978c03b582d3223",
+    "convex-duality-lagrangian-methods-kkt-conditions": "e0a9c6bbd53df45c4cfc6c627985dbee38ae8a56ce9fe7456f7644b1b3d0a1fe",
+    "convex-optimization": "4f6427f6a3c40edde80726947f0fdd2a25b8f5f039ad1aff5d685c497bbc3b67",
+    "counting-combinatorics-mathematical-induction": "44e531fa7189c3ff0858fcf0fd401c37fd910b6b39c8d35cbf417b55e4281524",
+    "decision-theory-risk-cost-sensitive-decisions": "ab0659af0d9bd7941923517944824fde822d1b1a97f2d2ffe54227d64f5c9e1e",
+    "decision-trees-random-forests": "59f41d525ea7230324cc37fb45aaf74d875f87c8e73a1d3caa0ec9a16ceeed5f",
+    "decorators-context-managers": "c9ddbc96e865df10a41be455518416a5dc145f7cc55ae14230ca72c8b736bd9e",
+    "differential-geometry-riemannian-manifolds": "d47a688cc52a171b9c85d8944c1b059e28a8ab65d843e06e7aa74e808060fcdd",
+    "disjoint-sets-union-find": "88ec2f9b7d03d49af50f7162584efcb92a28353cc576cbccb7374b7fa7713948",
+    "dynamic-programming-states-transitions-optimization": "d5b0a1f219eabd0ffabe0862c8eeba537167841fcfac3c7b88bbd57b5ea32dcb",
+    "dynamical-systems-theory-chaos": "f2698892cd3fa8484cd47dad2074a4cbc031420a4aa6e0d048854fa7ed232abe",
+    "eigenvalues-eigenvectors": "26388d182d9daaa4000ca83a197ed993a4343b773a67ad9c76cb185fab170e3a",
+    "ensemble-methods-stacking": "c04f6994d897cd34e30e579327548ed9c5a9cfdd9eccc874cd47c42e8bda439e",
+    "entropy-cross-entropy-kl-divergence": "b5588c68bebb75d5e153870c660a84fffa8839cf82231a479069158ccf259186",
+    "exponential-families-sufficient-statistics": "347d02693eebb213d5504a2271098466d4a9271871c3a27968917278501260aa",
+    "external-memory-algorithms-b-trees-i-o-complexity": "fb89b6225319ad13d92170e6ae03aeb59ae94b29ceea24273af883e86356f256",
+    "f-divergences-integral-probability-metrics": "7924e834bbbcf1ca28d0972b428239fafc483da12dd2e3d04549b395fdc5f938",
+    "functional-analysis-rkhs": "775a67ccd367d4c207d9ca47ddb29f9d1ded3637e63f288bb410ae36d672cd2c",
+    "geometry-trigonometry-coordinate-reasoning": "03250796ac96b779ef011eee65458d61b6787d571254e8d135a2e4bc680eef63",
+    "git-github-collaborative-version-control": "730aabc3fc687dfc8e6b3e9d27a07298f67b9580545f0851b2e3f3846836f806",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost": "2e9a420334e79f350ae506341d3600bcbe573bfd73a80638ca39e063d2e821c8",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars": "2edc01ad60871ff4635b134240ae5c56eab036fa267b6efb42de888538022b23",
+    "graph-fundamentals-adjacency-laplacian-connectivity": "3d64782d3099d9eede3d37c3a7d381d8024df89e073ef7372164c2dd00715f89",
+    "graphs-representations-bfs-dfs": "3178d172b039c08473417c90ec34e9d035e0c88688f3c615e2c4671e5e0ade7e",
+    "greedy-algorithms-exchange-arguments": "7fcecbf18d60d78c00cf996aa053ec1f694a9a17f0057a81c344aeb8abc73eab",
+    "hashing-collision-resolution-amortized-analysis": "b89556a92ff3c3141de5b4ad7ad3ffd0bfc5e74f39dc5c08d563570a30288b6b",
+    "heaps-priority-queues-tries": "c003ee40563e22c5a4e54a36c86f1c0919299265e70c583714aee1a3ecc97dfc",
+    "hypothesis-testing-confidence-intervals": "bde5835f9ef16851d909e53cc185179d54c4603b78e219dfccc7e90d008cb934",
+    "it-calculus-stochastic-differential-equations": "b9209b3474792c8fe6907dcf9883923379c9fcf34c0086fd8de737e44f67ff86",
+    "iterators-iterables-generators": "7f69a45b5adb375d6c1b0c96ce4dcec08404d4f7c0a5ea70c35e1f1fa01e6f31",
+    "k-means-hierarchical-clustering": "e9df7b07ae09b4b183247362f15014953304baf3894b5a692e1f2c9ca72da413",
+    "k-nearest-neighbors-knn": "f7ba71f7b92b1804744fc80a9c01f0074d8022aeade50e87780347e161dba86e",
+    "learning-rate-schedules-cosine-warmup-onecyclelr": "9d191b876d027ae0cada5a7191c7106fb4fafa3b996e7d62a3060feae884973b",
+    "linear-logistic-regression": "7494bba19d5c9ddd441d0b3d5ecfa30b7e6c195deb34b29f8a55f4414f41711e",
+    "linked-lists-stacks-queues": "e970abb421be7c8344188a647b5e7958f3f120dbb9a4c33df8084a7a45a5fab3",
+    "linux-basics-filesystems-processes": "b62b82aba85135feaa39a48690c0960e60eb4135ffbbb1158010cbcd068e258d",
+    "matplotlib-scientific-plotting": "e9b63a0b18eb9507219c24a36b1d223de1f90b0c65d0d901e2c188b4511138ba",
+    "matrix-calculus-jacobians": "9c7aa659d21dc79824cff01eff9fabe2dc0f0536aa237b6a9371c773c38fde70",
+    "matrix-decompositions-svd-qr-cholesky-lu": "136a69718c5e742ef4d9b5ba5511511b8061b44ae77b7ec24194a9c1311e81d3",
+    "maximum-likelihood-map-estimation": "a3f9c194487b283f40460cdd8c46d9f16d465aa805af46cab010a7e58a177866",
+    "measure-theory-probability-spaces": "409ad32a9c97996356e7bd66fc05e2cdffd735efc93a2a01ad73c402534511a7",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": "fec5dae2a0e8878eed59d11049f17665fbc44b90b57099aa6cce90d46fe3ab1b",
+    "multi-label-multi-output-learning": "2115b4f9c3770a8dd35e212aef62b89babafce55f263c4db1872b68ec791d574",
+    "multivariate-calculus-gradients": "6b5364544de85d2e50b5d55e688f74b34870c13c49eecdc5b47e45f8a734b169",
+    "mutual-information-information-bottleneck": "8bbffbe9c24dcccc866e84e71e569e84c28087e1952c6531b9c293f6cd2b189d",
+    "naive-bayes-probabilistic-classifiers": "92602593d34fece11d6fcc868c293e2f9652ad8e9dbb11969311e8d2ff8708eb",
+    "network-flow-minimum-cuts-bipartite-matching": "8d520d5500eab34ea5d81ae1765d3cfaa29a34d83c7de5a65a0f75d73dac4287",
+    "non-convex-optimization-landscape": "bf82bd7ae27b454262493daf01d0b4c7fbd382724b36c016f551b01ac2aa5095",
+    "numerical-methods-finite-differences-quadrature-root-finding": "1baa1842bcfef6f475c91d1be71e798575c61a80ccb7ae08838b08a8864f3901",
+    "numerical-pdes-grids-finite-elements-stability": "51d1ca952d5715e21900bf749c293d9fff8677f82b728327bac07e9cd1d94028",
+    "numpy-arrays-broadcasting-vectorization": "fbc474ca5213529fddfbfa98c16928be3d1989be6b20216a5afe4b7dd9ac8552",
+    "object-oriented-programming-in-python": "ca8f6775b81a27f58dbf985e791e45b6941b007df8f042da155a210a5f676493",
+    "optimal-transport-wasserstein-distance-sinkhorn": "cb6f898a01fad0957bc2785297d31da75e62842befe320ada52595d86063fcf0",
+    "ordinary-differential-equations-linear-systems": "45e0477c7de9cf8e7b12da564e3cb6b836a7156afccd11aefb105a9895dbf5f3",
+    "os-processes-virtual-memory-isolation": "ec2751237e6c5071bade70d61fdd64481c147e342c37bb829b5afaf24d4a51ab",
+    "pandas-data-wrangling-joins-grouping": "0199613a21cba5e35c4bcd0a71afdd40ec2f655bba8590bac51b7c002393cd6a",
+    "partial-differential-equations-conservation-boundary-conditions": "26df4d5e9b9196eaf6325daee4342a9182709a91f490663c4760bac6bd779c46",
+    "persistent-data-structures-structural-sharing-versioned-queries": "98d4db5a13c14bdb4fea26968d086cf8c1e48d88a6185d99fe6919d0edd3e23f",
+    "probability-distributions-bayes-theorem": "b82f2416d2bcb0abe83fc0a22f66bea9ba1b744f0b5488193340f0f0d143eb47",
+    "python-basics-types-control-flow-functions-modules": "cfd1a70dc09cefd1719294fe918b5e5887f361b4f51af2b7a7e13370a23632ae",
+    "queueing-theory-m-m-1-m-g-1-little-s-law": "98a812bf984f500ed873c9cd324ccf42d19815093685c59aff770e07828b9120",
+    "random-matrix-theory": "be8f657092d18c1973b3814e619ed7b1b54199d0d2fe55e1d13b2c705ae85e56",
+    "random-variables-expectation-covariance": "180e9e93b78cfa399d7ac2673bc45c0ce07a0408a7109d54832f35468a49f89b",
+    "randomized-algorithms-sampling-error-guarantees": "7b8088b74f4bd65bf1620ee428fd776f8634dd80f24f028df368c8e48a0e7cf1",
+    "randomized-linear-algebra": "5c7efa4be8eb90e3327a612831d05902241918d42b9aa4d2df32cbab4816ce84",
+    "rate-distortion-theory": "625e78353af55c8aacef243454a7a7e5e9f5b36ca921ee89bbde6822047b1040",
+    "real-analysis-sequences-modes-of-convergence": "52d6d2d36b5ed48421c7d28ec911ba61381cae26426d2d0cb12b197d10b68ba5",
+    "recommender-systems-collaborative-filtering-matrix-factorization": "41041e75b431c5aff0c8086d95cd19d44ca4390f09cdd8585b781dcc81239185",
+    "reductions-p-np-computational-intractability": "c84055d3fa15e9384765a3fdd312fc38f0d2808395b1959fa38b76e6b92ca6e5",
+    "reproducible-notebooks-experiment-structure": "ad93c405688d9ad25e84a7c7de5d489cf84061c1e9a24848f81d105edb5de176",
+    "sampling-measurement-experimental-design": "6838013d9f7c28fe1ee4b25efe37b89363085d5392c68a446588c8be00f7df0f",
+    "scientific-file-formats-schemas-reliable-data-i-o": "cc6c41a8ee0d78334d8c8dc89829dc9bd66ee590c7af3602d79458047b0c8906",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": "fd6b901c9f71ce4b5e97872a2ed801c67530f96704dd0e1f529cd1eef3a13cb9",
+    "segment-trees-fenwick-trees-range-queries": "c450a090b0f3b0523440896719b094f489815fd3b4ac007dac909c1df2616cef",
+    "sets-logic-relations-proof-techniques": "4726e022c657593113f35bd1f471a43c9becf62b43143a21e5af426afe50adea",
+    "shortest-paths-spanning-trees-topological-ordering": "d7a68a6a64129f7c3f645f0c62d55841c8783c3c52ceeec106d22f3ff8da7579",
+    "single-variable-calculus-limits-derivatives-integrals": "b82324f6b6d962a38e99d8ceb9d05d6632fc704ac546630552a9967d9301f1c7",
+    "spectral-graph-theory": "f1ec45abecf1c76df6954f963b71b030e7adb6357b77e8b271bfc9b5f0b6e07a",
+    "sql-relational-data-transactions-for-ml": "34f8fdc75a74fc08613013b39cb127800174c88185a01446e2f12ff07b52c217",
+    "stochastic-processes-markov-chains-brownian-motion-poisson": "c6d6187be8bbc8bbc028cf60cca44a201faeaacf69b0e7f6b0b0f1f8abf4f512",
+    "string-matching-prefix-functions-rolling-hashes": "73f2603311b510f94f9a974cffebf95e034284d850444224fd3557361056c897",
+    "support-vector-machines-svm": "1b2e1112b51c2446fee49496cc370ccb3d088de452563afc6fe95fed4a9ba3c2",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models": "09e1da81f5fed307a785006835055642d278e2a211666c87323df005647224e7",
+    "tensor-algebra-einsum-notation": "198623d56c0f62131e31a4b9e0aa5a07b435ed0b657ee07d4d1fc750217c82ce",
+    "testing-debugging-dependency-management": "e898623e37ace9e14317b05aed85a0be9d819d989d3dc8f112f0598a38786922",
+    "threads-concurrency-locks-deadlocks": "011edb1ffb9626723b1511a46797d04ba1cd1c70bf7107e5b0e633ca225912b4",
+    "topology-topological-data-analysis-tda": "a1c6e5fac9326b936e2ef24223eba87d6b589ef370aa0ad52697421f0facf614",
+    "trees-binary-search-trees": "44e802d027099b956c06d5c6d1a7def3c247cead52827cff40e542f0fcf425e7",
+    "variational-inference": "9012e9c36843f5f1d1ac3391e20c5cb2e66951e53af599629fe8d7e5663ba605",
+    "vectors-matrices-tensor-operations": "3dcae8ccddd908205eacc5ae1d2a5544f3bd37acaa6996a3607973b38054fae0",
+    "pca-dimensionality-reduction": "1dfea6b76c2f401927b051422056093915954441c0f1a1adea053a5ecbe02cb0",
+    "clustering-evaluation-validation-silhouette-ari-nmi": "b39a04d8d051c6b161b63f3dd7b5b29f71b02d30a156903b410adbded557a432",
+    "dbscan-density-based-clustering": "f5189a8de210e17d3bb470baf071c31070ae015a94d5e41af8fbcbf60a46d978",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": "9be7a68f10277447fd6d7218d04d2baf714ecaf85d10611d0f31034a83da918d",
+    "gaussian-mixture-models-gmm-em-algorithm": "ac28d3e34b159f5f1a41d843883b0ae86d202508519a8307b2a51c5d51aa7ec1",
+    "t-sne-umap-manifold-learning": "a84c5ce70daaed9a370500d1387701a161fd21d1177ca78f89c3c89f7b1b08bb",
+    "independent-component-analysis-ica": "8bc725637a0aee21a265fe0bfc3e954bf3b2526abd6f235bfa3c345c7b8b7126",
+    "non-negative-matrix-factorization-nmf": "b6c5fb1aaf9247d07dca9c34eb4f43fbaaa68c128099f29f28b263e6b1290ebf",
+    "feature-scaling-encoding-imputation": "345c504c252bf5ccd8091b6e3f5a689654183f1e633875d9ad5a410c181a7f6e",
+    "cross-validation-hyperparameter-tuning": "1462e848e777e1f3820fd3ecb365e179186123d9156329efe2d402d1395916b2",
+    "regularization-l1-l2-elastic-net-dropout": "3314a830dc0400860bb77a864c8f931bbd6c24f0265754dea0cc699b3d90c149",
+    "feature-selection-importance-shap-permutation-mutual-info": "a57b59b147fe1a66548ecbb1c58a3dd497346e098066dd96b12cb856f34c1761",
+    "bias-variance-tradeoff-learning-curves": "94784ca28037fed7d459eb4fc866d19aff295cceb83f80dd299445d79fc6f7b3",
+    "imbalanced-learning-smote-cost-sensitive-learning": "197240c202277b1b8d779322f8b94f4cba7b84b2aac91ca85475af4bf06aa67a",
+    "automl-neural-architecture-search-nas": "2c6234cde702d9f1d6e3fe814bb4677bceab703545b771e822daaa3fc5a2031e",
+    "hidden-markov-models-hmm": "4a8e2f63f15e4e4804bb918903e444fa1fb90a5f9b7604bd42453a69b21938c3",
+    "bayesian-networks-causal-graphical-models": "62b9185ea237f71b742498ad8e00d3c0dba503681a13e9599c1dcb3dc160fa03",
+    "conditional-random-fields-crf": "4ece1b882e92957c32443a9579ae1fb8de85518861bf06f004284dd1c07bf7bc",
+    "gaussian-processes-gp": "caf0bf7e7bfad801144824047fff19db04701aba33dd01d7c1af76773cb2f07b",
+    "semi-supervised-learning-label-propagation-self-training-co-training": "f63ad58ffa1e9ba3813619cc2474355d67496f5e066a288ea216b99faca9421a",
+    "active-learning": "f26444b8fc9de62c444a4665da42413fa97207e730c24a8455d5deb697c8e580",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": "339de53634d2b26553ae4a24eb0212bff8febd027e385536c50a0480b770da01",
+    "pac-learning-vc-dimension": "55383f8756bd9e83758df83daaea35ae423fd81a0e76c08991a59159cdecd4c0",
+    "calibration-conformal-prediction": "8547593e9d588bfb42636e9ac219f02f885dbb3723c3743db45f2686544b166e",
+    "rademacher-complexity-generalization-bounds": "9b45e1826543ddda3976a0a27eeb0dff00d7861ffa7b3f98cf4a7ac27f271b30",
+    "ml-problem-formulation-baselines-data-leakage": "a43fe5e16f2c35beb5ce1a0bd5a2d59aceb517dc0c6168595991e2a0d6ef9e9b",
+    "time-series-validation-forecasting-baselines": "d0fcabc340fefdfa6b0fe9987496d7af505415dded7e3114b8677034aaddf1a0",
+    "end-to-end-supervised-learning-error-analysis": "6a8ec3ee56a5840b45680bfa3d05696e18365f0fdad9d1190223b64355b061dc",
+    "perceptrons-neurons-activation-functions": "653b242d328c01083018c5248ee0c2383d1390ef7dfe1b26136c1fe2a8c21ae8",
+    "backpropagation-automatic-differentiation": "f15b5929fb1b1a67498e55bf60d364d1fb79665715cbd74a3e07c5c260649ab7",
+    "loss-functions-ce-mse-focal-contrastive-triplet": "7c3145bbacb49084b82275133acec1bb098f0bb15d608c854aa334a28e2997be",
+    "batch-layer-group-rms-normalization": "316f3ab4113ca4f4688c6166edc271e0097ed13618f09d1064da1691c4186c42",
+    "transfer-learning-fine-tuning-strategies": "3d6440504935ff4898c38bfe2663f7675c87a01632ed5fda020ea99ffd3a31e3",
+    "weight-initialization-xavier-kaiming-p": "79674c9244d9725a39a242740835c305de418d50ed85bc84451135f8861a78ca",
+    "residual-connections-skip-connections": "c2d46fc3d3a4f85e5de6179d43235a85029c470ee4b464ee9b72bb64caf6646d",
+    "dropout-droppath-stochastic-depth": "2ca2f5e3a853f946baab78a8e24e14019b003aecbf1a7727c30ca7d245a65910",
+    "convolution-pooling-receptive-fields": "d05e64126aec71074a20b3a6bfebdcc8e2de5e5ec5473bcf475fec3fee365c68",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": "3cfa8a5b623880d9bdd74b03f47d2f3c65881764b614027912d5dd2c64a61522",
+    "depthwise-separable-dilated-convolutions": "fd7a8412d42d9aa3d7d15bfd434fd11bf2b9e364e610b1b87a375f7ec5dd57a9",
+    "convnext-modern-cnn-designs": "e068acef8afaa8439f4908db5903bdcc5e7e5cca16064e6962a6ce1971c9a7b1",
+    "capsule-networks": "e835a473479269f09e59fe1015cd3965337319e0797169abf702bff138173b1b",
+    "rnns-lstms-grus": "4c2be4ee66a8b8788f71a0ac9b778ad34f94ca86b4ca9ef3477194963cccb15a",
+    "sequence-to-sequence-encoder-decoder": "47c434757c20d295a7bfb7611c98a37277fb22e71b7453404da2bfbfea896469",
+    "attention-mechanism-bahdanau-luong": "739e9bc7e74475466bee2b713c92892f5930e7ee70c0fbd2765fbd7048469143",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver": "6ec7429a5e805761da90950184dac06482e2636a24640486f44b4be7c14a57ad",
+    "state-space-models-s4-mamba-mamba-2": "8da600deccb9d8192893836a70e88a52fb87d528cbc4080e2f782ad80c0554fb",
+    "rwkv-linear-attention-models": "8d2422d5acd3caf38b27902550e7801ad062b8e9eab239075d7b63d2b1f7f2f6",
+    "self-attention-multi-head-attention": "ec9d2e28cf2c8c3a60b3b7c4ad9cdc5a2f154ddc1a61f68684772f99248979ba",
+    "transformer-block-architecture": "cd6b477cd2e1b278e0abd63a61ca00262b9e394272310bfe2d10a117a9e1cea9",
+    "positional-encodings-sinusoidal-learned-rope-alibi": "14239fef943cc19f51d3e452a0f43dd85d7e1664095b0d78a6b9214a83c0eba9",
+    "grouped-query-attention-gqa-multi-query-attention-mqa": "614ed9315dff288d392476dbfb472f21417abad50a9f9ab616ed1563339f85b7",
+    "multi-head-latent-attention-mla": "a0acfc66e3e7adab6a317a79b21edcfcf01ea02a9586ce4c6104fcccf6f5dae5",
+    "sparse-linear-attention-variants": "9a98f86e740411e08cfa86b31167929e1248d035a2c6a106f13836757563dc46",
+    "vision-transformers-vit-deit-swin-dinov2": "aaf69da955c84200252fca0845d110b4b1c91e4e84174b31eb63fec85a78d1ab",
+    "mixture-of-experts-transformers-moe": "caf692f77b5c9d9b0254c9c16f622bcf744091a8878c00aa59d43bc17a9876f4",
+    "interleaved-cross-attention-architectures": "4d75eeb2384ee4d2cfe26eeeab1eb4ae815b8e409604de9b0f62f1a38ae3c814",
+    "message-passing-graph-convolutions-gcn-gat-graphsage": "26189a9ad4dbd8d106512da5ef5f72cb636258798fecf4d6e93a63563551e79e",
+    "graph-transformers-geometric-deep-learning": "536e0e4a1870978db3132cbefb8e5b7e509a10db5bf4c37269d07a69909604f4",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm": "8ded32dee6a441c2706756bd6ea1df6e2ea5b9892a75040a79cf94f8fbc3db76",
+    "spectral-normalization-gradient-penalty": "5757ce88a8dad3457484825ef0fbc8838eed1654c1f48578d0ae85cbf745f172",
+    "modern-hopfield-networks": "d01b31b1bf10af8eb976a37b09b62ff92587983c9f5c7c3d0224642176c9538e",
+    "xlstm-extended-lstm": "2d3f9083e9ed8162303476e25fd7102b29563dc8a6bce2698ff22a811ed10e21",
+    "hyena-long-convolution-models": "27a5696ec932d0e0c48166038b914c381f585451ff4e09f423cebceaa7371031",
+    "ring-attention-sequence-parallelism": "2c34ea78b22530b5b4132dc0c8c6cfe51d45209d638c48ed8e52a399aa36d840",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free": "b3fe8d64428f5dfa429ff2bb73ad76603098a865f9c1d460aa40be36b075ca6e",
+    "neural-ode-continuous-depth-models": "a23afa3b88a01f28ed4350c06d8131c51f2575300510e5e85d0a2301c754545b",
+    "hybrid-ssm-transformer-architectures-jamba": "a9d95d2a01f230d4f351aaffc3e9532e29dc2ff595810e774a0ad1543b4b23eb",
+    "titans-multi-memory-architecture": "6bc3a5011383faf78c4a90172b6d41c6459d20efac0de1342e150868a9f2c2d6",
+    "mini-batches-training-loops-gradient-accumulation": "557375beab108c21428fcd4222e091357bbabc02535d492736c4b9a5d0509bba",
+    "neural-training-diagnostics-reproducible-experiments": "9b8d9da8d455ecd7a0a0a68f175db6e81fa9289c8f51ea9927620f75ebe06f3c"
+  },
+  "checkpointDeltas": {
+    "decision-trees-random-forests": {
+      "contentFiles": {
+        "src/learn/data/topics/decision-trees-random-forests.jsx": "50a9da7454471adb3a2908a803d0a6171871c7d1524f4ab3db045e86ce06f2fa"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/decision-trees-random-forests.jsx": "50a9da7454471adb3a2908a803d0a6171871c7d1524f4ab3db045e86ce06f2fa",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "ensemble-methods-stacking": {
+      "contentFiles": {
+        "src/learn/data/topics/ensemble-methods-stacking.jsx": "614b09143a438553c0e48818826304b9c55ef391f70df7bf341948d0abf7f752"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/ensemble-methods-stacking.jsx": "614b09143a438553c0e48818826304b9c55ef391f70df7bf341948d0abf7f752",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "gradient-boosted-trees-xgboost-lightgbm-catboost": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "k-means-hierarchical-clustering": {
+      "contentFiles": {
+        "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "25fcae113cf73d224c101e7be00b7ebbd5e0f437595d396a763eac74a41d1005"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "25fcae113cf73d224c101e7be00b7ebbd5e0f437595d396a763eac74a41d1005",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "k-nearest-neighbors-knn": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "linear-logistic-regression": {
+      "contentFiles": {
+        "src/learn/data/topics/linear-logistic-regression.jsx": "ef6c5d22bb5094845e2838974b6ee7702a800602aea2a477d28923b3f159d3d4"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/linear-logistic-regression.jsx": "ef6c5d22bb5094845e2838974b6ee7702a800602aea2a477d28923b3f159d3d4",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "multi-label-multi-output-learning": {
+      "contentFiles": {
+        "src/learn/data/topics/multi-label-multi-output-learning.jsx": "ff6d598055501170277128535b697ce7b52d0021a47adb930174ff0adef40d08"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/multi-label-multi-output-learning.jsx": "ff6d598055501170277128535b697ce7b52d0021a47adb930174ff0adef40d08",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "naive-bayes-probabilistic-classifiers": {
+      "contentFiles": {
+        "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "48e68e5bbb19b79fd4845792b33d39949f76c5d397d9dfbdc668a5909831e150",
+        "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "61563d4a48073c3bc1da80743e703bf35ad3905d91d10d9abdcc8aa842ed7424"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "48e68e5bbb19b79fd4845792b33d39949f76c5d397d9dfbdc668a5909831e150",
+        "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "61563d4a48073c3bc1da80743e703bf35ad3905d91d10d9abdcc8aa842ed7424",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "recommender-systems-collaborative-filtering-matrix-factorization": {
+      "contentFiles": {
+        "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "95aa927116c1bc8f5c0cf282c858109435d59ee85c0c809fc8fcff12eca6ee17"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "95aa927116c1bc8f5c0cf282c858109435d59ee85c0c809fc8fcff12eca6ee17",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "support-vector-machines-svm": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models": {
+      "contentFiles": {
+        "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "d8baab4105164493d3783c3e01a025b8a440080ade7109dc735681ef455dee3f"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "d8baab4105164493d3783c3e01a025b8a440080ade7109dc735681ef455dee3f",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "pca-dimensionality-reduction": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "clustering-evaluation-validation-silhouette-ari-nmi": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "dbscan-density-based-clustering": {
+      "contentFiles": {
+        "src/learn/data/topics/dbscan-density-based-clustering.jsx": "f38df0b8528861fbdb694769d28e20b4d7700b2dd6b157f2e30f36d6c3e408c3"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/dbscan-density-based-clustering.jsx": "f38df0b8528861fbdb694769d28e20b4d7700b2dd6b157f2e30f36d6c3e408c3",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "gaussian-mixture-models-gmm-em-algorithm": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "t-sne-umap-manifold-learning": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "independent-component-analysis-ica": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "non-negative-matrix-factorization-nmf": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "feature-scaling-encoding-imputation": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "cross-validation-hyperparameter-tuning": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "regularization-l1-l2-elastic-net-dropout": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "feature-selection-importance-shap-permutation-mutual-info": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "bias-variance-tradeoff-learning-curves": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "imbalanced-learning-smote-cost-sensitive-learning": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "automl-neural-architecture-search-nas": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "hidden-markov-models-hmm": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "bayesian-networks-causal-graphical-models": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "conditional-random-fields-crf": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "gaussian-processes-gp": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "semi-supervised-learning-label-propagation-self-training-co-training": {
+      "contentFiles": {
+        "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "bb6f12cfe663ff3e5680f52ad2124080824a5f2a481a9c16bd302ac8cacc07d6"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "bb6f12cfe663ff3e5680f52ad2124080824a5f2a481a9c16bd302ac8cacc07d6",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "active-learning": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": {
+      "contentFiles": {
+        "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "bd1bfac182a30c1f63177a967b85bfe065925e4eeec3507f38387c0d4e41182b"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "bd1bfac182a30c1f63177a967b85bfe065925e4eeec3507f38387c0d4e41182b",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "pac-learning-vc-dimension": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "calibration-conformal-prediction": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "rademacher-complexity-generalization-bounds": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "ml-problem-formulation-baselines-data-leakage": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "time-series-validation-forecasting-baselines": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "end-to-end-supervised-learning-error-analysis": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "perceptrons-neurons-activation-functions": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "backpropagation-automatic-differentiation": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "loss-functions-ce-mse-focal-contrastive-triplet": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "batch-layer-group-rms-normalization": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "transfer-learning-fine-tuning-strategies": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "weight-initialization-xavier-kaiming-p": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "residual-connections-skip-connections": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "dropout-droppath-stochastic-depth": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "convolution-pooling-receptive-fields": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "depthwise-separable-dilated-convolutions": {
+      "contentFiles": {
+        "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "764c4d90b29acdb376d7aa277a77cc4cc648342b3c17688cd57d97ae190534d4"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "764c4d90b29acdb376d7aa277a77cc4cc648342b3c17688cd57d97ae190534d4",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "convnext-modern-cnn-designs": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "capsule-networks": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "rnns-lstms-grus": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "sequence-to-sequence-encoder-decoder": {
+      "contentFiles": {
+        "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "13963d0ce48866d820e832087e97e9543db10d7a28e7e7567cfb41cd7705fd4e"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "13963d0ce48866d820e832087e97e9543db10d7a28e7e7567cfb41cd7705fd4e",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "attention-mechanism-bahdanau-luong": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "long-context-sequence-models-transformer-xl-griffin-perceiver": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "state-space-models-s4-mamba-mamba-2": {
+      "contentFiles": {
+        "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "1aedcc3fc00f9094375de77f76027a811b222f97dc42243731481ef138528b17"
+      },
+      "implementationFiles": {
+        "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "1aedcc3fc00f9094375de77f76027a811b222f97dc42243731481ef138528b17",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "rwkv-linear-attention-models": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/RwkvMemoryLabs.jsx": "63f9e0e57d88500a0b57581012054b6189fbb4b610bfb8e85eaad5ba3db5f901",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "self-attention-multi-head-attention": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/SelfAttentionLabs.jsx": "c67a9f13742dd268757deb8617dca571670f6eace11f94de2ac8cae83061c1eb",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "transformer-block-architecture": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/TransformerBlockLabs.jsx": "feb09397170eeb07a83fbfb2867030a3aedc48d4f77b7823aab86df24ee933bc",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "positional-encodings-sinusoidal-learned-rope-alibi": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/PositionalEncodingLabs.jsx": "80f1b4d3099dba718186ade7c3b7f9b35b67a22d0b9ef73482dd8bb5174b2c93",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "grouped-query-attention-gqa-multi-query-attention-mqa": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/GroupedQueryLabs.jsx": "f9da8a3df522897770dbaa156db606c8014cd82a6738bcbdfbf1ae253dd7d969",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "multi-head-latent-attention-mla": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/LatentAttentionLabs.jsx": "0acd8631b31c7549ef01bc40af1577743766bf301ae77ff265cdb3bf4dc5a7dc",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "sparse-linear-attention-variants": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/SparseAttentionFigures.jsx": "e4b587e6d9815d07765bfbe5cc7077ba38b2d3246601c52b40cabaee9e96ccf1",
+        "src/learn/components/lesson-labs/SparseAttentionLabs.jsx": "af8ac6024fc9110ac289608f14f80a147d509e1258c9e698308fc06b1a835e04",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "vision-transformers-vit-deit-swin-dinov2": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/VisionTransformerFigures.jsx": "3baf75147321c134412ff76d4f041a4a7c30ce46e384540fb9464df618340b9d",
+        "src/learn/components/lesson-labs/VisionTransformerLabs.jsx": "95d5ba486cca0c61cae51971af5c9eb179e43aedfeef325e9a069af0f0abd9e9",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "mixture-of-experts-transformers-moe": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/MoeLabs.jsx": "12c67fd0c2bf3b9a548e7c36ac1f8a70a3aec3e6e9dbe1b7d49d967feb9436fb",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "interleaved-cross-attention-architectures": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/CrossAttentionLabs.jsx": "27ada3ec9fb005ee63295167345600722b18b9102b97ca95ff632ad1b291e9ee",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "message-passing-graph-convolutions-gcn-gat-graphsage": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/MessagePassingStudy.jsx": "6bdba23a7b5d7e86700ccb21aad97317b4ce9b5b1dbd5e78c85190beaa059413",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "graph-transformers-geometric-deep-learning": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/GeometricGraphLabs.jsx": "228d7445b571b738aa044a6932c264173e5729f27c9a11ee2ec4162714463a92",
+        "src/learn/components/lesson-labs/GeometricGraphStudy.jsx": "1f36dd207e5f9224e06bd6f5654dfe83a46942df86ec30c8a970b7a9a3dde713",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "boltzmann-machines-restricted-boltzmann-machines-rbm": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/lesson-labs/RbmDigitLabs.jsx": "b7e23837c02a0b8a3963417f5fda72424fa18c003947497d1c53a68c293f9294",
+        "src/learn/components/lesson-labs/RbmElements.jsx": "54a3a2510a0f719adfbd382a9ad1dc02aae4b650abbed100e9a343d6962040d5",
+        "src/learn/components/lesson-labs/RbmLabs.jsx": "f4eed411605442149b9bd628acdc1c0d16c39a66785a2ebe86b605fe7fc66ad4",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "spectral-normalization-gradient-penalty": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/SpectralMechanismLabs.jsx": "9940e9b79481371d893fbd2b9c43813e8d5dcb9366d389358f02b394bab2f90a",
+        "src/learn/components/lesson-labs/SpectralMeasuredLab.jsx": "fb1b7803131da472eff80293b82adc6fae06e194decae21c5763a47a69b5962f",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "modern-hopfield-networks": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/HopfieldPrimitives.jsx": "489355b517367d8e1c19126002ebc119a9c090d7219b31f5eb239647bc11d496",
+        "src/learn/components/lesson-labs/HopfieldFigures.jsx": "10e44b91c2c3702657de0f07ce1e07830a6e257d0076078067e2bca55a7d73ff",
+        "src/learn/components/lesson-labs/HopfieldLabs.jsx": "5738ab9dfa010b3b3abe65103d5663dd0662a015c53f46175b910b2d8f15834b",
+        "src/learn/components/lesson-labs/HopfieldDigitLab.jsx": "6b967308011bb39087bf5935c8a7a633b20885fa21f3219892177af31250c10c",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "xlstm-extended-lstm": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/XlstmPrimitives.jsx": "ad7d03a077dfaed6563d3fa0d166e3d0e4185c82f1ad880d16f7294d1b8a0a3f",
+        "src/learn/components/lesson-labs/XlstmMechanismLabs.jsx": "7114f4a097f9706df231d1aef132b46ae99eb6cf5df8922d0671b613388b9a83",
+        "src/learn/components/lesson-labs/XlstmStudy.jsx": "c3dc275abb23c3c10cd68885a0e7151ce80bf6ce63c604c45707471e00201ca3",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "hyena-long-convolution-models": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/components/lesson-labs/HyenaPrimitives.jsx": "0d9fa1daf3c626419f034e6caefbe0ac23666a70df11aa21ac1b79e6e506f770",
+        "src/learn/components/lesson-labs/HyenaMechanismLabs.jsx": "61b3c3a2d886437b1eba588848c71dd435355a97d23c28201e066a9d48bba0d2",
+        "src/learn/components/lesson-labs/HyenaStudy.jsx": "29e28e4766c9b678ba932fdf8b84f236d19fc25cb33189b09ba43b2073ec19c5",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "ring-attention-sequence-parallelism": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/lesson-labs/RingAttentionLabs.jsx": "9b406de9615717511f884f9180f7cf5cdd67fd8e70f1190e1d757ec7083b0b9b",
+        "src/learn/components/lesson-labs/RingAttentionStudy.jsx": "ea33d2dcec4202da5bf41310fbced7b0ce8802dc5230b1efed513272607c669e",
+        "src/learn/components/lesson-labs/RingAttentionSystems.jsx": "876081ba51d978ef44a7516aef57983a88af5e2261a28c022571f35c4211d3c5",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/data/topics/advanced-optimizers-lion-sophia-prodigy-schedule-free.jsx": "184956aa5321fe250b0c3e13674567782a13ccac44b6b4ca38001cb23af8e0a0",
+        "src/learn/components/lesson-labs/AdvancedOptimizerStudy.jsx": "13594991a8ae6d81f21eae76a328c44ffd1476d7794b5e2114fe6dc192ab1141",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/Code.jsx": null,
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "neural-ode-continuous-depth-models": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "src/learn/data/topics/neural-ode-continuous-depth-models.jsx": "a674841c9a095049476d859776b3a81a5e3a05e441fa69262da46ff9c45a9703",
+        "src/learn/components/lesson-labs/NeuralOdeStudy.jsx": "f71c379df07d6ba4f71c005e34a143edeab5237c6df8ea064536dfdc27b08ac0",
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "hybrid-ssm-transformer-architectures-jamba": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/lesson-labs/HybridJambaLabs.jsx": "5ceebeb6417424b39c0e54e1071118a7c40adb24abd251514b02afac06b9b205",
+        "src/learn/components/lesson-labs/HybridJambaStudy.jsx": "a89f234b43b87509e9e564941feed576eac21e141782ea056a1f64a968e1865b",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "titans-multi-memory-architecture": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/lesson-labs/TitansMemoryLabs.jsx": "8ce3a55f93cbee3f2a35e3c7f54f18ccf967e7056522bcc8efb10987f2c8becc",
+        "src/learn/components/lesson-labs/TitansMemoryStudy.jsx": "4cf919a49060b17bcd0419b3053c6cd7be5c56f6df72a62a29b27f5d8a40e867",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "mini-batches-training-loops-gradient-accumulation": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/lesson-labs/MinibatchLoopStudy.jsx": "d13294f51a19ee88b6b368ac724781d328b048ca14c3727548fd72a4ec4ad98e",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    },
+    "neural-training-diagnostics-reproducible-experiments": {
+      "contentFiles": {},
+      "implementationFiles": {
+        "scripts/lib/prepared-lesson-renderer.mjs": "5bd5caea0cfba2c8e837ff420cc50dee4052ea13882ff77618efe72a34ec9d22",
+        "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+        "src/learn/components/lesson-labs/TrainingDiagnosticsLabs.jsx": "6f8eeb80a30e754e4e81162717574f886a029a9b11fdfa529b1130d4e987065d",
+        "src/learn/components/lesson-labs/TrainingDiagnosticsStudy.jsx": "01f383252878dae7a8e0d02ffdc4483c4f9524b03905b89faa821d8c7dd1211b",
+        "src/learn/components/TopicContent.jsx": "938b659e6945f90bcd864796e7fb59df7ba0ac28aea17f44c300c0c460d1c328",
+        "src/learn/components/content/RemoteCodeBlock.jsx": null,
+        "src/learn/components/content/LessonCodeDownloads.jsx": null,
+        "src/learn/components/content/code-downloads.js": null,
+        "src/learn/components/content/lesson-code.css": null,
+        "src/learn/components/lesson-labs/useLessonViewport.js": null
+      }
+    }
+  }
+}

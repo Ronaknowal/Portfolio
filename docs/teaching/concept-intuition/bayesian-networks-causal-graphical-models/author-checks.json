@@ -1,0 +1,39 @@
+{
+  "topicId": "bayesian-networks-causal-graphical-models",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+    "src/learn/components/lesson-labs/BayesNetIntuition.jsx",
+    "src/learn/components/lesson-labs/bayesnet-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx": "7f61b2fff88eaa5818f1959d373031091e224521c87114da4a70046447ff1004",
+    "src/learn/components/lesson-labs/BayesNetIntuition.jsx": "4908370ad439fb32c8408c7f41819ad6734988df77264efd3016bc2ec1154efe",
+    "src/learn/components/lesson-labs/bayesnet-intuition.css": "d76c42a580cfd77f7e845d543542784e992cd44700ed2b6a02704f35bef7062a"
+  },
+  "scope": "Entire lesson read; deeper graph-surgery and exact junction-message transitions improved. Existing programs/models unchanged.",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Message calculation equals complete joint enumeration",
+      "passed": true
+    },
+    {
+      "name": "Displayed rule cases agree on constructed supported binary laws",
+      "passed": true
+    },
+    {
+      "name": "Arrow geometry bounds and ten preserved practice blocks",
+      "passed": true
+    },
+    {
+      "name": "Reviewer-requested wording adjustment parsed; unchanged numerical behavior",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

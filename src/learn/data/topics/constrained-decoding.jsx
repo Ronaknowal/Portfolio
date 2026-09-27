@@ -762,32 +762,32 @@ response = anthropic.messages.create(
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — ISO date regex FSM</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — ISO date regex FSM</H3>
       <Prose>
         Implement a DFA for ISO 8601 dates in the format <Code>YYYY-MM-DD</Code>. Your DFA should accept exactly strings matching the pattern <Code>[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</Code> (four digits, hyphen, two digits, hyphen, two digits). How many states does your DFA need? What is the maximum depth of the transition graph? Write the <Code>feed(char)</Code> and <Code>is_accepting()</Code> methods. Then test it on <Code>2026-04-21</Code>, <Code>2026-4-21</Code>, <Code>2026-13-01</Code>, and <Code>hello</Code> — which should pass and why?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Token boundary necessity</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Token boundary necessity</H3>
       <Prose>
         A vocabulary token <Code>"42abc"</Code> contains both digit and non-digit characters. Explain why a simple character-level grammar check on just the first character of the token is insufficient for determining token legality. What specific scenario does this cause in practice? How does the token-level mask function in section 4b handle this correctly, and what would break if you only checked the first character of each token?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Grammar constraint vs retry overhead</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Grammar constraint vs retry overhead</H3>
       <Prose>
         Assume a model without constrained decoding produces valid JSON 95% of the time on a given task. A constrained decoder adds 4% overhead to the total tokens-per-second throughput (a realistic figure for a precomputed grammar). Compute the break-even throughput level in requests per second above which constrained decoding is cheaper in aggregate compute than generate-and-retry, assuming retries are independent and retries also fail at 5%. Include at least three requests per second in your analysis. Under what conditions does constrained decoding win even at lower throughput?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Determinism and accuracy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Determinism and accuracy</H3>
       <Prose>
         A researcher claims that constrained decoding improves the factual accuracy of JSON outputs, not just their syntactic validity. Construct an argument for why this claim might be partially true — under what specific conditions could enforcing a grammar improve the factual content of the values within the structure? Then construct a counter-argument. When is the researcher's claim clearly false? What experiment would distinguish between the two cases?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Function call grammar design</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Function call grammar design</H3>
       <Prose>
         Design an EBNF grammar for a function call with the following signature: <Code>search(query: str, max_results: int, include_metadata: bool)</Code>. The output format should be: <Code>search("query text", 10, true)</Code>. Write the grammar rules for: the function name (fixed), the opening parenthesis, the string argument (any characters except unescaped double-quote), the integer argument (1–999), the boolean argument (<Code>true</Code> or <Code>false</Code>), and the closing parenthesis with separating commas. How many grammar states does your PDA need?
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

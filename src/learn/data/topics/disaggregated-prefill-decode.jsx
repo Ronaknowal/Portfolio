@@ -944,9 +944,9 @@ Mixed hardware (A100 prefill,  | Disaggregate            | Phase-matched hardwar
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Compute KV transfer time and assess viability</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Compute KV transfer time and assess viability</H3>
 
       <Prose>
         You are deploying Llama-3 70B (L=80, H_kv=8, d_h=128) in BF16. A request arrives with a 16,000-token prompt. (a) Compute the total KV cache size in GB. (b) Compute the raw transfer time over 400 Gbps InfiniBand and over 25 Gbps Ethernet. (c) The prefill takes approximately 3.2 seconds on an A100. With 80 layers and pipelined transfer, what is the effective transfer overhead on InfiniBand? On Ethernet? (d) Given that the p99 interference cost in a co-located system at 10 req/sec arrival rate is approximately 320ms per decode step, is disaggregation on InfiniBand clearly beneficial? On Ethernet?
@@ -965,31 +965,31 @@ Mixed hardware (A100 prefill,  | Disaggregate            | Phase-matched hardwar
 #   Interference cost at 10 req/sec, 3.2s prefill: 0.013ms per step → per request ~1.3ms
 #   IB: disaggregation adds ~1.3ms, removes ~1.3ms per request → marginal at this rate
 #   Ethernet: adds 236ms, clearly net-negative`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2: Design the pool ratio for a production workload</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Design the pool ratio for a production workload</H3>
 
       <Prose>
         Your workload has the following characteristics: average prompt length 3,000 tokens, average output length 400 tokens, average concurrency 48 simultaneous sessions, prefill duration ~180ms at 3k tokens, decode step duration ~0.5ms. (a) What fraction of total inference time is spent in prefill vs. decode for an average request? (b) If you have a budget of 32 GPUs and each GPU can run as either a prefill worker or decode worker, how many should be prefill workers and how many decode workers? (c) If average prompt length doubles to 6,000 tokens (prefill time quadruples to ~720ms due to O(n²)), how does the optimal ratio change? Justify with the queueing argument.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Trace a KV block lifecycle and identify leak risk</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Trace a KV block lifecycle and identify leak risk</H3>
 
       <Prose>
         A request completes prefill on worker P1 and its KV blocks (3.2 GB) are scheduled for transfer to decode worker D4. The transfer starts but D4 crashes at 60% completion. (a) Where are the KV blocks allocated at the moment of crash? (b) What happens if P1 does not detect the crash? (c) Design a lease-based ownership protocol with a 5-second heartbeat timeout that prevents permanent memory leak without requiring distributed consensus. (d) If the request is re-queued and a new prefill runs on P2, what is the wasted compute? At $3/GPU-hour for an A100, what is the cost of re-prefilling 3k tokens on a 70B model?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Analyze the quantization tradeoff on transfer overhead</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Analyze the quantization tradeoff on transfer overhead</H3>
 
       <Prose>
         You have a 70B model (L=80, H_kv=8, d_h=128) serving 8k-context requests on a 200 Gbps InfiniBand interconnect. (a) Compute the raw transfer time for BF16, FP8, and INT8 KV caches at 8k tokens. (b) The prefill takes 800ms at 8k tokens. After pipelining, how does quantization affect the effective transfer overhead? (c) INT8 quantization introduces per-token RMSE of ~0.015 on K tensors. Under what workload types (short-context retrieval, long-context generation, exact-match summarization) is this quality loss material? Design a per-route quantization policy that applies INT8 only where quality impact is negligible.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: Evaluate DistServe's 7.4× goodput claim</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Evaluate DistServe's 7.4× goodput claim</H3>
 
       <Prose>
         DistServe reports 7.4× more requests served versus vLLM on OPT-66B. (a) A 7.4× goodput improvement on the same hardware implies that co-located vLLM was achieving only ~13.5% of its theoretical capacity — what scheduling inefficiency explains this? (b) DistServe co-optimizes tensor parallelism (TP) and pipeline parallelism (PP) separately for prefill and decode workers. Explain why prefill workers prefer high TP degree (e.g., TP=4) while decode workers prefer lower TP (e.g., TP=2, PP=2) given the compute-bound vs. memory-bound characterization. (c) DistServe also shows 12.6× tighter SLO compliance. Is it possible for a system to have 7.4× more goodput AND 12.6× tighter SLO compliance simultaneously? Explain the relationship between these two metrics.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

@@ -51,9 +51,9 @@ export default {
       ['Append requiring a new backing array','Copy the existing elements, then append.','O(n) for this append'],
       ['Copy a slice containing k elements','Create k references in a new list.','O(k) time and additional slots'],
     ]}/>
-    <details><summary>Go deeper: how can append be constant on average if one append copies everything?</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Go deeper: how can append be constant on average if one append copies everything?</h3>
       <Prose>Follow a doubling array from capacity 1 to 2, 4 and 8. Reaching eight elements copies 1 + 2 + 4 = 7 old elements during growth, plus eight insertion writes. More generally the geometric copy total stays below twice the final length. Spread that total across all appends: work per append is bounded on average over the sequence. This is <strong>amortized O(1)</strong>; it does not promise each individual append is quick or rely on random inputs. A latency-sensitive system may still care about the occasional large resize. Formal analysis and alternative growth policies come later.</Prose>
-    </details>
+    </section>
     <Checkpoint prompt="A full array has 1,000 items. Does inserting at its front become cheap just because the new allocation has many spare slots?">
       <Prose>No. Capacity handles where the result can fit; preserving order still requires moving or copying the existing elements into their new positions. Spare capacity makes future appends easier, not arbitrary front insertions.</Prose>
     </Checkpoint>
@@ -76,10 +76,10 @@ export default {
     <PythonExample example={arrayMapExamples.keys}><Prose>Get returns a default for an absent key without inserting it. The counting assignment then writes a new count. Updating 14 changes its value without creating a second equal key. Python's equal numeric keys 1, True and 1.0 refer to the same dictionary entry; if event IDs must distinguish types, validate the input schema rather than assuming the dictionary will do that for you.</Prose></PythonExample>
     <H3>Key rules are part of correctness</H3>
     <Prose>A dictionary key must be <strong>hashable</strong>: its hash must remain stable during its lifetime, and equal objects must have equal hashes. Unequal objects may share a hash. Python lists are unhashable; a tuple is hashable only if its elements are hashable. Do not mutate the fields involved in a custom key's equality while it is stored in a map. Otherwise even a stable hash can leave key identity inconsistent with the table's existing entries.</Prose>
-    <details><summary>Go deeper: force collisions in a real Python dictionary</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Go deeper: force collisions in a real Python dictionary</h3>
       <PythonExample example={arrayMapExamples.collisions}/>
       <Prose>All these custom keys deliberately return hash zero. Equality still distinguishes their numbers, so no distinct entry disappears. Equal-key replacement retains three keys. The fixture never mutates number after construction; a production key type should enforce that contract. NotImplemented lets Python handle equality with other types. This example establishes correctness under collisions, not desirable performance or Python's exact comparison count.</Prose>
-    </details>
+    </section>
 
     <H2>6. Choose with costs and ordering in mind</H2>
     <Prose>With a suitable hash distribution and controlled occupancy, hash-table lookup and update take expected constant time for bounded-size keys. They can degrade to linear work when many candidates collide. Computing or comparing a long string can itself require work proportional to its length; calling the whole lookup “one operation” hides that cost. <strong>Load factor</strong> is entries divided by buckets/slots under the table's model. Resizing reduces occupancy, but moving entries costs work too.</Prose>
@@ -167,7 +167,7 @@ export default {
     <Prose>The helper takes two passes over a reusable list or tuple: one to find the separating bit, one to accumulate the two groups. Reusing an already-consumed generator would be a bug. It stores a bounded number of integers, and output order is irrelevant. A zero total contradicts the promise of two distinct singletons, but a nonzero total does not validate the promise; the final invalid example computes a pair without establishing that either member occurred once. If validation is required, budget for a separate frequency audit.</Prose>
     <Prose>For n bounded-width values, the folds use O(n) word operations and O(1) working words. For arbitrary Python integers of up to B bits, a bitwise operation may inspect O(B) bits, or the corresponding number of internal limbs. A bounded number of integers is not a constant number of bits when B grows. A bitmap result also takes time to decode: the simple unpack helper checks all w positions and allocates space for its returned IDs. Include these costs when choosing between masks, sets and frequency maps.</Prose>
 
-    <H2>14. Practice a changed representation contract</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>14. Practice a changed representation contract</H2>
     <Prose>Attempt these before opening the answers. They change the numbers, the promise or the requested output, rather than asking you to replay the default labs.</Prose>
     <section className="bitwise-practice-task"><H3>Finite-set query: A = {'{1, 3, 4}'}, B = {'{0, 3, 5}'} in six positions</H3>
       <Prose><strong>Task:</strong> derive A's mask, intersection, union, XOR and complement. Then explain what goes wrong with adding weight 8 again or subtracting absent weight 1.</Prose>
@@ -193,7 +193,7 @@ export default {
       <Prose>Determine the universe and identity policy, whether order or multiplicity matters, the integer width/sign contract, the exact requested output, and any input promise. Then state the maintained information and prove it suffices. A mask stores membership, a count map stores frequencies, and XOR retains parity; none is a universal replacement for the others.</Prose>
     </Checkpoint>
 
-    <Prose>You can move on when you can trace shifted positions, state which text unit you count, explain why collisions do not overwrite unequal keys, and choose a structure by its operations. Next in the opening curriculum, <a href="/learn/topic/linked-lists-stacks-queues">Linked Lists, Stacks & Queues</a> replaces moving array slots with changing links and develops last-in/first-out and first-in/first-out behavior.</Prose>
+    <Prose>You can move on when you can trace shifted positions, state which text unit you count, explain why collisions do not overwrite unequal keys, and choose a structure by its operations. Next in the opening curriculum, <a href="/learn/topic/linked-lists-stacks-queues">Linked Lists, Stacks & Queues</a> replaces moving array slots with changing links and develops last-in/first-out and first-in/first-out behavior.</Prose></section>
     <DsaPractice practice={arrayPractice}/>
     <Sources alternatives={<LearningResources>
       <li><a href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/lecture-2-data-structures-and-dynamic-arrays/">MIT 6.006: Data Structures and Dynamic Arrays — lecture video</a>. A second explanation of sequence interfaces and resizing. Watch after the movement lab; its mathematical runtime analysis is a deeper pass, not a prerequisite for the opening explanation.</li>

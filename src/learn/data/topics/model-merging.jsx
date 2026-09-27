@@ -816,7 +816,7 @@ out_path: ./merged-model`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         Five problems. Work each before reading the answer. The problems are chosen so that getting one wrong tells you specifically what to re-read.
@@ -868,7 +868,7 @@ result = candidate if state_dist(candidate, target_sd) < baseline else ft_A.stat
 
       <Callout accent="green">
         First, benchmark contamination. If different parents were fine-tuned on datasets overlapping with different subsets of MMLU, the merged model may have accumulated memorized answers from multiple parents rather than demonstrating improved general reasoning. A 2-point gain on a benchmark where one or more parents had test-set exposure is not reliable evidence of improved capability. Second, evaluation bias toward parent tasks. The practitioner only measured MMLU — a benchmark that the parents were likely evaluated on during fine-tune selection. A merged model should be evaluated on held-out tasks that none of the parents were specifically trained or selected for. A model that scores 63% on MMLU but regresses substantially on a genuinely unseen evaluation suite is not better; it has just preserved the parents' existing benchmark coverage while adding cross-parent memorization noise. The correct interpretation requires: (a) evaluation on tasks none of the parents were explicitly fine-tuned for, and (b) comparison against the parent checkpoints on those tasks rather than only against each other.
-      </Callout>
+      </Callout></section>
     </div>
   ),
 };

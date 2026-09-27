@@ -44,7 +44,7 @@ The diagram's time axis is token/sample position, not measured duration. It must
 
 **Genuine edits:** every Q/K/V coordinate editable in −4…4; select an arrow/vector and drag its two-dimensional endpoint, or edit its numeric pair. Change key positions within 0…16 and query position 0…16 with explicit legality. Add/remove memory records up to 8. Head-count comparison can use Hq=4/Hkv=4,2,1; changing representation must clearly specify how new fixture heads are initialized, not imply an unchanged trained model. A simple separate schematic switch can teach head counts without deriving outputs until full edited inputs exist.
 
-**Live observation:** identify which heads' attention weights and mixed outputs change after the proposed edit. Select none/specific heads/all with no default. A numeric output estimate for one chosen head is optional. Reveal linked scaled-score bars, 0–1 weights, value-vector contributions and their sum; keep displayed decimals separate from full-precision calculations.
+**Live observation:** show which heads' attention weights and mixed outputs change after each edit. Display linked scaled-score bars, 0–1 weights, value-vector contributions and their sum; keep displayed decimals separate from full-precision calculations.
 
 **Exact baseline outputs:** head 0 `[1.68927519,1.46608721]`, head 1 `[1.15536240,2.53391279]`, head 2 `[.15897503,1.60057363]`, head 3 `[1.84102497,.75954866]`. Weights are saved in full precision. All weight rows sum to 1 and all permitted hand inputs are computed, not selected from preset outputs.
 
@@ -85,7 +85,7 @@ The diagram's time axis is token/sample position, not measured duration. It must
 
 Use I1's editable projected Q/K/V arrays as the baseline data, with separate new-entry versus prefix views. The cache stores K/V at Hkv=2. The learner can edit positions, reassign cache slot order while moving K/V/IDs together, edit one K/V value or choose a different new-query vector. Allow 3…8 keys and one or two query rows. For the two-query mask example, provide fully specified bounded custom Q rows copied from learner inputs rather than fabricated “actual model” outputs.
 
-**Task:** fill an immediately computed/wrong logical query ID or edit the legal mask; observe whether compact cached attention equals the full reference, differs or has no legal result. Do not prepopulate the repair answer. in the current live view show actual legal cells, selected query scores/weights, mixed outputs and maximum output difference. A metadata-only slot move with records intact must be a null. A changed key/value or logical relation may change outputs.
+**Task:** edit the logical query ID or choose a mask relation and observe immediately whether compact cached attention equals the logical-position reference, differs or has no legal result. The current view always shows the legal cells, selected query scores/weights, mixed outputs and maximum output difference. A metadata-only slot move with records intact must be a null. A changed key/value or logical relation may change outputs.
 
 **Mask controls:** queries 3,4 against keys 0…4 produce rows 11110/11111. Upper-left non-square rule produces 10000/11000, clearly a different relation. One query at 2 against three keys gives correct I1 mixtures; upper-left mask permits only key 0, giving group 0 value `[2,0]` for readers 0/1 and group 1 value `[1,3]` for readers 2/3. Saving this incorrect output as a contrast must not present it as valid inference.
 

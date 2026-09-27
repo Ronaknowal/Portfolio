@@ -941,9 +941,9 @@ for req_id in request_ids:
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Fragmentation calculation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Fragmentation calculation</H3>
 
       <Prose>
         Compute the internal fragmentation (wasted token slots) for sequences of lengths [137, 89, 512, 50] using block size 16. How many total blocks are needed? How many slots are wasted in each?
@@ -951,9 +951,9 @@ for req_id in request_ids:
 
       <Prose>
         Answer: seq_len=137 uses 9 blocks (144 slots), wasting 7. seq_len=89 uses 6 blocks (96 slots), wasting 7. seq_len=512 uses 32 blocks (512 slots), wasting 0. seq_len=50 uses 4 blocks (64 slots), wasting 14. Total: 51 blocks, 28 wasted slots, 1.4% fragmentation. Compare to contiguous allocation with max_len=512: 4×512=2048 slots reserved, 788 tokens stored, 1260 wasted — 61.5% waste.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Why iteration-level scheduling helps chat</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Why iteration-level scheduling helps chat</H3>
 
       <Prose>
         A chat serving system receives a mix of requests: 80% produce fewer than 50 tokens and 20% produce 400–600 tokens. Explain why iteration-level scheduling (continuous batching) produces substantially higher throughput than request-level scheduling (static batching) for this distribution, in terms of the mathematical relationship between batch wall time and sequence length variance.
@@ -961,9 +961,9 @@ for req_id in request_ids:
 
       <Prose>
         Hint: under static batching, wall time per batch is <Code>max(lengths)</Code>. For a batch of 4 where 3 are short and 1 is long, the average throughput is approximately <Code>(3 × 50 + 500) / 500 = 1.3</Code> tokens/step — far below the theoretical maximum of 4. Iteration-level scheduling keeps all 4 slots productive for all 500 steps of the long request, adding ~4 tokens per step continuously.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Preemption policy design</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Preemption policy design</H3>
 
       <Prose>
         The KV cache pool is at 95% capacity. New requests are arriving faster than sequences are completing. Design a preemption policy. Which sequences should be evicted first? What information does the scheduler need to make this decision? What are the tradeoffs between recomputation-based and swap-based preemption?
@@ -971,9 +971,9 @@ for req_id in request_ids:
 
       <Prose>
         Key considerations: (a) evict sequences closest to their output length limit — they have generated the most and have the least remaining value per block freed; (b) evict sequences that arrived most recently — they have the least sunk compute cost; (c) prefer recomputation over swap for short sequences (low recomputation cost) and swap over recomputation for long sequences (high recomputation cost relative to PCIe transfer time). The scheduler needs remaining token budget, block count, and estimated time-to-completion per sequence.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — When prefix sharing is not worth it</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — When prefix sharing is not worth it</H3>
 
       <Prose>
         Identify three scenarios where prefix sharing via copy-on-write adds overhead without meaningful memory savings.
@@ -981,9 +981,9 @@ for req_id in request_ids:
 
       <Prose>
         (a) Very short system prompts — less than one block (16 tokens) means zero savings; the block table lookup adds latency for no benefit. (b) Low request volume — if fewer than two concurrent sessions share the same prefix, there is nothing to share; the cache just consumes memory. (c) High diversity in prompts — if each user has a unique system prompt, the hash-based lookup finds no match for every request, spending CPU time on lookups that always miss. The overhead of maintaining the prefix cache (hashing, eviction, COW bookkeeping) is only justified when the hit rate is high enough that the memory savings compound across many sessions.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Throughput ratio for uniform vs high-variance workloads</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Throughput ratio for uniform vs high-variance workloads</H3>
 
       <Prose>
         Predict the throughput ratio (continuous batching / static batching) for: (a) a workload where all outputs are exactly 256 tokens (stddev = 0), and (b) a workload with a bimodal distribution: half of requests produce 10 tokens and half produce 1000 tokens (stddev ≈ 495 tokens). Batch size is 4.
@@ -991,7 +991,7 @@ for req_id in request_ids:
 
       <Prose>
         (a) Stddev = 0: both methods are equivalent. Every batch takes 256 steps, every slot is productive for all 256. Ratio = 1.0. (b) Bimodal: static batching — batches of 4 will frequently contain 2 short and 2 long; wall time per batch ≈ 1000 steps, total tokens ≈ 2 × 10 + 2 × 1000 = 2020, throughput ≈ 2.02 tokens/step. Continuous batching — short sequences finish at step 10, their slots immediately take new short requests; the two long slots run to 1000; throughput ≈ (large number of short completions + 2000 long tokens) / 1000. For a long-running queue, throughput approaches 4.0 tokens/step. Ratio ≈ 1.98× — consistent with the verified simulation result.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

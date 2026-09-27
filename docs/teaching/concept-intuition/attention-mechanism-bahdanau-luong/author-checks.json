@@ -1,0 +1,50 @@
+{
+  "topicId": "attention-mechanism-bahdanau-luong",
+  "reviewedAt": "2026-09-26T14:57:47.605Z",
+  "canonicalManuscript": "docs/teaching/concept-intuition/attention-mechanism-bahdanau-luong/lesson.md",
+  "sourceFiles": [
+    "src/learn/data/topics/attention.jsx",
+    "docs/teaching/concept-intuition/attention-mechanism-bahdanau-luong/lesson.md",
+    "scripts/generate-recurrent-attention-lesson.mjs",
+    "docs/teaching/concept-intuition/attention-mechanism-bahdanau-luong/review.md",
+    "scripts/verify-sequence-architecture-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/attention.jsx": "6f52df7584c835a4241f19a4ef8c779727c234bf550954bf8743087aa08937dc",
+    "docs/teaching/concept-intuition/attention-mechanism-bahdanau-luong/lesson.md": "ab519784ad6f5cc7589e3665a4688fe8a92ef28b095c8a50a39e3f2bc36789f2",
+    "scripts/generate-recurrent-attention-lesson.mjs": "787b954a3237b4af7d4eefb7b64f92d85e1ec66650ee2587e6a4479b1f2fc393",
+    "docs/teaching/concept-intuition/attention-mechanism-bahdanau-luong/review.md": "e32d70f3fdc1e0ec27368daf5bc632ffeb0a1ebc2644f175a2105b76f57f85a9",
+    "scripts/verify-sequence-architecture-concept-intuition.mjs": "630bb6d08353c42b6ba19c7d18e9f4b1e83b9f9d7b97249ec711f5fe85e9b77e"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/attention-mechanism-bahdanau-luong/review.md"
+    },
+    {
+      "name": "Deterministic canonical generator agreement",
+      "status": "passed"
+    },
+    {
+      "name": "All revision-4 code fences retained verbatim",
+      "status": "passed"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Coverage accumulation and unnormalized total",
+      "status": "passed"
+    },
+    {
+      "name": "Overlap loss and first-read zero boundary",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Revision-4 manuscripts and receipts retained; numerical engines, native programs, measured data and fitted weights unchanged. No fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

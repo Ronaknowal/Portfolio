@@ -175,7 +175,7 @@ r'=r+d(k-1)j,\qquad j'=sj,\qquad
 a'=a+\left(\frac{d(k-1)}2-p_l\right)j.
 \]
 
-The old \(j\) belongs on the right side of all three equations. A pooling window expands the region too.
+The old \(j\) belongs on the right side of all three equations. A filter spans \(d(k-1)\) gaps on the previous grid, and each gap is already \(j\) input pixels wide: this adds \(d(k-1)j\) to the bounding width. Moving the filter by stride \(s\) moves its center by \(sj\). Padding shifts that first center toward the boundary without changing the distance between centers. A pooling window expands the region too.
 
 For a 32-wide input:
 
@@ -244,7 +244,7 @@ A deliberately difficult stress check shifts each development image one pixel ri
 
 For seed 1, the dense model gets 57/120 right-shifted images correct, and the max-pool CNN gets 72/120. Their unshifted counts were 117 and 118. Down-shift counts are 71 and 75. Even the global-average CNN falls from 117 to 63 right-shifted. All twelve stress results are saved. Weight sharing helps organize the model, but does not remove the need to define and validate deployment variation.
 
-**Before changing the experiment**, write the expected effect, the single change and the metric. An augmentation trial should transform training data only; assess the predeclared development views consistently. Once their outcomes guide choices, these rows remain development data. A final performance claim needs a separate untouched evaluation protocol.
+**Before changing the experiment**, name the single change and the metric. An augmentation trial should transform training data only; assess the predeclared development views consistently. Once their outcomes guide choices, these rows remain development data. A final performance claim needs a separate untouched evaluation protocol.
 
 ## 8. Optional: reach, influence and shifts
 
@@ -282,6 +282,8 @@ For symmetric padding \(p\), transposed output size is
 \[
 n_{\rm out}=(n_{\rm in}-1)s-2p+d(k-1)+{\rm output\_padding}+1.
 \]
+With kernel three, stride two and padding one, both input lengths five and six produce forward length three. The transpose formula starts at length five; output_padding zero chooses five and one chooses six. That extra size choice cannot recover the information lost by the forward operation.
+
 Different input sizes can map to the same strided forward size. `output_padding` selects a compatible output size; it does not mean appending that many zero-valued output cells. [ConvTranspose2d](https://docs.pytorch.org/docs/2.14/generated/torch.nn.ConvTranspose2d.html).
 
 ## 10. Optional: implement the same math efficiently
@@ -317,7 +319,7 @@ An evaluation-mode convolution followed by BatchNorm with fixed running statisti
 \alpha_o=\frac{\gamma_o}{\sqrt{v_o+\epsilon}},\qquad
 W'_o=\alpha_o W_o,\qquad b'_o=\beta_o+\alpha_o(b_o-\mu_o).
 \]
-Our float64 fixture matches within \(3.4\times10^{-16}\). Training BatchNorm depends on the current batch, so that fixed folding argument does not apply. ReLU remains nonlinear even if a backend executes it in the same kernel. Memory layout changes, algebraic folding and actual kernel fusion should be evaluated separately when performance becomes the task.
+The [PyTorch folding tutorial](https://docs.pytorch.org/tutorials/intermediate/torch_compile_conv_bn_fuser.html) shows the corresponding weight/bias transformation. Our float64 fixture matches within \(3.4\times10^{-16}\). Training BatchNorm depends on the current batch, so that fixed folding argument does not apply. ReLU remains nonlinear even if a backend executes it in the same kernel. Memory layout changes, algebraic folding and actual kernel fusion should be evaluated separately when performance becomes the task.
 
 One useful connection goes beyond recognizing images. A fixed grid stencil
 \(\begin{bmatrix}0&1&0\\1&-4&1\\0&1&0\end{bmatrix}\)

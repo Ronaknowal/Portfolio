@@ -1,0 +1,54 @@
+{
+  "topicId": "state-space-models-s4-mamba-mamba-2",
+  "reviewedAt": "2026-09-26T15:44:58.333Z",
+  "canonicalManuscript": "docs/teaching/concept-intuition/state-space-models-s4-mamba-mamba-2/lesson.md",
+  "sourceFiles": [
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx",
+    "docs/teaching/concept-intuition/state-space-models-s4-mamba-mamba-2/lesson.md",
+    "scripts/generate-state-space-lesson.mjs",
+    "docs/teaching/concept-intuition/state-space-models-s4-mamba-mamba-2/review.md",
+    "scripts/verify-sequence-architecture-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "25a95b580613f92c7198162284ea62fbb1595d1a8f5188b7003cac92c2555aa8",
+    "docs/teaching/concept-intuition/state-space-models-s4-mamba-mamba-2/lesson.md": "b71c92ed2d0b23b827cbd95e2348e31c482629a0dcbb9544fea0dfb7c656277d",
+    "scripts/generate-state-space-lesson.mjs": "a7b695a96a5c19770866d2c967eb9f66ad3ca23085391d74ea4373499951fda8",
+    "docs/teaching/concept-intuition/state-space-models-s4-mamba-mamba-2/review.md": "64f831227029d20156242bf27858f910ed2c954cc66e2cfe1f30f51ec5cd5a9c",
+    "scripts/verify-sequence-architecture-concept-intuition.mjs": "630bb6d08353c42b6ba19c7d18e9f4b1e83b9f9d7b97249ec711f5fe85e9b77e"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/state-space-models-s4-mamba-mamba-2/review.md"
+    },
+    {
+      "name": "Deterministic canonical generator agreement",
+      "status": "passed"
+    },
+    {
+      "name": "All revision-4 code fences retained verbatim",
+      "status": "passed"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Linear convolution and circular tail alias",
+      "status": "passed"
+    },
+    {
+      "name": "Minimum padded length preserves causal output",
+      "status": "passed"
+    },
+    {
+      "name": "Woodbury correction and two-sided inverse identity",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Revision-4 manuscripts and receipts retained; numerical engines, native programs, measured data and fitted weights unchanged. No fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

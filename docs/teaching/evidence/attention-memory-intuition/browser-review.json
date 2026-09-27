@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "date": "2026-09-26",
+  "revision": 4,
+  "reviewer": "root integration owner, CUA in-app browser",
+  "origin": "http://127.0.0.1:4194",
+  "artifact": "production dist preview",
+  "widths": [
+    1280,
+    760,
+    320
+  ],
+  "topics": {
+    "attention-mechanism-bahdanau-luong": {
+      "desktop": "All six new explanatory figures visually inspected. Arithmetic, comparisons, labels and layout were readable.",
+      "narrow": "Summary/read comparison stacked at 760px. At 320px, weather, margin, source-memory, masking and softmax renderings inspected; all six figure containers rounded to 265px width and scroll width, document 305px within 320px viewport.",
+      "interactions": [
+        "Changing B value coordinate 0 to 1 left weights unchanged and changed context from (0.709490, 0.753879) to (0.952272, 0.753879).",
+        "Identical-values preset produced context (0.5, 0.5); reset restored the original example.",
+        "Initial read lab exposes no loss readout; the later learning lab retains it."
+      ],
+      "findingsClosed": [
+        "PAD excluded label wrapped awkwardly; larger storage-slot minimum width corrected it.",
+        "Source-route and margin SVG labels were too small on phone; increased scoped text size, then re-inspected both actual renderings."
+      ],
+      "screenshots": [
+        "attention-softmax-desktop.png",
+        "attention-learning-phone.png"
+      ]
+    },
+    "long-context-sequence-models-transformer-xl-griffin-perceiver": {
+      "desktop": "All four new figures inspected: inaccessible prior record, six-cell shares, silent gate contrast and distinct equal-mean paths. The path plots use equal coordinate scales.",
+      "narrow": "Path panels stack at 760px. Paths and segment timeline inspected at 320px; all four new figure containers remained within the 265px reading column, document 305px within 320px viewport.",
+      "interactions": [
+        "Retained memory positions 2 to 4 added R0/R1, changed legal records R2/R3/R4 to R0/R1/R2/R3/R4, softmax denominator 3 to 13 and output 3.33333333 to 5.",
+        "Reset cache restored the original legal set, denominator and output.",
+        "Four existing live-lab containers and controls were present; the trajectory workbench remained closed until requested."
+      ],
+      "screenshots": [
+        "long-context-shapes-desktop.png"
+      ]
+    },
+    "state-space-models-s4-mamba-mamba-2": {
+      "desktop": "All four new figures inspected: retained/write contributions, impulse ledger, marked-event comparison and two-by-two matrix write/read.",
+      "narrow": "Matrix panels stack at 760px. Retention and matrix inspected at 320px; wide tables keep local scrolling, all four new figure containers within the reading column and document 305px within 320px viewport.",
+      "interactions": [
+        "At step 1, retention .8 to .5 changed state .8 to 1.25; retention 1 produced state 0 from the zero initial condition. Reset restored .8.",
+        "Keyboard ArrowRight changed retention .8 to .81 and state to .7695; reset restored defaults.",
+        "Impulse column 3 displayed .25 + 0 + .5 + 0 = .75 and highlighted the selected column.",
+        "Continuous impulse response deeper disclosure opened and closed; existing investigations remained accessible."
+      ],
+      "screenshots": [
+        "state-space-impulses-desktop.png"
+      ]
+    }
+  },
+  "console": "No captured warnings or errors returned for the reviewed tab after the checks.",
+  "completion": "Viewport override reset; attention lesson left open as a deliverable.",
+  "limitations": [
+    "This is the integration owner's browser review. Complementary agents had no working browser surface and did not perform these observations.",
+    "Not a complete replay of unchanged revision-3 lab states or model training. Source-bound numerical/native evidence is reused only for unchanged engines and assets.",
+    "Not a human beginner study, comprehensive assistive-technology audit or promise of learner mastery."
+  ],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/RecurrentAttentionIntuition.jsx": "92d08faa4b3d8a4cdd0d66fa9bbf1d1dece2d116ab8e11de236033b60ea68de4",
+    "src/learn/components/lesson-labs/recurrent-attention-intuition.css": "2e1bde29045805987913851641a4dd0ba8585ca2f6afcb6a22f677b2fb19412d",
+    "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx": "a1a23a8fd44f2ca83653677f84135482ee631bcaedf10d7d92933d18885d656c",
+    "src/learn/data/topics/attention.jsx": "502bd1c2be9206d9b0b0931392fe7c980e08456c4cbb0581a4824b891a6e7f3a",
+    "src/learn/data/long-context-intuition.js": "7c77b32c5353e596f2ed390c3ab5777fd4ab01ac92f55930be8cfa2b2385e466",
+    "src/learn/data/long-context-models.js": "cd2f2f775b7d2a9f1d623e72b76f6e25c44dbae58ae2323d8af911ec287dce82",
+    "src/learn/components/lesson-labs/LongContextIntuitionFigures.jsx": "0da734d8f26be5e92449d0baf2a61fbbdd3f3dd7d87565220399229eeb944156",
+    "src/learn/components/lesson-labs/LongContextFigures.jsx": "36e39125039e87c227cd1b264732907094258778f64ad7fe7dbf206cf6494791",
+    "src/learn/components/lesson-labs/LongContextLabs.jsx": "d7c23024d9a8c1ff7dcb14837eabc5ae970a3fa1eb0ec59e789a3e36ae613a89",
+    "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx": "1ffee5f2ed41e79cab617eb09ac8760641642a63fbafd4ecf5dad585c19b5a0d",
+    "src/learn/components/lesson-labs/long-context-labs.css": "a388f4f7ffeec6c9dbc6f831d9ae29cdfda92e8c2033ead3f61329eaec9ca9ac",
+    "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx": "c7e64153794eb07e37ca3b749a38797b039dcb1cde0bdfec8089ffde735582d0",
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "30fa6417f59d57b68c04f307a4de28be05454e5512f6f21290d325aa58f58d4b",
+    "src/learn/data/state-space-intuition.js": "4f1e632bb3abb603e81b1970984cfd423f30c18ad0270b74c474ac3369e717f0",
+    "src/learn/components/lesson-labs/StateSpaceIntuition.jsx": "d89434017b8b7252c6e9811d7993b74b876f3515da6cd84646ae1da09fbf5f23",
+    "src/learn/components/lesson-labs/StateSpaceFigures.jsx": "d6d962b9e5cd8aa5c75dcf515ab1d2dc2ed6bae8aa02e80d5f432370c08b585c",
+    "src/learn/components/lesson-labs/state-space-labs.css": "394dbcf228d38da23be57d63e77a25a65c082890835b1f13b285cc612c7cf497",
+    "src/learn/data/state-space-models.js": "1c63d687facf2600a76a10c55fff3eebf32f20a8d51cbdb04887ea2371ab43a3",
+    "src/learn/components/lesson-labs/StateSpaceLabs.jsx": "a046802ffacec9bef58d94fc481db6bf44b9fbe4a510e494b82f9231897dff82",
+    "src/learn/data/state-space-measurements.json": "6a212f8d64259d21eb94ea7a97d5ee11a939b9d67ff970e1544194119c8019c0"
+  },
+  "screenshotHashes": {
+    "docs/teaching/evidence/attention-memory-intuition/attention-softmax-desktop.png": "80626036de071df9a04015fe5dc903563e90ba7d168fd6c38ca16e97b3e8c607",
+    "docs/teaching/evidence/attention-memory-intuition/attention-learning-phone.png": "b3c7265c3a7c30112596e2d2ad088700c0a3ac107b23f23de214db308a215d23",
+    "docs/teaching/evidence/attention-memory-intuition/long-context-shapes-desktop.png": "130e4996fca0797a54e5506e63a9b673e4ee091f754098f4fb60a681ec43e951",
+    "docs/teaching/evidence/attention-memory-intuition/state-space-impulses-desktop.png": "917a6f9e9206fa36d5f49af23722b673ffbf56f9577085bffd31631e91924f3c"
+  }
+}

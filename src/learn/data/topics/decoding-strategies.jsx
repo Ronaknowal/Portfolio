@@ -965,33 +965,33 @@ message = client.messages.create(
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Entropy as a function of temperature</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Entropy as a function of temperature</H3>
 
       <Prose>
         Given a probability vector <Code>p = [0.6, 0.3, 0.1]</Code> at T=1, derive the entropy of the temperature-scaled distribution at T=0.5 and T=2.0. Then show analytically that as T→∞, the entropy approaches log(V) for any initial logit vector. What does this tell you about the relationship between temperature and the model's effective vocabulary size?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2: When does top-p with p=1.0 differ from unconstrained sampling?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: When does top-p with p=1.0 differ from unconstrained sampling?</H3>
 
       <Prose>
         Top-p with p=1.0 keeps all tokens — the nucleus is the full vocabulary. Does this differ from not applying top-p at all? Identify at least one implementation-level scenario where the answer is yes, and explain why. (Hint: consider numerical precision and how implementations handle the cumulative sum cutoff when the final token pushes cumsum to exactly 1.0.)
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Why does beam search hurt open-ended generation?</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Why does beam search hurt open-ended generation?</H3>
 
       <Prose>
         Explain the beam search curse — the tendency of beam search to produce bland, repetitive, generic text — in terms of the probability distribution over sequences. Specifically: why does optimizing for highest-cumulative-log-probability produce output that ranks lower in human quality evaluations than random sampling from a truncated distribution? What distributional property of human-written text does beam search ignore?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Decoding strategy for high-stakes factual Q&A</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Decoding strategy for high-stakes factual Q&A</H3>
 
       <Prose>
         Design a complete decoding configuration for a factual question-answering system where the model should express high certainty when it knows the answer and should abstain (output "I don't know") when it does not. Specify temperature, top-p or top-k, and any additional parameters. Explain how your configuration interacts with the model's calibration — specifically, what happens when the model is confidently wrong?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: Repetition penalty and list generation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Repetition penalty and list generation</H3>
 
       <Prose>
         A model with repetition penalty θ=1.3 is generating a numbered list. The list format requires the tokens "1.", "2.", "3." to appear at the start of each line. Trace what happens to the logit of the token "2." after "1." and "2." have already appeared in the context. Would a frequency penalty (scaling by occurrence count) make this better or worse than a flat repetition penalty? Propose a mitigation that preserves list formatting while still breaking unwanted repetition loops.
@@ -999,7 +999,7 @@ message = client.messages.create(
 
       <Callout accent="gold">
         The decoding strategy is the last degree of freedom before the model's output reaches the user. Temperature, top-p, top-k, and min-p are not black-box magic numbers — they are parameters with precise mathematical meanings and predictable effects. Understand the math, verify the code, and test empirically: the right configuration depends on your task in ways that no general default can anticipate.
-      </Callout>
+      </Callout></div></section>
     </div>
   ),
 };

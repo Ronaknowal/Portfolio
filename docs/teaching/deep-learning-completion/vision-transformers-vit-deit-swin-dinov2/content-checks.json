@@ -1,0 +1,59 @@
+{
+  "topicId": "vision-transformers-vit-deit-swin-dinov2",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-checks.py",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-results.json",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/design.md",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/experiment-contract.md",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/mechanism-results.json",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.names",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tes",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tra",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/provenance.md",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/study-results.json",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-models.json",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-study.py",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-checks.py": "76adb01ca4e43db1e7fcaff888f88355bd155c175b52fc3a10855c8bfa6ae54a",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-results.json": "5b69626a627ec0aa219d077b15b498489bdcd2cef862ba3cdebb1b776ebbe27d",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/design.md": "923d5a074d5408aa30343c34cd63a91f20ed4e5bf2349bd2dda22c852bd617cd",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/experiment-contract.md": "79449bae4f31679168847ba90b2b1b9990509ef73837dee32d6b5d63b30d57e7",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py": "88dd5ac7916805f4b41fa93c0534b9450bb9c5dcb0b0ed8d94ab2e01654e0401",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md": "9fa7d39d718e0c6a196cf9aa02050435900f1cbad41d2f6a398b652fc1732c48",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/mechanism-results.json": "f21abd7a0eeddbea43a600699af6d40c124c4753b950cc9309551c5df92510c2",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/provenance.md": "ae4caf2d7b198878e6c120090aec18c625aa1062018fc3ca5c76f6021df0f4da",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/study-results.json": "c8ee1dbe45f3ef3ba304bb3e87e5aada66ab0b656e41134712a7e0515596157d",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py": "d4b873d5dd7d07d27f4921f472a67607e4d9efc725d1c120cb4d20a58f000e56",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-models.json": "8d54dbd897354124917986293f6596a7fb0a858de6dd68ecf40382f56afc6a08",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-study.py": "f8adbeb6d36e99108647422256e087caed3db309d01b65fc04f6fd45f78f41f6",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py": "d46afd3f2752860737b94358215eedb03c912e60bc625d180181a0bc79988fd9",
+    "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/visual-specifications.md": "d382826d66c1ca2252d223e9f9ab46a915b06a99d19018d89bf004822db799a2"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

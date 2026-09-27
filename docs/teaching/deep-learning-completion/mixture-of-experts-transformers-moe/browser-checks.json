@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "topicId": "mixture-of-experts-transformers-moe",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T20:47:14.868Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T20-41-17-712Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/mixture-of-experts-transformers-moe.jsx": "3954ec20f678aa9a009b156d14cb8d16409b69373e3021967b09ac0675a1d4e8",
+    "src/learn/data/moe-models.js": "32b95855ddd7785fac89a7e640f3d14be23a3565fb3572e9c7fcedb891cbb17e",
+    "src/learn/data/moe-examples.json": "d5cb95615a7cf609dd771c3f5be56f2255458ef63de7e861184f1e4cefe21791",
+    "src/learn/components/lesson-labs/MoeFigures.jsx": "0d9e09e696dcb8a565b4b60749dc1e5b4ceb51718c80f9661946ab61fafe20c8",
+    "src/learn/components/lesson-labs/MoeLabs.jsx": "12c67fd0c2bf3b9a548e7c36ac1f8a70a3aec3e6e9dbe1b7d49d967feb9436fb",
+    "src/learn/components/lesson-labs/moe-labs.css": "0c836f567b1a8d43b3cddf18818a99ba69b9351ebfdc7073e05cc0b86f7bafd8",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-assets/mixture-of-experts-transformers-moe/moe-001-17.json": "e79d028f1d90191024c941b1edcbadc40abb7ce83885922260e65d7899386118",
+    "public/learn-code/mixture-of-experts-transformers-moe/calculated-inputs.json": "ea7f9fad8da6aa312ace7b385d1f9685e5814cd5bd7b7b010ca847501afb2d71",
+    "public/learn-code/mixture-of-experts-transformers-moe/data-provenance.md": "c35d0dc12cd0daeaaf876833727e5e9e8db18d70b0dd7728d4591de042c26396",
+    "public/learn-code/mixture-of-experts-transformers-moe/fitted-models.json": "3fa32169c5d1ef6d3c5fee1be71ea81be92b5bb514ba5b82054f30ffa164dc27",
+    "public/learn-code/mixture-of-experts-transformers-moe/moe_calculations.py": "cac5dc8f449333c6572eaa78157998627c6f5a130c7a98a1adc60f2c6df08d08",
+    "public/learn-code/mixture-of-experts-transformers-moe/moe_study.py": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3",
+    "public/learn-code/mixture-of-experts-transformers-moe/optical-digits.csv": "9ad440c38a738b66ba8ca85ed9097ccafe9e99846517f02cdd6512a79dde9c24",
+    "public/learn-code/mixture-of-experts-transformers-moe/study-results.json": "40c3d1a65940733a5c8cb9a052f4aaf7218c66897fc1b0c47ad9c1fb0b65d136",
+    "docs/teaching/deep-learning-completion/mixture-of-experts-transformers-moe/browser-review.md": "6b1e1c7d52f2bd138c8ad7ebe69bf5b305ec580cf3f775fb71f55ea64037d5bf"
+  },
+  "checks": [
+    "All five immediate labs: meaningful changed inputs, normalizer policies and exact nulls",
+    "Actual retained image inference, keyboard pixel edit, attention/router distinction and expert ablation",
+    "Twelve retained outcomes, real curves, per-class counts and dense no-router state",
+    "Complete program and changed-input practice accessible",
+    "Desktop/320px diagrams, keyboard scrolling, first-reset and resource failure/retry"
+  ],
+  "findings": [
+    {
+      "issue": "Opening E0 label clipped at upper SVG edge",
+      "status": "closed"
+    }
+  ],
+  "limitations": "Independent numerical review is separate; no new fitting or latency claim."
+}

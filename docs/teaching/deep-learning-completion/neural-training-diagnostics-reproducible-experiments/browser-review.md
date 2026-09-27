@@ -1,0 +1,19 @@
+# Neural training diagnostics — rendered review
+
+Root review27 September2026, production build22:37:57 on preview4197. Actual desktop1280×960 and phone320×900, six investigations including measured Wine and checkpoint continuation.
+
+Scalar diagnostic: default mean derivative−1.666666667 and correct nextweight0.166666667, while omitted-step remains0. Changed fixture gives derivative0.75 and correct0.425 versus omitted0.5. Stationary and zero-rate nulls deliberately cannot distinguish the missing step. Pin/reset and added fourth row work; keyboard rate0.10→0.11 changes nextweight0.183333 before fourth row, then0.1375 after adding row.
+
+Module/graph mode: initial training BatchNorm gives outputs±0.999995000037 and storedafter0.2/1.1 without a graph. Enabling graph and carrying buffers leaves forward outputs the same but nextafter0.38/1.19. Evaluation from carried0.2/1.1 gives0.762766604283/2.669683114992 and preserves buffers. Linear2x+1 gives3/7 with no normalization state. Matching-buffer null preserves0.5/0.5 while training outputs±0.9999800006. Equal inputs output0/0, with different buffer evolution. Reset restores every control.
+
+Constructed restart: default fullweight1.48 versus weight-only1.38. Changed recurrence3.25 versus2.875. Saving after5 and inspecting multiple continuations exposes the earliest velocity divergence. Zero momentum agrees; zero learning rate keeps both weights2 while velocities−3.5/−2 differ. Actual checkpoint explorer: complete restore exact, optimizer omission first recorded difference update7 loss (finaldistance0.030062), Torch RNG update6 loss (0.008615), order/cursor update6 batch (0.008778), scheduler update7 rate (0.023765). At scheduler update7 both losses0.977480699979 while rates0.0075/0.015 differ; original CSV IDs remain distinct from training positions.
+
+Wine seed7 at400: clean validationloss0.011259289 accuracy1, shuffled2.526364075 and0.416666667; supplied training accuracy1 in both. Row5 originaltarget0 supplied1 predicts1, probability0.8613126 at suppliedclass,0.094173006 at originalclass. Update0 has equal original-label evaluation but different supplied-label loss; final-only row inspection is correctly unavailable. Validationrow120 target1 predicts0 with original-target probability0.000155026. Seed3 changes its measured values. All401 curves, original-target overlay, linear/log scale, error sorting and13 raw original features remain available.
+
+Dist-only seed19 asset temporarily unavailable: usable retry preserves seed19, linear scale, shuffled/training treatment, error sort, original-target overlay and selectedrow5. Recovery reads validationloss2.575072402, accuracy0.388888889, row5original-target probability0.018207042. Exact restored asset SHA256048b27e66ca93fde80314fc98191a7cc9adc0d5d498dfc2c8241e89db77bd738. No held artifact remains.
+
+Recorded paired validation accuracy at73,seeds3/19 gives mean−0.569444444,SD0.019641855; same-run null zero. Fresh scores start mean−0.033333333,SD0.076376262. Editing firstB by0.01 and changing preference gives mean−0.03,SD0.072111026 with win/loss direction updated. Adding a pair then pairing each A with itself gives4ties. Reset returns recordedloss difference1.153385234,SD0.000632687.
+
+Opened complete calculations.py6167characters, wine_diagnostics.py5849 and checkpoint_replay.py5515. Opened changed-score practice and full mid-group checkpoint solution, including gradient-denominator/order/stochastic state and no double-counting. Desktop actual screenshot inspected the real row→hiddenlayer→probability diagram. Final23 non-KaTeX SVGs pass painted-text bounds including four-row state. Phone document305/305 with full sources and disclosures open; local plots/tables remain scrollable and buttons wrap correctly. Keyboard slider works. Console warning/error list empty.
+
+These checks certify the scoped UI behavior and displayed retained evidence, not new fitted experiments or universal reproducibility.

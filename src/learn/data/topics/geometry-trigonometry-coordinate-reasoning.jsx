@@ -130,11 +130,11 @@ export default {
       <Prose>The point's x coordinate decreases by 2 because the same point is measured from a new zero. A displacement between two points keeps its x component: subtracting the two translated coordinates cancels the −2. Nothing physically moved merely because the coordinate description changed.</Prose>
     </Checkpoint>
     <Example id="frames"><Prose>Three printed pairs distinguish the passive coordinates, their reconstruction and the active result. Copying the correct formula into the wrong map can produce a plausible pair; reconstruction exposes that mistake.</Prose></Example>
-    <details><summary>Deeper connection: angle addition and composition</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h3 className="lesson-teaching-section__title">Deeper connection: angle addition and composition</h3>
       <Prose>Take the circle point (cos α, sin α) and actively rotate it by β. Its new angle is α+β. Substituting into the component formula proves cos(α+β)=cosα cosβ−sinα sinβ and sin(α+β)=sinα cosβ+cosα sinβ. This also proves that planar rotations about the same origin compose by adding angles: RβRα=Rα+β.</Prose>
       <Prose>If a local-to-world map is T₁(p)=O₁+Rαp and another is T₂(q)=O₂+Rβq, substitution gives T₂(T₁(p))=O₂+RβO₁+Rα+βp. The first translation is rotated by the second map. Translation and rotation generally do not commute: starting at (1, 0), translate by (1, 0) then turn 90° to obtain (0, 2); turn first then translate to obtain (1, 1). State the frame of each offset before composing.</Prose>
       <Prose>The Vectors lesson formalizes these component maps with matrices and more dimensions. Robotics topics extend them to named 3D frames. Planar rotation commutativity does not automatically transfer to rotations about different axes in 3D.</Prose>
-    </details>
+    </section>
 
     <H2>9. Use the geometry in a system</H2>
     <H3>A screen can reverse an axis and change its scale</H3>
@@ -152,45 +152,45 @@ export default {
     <Example id="links"><Prose>The second case changes only the shoulder and gives (3√3/2, −1/2). The reach remains √7. Later Forward & Inverse Kinematics will ask the reverse question—what joint configurations reach a target—and explain multiple branches and singularities.</Prose></Example>
     <Callout title="Choose a model before choosing a formula">Write down the physical object, coordinate origin, axis directions, units, angle unit and what is moving. Then compute. A result can satisfy an algebraic equation and still answer the wrong geometric question if one of those choices is hidden.</Callout>
 
-    <H2>10. Practise with changed geometry</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>10. Practise with changed geometry</H2>
     <Prose>Try the question before opening its hint. Keep exact radicals or fractions until the last step when possible. Each numerical candidate should reconstruct the supplied geometry; a drawing is useful evidence, but does not replace the stated constraints.</Prose>
-    <Practice title="A. Distance and a midpoint" question="P=(−2, 1) and Q=(4, −7), in metres. Find the displacement, straight distance, axis-aligned route length and midpoint." hint="Subtract Q−P; average coordinates for the midpoint.">
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="A. Distance and a midpoint" question="P=(−2, 1) and Q=(4, −7), in metres. Find the displacement, straight distance, axis-aligned route length and midpoint." hint="Subtract Q−P; average coordinates for the midpoint.">
       <Prose>The displacement is (6, −8) m. Distance is √(36+64)=10 m, while an axis-aligned route is 6+8=14 m. The midpoint is (1, −3). From either endpoint to that midpoint the distance is 5 m; reversing the trip gives (−6, 8) with the same length.</Prose>
-    </Practice>
-    <Practice title="B. Angle versus arc" question="A radius-3 cm circle has a positive 120° sector. Find the angle in radians, arc length and sector area. Repeat the scaling prediction for radius 6 cm." hint="120° is one third of a turn.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="B. Angle versus arc" question="A radius-3 cm circle has a positive 120° sector. Find the angle in radians, arc length and sector area. Repeat the scaling prediction for radius 6 cm." hint="120° is one third of a turn.">
       <Prose>The angle is 2π/3 rad, arc length is 3(2π/3)=2π cm and area is 9(2π/3)/2=3π cm². Doubling radius gives arc 4π cm and area 12π cm² while the angle stays 2π/3. The straight chord would be a different length.</Prose>
-    </Practice>
-    <Practice title="C. A changed right triangle" question="A right triangle has adjacent leg 12, opposite leg 5 and hypotenuse 13 relative to θ. Give the three ratios. Scale it by 3/2 and find its new area." hint="Scaling cancels in ratios but contributes twice to area.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="C. A changed right triangle" question="A right triangle has adjacent leg 12, opposite leg 5 and hypotenuse 13 relative to θ. Give the three ratios. Scale it by 3/2 and find its new area." hint="Scaling cancels in ratios but contributes twice to area.">
       <Prose>sin θ=5/13, cos θ=12/13 and tan θ=5/12. The scaled sides are 18, 7.5 and 19.5. Original area is 30, so scaled area is 30×9/4=67.5 square units. If the other acute angle is selected, sine and cosine swap and tangent becomes 12/5.</Prose>
-    </Practice>
-    <Practice title="D. Components and every inverse candidate" question="Find the exact circle coordinates at 225°. Then solve sin θ=−1/2 for 0°≤θ<360°. Explain why arcsin alone is insufficient." hint="225° is 180°+45°. Negative sine occurs below the x axis.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="D. Components and every inverse candidate" question="Find the exact circle coordinates at 225°. Then solve sin θ=−1/2 for 0°≤θ<360°. Explain why arcsin alone is insufficient." hint="225° is 180°+45°. Negative sine occurs below the x axis.">
       <Prose>At 225°, both coordinates are −√2/2 and tangent is 1. The sine equation has θ=210° and 330°. arcsin(−1/2)=−30° is only its principal answer, which is outside the requested interval; adding 360° gives 330°, and the supplementary family gives 210°. Both must be checked.</Prose>
-    </Practice>
-    <Practice title="E. A bearing on the wrong branch" question="A point is (−5, −5). What are its radius and bearing in (−180°,180°]? What does atan(y/x) return?" hint="The radius is positive and both components are negative.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="E. A bearing on the wrong branch" question="A point is (−5, −5). What are its radius and bearing in (−180°,180°]? What does atan(y/x) return?" hint="The radius is positive and both components are negative.">
       <Prose>The radius is 5√2 and the bearing is −135° (equivalently 225°, outside the chosen interval). atan(1) returns 45°, which reconstructs (5, 5) rather than (−5, −5). atan2 retains the two negative signs. If both coordinates were zero, a bearing could not be determined.</Prose>
-    </Practice>
-    <Practice title="F. Check the included angle" question="Two sides of lengths 4 and 6 include a 60° angle. Find the third side and the area. Why is √(4²+6²) incorrect?" hint="Use the cosine-law correction, then base times perpendicular height.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="F. Check the included angle" question="Two sides of lengths 4 and 6 include a 60° angle. Find the third side and the area. Why is √(4²+6²) incorrect?" hint="Use the cosine-law correction, then base times perpendicular height.">
       <Prose>The third side squared is 16+36−2×4×6×1/2=28, so its length is 2√7≈5.2915. Area is 4×6×sin60°/2=6√3≈10.3923 square units. Pythagoras would require a 90° included angle; it would omit the −24 correction here.</Prose>
-    </Practice>
-    <Practice title="G. An independently changed ambiguous triangle" question="A=30°, a=5 and b=8. How many nondegenerate triangles are possible? Find both base lengths c and explain them geometrically." hint="C=(4√3,4). A radius-5 circle centred there meets the positive x ray.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="G. An independently changed ambiguous triangle" question="A=30°, a=5 and b=8. How many nondegenerate triangles are possible? Find both base lengths c and explain them geometrically." hint="C=(4√3,4). A radius-5 circle centred there meets the positive x ray.">
       <Prose>The ray intersections solve (c−4√3)²+16=25, giving c=4√3±3. Both are positive, approximately 3.9282 and 9.9282. The corresponding B angles are 126.8699° and 53.1301°, leaving C angles 23.1301° and 96.8699°. Both triangles have the supplied sides and angle. Accepting only the acute arcsin branch would lose the shorter base.</Prose>
-    </Practice>
-    <Practice title="H. Separate active and passive results" question="Use P=(3,1), O=(1,2) and θ=90°. Find local coordinates, reconstruct P, and actively rotate P about O." hint="Subtract O first. At 90°, R(x,y)=(−y,x) and the inverse sends (x,y) to (y,−x).">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="H. Separate active and passive results" question="Use P=(3,1), O=(1,2) and θ=90°. Find local coordinates, reconstruct P, and actively rotate P about O." hint="Subtract O first. At 90°, R(x,y)=(−y,x) and the inverse sends (x,y) to (y,−x).">
       <Prose>The displacement from O is (2,−1). Local coordinates are R−90(2,−1)=(−1,−2). Reconstruct with R90(−1,−2)=(2,−1), then add O to get (3,1). Active rotation gives R90(2,−1)=(1,2), then adds O to give (2,4). Both results preserve the pivot distance √5 but represent different operations.</Prose>
-    </Practice>
-    <Practice title="I. Diagnose a screen-distance error" question="A physical displacement (−2,3) m is drawn with 30 px/m horizontally and 20 px/m vertically, with screen y down. Find the pixel displacement and recover the physical distance." hint="The vertical sign reverses; invert each scale before the distance calculation.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="I. Diagnose a screen-distance error" question="A physical displacement (−2,3) m is drawn with 30 px/m horizontally and 20 px/m vertically, with screen y down. Find the pixel displacement and recover the physical distance." hint="The vertical sign reverses; invert each scale before the distance calculation.">
       <Prose>The pixel displacement is (−60,−60) px. Its pixel diagonal is 60√2 px. Converting components gives (−60/30, −(−60)/20)=(−2,3) m, whose length is √13≈3.6056 m. Dividing the pixel diagonal by either scale treats the other axis incorrectly. The screen-origin offset has no effect on this difference.</Prose>
-    </Practice>
-    <Practice title="J. A changed folding probe" question="A two-link probe has L₁=3, L₂=2, shoulder 0° and relative elbow 60°. Find its endpoint and reach. Then rotate the shoulder to 90° without changing the elbow." hint="Add the link displacements first; the shoulder change then rotates their sum.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="J. A changed folding probe" question="A two-link probe has L₁=3, L₂=2, shoulder 0° and relative elbow 60°. Find its endpoint and reach. Then rotate the shoulder to 90° without changing the elbow." hint="Add the link displacements first; the shoulder change then rotates their sum.">
       <Prose>The initial endpoint is (3+2cos60°, 2sin60°)=(4,√3). Reach is √19≈4.3589, between 1 and 5. At shoulder 90°, the endpoint is (−√3,4), with the same reach. The second absolute angle is now 150°, not 60°. This is also a check of the angle-addition formulas.</Prose>
-    </Practice>
-    <Practice title="K. A measurement model you can explain" question="Design a check for a mark moving around a circle with centre height 8 cm, radius 2 cm and frequency 3 turns/s. Start it at the rightmost point and track height. State the range, period and values at t=0 and t=1/12 s." hint="The rightmost point has zero vertical displacement and initial angle zero.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="K. A measurement model you can explain" question="Design a check for a mark moving around a circle with centre height 8 cm, radius 2 cm and frequency 3 turns/s. Start it at the rightmost point and track height. State the range, period and values at t=0 and t=1/12 s." hint="The rightmost point has zero vertical displacement and initial angle zero.">
       <Prose>One model is y(t)=8+2sin(6πt), in centimetres with t in seconds. Its range is 6 to 10 cm and period 1/3 s. Initially y(0)=8 cm; at 1/12 s the angle is π/2 and y=10 cm. This assumes steady counterclockwise rotation. Clockwise motion would reverse the sine sign; a different starting point would change phase. A measured signal departing from this pattern might reflect varying speed, an off-centre mark or a measurement convention, not a failure of the identity.</Prose>
-    </Practice>
-    <Practice title="L. Reverse an operation order" question="Start at (2,0). Compare translating by (0,1) then rotating 90° about the world origin, with rotating first then translating. Explain the mismatch." hint="Apply each operation to its actual input pair.">
+    </Practice></div>
+    <div className="lesson-exercise" data-lesson-exercise=""><Practice title="L. Reverse an operation order" question="Start at (2,0). Compare translating by (0,1) then rotating 90° about the world origin, with rotating first then translating. Explain the mismatch." hint="Apply each operation to its actual input pair.">
       <Prose>Translate first: (2,0)→(2,1)→(−1,2). Rotate first: (2,0)→(0,2)→(0,3). The translation offset rotates only in the first sequence. These are different maps; writing the steps and checking a point makes the order visible.</Prose>
-    </Practice>
-    <Prose><strong>Where this connects.</strong> The next topic in this module is <strong>Counting, Combinatorics & Mathematical Induction</strong>. It will develop ways to enumerate possibilities and establish claims for every integer case. For geometric depth, Vectors formalizes components and projections; coordinate-frame and kinematics topics extend the reconstruction methods; signal processing develops periodic measurements. The lesson order remains the module's declared order.</Prose>
+    </Practice></div>
+    <Prose><strong>Where this connects.</strong> The next topic in this module is <strong>Counting, Combinatorics & Mathematical Induction</strong>. It will develop ways to enumerate possibilities and establish claims for every integer case. For geometric depth, Vectors formalizes components and projections; coordinate-frame and kinematics topics extend the reconstruction methods; signal processing develops periodic measurements. The lesson order remains the module's declared order.</Prose></section>
     <Sources alternatives={<>
       <Prose><strong>A written route:</strong> OpenStax's <a href="https://openstax.org/books/algebra-and-trigonometry-2e/pages/7-1-angles" target="_blank" rel="noreferrer">Angles</a>, <a href="https://openstax.org/books/algebra-and-trigonometry-2e/pages/7-2-right-triangle-trigonometry" target="_blank" rel="noreferrer">Right-triangle trigonometry</a> and <a href="https://openstax.org/books/algebra-and-trigonometry-2e/pages/7-3-unit-circle" target="_blank" rel="noreferrer">Unit circle</a> offer a slower textbook sequence with more exercises. Start there if converting units or naming the triangle sides still feels uncertain. Relevant definitions and worked derivations were inspected.</Prose>
       <Prose><strong>A deeper video and transcript:</strong> Northwestern's Modern Robotics <a href="https://www.youtube.com/watch?v=6KIPusOv5fA" target="_blank" rel="noreferrer">Rotation Matrices, Part 2</a> compares describing orientation, changing coordinates and actively rotating a vector. Its <a href="https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-2-1-rotation-matrices-part-2-of-2/" target="_blank" rel="noreferrer">official transcript</a> was inspected; complete video playback was not. It uses 3D matrix notation, so revisit it after Vectors. The scalar reconstruction in this lesson supplies the central physical distinction first.</Prose>

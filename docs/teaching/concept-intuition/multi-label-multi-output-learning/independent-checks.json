@@ -1,0 +1,30 @@
+{
+  "topicId": "multi-label-multi-output-learning",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx",
+    "src/learn/components/lesson-labs/MultioutputCompressionFigure.jsx",
+    "src/learn/components/lesson-labs/multioutput-compression.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx": "5f12d12fcfface09fd8e14f4e64ff2468ed3993a72cc7114d4dcf1bb7be570c0",
+    "src/learn/components/lesson-labs/MultioutputCompressionFigure.jsx": "348141e9f32cf1edc56ddbec1d12bc01350ca7265d7f95744a7234fbf375a410",
+    "src/learn/components/lesson-labs/multioutput-compression.css": "d7582d1773c05f164acf27861528e5a79d1c3335d8cc329998109beec173cdb0"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson and new teaching-support source reading",
+      "passed": true
+    },
+    {
+      "name": "Independent targeted arithmetic and JSX parsing",
+      "passed": true
+    },
+    {
+      "name": "All checked bytes match author checkpoint",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

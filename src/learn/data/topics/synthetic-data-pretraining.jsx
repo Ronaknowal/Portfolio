@@ -1118,7 +1118,7 @@ def filter_trace(trace, ground_truth):
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
       <Prose>
         <strong>1. Derive the collapse conditions.</strong> Starting from the KL divergence
@@ -1176,7 +1176,7 @@ def filter_trace(trace, ground_truth):
         strong external teacher, explicit verifier, 30–70% synthetic, real-data anchor always
         present. Deviation from any of these without careful empirical tracking is a way to
         get the failure modes in section 9 for free.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

@@ -1,0 +1,17 @@
+.minibatch-lesson{overflow-wrap:anywhere}
+.loop-controls,.loop-records{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:.8rem;margin:1rem 0}
+.loop-controls>*,.loop-records>*{min-width:0}
+.loop-record{border:1px solid #555;padding:.8rem;background:#1b1b1b;min-width:0}
+.loop-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.loop-figure{margin:1.4rem 0;padding:1rem;border:1px solid #555;background:#171717;max-width:100%;min-width:0}
+.loop-figure figcaption{font-weight:650;color:#eddbb4;margin-bottom:.8rem}
+.loop-scroll,.loop-plot-scroll{overflow-x:auto;max-width:100%;min-width:0}
+.loop-scroll svg{display:block;width:100%;height:auto}
+.loop-scroll text{fill:#eee;font:12px system-ui,sans-serif}
+.loop-scroll path,.loop-scroll line,.loop-scroll polyline{stroke:#aaa;fill:none}
+.loop-scroll rect{fill:#242424;stroke:#aaa}
+.loop-scroll circle{fill:#ddd;stroke:#ddd}
+.loop-plot-scroll .neural-plot,.loop-plot-scroll .neural-chart{min-width:400px;max-height:none}
+.loop-source{overflow-x:auto;padding:1rem;background:#111;font-size:.8rem;line-height:1.6}
+.loop-downloads{display:flex;flex-wrap:wrap;gap:.8rem;margin:1rem 0}
+@media(max-width:720px){.loop-two{grid-template-columns:minmax(0,1fr)}.loop-figure{padding:.6rem}}

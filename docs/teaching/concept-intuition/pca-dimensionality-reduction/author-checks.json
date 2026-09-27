@@ -1,0 +1,35 @@
+{
+  "topicId": "pca-dimensionality-reduction",
+  "date": "2026-09-26T15:18:34.263Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+    "src/learn/components/lesson-labs/PcaIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/pca-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx": "3a30c2abd790460e6d6f88cd2aca3bc3e058bc7cf5da0f09152deda018e02460",
+    "src/learn/components/lesson-labs/PcaIntuitionFigures.jsx": "f82db8e69c6ec5feaab34e02fef31baa50d53cce9522f1fabca3f6148b7cab53",
+    "src/learn/components/lesson-labs/pca-intuition.css": "7fbd8d39a403849550cdcf5ed10e10b54cf664061f973e513b6435db57bbcff1"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Eigenbasis angle recovers earlier horizontal variance",
+    "Whitened sample variances and changed pair distances",
+    "Perpendicular versus parallel noise projection",
+    "Randomized sketch multiplication shapes",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/pca-models.js",
+    "src/learn/data/pca-examples.js",
+    "src/learn/components/lesson-labs/PcaLabs.jsx",
+    "src/learn/components/lesson-labs/PcaFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

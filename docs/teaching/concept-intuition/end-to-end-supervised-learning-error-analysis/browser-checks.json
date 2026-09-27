@@ -1,0 +1,79 @@
+{
+  "topicId": "end-to-end-supervised-learning-error-analysis",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "afcd606885eb0956c94427dd6bb477968cb9e62515a89d9f862485eee21d42a3",
+    "src/learn/components/lesson-labs/EndToEndIntuitionFigures.jsx": "6e5eb9d54e7fa155257972d2bd06df8bd726ef937ad35efc03c77e5b76610b6b",
+    "src/learn/components/lesson-labs/endtoend-intuition.css": "1a3cffcb0b49bfcaa42aff9235e35ac42c41800fbf0a7d800548dfc721d7a132",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "862111f0af25531b242ae6e684ad81eff6cbcc388be6fdf3eb9451a217116cd7"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": [
+        46
+      ]
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        75,
+        122,
+        123,
+        124,
+        125,
+        134
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        36
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": [
+        8
+      ]
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T15:09:47.230Z",
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [
+      "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+      "src/learn/components/lesson-labs/EndToEndLabs.jsx"
+    ],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Enlarged Wilson-interval labels. Removed stale prediction-first instructions and clarified validation selection and the zero-cost branch.",
+      "status": "closed",
+      "recheckIndices": [
+        75,
+        122,
+        123,
+        124,
+        125,
+        134
+      ],
+      "copyIndices": [
+        8
+      ]
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

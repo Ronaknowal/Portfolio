@@ -771,33 +771,33 @@ trainer.train()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Variance of the group-normalized estimator</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Variance of the group-normalized estimator</H3>
 
       <Prose>
         Derive the variance of the GRPO advantage estimator <Code>{"A_i = (r_i - mu_G) / sigma_G"}</Code> for a group of G responses. Show that when rewards are drawn i.i.d. from a distribution with variance <Code>sigma^2</Code>, the variance of the normalized advantage is always 1 regardless of sigma. Now derive the variance of the RLOO advantage <Code>{"A_i = r_i - b_i"}</Code> where <Code>{"b_i = (sum_{j!=i} r_j) / (k-1)"}</Code>. Under the same i.i.d. assumption, what is the variance as a function of k and sigma^2? For large k, which estimator has lower variance, and why does GRPO's normalization trade variance reduction for scale invariance?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — When RLOO beats PPO</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — When RLOO beats PPO</H3>
 
       <Prose>
         The Ahmadian et al. paper claims that PPO's value network contributes little in the language model RLHF setting. Describe two structural properties of the RLHF task (compared to control tasks like MuJoCo) that reduce the benefit of a learned critic. Then identify a setting where a learned critic would provide a substantial advantage over RLOO's leave-one-out baseline — what property of the reward structure or action space would make the RLOO estimator high-variance even at large k?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Converting DPO data to KTO format</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Converting DPO data to KTO format</H3>
 
       <Prose>
         You have a DPO dataset of (prompt, chosen, rejected) triples. Describe how you would convert this to KTO binary-label format. After conversion, what information has been lost? Specifically: (a) the margin information (how much better was chosen over rejected), (b) the correlation structure between chosen and rejected responses for the same prompt, (c) any information about the absolute quality of responses. How would you design an experiment to measure whether the lost information matters empirically for a given task?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — KL anchor schedule for GRPO</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — KL anchor schedule for GRPO</H3>
 
       <Prose>
         In DeepSeek-R1, the KL coefficient was set to 0.001 — extremely small compared to the 0.04–0.1 range common in DPO and PPO. Design a KL-coefficient schedule that starts at 0.05 and decays toward 0.001 over training. What is the rationale for starting high and decaying? What risk does a small KL coefficient create early in training, and what risk does a large KL coefficient create late in training? Write the schedule as a function of training step and describe how you would detect that the coefficient has decayed too fast.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Detecting reward hacking in a binary-label setting</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Detecting reward hacking in a binary-label setting</H3>
 
       <Prose>
         You are training a model with KTO on production thumbs-up / thumbs-down data from a customer support chatbot. After 10K steps, the reward margin is increasing and KTO loss is decreasing, but user satisfaction scores from A/B tests are flat. Describe three specific reward-hacking hypotheses consistent with these observations. For each, describe a diagnostic: what would you measure or visualize to confirm or rule out the hypothesis? Design a reward function modification that would make each form of hacking harder to exploit.
@@ -805,7 +805,7 @@ trainer.train()`}
 
       <Callout accent="gold">
         The convergence across all six post-training methods (RLHF, DPO, SimPO, GRPO, RLOO, KTO) is that every one optimizes the same KL-constrained objective, trading off closeness to the SFT anchor against movement toward a preference signal. The algorithm you choose determines the data format you need, the computational cost per step, and whether the policy can explore on-policy during training. What it does not determine, more than you might expect, is the final quality ceiling — that is set by the quality of your preference signal and the KL budget you give the policy to use.
-      </Callout>
+      </Callout></div></section>
 
     </div>
   ),

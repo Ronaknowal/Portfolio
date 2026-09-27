@@ -1,0 +1,112 @@
+.state-space-lesson { color: #e8e8e8; container-type: inline-size; }
+.state-space-lesson .neural-lab { background: #0b0b0b; border-color: #393939; }
+.state-space-lesson .neural-lab input,
+.state-space-lesson .neural-lab select,
+.state-space-lesson button,
+.state-space-lesson .ssm-endpoints input,
+.state-space-lesson .ssm-figure select { background: #111; border: 1px solid #666; color: #e2b55a; min-height: 44px; padding: 9px 12px; font: inherit; max-width: 100%; }
+.state-space-lesson input[type="range"] { accent-color: #e2b55a; padding: 0; }
+.state-space-lesson button { cursor: pointer; }
+.state-space-lesson button:hover { border-color: #e2b55a; }
+.state-space-lesson button:disabled { opacity: .5; cursor: default; }
+.state-space-lesson :is(button, input, select, summary, pre):focus-visible { outline: 2px solid #e2b55a; outline-offset: 3px; }
+.state-space-lesson :is(.neural-table-scroll th, .neural-table-scroll td) { border-color: #333; }
+.state-space-lesson .neural-chart line { stroke: #666; }
+.state-space-lesson .neural-chart text { fill: #ccc; }
+.state-space-lesson fieldset { min-width: 0; border: 1px solid #444; padding: 14px; }
+.state-space-lesson legend { color: #e2b55a; padding: 0 8px; }
+.ssm-two, .ssm-three { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.ssm-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ssm-two > *, .ssm-three > * { min-width: 0; }
+.ssm-figure, .ssm-state-paths { margin: 28px 0; padding: 20px 0; border-block: 1px solid #333; }
+.state-space-lesson figcaption { color: #eee; font-weight: 600; line-height: 1.6; margin-bottom: 16px; }
+.state-space-lesson figure p { font-size: 14px; line-height: 1.7; }
+.ssm-state-paths .ssm-two > div { border-left: 2px solid #e2b55a; padding-left: 16px; }
+.ssm-state-paths h4 { margin: 8px 0; }
+.ssm-join { padding: 16px; margin: 18px 0; border: 1px solid #555; text-align: center; line-height: 1.8; }
+.ssm-flow { margin: 24px 0; }
+.ssm-flow ol { display: grid; list-style: none; padding: 0; gap: 18px; }
+.ssm-flow li { display: grid; gap: 8px; padding: 12px 16px; border-left: 2px solid #e2b55a; background: #0d0d0d; position: relative; }
+.ssm-flow li:not(:last-child)::after { content: '↓'; position: absolute; left: 16px; bottom: -24px; color: #e2b55a; }
+.ssm-flow strong { color: #eee; }
+.ssm-flow span { font-size: 14px; line-height: 1.6; }
+.ssm-matrix td > span { display: block; padding: 8px; text-align: center; white-space: nowrap; }
+/* Numeric cells need less width than the shared prose-table default. Keep exact
+   values legible and scroll only the matrix when its dimensions require it. */
+.ssm-matrix .neural-table-scroll table { min-width: var(--ssm-matrix-width) !important; }
+.ssm-matrix .ssm-selected-cell { outline: 1px solid #e2b55a; outline-offset: -1px; }
+.ssm-matrix .neural-table-scroll th, .ssm-matrix .neural-table-scroll td { padding: 4px; }
+.ssm-result { padding: 16px; background: #17130c; border-left: 3px solid #e2b55a; line-height: 1.8; }
+.ssm-investigation { border-block: 1px solid #49402e; margin: 24px 0; padding: 4px 0; }
+.ssm-investigation > summary, .ssm-program > summary, .state-space-lesson details > summary { cursor: pointer; padding: 13px 0; color: #e2b55a; line-height: 1.6; }
+.ssm-program pre { max-height: 600px; overflow: auto; white-space: pre; font-size: 13px; line-height: 1.7; background: #101010; padding: 18px; border: 1px solid #444; }
+.ssm-event-strip { display: flex; gap: 10px; overflow-x: auto; padding: 8px 0; }
+.ssm-event-strip button { display: grid; gap: 8px; min-width: 120px; flex: 0 0 auto; text-align: left; }
+.ssm-event-strip .is-selected { border-color: #e2b55a; background: #211b10; }
+.ssm-event-strip small, .ssm-event-strip span { font-size: 12px; }
+.ssm-bands { height: 24px; display: flex; background: #222; border: 1px solid #555; margin: 16px 0; }
+.ssm-bands > div { min-width: 0; flex-basis: 0; background: #999; font-size: 0; }
+.ssm-bands > div + div { background: #e2b55a; }
+.ssm-independent-bands > div { height: 18px; background: #222; }
+.ssm-independent-bands span { display: block; height: 100%; background: #e2b55a; }
+.ssm-independent-bands > div:first-of-type span { background: #999; }
+.ssm-chunks > section { padding-left: 16px; border-left: 2px solid #e2b55a; margin: 24px 0; }
+.ssm-path { margin: 20px 0; }
+.ssm-path svg, .ssm-oscillator svg { display: block; width: 100%; max-width: 360px; height: auto; margin: auto; }
+.ssm-path svg text, .ssm-oscillator svg text { fill: #ddd; font-size: 14px; }
+.ssm-probabilities { display: grid; gap: 14px; margin: 20px 0; }
+.ssm-probabilities > div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; align-items: center; }
+.ssm-probabilities > div > span { font-size: 14px; }
+.ssm-probabilities > div > div { height: 16px; display: grid; background: #171717; }
+.ssm-prob-original { background: #bdbdbd; }
+.ssm-prob-current { background: #e2b55a; }
+.ssm-probabilities small { grid-column: 2; color: #bbb; }
+.ssm-count { display: grid; gap: 12px; padding: 24px; border: 1px solid #49402e; }
+.ssm-count strong { font-size: 32px; color: #e2b55a; }
+.ssm-count span, .ssm-count small { line-height: 1.7; }
+.ssm-checkbox { display: flex; align-items: center; gap: 12px; }
+.ssm-endpoints { max-width: 100%; }
+.ssm-intuition { overflow-wrap: anywhere; }
+.state-space-lesson .ssm-intuition input { background: #111; border: 1px solid #666; color: #e2b55a; min-height: 44px; padding: 9px 12px; font: inherit; max-width: 100%; box-sizing: border-box; }
+.state-space-lesson .ssm-intuition input[type="range"] { padding: 0; }
+.ssm-intuition .neural-number { max-width: 360px; }
+.ssm-intuition-steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+.ssm-intuition-steps button[aria-pressed="true"] { border-color: #e2b55a; background: #211b10; color: #fff; }
+.ssm-retain-arithmetic { display: grid; gap: 20px; }
+.ssm-retain-arithmetic > div { display: grid; gap: 8px; }
+.ssm-retain-arithmetic strong { font-family: var(--font-mono, monospace); font-size: 16px; }
+.ssm-contribution-track { height: 20px; background: #202020; border: 1px solid #555; }
+.ssm-contribution-track > span { display: block; background: #c8c8c8; height: 100%; }
+.ssm-new-write > span { background: #e2b55a; }
+.ssm-trail-scroll { overflow-x: auto; max-width: 100%; }
+.state-space-lesson .ssm-trail-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px; }
+.state-space-lesson .ssm-trail-table :is(td, th) { border: 1px solid #444; padding: 12px; background: #101010; color: #eee; }
+.state-space-lesson .ssm-trail-table .is-current { background: #241d10; border-inline-color: #a68543; }
+.state-space-lesson .ssm-trail-table .ssm-not-arrived { color: #aaa; font-size: 12px; }
+.ssm-trail-bar { height: 7px; background: #2a2a2a; margin-top: 7px; }
+.ssm-trail-bar i { height: 100%; display: block; background: #e2b55a; }
+.ssm-marked-events { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.ssm-marked-events > div { display: grid; gap: 10px; padding: 14px; border: 1px dashed #666; }
+.ssm-marked-events > .is-marked { border: 2px solid #cda653; }
+.ssm-marked-events strong { font-size: 25px; color: #e2b55a; }
+.ssm-marked-events :is(small, span) { font-size: 13px; line-height: 1.5; }
+.ssm-tiny-matrix { display: grid; gap: 10px; justify-items: start; }
+.state-space-lesson .ssm-tiny-matrix table { border-inline: 2px solid #cda653; border-collapse: collapse; width: 160px; min-width: 0; max-width: 100%; }
+.state-space-lesson .ssm-tiny-matrix td { background: #111; color: #eee; text-align: center; width: 50%; padding: 12px; font: 16px var(--font-mono, monospace); border: none; }
+.ssm-matrix-sum { display: grid; justify-items: center; gap: 12px; padding-block: 24px; margin-top: 20px; border-top: 1px solid #444; }
+.ssm-matrix-sum .ssm-tiny-matrix { justify-items: center; }
+@media (max-width: 700px) {
+  .ssm-two, .ssm-three { grid-template-columns: minmax(0, 1fr); }
+  .ssm-figure, .ssm-state-paths { padding-inline: 0; }
+  .ssm-probabilities > div { grid-template-columns: minmax(0, 1fr); }
+  .ssm-probabilities small { grid-column: 1; }
+  .ssm-marked-events { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* The reader sidebar can leave a narrow article inside a wide viewport. Choose
+   the teaching layout from the actual article width as well as screen width. */
+@container (max-width: 600px) {
+  .ssm-two, .ssm-three, .state-space-lesson .neural-controls { grid-template-columns: minmax(0, 1fr); }
+  .ssm-probabilities > div { grid-template-columns: minmax(0, 1fr); }
+  .ssm-probabilities small { grid-column: 1; }
+  .ssm-marked-events { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

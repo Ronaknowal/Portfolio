@@ -1,1219 +1,887 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const ssmContent = {
-  title: "State Space Models (S4, Mamba, Mamba-2)",
-  readTime: "~42 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        State space models did not arrive in deep learning in 2022. They arrived in control engineering in 1960. Rudolf Kalman's paper "A New Approach to Linear Filtering and Prediction Problems" (Transactions of the ASME, Journal of Basic Engineering, 82(D), March 1960) introduced the now-canonical form <Code>{"x'(t) = A x(t) + B u(t)"}</Code>, <Code>{"y(t) = C x(t) + D u(t)"}</Code>. The hidden state <Code>{"x(t)"}</Code> summarizes everything the system needs to know about the past to predict the future given new inputs <Code>{"u(t)"}</Code>. Kalman's result — a recursive optimal estimator for such a system — launched aerospace navigation (Apollo Lunar Module trajectory filtering was done with a Kalman filter on a 32-KB computer), industrial control, signal processing, and econometrics. For sixty years, the SSM was a tool of engineers, not machine learning researchers.
-      </Prose>
-
-      <Prose>
-        The bridge to deep learning was built by Albert Gu, Tri Dao, Stefano Ermon, Atri Rudra, and Christopher Re at Stanford. In August 2020 they published "HiPPO: Recurrent Memory with Optimal Polynomial Projections" (arXiv:2008.07669, NeurIPS 2020). HiPPO answered a precise question: if you want an RNN hidden state of dimension <Code>N</Code> to memorize a continuous input signal <Code>{"u(t)"}</Code> as accurately as possible, what should the state update matrix <Code>A</Code> be? The answer turned out to be a specific closed-form matrix — the HiPPO matrix — derived by projecting the signal onto an orthogonal polynomial basis (Legendre, Laguerre, or Fourier) under a chosen measure. HiPPO-LegS, the scaled-Legendre variant, is the most widely used: it corresponds to uniform attention over all past history and its matrix has a strikingly simple recursive form. HiPPO gave the field a principled initialization for long-range memory in RNNs, and did so with measurable gains on the Long Range Arena benchmark.
-      </Prose>
-
-      <Prose>
-        The next step was structural. In October 2021 Gu, Karan Goel, and Re published "Efficiently Modeling Long Sequences with Structured State Spaces" (arXiv:2111.00396, ICLR 2022). This is the S4 paper. The key observation: if you take a continuous LTI SSM, discretize it, and fix the <Code>A</Code> matrix to a HiPPO-derived structured form (specifically, Diagonal Plus Low Rank, DPLR), then the entire sequence output becomes a convolution with a kernel <Code>{"K = (C B_bar, C A_bar B_bar, C A_bar^2 B_bar, ..., C A_bar^{L-1} B_bar)"}</Code> that can be computed in <Code>{"O(L \\log L)"}</Code> using the FFT. Training a deep SSM therefore reduces to stacking such convolutional layers. On the Long Range Arena benchmark — a battery of tasks with sequence lengths 1K to 16K designed specifically to stress long-range dependencies — S4 posted the first near-perfect score (85.7% average) against transformers that managed 54%. S4 did not match transformer quality on general-purpose language modeling, but on audio, time-series, and long-structured-sequence tasks it was a genuine breakthrough.
-      </Prose>
-
-      <Prose>
-        S4 had a painful limitation, however. It was linear and time-invariant: the matrices <Code>{"A, B, C"}</Code> did not depend on the input, so the model could not select <em>what</em> to store based on the content of the sequence. A plain S4 stack could do long-range pattern matching well but struggled on tasks that required content-based filtering — for instance, copying a specific earlier token that is marked by a special delimiter (the classic "selective copy" task from the Induction Heads literature). Language modeling is full of such content-dependent decisions, and S4's perplexity on language was a few percent worse than a matched transformer.
-      </Prose>
-
-      <Prose>
-        In December 2023, Gu and Dao published "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" (arXiv:2312.00752). Mamba fixed S4's selectivity problem by making <Code>{"\\Delta, B, C"}</Code> input-dependent functions of the current token. The trade-off: once <Code>{"\\Delta, B, C"}</Code> vary with time, the SSM is no longer LTI, and the elegant FFT-convolution view of S4 no longer applies. Mamba worked around this with a hardware-aware parallel scan — a CUDA kernel that computes the selective recurrence in parallel across the sequence while keeping everything in SRAM (GPU cache). The result: linear-time, input-dependent SSMs that trained at GPU speeds close to FlashAttention and inferred in constant memory regardless of context length. Mamba at 7B parameters matched LLaMA-2 on language benchmarks while providing 5x faster inference and constant memory usage. It was the first SSM to be competitive as a general-purpose language model.
-      </Prose>
-
-      <Prose>
-        In May 2024, Dao and Gu followed up with "Transformers Are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality" (arXiv:2405.21060, ICML 2024). This is the Mamba-2 paper, and its theoretical contribution is the <em>state space duality</em>: a particular class of selective SSMs (those with scalar-times-identity state transitions) is formally equivalent to a masked linear attention with a structured lower-triangular mask <Code>L</Code>, such that <Code>{"y = (L \\odot Q K^T) V"}</Code>. This means any selective SSM of that class has a matrix-parameterized formulation that exposes the same BMM (batched matrix multiply) primitives GPUs are optimized for. Mamba-2's algorithm uses this duality to chunk the sequence and alternate between intra-chunk matmul (fast) and inter-chunk recurrence (efficient), achieving 2-8x speedup over Mamba-1 while matching quality. The duality also unified two previously separate research threads: structured state space models (S4/Mamba line) and linear attention (Katharopoulos/RetNet/GLA line) are the same mathematical object viewed from different angles.
-      </Prose>
-
-      <Prose>
-        The motivation that ties all of this together is a scaling crisis. A transformer on a sequence of length <Code>L</Code> and model dimension <Code>d</Code> pays <Code>{"O(L^2 \\cdot d)"}</Code> in attention; for <Code>{"L = 32{,}000"}</Code> and <Code>{"d = 4096"}</Code> this is a ballpark of 4 teraflops per forward pass per layer, and the KV cache grows linearly with <Code>L</Code>. By contrast, an SSM with state dimension <Code>N</Code> pays <Code>{"O(L \\cdot d \\cdot N)"}</Code> at training and <Code>{"O(d \\cdot N)"}</Code> per token at inference, with the KV cache replaced by a fixed-size state of shape <Code>{"[d, N]"}</Code>. For <Code>{"N = 16"}</Code> and <Code>{"L > d"}</Code>, SSMs win on both time and memory asymptotically. The question is never "does linear beat quadratic in the limit" — obviously yes — but "how much quality do you lose to avoid the quadratic factor, and at what sequence length does the crossover actually pay off on real hardware?" By 2026, the answer is: for language at 2K-32K context, transformers still have about 1-2% quality advantage and the ecosystem is more mature; for very long sequences (100K+), time-series, genomics, and audio, SSMs win decisively. Hybrid architectures (Jamba, Samba) that interleave attention and Mamba layers may be the practical sweet spot.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+// Complete prepared manuscript, with implemented figures and live investigations.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { StateSpaceSystemLab, StateSpaceSelectionLab, StateSpaceSSDLab, StateSpaceTrajectoryLab, StateSpaceProgram } from '../../components/lesson-labs/StateSpaceLabs.jsx';
+import { StatePathsFigure, SamplingFigure, ImpulseFigure, MemoryRatesFigure, OscillatorFigure, PolynomialFigure, DplrFigure, FixedDelayFigure, MambaBlockFigure, SSDFigure, RealTrajectoriesFigure, TrainingPipelineFigure, LearningEvidenceFigure, CacheCountsFigure, MambaThreeFigure } from '../../components/lesson-labs/StateSpaceFigures.jsx';
+import { RetainWriteFigure, ImpulseTrailsFigure, MarkedMemoryFigure, MatrixWriteFigure } from '../../components/lesson-labs/StateSpaceIntuition.jsx';
+export default {
+  title: 'State Space Models: S4 and the Mamba Family',
+  readTime: '~95 min read + experiments and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="neural-lesson state-space-lesson"><LessonIntro prerequisites="Basic recurrent updates and matrix products. Sampling, complex modes and the attention connection are explained locally." sections={[["1-give-the-next-reading-a-useful-memory","1. Give the next reading a useful memory"],["2-from-continuous-change-to-sampled-updates","2. From continuous change to sampled updates"],["3-one-operator-three-ways-to-compute-it","3. One operator, three ways to compute it"],["4-designing-a-memory-with-more-than-one-timescale","4. Designing a memory with more than one timescale"],["5-keep-the-event-ignore-the-distraction-mamba-s-selection","5. Keep the event, ignore the distraction: Mamba’s selection"],["6-mamba-2-and-state-space-duality","6. Mamba-2 and state-space duality"],["7-make-the-state-useful-by-learning-from-real-movement","7. Make the state useful by learning from real movement"],["8-practical-choices-resource-counts-and-failures-worth-diagnosing","8. Practical choices, resource counts and failures worth diagnosing"],["implementation-pass-from-scratch-to-the-maintained-scan-and-block","Implementation pass: from scratch to the maintained scan and block"],["9-optional-extensions-s5-and-mamba-3","9. Optional extensions: S5 and Mamba-3"],["10-practice-explain-and-transfer","10. Practice, explain and transfer"],["references-and-other-ways-to-learn","References and other ways to learn"]]}>How can a few changing numbers preserve useful information from a long stream? Build the memory step by step, then train it on real movement.</LessonIntro>
+<Prose>{"A temperature sensor reports a deviation of 5, then 0, then 0. At the third reading, the newest value is zero—but a disturbance happened only two readings ago. How could a system retain evidence of that disturbance without saving an ever-growing list?"}</Prose>
 
-      <Prose>
-        An SSM is an RNN with a particular structure: the hidden-state update is <em>linear</em> in the state. That restriction is the secret, because linear recurrences have equivalent convolutional and matrix forms that RNNs with nonlinearities do not. Everything else in the S4/Mamba/Mamba-2 story follows from this.
-      </Prose>
+<Prose>{"A "}<strong>{"state-space model"}</strong>{" keeps a small set of numbers and updates them whenever new data arrives. We will begin with one number you can calculate by hand, then build toward S4's structured memories and Mamba's content-dependent updates. Later, the same ideas become a complete trainable classifier for measured hand movements."}</Prose>
 
-      <Prose>
-        <strong>Start continuous.</strong> The canonical state space model is a linear time-invariant differential equation: <Code>{"x'(t) = A x(t) + B u(t)"}</Code> and <Code>{"y(t) = C x(t) + D u(t)"}</Code>. Here <Code>{"u(t) \\in \\mathbb{R}"}</Code> is a 1-dimensional input signal at time <Code>t</Code>, <Code>{"x(t) \\in \\mathbb{R}^N"}</Code> is an <Code>N</Code>-dimensional hidden state, and <Code>{"y(t) \\in \\mathbb{R}"}</Code> is a 1-dimensional output. <Code>A</Code> is an <Code>{"N \\times N"}</Code> state-transition matrix; <Code>B</Code> is <Code>{"N \\times 1"}</Code>; <Code>C</Code> is <Code>{"1 \\times N"}</Code>; <Code>D</Code> is a direct feedthrough scalar (usually zero or a residual skip). The state <Code>{"x(t)"}</Code> is the memory; <Code>A</Code> controls how it evolves; <Code>B</Code> controls how new inputs are written in; <Code>C</Code> controls how it is read out.
-      </Prose>
+<Prose>{"In "}<a href={"/learn/path/full-curriculum/long-context-sequence-models-transformer-xl-griffin-perceiver?module=deep-learning-fundamentals"}>{"Long-Context Sequence Models"}</a>{", we compared explicit caches, recurrent memories and latent summaries. This lesson opens the recurrent memory: what do its numbers represent, what changes them, and what gets lost? You need basic matrix products and the idea of a recurrent update. Sampling, complex numbers and the attention connection are introduced locally."}</Prose>
 
-      <Prose>
-        <strong>Discretize to train on sequences.</strong> A neural network sees tokens at discrete steps, not continuous time. We discretize by assuming the input is piecewise constant over a step-size <Code>{"\\Delta"}</Code> — this is zero-order hold (ZOH) — and solve the ODE analytically over one step. The result is the discrete recurrence <Code>{"x_k = \\bar A x_{k-1} + \\bar B u_k"}</Code> with <Code>{"\\bar A = \\exp(\\Delta A)"}</Code> and <Code>{"\\bar B = (\\Delta A)^{-1} (\\exp(\\Delta A) - I) \\cdot \\Delta B"}</Code>. The output stays the same: <Code>{"y_k = C x_k + D u_k"}</Code>. Now we have an RNN. But because the update is linear (no nonlinearity applied to <Code>{"x_{k-1}"}</Code> before multiplying by <Code>{"\\bar A"}</Code>), we can unroll it and express the output as a convolution of the input with a fixed kernel.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass: build and inspect before specializing."}</strong>{" Read §1 and move the retention control. In §2, follow the held-input example; leave the expandable numerical derivation for later. In §3, follow one input's fading trail and open the system laboratory. Read §4 through the rotating pair; the HiPPO/S4 derivation is a separate return visit. In §5, compare marked events with distractors. In §6, follow the two-by-two state before opening the SSD workshop. Then use §7's real trajectories and training program to connect a useful memory to a learned task."}</Prose>
 
-      <Prose>
-        <strong>Unroll to get a convolution.</strong> Expanding the recurrence: <Code>{"x_0 = \\bar B u_0"}</Code>, <Code>{"x_1 = \\bar A \\bar B u_0 + \\bar B u_1"}</Code>, <Code>{"x_k = \\sum_{j=0}^{k} \\bar A^{k-j} \\bar B u_j"}</Code>. Passing through <Code>C</Code>: <Code>{"y_k = \\sum_{j=0}^{k} C \\bar A^{k-j} \\bar B u_j = \\sum_{j=0}^{k} \\bar K_{k-j} u_j"}</Code> where <Code>{"\\bar K_l = C \\bar A^l \\bar B"}</Code>. This is a causal convolution with kernel <Code>{"\\bar K = (C \\bar B, C \\bar A \\bar B, C \\bar A^2 \\bar B, \\ldots, C \\bar A^{L-1} \\bar B)"}</Code>. Computing the output by this convolution is mathematically identical to computing it by the recurrence, but the computational graph is now a single 1D convolution — parallelizable across all positions simultaneously, and amenable to FFT when the kernel is computed once up front.
-      </Prose>
+<Prose>{"For an implementation pass, run the mechanism program in §7, work through the native/library bridge after §8, and attempt the changed-code exercise. Return to the deeper §2/§4 branches and §9 when you want to derive S4 or investigate newer family members. The practice section changes the examples so you can check whether you can transfer the ideas. All live controls display their result immediately."}</Prose>
 
-      <Prose>
-        <strong>Two views, pick one at runtime.</strong> Training happens offline with full sequences, so we use the convolution view: compute <Code>{"\\bar K"}</Code> once, convolve with the input via FFT in <Code>{"O(L \\log L)"}</Code> time, parallelize across all GPU threads. Inference happens token by token (or short batches), and materializing <Code>{"\\bar K"}</Code> is wasteful; we use the recurrence view instead, keeping the state <Code>{"x_k"}</Code> as a fixed-size buffer of shape <Code>{"[N]"}</Code> that we update in <Code>{"O(N)"}</Code> per token. This dual view — train-time convolution, inference-time recurrence — is what makes SSMs both trainable at scale and efficient at deployment.
-      </Prose>
+<Prose>{"The central question remains the same throughout: "}<strong>{"what should survive into the next step, and how can we compute that update well?"}</strong>{""}</Prose>
 
-      <Prose>
-        <strong>S4 = structured <Code>A</Code>.</strong> The plain SSM above has <Code>{"O(N^2)"}</Code> cost to compute <Code>{"\\bar A^l"}</Code> for each <Code>l</Code>, and naive construction of the kernel <Code>{"\\bar K"}</Code> is <Code>{"O(N^2 L)"}</Code>. S4's contribution: restrict <Code>A</Code> to a Diagonal Plus Low Rank (DPLR) form, <Code>{"A = \\Lambda - P Q^T"}</Code>, which admits an efficient kernel-computation algorithm via the Cauchy matrix-vector product. The upshot: <Code>{"\\bar K"}</Code> can be built in <Code>{"\\tilde O(N + L)"}</Code>. Combined with the FFT, the full S4 layer is <Code>{"O(L \\log L + N)"}</Code>. Initialization uses the HiPPO-LegS <Code>A</Code> matrix, whose DPLR decomposition is known analytically and which encodes optimal continuous memory over a uniform measure.
-      </Prose>
+<H2>{"1. Give the next reading a useful memory"}</H2>
 
-      <Prose>
-        <strong>S4D = simpler, almost as good.</strong> In practice, the full DPLR structure is overkill: a purely diagonal <Code>A</Code> with a HiPPO-inspired initialization recovers most of S4's quality at a fraction of the complexity. This is S4D (Gu et al. 2022, arXiv:2206.11893). Because a diagonal <Code>A</Code> makes each state dimension an independent 1D linear recurrence, the kernel is trivially <Code>{"\\bar K_l[n] = c_n \\cdot \\bar a_n^l \\cdot \\bar b_n"}</Code>, a geometric series per dimension, and the FFT convolution is straightforward. Virtually all practical implementations of S4-style layers today use diagonal or diagonal-complex parameterizations, not full DPLR.
-      </Prose>
+<Prose>{"For this teaching example, readings are deviations from a reference temperature in arbitrary units. A zero is an actual reading at the reference level; it does not mean “no observation.” We start with a memory value of zero."}</Prose>
 
-      <Prose>
-        <strong>Mamba = selective SSM.</strong> S4 is linear time-invariant: <Code>{"A, B, C, \\Delta"}</Code> are constants across the sequence. Mamba relaxes this by letting <Code>{"\\Delta, B, C"}</Code> depend on the current input <Code>{"u_t"}</Code>. The state update is now <Code>{"x_t = \\bar A(u_t) x_{t-1} + \\bar B(u_t) u_t"}</Code> and the output is <Code>{"y_t = C(u_t) x_t"}</Code>. This is a time-varying linear system. The good news: it can still be computed with a parallel scan algorithm (associativity of linear operators is not broken by time variation, only the FFT-convolution view is). The bad news: each token now has its own <Code>{"\\bar A_t, \\bar B_t"}</Code> and you cannot precompute a single kernel. Mamba's hardware-aware selective scan CUDA kernel works around this by fusing the state update, input loading, and output projection into a single kernel that operates on GPU SRAM without materializing intermediate tensors in HBM. The input-dependence is what gives Mamba its selectivity: the model can look at the current token and decide how aggressively to decay the state, what to write in, and what to read out.
-      </Prose>
+<Prose>{"Several simple approaches are possible. Keeping only the latest reading uses little memory but immediately loses the disturbance. Keeping all readings preserves the history but its storage grows. Keeping a running sum and count is also compact and gives the average of the whole stream; however, a long early history can make that average slow to respond to a recent change. Different tasks can justify each choice."}</Prose>
 
-      <Prose>
-        <strong>Mamba-2 = matrix-parameterized selective SSM.</strong> Mamba-2 restricts the state transition further: <Code>{"\\bar A_t = a_t \\cdot I"}</Code>, a scalar times the identity. This sounds more restrictive but has a surprising payoff: the SSM now admits a matrix-form expression equivalent to masked linear attention. Specifically, if we define queries <Code>{"Q = C"}</Code>, keys <Code>{"K = B"}</Code>, values <Code>{"V = \\text{diag}(\\text{input})"}</Code>, and a structured lower-triangular mask <Code>{"L_{ij} = \\prod_{k=j+1}^{i} a_k"}</Code>, then <Code>{"y = (L \\odot Q K^T) V"}</Code>. This is the state space duality (SSD). The algorithmic advantage: the intra-chunk computation is now a BMM that runs at peak GPU throughput (same primitive as attention), while the inter-chunk recurrence handles the scalar decay. Mamba-2 is thus 2-8x faster than Mamba-1 in wall-clock and scales better on H100-class hardware.
-      </Prose>
+<Prose>{"Here we want a summary that reacts to new readings while allowing older evidence to fade. Try this rule in words: "}<strong>{"keep 80% of the previous summary, then add 20% of the new reading"}</strong>{". These percentages are an illustrative design choice, not parameters fitted to a measured sensor."}</Prose>
 
-      <Callout accent="gold">
-        Mental model: an SSM is a stack of 1D channels, each channel being a linear recurrence with its own learned <Code>{"A, B, C, \\Delta"}</Code>. S4 precomputes a convolution kernel at training time; Mamba recomputes the recurrence step-by-step with input-dependent parameters; Mamba-2 expresses that recurrence as a chunked matmul. The RNN view at inference gives you constant memory per token (no KV cache). The convolution/matmul view at training gives you GPU-friendly parallelism. You get both because the recurrence is linear.
-      </Callout>
+<RetainWriteFigure />
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"At the default setting, the first update is 0×.8 + 5×.2 = 1. The next is 1×.8 + 0×.2 = .8; the third is .8×.8 + 0×.2 = .64. Read down the trace: the disturbance's contribution persists even though each later reading is zero. Move retention toward zero to favor the latest measurement, or toward one to retain an existing summary longer. At exactly one, this particular rule stops accepting new information; starting at zero then stays zero."}</Prose>
 
-      <H3>3.1 Continuous SSM</H3>
+<Prose>{"Now give the quantities names. Let uₜ mean the input at step t, hₜ the summary "}<strong>{"after"}</strong>{" processing it, and hₜ₋₁ the summary from the preceding step. The short subscript t is just an index in the ordered readings. Our rule becomes"}</Prose>
 
-      <Prose>
-        A single-input single-output continuous-time LTI state space model is the pair of equations:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"h_t=0.8h_{t-1}+0.2u_t."}</MathBlock></div>
 
-      <MathBlock>
-        {"x'(t) = A x(t) + B u(t), \\qquad y(t) = C x(t) + D u(t)"}
-      </MathBlock>
+<Prose>{"The summary h is called the "}<strong>{"state"}</strong>{". A state is not necessarily a stored measurement: .64 mixes past observations according to the update rule. Reusing the previous state in the next update is a "}<strong>{"recurrence"}</strong>{". This is already a one-coordinate linear state-space model."}</Prose>
 
-      <Prose>
-        with <Code>{"A \\in \\mathbb{R}^{N \\times N}"}</Code>, <Code>{"B \\in \\mathbb{R}^{N \\times 1}"}</Code>, <Code>{"C \\in \\mathbb{R}^{1 \\times N}"}</Code>, <Code>{"D \\in \\mathbb{R}"}</Code>. The transfer function from <Code>u</Code> to <Code>y</Code> in the Laplace domain is <Code>{"H(s) = C (s I - A)^{-1} B + D"}</Code>, and the impulse response in the time domain is <Code>{"h(t) = C e^{A t} B + D \\delta(t)"}</Code>. The output for a general input is the convolution <Code>{"y(t) = (h * u)(t) + D u(t)"}</Code>. This is classical system theory; the point is that everything the SSM does is linear in <Code>u</Code>, and can be captured by a single impulse response.
-      </Prose>
+<H3>{"From one summary to several useful summaries"}</H3>
 
-      <H3>3.2 Discretization via zero-order hold</H3>
+<Prose>{"One summary might track a fast change; another might retain a slower trend. A "}<strong>{"vector"}</strong>{" simply collects these summaries. A "}<strong>{"matrix"}</strong>{" specifies how the old summaries and current inputs contribute to the new ones. We will inspect fast/slow and rotating memories in §4. First, keep four jobs separate: advance the old state, write the input, read the new state, and optionally send some input directly to the output."}</Prose>
 
-      <Prose>
-        To use the SSM on a sequence <Code>{"u_0, u_1, \\ldots, u_{L-1}"}</Code> sampled at step size <Code>{"\\Delta"}</Code>, assume <Code>u</Code> is held constant over each interval. Then the exact solution to <Code>{"x'(t) = A x + B u"}</Code> with <Code>{"u(t) = u_k"}</Code> for <Code>{"t \\in [k \\Delta, (k+1) \\Delta)"}</Code> is:
-      </Prose>
+<Prose>{"For a scalar example, keep half of an existing state 1 and add a new input 3. The new state is .5+3=3.5. Read twice the state to get 7; a separate direct path adds .25×3=.75, producing 7.75. Trace both sums in the picture before reading the matrix notation."}</Prose>
 
-      <MathBlock>
-        {"x_{k+1} = e^{\\Delta A} x_k + \\left( \\int_0^\\Delta e^{A \\tau} d\\tau \\right) B u_k = \\bar A x_k + \\bar B u_k"}
-      </MathBlock>
+<StatePathsFigure />
 
-      <Prose>
-        where the discretized matrices are:
-      </Prose>
+<Prose>{"The same four jobs for vectors are"}</Prose>
 
-      <MathBlock>
-        {"\\bar A = \\exp(\\Delta A), \\qquad \\bar B = (\\Delta A)^{-1} (\\exp(\\Delta A) - I) \\cdot \\Delta B"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"h_t=\\bar A h_{t-1}+\\bar B u_t,\\qquad y_t=Ch_t+Du_t."}</MathBlock></div>
 
-      <Prose>
-        For diagonal <Code>A</Code> (the S4D and Mamba setting), <Code>{"\\exp(\\Delta A)"}</Code> is elementwise <Code>{"\\exp(\\Delta a_n)"}</Code> and all operations are <Code>{"O(N)"}</Code> per step. For general <Code>A</Code> the matrix exponential is <Code>{"O(N^3)"}</Code> per discretization, amortized once per training step. Alternative discretizations exist (bilinear / Tustin, Euler) but ZOH is the standard for S4 and Mamba because it is exact for piecewise-constant inputs, which is the right model for tokens.
-      </Prose>
+<Prose>{"Here h has N coordinates, u has H input channels and y has J output channels. Ā is N×N, B̄ is N×H, C is J×N and D is J×H. Multiplying by B̄ writes the input into memory; Ā advances existing memory; C reads it; D provides a direct path from the current input."}</Prose>
 
-      <H3>3.3 S4 kernel construction</H3>
+<Prose>{"Throughout this lesson, "}<strong>{"the state is updated before it is read"}</strong>{". The initial state is h₋₁. Other references use an output-before-update convention; their first kernel tap can differ by one index without the underlying idea being different."}</Prose>
 
-      <Prose>
-        With discretized <Code>{"\\bar A, \\bar B, C, D"}</Code>, the output of the SSM over a sequence of length <Code>L</Code> is the causal convolution <Code>{"y = \\bar K * u + D u"}</Code> where the kernel is:
-      </Prose>
+<Prose>{"In the picture, the input contributes both to the new state and through the optional direct path. Those are distinct routes. Changing the readout C changes the reported output without changing the state update itself; changing Ā changes what the memory carries onward."}</Prose>
 
-      <MathBlock>
-        {"\\bar K = (C \\bar B, \\; C \\bar A \\bar B, \\; C \\bar A^2 \\bar B, \\; \\ldots, \\; C \\bar A^{L-1} \\bar B) \\in \\mathbb{R}^L"}
-      </MathBlock>
+<Prose>{"A useful special case applies the same coefficients at every step. Doubling the input then doubles the zero-initial-state output, and adding two inputs adds their outputs. This is "}<strong>{"linearity"}</strong>{". Together with using the same rule at each position, it gives a "}<strong>{"linear time-invariant"}</strong>{" operator, abbreviated LTI. “Time-invariant” means the same input pattern is treated by the same rule wherever it appears, subject to the sequence boundary. Input-dependent matrices generally break linearity and prevent one fixed convolution kernel from representing the map. A nonlinear operator can still obey time-shift symmetry."}</Prose>
 
-      <Prose>
-        For a stack of channels indexed by <Code>d</Code> (this is where "deep" comes in: each model dimension has its own small SSM), the kernel becomes <Code>{"\\bar K \\in \\mathbb{R}^{D \\times L}"}</Code> and the output <Code>{"y \\in \\mathbb{R}^{L \\times D}"}</Code> is computed as <Code>D</Code> parallel 1D convolutions. FFT gives <Code>{"O(L \\log L \\cdot D)"}</Code> cost. Kernel construction itself is <Code>{"O(N \\cdot L)"}</Code> for diagonal <Code>A</Code> and <Code>{"O(N + L)"}</Code> with the S4 DPLR Cauchy-matrix algorithm.
-      </Prose>
+<Prose>{"State-space modeling is a broader term than this linear layer: nonlinear physical models and nonlinear state transitions also belong to the family. S4 and Mamba use particular structured linear-in-state updates inside learned nonlinear networks."}</Prose>
 
-      <H3>3.4 HiPPO-LegS initialization</H3>
+<H3>{"What this buys, and what it does not"}</H3>
 
-      <Prose>
-        The HiPPO paper derives the following <Code>A</Code> matrix as the unique solution to the problem of optimally projecting a function <Code>{"u(t)"}</Code> onto a scaled Legendre polynomial basis under the uniform measure on <Code>{"[0, t]"}</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"A_{nk} = -\\begin{cases} \\sqrt{(2n+1)(2k+1)} & n > k \\\\ n+1 & n = k \\\\ 0 & n < k \\end{cases}, \\qquad B_n = \\sqrt{2n+1}"}
-      </MathBlock>
-
-      <Prose>
-        This matrix is lower-triangular, its diagonal eigenvalues are <Code>{"-(n+1)"}</Code> (negative, so the system is stable), and its off-diagonal elements grow as <Code>{"\\sqrt{n \\cdot k}"}</Code>. Intuitively, HiPPO-LegS represents the past history as an expansion of scaled Legendre polynomials, with the <Code>{"n"}</Code>-th state dimension storing the <Code>{"n"}</Code>-th Legendre coefficient of the signal so far. Legendre polynomials form an orthogonal basis over <Code>{"[-1, 1]"}</Code>, so the HiPPO state is a compressed, lossy summary of the entire past — and as <Code>N</Code> grows the summary becomes arbitrarily accurate. This is the theoretical reason HiPPO-initialized SSMs excel at long-range memorization: they are literally initialized to do so optimally.
-      </Prose>
-
-      <H3>3.5 Selective SSM (Mamba)</H3>
-
-      <Prose>
-        In Mamba, the discretization step-size <Code>{"\\Delta_t"}</Code>, input projection <Code>{"B_t"}</Code>, and output projection <Code>{"C_t"}</Code> depend on the input token:
-      </Prose>
-
-      <MathBlock>
-        {"\\Delta_t = \\text{softplus}(W_\\Delta u_t + b_\\Delta), \\quad B_t = W_B u_t, \\quad C_t = W_C u_t"}
-      </MathBlock>
-
-      <Prose>
-        The state <Code>A</Code> remains input-independent (typically initialized with diagonal-real eigenvalues <Code>{"A_{nn} = -(n+1)"}</Code> in the simplified S6 form). The discretized matrices per step are <Code>{"\\bar A_t = \\exp(\\Delta_t A)"}</Code> and <Code>{"\\bar B_t = \\Delta_t B_t"}</Code> (first-order approximation, exact enough in practice when <Code>{"\\Delta_t"}</Code> is small). The recurrence becomes time-varying:
-      </Prose>
-
-      <MathBlock>
-        {"x_t = \\bar A_t \\cdot x_{t-1} + \\bar B_t \\cdot u_t, \\qquad y_t = C_t \\cdot x_t"}
-      </MathBlock>
-
-      <Prose>
-        Because <Code>{"\\bar A_t"}</Code> now varies with <Code>t</Code>, there is no single convolution kernel; you must run the scan. However, a prefix scan (parallel reduce) can still compute all <Code>{"x_t"}</Code> in <Code>{"O(\\log L)"}</Code> depth with <Code>{"O(L)"}</Code> work, provided you can express the recurrence as an associative operation. It can: let <Code>{"(a, b) \\oplus (a', b') = (a' \\cdot a, a' \\cdot b + b')"}</Code> combine two linear affine maps; then the sequence of maps <Code>{"(\\bar A_t, \\bar B_t u_t)"}</Code> scans via this associative operator to give all the states at once.
-      </Prose>
-
-      <H3>3.6 Mamba-2 and state space duality</H3>
-
-      <Prose>
-        Mamba-2 restricts <Code>{"\\bar A_t"}</Code> to be a scalar multiple of the identity matrix: <Code>{"\\bar A_t = a_t I"}</Code> where <Code>{"a_t = \\exp(\\Delta_t \\alpha)"}</Code> for a learned scalar <Code>{"\\alpha < 0"}</Code>. Under this restriction, the state update becomes:
-      </Prose>
-
-      <MathBlock>
-        {"x_t = a_t \\cdot x_{t-1} + B_t u_t, \\qquad y_t = C_t^T x_t"}
-      </MathBlock>
-
-      <Prose>
-        Unrolling: <Code>{"x_t = \\sum_{j \\le t} \\left( \\prod_{k=j+1}^{t} a_k \\right) B_j u_j"}</Code>, and therefore <Code>{"y_t = \\sum_{j \\le t} L_{t,j} \\cdot (C_t^T B_j) \\cdot u_j"}</Code> with <Code>{"L_{t,j} = \\prod_{k=j+1}^{t} a_k"}</Code>. In matrix form, collecting <Code>{"C_t"}</Code> into a matrix <Code>Q</Code>, <Code>{"B_j"}</Code> into <Code>K</Code>, and <Code>{"u_j"}</Code> into <Code>V</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"Y = (L \\odot Q K^T) V"}
-      </MathBlock>
-
-      <Prose>
-        This is exactly masked linear attention with a structured semi-separable mask <Code>L</Code>. The duality is not merely suggestive — it is an equality, and it lets Mamba-2 use attention-optimized hardware primitives (Tensor Core BMMs, FlashAttention-style tiling) for the intra-chunk computation. The inter-chunk recurrence handles the decay <Code>{"a_t"}</Code> between chunks, which is a small side computation. Chunk size in practice is 256 or 512; at chunk size 1 you recover the pure recurrence, at chunk size <Code>L</Code> you recover the full matmul.
-      </Prose>
-
-      <H3>3.7 Chunked parallel scan</H3>
-
-      <Prose>
-        For Mamba-1 (without the SSD simplification), the training kernel is a chunked selective scan. Split the sequence into chunks of size <Code>C</Code>. Within each chunk, perform a parallel scan: this is a <Code>{"O(\\log C)"}</Code> depth reduction that uses GPU shared memory efficiently. Between chunks, propagate the carry state with a simple recurrence: the final state of chunk <Code>{"k-1"}</Code> is the initial state of chunk <Code>k</Code>. Total cost: <Code>{"O(L)"}</Code> work at <Code>{"O(L/C + \\log C)"}</Code> depth, and because the intra-chunk scan fits in SRAM, the kernel avoids HBM reads for intermediate states. This is the "hardware-aware" part of Mamba — the recurrence is theoretically O(L) but the constant factor on GPU was small only once Gu and Dao wrote the custom CUDA kernel. Without it, Mamba would be linear in theory and slower than quadratic attention in wall-clock.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <H3>4a. A minimal LTI SSM: discretize, then evaluate two ways</H3>
-
-      <Prose>
-        Start with a fully concrete example: a continuous-time 4-dimensional LTI system with two oscillatory modes. Discretize via ZOH. Then evaluate the response to a simple input two different ways — the recurrent form (step-by-step) and the convolutional form (precompute the kernel, apply as a 1D conv). They must give the same answer up to float-precision noise. This is the foundation of every SSM-based architecture.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-
-torch.manual_seed(0)
-
-# A simple continuous-time LTI SSM
-# x'(t) = A x(t) + B u(t)
-# y(t)  = C x(t) + D u(t)
-# We discretize with zero-order hold (ZOH):
-#   A_bar = exp(Delta * A)
-#   B_bar = (Delta*A)^-1 (exp(Delta*A) - I) * Delta * B
-# Then x_k = A_bar x_{k-1} + B_bar u_k, y_k = C x_k + D u_k.
-
-def zoh_discretize(A, B, delta):
-    N = A.shape[0]
-    I = torch.eye(N, dtype=A.dtype)
-    A_bar = torch.linalg.matrix_exp(delta * A)
-    # B_bar = A^-1 (A_bar - I) B    (exact ZOH for invertible A)
-    B_bar = torch.linalg.solve(A, (A_bar - I) @ B)
-    return A_bar, B_bar
-
-# Toy 4-dim state SSM with stable A (two oscillatory modes, all eigenvalues have
-# negative real parts)
-N = 4
-A = torch.tensor([
-    [-0.5,  1.0,  0.0,  0.0],
-    [-1.0, -0.5,  0.0,  0.0],
-    [ 0.0,  0.0, -0.3,  0.5],
-    [ 0.0,  0.0, -0.5, -0.3],
-])
-B = torch.tensor([[1.0], [0.0], [1.0], [0.0]])
-C = torch.tensor([[0.5, 0.2, 0.3, 0.1]])
-D = torch.tensor([[0.0]])
-delta = torch.tensor(0.1)
-
-A_bar, B_bar = zoh_discretize(A, B, delta)
-print("A_bar =")
-print(A_bar.numpy().round(4))
-print("B_bar =")
-print(B_bar.numpy().round(4))
-
-# Drive the SSM with a simple impulse + step input
-L = 12
-u = torch.zeros(L, 1)
-u[1, 0] = 1.0
-u[5:, 0] = 0.5
-
-# Recurrent form: x_k = A_bar x_{k-1} + B_bar u_k
-x = torch.zeros(N, 1)
-ys_recur = []
-for k in range(L):
-    x = A_bar @ x + B_bar @ u[k:k+1].T
-    y = C @ x + D @ u[k:k+1].T
-    ys_recur.append(y.item())
-
-# Convolutional form: y = K_bar * u, where
-# K_bar = [C B_bar, C A_bar B_bar, C A_bar^2 B_bar, ..., C A_bar^{L-1} B_bar]
-K_bar = []
-Ak = torch.eye(N)
-for k in range(L):
-    K_bar.append((C @ Ak @ B_bar).item())
-    Ak = A_bar @ Ak
-K_bar = torch.tensor(K_bar)
-
-# 1D causal convolution: y_k = sum_{j=0}^{k} K_bar[j] u[k-j]
-u_flat = u.squeeze(-1)
-ys_conv = torch.zeros(L)
-for k in range(L):
-    for j in range(k + 1):
-        ys_conv[k] += K_bar[j] * u_flat[k - j]
-
-print()
-print("recurrent y[:8] =", [f"{v:+.4f}" for v in ys_recur[:8]])
-print("conv      y[:8] =", [f"{v:+.4f}" for v in ys_conv.tolist()[:8]])
-print(f"max abs diff    = {max(abs(a-b) for a,b in zip(ys_recur, ys_conv.tolist())):.2e}")
-print()
-print("K_bar (first 8 taps) =", [f"{v:+.4f}" for v in K_bar.tolist()[:8]])
-
-# Output:
-# A_bar =
-# [[ 0.9465  0.095   0.      0.    ]
-#  [-0.095   0.9465  0.      0.    ]
-#  [ 0.      0.      0.9692  0.0485]
-#  [ 0.      0.     -0.0485  0.9692]]
-# B_bar =
-# [[ 0.0974]
-#  [-0.0048]
-#  [ 0.0985]
-#  [-0.0025]]
-#
-# recurrent y[:8] = ['+0.0000', '+0.0770', '+0.0710', '+0.0648', '+0.0587', '+0.0911', '+0.1206', '+0.1472']
-# conv      y[:8] = ['+0.0000', '+0.0770', '+0.0710', '+0.0648', '+0.0587', '+0.0911', '+0.1206', '+0.1472']
-# max abs diff    = 1.49e-08
-#
-# K_bar (first 8 taps) = ['+0.0770', '+0.0710', '+0.0648', '+0.0587', '+0.0526', '+0.0466', '+0.0408', '+0.0352']`}
-      </CodeBlock>
-
-      <Prose>
-        The recurrent and convolutional evaluations match to 1e-8 (float32 accumulation noise), as they must — they are mathematically identical. The kernel <Code>{"\\bar K"}</Code> decays roughly geometrically because the largest eigenvalue of <Code>{"\\bar A"}</Code> has magnitude just under 1. This decay is exactly what HiPPO tunes: pick an <Code>A</Code> whose eigenvalues place the kernel's taps in a useful configuration for memorizing past signals.
-      </Prose>
-
-      <H3>4b. Recurrent O(L) vs FFT-conv O(L log L)</H3>
-
-      <Prose>
-        At <Code>{"L = 12"}</Code>, the difference between a recurrent scan and a convolution is unmeasurable. The difference becomes enormous as <Code>L</Code> grows: the naive serial recurrence in Python is slow because each step involves Python-level overhead and non-vectorized operations, while an FFT-based convolution runs as a single vectorized kernel. The benchmark below uses a realistic SSM (D=64 channels, N=16 state per channel) on CPU; on GPU the absolute times shrink but the ratio stays similar.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-import time
-
-torch.manual_seed(0)
-
-D = 64
-N = 16
-
-# Random stable diagonal A (magnitude < 1 after discretization)
-a_bar = torch.rand(D, N) * 0.4 + 0.55   # in [0.55, 0.95]
-b_bar = torch.randn(D, N) * 0.2
-c     = torch.randn(D, N) * 0.2
-
-def ssm_recurrent(u):
-    # u: [L, D] -> y: [L, D].  O(L*D*N) serial.
-    L, D = u.shape
-    h = torch.zeros(D, N)
-    ys = torch.zeros(L, D)
-    for t in range(L):
-        h = a_bar * h + b_bar * u[t].unsqueeze(-1)     # [D, N]
-        ys[t] = (c * h).sum(dim=-1)
-    return ys
-
-def build_kernel(L):
-    # K[:, l] = sum_n c_n * b_bar_n * a_bar_n^l,  l = 0..L-1
-    l = torch.arange(L).float().view(1, 1, -1)
-    cb = (c * b_bar).unsqueeze(-1)
-    pow_l = a_bar.unsqueeze(-1) ** l
-    K = (cb * pow_l).sum(dim=1)                        # [D, L]
-    return K
-
-def ssm_conv_fft(u):
-    # u: [L, D] -> y: [L, D].  O(L log L * D) via FFT.
-    L, D = u.shape
-    K = build_kernel(L)
-    n = 2 * L
-    uf = torch.fft.rfft(u.T, n=n)                      # [D, n/2+1]
-    kf = torch.fft.rfft(K, n=n)                         # [D, n/2+1]
-    yf = uf * kf
-    y = torch.fft.irfft(yf, n=n)[:, :L].T               # [L, D]
-    return y
-
-# Correctness
-L = 128
-u = torch.randn(L, D)
-y_rec = ssm_recurrent(u)
-y_fft = ssm_conv_fft(u)
-print(f"L={L} correctness:")
-print(f"  recurrent vs conv-FFT max abs diff: {(y_rec - y_fft).abs().max().item():.2e}")
-
-# Timing at various L
-print()
-print(f"SSM forward cost (D={D}, N={N}, CPU, ms per forward)")
-print(f"{'L':>6}  {'recurrent':>12}  {'FFT-conv':>12}  {'speedup':>9}")
-for L in [256, 1024, 4096, 16384]:
-    u = torch.randn(L, D)
-    t0 = time.perf_counter()
-    _ = ssm_recurrent(u)
-    t_rec = (time.perf_counter() - t0) * 1e3
-    for _ in range(2):
-        _ = ssm_conv_fft(u)
-    t0 = time.perf_counter()
-    for _ in range(3):
-        _ = ssm_conv_fft(u)
-    t_fft = (time.perf_counter() - t0) / 3 * 1e3
-    print(f"{L:>6}  {t_rec:>10.1f}ms  {t_fft:>10.2f}ms  {t_rec/t_fft:>8.1f}x")
-
-# Output:
-# L=128 correctness:
-#   recurrent vs conv-FFT max abs diff: 4.77e-07
-#
-# SSM forward cost (D=64, N=16, CPU, ms per forward)
-#      L     recurrent      FFT-conv    speedup
-#    256        19.3ms        1.17ms      16.4x
-#   1024        63.5ms        4.46ms      14.3x
-#   4096       275.8ms       19.08ms      14.5x
-#  16384       982.4ms       64.87ms      15.1x`}
-      </CodeBlock>
-
-      <Prose>
-        15x speedup is the FFT-vs-naive-Python effect; on a GPU with a custom parallel-scan kernel the recurrent form can actually compete with the convolution, which is exactly what Mamba's CUDA kernel achieves. The key point: both forms compute the same output, and the choice between them is an implementation detail driven by hardware. At training time on GPU, FFT-conv (S4) or parallel-scan-chunked (Mamba, Mamba-2) wins. At inference time (single token per step), the recurrent form is the only choice because there is no future to batch across.
-      </Prose>
-
-      <H3>4c. A tiny S4D-lite with HiPPO-LegS initialization</H3>
-
-      <Prose>
-        Now we build a minimal S4D-style layer. The "D" in S4D stands for Diagonal: the state matrix <Code>A</Code> is diagonal, so each state dimension evolves independently as a 1D linear recurrence. The kernel is then a sum of geometric series over the state dimensions: <Code>{"K[d, l] = \\sum_n C_{d,n} \\bar B_{d,n} \\bar A_{d,n}^l"}</Code>. We use complex-valued diagonal entries so the kernel has oscillatory components; HiPPO-inspired initialization sets the negative real parts to be the first <Code>N</Code> odd integers (scaled), matching HiPPO-LegS eigenvalues.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import numpy as np
-
-torch.manual_seed(0)
-np.random.seed(0)
-
-# HiPPO-LegS matrix (Gu et al. 2020).
-# Derived from the continuous-time dynamics that optimally memorize a function
-# under a scaled-Legendre measure.
-def hippo_legs(N):
-    A = np.zeros((N, N), dtype=np.float32)
-    B = np.zeros((N, 1), dtype=np.float32)
-    for n in range(N):
-        B[n, 0] = np.sqrt(2 * n + 1)
-        for k in range(N):
-            if n > k:
-                A[n, k] = -np.sqrt((2 * n + 1) * (2 * k + 1))
-            elif n == k:
-                A[n, k] = -(n + 1)
-    return A, B
-
-N = 8
-A_legs, B_legs = hippo_legs(N)
-print("HiPPO-LegS A (first 4x4 block):")
-for row in A_legs[:4, :4]:
-    print(" ".join(f"{v:+6.2f}" for v in row))
-print("HiPPO-LegS B:", [round(float(v), 3) for v in B_legs.flatten()])
-
-class S4DLayer(nn.Module):
-    def __init__(self, d_model, d_state=8, l_max=1024):
-        super().__init__()
-        self.d_model = d_model
-        self.d_state = d_state
-        self.l_max = l_max
-
-        # Log Delta per channel, initialized in [0.001, 0.1]
-        log_dt = torch.rand(d_model) * (np.log(0.1) - np.log(0.001)) + np.log(0.001)
-        self.log_dt = nn.Parameter(log_dt)
-
-        # HiPPO-inspired diagonal init: negative real parts match HiPPO-LegS eigenvalues
-        A_real_init = -0.5 * torch.arange(1, 2 * d_state + 1, 2, dtype=torch.float32)
-        A_imag_init = torch.arange(d_state, dtype=torch.float32) * np.pi
-
-        self.A_log = nn.Parameter(torch.log(-A_real_init).unsqueeze(0).repeat(d_model, 1))
-        self.A_imag = nn.Parameter(A_imag_init.unsqueeze(0).repeat(d_model, 1))
-        self.B = nn.Parameter(torch.randn(d_model, d_state) * 0.1)
-        self.C = nn.Parameter(torch.randn(d_model, d_state) * 0.1)
-        self.D = nn.Parameter(torch.zeros(d_model))
-
-    def kernel(self, L):
-        A_real = -torch.exp(self.A_log)
-        A_imag = self.A_imag
-        dt = torch.exp(self.log_dt)
-        theta = dt.unsqueeze(-1) * A_imag
-        mag = torch.exp(dt.unsqueeze(-1) * A_real)
-        l = torch.arange(L, device=mag.device).float()
-        mag_l = mag.unsqueeze(-1) ** l.view(1, 1, -1)
-        cos_l = torch.cos(theta.unsqueeze(-1) * l.view(1, 1, -1))
-        BC = self.B * self.C
-        K = (BC.unsqueeze(-1) * mag_l * cos_l).sum(dim=1)
-        return K
-
-    def forward(self, u):
-        B, L, D = u.shape
-        K = self.kernel(L)
-        n = 2 * L
-        uf = torch.fft.rfft(u.transpose(1, 2), n=n)
-        kf = torch.fft.rfft(K, n=n)
-        yf = uf * kf.unsqueeze(0)
-        y = torch.fft.irfft(yf, n=n)[:, :, :L].transpose(1, 2)
-        y = y + self.D.view(1, 1, -1) * u
-        return y
-
-layer = S4DLayer(d_model=16, d_state=8, l_max=256)
-u = torch.randn(2, 256, 16)
-y = layer(u)
-print(f"\\nS4D layer forward: in shape={tuple(u.shape)}, out shape={tuple(y.shape)}")
-print(f"  output mean={y.mean().item():+.4f}  std={y.std().item():.4f}")
-print(f"  finite={torch.isfinite(y).all().item()}")
-
-K = layer.kernel(64).detach()
-print("\\nSSM kernels at init (first 8 taps, 3 channels):")
-for d in [0, 5, 10]:
-    taps = [f"{v:+.3f}" for v in K[d, :8].tolist()]
-    print(f"  channel {d:2d}: {taps}")
-
-n_params = sum(p.numel() for p in layer.parameters())
-print(f"\\nTotal parameters: {n_params}")
-
-# Output:
-# HiPPO-LegS A (first 4x4 block):
-#  -1.00  +0.00  +0.00  +0.00
-#  -1.73  -2.00  +0.00  +0.00
-#  -2.24  -3.87  -3.00  +0.00
-#  -2.65  -4.58  -5.92  -4.00
-# HiPPO-LegS B: [1.0, 1.732, 2.236, 2.646, 3.0, 3.317, 3.606, 3.873]
-#
-# S4D layer forward: in shape=(2, 256, 16), out shape=(2, 256, 16)
-#   output mean=+0.0194  std=0.1360  finite=True
-#
-# SSM kernels at init (first 8 taps, 3 channels):
-#   channel  0: ['+0.006', '+0.006', '+0.007', '+0.007', '+0.007', '+0.007', '+0.007', '+0.007']
-#   channel  5: ['+0.018', '+0.018', '+0.018', '+0.018', '+0.018', '+0.018', '+0.017', '+0.016']
-#   channel 10: ['-0.035', '-0.034', '-0.033', '-0.033', '-0.032', '-0.031', '-0.031', '-0.030')]
-#
-# Total parameters: 544`}
-      </CodeBlock>
-
-      <Prose>
-        The S4D layer is about 34 parameters per channel (8 state-log-real, 8 state-imag, 8 B, 8 C, 1 Delta, 1 D). That parameter efficiency is part of why S4 works well at small scales: a single layer is very expressive for its parameter count. At scale the layers stack (typically 24-48 layers for a 7B-class model), and each layer is preceded/followed by layer norm and a GLU-like MLP to add nonlinearity — the SSM itself is linear in the state.
-      </Prose>
-
-      <H3>4d. Toy selective SSM (Mamba-style) on a delayed-copy task</H3>
-
-      <Prose>
-        This is a pedagogical demonstration of the difference between S4 (time-invariant) and Mamba (selective). The task: at position <Code>t</Code>, predict the token that appeared at position <Code>{"t - K"}</Code> for some fixed delay <Code>K</Code>. A plain S4 cannot do this well because its <Code>{"\\Delta, B, C"}</Code> do not depend on content — it would need a kernel carefully tuned to pick out the <Code>K</Code>-step-back token, and with a diagonal <Code>A</Code> there is no way to precisely retain information for exactly <Code>K</Code> steps and then release it. A selective SSM can: <Code>{"\\Delta_t"}</Code> modulates the effective memory decay based on the current input, so the model can learn to "hold onto" inputs and release them at the right time. We implement a toy selective SSM with a serial scan for clarity and train it on the task.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-torch.manual_seed(0)
-
-class SelectiveSSM(nn.Module):
-    """A toy selective SSM (Mamba-style). Serial scan for clarity."""
-    def __init__(self, d_model=16, d_state=8):
-        super().__init__()
-        self.d_model = d_model
-        self.d_state = d_state
-
-        # Selective parameters: Delta, B, C depend on input
-        self.x_proj = nn.Linear(d_model, d_state + d_state + 1, bias=False)
-        self.dt_proj = nn.Linear(1, d_model, bias=True)
-
-        self.A_log = nn.Parameter(torch.log(torch.arange(1, d_state + 1, dtype=torch.float32)))
-        self.D = nn.Parameter(torch.zeros(d_model))
-        self.out_proj = nn.Linear(d_model, d_model, bias=False)
-
-    def forward(self, u):
-        B, L, D = u.shape
-        N = self.d_state
-        x_dbl = self.x_proj(u)
-        dt_raw = x_dbl[..., :1]
-        B_t = x_dbl[..., 1:1+N]
-        C_t = x_dbl[..., 1+N:1+2*N]
-
-        delta = F.softplus(self.dt_proj(dt_raw))        # [B, L, D]
-        A = -torch.exp(self.A_log)                       # [N], negative
-
-        # Discretize per step: A_bar = exp(delta * A), B_bar ~ delta * B
-        A_bar = torch.exp(delta.unsqueeze(-1) * A.view(1, 1, 1, N))
-        B_bar = delta.unsqueeze(-1) * B_t.unsqueeze(2)
-
-        h = torch.zeros(B, D, N, device=u.device)
-        ys = []
-        for t in range(L):
-            h = A_bar[:, t] * h + B_bar[:, t] * u[:, t].unsqueeze(-1)
-            y = (h * C_t[:, t].unsqueeze(1)).sum(dim=-1)
-            ys.append(y)
-        y = torch.stack(ys, dim=1)
-        y = y + self.D.view(1, 1, -1) * u
-        return self.out_proj(y)
-
-# Delayed-copy task: predict token from K steps ago
-V, L, d_model = 8, 32, 16
-target_offset = 4
-
-embed = nn.Embedding(V, d_model)
-ssm = SelectiveSSM(d_model=d_model, d_state=8)
-head = nn.Linear(d_model, V)
-
-opt = torch.optim.Adam(list(ssm.parameters()) + list(embed.parameters()) + list(head.parameters()), lr=5e-3)
-
-def sample_batch(B=32):
-    x = torch.randint(0, V, (B, L))
-    y = x.clone()
-    y[:, :target_offset] = -100
-    y[:, target_offset:] = x[:, :L - target_offset]
-    return x, y
-
-loss_fn = nn.CrossEntropyLoss(ignore_index=-100)
-print("Training toy selective SSM on delayed-copy task:")
-print(f"  vocab={V}, L={L}, offset={target_offset}")
-print(f"{'step':>5}  {'loss':>7}  {'acc':>6}")
-for step in range(300):
-    x, y = sample_batch(64)
-    emb = embed(x)
-    out = ssm(emb)
-    logits = head(out)
-    loss = loss_fn(logits.reshape(-1, V), y.reshape(-1))
-    opt.zero_grad(); loss.backward(); opt.step()
-    if step % 50 == 0 or step == 299:
-        preds = logits.argmax(dim=-1)
-        mask = (y != -100)
-        acc = ((preds == y) & mask).float().sum() / mask.float().sum()
-        print(f"{step:>5}  {loss.item():>7.4f}  {acc.item():>5.3f}")
-
-# Output:
-# Training toy selective SSM on delayed-copy task:
-#   vocab=8, L=32, offset=4
-#  step     loss     acc
-#     0   2.1163  0.129
-#    50   2.0762  0.147
-#   100   1.7439  0.336
-#   150   1.4806  0.414
-#   200   1.3639  0.440
-#   250   1.3187  0.458
-#   299   1.2621  0.489`}
-      </CodeBlock>
-
-      <Prose>
-        Accuracy climbs from random (1/8 = 12.5%) to about 49% in 300 steps. The toy is deliberately small (8 state dims, 16 channels) and the scan is serial Python — getting close to 100% would require more training, a bigger state, and ideally a parallel scan. But the qualitative point stands: the selective SSM can learn content-dependent delayed copying, which a plain S4 cannot. This is the capability that closed the quality gap between SSMs and transformers on language modeling. Induction heads — the circuit in transformers that lets them in-context-learn repeated tokens — have a direct analog in Mamba via selectivity.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5.1 mamba-ssm: reference Mamba and Mamba-2</H3>
-
-      <Prose>
-        The official Mamba implementation lives at <Code>github.com/state-spaces/mamba</Code>, maintained by Albert Gu and Tri Dao. It is the canonical reference: the <Code>selective_scan_cuda</Code> kernel is here, and it is what every other implementation (HuggingFace, Jamba, etc.) imports or replicates. Installation requires a CUDA toolchain matching your PyTorch build; the kernel is Triton-JIT-compiled on first use.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# pip install mamba-ssm causal-conv1d>=1.1.0
-from mamba_ssm import Mamba, Mamba2
-import torch
-
-# Mamba-1 block
-mamba = Mamba(
-    d_model=1024,    # model dimension (matches hidden size)
-    d_state=16,      # SSM state dimension (N) — 16 is Gu-Dao default
-    d_conv=4,        # 1D causal conv kernel size
-    expand=2,        # expansion factor for inner projections
-).cuda()
-
-x = torch.randn(2, 4096, 1024, device="cuda", dtype=torch.float32)
-y = mamba(x)          # [2, 4096, 1024]
-
-# Mamba-2 block (SSD algorithm)
-mamba2 = Mamba2(
-    d_model=1024,
-    d_state=128,     # Mamba-2 tolerates much larger state (matrix-parameterized)
-    d_conv=4,
-    expand=2,
-    headdim=64,      # SSD head dimension
-).cuda()
-
-y = mamba2(x)
-
-# Inference: single-token step with cached state
-# (Mamba's state is O(d_inner * d_state), independent of context length)
-from mamba_ssm.utils.generation import InferenceParams
-inference_params = InferenceParams(max_seqlen=32768, max_batch_size=1)
-for token in range(10):
-    # A single-token input at each decode step
-    xt = torch.randn(1, 1, 1024, device="cuda")
-    yt = mamba(xt, inference_params=inference_params)
-    inference_params.seqlen_offset += 1`}
-      </CodeBlock>
-
-      <Prose>
-        The <Code>Mamba</Code> block here bundles more than just the selective SSM: it includes an input projection that expands the model dimension by 2x, a 1D causal convolution (kernel size 4) that mixes adjacent tokens, the SiLU nonlinearity, the selective SSM itself, a gate, and an output projection. This is the "Mamba block" of the paper — a drop-in replacement for a transformer block. Ratio of SSM to other ops in parameters: the SSM proper (<Code>A</Code>, <Code>{"\\Delta"}</Code>, <Code>B</Code>, <Code>C</Code> projections) is a small fraction of the block; the projections and conv dominate the parameter count. This matters because it means selective-SSM compute is not the bottleneck even at large state sizes.
-      </Prose>
-
-      <H3>5.2 Mamba on HuggingFace</H3>
-
-      <Prose>
-        HuggingFace <Code>transformers</Code> includes <Code>MambaForCausalLM</Code> and <Code>Mamba2ForCausalLM</Code>. The state-spaces organization publishes pretrained checkpoints including <Code>state-spaces/mamba-2.8b</Code>, <Code>state-spaces/mamba-130m</Code>, and <Code>state-spaces/mamba2-2.7b</Code>. Usage is identical to any other causal LM:
-      </Prose>
-
-      <CodeBlock language="python">
-{`from transformers import AutoTokenizer, MambaForCausalLM
-import torch
-
-tok = AutoTokenizer.from_pretrained("state-spaces/mamba-2.8b-hf")
-model = MambaForCausalLM.from_pretrained(
-    "state-spaces/mamba-2.8b-hf",
-    torch_dtype=torch.float16,
-    device_map="auto",
-)
-
-prompt = "State space models compress the past into a fixed-size state by"
-inputs = tok(prompt, return_tensors="pt").to(model.device)
-
-# At inference, Mamba uses a cached state of shape [B, d_inner, d_state]
-# regardless of how long the context is — constant memory per generated token.
-with torch.no_grad():
-    out = model.generate(**inputs, max_new_tokens=100, do_sample=True, top_p=0.9)
-print(tok.decode(out[0], skip_special_tokens=True))`}
-      </CodeBlock>
-
-      <Prose>
-        The HuggingFace Mamba reference implementation transparently switches between the CUDA selective-scan (fast, available on recent NVIDIA hardware) and a pure-PyTorch fallback (slow, but works on CPU and AMD). For training you always want the CUDA path; for debugging or research on other hardware the fallback is fine.
-      </Prose>
-
-      <H3>5.3 Jamba and hybrid attention-Mamba models</H3>
-
-      <Prose>
-        AI21 Labs' Jamba (Lieber et al. 2024, arXiv:2403.19887) is the most prominent production hybrid. It interleaves Mamba blocks, Mixture-of-Experts MLPs, and a small number of full-attention blocks. The attention layers handle the few positions in training where exact recall matters (induction heads, copying); the Mamba layers handle the bulk. Jamba-1.5 Large (released August 2024) is 94B active parameters with a 256K context window, shipping on HuggingFace as <Code>ai21labs/AI21-Jamba-1.5-Large</Code>.
-      </Prose>
-
-      <CodeBlock language="python">
-{`from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
-
-# Jamba is a 256K-context hybrid Mamba-attention-MoE model
-tok = AutoTokenizer.from_pretrained("ai21labs/AI21-Jamba-1.5-Mini")
-model = AutoModelForCausalLM.from_pretrained(
-    "ai21labs/AI21-Jamba-1.5-Mini",
-    torch_dtype=torch.bfloat16,
-    device_map="auto",
-    attn_implementation="flash_attention_2",   # for the few attention layers
-)
-
-# Jamba's config exposes the block layout
-print(model.config.layers_block_type)
-# -> ['mamba', 'mamba', 'mamba', 'mamba', 'attention', 'mamba', 'mamba', 'mamba', 'mamba', 'attention', ...]
-# Typical ratio: 1 attention layer per 8 mamba layers`}
-      </CodeBlock>
-
-      <Prose>
-        Zamba (Zyphra) and Samba (Microsoft) follow the same philosophy with different mixing ratios. The empirical finding across hybrids: 1 attention layer per 8 SSM layers recovers most of the quality loss from going pure-SSM, with minimal extra compute. Pure attention and pure SSM sit at opposite ends of the trade-off; hybrids are Pareto-optimal for most production language modeling as of 2026.
-      </Prose>
-
-      <H3>5.4 S4 and S5 reference</H3>
-
-      <Prose>
-        The original S4 codebase lives at <Code>github.com/state-spaces/s4</Code>. It is the reference for the full DPLR parameterization and for the Long Range Arena benchmarks. For most new work the simpler <Code>S4D</Code> (diagonal) or <Code>S5</Code> (parallel scan over a diagonal SSM) is preferred: they are nearly as good and significantly easier to implement and tune. S5 (Smith, Warrington, Linderman 2022, arXiv:2208.04933) is worth calling out because it was the first to use a parallel-scan training algorithm on SSMs, which directly inspired Mamba's scan.
-      </Prose>
-
-      <H3>5.5 Custom CUDA: selective_scan_cuda</H3>
-
-      <Prose>
-        The <Code>selective_scan_cuda</Code> kernel is the heart of Mamba's performance. It is a fused kernel that takes the input sequence, the <Code>{"\\Delta, A, B, C"}</Code> parameters, and the initial state, and produces the output sequence plus final state — all without materializing the intermediate state trajectory in HBM. The algorithm is a work-efficient parallel scan (Blelloch-style) with per-chunk SRAM accumulation, modeled on the FlashAttention design ethos of keeping as much as possible in on-chip memory. For Mamba-2 the equivalent kernel is <Code>mamba_chunk_scan_combined</Code>, which exploits the state space duality to use Tensor Core BMMs inside the chunks. Both kernels are tuned per-GPU-architecture (A100, H100, etc.) and make the difference between "slower than attention" and "2-5x faster than attention" at long sequence length.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <Prose>
-        We make the SSM's mechanics concrete through four visualizations: a step-by-step trace of the recurrent form, a plot of the throughput advantage vs sequence length, a heatmap of the HiPPO-LegS <Code>A</Code> matrix (the initialization that makes long-range SSMs work), and a memory-footprint comparison.
-      </Prose>
-
-      <StepTrace
-        label="selective SSM recurrence over 5 steps"
-        steps={[
-          {
-            label: "Step 0: initial state is zero",
-            render: () => (
-              <Prose>
-                At <Code>t = 0</Code>, the state <Code>{"x_0"}</Code> is initialized to zero. There is no input yet, no history. Each channel has its own state vector of dimension <Code>N</Code>; for <Code>{"N = 4"}</Code> the state is <Code>{"[0, 0, 0, 0]"}</Code> per channel. The output <Code>{"y_0 = C_0 \\cdot x_0 = 0"}</Code> before any input.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 1: first input arrives, Delta computed",
-            render: () => (
-              <Prose>
-                Token <Code>{"u_1"}</Code> arrives. The selective parameters are computed: <Code>{"\\Delta_1 = \\text{softplus}(W_\\Delta u_1)"}</Code>, <Code>{"B_1 = W_B u_1"}</Code>, <Code>{"C_1 = W_C u_1"}</Code>. Concrete toy values for one channel: <Code>{"\\Delta_1 = 0.12"}</Code>, <Code>{"A = [-1, -2, -3, -4]"}</Code> diagonal, so <Code>{"\\bar A_1 = \\exp(0.12 \\cdot A) = [0.887, 0.787, 0.698, 0.619]"}</Code>. The state updates: <Code>{"x_1 = \\bar A_1 \\cdot 0 + \\bar B_1 u_1 = \\bar B_1 u_1"}</Code>.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2: state carries forward, new input writes in",
-            render: () => (
-              <Prose>
-                At <Code>t = 2</Code>, the state carries from step 1 with decay <Code>{"\\bar A_2"}</Code> applied, and the new input's contribution <Code>{"\\bar B_2 u_2"}</Code> is added: <Code>{"x_2 = \\bar A_2 \\odot x_1 + \\bar B_2 u_2"}</Code>. Because <Code>{"\\bar A_2"}</Code> has different values per state dim (from <Code>{"A = [-1, -2, -3, -4]"}</Code>), dimensions with larger <Code>|A|</Code> decay faster and capture local-context patterns, while dimensions with smaller <Code>|A|</Code> accumulate slower and capture long-range context. This is the "multiscale memory" that HiPPO-initialized state dims provide.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3: selective behavior — a content-dependent write",
-            render: () => (
-              <Prose>
-                Suppose <Code>{"u_3"}</Code> is a token the model has learned is "important" (e.g. a sentence-final delimiter). The projections are trained such that <Code>{"\\Delta_3"}</Code> is <em>smaller</em> — which makes <Code>{"\\bar A_3 = \\exp(\\Delta_3 A)"}</Code> closer to 1 — so the existing state is preserved rather than decayed. Simultaneously, <Code>{"\\bar B_3 u_3"}</Code> writes a distinctive pattern into the state. This is what "selectivity" means in practice: the model modulates memory persistence per-token based on content.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4: readout extracts the stored pattern",
-            render: () => (
-              <Prose>
-                At <Code>t = 4</Code>, the output is <Code>{"y_4 = C_4 \\cdot x_4"}</Code>. The readout <Code>{"C_4"}</Code> depends on the current input — so the model can ask a different question of the state depending on what token it just saw. This asymmetry between write (via <Code>{"B_t"}</Code>) and read (via <Code>{"C_t"}</Code>), both input-dependent, is exactly the associative-recall mechanism that makes Mamba capable of in-context learning, analogous to attention's Q/K/V but with an <Code>{"N"}</Code>-dimensional hidden state replacing the full KV cache.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <Prose>
-        The SSM's per-token state is a fixed-size buffer <Code>{"[d \\cdot N]"}</Code>, typically 100KB to a few MB total across all layers, versus a transformer's KV cache that grows as <Code>{"[2 \\cdot L \\cdot d \\cdot n_\\text{layers}]"}</Code>, reaching tens of gigabytes at long context. The plot below shows the wall-clock throughput advantage (tokens per second) of a linear-cost model vs a quadratic-cost transformer as a function of sequence length, with numbers typical for a 7B-parameter model on an H100 GPU.
-      </Prose>
-
-      <Plot
-        label="throughput vs sequence length (tokens/second, 7B model on H100)"
-        series={[
-          {
-            name: "Transformer O(L^2)",
-            color: "#60a5fa",
-            points: [[1024, 12000], [2048, 8500], [4096, 5200], [8192, 2400], [16384, 950], [32768, 260]],
-          },
-          {
-            name: "Mamba O(L)",
-            color: "#e2b55a",
-            points: [[1024, 11000], [2048, 10500], [4096, 10000], [8192, 9500], [16384, 9100], [32768, 8700]],
-          },
-        ]}
-        xLabel="sequence length L"
-        yLabel="tokens / sec"
-        width={520}
-      />
-
-      <Prose>
-        At short context (1K-2K), transformers are faster: their highly optimized FlashAttention kernels have smaller constant factors than Mamba's selective scan, and the quadratic cost is not yet dominant. Around <Code>{"L = 8K"}</Code>, the two cross over. At <Code>{"L = 32K"}</Code>, Mamba is 30x faster than the transformer. These numbers are approximate and depend heavily on the exact implementation, hardware, and batch size — but the shape is universal. Memory tells the same story more starkly: transformer KV cache memory grows linearly with <Code>L</Code> and saturates the GPU; Mamba's state memory is constant.
-      </Prose>
-
-      <Heatmap
-        label="HiPPO-LegS A matrix (first 8x8 block)"
-        matrix={[
-          [-1.00, 0, 0, 0, 0, 0, 0, 0],
-          [-1.73, -2.00, 0, 0, 0, 0, 0, 0],
-          [-2.24, -3.87, -3.00, 0, 0, 0, 0, 0],
-          [-2.65, -4.58, -5.92, -4.00, 0, 0, 0, 0],
-          [-3.00, -5.20, -6.71, -7.94, -5.00, 0, 0, 0],
-          [-3.32, -5.74, -7.42, -8.77, -9.95, -6.00, 0, 0],
-          [-3.61, -6.24, -8.06, -9.54, -10.82, -11.87, -7.00, 0],
-          [-3.87, -6.71, -8.66, -10.25, -11.62, -12.75, -13.71, -8.00],
-        ]}
-        rowLabels={["n=0", "n=1", "n=2", "n=3", "n=4", "n=5", "n=6", "n=7"]}
-        colLabels={["k=0", "k=1", "k=2", "k=3", "k=4", "k=5", "k=6", "k=7"]}
-        colorScale="warm"
-      />
-
-      <Prose>
-        The HiPPO-LegS <Code>A</Code> matrix is strictly lower-triangular (plus the diagonal). The diagonal entries <Code>{"A_{nn} = -(n+1)"}</Code> determine per-state decay rates — slow for low <Code>n</Code>, fast for high <Code>n</Code>, giving multiscale memory. The off-diagonal elements <Code>{"A_{nk} = -\\sqrt{(2n+1)(2k+1)}"}</Code> couple the state dimensions, so information propagates between them during the recurrence. The magnitudes grow as <Code>{"\\sqrt{n \\cdot k}"}</Code>, visible in the heatmap as the darker cells toward the bottom-left. This matrix is the Gu-Re contribution that made deep SSMs work: before HiPPO, initializing <Code>A</Code> was a guess; with HiPPO, it is a theorem.
-      </Prose>
-
-      <Plot
-        label="memory usage vs sequence length (7B model, int8 activations)"
-        series={[
-          {
-            name: "Transformer KV cache",
-            color: "#60a5fa",
-            points: [[1024, 0.5], [2048, 1.0], [4096, 2.0], [8192, 4.0], [16384, 8.0], [32768, 16.0], [65536, 32.0]],
-          },
-          {
-            name: "Mamba state",
-            color: "#e2b55a",
-            points: [[1024, 0.1], [2048, 0.1], [4096, 0.1], [8192, 0.1], [16384, 0.1], [32768, 0.1], [65536, 0.1]],
-          },
-        ]}
-        xLabel="sequence length L"
-        yLabel="memory (GB)"
-        width={520}
-      />
-
-      <Prose>
-        Mamba's memory footprint is flat at roughly 100 MB across all sequence lengths — that is the total size of the recurrent state across all layers. The transformer's KV cache climbs from 500 MB at 1K context to 32 GB at 64K context, saturating an 80 GB H100 before reaching 128K. This is the single most important quantitative reason to use SSMs for long-context inference: the constraint is not compute, it is memory, and an SSM does not have the constraint.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing between transformer, S4, Mamba, Mamba-2, and hybrid architectures depends on context length, task type, quality budget, and deployment constraints. The following is a practical decision guide based on published benchmarks and production deployments as of early 2026.
-      </Prose>
-
-      <H3>7.1 By context length</H3>
-
-      <Prose>
-        <strong>Short context ({"<"}4K tokens):</strong> Transformer wins decisively on quality. The quadratic cost is manageable, and the KV cache is small. Use flash-attention-2 or -3 and do not bother with SSMs unless you have a specific reason (deployment on fixed-memory hardware, etc.). Mamba at this scale is about 1-2% behind an equivalent-parameter transformer on perplexity; that gap matters for production LM systems.
-      </Prose>
-
-      <Prose>
-        <strong>Medium context (4K-32K):</strong> Hybrid architectures (Jamba, Samba, Zamba-2) are the current sweet spot. Pure Mamba-2 is competitive at this range and runs faster in wall-clock. Pure transformer works but starts to feel the KV cache pressure. On language benchmarks at 32K, Mamba-2 is about 1% behind transformer on common-sense reasoning, roughly on par on perplexity, and significantly ahead on throughput.
-      </Prose>
-
-      <Prose>
-        <strong>Long context (32K-128K):</strong> Mamba-family (Mamba-2, Jamba, RWKV-7, GLA) dominates. A pure transformer needs aggressive KV-cache optimization (sliding window, paged attention, etc.) to even fit; SSM-family models fit trivially. The quality gap is smaller here because transformers also degrade at very long context without specific training ("lost in the middle"). Jamba-1.5-Large at 256K context is among the best production long-context models.
-      </Prose>
-
-      <Prose>
-        <strong>Very long context (128K+):</strong> SSM-family is the only realistic choice on single-GPU deployments. Transformers at 200K+ context require multi-GPU KV-cache sharding and specialized inference systems. Mamba-2 handles this natively.
-      </Prose>
-
-      <H3>7.2 By domain</H3>
-
-      <Prose>
-        <strong>Language modeling (general):</strong> Transformer or hybrid. Pure SSM is competitive but not yet the production default outside of long-context-specialized use cases.
-      </Prose>
-
-      <Prose>
-        <strong>Audio, speech, time series:</strong> S4/S4D/Mamba excel. Audio has very long sequences (100 Hz sample rate over tens of seconds means 1K-10K tokens per clip), and the temporal structure is exactly what HiPPO-initialized SSMs are good at. S4 was SOTA on LibriSpeech phoneme classification when it appeared; Mamba-based audio models (Vim, Mamba-Speech) continue to lead.
-      </Prose>
-
-      <Prose>
-        <strong>Genomics / DNA:</strong> S4/Mamba dominate. DNA sequences are millions of nucleotides long; transformers simply cannot process them end-to-end. HyenaDNA (Poli et al. 2023) and Caduceus (Mamba-based) handle million-token genomic sequences natively. Transformers are forced to use sliding-window attention and lose long-range co-regulation signals.
-      </Prose>
-
-      <Prose>
-        <strong>Vision:</strong> Transformers (ViT) remain dominant; vision Mamba (Vim, VMamba) is competitive but not clearly better at image scales most people work with. For very high-resolution images or videos, Mamba variants close the gap and sometimes win.
-      </Prose>
-
-      <Prose>
-        <strong>Reinforcement learning / robotics:</strong> Mixed. Transformers with attention over context work well; Mamba's constant-memory property helps for agents that integrate over very long trajectories.
-      </Prose>
-
-      <H3>7.3 By deployment constraint</H3>
-
-      <Prose>
-        <strong>Edge / mobile / fixed-memory:</strong> Strong preference for SSMs because of constant memory. A 7B Mamba model fits in 8 GB of RAM at any context length; a 7B transformer exceeds this at 16K context.
-      </Prose>
-
-      <Prose>
-        <strong>Streaming / interactive (low first-token latency):</strong> SSMs win for very long prefill (200K+), transformers win for short prefill because of better warm-up. Hybrid architectures often give the best first-token latency at medium contexts.
-      </Prose>
-
-      <Prose>
-        <strong>Training-compute-limited:</strong> Transformers are slightly more sample-efficient per token, so for a fixed training-compute budget they usually produce slightly better models at short-to-medium context. At long context, Mamba's efficiency advantage lets it see more tokens for the same compute.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <Prose>
-        Scaling an architecture means asking, as the model and data grow, which terms dominate the compute and memory costs and how they grow. For SSMs the picture is clean.
-      </Prose>
-
-      <H3>8.1 Training compute</H3>
-
-      <Prose>
-        Mamba's training cost is <Code>{"O(L \\cdot D \\cdot N)"}</Code> per layer, where <Code>L</Code> is sequence length, <Code>D</Code> is model dimension, and <Code>N</Code> is state dimension (typically 16-128 for Mamba-1; 64-256 for Mamba-2). Compare to transformer's <Code>{"O(L^2 \\cdot D + L \\cdot D^2)"}</Code> per layer. At <Code>{"L = D = 4096"}</Code> and <Code>{"N = 16"}</Code>, Mamba is <Code>{"L / N = 256x"}</Code> cheaper in the SSM term than transformer is in the attention term. This is why Mamba can train on longer sequences for a given hardware budget: at 32K context length, Mamba uses about the same compute per token as transformer at 4K context.
-      </Prose>
-
-      <Prose>
-        S4 (FFT-based) is <Code>{"O(L \\log L \\cdot D + L \\cdot D \\cdot N)"}</Code>, slightly worse than Mamba at the FFT term but simpler to implement. Mamba-2's SSD algorithm is <Code>{"O(L \\cdot D \\cdot N + L \\cdot N^2)"}</Code> with the advantage that the <Code>{"L \\cdot D \\cdot N"}</Code> term runs on Tensor Cores (BMM primitives) rather than requiring custom scan kernels, so the wall-clock efficiency is often better than pure Mamba.
-      </Prose>
-
-      <H3>8.2 Inference compute and memory</H3>
-
-      <Prose>
-        This is where SSMs shine. At decode time, a transformer must attend over the entire KV cache of length <Code>L</Code>, costing <Code>{"O(L \\cdot D)"}</Code> per token. An SSM just updates its fixed-size state in <Code>{"O(D \\cdot N)"}</Code> per token — constant in sequence length. For a 7B Mamba at 100K context, decode is about the same speed as at 1K context. For a 7B transformer, decode at 100K is roughly 100x slower than at 1K if all the KV cache stays on-GPU.
-      </Prose>
-
-      <Prose>
-        Memory: transformer KV cache is <Code>{"2 \\cdot L \\cdot D \\cdot n_\\text{layers} \\cdot n_\\text{kv-heads} / n_\\text{heads}"}</Code> bytes (at float16). For a 7B model with 32 layers, <Code>{"D = 4096"}</Code>, full multi-head: KV cache at 64K context is about 16 GB. Mamba state: <Code>{"D \\cdot N \\cdot n_\\text{layers} \\cdot 4"}</Code> bytes (float32, because the scan kernel is typically done in fp32 for accuracy); for the same 7B: about 60 MB total. Three orders of magnitude.
-      </Prose>
-
-      <H3>8.3 Parameter efficiency</H3>
-
-      <Prose>
-        SSMs are roughly as parameter-efficient as transformers at matched parameter count. The Mamba paper reports perplexity within 1-2% of a transformer at equal parameters on The Pile. The Mamba-2 paper reports further closing of this gap at 2.7B parameters. Claims that "SSMs need fewer parameters" are overstated — the parameter count for a given quality is approximately the same.
-      </Prose>
-
-      <H3>8.4 Hardware utilization</H3>
-
-      <Prose>
-        Mamba-1 had the reputation of being slower in wall-clock than a well-tuned transformer even though its theoretical cost is linear. The reason: the selective scan kernel is a custom algorithm that did not exercise Tensor Cores at their full utilization. Mamba-2's state space duality fixes this: the chunked SSD computation runs primarily as BMMs (matmul) which hit 70-90% of Tensor Core peak. As a result, Mamba-2 has 2-8x higher wall-clock throughput than Mamba-1 on H100-class hardware. Wall-clock throughput for Mamba-2 is now roughly comparable to transformer at short context and substantially better at long context.
-      </Prose>
-
-      <H3>8.5 State dimension N as a tuning knob</H3>
-
-      <Prose>
-        The state dimension <Code>N</Code> is the main quality-cost knob specific to SSMs. Mamba-1 paper default: <Code>{"N = 16"}</Code>. This is small; the state is highly compressed. Quality scales with <Code>N</Code> up to a point (diminishing returns past <Code>{"N = 64"}</Code>). Mamba-2 with its matmul-friendly algorithm can handle larger <Code>N</Code> cheaply and typically runs at <Code>{"N = 128"}</Code> or <Code>{"N = 256"}</Code>. Increasing <Code>N</Code> does not increase parameter count proportionally because <Code>N</Code> is inside the state, not in the embedding or FFN — it only affects the SSM-specific projections.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Forgetting discretization</H3>
-
-      <Prose>
-        The most common beginner mistake in SSMs: treating <Code>{"A, B"}</Code> as the discrete recurrence matrices directly, instead of discretizing them via ZOH. This gives the wrong recurrence and, because <Code>A</Code> has negative real parts as an init, will produce divergent iterations or NaN loss. The diagnostic: plot your learned kernel <Code>{"\\bar K_l"}</Code> for a few channels; if it diverges rather than decays geometrically, you have forgotten <Code>{"\\exp(\\Delta A)"}</Code>. The fix: always discretize. Always. Even if you are initializing from random rather than HiPPO, discretize.
-      </Prose>
-
-      <H3>9.2 HiPPO initialization is critical</H3>
-
-      <Prose>
-        S4 with random initialization for <Code>A</Code> trains badly — it will converge but to a much worse solution than S4 with HiPPO-LegS. On the Long Range Arena, random-init S4 scores about 60%; HiPPO-init S4 scores 85%. The gap is not subtle. For Mamba, the HiPPO effect is weaker because the selective <Code>{"\\Delta, B, C"}</Code> can compensate for poor <Code>A</Code> init — but <Code>A</Code> is still typically initialized to <Code>{"A_{nn} = -(n+1)"}</Code> (the HiPPO-LegS eigenvalues), and straying from this reliably hurts convergence by several percent perplexity.
-      </Prose>
-
-      <H3>9.3 Delta out of range</H3>
-
-      <Prose>
-        The discretization step <Code>{"\\Delta"}</Code> must be positive (use softplus) and should be initialized in a reasonable range. The Mamba paper recommends initializing <Code>{"\\log \\Delta"}</Code> uniformly in <Code>{"[\\log(0.001), \\log(0.1)]"}</Code>. Outside this range: too small <Code>{"\\Delta"}</Code> means <Code>{"\\bar A \\approx I"}</Code>, no decay, state grows unboundedly; too large <Code>{"\\Delta"}</Code> means <Code>{"\\bar A \\approx 0"}</Code>, state is overwritten each step (loses memory). Diagnose by printing <Code>{"\\Delta"}</Code> statistics during training; if the mean drifts outside <Code>{"[0.001, 1.0]"}</Code> you have a problem. Fix: tighter parameterization (softplus with bias init) or gradient clipping on the <Code>{"\\Delta"}</Code>-projection weights.
-      </Prose>
-
-      <H3>9.4 Non-causal misuse</H3>
-
-      <Prose>
-        SSMs as usually implemented are causal (the state at step <Code>t</Code> sees only past inputs). For tasks that benefit from bidirectional context (encoder models, document embedding, BERT-style MLM), a unidirectional SSM underperforms. The fix: a "bidirectional Mamba" that runs one SSM forward, a second backward, and concatenates (analogous to bidirectional LSTMs). Vision Mamba (Vim) uses this. The cost is 2x the SSM compute but worth it for non-autoregressive tasks. Mistakenly using a causal SSM as a bidirectional feature extractor silently loses accuracy without obvious error signals.
-      </Prose>
-
-      <H3>9.5 Overtraining on short sequences</H3>
-
-      <Prose>
-        If you train Mamba on sequences of length 2K and deploy at 32K, quality can degrade because the <Code>{"\\Delta"}</Code> values the model learned are tuned for short-context memory horizons. Training at the deployment context length (or gradually expanding during training) is essential. Transformers suffer from this too (positional encoding extrapolation) but the failure mode is more visible; for SSMs the degradation can be subtle. Fix: always include some long-context samples in the training mix.
-      </Prose>
-
-      <H3>9.6 Naive matmul instead of parallel scan</H3>
-
-      <Prose>
-        Without the hardware-aware scan kernel, Mamba's Python/PyTorch reference implementation materializes intermediate states in HBM and is 10-50x slower than attention. If you see Mamba as slower than transformer in wall-clock at moderate sequence lengths, verify you are using the CUDA kernel (<Code>selective_scan_cuda</Code> for Mamba-1, <Code>mamba_chunk_scan_combined</Code> for Mamba-2). Without it, the linear-cost advantage is theoretical only. This catches most first-time Mamba users: they install the python package, import, run, and report "Mamba is slow" — because the CUDA kernel did not compile on their system and the code silently fell back to the naive scan.
-      </Prose>
-
-      <H3>9.7 Numerical instability in fp16</H3>
-
-      <Prose>
-        The selective scan has dynamic range issues in fp16: the products <Code>{"\\prod_t \\bar A_t"}</Code> in the parallel-scan reduction can underflow. Mamba's reference kernel runs the scan in fp32 even when the rest of the model is in fp16 or bf16. If you are writing your own kernel: do not use fp16 for the scan itself. Use fp32 or bf16 (bf16 has fp32 exponent range; it is safe). Symptoms of getting this wrong: training converges initially then diverges at 3-5B tokens with the loss going to NaN; diagnostic: per-step max-absolute-value of the scan output grows unboundedly.
-      </Prose>
-
-      <H3>9.8 Mamba-2 chunk-size pitfall</H3>
-
-      <Prose>
-        Mamba-2's SSD algorithm has a chunk size hyperparameter (typically 256 or 512). Choosing chunk size = 1 reduces to the pure recurrence (slow); chunk size = L reduces to a full matmul (memory-heavy). The sweet spot is hardware-dependent. If you see Mamba-2 running no faster than Mamba-1, check that the chunk size is appropriate for your sequence length and head dimension. The reference implementation picks good defaults for standard configurations, but custom setups may need tuning.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        Read in chronological order to follow the development from Kalman's 1960 control-theory paper through HiPPO, S4, Mamba, Mamba-2, and the hybrid-architecture line.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Kalman 1960 — Linear Filtering and Prediction",
-            render: () => (
-              <Prose>
-                Kalman, R.E. (1960). "A New Approach to Linear Filtering and Prediction Problems." Transactions of the ASME, Journal of Basic Engineering, 82(Series D), pp. 35-45. The founding paper of state-space estimation theory. Introduces the now-canonical <Code>{"x' = A x + B u, \\; y = C x + D u"}</Code> formulation and derives the Kalman filter as the optimal linear estimator for a Gaussian LTI system. Not a machine learning paper, but every S4/Mamba paper traces its core equations back here. Read to understand the engineering intuition behind "state summarizes the past."
-              </Prose>
-            ),
-          },
-          {
-            label: "Gu, Dao, Ermon, Rudra, Re 2020 — HiPPO (arXiv:2008.07669)",
-            render: () => (
-              <Prose>
-                Gu, A., Dao, T., Ermon, S., Rudra, A., and Re, C. (2020). "HiPPO: Recurrent Memory with Optimal Polynomial Projections." NeurIPS 2020. arXiv:2008.07669. Available at arxiv.org/abs/2008.07669. Derives optimal recurrent-memory matrices by projecting onto orthogonal polynomial bases. Introduces HiPPO-LegS, HiPPO-LegT, HiPPO-LagT. This is the theoretical foundation that makes long-range SSMs work — initialization is not a heuristic, it is a theorem. Section 3 gives the derivation; section 4 shows empirical gains on Long Range Arena precursor benchmarks. Essential reading for anyone implementing SSMs from scratch.
-              </Prose>
-            ),
-          },
-          {
-            label: "Gu, Goel, Re 2021 — S4 (arXiv:2111.00396)",
-            render: () => (
-              <Prose>
-                Gu, A., Goel, K., and Re, C. (2021). "Efficiently Modeling Long Sequences with Structured State Spaces." ICLR 2022. arXiv:2111.00396. Available at arxiv.org/abs/2111.00396. The S4 paper. Shows how to make SSMs practical at scale by: (i) discretizing continuous SSMs via ZOH, (ii) using a structured DPLR parameterization of <Code>A</Code> that admits an <Code>{"O(N + L \\log L)"}</Code> kernel computation via the Cauchy matrix trick, (iii) initializing from HiPPO-LegS. Results: 85.7% average on Long Range Arena against 54% for transformers. Section 3 derives the DPLR kernel algorithm; section 4 shows LRA results; section 5 covers pathological long-range tasks like Path-X (16K length, transformer baseline 0%). First SSM to be competitive with transformers on any sequence task at scale.
-              </Prose>
-            ),
-          },
-          {
-            label: "Gu et al. 2022 — S4D (arXiv:2206.11893)",
-            render: () => (
-              <Prose>
-                Gu, A., Goel, K., Gupta, A., and Re, C. (2022). "On the Parameterization and Initialization of Diagonal State Space Models." NeurIPS 2022. arXiv:2206.11893. Available at arxiv.org/abs/2206.11893. Simplifies S4's DPLR parameterization to a pure-diagonal <Code>A</Code> (S4D). Shows empirically that the simpler diagonal form recovers 90%+ of S4's quality at a fraction of the implementation complexity. S4D is the practical default for most S4-style architectures built after 2022. Section 3 gives the diagonal-SSM formulation; section 5 compares S4 vs S4D on LRA.
-              </Prose>
-            ),
-          },
-          {
-            label: "Smith, Warrington, Linderman 2022 — S5 (arXiv:2208.04933)",
-            render: () => (
-              <Prose>
-                Smith, J.T.H., Warrington, A., and Linderman, S.W. (2022). "Simplified State Space Layers for Sequence Modeling." ICLR 2023. arXiv:2208.04933. Available at arxiv.org/abs/2208.04933. Introduces S5 — a simplified SSM layer that uses a parallel-scan algorithm (Blelloch) instead of FFT convolution, and a multi-input multi-output diagonal SSM (MIMO rather than S4's SISO with channel mixing). S5 is faster than S4 on modern GPUs and has a cleaner implementation. The parallel-scan approach directly inspired Mamba's selective scan. Section 3 explains the SISO-to-MIMO transition; section 4 explains the parallel scan; section 5 benchmarks against S4 on LRA.
-              </Prose>
-            ),
-          },
-          {
-            label: "Gu, Dao 2023 — Mamba (arXiv:2312.00752)",
-            render: () => (
-              <Prose>
-                Gu, A., and Dao, T. (2023). "Mamba: Linear-Time Sequence Modeling with Selective State Spaces." arXiv:2312.00752. Available at arxiv.org/abs/2312.00752. The Mamba paper. Introduces the selective SSM (S6) where <Code>{"\\Delta, B, C"}</Code> depend on the input, and the hardware-aware selective-scan CUDA kernel. Mamba-3B matches transformer-3B on language modeling and outperforms on long-context tasks. Section 2 motivates selectivity with the induction-heads argument; section 3 describes the S6 formulation; section 4 details the hardware-aware kernel; section 5 reports language, audio, and genomics benchmarks. The paper that made SSMs mainstream in 2024. Read alongside the accompanying blog post at state-spaces.github.io for extra intuition.
-              </Prose>
-            ),
-          },
-          {
-            label: "Dao, Gu 2024 — Mamba-2 / State Space Duality (arXiv:2405.21060)",
-            render: () => (
-              <Prose>
-                Dao, T., and Gu, A. (2024). "Transformers Are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality." ICML 2024. arXiv:2405.21060. Available at arxiv.org/abs/2405.21060. The Mamba-2 paper. Proves the state space duality: a selective SSM with scalar-identity state transition is equivalent to a masked linear attention with a structured semi-separable mask. Uses this to derive a new algorithm (SSD) that runs the SSM as chunked matrix multiplications, hitting Tensor Core peak throughput. Mamba-2 is 2-8x faster than Mamba-1 at matched quality. Section 3 derives the duality; section 4 introduces the SSD algorithm; section 5 reports scaling and long-context benchmarks. Required reading for anyone implementing selective SSMs at scale or working on linear-attention theory.
-              </Prose>
-            ),
-          },
-          {
-            label: "Poli et al. 2023 — Hyena Hierarchy (arXiv:2302.10866)",
-            render: () => (
-              <Prose>
-                Poli, M., Massaroli, S., Nguyen, E., Fu, D.Y., Dao, T., Baccus, S., Bengio, Y., Ermon, S., and Re, C. (2023). "Hyena Hierarchy: Towards Larger Convolutional Language Models." ICML 2023. arXiv:2302.10866. Available at arxiv.org/abs/2302.10866. A parallel thread: replace attention with long implicit convolutions parameterized by MLPs. Hyena is a cousin of S4 — both are convolution-based attention-replacements — but the kernel is learned as a function of position rather than derived from an SSM. Hyena was a strong baseline that motivated Mamba's selectivity argument (Hyena had the linear-time property but lacked selectivity, which Mamba added). HyenaDNA and other Hyena descendants are still used in genomics where sequences are millions of tokens long.
-              </Prose>
-            ),
-          },
-          {
-            label: "Lieber et al. 2024 — Jamba (arXiv:2403.19887)",
-            render: () => (
-              <Prose>
-                Lieber, O., Lenz, B., Bata, H., Cohen, G., Osin, J., Dalmedigos, I., Safahi, E., Meirom, S., Belinkov, Y., Shalev-Shwartz, S., Abend, O., Alon, R., Asida, T., Bergman, A., Glozman, R., Gokhman, M., Manevich, A., Ratner, N., Rozen, N., Shwartz, E., Zusman, M., and Shoham, Y. (2024). "Jamba: A Hybrid Transformer-Mamba Language Model." arXiv:2403.19887. Available at arxiv.org/abs/2403.19887. The first production-scale hybrid Mamba-attention-MoE model. Jamba-1.0 is 52B total parameters (12B active), 256K context, 1 attention layer per 8 Mamba layers. Shows that hybrid architectures achieve better quality/throughput than pure Mamba or pure transformer at long context. Subsequent Jamba-1.5 Mini and Large are production models shipped to AI21's customers. The hybrid-architecture template in this paper has been adopted by Zamba-2, Samba, and others.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        Attempt all five before reading the answers. Exercises 1-2 test the discretization math; 3 tests kernel construction; 4 tests the selectivity intuition; 5 tests architecture judgment.
-      </Prose>
-
-      <H3>Exercise 1 (discretization)</H3>
-      <Prose>
-        You are given a diagonal continuous-time SSM with <Code>{"A = \\text{diag}(-1, -2, -4)"}</Code>, <Code>{"B = [0.5, 0.5, 0.5]^T"}</Code>, and step size <Code>{"\\Delta = 0.1"}</Code>. Compute the discrete <Code>{"\\bar A"}</Code> and <Code>{"\\bar B"}</Code> using ZOH. Then compute <Code>{"x_1"}</Code> given <Code>{"x_0 = 0"}</Code> and <Code>{"u_1 = 1"}</Code>. Which state dimension has the longest memory (slowest decay)?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 1.</strong> For diagonal <Code>A</Code>, ZOH is elementwise. <Code>{"\\bar A_n = \\exp(\\Delta \\cdot A_n) = \\exp(-0.1, -0.2, -0.4) = (0.905, 0.819, 0.670)"}</Code>. For <Code>{"\\bar B"}</Code>, the formula <Code>{"\\bar B_n = A_n^{-1}(\\bar A_n - 1) B_n"}</Code> gives <Code>{"\\bar B_n = ((0.905-1)/-1, (0.819-1)/-2, (0.670-1)/-4) \\cdot 0.5 = (0.0475, 0.0453, 0.0413)"}</Code>. With <Code>{"x_0 = 0"}</Code> and <Code>{"u_1 = 1"}</Code>: <Code>{"x_1 = \\bar A \\cdot 0 + \\bar B \\cdot 1 = (0.0475, 0.0453, 0.0413)"}</Code>. The slowest-decay dimension is <Code>{"n = 0"}</Code> because <Code>{"\\bar A_0 = 0.905"}</Code> is closest to 1 — a 1-step decay factor of 0.905 means half-life of <Code>{"\\log 2 / \\log(1/0.905) \\approx 6.9"}</Code> steps, vs <Code>{"n = 2"}</Code> which has half-life of <Code>{"\\log 2 / \\log(1/0.670) \\approx 1.7"}</Code> steps. This multi-scale behavior is exactly what HiPPO-style diagonal initialization provides.
-      </Callout>
-
-      <H3>Exercise 2 (kernel construction)</H3>
-      <Prose>
-        Using the <Code>{"\\bar A, \\bar B"}</Code> from Exercise 1 and <Code>{"C = [1, 1, 1]"}</Code>, write out the first 4 kernel taps <Code>{"\\bar K_l = C \\bar A^l \\bar B"}</Code> for <Code>{"l = 0, 1, 2, 3"}</Code>. Verify that the convolutional output <Code>{"y_2 = \\sum_j \\bar K_{2-j} u_j"}</Code> matches the recurrent output for an input <Code>{"u = (1, 1, 1)"}</Code>.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 2.</strong> For diagonal <Code>A</Code>: <Code>{"\\bar K_l = \\sum_n C_n \\bar A_n^l \\bar B_n"}</Code>. <br />
-        <Code>{"\\bar K_0 = 1 \\cdot 1 \\cdot 0.0475 + 1 \\cdot 1 \\cdot 0.0453 + 1 \\cdot 1 \\cdot 0.0413 = 0.1341"}</Code>. <br />
-        <Code>{"\\bar K_1 = 1 \\cdot 0.905 \\cdot 0.0475 + 1 \\cdot 0.819 \\cdot 0.0453 + 1 \\cdot 0.670 \\cdot 0.0413 = 0.0430 + 0.0371 + 0.0277 = 0.1078"}</Code>. <br />
-        <Code>{"\\bar K_2 = 0.819 \\cdot 0.0475 + 0.671 \\cdot 0.0453 + 0.449 \\cdot 0.0413 = 0.0389 + 0.0304 + 0.0185 = 0.0878"}</Code>. <br />
-        <Code>{"\\bar K_3 = 0.741 \\cdot 0.0475 + 0.549 \\cdot 0.0453 + 0.301 \\cdot 0.0413 = 0.0352 + 0.0249 + 0.0124 = 0.0725"}</Code>. <br />
-        Conv form: <Code>{"y_2 = \\bar K_0 u_2 + \\bar K_1 u_1 + \\bar K_2 u_0 = 0.1341 + 0.1078 + 0.0878 = 0.3297"}</Code>. <br />
-        Recurrent: <Code>{"x_1 = \\bar B = (0.0475, 0.0453, 0.0413)"}</Code>, <Code>{"x_2 = \\bar A \\odot x_1 + \\bar B = (0.0475 \\cdot 0.905 + 0.0475, 0.0453 \\cdot 0.819 + 0.0453, 0.0413 \\cdot 0.670 + 0.0413) = (0.0905, 0.0824, 0.0690)"}</Code>; <Code>{"y_2 = 1 \\cdot (0.0905 + 0.0824 + 0.0690) = 0.2419"}</Code>. <br />
-        Hmm — they differ! The discrepancy is because <Code>{"y_2"}</Code> in the recurrence after just 2 steps of input <Code>{"(1, 1, 1)"}</Code> indexes inputs <Code>{"u_0, u_1, u_2"}</Code> slightly differently depending on convention. Double-check: if <Code>{"x_k = \\bar A x_{k-1} + \\bar B u_k"}</Code> and <Code>{"x_0 = 0"}</Code>, then processing <Code>{"u_0, u_1, u_2"}</Code> gives <Code>{"x_0 = \\bar B u_0, x_1 = \\bar A \\bar B u_0 + \\bar B u_1, x_2 = \\bar A^2 \\bar B u_0 + \\bar A \\bar B u_1 + \\bar B u_2"}</Code>, matching the conv form. The discrepancy above came from starting the recurrence at <Code>{"x_0 = 0"}</Code> without applying <Code>{"u_0"}</Code>. With correct indexing, conv and recurrence match — which is exactly the point of the equivalence.
-      </Callout>
-
-      <H3>Exercise 3 (selectivity)</H3>
-      <Prose>
-        In plain S4, <Code>{"\\Delta, B, C"}</Code> are learned but fixed across the sequence. In Mamba, they depend on the current token. Describe a task where this matters, and explain in one sentence why an S4 model would fail on it but a Mamba model would succeed.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 3.</strong> Task: selective copying, where a sequence contains many random tokens plus a few "marker" tokens, and the model must copy tokens following each marker to designated output positions. An S4 model fails because the kernel <Code>{"\\bar K"}</Code> is the same across all positions — it cannot distinguish "marker followed by payload" from "random token followed by random token." Mamba succeeds because <Code>{"\\Delta_t"}</Code> can become small on seeing a marker (preserving the state so the payload can be read later) and <Code>{"C_t"}</Code> can become "retrieve-from-state" when the model needs to emit the copied token. This content-conditional behavior is exactly the "induction heads" capability of transformers — it is what allows in-context learning — and Mamba's selectivity provides a functionally equivalent mechanism at O(L) cost.
-      </Callout>
-
-      <H3>Exercise 4 (architecture selection)</H3>
-      <Prose>
-        You are building a genome variant caller that needs to process DNA sequences of length 1,000,000 nucleotides and output per-position predictions. Your budget is a single 80GB H100. Which architecture do you choose, and what are the specific constraints that dictate this choice?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 4.</strong> Choose Mamba or HyenaDNA (or a Mamba-Hyena hybrid). Specifically:
-        <br />
-        (a) <strong>Context length:</strong> 1M tokens is well beyond any transformer's comfort zone. A transformer's KV cache at 1M context and <Code>{"d = 512"}</Code> (typical for genomics) would be ~80 GB, saturating the H100 before inference starts. Mamba's state is ~10 MB regardless of context.
-        <br />
-        (b) <strong>Task structure:</strong> DNA has long-range co-regulation and local sequence motifs. HiPPO-initialized SSMs are excellent at integrating information across very long ranges; the multi-scale memory of a diagonal SSM with varied eigenvalues captures both local motifs and long-range context.
-        <br />
-        (c) <strong>Bidirectional need:</strong> Variant calling is non-autoregressive — you have the full sequence. Use a bidirectional Mamba (two SSM stacks, one forward, one backward, concatenated). Costs 2x but essential.
-        <br />
-        (d) <strong>Output structure:</strong> Per-position prediction means the SSM output at each position is directly the predicted logit over variant classes — one SSM forward pass gives you 1M predictions.
-        <br />
-        (e) <strong>Known models:</strong> HyenaDNA was first to show 1M-context genomics feasibility (Nguyen et al. 2023). Caduceus (Schiff et al. 2024) is a Mamba-based successor. Both ship trained checkpoints.
-        <br />
-        A transformer here is not just slower — it is impossible on the hardware specified.
-      </Callout>
-
-      <H3>Exercise 5 (debugging)</H3>
-      <Prose>
-        You are training a 1.3B Mamba model on 8 H100s. Around step 3000, training loss spikes from 2.8 to NaN. You restart from the previous checkpoint with half the learning rate; loss spikes to NaN again at step 3500. You suspect something specific to Mamba is at fault rather than generic instability. List three Mamba-specific failure modes and a diagnostic for each.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 5.</strong> Three Mamba-specific failure modes:
-        <br />
-        (1) <strong>Delta parameter out of range.</strong> The softplus parameterization of <Code>{"\\Delta"}</Code> does not bound it from above; during training <Code>{"\\Delta"}</Code> can drift to arbitrarily large values, which makes <Code>{"\\bar A = \\exp(\\Delta A) \\to 0"}</Code> effectively zeroing the state each step, or toward <Code>{"\\bar A \\to \\infty"}</Code> if <Code>A</Code> happens to be positive (shouldn't be but is a bug surface). Diagnostic: log <Code>{"\\Delta"}</Code> min/max/mean each step; typical healthy range is 0.001 to 1.0. If <Code>{"\\Delta_\\max > 10"}</Code>, you have a problem.
-        <br />
-        (2) <strong>A drifting positive.</strong> The <Code>A</Code> matrix (continuous-time) is supposed to have negative real eigenvalues for stability. Mamba often parameterizes <Code>{"A = -\\exp(A_\\log)"}</Code> to enforce this, but a bug in the parameterization or a failure to clamp can let <Code>A</Code> become positive, at which point <Code>{"\\bar A = \\exp(\\Delta \\cdot (+\\text{value}))"}</Code> grows without bound in a few iterations. Diagnostic: after the backward pass, print <Code>{"\\max(A)"}</Code>. If it is positive, something is wrong with the parameterization. Fix: enforce <Code>A &lt; 0</Code> via the parameterization (e.g., <Code>{"A = -\\text{softplus}(A_\\text{raw})"}</Code>).
-        <br />
-        (3) <strong>Scan kernel running in fp16 instead of fp32.</strong> The selective scan accumulates products <Code>{"\\prod_t \\bar A_t"}</Code> which underflow in fp16 after ~100 steps. If you set the entire model to fp16 and the scan kernel honors that, the scan will silently produce garbage. Diagnostic: compare a short-sequence forward pass in fp16 vs fp32; if they differ by more than ~1e-2, your scan is not running in sufficient precision. Fix: ensure Mamba's selective_scan is run in fp32 even if the surrounding model is fp16; this is the reference kernel's default behavior but custom implementations sometimes break it.
-        <br />
-        Bonus: gradient clipping at norm 1.0 catches most of these in aggregate and is standard for Mamba training.
-      </Callout>
-
-    </div>
-  ),
+<Prose>{"A recurrent evaluation retains N state numbers, however long the preceding stream was. That does not mean it remembers every detail exactly. Distinct histories can yield the same finite representation. If a future task asks for an arbitrary old token verbatim, a compressed state can face a different tradeoff from an attention cache that explicitly retains token representations."}</Prose>
+
+<Prose>{"The question is therefore: "}<strong>{"which information should the state preserve for the task?"}</strong>{" S4 supplies useful structured memory modes. Mamba allows the current content to affect what is written, retained and read."}</Prose>
+
+<H2>{"2. From continuous change to sampled updates"}</H2>
+
+<Prose>{"Suppose our memory moves gradually toward a reading held steady between observations. Waiting longer gives it more time to approach that reading. This raises a practical question: if measurements are a different time apart, should we still keep the same .8 of the previous state? A continuous-time construction gives a consistent way to answer."}</Prose>
+
+<Prose>{"Take a system that approaches the held reading at rate 1 per time unit. Starting at zero and holding the reading at 1 for one time unit gives a state of about .6321. Starting at 1 and holding the input at zero gives about .3679. These two contributions add to 1: the same interval determines both how much old memory remains and how much new input is written."}</Prose>
+
+<SamplingFigure />
+
+<Prose>{"Look first at the solid curve and its dots. They are the evolving state and the times at which we inspect it. The dashed samples use a different numerical rule, explained in the deeper branch below. “Continuous” means a state defined between readings; “discrete” means the sequence of states at the chosen reading times."}</Prose>
+
+<H3>{"Name the continuous rule and its sampled version"}</H3>
+
+<Prose>{"A continuous linear system writes"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{dh(t)}{dt}=Ah(t)+Bu(t),\\qquad y(t)=Ch(t)+Du(t)."}</MathBlock></div>
+
+<Prose>{"A is now a rate-of-change matrix. If time is measured in seconds, its decay rates have inverse-second units. Ā instead describes one discrete step. Confusing these two matrices can silently change an entire model."}</Prose>
+
+<Prose>{"For constant input over an interval of length Δ, exact integration gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar A=e^{\\Delta A},\\qquad \\bar B=\\int_0^\\Delta e^{sA}B\\,ds."}</MathBlock></div>
+
+<Prose>{"Thus hₜ=Āhₜ₋₁+B̄uₜ describes the state at the end of that held-input interval. This is "}<strong>{"zero-order hold"}</strong>{", or ZOH: the input is held constant while the state evolves. Matrix exp is a matrix function, not elementwise exponentiation except for a diagonal matrix."}</Prose>
+
+<Prose>{"For the scalar decay A=−1 and B=1,"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar A=e^{-\\Delta},\\qquad \\bar B=1-e^{-\\Delta}."}</MathBlock></div>
+
+<Prose>{"At Δ=ln 2, the old state and held input each receive weight .5. A longer interval permits more decay and more approach toward the held input. Changing Δ changes both terms, not just the forget factor. At this half-life interval, old state 2 and held input 10 give .5×2+.5×10=6: halfway from 2 toward 10. With A=−1, the .8/.2 rule from §1 corresponds to Δ=−ln(.8), about .2231 time units. The sensor example and the differential equation have now met at the same update."}</Prose>
+
+<Prose>{""}<strong>{"Keep for the first pass:"}</strong>{" A is a rate, Ā is retention over a chosen interval, and B̄ accounts for what arrives during that interval. For sensors, Δ can be elapsed physical time. For token models, it is usually a learned internal parameter; tokens do not come with a physical clock implied by this notation."}</Prose>
+
+<section data-lesson-teaching="" className="lesson-teaching-section">
+
+<h3 className="lesson-teaching-section__title">Deeper implementation: singular systems and S4’s bilinear discretization</h3>
+
+<Prose>{"This branch explains how to compute the coefficients robustly and why two legitimate discretizations produce different answers. You can continue to §3 once the rate-versus-step distinction is clear."}</Prose>
+
+<H3>{"A singular matrix is a normal case"}</H3>
+
+<Prose>{"One sometimes sees B̄=A⁻¹(exp(ΔA)−I)B. It is valid when A is invertible. An integrator has A=0, however, and is perfectly meaningful:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{dh}{dt}=u\\quad\\Longrightarrow\\quad h_t=h_{t-1}+\\Delta u_t."}</MathBlock></div>
+
+<Prose>{"With Δ=.5, initial state 3 and inputs 2,−1, the states are 4 and 3.5. No inverse is needed."}</Prose>
+
+<Prose>{"The downloadable program obtains Ā and B̄ together from the block exponential"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\exp\\left(\\Delta\\begin{bmatrix}A&B\\\\0&0\\end{bmatrix}\\right)=\\begin{bmatrix}\\bar A&\\bar B\\\\0&I\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"This works for the integrator and for coupled multidimensional systems. For very small scalar or diagonal arguments, expm1(z)=exp(z)−1 avoids subtracting two nearly equal floating-point numbers."}</Prose>
+
+<H3>{"S4's original choice: the bilinear transform"}</H3>
+
+<Prose>{"The original S4 formulation uses the "}<strong>{"bilinear"}</strong>{", or trapezoidal, discretization:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar A=(I-\\Delta A/2)^{-1}(I+\\Delta A/2),\\quad \\bar B=(I-\\Delta A/2)^{-1}\\Delta B."}</MathBlock></div>
+
+<Prose>{"In code, solve these linear systems instead of explicitly forming inverses. ZOH is exact for a held input; the bilinear rule is a different discretization with useful stability properties. For A=−1, B=1 and Δ=1, ZOH gives Ā≈.367879 and B̄≈.632121; bilinear gives 1/3 and 2/3. Both are legitimate choices. They are not numerically identical."}</Prose>
+
+<Prose>{"For continuous dynamics whose eigenvalues lie in the left half-plane, the bilinear map places the corresponding discrete eigenvalues inside the unit disk. It does not follow that every arbitrary learned parameterization or complete nonlinear network is automatically numerically well behaved."}</Prose>
+
+<Prose>{"The distinction matters for sensors with known sampling intervals. For token models, Δ is usually a learned internal quantity; there is no reason to call it elapsed physical time. Some modern sequence layers parameterize the discrete recurrence directly. Continuous-time language is one useful construction, not a requirement that every token model simulate a physical differential equation. "}<a href={"https://arxiv.org/pdf/2111.00396"}>{"S4, §2.2"}</a>{"."}</Prose>
+
+</section>
+
+<H2>{"3. One operator, three ways to compute it"}</H2>
+
+<Prose>{"We can watch the state change one step at a time. Can we instead calculate the final answer by tracing what each input contributes? For a fixed linear rule, both views describe the same calculation."}</Prose>
+
+<Prose>{"Use an even smaller update: keep half of the old state and add the entire new input; read the state directly. Starting from zero, inputs [2,0,1,0] produce [2,1,1.5,.75]. The first input leaves a trail [2,1,.5,.25]. The input 1, arriving at step 2, starts a new trail [1,.5] there. At step 2, .5 from the old input plus 1 from the new input gives 1.5."}</Prose>
+
+<ImpulseTrailsFigure />
+
+<Prose>{"Move between columns. Every row carries the same fading shape, shifted to the input's arrival time and scaled by that input. An isolated unit input is called an "}<strong>{"impulse"}</strong>{". Its output trail is the "}<strong>{"impulse response"}</strong>{"; the discrete weights are also called "}<strong>{"kernel taps"}</strong>{". Summing the overlapping trails is convolution. Nothing has been learned or approximated in changing this view."}</Prose>
+
+<H3>{"Derive the trail weights from the state rule"}</H3>
+
+<Prose>{"Expand a fixed-matrix recurrence from zero initial state:"}</Prose>
+
+<Prose>{"h₀=B̄u₀,   h₁=ĀB̄u₀+B̄u₁,   h₂=Ā²B̄u₀+ĀB̄u₁+B̄u₂."}</Prose>
+
+<Prose>{"After applying C, the contribution of an input depends only on how many steps ago it arrived. Define the kernel taps"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"K_\\ell=C\\bar A^\\ell\\bar B,\\qquad \\ell=0,1,2,\\ldots"}</MathBlock></div>
+
+<Prose>{"Then"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"y_t=\\sum_{j=0}^t K_{t-j}u_j+Du_t."}</MathBlock></div>
+
+<Prose>{"This is a "}<strong>{"causal convolution"}</strong>{": “causal” means that output t uses only input t and earlier inputs, and a "}<strong>{"lag"}</strong>{" is how many steps have elapsed since an input arrived. In the little picture Ā=.5 and B̄=C=1, so the taps are exactly 1,.5,.25,.125. In a larger state, the product C Āˡ B̄ performs the same write → l advances → read journey."}</Prose>
+
+<Prose>{"With a nonzero initial state, add C Ā^(t+1) h₋₁. That is the trace already in memory before the new sequence begins. For initial state 8, retention .5 and no new inputs, outputs are 4,2,1—not zero. Omitting that term changes the problem."}</Prose>
+
+<section data-lesson-teaching="" className="lesson-teaching-section">
+
+<h3 className="lesson-teaching-section__title">Deeper connection: the continuous impulse response</h3>
+
+<Prose>{"The discrete picture sums one contribution per input step. Its continuous counterpart integrates contributions over the times when they arrive. With initial state h(0), the output is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"y(t)=Ce^{At}h(0)+\\int_0^t Ce^{A(t-s)}Bu(s)\\,ds+Du(t)."}</MathBlock></div>
+
+<Prose>{"The strictly proper impulse response is g(t)=C exp(At)B. If you choose instead to include Dδ(t) in the impulse-response distribution, its convolution already supplies the direct path; do not add Du a second time."}</Prose>
+
+</section>
+
+<H3>{"A calculation you can reconcile by hand"}</H3>
+
+<Prose>{"The next example keeps the same input [2,0,1,0] and the same contribution accounting, but adds a second memory coordinate and a direct input path. The extra coordinate changes the kernel; it does not change what convolution means. Use two independent continuous modes with A=diag(−1,−2), B=[1,1]ᵀ, C=[1,−.5], D=.25 and Δ=ln 2. ZOH yields"}</Prose>
+
+<Prose>{"Ā=diag(.5,.25), B̄=[.5,.375]ᵀ."}</Prose>
+
+<Prose>{"The first four kernel taps are"}</Prose>
+
+<Prose>{"[.3125, .203125, .11328125, .0595703125]."}</Prose>
+
+<Prose>{"For inputs [2,0,1,0] and zero initial state, the output is"}</Prose>
+
+<Prose>{"[1.125, .40625, .7890625, .322265625]."}</Prose>
+
+<Prose>{"Check the third output: 2×.11328125 + 1×.3125 + .25×1 = .7890625. Its three terms are the old input's remaining contribution, the current input's memory contribution and direct feedthrough."}</Prose>
+
+<ImpulseFigure />
+
+<Prose>{"In the ledger, read a row to follow one input through time; read a column to reconstruct one output. The separate state trace is the compact computation of those same column sums. This connection is why we can choose a convenient evaluation method without choosing a different learned model."}</Prose>
+
+<Prose>{"The same result can be calculated in three ways:"}</Prose>
+
+<NeuralTable caption={"A calculation you can reconcile by hand"} headers={[<>{"Evaluation"}</>,<>{"Main operation"}</>,<>{"Useful setting"}</>]} rows={[[<>{"Recurrence"}</>,<>{"Update and retain state one step at a time"}</>,<>{"Streaming or autoregressive decoding"}</>],[<>{"Direct convolution"}</>,<>{"Sum lagged input contributions"}</>,<>{"Small transparent calculations"}</>],[<>{"FFT convolution"}</>,<>{"Transform input and kernel, multiply, inverse-transform"}</>,<>{"Full fixed-kernel sequences"}</>]]} />
+
+<Prose>{"The "}<strong>{"fast Fourier transform (FFT)"}</strong>{" changes from a sequence of values to frequency coordinates, where convolution becomes multiplication, then changes back. You can use the independently checked program without deriving the transform here; "}<a href={"/learn/path/full-curriculum/complex-numbers-fourier-laplace-transforms?module=math-foundations"}>{"Fourier methods"}</a>{" develop that machinery. The FFT computes circular convolution unless padding is correct. With T input samples and K retained taps, use a transform length at least T+K−1, then retain the causal outputs needed. Padding to T and hoping for the best can wrap a future tail into the beginning."}</Prose>
+
+<Prose>{"The wraparound is easier to see with only three inputs. Let the input be [1,0,1] and the two kernel taps be [1,2]. Each input writes its own value now and twice that value one step later. Adding those trails gives the full linear convolution [1,2,1,2]."}</Prose>
+
+<NeuralTable caption={"A calculation you can reconcile by hand"} headers={[<>{"Time"}</>,<>{"Linear contribution"}</>,<>{"Slot in length-3 circle"}</>]} rows={[[<>{"0"}</>,<>{"1"}</>,<>{"0"}</>],[<>{"1"}</>,<>{"2"}</>,<>{"1"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"2"}</>],[<>{"3"}</>,<>{"2"}</>,<>{"0"}</>]]} />
+
+<Prose>{"On a three-slot circle, the final 2 lands back in slot 0. The result becomes [3,2,1], whereas the first three causal outputs should be [1,2,1]. The erroneous first output now includes a contribution from the last input: a causality error, not merely a small numerical discrepancy. Padding to length four gives the tail its own slot; truncate only "}<strong>{"after"}</strong>{" the convolution. This tiny construction explains the T+K−1 rule before the program applies it to a long learned kernel."}</Prose>
+
+<Prose>{"A dense Ā costs O(N²) per recurrent step. A diagonal Ā costs O(N). Computing every diagonal kernel tap naively costs O(NT), followed by roughly O(T log T) FFT work. S4's special kernel-generation algorithm addresses the kernel construction too. Saying “the model uses an FFT” does not account for every operation."}</Prose>
+
+<H3>{"Investigation: change a system, then reconcile its computations"}</H3>
+
+<Prose>{"Start by changing only the last input sample and watch which output rows change. Earlier outputs should remain fixed. Then change the initial state: now its contribution can reach every output. Finally try C=0,D=1, which removes the memory readout and returns the inputs directly. Each edit updates the state, kernel, contribution ledger and all three evaluations immediately."}</Prose>
+
+<Prose>{"Inspect the state plane, kernel and contribution ledger. Try the singular integrator and the feedthrough-only setting C=0,D=1. Then change only the final input and inspect earlier outputs. Explain every difference by a legal information path."}</Prose>
+
+<Prose>{"The comparison must include the initial-state response in the convolutional view. A disagreement caused by leaving it out is a useful diagnosis, not evidence that recurrence and convolution are different models."}</Prose>
+
+<StateSpaceSystemLab />
+
+<H2>{"4. Designing a memory with more than one timescale"}</H2>
+
+<Prose>{"Our first memory mixed everything into one number. Suppose a signal contains a sudden disturbance on top of a slowly drifting background. A fast-changing summary can follow the disturbance; a slow-changing summary can keep the background. Keeping both gives a later readout more useful information than forcing one smoothing rate to do both jobs."}</Prose>
+
+<Prose>{"Call one independently evolving pattern a "}<strong>{"mode"}</strong>{". For now, a mode is simply one state coordinate that repeatedly multiplies its retained contribution by the same number. Feed three such coordinates the same unit impulse and look at their trails before comparing formulas."}</Prose>
+
+<MemoryRatesFigure />
+
+<Prose>{"Follow the .2 curve: almost nothing remains after a few updates. The .99 curve changes little over that same interval. These are different views of the same past event, available simultaneously to the readout. A learned readout can add or subtract them to respond to changes rather than only to a level."}</Prose>
+
+<Prose>{"A mode with discrete decay .99 retains information much longer than one with decay .2. After k empty updates, a contribution is multiplied by aᵏ. For 0<a<1, its half-life is ln(.5)/ln(a) steps. Half-life describes one mode's attenuation, not the guaranteed recall span of an entire trained network."}</Prose>
+
+<Prose>{"Several real decays provide several smoothing rates. But decay alone moves a positive contribution toward zero without changing its sign. Repeated back-and-forth motion calls for a different pattern: keep two coordinates that rotate together. As the direction changes, either coordinate can switch sign; shrinking the pair gradually forgets an old oscillation."}</Prose>
+
+<OscillatorFigure />
+
+<Prose>{"Read the spiral from its initial point (1,0), moving counterclockwise inward. The horizontal and vertical traces are the two coordinates of that moving point. A "}<strong>{"phase"}</strong>{" is its position around the rotation; a "}<strong>{"frequency"}</strong>{" specifies how quickly the angle advances. Oscillatory modes can respond differently to patterns with different repetition rates. One continuous rule producing the pictured pair is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"A=\\begin{bmatrix}-.2&-2\\\\2&-.2\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"With no input, its state rotates at 2 radians per time unit while its radius decays as e^(−.2t). At Δ=.25, each step rotates by .5 radians and shrinks the radius by e^(−.05). The state does not merely get “older”; its direction changes."}</Prose>
+
+<H3>{"A small diagonal state-space layer"}</H3>
+
+<Prose>{"The rotating pair can be stored either as two real numbers or as one complex number x+iy. Multiplication by a complex coefficient rotates and scales that pair; it is compact notation for an operation we have already drawn. A "}<strong>{"diagonal"}</strong>{" collection evolves each mode separately, then combines their readouts. A diagonal model can use complex-valued modes aₙ=−exp(αₙ)+iωₙ. The negative real part provides decaying continuous modes; ω controls rotation. For a real input and a real output, include conjugate pairs. One stored half of each pair contributes"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"2\\operatorname{Re}(c_nh_n)"}</MathBlock></div>
+
+<Prose>{"to the readout. The factor 2 and real part are part of the model, not cosmetic plotting choices."}</Prose>
+
+<Prose>{"Our small training program stores four complex modes per channel and their implicit conjugates. It learns decay, frequency, step size, complex readout and a direct skip; it fixes the continuous B to 1 and calculates its discrete B̄ exactly. It evaluates the temporal operation both recurrently and through a generated convolution kernel."}</Prose>
+
+<Prose>{"This is an "}<strong>{"S4D-style teaching layer"}</strong>{" with an explicitly chosen linear-frequency initialization. It is not a full implementation of S4's diagonal-plus-low-rank kernel algorithm. The distinction lets us teach and test a complete useful model without silently attaching the wrong name to it. "}<a href={"https://arxiv.org/pdf/2206.11893"}>{"S4D, §§3–4"}</a>{"."}</Prose>
+
+<H3>{"Return visit: why S4 chooses structured memories"}</H3>
+
+<Prose>{"The core takeaway is that a trainable bank of fading and rotating patterns can summarize different parts of a signal's history. You can now continue to §5, where the next input changes the memory rule itself. The branch below answers a harder design question: can the state coordinates be chosen to reconstruct the shape of the past, and can that structured system still be computed efficiently?"}</Prose>
+
+<section data-lesson-teaching="" className="lesson-teaching-section">
+
+<h3 className="lesson-teaching-section__title">Deeper derivation: polynomial memory, HiPPO and S4’s structured kernel</h3>
+
+<H3>{"Give a memory coordinate a precise meaning"}</H3>
+
+<Prose>{"Imagine retaining a level and a trend instead of retaining raw samples. Those two numbers reconstruct any straight-line history exactly, while more complicated histories need additional shapes. HiPPO turns this reconstruction question into an online update. The remaining derivation makes the approximation criterion explicit; it is not needed to operate the core labs."}</Prose>
+
+<Prose>{"Suppose we want to summarize a function's entire observed history by polynomial coefficients. On the interval [0,t], use the normalized measure ds/t and an orthonormal polynomial basis. The first two normalized basis functions are 1 and √3(2s/t−1)."}</Prose>
+
+<Prose>{"A coefficient is the weighted inner product cₙ=integral from 0 to t of f(s)pₙ(s) ds/t. Multiplying the history by a basis function and averaging extracts how strongly that shape is present. For f(s)=s, integrate s/t for the first coefficient and s√3(2s/t−1)/t for the second. The results are"}</Prose>
+
+<Prose>{"c₀=t/2,  c₁=t√3/6."}</Prose>
+
+<Prose>{"At t=2, the coefficients are 1 and √3/3. Reconstructing c₀+c₁√3(s−1) gives s exactly because a linear function lies in the span of these two basis functions."}</Prose>
+
+<Prose>{"The first coefficient represents a level; the second represents a trend. Higher-degree coefficients retain more detailed shape. This is a concrete meaning of “memory basis.”"}</Prose>
+
+<PolynomialFigure />
+
+<Prose>{"HiPPO derives online coefficient updates for particular history-weighting measures. For the scaled Legendre construction, the exact growing-interval dynamics have the form"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{dc}{dt}=-\\frac{A_+c}{t}+\\frac{B_+f(t)}{t},"}</MathBlock></div>
+
+<Prose>{"where, with indices n,k starting at zero,"}</Prose>
+
+<Prose>{"(A₊)ₙₖ = √((2n+1)(2k+1)) if n>k;   (A₊)ₙₙ = n+1;   (A₊)ₙₖ = 0 if n<k;   (B₊)ₙ = √(2n+1)."}</Prose>
+
+<Prose>{"The 1/t factors matter. A fixed LTI S4 initialization inspired by this matrix is not literally the same as the time-varying projection over an ever-growing interval. “Optimal” in the projection result means optimal approximation in the specified basis and weighted squared-error criterion, not universally optimal memory for every task. "}<a href={"https://arxiv.org/pdf/2008.07669"}>{"HiPPO, §§2–3"}</a>{"."}</Prose>
+
+<H3>{"Preserve that memory structure without expensive dense work"}</H3>
+
+<Prose>{"The projection tells us what to remember. S4 also has to make its long kernel practical to compute. A completely dense state update would mix every coordinate with every other coordinate. The key is to represent the desired dynamics as an easy part plus a small correction, retaining both rather than discarding the correction."}</Prose>
+
+<Prose>{"S4 uses a structured starting point and a numerically useful representation. Let A=−A₊ and pₙ=√(n+.5). Then A+ppᵀ is a normal matrix; in this real case its symmetric part is −I/2. A normal matrix has an orthonormal eigenbasis. After a unitary change of basis, the original matrix can therefore be written as a diagonal matrix minus a low-rank correction."}</Prose>
+
+<Prose>{"This is "}<strong>{"diagonal plus low rank"}</strong>{", or DPLR. It avoids treating a poorly conditioned eigenvector decomposition of the original nonnormal triangular matrix as numerically harmless."}</Prose>
+
+<DplrFigure />
+
+<Prose>{"The remaining computational idea is to evaluate the kernel's generating function at suitable frequency points. For T taps, define K_T(z)=sum from l=0 to T−1 of K_l z^l. The finite geometric-series identity gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"K_T(z)=C\\{I-(z\\bar A)^T\\}(I-z\\bar A)^{-1}\\bar B"}</MathBlock></div>
+
+<Prose>{"where the inverse exists. This is a scalar-valued function for one input/output channel; evaluating it at Fourier points gives the transform of the finite tap sequence. The factor I−(zĀ)^T is the finite-length correction."}</Prose>
+
+<Prose>{"For a continuous DPLR matrix A=Λ−pq*, let R₀(s)=diag(1/(s−λₙ)). The star denotes conjugate transpose. Woodbury gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"(sI-A)^{-1}=R_0-R_0p(1+q^*R_0p)^{-1}q^*R_0."}</MathBlock></div>
+
+<Prose>{"The apparently large inverse is reduced to diagonal operations and a scalar correction in this rank-one case. Terms such as q*R₀p are sums of weighted 1/(s−λₙ) factors, explaining the Cauchy structure. S4 combines this idea with its discretization to evaluate the finite kernel efficiently. Resolvents of a diagonal matrix are easy; the Woodbury identity handles the low-rank correction. The resulting sums have a Cauchy-like structure, which specialized algorithms exploit, and a transform recovers the time-domain taps. That is the reason for S4's mathematical machinery: retain useful structured dynamics while making a long kernel practical to calculate."}</Prose>
+
+<Prose>{"Here is an original two-state calculation of that correction. Take Λ=diag(−1,−2), p=q=[1,1]ᵀ and s=0. Then A=[−2,−1;−1,−3], so the inverse we need is that of [2,1;1,3]. This is a small illustrative DPLR system, not the actual HiPPO initialization or a benchmark of S4."}</Prose>
+
+<NeuralTable caption={"Preserve that memory structure without expensive dense work"} headers={[<>{"Part of the inverse calculation"}</>,<>{"Value"}</>]} rows={[[<>{"Easy diagonal inverse R₀"}</>,<>{"[1,0;0,0.5]"}</>],[<>{"Scalar denominator 1+qᵀR₀p"}</>,<>{"2.5"}</>],[<>{"Rank-one correction R₀p qᵀR₀ / 2.5"}</>,<>{"[0.4,0.2;0.2,0.1]"}</>],[<>{"Diagonal inverse minus correction"}</>,<>{"[0.6,−0.2;−0.2,0.4]"}</>]]} />
+
+<Prose>{"Check the last row by multiplying it by [2,1;1,3]: the result is the identity matrix. For a right-hand side [1,0]ᵀ, keeping only the easy diagonal part would return [1,0]ᵀ. The correct result is [0.6,−0.2]ᵀ: the low-rank coupling changes "}<strong>{"both"}</strong>{" coordinates. Woodbury makes that coupling cheap to retain; it does not justify dropping it. The same algebra applies at the needed frequency points when the inverses exist. "}<a href={"https://arxiv.org/pdf/2111.00396"}>{"S4, Appendix C, Proposition 4 and Lemma C.3"}</a>{""}</Prose>
+
+<Prose>{"An advanced implementation should follow the paper's finite-length correction, discretization and stability conventions together. Copying only its A matrix into a naïve dense recurrence does not reproduce the kernel algorithm. S4D investigates which benefits survive a diagonal simplification and carefully chosen initialization; its approximation results do not say that a small finite diagonal model equals the full HiPPO system exactly. "}<a href={"https://arxiv.org/pdf/2111.00396"}>{"S4, §§3.1–3.4"}</a>{"."}</Prose>
+
+</section>
+
+<H2>{"5. Keep the event, ignore the distraction: Mamba’s selection"}</H2>
+
+<Prose>{"A stream of device messages contains occasional calibration values mixed with routine status updates. Our teaching task is to retain the most recent marked calibration value. The marker is part of the available input. Averaging every message would let routine updates contaminate the retained value; retrieving whatever arrived two steps ago would work only when the gaps happened to match."}</Prose>
+
+<MarkedMemoryFigure />
+
+<Prose>{"Read across the middle two events. Their ages increase, but the identity of the last marked value stays 4. The requirement is about "}<strong>{"which content matters"}</strong>{", not just how old it is. This is an original toy task illustrating selection, not a claim about a deployed calibration system."}</Prose>
+
+<H3>{"Why a delay and a selective memory solve different problems"}</H3>
+
+<Prose>{"An LTI operator can copy a fixed delay perfectly. A three-state shift register can store the current input, the previous input and the input before that. Reading the third coordinate sends [2,5,−1,7,0] to [0,0,2,5,−1]. Its convolution kernel is a single pulse at lag 2."}</Prose>
+
+<FixedDelayFigure />
+
+<Prose>{"The harder task is to retain a marked item while an unpredictable number of irrelevant items arrive. A fixed temporal kernel applies the same lag weights regardless of which item was marked. A nonlinear deep S4 network is more than one LTI operator, but input-dependent selection gives the temporal update itself a direct way to respond."}</Prose>
+
+<Prose>{"We can solve the marked-value toy task with a switch: on a marked event, replace memory; on a distraction, keep memory. A "}<strong>{"gate"}</strong>{" generalizes that switch to a value between zero and one. A gate near one emphasizes the new write; a gate near zero preserves the old state in this coupled rule."}</Prose>
+
+<Prose>{"A simple selective update is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"h_t=(1-g_t)h_{t-1}+g_tu_t,\\qquad 0\\le g_t\\le1."}</MathBlock></div>
+
+<Prose>{"Use inputs [4,9,−7,6] with gates [.99,.01,.01,.99]. The states are"}</Prose>
+
+<Prose>{"[3.96,4.0104,3.900296,5.97900296]."}</Prose>
+
+<Prose>{"The first and last items substantially replace the state; the middle items have little effect. With a constant gate .5, the states are [2,5.5,−.75,2.625]. These gates are supplied teaching controls. A trained network must learn how to compute useful gates from available inputs."}</Prose>
+
+<Prose>{"Before continuing, open the selective-memory lab below and change a middle distractor while its gate is almost closed. Then increase that gate and watch the new-write contribution enter the state. This is what “selection” changes. The lab also lets you separate writing from retention: closing a write does not preserve old memory if decay remains active."}</Prose>
+
+<Prose>{"The scalar gate has an exact state-space connection. For A=−1, B=1 and Δₜ=softplus(zₜ), exact ZOH gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"e^{-\\Delta_t}=1-\\sigma(z_t),\\quad \\bar B_t=1-e^{-\\Delta_t}=\\sigma(z_t)."}</MathBlock></div>
+
+<Prose>{"Thus gₜ=sigmoid(zₜ). Softplus is log(1+exp(z)); sigmoid is 1/(1+exp(−z)). Substitute these definitions to verify the identity. A large Δ both erases more old state and increases the new write in this scalar construction."}</Prose>
+
+<StateSpaceSelectionLab />
+
+<H3>{"Turn the hand-chosen gate into learned coefficients"}</H3>
+
+<Prose>{"The supplied gates make the mechanism visible. A neural model must produce useful coefficients from the features it actually sees. In Mamba-1, learned projections of the current features control the write vector B, the read vector C and a positive step parameter Δ. The base decay rates A are learned parameters shared across positions. Thus the input can change both which information enters memory and which part is exposed as output."}</Prose>
+
+<Prose>{"Here "}<strong>{"channel"}</strong>{" means one feature coordinate in a representation, and "}<strong>{"batch"}</strong>{" means several independent sequences processed together. Each sequence has its own memory. For a batch of B sequences of length T with D internal channels and N state coordinates per channel, a common Mamba-1 organization uses:"}</Prose>
+
+<NeuralTable caption={"Turn the hand-chosen gate into learned coefficients"} headers={[<>{"Quantity"}</>,<>{"Shape"}</>,<>{"Role"}</>]} rows={[[<>{"Input u"}</>,<>{"B×T×D"}</>,<>{"Features being processed"}</>],[<>{"A"}</>,<>{"D×N, diagonal within each channel's state"}</>,<>{"Learned base decay rates"}</>],[<>{"Δ"}</>,<>{"B×T×D"}</>,<>{"Input-dependent step parameters"}</>],[<>{"Bₜ and Cₜ"}</>,<>{"B×T×N"}</>,<>{"Input-dependent write/read vectors, shared across channels in this organization"}</>],[<>{"State"}</>,<>{"B×D×N"}</>,<>{"Memory retained during recurrent evaluation"}</>]]} />
+
+<Prose>{"The original gating derivation uses exact ZOH. The reference implementation's selective scan uses exp(ΔA) for decay and ΔB for input injection:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"h_{t,d,n}=e^{\\Delta_{t,d}A_{d,n}}h_{t-1,d,n}+\\Delta_{t,d}B_{t,n}u_{t,d},\\qquad y_{t,d}=\\sum_n C_{t,n}h_{t,d,n}+D_du_{t,d}."}</MathBlock></div>
+
+<Prose>{"That injection is a specific parameterization; it is not generally equal to exact ZOH B̄. For scalar A=−1, B=1 and Δ=1, exact ZOH injection is about .632121, while ΔB is 1. The difference is not necessarily small. Learn and implement the chosen operator consistently. "}<a href={"https://arxiv.org/pdf/2312.00752"}>{"Mamba, §3.5 and appendix C"}</a>{"; "}<a href={"https://raw.githubusercontent.com/state-spaces/mamba/main/mamba_ssm/ops/selective_scan_interface.py"}>{"official selective-scan reference"}</a>{"."}</Prose>
+
+<Prose>{"Input-dependent B controls what is written, Δ controls the dynamics, and C controls what is read. The state is linear in its previous value when the current input-dependent parameters are fixed, but the full input-to-output map is generally nonlinear."}</Prose>
+
+<H3>{"The operator is not the entire block"}</H3>
+
+<Prose>{"We have described the temporal memory operation. A usable neural block also prepares features, mixes nearby positions and routes the result back into the network. Keep that distinction in mind when comparing a short recurrence with a library class."}</Prose>
+
+<Prose>{"A Mamba-1 block projects its input into an expanded feature branch and a gate branch. The feature branch passes through a short causal depthwise convolution and an activation, then supplies the selective operator. Its result is multiplied by an activated gate and projected back to the model width; residual connections and normalization organize the stack. The gate commonly uses SiLU(x)=x·sigmoid(x), so it is an activated multiplicative branch rather than a probability distribution."}</Prose>
+
+<Prose>{"The short convolution gives nearby positions a local interaction before parameter selection. The outside gate is different from Δ inside the recurrence. A diagram should draw both and label their equations, rather than call every multiplication “the forget gate.”"}</Prose>
+
+<MambaBlockFigure />
+
+<Prose>{"The local convolution mixes a short neighborhood; the selective recurrence carries information beyond it; the outside gate scales what the block returns. Follow the two branches to their joining point in the diagram. The gate on the right is not another name for Δ on the left."}</Prose>
+
+<H3>{"Compute a dependent chain without one long serial loop"}</H3>
+
+<Prose>{"Because the coefficients vary with content, one fixed global convolution kernel no longer describes all inputs. Recurrence is still available. Moreover, the affine maps h↦a⊙h+b compose associatively:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"(a_2,b_2)\\circ(a_1,b_1)=(a_2\\odot a_1,\\ a_2\\odot b_1+b_2)."}</MathBlock></div>
+
+<Prose>{"For example, first apply h→.5h+1, then h→.2h+3. Substituting the first into the second gives h→.1h+3.2. The pair can be summarized by two coefficients before knowing the incoming h. Combining such summaries in a tree is a "}<strong>{"parallel prefix scan"}</strong>{": each prefix still includes exactly the earlier updates it needs."}</Prose>
+
+<Prose>{"Their coefficients can be computed from the input before scanning. A parallel prefix scan can therefore evaluate the sequence with logarithmic dependency depth, while a work-efficient implementation keeps total arithmetic proportional to sequence length for fixed state dimensions. Parallel does not mean every state can ignore earlier inputs; it means the same dependencies can be grouped."}</Prose>
+
+<Prose>{"The practical Mamba algorithm also fuses operations and recomputes selected intermediates in the backward pass to reduce memory traffic. It need not materialize the entire B×T×D×N state trajectory in device memory. Kernel details, precision and shapes determine the actual speed; a Python loop will not inherit fused-kernel throughput."}</Prose>
+
+<H3>{"Investigation: build a selective memory challenge"}</H3>
+
+<Prose>{"Create a signed sequence, mark the items that should replace memory, and edit gaps and distractors. Compare the constant gate and your input-dependent schedule live. The separate old-state and new-write contributions show which change improved retention and which suppressed a distraction."}</Prose>
+
+<Prose>{"Now make every input zero and start at zero. Can changing the gates alone create a nonzero state in this update? Then restore the signal and close the write gate while leaving decay active in a more general two-coefficient recurrence. Explain why “stop writing” and “stop forgetting” are distinct interventions."}</Prose>
+
+<H2>{"6. Mamba-2 and state-space duality"}</H2>
+
+<Prose>{"Mamba-1 lets many state coordinates decay at different rates. Mamba-2's core operator shares one decay across a group of coordinates. Why accept that restriction? It exposes another way to calculate the same outputs, using matrix operations that modern hardware handles well. We first need to see exactly what is shared."}</Prose>
+
+<Prose>{"Picture a small memory with two rows and two columns. A new two-number value is [3,−1]. A write vector [0,1] says to add none of that value to the first row and one copy to the second. Multiplying every write-vector entry by every value entry produces [[0,0],[3,−1]]. This is an "}<strong>{"outer product"}</strong>{": a column of write weights times a row of values."}</Prose>
+
+<Prose>{"Suppose the old memory is [[2,1],[0,0]]. Keep half of "}<strong>{"every entry"}</strong>{", add that new write, and get [[1,.5],[3,−1]]. To read it, use weights [1,1]: add the two rows and obtain [4,−.5]. We have just computed an SSD step without needing the attention analogy."}</Prose>
+
+<MatrixWriteFigure />
+
+<Prose>{"Follow the second row: it was zero, so it comes entirely from the new write. The first row comes entirely from carried memory. Changing the read weights would change the output while leaving this stored matrix unchanged."}</Prose>
+
+<H3>{"Follow four concrete updates"}</H3>
+
+<Prose>{"Call the memory matrix S and its output vector y. Now give that same two-by-two memory four updates. The table supplies each decay a, write weights b, read weights c and two-number value v:"}</Prose>
+
+<NeuralTable caption={"Follow four concrete updates"} headers={[<>{"Step"}</>,<>{"a"}</>,<>{"b"}</>,<>{"c"}</>,<>{"v"}</>]} rows={[[<>{"0"}</>,<>{".5"}</>,<>{"[1,0]"}</>,<>{"[1,0]"}</>,<>{"[2,1]"}</>],[<>{"1"}</>,<>{".5"}</>,<>{"[0,1]"}</>,<>{"[1,1]"}</>,<>{"[3,−1]"}</>],[<>{"2"}</>,<>{".25"}</>,<>{"[1,1]"}</>,<>{"[0,1]"}</>,<>{"[1,2]"}</>],[<>{"3"}</>,<>{".8"}</>,<>{"[1,−1]"}</>,<>{"[1,2]"}</>,<>{"[−2,1]"}</>]]} />
+
+<Prose>{"At step 0, S₀=[[2,1],[0,0]] and y₀=[2,1]. At step 1,"}</Prose>
+
+<Prose>{"S₁=.5S₀ + [[0,0],[3,−1]] = [[1,.5],[3,−1]],"}</Prose>
+
+<Prose>{"so y₁=[4,−.5]. Continuing gives y₂=[1.75,1.75] and y₃=[5.8,3.5]. The program independently calculates the recurrent, full matrix and chunked forms and checks that all agree."}</Prose>
+
+<H3>{"Name the operator we just calculated"}</H3>
+
+<Prose>{"Mamba-2 makes a specific restriction that enables a different computation. Within one head, the transition is a scalar aₜ times the identity. Let the state Sₜ have shape N×P, let bₜ,cₜ each have N coordinates, and let vₜ have P coordinates:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"S_t=a_tS_{t-1}+b_tv_t^\\top,\\qquad y_t=c_t^\\top S_t."}</MathBlock></div>
+
+<Prose>{"The outer product bₜvₜᵀ writes an N×P matrix. Different heads can have different dynamics. Sharing a scalar decay inside a head restricts the operator compared with allowing an independent decay for every state coordinate, but the resulting structure is computationally useful."}</Prose>
+
+<Prose>{"Unroll from S₋₁=0:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"y_i=\\sum_{j\\le i}(c_i^\\top b_j)L_{ij}v_j,"}</MathBlock></div>
+
+<Prose>{"where Lᵢⱼ is the product aⱼ₊₁aⱼ₊₂…aᵢ, and Lᵢᵢ=1. An empty product is 1 because the input written at i has not yet undergone a later decay."}</Prose>
+
+<Prose>{"Stack the c and b vectors as rows of C and B. The sequence operator is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"Y=((CB^\\top)\\odot L)V."}</MathBlock></div>
+
+<Prose>{"The symbol ⊙ means elementwise multiplication. This is an exact equality with the recurrence just defined. It resembles attention: c is query-like, b key-like and v value-like, with a causal structured mask."}</Prose>
+
+<Prose>{"It is "}<strong>{"not ordinary row-softmax attention"}</strong>{". The coefficients can be negative, need not sum to one, and contain no softmax normalization. The later "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention & Multi-Head Attention lesson"}</a>{" develops that different operator. The SSD connection is precise without saying every transformer block is the same recurrent model."}</Prose>
+
+<SSDFigure />
+
+<H3>{"Why grouping into chunks helps"}</H3>
+
+<Prose>{"A full influence matrix makes every input-to-output contribution visible, but it becomes large for a long sequence. A one-step recurrence avoids that matrix but has a sequential dependency. Chunking combines the two: do the detailed work inside short stretches and pass only the summary needed between them. This changes how we compute the answer, not which past inputs may affect it."}</Prose>
+
+<Prose>{"Partition the sequence into chunks of q positions. An output has two sources: inputs inside its own chunk and memory arriving from earlier chunks."}</Prose>
+
+<Prose>{"The SSD calculation makes that decomposition explicit:"}</Prose>
+
+<ol start={1}><li>{"Compute each chunk's local outputs as if its incoming state were zero."}</li><li>{"Compute the final state each chunk's own inputs would write."}</li><li>{"Pass states between chunks using each chunk's total decay and own written state."}</li><li>{"Read the incoming state at every position within the chunk and add that contribution to its local outputs."}</li></ol>
+
+<Prose>{"For the example with q=2, the second chunk's local outputs are [1,2] and [4.4,3.8]. Its incoming-memory contributions are [.75,−.25] and [1.4,−.3]. Their sums recover [1.75,1.75] and [5.8,3.5]."}</Prose>
+
+<Prose>The exact local and incoming contributions above form the four-stage computation. The workshop below lets you alter chunk boundaries independently from its coefficients.</Prose>
+
+<Prose>{"Dense matrix operations within bounded chunks can use hardware designed for matrix multiplication. A work-efficient recurrence or scan carries information between chunks. The creator's short explanatory implementation materializes a dense matrix even between chunks; its simplicity should not be mistaken for the asymptotic behavior of the optimized scan. Our transparent reference passes the chunk states serially and supports a final short chunk. "}<a href={"https://arxiv.org/pdf/2405.21060"}>{"SSD/Mamba-2, §§5–7"}</a>{"; "}<a href={"https://tridao.me/blog/2024/mamba2-part3-algorithm/"}>{"creator's algorithm walkthrough"}</a>{"."}</Prose>
+
+<Prose>{"Mamba-2 also changes the surrounding architecture, including parallel production of several SSM inputs and normalization/head organization. SSD is the mathematical operator and algorithmic framework; a full Mamba-2 network includes these additional choices."}</Prose>
+
+<H3>{"Investigation: can you change the chunking without changing the answer?"}</H3>
+
+<Prose>{"First change only v₃ and observe that outputs 0–2 remain fixed. Then change the chunk size while holding the input and coefficients fixed: the outputs should remain the same, although the local-versus-incoming decomposition changes. Finally edit b or c to see how writing differs from reading. Compare the matrix view and the state bridges."}</Prose>
+
+<Prose>{"Setting a₂=0 erases the incoming state just before step 2; it does not erase the new step-2 write. Changing only v₃ must leave outputs 0–2 unchanged. Setting every b to zero with zero initial state produces zero output even when c and v vary. Explain these observations from the recurrence using both the numerical equality and its mathematical explanation."}</Prose>
+
+<StateSpaceSSDLab />
+
+<H2>{"7. Make the state useful by learning from real movement"}</H2>
+
+<Prose>{"So far, the numbers in the examples were chosen to expose a mechanism. We now ask the system to learn a useful summary from data. This closes the loop with the opening question: can a fixed collection of changing numbers retain enough of a movement's history to recognize its category?"}</Prose>
+
+<Prose>{"A clever recurrence is not yet a classifier. We need an input representation, a prediction target, a loss, trainable parameters and an evaluation procedure."}</Prose>
+
+<Prose>{"We will classify "}<strong>{"Libras movement trajectories"}</strong>{". The UCI dataset contains 360 recordings in 15 movement categories. Each record has 45 two-dimensional hand coordinates and a category. Examples include curved swing, circle, horizontal straight line and vertical zigzag. These are normalized trajectory coordinates derived from videos, not calibrated physical positions or complete sign-language conversations. "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{"."}</Prose>
+
+<RealTrajectoriesFigure />
+
+<Prose>{"Look at the start and end markers before judging the shape. Two recordings can visit similar positions in different orders. Our input therefore keeps all 45 positions in their recorded sequence; it is not just an unordered cloud of dots."}</Prose>
+
+<Prose>{"The downloadable source has 30 repeated feature rows with consistent labels. We retain the first occurrence of each exact trajectory before partitioning, leaving 330 unique rows. Otherwise an identical input could land on both sides of the evaluation boundary."}</Prose>
+
+<Prose>{"A fixed classwise shuffle produces 220 fitting, 50 validation and 60 assessment trajectories. Every assessment class has four rows. The exact one-based source IDs are saved in the results. Performer and recording-session identifiers are absent, so this row-level protocol cannot establish performance on new performers or sessions."}</Prose>
+
+<H3>{"The complete prediction pipeline"}</H3>
+
+<Prose>{"The classifier must turn an ordered path into one category. It first represents each position with more features, updates those features using temporal memory, summarizes the resulting sequence, and reads a category score. Keep the data shape beside each operation so that “the model learns a memory” becomes an inspectable computation."}</Prose>
+
+<Prose>{"Each trajectory is a 45×2 array. Convert a coordinate x in [0,1] to 2x−1. This fixed transformation uses no estimated corpus statistics. A linear projection turns each coordinate pair into 16 features."}</Prose>
+
+<Prose>{"Two residual blocks each perform"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"z\\leftarrow z+\\operatorname{Affine}_{out}\\left(\\operatorname{GELU}\\left(\\operatorname{Mixer}(\\operatorname{LayerNorm}(z))\\right)\\right)."}</MathBlock></div>
+
+<Prose>{"Here W_out denotes the learned affine projection, including its bias. GELU is the smooth activation xΦ(x), where Φ is the standard-normal cumulative distribution function. Layer normalization and the output projection operate within each time step. The temporal mixer is what carries information across time. Average the resulting 45 feature vectors, then apply a 16-to-15 linear classifier."}</Prose>
+
+<Prose>{"The final 15 numbers are "}<strong>{"logits"}</strong>{". Softmax converts them into model probabilities. For true class k, the loss is −log pₖ. A high probability for the wrong class incurs a large loss; a correct top-ranked class can still have a mediocre probability and a nonzero loss."}</Prose>
+
+<Prose>{"The recurrence parameters learn through the same computational graph as the projections. For an elementary readout example, hold state h=[1,2], target r=3 and C=[.5,.5]. The output is 1.5. With loss .5(Ch−r)², the gradient with respect to C is (Ch−r)h=[−1.5,−3]. A gradient step of .1 changes C to [.65,.8], output to 2.25 and loss from 1.125 to .28125. Backpropagation through an entire sequence extends this chain to writes, decays and earlier inputs."}</Prose>
+
+<TrainingPipelineFigure />
+
+<Prose>{"To connect the final stage of the diagram to gradient descent, trace the loss back through the operations. A poor category probability changes the final classifier weights; the gradient also reaches the temporal mixer and tells its write, read and decay parameters which changes would reduce that loss. The little readout calculation above isolates one part of this chain. The complete program lets automatic differentiation carry the chain through all 45 updates."}</Prose>
+
+<H3>{"The two temporal mixers we actually train"}</H3>
+
+<Prose>{"The first is the diagonal complex-mode layer from §4: four stored complex modes per channel, exact held-input discretization, real output from conjugate pairs, and fixed parameters across the sequence. It has 1,487 trainable parameters in the complete classifier."}</Prose>
+
+<Prose>{"The second is a simplified selective mixer with eight real state coordinates per channel. It projects the current normalized features into B,C and Δ, uses negative learned A, exp(ΔA) decay and ΔB injection, and evaluates a serial reference recurrence. Its complete classifier has 2,287 parameters."}</Prose>
+
+<Prose>{"The selective experiment omits the full Mamba block's local convolution and separate multiplicative gate. It isolates a trainable selective temporal mixer inside the same small residual scaffold. Labeling it a reproduced Mamba checkpoint would overstate what was implemented."}</Prose>
+
+<Prose>{"An ordered linear baseline flattens all 45 coordinate pairs into 90 features and fits regularized multinomial logistic regression with C=1. It has 1,365 fitted coefficients and intercepts. Unlike a mean-coordinate baseline, it can use the trajectory's order directly."}</Prose>
+
+<Prose>{"For each neural mixer we predeclare seeds 17 and 41, train 100 full-batch epochs with Adam at learning rate .003, and choose the epoch with the lowest validation cross-entropy. Assessment labels are not used to choose epochs. Both seeds are reported; they were not searched until a preferred architecture won."}</Prose>
+
+<H3>{"Run the small study"}</H3>
+
+<Prose>{"Keep these files together: "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py"}>{"trajectory_state_models.py"}</a>{", "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/movement_libras.data"}>{"movement_libras.data"}</a>{", and "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/movement_libras.names"}>{"movement_libras.names"}</a>{". The "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/data-provenance.md"}>{"provenance record"}</a>{" supplies attribution, license, transformations and row roles. The program is complete; its inputs are the retained local files and it makes no network request."}</Prose>
+
+<Prose>{"In a Python environment with NumPy, PyTorch and scikit-learn:"}</Prose>
+
+<CodeBlock language={"text"}>{"python -m pip install numpy torch scikit-learn\npython trajectory_state_models.py"}</CodeBlock>
+
+<Prose>{"The author run used Python 3.12.14, NumPy 2.3.5, PyTorch 2.14.0+cpu and scikit-learn 1.9.1, two CPU threads and deterministic algorithms. Installation is for your chosen environment; a GPU extension is unnecessary for this teaching program. Training writes trajectory-results.json and trajectory-state-fits.npz beside the program."}</Prose>
+
+<Prose>{"Read the program in three passes. First follow data roles and the model's forward path to locate the state update. Next find the loss, backward call, optimizer step and validation-based checkpoint selection. Finally inspect the recurrent/FFT check and saved row IDs. This makes the code an experiment you can modify, not a long block to copy without knowing its boundaries."}</Prose>
+
+<StateSpaceProgram file="trajectory_state_models.py" title="Read the complete trainable diagonal and selective classifiers" />
+<Prose>{"The core selective step in that complete file is:"}</Prose>
+
+<CodeBlock language={"python"}>{"# u: batch × time × width\n# B and C: batch × time × state_size\n# delta: batch × time × width; A: width × state_size\nstate = torch.zeros(\n    (len(u), self.width, self.state_size),\n    device=u.device, dtype=u.dtype,\n)\noutputs = []\nfor t in range(u.shape[1]):\n    decay = torch.exp(delta[:, t, :, None] * A)\n    write = (\n        delta[:, t, :, None]\n        * B[:, t, None, :]\n        * u[:, t, :, None]\n    )\n    state = decay * state + write\n    outputs.append(\n        (state * C[:, t, None, :]).sum(-1)\n        + self.skip * u[:, t]\n    )\ny = torch.stack(outputs, dim=1)"}</CodeBlock>
+
+<Prose>{"Read the loop from top to bottom: "}<code>{"decay"}</code>{" computes what fraction of each old coordinate survives; "}<code>{"write"}</code>{" computes what the current input adds; "}<code>{"state"}</code>{" combines those two terms; the last multiplication by C reads the new state and the skip term adds the direct path. It is the write/retain/read diagram from §1 with learned, input-dependent coefficients."}</Prose>
+
+<Prose>{"The singleton dimensions make the broadcasts explicit. Every batch member has its own state; B and C share their state vectors across width in this chosen parameterization. A fresh forward call starts a fresh sequence. The full file computes the coefficient projections, trains all parameters, selects validation checkpoints and records confusion matrices."}</Prose>
+
+<Prose>{"To reproduce the mathematical checks separately, place "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/state_space_mechanisms.py"}>{"state_space_mechanisms.py"}</a>{" beside the lesson files, install NumPy and SciPy, and run:"}</Prose>
+
+<CodeBlock language={"text"}>{"python state_space_mechanisms.py"}</CodeBlock>
+
+<Prose>{"It writes mechanism-results.json with recurrence/direct/FFT agreement, the singular and initial-state cases, structured-memory calculations, SSD chunk decompositions and the advanced fixtures. These are computed mechanisms, not timing benchmarks."}</Prose>
+
+<StateSpaceProgram file="state_space_mechanisms.py" title="Read the complete recurrence, discretization, convolution and SSD program" />
+
+<H3>{"What happened in the recorded run"}</H3>
+
+<NeuralTable caption={"What happened in the recorded run"} headers={[<>{"Model"}</>,<>{"Seed"}</>,<>{"Selected epoch"}</>,<>{"Fitting errors / 220"}</>,<>{"Validation errors / 50"}</>,<>{"Assessment errors / 60"}</>]} rows={[[<>{"Ordered logistic baseline"}</>,<>{"—"}</>,<>{"—"}</>,<>{"35"}</>,<>{"17"}</>,<>{"22"}</>],[<>{"Diagonal mixer"}</>,<>{"17"}</>,<>{"100"}</>,<>{"59"}</>,<>{"25"}</>,<>{"30"}</>],[<>{"Diagonal mixer"}</>,<>{"41"}</>,<>{"100"}</>,<>{"44"}</>,<>{"19"}</>,<>{"28"}</>],[<>{"Selective mixer"}</>,<>{"17"}</>,<>{"58"}</>,<>{"65"}</>,<>{"25"}</>,<>{"30"}</>],[<>{"Selective mixer"}</>,<>{"41"}</>,<>{"68"}</>,<>{"74"}</>,<>{"31"}</>,<>{"28"}</>]]} />
+
+<Prose>{"The ordered baseline made fewer assessment errors than either small neural model here. Both temporal mixers learned useful information, but neither outcome establishes an advantage from selectivity in this small protocol. The two kinds have different parameter counts and inductive biases; this is not a matched large-scale architecture comparison."}</Prose>
+
+<Prose>{"Validation cross-entropy and classification error need not choose the same epoch. The two selective runs were selected by cross-entropy, not by a retrospective choice of the most attractive table row. For the diagonal runs, the best validation epoch was the final allowed epoch; that invites a future training-budget study, but does not justify silently extending this one after seeing assessment results."}</Prose>
+
+<Prose>{"The saved result file includes all epoch losses and 15×15 confusion matrices. With four assessment rows per class, one changed prediction moves that class's recall by .25. Treat fine-grained per-class differences accordingly."}</Prose>
+
+<LearningEvidenceFigure />
+
+<Prose>{"The diagonal classifier's FFT and recurrent evaluations differed by at most about 4.8×10⁻⁶ in logits in the author run. That checks two evaluations of the same fitted model. The selective classifier was evaluated using its serial reference; no fused GPU scan was run."}</Prose>
+
+<H3>{"Investigation: which part of a path matters to this fitted model?"}</H3>
+
+<Prose>{"Open validation source row 7, a curved-swing trajectory. First move one selected point with its visible drag handle or numeric fields and watch the internal-response trace and category probabilities update. Then reset and reverse the temporal order. Use one intervention at a time so you can connect an output change to an actual input change. The browser evaluates the fitted model; the probabilities are computed, not an animation chosen to suggest success."}</Prose>
+
+<Prose>{"A path can keep its general shape while changing its traversal order. Reversal is therefore a substantive input change, not a harmless plotting transformation. Conversely, resetting an edit must restore the same logits. The native program independently checks the diagonal model’s recurrent and FFT evaluations. The browser uses the recurrent evaluation and displays its current output."}</Prose>
+
+<Prose>{"The per-step mixer is causal, but the final classifier averages all 45 representations. Altering the end of a trajectory can change the final class without causing any earlier mixer output to change. Keep those two questions separate when interpreting the display."}</Prose>
+
+<StateSpaceTrajectoryLab />
+
+<H2>{"8. Practical choices, resource counts and failures worth diagnosing"}</H2>
+
+<Prose>{"We have now seen three different questions: what memory rule represents the task, how to compute that rule, and whether a trained system works on held-out data. Keep them separate when choosing an architecture. A compact state alone does not answer all three."}</Prose>
+
+<Prose>{"For real work, decide what information is available when the output is required. Complete-record classification can use an entire record; online anomaly detection or next-token prediction cannot use future observations. Bidirectional processing is a task decision, not an automatic property of the word “SSM.”"}</Prose>
+
+<Prose>{"Several applications become clearer through the mechanism:"}</Prose>
+
+<ul><li>{""}<strong>{"Continuous signals:"}</strong>{" a bank of decaying and oscillating modes can represent temporal patterns in audio or instrument recordings. Sampling interval, resampling and frequency units matter; a learned discrete step is not a substitute for recording the sensor's actual clock."}</li><li>{""}<strong>{"Event streams:"}</strong>{" content-dependent writes can react differently to an event and a redundant update. The event representation must make the relevant distinction observable; selectivity cannot infer an unavailable marker by magic."}</li><li>{""}<strong>{"Autoregressive generation:"}</strong>{" each layer can carry its own bounded state between new tokens. Prompt processing and one-token decoding use different computational regimes."}</li><li>{""}<strong>{"Irregular observations:"}</strong>{" a model with a justified continuous construction can change its transition according to the time gap. Once gaps vary, a single lag-only convolution kernel generally no longer applies."}</li><li>{""}<strong>{"Mixed retrieval and compression:"}</strong>{" a hybrid can retain selective recurrent summaries and occasional explicit attention. The later "}<a href={"/learn/path/full-curriculum/hybrid-ssm-transformer-architectures-jamba?module=deep-learning-fundamentals"}>{"hybrid SSM–Transformer lesson"}</a>{" examines that choice."}</li></ul>
+
+<H3>{"Count what is actually retained"}</H3>
+
+<Prose>{"For a simple bank of real recurrent states, one sequence needs LDNs bytes: L layers, D channels, N state coordinates and s bytes per coordinate. With L=12,D=64,N=16,float32, that is 49,152 bytes, or 48 KiB."}</Prose>
+
+<Prose>{"A conventional full multi-head attention cache with total key width D and total value width D uses 2LTDs bytes. At L=12,T=4096,D=64,float16, that is 12,582,912 bytes, or 12 MiB."}</Prose>
+
+<Prose>{"These counts describe specified state arrays. They exclude parameters, batch multiplication, training activations, temporary buffers and a Mamba block's short-convolution cache. Grouped-query attention changes the cache widths; complex states change the bytes per stored coordinate. The equations should be adjusted to the actual architecture."}</Prose>
+
+<Prose>{"A smaller retained state is not a measured end-to-end speedup. Benchmark prompt processing and decode separately, report hardware, dtype, batch, dimensions, lengths, warm-up and synchronization, and compare implementations under the same task and quality target. A chart with invented time curves cannot establish a result."}</Prose>
+
+<CacheCountsFigure />
+
+<H3>{"A compact diagnostic guide"}</H3>
+
+<NeuralTable caption={"A compact diagnostic guide"} headers={[<>{"Symptom"}</>,<>{"First question or check"}</>]} rows={[[<>{"Convolution and recurrence disagree at the beginning"}</>,<>{"Same output index, initial state, direct path and kernel taps?"}</>],[<>{"Changing the final input changes earlier causal outputs"}</>,<>{"Circular FFT wraparound, incorrect mask, or whole-record preprocessing?"}</>],[<>{"Padding changes a recurrent answer"}</>,<>{"Did padded steps still decay or write to the state? A zero input is not automatically a no-op."}</>],[<>{"A new record depends on the previous record"}</>,<>{"Were all layer states and local convolution buffers reset?"}</>],[<>{"Forward values become nonfinite"}</>,<>{"Inspect step parameterization, state magnitudes, dtype and kernel arithmetic before attributing it to “long memory.”"}</>],[<>{"Good fitting accuracy, weak held-out results"}</>,<>{"Recheck role boundaries, duplicates, task size and inductive bias before making the model larger."}</>],[<>{"A model forgets despite the write gate being closed"}</>,<>{"Is old-state decay still active?"}</>],[<>{"Results change with the evaluation algorithm"}</>,<>{"Compare a high-precision tiny reference, then isolate numerical order or implementation errors."}</>]]} />
+
+<Prose>{"Negative continuous decay rates and positive Δ give discrete magnitudes below one for these diagonal modes. Finite precision can still round a decay to 1 or underflow a very small contribution. Input writes, readout weights and nonlinear blocks can also amplify values. There is no universal “safe sequence length” for a dtype."}</Prose>
+
+<Prose>{"For products of many decays, dividing two cumulative products can create 0/0 after underflow. Working with log decays helps, but subtracting two large cumulative log sums can lose a small local difference. Stable segment-sum implementations accumulate the relevant local sums directly. The creator's SSD walkthrough explains why the form of an equivalent formula can matter numerically."}</Prose>
+
+<Prose>{"A recurrent deployment also needs a decision about gradients across chunk boundaries. Carrying a detached state preserves its forward value but stops gradient flow into earlier chunks. It is truncated training, not full backpropagation through the entire past."}</Prose>
+
+<Prose>{"The "}<a href={"https://github.com/state-spaces/mamba"}>{"official Mamba repository"}</a>{" contains full blocks and hardware-specific implementations. As inspected on 13 September 2026, its installation options distinguish the core package from optional compiled scan support. Follow the documented environment and selected revision when reproducing a kernel. The small CPU programs here do not claim to validate those kernels or a pretrained language model. A base language-model checkpoint is also a different artifact from an instruction-tuned assistant."}</Prose>
+
+<H2>{"Implementation pass: from scratch to the maintained scan and block"}</H2>
+
+<Prose>{"There are three useful levels of control. The tiny NumPy mechanisms expose every state update and serve as numerical references. The trainable PyTorch classifiers add differentiation and an actual fitting/evaluation protocol. The maintained package supplies optimized scans and full architecture blocks. Choose the lowest level needed to inspect or change the mechanism, then verify equivalence before replacing that piece with a faster one."}</Prose>
+
+<Prose>{"The scratch owners are explicit. "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/state_space_mechanisms.py"}>{"state_space_mechanisms.py"}</a>{" implements held-input/bilinear discretization, zero/nonzero-state recurrence, kernel generation, FFT convolution and SSD state/matrix/chunk calculations. "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py"}>{"trajectory_state_models.py"}</a>{" implements the trainable diagonal and selective mixers and their full fitting loop. Matrix exponential and linear solves reuse the earlier "}<a href={"/learn/path/full-curriculum/ordinary-differential-equations-linear-systems"}>{"ODE"}</a>{" and "}<a href={"/learn/path/full-curriculum/matrix-decompositions-svd-qr-cholesky-lu"}>{"Matrix Decompositions"}</a>{" mechanisms; the new owned operation is how these coefficients become sequence state updates."}</Prose>
+
+<Prose>{"The "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/state_space_library_bridge.py"}>{"state_space_library_bridge.py"}</a>{" supplies the ordinary Mamba package route. First it reuses the exact local "}<code>{"SelectiveMixer"}</code>{" weights and inputs, computes B,C,Δ and A once, and calls "}<code>{"selective_scan_fn"}</code>{". The local model uses "}<code>{"[batch,time,width]"}</code>{"; the scan API uses "}<code>{"[batch,width,time]"}</code>{". Variable B/C become "}<code>{"[batch,state,time]"}</code>{". Both implement "}<code>{"exp(ΔA)"}</code>{" retention and the stated "}<code>{"ΔBu"}</code>{" injection, and share D's direct path. Since Δ has already passed softplus, "}<code>{"delta_softplus=False"}</code>{" avoids applying it twice. There is no output gate in this comparison, so z is omitted. It compares output and input/parameter gradients under one fixed upstream tensor."}</Prose>
+
+<Prose>{"That mapping matters: feeding the exact held-input integral from §2 into this scan would define a different operator. Also, the current API's optional last-state output does not propagate its gradient through the fused backward. A loss on the output sequence and a loss on only that returned cache are not interchangeable training contracts. The "}<a href={"https://raw.githubusercontent.com/state-spaces/mamba/main/mamba_ssm/ops/selective_scan_interface.py"}>{"maintained scan source"}</a>{" was inspected on 22 September 2026 for these conventions."}</Prose>
+
+<Prose>{"The second part of the program constructs both ordinary "}<code>{"Mamba"}</code>{" and "}<code>{"Mamba2"}</code>{" blocks, uses a complete loss→backward→clip→AdamW step, then runs evaluation. These include projections and other block operations absent from our isolated recurrence. Accordingly, the example demonstrates normal package use without pretending its random complete-block output equals the small classifier. Read "}<a href={"https://github.com/state-spaces/mamba"}>{"the official installation and usage contract"}</a>{" before choosing a build: supported accelerator/compiler/kernel combinations matter. The supplied program deliberately requires a compatible CUDA installation and reports failure when unavailable; it does not silently replace a missing fused kernel with a purported measured GPU result. This optional example is written and source checked, "}<strong>{"not executed on GPU in this lesson’s verification"}</strong>{"."}</Prose>
+
+<StateSpaceProgram file="state_space_library_bridge.py" title="Read the ordinary Mamba scan and complete-block training route" />
+
+<Prose>{"For daily development, start from the exact CPU mechanisms and use the maintained fused scan after matching values and gradients on small controlled cases. The recurrent form carries O(BDN) state for batch B, width D and state N; the training reference's stored history can be larger. The local SSD matrix visualization is intentionally quadratic for inspection. The chunk algorithm avoids a sequence-wide dense matrix and handles a trailing partial chunk, but the current CPU teaching code is not a hardware-throughput claim. Full original S4 DPLR kernel engineering is a deeper specialized implementation, while this page completely supplies its declared diagonal layer, selective recurrence and SSD mechanisms."}</Prose>
+
+<Prose>{""}<strong>{"Changed-code task:"}</strong>{" add an initial matrix state to "}<code>{"ssd_chunked"}</code>{" and compare against "}<code>{"ssd_recurrent(..., initial=...)"}</code>{" for length 7 and chunk sizes 1, 3 and 8."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"The first carry must be the supplied state; every chunk's initial contribution multiplies that incoming carry by its within-chunk cumulative decay."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution and success criteria</summary>
+
+<Prose>{"Add an "}<code>{"initial=None"}</code>{" argument, initialize carry with a copied input matrix when provided and retain zero initialization otherwise. Keep "}<code>{"initial_part = cumprod(a)[:,None] * (C @ carry)"}</code>{" and the boundary update "}<code>{"carry = product * carry + own_final"}</code>{". The shape must be "}<code>{"[state_size,value_width]"}</code>{". Every chosen chunking should agree with the sequential recurrence, including the final one-position chunk at size3. Zero write does not imply zero output when the supplied initial state is nonzero. Compare that null separately to avoid incorrectly erasing useful memory."}</Prose>
+
+</details>
+
+<H2>{"9. Optional extensions: S5 and Mamba-3"}</H2>
+
+<Prose>{"This return visit changes one design choice at a time. S5 changes which input channels share a state. Mamba-3 changes the write approximation, the allowed rotation and the number of independent writes. Relate each change to the earlier picture before comparing model names."}</Prose>
+
+<H3>{"S5: one multi-input, multi-output state"}</H3>
+
+<Prose>{"A bank of H independent single-input state systems might store HN state coordinates and then mix their outputs. S5 instead develops a multi-input, multi-output system with one P-dimensional state:"}</Prose>
+
+<Prose>{"hₜ=Āhₜ₋₁+B̄uₜ,  yₜ=Chₜ+Duₜ,"}</Prose>
+
+<Prose>{"where B̄ is P×H and C is H×P. Inputs write into a shared state through learned projections. A suitable diagonal parameterization and associative scan provide the computation."}</Prose>
+
+<Prose>{"This distinction is about the shape and sharing of memory, not the invention of recurrence or parallel scan. S5 also connects initialization to the normal HiPPO representation. When intervals vary, discretization can account for them step by step; the scan can still compose the resulting affine maps. "}<a href={"https://arxiv.org/pdf/2208.04933"}>{"S5, §§3.1–3.4"}</a>{"."}</Prose>
+
+<H3>{"Mamba-3: three changes to inspect separately"}</H3>
+
+<Prose>{"Mamba-3, described in a March 2026 paper, extends this family through discretization, rotating state dynamics and richer input/output writes. The following mechanisms explain what changed without treating a new publication date as a performance guarantee. "}<a href={"https://arxiv.org/pdf/2603.15569"}>{"Mamba-3, §3"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Two endpoints in the write."}</strong>{" In §2 we held one input over an interval. If the input changes across the interval, both its previous and current contributions can inform a different integration rule. This gives a reason for adding a second write term before adding its symbols. An exponential-trapezoidal construction can use both the previous and current input contribution:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"h_t=\\alpha_t h_{t-1}+\\beta_tB_{t-1}x_{t-1}+\\gamma_tB_tx_t,"}</MathBlock></div>
+
+<Prose>{"with αₜ=exp(ΔₜAₜ), βₜ=(1−λₜ)Δₜαₜ and γₜ=λₜΔₜ. In the scalar demonstration, previous state 1, previous input 2, current input 6, B=1, α=.5, Δ=1 and λ=.5 give .5+.5+3=4. Setting λ=1 gives .5+6=6.5. Both are exact values of the stated discrete rule."}</Prose>
+
+<Prose>{"At λ=.5 the construction is an exponential trapezoidal rule under its assumptions; a freely learned λ does not automatically retain a second-order numerical approximation guarantee. The paper specifies regularity and λ=.5+O(Δ) for that claim. At a fresh sequence boundary, the previous-input term also needs an explicit initialization."}</Prose>
+
+<Prose>{""}<strong>{"Rotation as state tracking."}</strong>{" A real two-dimensional state can be rotated by"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"R(\\theta)=\\begin{bmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"Starting at [1,0], apply a π rotation for every input bit 1 and no rotation for bit 0. Bits [1,0,1,1] produce odd/even parity [1,1,0,1]. Purely positive scalar forgetting with zero input injection cannot flip a state's sign this way."}</Prose>
+
+<Prose>{"Complex modes are a compact representation of pairs of real coordinates with rotation and decay. This does not say every system with real-valued matrices lacks rotation: the earlier 2×2 oscillator is a real matrix too. The relevant distinction is the permitted transition structure."}</Prose>
+
+<Prose>{"Mamba-3 rewrites accumulated rotations as data-dependent rotations of the write/read coordinates, connecting to rotary-position ideas. Unlike ordinary fixed-frequency positional RoPE, these rotations depend on the sequence. Its full recurrence combines the rotated coordinates with the two-endpoint write."}</Prose>
+
+<Prose>{""}<strong>{"Higher-rank writes and reads."}</strong>{" In §6, one outer product wrote copies of one value vector into the state rows. Several such writes can add independent directions during the same step. In a head with N×P state, an outer-product write b vᵀ has rank at most one. Replace b∈Rᴺ and v∈Rᴾ with B∈R^(N×R) and X∈R^(P×R); the write BXᵀ can have rank up to R. A C∈R^(N×R) read produces CᵀS with shape R×P before subsequent combination."}</Prose>
+
+<Prose>{"For small R relative to N and P, more arithmetic can reuse the same retained N×P state. Whether this improves actual latency depends on memory traffic, tensor shapes and kernels. The paper's parameter-sharing scheme controls projection growth; simply multiplying every projection width by R is not its whole design."}</Prose>
+
+<MambaThreeFigure />
+
+<Prose>{"The complete architecture also adjusts normalization, learned B/C biases and the local convolution arrangement. Its experiments report particular language-model and state-tracking settings; they do not establish that these mechanisms beat every alternative on all continuous signals, hardware or deployment tasks."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice, explain and transfer"}</H2>
+
+<Prose>{"These exercises change the examples. Work through the arithmetic or design decision, then use the hints and explained solutions to diagnose the step you missed. The live labs remain available for free exploration."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Recover both output paths"}</H3>
+
+<Prose>{"Ā=.4, B̄=2, C=−1, D=.5, initial state h₋₁=3 and inputs [1,−2]. Find both states and outputs. Then predict the outputs if C is set to zero."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Update the state first. Compute Ch and Du separately before adding them."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"h₀=.4×3+2=3.2 and y₀=−3.2+.5=−2.7. Next h₁=.4×3.2−4=−2.72 and y₁=2.72−1=1.72. With C=0, outputs are simply .5u=[.5,−1], regardless of the evolving state. This is a useful direct-feedthrough check."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A missing initial condition"}</H3>
+
+<Prose>{"For Ā=.5,B̄=1,C=1,D=0, input [0,0,0] and h₋₁=8, a convolution-only implementation returns three zeros. Give the correct outputs and identify the missing term."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Zero input does not imply zero state. Apply Ā once before the first read."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"The outputs are [4,2,1]. The missing term is C Ā^(t+1)h₋₁. A zero-input test becomes a zero-output null only when the initial state and any biases/direct effects permit it."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Can a linear system remember a fixed delay?"}</H3>
+
+<Prose>{"Construct a four-state system that returns the input from three steps earlier. Apply it to [3,−1,4,2,8]. Why does this not solve the general “retain the most recent marked item across arbitrary gaps” task?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Write into the first coordinate and shift every coordinate to the next one. Read the last coordinate."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Use Ā with ones on its first subdiagonal and zeros elsewhere, B̄=[1,0,0,0]ᵀ, C=[0,0,0,1], D=0 and zero initial state. The result is [0,0,0,3,−1]. The delay is always three steps. A marker-dependent gap is not a fixed lag; the relevant selection must be supplied by a suitable nonlinear or input-dependent mechanism."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. An exact gate and a different injection"}</H3>
+
+<Prose>{"Let A=−1,B=1, Δ=ln 4, h_previous=2 and u=10. Find the exact held-input update. Then calculate the update using ΔB injection. Are the answers the same?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"exp(−ln 4)=1/4. Exact ZOH writes (1−1/4)u."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Exact ZOH gives .25×2+.75×10=8. The ΔB rule gives .5+10 ln 4≈14.362944. It is a different discrete operator here. The exact scalar gate is .75; calling the other injection “approximately exact” without considering Δ and A would conceal a substantial difference."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Read a two-step SSD state"}</H3>
+
+<Prose>{"Start at zero. Let a₀=.3,a₁=.2; b₀=[1,2], b₁=[−1,1]; c₀=[0,1],c₁=[2,1]; and scalar values v₀=3,v₁=4. Compute the two outputs by recurrence and by the influence coefficients."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"At step 1, the old input's coefficient is .2(c₁ᵀb₀). The current input's coefficient is c₁ᵀb₁."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"S₀=[3,6]ᵀ, so y₀=6. S₁=.2[3,6]ᵀ+4[−1,1]ᵀ=[−3.4,5.2]ᵀ and y₁=−1.6. The matrix calculation gives .2×4×3+(−1)×4=2.4−4=−1.6. A negative coefficient is valid; these are not softmax probabilities."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Choose a useful experiment before seeing its answer"}</H3>
+
+<Prose>{"The diagonal trajectory models reach their lowest validation loss at the final allowed epoch. Propose a follow-up that tests whether training budget is limiting, without repeatedly using the existing assessment set to select settings."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Separate model-selection evidence from final assessment. State budgets and seeds before the comparison."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Predeclare several training budgets and seeds, select among them using fitting/validation data, and reserve an untouched assessment source or a properly designed outer evaluation for the final decision. Keep preprocessing and duplicate grouping identical. Reusing the already-inspected assessment results as feedback would make them development evidence; acknowledge that change instead of calling each new result an untouched test. Longer training might help or overfit, so the protocol should allow either outcome."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Count a deployment state"}</H3>
+
+<Prose>{"A real-state model has 20 layers, width 128, state size 32 and two-byte state coordinates, processing batch 3. Count its recurrent state bytes and MiB. Name two memory costs excluded from this calculation."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Multiply batch, layers, width, state size and bytes. One MiB is 1,048,576 bytes."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"3×20×128×32×2=491,520 bytes=.46875 MiB. Parameters and temporary activations are excluded; a short-convolution cache or allocator workspace are other possible omissions. A complex64 state would use eight bytes per stored complex coordinate, not two."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Trace a changing oscillator"}</H3>
+
+<Prose>{"With state [1,0], no injection, no decay and rotation π/2 at each step, give the next four states. Explain why a positive scalar decay times the identity cannot produce this trajectory from the same initial state."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"A quarter-turn maps [x,y] to [−y,x]."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"The states are [0,1],[−1,0],[0,−1],[1,0]. Positive scalar multiplication preserves the vector's direction and cannot generate those quarter-turns. A real 2×2 rotation matrix can; complex notation is an equivalent compact representation, not a requirement to abandon real arithmetic."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Improve the real-data task for a stronger claim"}</H3>
+
+<Prose>{"You want to claim the movement classifier works on previously unseen people. Does the existing random row split answer that question? Specify the metadata and split you would need."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"The unit of generalization should determine which records stay together."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"No. We need performer identifiers and a protocol that keeps all recordings from an assessment performer outside fitting and model selection. Session identity may also matter, depending on the claim. Exact duplicate grouping remains necessary but does not replace person-level grouping. Since the retained dataset lacks those IDs, this stronger claim cannot be recovered merely by changing the random seed."}</Prose>
+
+</details>
+
+<Prose>{"You are ready to continue when you can explain the write/retain/read paths, derive a kernel with correct initial conditions, recognize when content dependence removes fixed convolution, and reconcile one SSD chunk boundary. Continue to "}<a href={"/learn/path/full-curriculum/rwkv-linear-attention-models?module=deep-learning-fundamentals"}>{"RWKV & Linear Attention Models"}</a>{", which builds a recurrent state through another weighted-memory construction."}</Prose></div></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and other ways to learn"}</H2>
+
+<Prose>{"Choose a route based on the part you want to understand more deeply. These deepen the explanations; none is required to follow the worked examples on this page."}</Prose>
+
+<ul><li>{""}<strong>{"A literate S4 implementation:"}</strong>{" "}<a href={"https://srush.github.io/annotated-s4/"}>{"Rush and Karamcheti, The Annotated S4"}</a>{". Its recurrent/convolutional correspondence and separate advanced implementation branch are useful after §3. This lesson's revision reviewed the tutorial's published source and its opening implementation route; it did not run the JAX/Flax project. Our own CPU programs and their recorded environments remain the reproducible route here."}</li></ul>
+
+<ul><li>{""}<strong>{"Continuous systems and the full structured kernel:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2111.00396"}>{"Gu, Goel and Ré, S4"}</a>{". Read §2 for conventions and discretization, then §3 for the computational reason behind normal-plus-low-rank structure. Follow our two-mode example first; the kernel proof is a deeper branch."}</li><li>{""}<strong>{"What memory coefficients mean:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2008.07669"}>{"Gu and colleagues, HiPPO"}</a>{". §§2–3 start from approximation under a measure and derive online updates. Read with the polynomial-reconstruction figure beside you; keep the 1/t factors in the scaled Legendre equation."}</li><li>{""}<strong>{"A more accessible diagonal implementation route:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2206.11893"}>{"Gu and colleagues, S4D"}</a>{". §3 separates discretization, kernel computation and real/complex choices; §4 explains why initialization is more than merely choosing stable eigenvalues."}</li><li>{""}<strong>{"Shared-state MIMO and scans:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2208.04933"}>{"Smith, Warrington and Linderman, S5"}</a>{", §3. Compare the P-dimensional shared state with a bank of independent channel states."}</li><li>{""}<strong>{"Selection and the actual block:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2312.00752"}>{"Gu and Dao, Mamba"}</a>{", §§3.1–3.6 and appendix C. The fixed-spacing versus selective-copy distinction is especially useful; compare the mathematical gate derivation with the separately linked reference scan."}</li><li>{""}<strong>{"Duality from two directions:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2405.21060"}>{"Dao and Gu, SSD/Mamba-2"}</a>{", §§5–7, and the creator's "}<a href={"https://tridao.me/blog/2024/mamba2-part1-model/"}>{"model article"}</a>{" and "}<a href={"https://tridao.me/blog/2024/mamba2-part3-algorithm/"}>{"algorithm article"}</a>{". The articles explain state shape and the four chunk steps with code. The algorithm article also discusses why its shortest pedagogical interchunk implementation is not the optimized work-efficient scan."}</li><li>{""}<strong>{"A spoken alternative with a transcript:"}</strong>{" "}<a href={"https://www.cognitiverevolution.ai/the-state-space-model-revolution-with-albert-gu/"}>{"Albert Gu's conversation on state-space models"}</a>{" includes an embedded video, chapter list and transcript. The state discussion around 30:59 and training-versus-inference discussion around 39:05–49:20 complement §§1,3 and 8; the Mamba-2 comparison follows. The lesson author read the relevant transcript and verified the host page, rather than claiming to have watched the recording. Treat its 2024 outlook as historical context."}</li><li>{""}<strong>{"The current family extension:"}</strong>{" "}<a href={"https://arxiv.org/pdf/2603.15569"}>{"Mamba-3"}</a>{", §§3.1–3.4. Read each new recurrence ingredient separately, then inspect the experimental conditions before interpreting the paper's reported gains."}</li><li>{""}<strong>{"Implementation source:"}</strong>{" "}<a href={"https://github.com/state-spaces/mamba"}>{"state-spaces/mamba"}</a>{" and its "}<a href={"https://raw.githubusercontent.com/state-spaces/mamba/main/mamba_ssm/ops/selective_scan_interface.py"}>{"selective scan reference"}</a>{". Use the current environment instructions for full kernels; the lesson's CPU reference remains a separate, reproducible teaching artifact."}</li><li>{""}<strong>{"Data and reproducible results:"}</strong>{" "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{", our "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/data-provenance.md"}>{"data provenance"}</a>{", "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/trajectory-results.json"}>{"recorded training results"}</a>{", "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/mechanism-results.json"}>{"mechanism calculations"}</a>{" and "}<a href={"/learn-code/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py"}>{"complete training program"}</a>{". These let you inspect the actual row roles, errors and calculations behind the local examples."}</li></ul></section>
+  </div>,
 };
-
-export default ssmContent;

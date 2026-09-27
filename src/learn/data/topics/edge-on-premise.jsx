@@ -887,9 +887,9 @@ Rapid iteration / prototype  | Cloud API              | No capex; model updates 
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Memory budget for a Jetson deployment</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Memory budget for a Jetson deployment</H3>
 
       <Prose>
         A Jetson AGX Orin with 64GB unified memory needs to run a 13B parameter model. Calculate the INT4 memory footprint of the model. The system also needs to hold a KV cache for 8 concurrent sessions, each with a 2,048-token context. Assuming FP16 KV cache with 40 transformer layers and 40 KV heads of dimension 128, how much memory does the KV cache add? Does the total fit in 64GB with 8GB reserved for the OS and application runtime?
@@ -924,9 +924,9 @@ print(f"Total: {total:.1f} GB — {'fits' if total <= 64 else 'DOES NOT FIT'} in
 # Total: 57.5 GB — fits in 64GB, but barely.
 # Mitigation: reduce to 4 sessions, or use INT8 KV cache (halves to 21.5 GB),
 # or reduce context to 1024 tokens per session (halves KV again to 10.75 GB).`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2 — Cloud vs edge latency crossover</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Cloud vs edge latency crossover</H3>
 
       <Prose>
         An industrial control system requires LLM inference for anomaly classification. Cloud inference RTT to the nearest region is 45ms; time-to-first-token on cloud is 120ms. The local edge server (Jetson AGX Orin) runs a 7B INT4 model with a time-to-first-token of 95ms and LAN latency of 3ms. At what cloud RTT does the cloud option become faster than the edge server? Is the edge server justified for this use case?
@@ -958,9 +958,9 @@ print(f"Edge wins when cloud RTT > {rtt_crossover}ms")
 # The edge server is clearly justified — 67ms advantage on every request.
 # For the industrial control use case, 98ms vs 165ms is the difference
 # between a sub-100ms response and a 165ms response — meaningful for real-time.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 3 — On-premise cluster GPU count</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — On-premise cluster GPU count</H3>
 
       <Prose>
         Your enterprise wants to serve a 70B model on-premise at 20 QPS, with an average of 3,500 tokens per request and a P99 latency SLA of 800ms. Using H100 SXM5 GPUs at 1,800 aggregate tokens per second per GPU and a target utilization of 0.70, how many GPUs are needed? How many 8-GPU nodes? What is the monthly cost at $2.50/GPU-hour (specialist cloud) vs purchasing at $30,000 per GPU?
@@ -998,9 +998,9 @@ print(f"Monthly amortized capex (3yr): \${capex_monthly:,.0f}")
 # => Purchasing outright is cheaper than leasing after 16 months.
 # At 20 QPS × 3500 tok × 86400 sec/day ≈ 6 billion tokens/day,
 # cloud API at $3/MTok output would cost ~\$18M/month — self-hosting wins easily.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 4 — Fleet model update risk window</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Fleet model update risk window</H3>
 
       <Prose>
         You have 8,000 edge servers deployed across retail locations. A new model version is ready to deploy. You can update 500 servers per day. During the rollout window, requests may hit either the old or new model version. If the old model has a 2% error rate on a critical task and the new model has a 0.5% error rate, what is the expected error rate across the fleet on day 4 of the rollout? How many days until 95% of requests hit the new model?
@@ -1036,9 +1036,9 @@ print(f"Error rate at completion: {fleet_error_rate(days_complete) * 100:.3f}%")
 # requires either: (1) user-stickiness routing so each session hits one version,
 # (2) a version header in responses so clients can detect the model version,
 # or (3) a maintenance window with instant fleet update at off-peak hours.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 5 — On-device economics at consumer scale</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — On-device economics at consumer scale</H3>
 
       <Prose>
         A consumer app ships with an on-device 3B INT4 model. The app has 5 million monthly active users who each make an average of 80 inference requests per day, each averaging 150 tokens output. Compare the total monthly output tokens against what it would cost to serve those requests via a cloud API at $5/MTok output. What is the monthly API cost avoided by on-device inference? At what user scale does the API cost avoided justify one additional ML engineer ($250K/yr fully-loaded) to maintain the on-device model pipeline?
@@ -1081,7 +1081,7 @@ print(f"Break-even engineer team: {be_engineers:.0f} engineers")
 # billions of dollars in monthly API costs. Maintaining the on-device
 # model pipeline is justified by essentially any realistic engineering team size.
 # Even at 100k MAU (50x smaller): \$180M/month avoided vs \$21k engineer cost.`}
-      </CodeBlock>
+      </CodeBlock></div></section>
 
     </div>
   ),

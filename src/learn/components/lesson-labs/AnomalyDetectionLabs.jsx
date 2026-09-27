@@ -73,8 +73,8 @@ export function IsolationLab() {
       <Table caption={`Expected corrected path and score, integrated exactly over every cut sequence to depth ${depthCap}`} headings={['position', 'value', 'expected corrected path', 'score']} rows={expectations.rows.map(row => [name(row.id), round(row.value.toNumber()), `${row.meanPath.toString()} ≈ ${round(row.meanPath.toNumber())}`, row.score === null ? 'undefined' : round(row.score, 6)])} rowClass={index => !expectations.constant && expectations.rows[index].id === expectations.shortest ? 'is-selected' : undefined} />
       <p className="ad-caption">These are expectations over the cut construction, not the output of any finite random forest. The score rescales a path: 0.71 is not a 71% chance of a fault. A corrected path equal to the normalizer gives exactly 0.5.</p>
     </>}
-    <details>
-      <summary>Follow one chosen sequence of cuts instead of the average</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section">
+      <h4 className="lesson-teaching-section__title">Follow one chosen sequence of cuts instead of the average</h4>
       <div className="ad-controls">
         <Field label="Query position">
           <select value={query} onChange={event => setQuery(Number(event.target.value))}>
@@ -104,7 +104,7 @@ export function IsolationLab() {
         2^(-{walk.pathLength.toString()} / {walk.normalizer.toString()}) = {walk.score === null ? 'undefined' : round(walk.score, 10)}.
         Stopping at a leaf of {walk.leaf.size} rows does not mean those rows were separated one by one, which is what c({walk.leaf.size}) = {correction(walk.leaf.size).toString()} corrects for.
       </p>
-    </details>
+    </section>
   </Investigation>;
 }
 

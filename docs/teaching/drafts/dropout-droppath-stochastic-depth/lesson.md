@@ -283,17 +283,39 @@ In the actual run, validation specimen source ID 299 is a digit 1 but the mean p
 
 For regression, spread of sampled prediction means omits observation noise. In a model that explicitly assumes Gaussian observation variance \(\tau^{-1}\), predictive variance includes that term plus variability of the means; \(\tau\) is precision, and \(\tau^{-1}\) is variance. Increasing \(T\) reduces Monte Carlo estimation noise, not model bias or all uncertainty.
 
+For a concrete regression mixture, let two equally weighted masks produce means 1 and 3, each with observation variance 0.25. The mean is 2. The variance of those two means is $[(1-2)^2+(3-2)^2]/2=1$, so the mixture's predictive variance is $1+0.25=1.25$. The divisor 2 describes this exact two-component mixture; it is not an unbiased sample-variance estimate. Dividing 1.25 by the number of passes would describe neither the future observation's spread nor this predictive mixture.
+
 A useful application is selecting examples for labeling: disagreement can suggest where another label might help. Another is routing ambiguous inputs for human review. Both require validating the acquisition/deferral policy on the deployment setting. They are possible uses of these quantities, not safety or coverage certificates.
 
 ## 8. Optional: choose a noise pattern for a reason
 
-Several related methods answer different questions:
+Several related methods answer different questions. Follow what is shared by each random decision before choosing a method.
 
-- **DropBlock** hides contiguous regions within feature maps. A \(3\times3\) blank region interrupts local redundant evidence differently from nine scattered zeros. Overlapping blocks and boundaries mean the seed probability for block centers is not simply the final fraction removed. Read the [original DropBlock paper](https://arxiv.org/abs/1810.12890) before implementing its sampling and normalization recipe.
-- **DropConnect** masks weights rather than activations. A missing activation removes its contribution to every recipient; missing individual weights can remove different connections to different recipients. [Wan et al.](https://proceedings.mlr.press/v28/wan13.html) develop that distinction.
-- **Zoneout** carries selected previous recurrent-state values forward instead of replacing them with zero. If the old state is 0.7 and a proposed update is 0.2, a preserve decision returns 0.7. It is a memory-preserving intervention across time, not ordinary hidden dropout under another name. [Zoneout](https://arxiv.org/abs/1606.01305).
-- **Shake-Shake** uses stochastic affine combinations of parallel branches; **ShakeDrop** develops a related residual regularizer with its own stabilization behavior. Their forward/backward recipes require separate study; arbitrary branch noise is not an interchangeable substitute. [Shake-Shake](https://arxiv.org/abs/1705.07485), [ShakeDrop](https://arxiv.org/abs/1802.02375).
-- **Gaussian/variational dropout** extends multiplicative noise and can learn noise parameters. Kingma et al.'s local reparameterization and Molchanov et al.'s sparsification are distinct developments from ordinary fixed-rate MC dropout. Additional parameter cost depends on whether noise parameters are shared or per weight; fixed Bernoulli dropout does not double model parameters. [Local reparameterization](https://arxiv.org/abs/1506.02557), [variational sparsification](https://arxiv.org/abs/1701.05369).
+### Hide a neighborhood, or hide individual connections?
+
+**DropBlock** hides contiguous regions within feature maps. Neighboring activations can encode similar evidence, so scattered zeros can leave many substitutes. Removing a whole local patch asks the network to use evidence elsewhere. The footprint comparison below isolates this distinction.
+
+DropBlock samples centers and expands them into blocks. Overlap and boundaries mean the center probability is not the final fraction removed. Its normalization also accounts for retained positions. Read the [original paper, Figure 1 and Algorithm 1](https://proceedings.neurips.cc/paper/2018/file/7edcfb2d8f6a659ef4cd1e6c9b6d7079-Paper.pdf) for the sampling recipe and its assumptions; a manually drawn block is not a complete implementation.
+
+**DropConnect** masks weights rather than activations. A missing activation removes its contribution to every recipient; missing individual weights can remove different connections to different recipients. The effective matrix makes this difference visible.
+
+[Wan et al., section 2.2](https://proceedings.mlr.press/v28/wan13.pdf) develops the connection-mask model and how to estimate its predictions. The inverted scaling in our comparison is an explicit teaching convention, not a claim about the original paper's inference approximation.
+
+### Preserve an old state, or perturb a branch mixture?
+
+**Zoneout** carries selected previous recurrent-state values forward instead of replacing them with zero. If the old state is 0.7 and a proposed update is 0.2, a preserve decision returns 0.7. It is a memory-preserving intervention across time, not ordinary hidden dropout under another name. [Zoneout](https://arxiv.org/abs/1606.01305).
+
+**Shake-Shake** blends two residual branches with a random coefficient. For branch outputs 1 and 3 and forward coefficient 0.25, the correction is $0.25(1)+0.75(3)=2.5$. Its original training procedure samples another coefficient for the backward pass: with 0.75 and upstream gradient 1, the branch gradients are 0.75 and 0.25. Those are deliberately different from differentiating the fixed forward mixture, which would give 0.25 and 0.75. Test-time coefficients are 0.5. This explains why simply adding a random multiplier with ordinary automatic differentiation does not reproduce the full procedure. [Shake-Shake, sections 1.2–1.3](https://arxiv.org/pdf/1705.07485).
+
+**ShakeDrop** develops a related residual regularizer with a different forward/backward recipe and stabilization behavior. It deserves its own implementation study; arbitrary branch noise is not interchangeable with it. [ShakeDrop](https://arxiv.org/abs/1802.02375).
+
+### Replace binary noise with a distribution you can differentiate through
+
+**Gaussian dropout** uses continuous multiplicative noise; **variational dropout** can learn noise parameters. Local reparameterization answers a computational question inside such models: must we draw every noisy weight separately for every example, or can we directly draw the activation those weights produce?
+
+For independent Gaussian weights, a linear combination is Gaussian. Compute its mean by a weighted sum and its variance by a sum of squared-input-weighted variances. Then sample that activation directly. The two routes below agree on a single example's distribution.
+
+This is a way to estimate a factorized expected-loss objective efficiently, not a claim that all batchwise randomness is identical. [Kingma et al., section 2.3 and equation 6](https://arxiv.org/pdf/1506.02557) derives the local moments and discusses gradient variance. [Molchanov et al.'s variational sparsification](https://arxiv.org/abs/1701.05369) is a distinct development. Parameter cost depends on whether noise parameters are shared or per weight; fixed Bernoulli dropout does not double model parameters.
 
 Attention probability dropout offers another instructive preview. A normalized row \([0.25,0.75]\), mask \([1,0]\) and \(q=0.5\) becomes \([0.5,0]\), whose sum is 0.5. The operation preserves each weight's expectation, not the row sum on every pass. Renormalizing afterward defines a different operation. The attention lesson will explain the values being mixed; the masking calculation already shows why a sampled result need not be a convex average.
 

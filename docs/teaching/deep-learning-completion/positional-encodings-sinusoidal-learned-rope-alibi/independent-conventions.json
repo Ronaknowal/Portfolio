@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "comparisons": 79,
+  "checks": [
+    "Independent2×2 trigonometric mapping checks half-split inverse and every partial-rotation pair choice",
+    "XPos amplitude product/common-shift invariance versus exp-log and cosine relative-angle identities; vector norms intentionally change"
+  ]
+}

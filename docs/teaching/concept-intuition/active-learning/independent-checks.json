@@ -1,0 +1,45 @@
+{
+  "topicId": "active-learning",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:23:08.833Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/active-learning.jsx",
+    "src/learn/components/lesson-labs/ActiveLearningIntuition.jsx",
+    "src/learn/components/lesson-labs/active-learning-intuition.css",
+    "docs/teaching/drafts/active-learning/lesson.md",
+    "scripts/build-active-learning-lesson.py",
+    "docs/teaching/concept-intuition/active-learning/independent-review.md",
+    "scripts/review-probabilistic-learning-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/active-learning.jsx": "b094df7c85750b32629f4a896a95d1e93913a2fe8099e2ae2753cb45cb4ecd9d",
+    "src/learn/components/lesson-labs/ActiveLearningIntuition.jsx": "2ab31ee678da00b05b566b862a3c21442d038d1ab21d5293f7d97b80289ba18f",
+    "src/learn/components/lesson-labs/active-learning-intuition.css": "6133e74096e18879e4a6e5d853506a58bcf2087e84e7a8a4564820e64dd3dc35",
+    "docs/teaching/drafts/active-learning/lesson.md": "899da37839c543701d0d58edb5ef7b54006f3d99958c62823280d9fcf8c4c446",
+    "scripts/build-active-learning-lesson.py": "517b1d2b89f28df41025995ae802ca7a35ed908f974974374424627f49aec4b2",
+    "docs/teaching/concept-intuition/active-learning/independent-review.md": "ddf7393313d6dfd06748ce4e1c84a5149e5b2a660321e076277649783559d1da",
+    "scripts/review-probabilistic-learning-intuition.mjs": "a49b42abfdb91cae81d578068628788f50b5b4f6e825ddca795e29ff19b4f106"
+  },
+  "checks": [
+    {
+      "name": "Three-variable covariance validity and target-specific acquisition reversal",
+      "status": "passed"
+    },
+    {
+      "name": "New probability/features preserve gradient-distance scaling",
+      "status": "passed"
+    },
+    {
+      "name": "Changed nonuniform query probabilities recover fixed-model uniform risk",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/active-learning/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new model-fitting claim."
+}

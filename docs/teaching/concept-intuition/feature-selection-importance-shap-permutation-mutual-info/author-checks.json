@@ -1,0 +1,41 @@
+{
+  "topicId": "feature-selection-importance-shap-permutation-mutual-info",
+  "reviewedAt": "2026-09-26T14:41:49.818Z",
+  "sourceFiles": [
+    "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx",
+    "docs/teaching/concept-intuition/feature-selection-importance-shap-permutation-mutual-info/review.md",
+    "scripts/verify-model-selection-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx": "0fabbf0a48248c7af4bd7a4f7b88fa9dc18cbee7a5bf9003214c47f3d2dc82fb",
+    "docs/teaching/concept-intuition/feature-selection-importance-shap-permutation-mutual-info/review.md": "de10073e1f77e1e1175628b324c981afd74c2bb9e307384b55f92eb43cd960aa",
+    "scripts/verify-model-selection-sequence-intuition.mjs": "aed7d76adb84de450a55418b72b1019c2ce39cf6b947993ec93d15802a365f92"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/feature-selection-importance-shap-permutation-mutual-info/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Node and globally weighted Gini gain",
+      "status": "passed"
+    },
+    {
+      "name": "Predecessor-set weights enumerated from six orders",
+      "status": "passed"
+    },
+    {
+      "name": "Grouped versus summed Shapley arrival counts",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing models, native programs, datasets and run outputs retained; no fresh native-fit campaign claimed.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

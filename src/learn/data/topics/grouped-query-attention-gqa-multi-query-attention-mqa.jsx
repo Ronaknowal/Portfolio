@@ -1,909 +1,563 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Generated from the complete prepared manuscript by scripts/generate-grouped-query-lesson.mjs.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements';
+import { GqaCacheTimeline, GqaWiring, GqaReadLab, GqaMaskLab, GqaBudgetLab, GqaConversionLab, GqaForecastLab, GqaGradientFigure, GqaProgram, GqaTrainingHistory } from '../../components/lesson-labs/GroupedQueryLabs';
+import { GqaCompactWriteDiagram, GqaOwnershipDiagram, GqaDistributedDiagram } from '../../components/lesson-labs/GroupedQueryDiagrams.jsx';
+import '../../components/lesson-labs/neural-lesson-neutral.css';
+const lesson = { title: 'Grouped-Query Attention (GQA) & Multi-Query Attention (MQA)', readTime: '~65 min read + 90 min practice', content: () => <div className="gqa-lesson neural-lesson neural-lesson-neutral">
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit Q/K/V, query-to-KV grouping, cache dimensions, offset masks and supported causal input prefixes. Show each reader, shared K/V record, weighted sum, exact byte/MAC budgets and compact cache outputs immediately. Compare equal-head versus unequal-head regrouping. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose grouping by memory and functional tradeoffs, keeping payload arithmetic separate from measured latency and model quality."}</Prose>
 
-const gqaMqaContent = {
-  title: "Grouped-Query Attention (GQA) & Multi-Query Attention (MQA)",
-  readTime: "~35 min",
-  content: () => (
-    <div>
+<Prose>{"A model predicting the next word repeatedly reads what it has already seen. Several attention heads can ask different questions about that history. Must each head keep its own separate description of every earlier token?"}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{"Grouped-query attention lets several query heads read the same keys and values. Multi-query attention shares one key/value head across all query heads. The important distinction is between "}<strong>{"how many different reads we perform"}</strong>{" and "}<strong>{"how many different representations we store"}</strong>{". Sharing the stored representation can reduce the growing inference cache while retaining several distinct attention distributions."}</Prose>
 
-      <Prose>
-        The Transformer that Vaswani et al. published in 2017 had a beautiful and inconvenient property: at inference time, every autoregressive decoding step had to carry forward a growing memory — the <em>KV cache</em> — of all keys and values computed for every prior token, at every layer, in every head. Attention is exact only because the query at position {"t"} can see {"every"} prior key-value pair. Training pays this cost once per batch in parallel; inference pays it once per new token, serially, and the cache grows linearly with the output length. For a 2017-vintage encoder-decoder translating a 100-token sentence, the total memory was a handful of megabytes. By 2024, when Anthropic and OpenAI were serving 70-billion-parameter models with 128k context windows to thousands of concurrent users, the KV cache had become — not the model weights, not the activations during a forward pass, not the softmax in attention, but the <em>cache</em> — the dominant consumer of GPU memory on every single token of every single request.
-      </Prose>
+<Prose>{"The "}<a href={"/learn/path/full-curriculum/positional-encodings-sinusoidal-learned-rope-alibi?module=deep-learning-fundamentals"}>{"previous lesson on positional encodings"}</a>{" explained where positions enter those representations. Here we trace the actual grouped computation, build a compact causal cache and convert a small trained model. Our real example forecasts the next point of a recorded hand movement; it makes the known-prefix versus generated-future distinction visible without downloading a language model."}</Prose>
 
-      <Prose>
-        The arithmetic is blunt. A single token in a modern LLM adds, to the KV cache, {"2 · n_{kv\\_heads} · d_h · n_{layers}"} bytes of fp16 per inference stream. For Llama-2 70B, a stock Multi-Head Attention (MHA) configuration would store {"2 · 64 · 128 · 80 · 2 = 2{,}621{,}440"} bytes {"="} 2.5 MB per token. A single 32k-token conversation therefore needs {"2.5 · 32768 / 1000 ≈ 82 GB"} of KV cache — which exceeds the entire memory budget of an 80GB H100 before the model weights even arrive. Serving more than one concurrent session at 32k context becomes impossible without either an exotic memory hierarchy or a structural architectural change. The autoregressive transformer had shipped with a latent inference-time bottleneck that the training-time formulation had simply not exposed.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow §§1–6 and exercises 1–5. You will be able to calculate a grouped head's output, implement correct caching, explain the storage savings and assess a conversion experiment. The deeper route in §7 develops gradients, representation constraints and serving tradeoffs; exercises 6–9 extend those ideas. The diagrams and short arithmetic examples belong alongside their explanations, not in a separate optional gallery."}</Prose>
 
-      <Prose>
-        Noam Shazeer saw this in 2019. "Fast Transformer Decoding: One Write-Head is All You Need" (arXiv:1911.02150) is a six-page technote with the entire thesis in the title: keep the query heads, but let <em>all of them share a single key head and a single value head</em>. Multi-Query Attention (MQA) shrinks the KV cache by a factor of {"n_{heads}"} — typically 8 to 64 — at the cost of some representational capacity in the key/value side. Shazeer's experiments on translation and language modeling showed a ~1% quality loss and a large inference speedup. At the time, this was an interesting idea for research deployments and not obviously worth the quality hit. PaLM (Chowdhery et al. 2022) and Falcon adopted MQA; most production models did not.
-      </Prose>
+<H2>{"1. The growing memory behind one prediction"}</H2>
 
-      <Prose>
-        By 2023, the arithmetic had become unignorable and a middle ground was sorely needed. Joshua Ainslie and coauthors at Google Research published "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints" at EMNLP 2023 (arXiv:2305.13245). Grouped-Query Attention (GQA) introduces a single hyperparameter, {"n_{kv\\_heads}"}, that interpolates between MHA ({"n_{kv\\_heads} = n_{heads}"}) and MQA ({"n_{kv\\_heads} = 1"}). With {"n_{kv\\_heads} = 8"} on a 64-Q-head model, the KV cache shrinks by {"8×"}, the quality loss relative to MHA shrinks to essentially zero on standard benchmarks, and the paper's second contribution — an <em>uptraining</em> recipe that initializes GQA key/value heads from averaged MHA heads and continues training at a fraction of the original compute budget — made it practical to <em>convert existing MHA checkpoints</em> rather than retraining from scratch. The method landed in Llama-2 70B (64 Q heads, 8 KV heads, {"g = 8"}) a few months later.
-      </Prose>
+<H3>{"Read the history without recomputing it"}</H3>
 
-      <Prose>
-        Everything you use in 2026 is a descendant of this line of work. Llama-2 70B, Llama-3 (all sizes), Mistral 7B, Mixtral 8x7B, Qwen2, DeepSeek (before DeepSeek-V2's MLA), and — based on inference-throughput patterns and the architectural disclosures that have leaked or been confirmed — Gemini, GPT-4, Claude, and every major commercial frontier model. Whenever someone says "this model has 64 attention heads but 8 KV heads," they are describing GQA with {"g = 8"}. The modern stack — FlashAttention-2+ (Dao 2023, arXiv:2307.08691), vLLM's PagedAttention (Kwon et al. 2023, arXiv:2309.06180), TensorRT-LLM, SGLang — has native, optimized kernels for GQA because it is the default assumption of every serving system shipped in the last two years.
-      </Prose>
+<Prose>{"Recall "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention"}</a>{": a query is compared with keys, the resulting scores are normalized into weights, and those weights mix values. In a causal decoder, the current position may read itself and preceding positions. Later inputs are unavailable."}</Prose>
 
-      <Callout accent="gold">
-        The one-line summary: MHA trains well but wastes KV bandwidth at inference. MQA saves the bandwidth but loses quality. GQA is the Pareto-optimal interior point — pick a small number of KV heads, share each across a group of Q heads, match MHA quality, inherit MQA-scale memory savings. Every frontier model larger than ~13B parameters released since mid-2023 uses GQA.
-      </Callout>
+<Prose>{"Suppose a decoder has already processed positions 0–31. It has computed their keys and values at every layer. When position 32 arrives, earlier causal hidden states do not need to change under a fixed model and position rule: none depended on the new future point. Store those past K/V tensors, project the new input once, append its K/V, and use the new query to read the enlarged history. This stored state is the "}<strong>{"KV cache"}</strong>{"."}</Prose>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{"Why do we generally not cache old queries? The next output uses a new query. The keys and values are the old information it reads. Old queries are no longer needed for this ordinary incremental attention step. Other algorithms can store additional state, but that does not alter this basic dependency."}</Prose>
 
-      <H3>2.1 What each head actually does</H3>
+<GqaCacheTimeline />
 
-      <Prose>
-        A multi-head attention layer with {"h"} heads does the following: project the input into {"h"} separate query spaces, {"h"} separate key spaces, and {"h"} separate value spaces (each of dimension {"d_h = d_{model} / h"}), run scaled dot-product attention in each head independently, and concatenate the {"h"} outputs back into a {"d_{model}"}-dimensional vector. The intuition Vaswani et al. gave for multiple heads was that different heads could learn different <em>types</em> of relationships — one head tracks syntactic dependencies, another resolves coreference, another attends to content words. In practice, probing studies have found that this is partially true and partially overstated: heads within a layer often learn overlapping patterns, and many heads can be pruned at inference time without meaningful quality loss (Michel, Levy, Neubig 2019, arXiv:1905.10650).
-      </Prose>
+<H3>{"Prefill and decode are different workloads"}</H3>
 
-      <Prose>
-        That second observation — that heads carry less unique information than their count suggests — is the foundation of MQA and GQA. If many of the {"h"} key/value heads are redundant, then why not collapse them? The query side is still useful at full resolution because the query is what selects which memory to read. The key/value side is a memory store, and a smaller, well-trained memory can be almost as informative as a larger redundant one.
-      </Prose>
+<Prose>{"The prompt or observed prefix is already known. Its positions can be processed together with a causal mask; this is "}<strong>{"prefill"}</strong>{". During generation, a newly predicted word or point becomes the input for a later prediction, so there is a sequential dependency. This is "}<strong>{"decode"}</strong>{". A real decoder can batch independent requests and can verify proposed chunks, but it must preserve the relevant information dependencies."}</Prose>
 
-      <H3>2.2 MHA, MQA, GQA side by side</H3>
+<Prose>{"With many known queries, the same K/V block can contribute to many calculations while resident near the arithmetic units. With one new query per request, repeatedly moving the growing history from device memory can be costly compared with the work done on it. This is the bandwidth motivation behind "}<a href={"https://arxiv.org/pdf/1911.02150"}>{"Shazeer's multi-query attention paper"}</a>{". It is not a claim that KV reads dominate every model, batch size, sequence length or device. Weight reads, feedforward arithmetic, communication and scheduling also matter."}</Prose>
 
-      <Prose>
-        All three variants share the same {"Q, K, V, softmax, O"} pipeline. The only knob that changes is how many distinct key and value heads are materialized:
-      </Prose>
+<Prose>{"Sharing K/V heads addresses the "}<strong>{"head axis"}</strong>{" of this history. It does not by itself remove old token positions, compress the sequence into a fixed recurrent state or change the causal mask."}</Prose>
 
-      <TokenStream
-        label="Per-head layout (example with h=8)"
-        tokens={[
-          { label: "MHA: Q×8  K×8  V×8",       color: "#60a5fa" },
-          { label: "GQA g=4: Q×8  K×4  V×4",   color: colors.gold },
-          { label: "GQA g=2: Q×8  K×2  V×2",   color: colors.gold },
-          { label: "MQA: Q×8  K×1  V×1",       color: colors.green },
-        ]}
-      />
+<H2>{"2. Several questions, fewer stored descriptions"}</H2>
 
-      <Prose>
-        In MHA, each of the {"h"} query heads gets its own dedicated key head and value head — a one-to-one pairing. In MQA, all {"h"} query heads share a single key head and a single value head — an {"h"}-to-one pairing. In GQA with {"g"} KV heads, the {"h"} query heads are partitioned into {"g"} groups of size {"h/g"}, and each group shares one KV head — an {"h/g"}-to-one pairing within each group. MHA and MQA are the two extremes of this spectrum ({"g = h"} and {"g = 1"} respectively); GQA occupies the interior.
-      </Prose>
+<H3>{"Use names that cannot swap meanings"}</H3>
 
-      <H3>2.3 Why KV memory — not parameter count — is the problem</H3>
+<Prose>{"We will use:"}</Prose>
 
-      <Prose>
-        It is tempting to read the KV-head collapse as a parameter-reduction trick, but that is not the point. Even in MHA, the K/V projection weights {"W_K, W_V"} together occupy only {"2 · d_{model}^2"} parameters per layer, which is a fraction of a percent of the whole model. Training memory is dominated by activations and optimizer state; weights are an afterthought. The real bottleneck shows up only at <em>inference</em>, and only when the cache grows. The cache stores, for every token, for every layer, for every KV head, a vector of dimension {"d_h"}. The total is {"2 · L · n_{kv\\_heads} · d_h · n_{layers}"} bytes per inference stream — and this grows unboundedly with {"L"} while the weights stay fixed. Collapsing 64 KV heads to 8 drops the cache by {"8×"}. Collapsing 64 to 1 drops it by {"64×"}.
-      </Prose>
+<NeuralTable caption={"Use names that cannot swap meanings"} headers={[<>{"Symbol"}</>,<>{"Meaning"}</>]} rows={[[<>{""}<InlineMath>{"H_q"}</InlineMath>{""}</>,<>{"Number of query heads"}</>],[<>{""}<InlineMath>{"H_{kv}"}</InlineMath>{""}</>,<>{"Number of distinct key heads and value heads"}</>],[<>{""}<InlineMath>{"R=H_q/H_{kv}"}</InlineMath>{""}</>,<>{"Number of query heads sharing each K/V head"}</>],[<>{""}<InlineMath>{"d_k"}</InlineMath>{""}</>,<>{"Coordinate width of one query/key head"}</>],[<>{""}<InlineMath>{"d_v"}</InlineMath>{""}</>,<>{"Coordinate width of one value head"}</>],[<>{""}<InlineMath>{"D"}</InlineMath>{""}</>,<>{"Width of the model's input/output rows"}</>]]} />
 
-      <H3>2.4 The quality-vs-memory Pareto</H3>
+<Prose>{"The common equal-group construction requires positive head counts with "}<InlineMath>{"H_q"}</InlineMath>{" divisible by "}<InlineMath>{"H_{kv}"}</InlineMath>{". It also uses the same K-head and V-head count. Query and key widths must match for their dot product; value width can differ. A frequent architecture chooses "}<InlineMath>{"d_k=d_v=D/H_q"}</InlineMath>{", but the operator itself does not require this equality."}</Prose>
 
-      <Prose>
-        Ainslie et al. (2023) ran the ablation everyone wanted to see. On the T5-XXL (11B) checkpoint, across a basket of benchmarks (MMLU-style, summarization, translation, reading comprehension), the average performance as a function of {"n_{kv\\_heads}"} is flat from {"n_{kv\\_heads} = n_{heads}"} down to {"n_{kv\\_heads} = 8"}, and drops noticeably only as {"n_{kv\\_heads}"} approaches 1. The MQA endpoint ({"n_{kv\\_heads} = 1"}) costs roughly 1 point of average benchmark score; GQA with {"g = 8"} costs essentially nothing. The memory savings, meanwhile, are the same {"8×"} between MHA and GQA {"g=8"} as between MHA and MQA at that ratio. {"g = 8"} is the Pareto sweet spot, and it is why every production GQA model on the market picked exactly that value.
-      </Prose>
+<Prose>{"For eight query heads:"}</Prose>
 
-      <H3>2.5 Why Q heads stay at full resolution</H3>
+<NeuralTable caption={"Use names that cannot swap meanings"} headers={[<>{"Mechanism"}</>,<>{""}<InlineMath>{"H_q"}</InlineMath>{""}</>,<>{""}<InlineMath>{"H_{kv}"}</InlineMath>{""}</>,<>{""}<InlineMath>{"R"}</InlineMath>{""}</>,<>{"Query-head to KV-head mapping"}</>]} rows={[[<>{"Multi-head attention, MHA"}</>,<>{"8"}</>,<>{"8"}</>,<>{"1"}</>,<>{"0,1,2,3,4,5,6,7"}</>],[<>{"Grouped-query attention, GQA"}</>,<>{"8"}</>,<>{"4"}</>,<>{"2"}</>,<>{"0,0,1,1,2,2,3,3"}</>],[<>{"More sharing"}</>,<>{"8"}</>,<>{"2"}</>,<>{"4"}</>,<>{"0,0,0,0,1,1,1,1"}</>],[<>{"Multi-query attention, MQA"}</>,<>{"8"}</>,<>{"1"}</>,<>{"8"}</>,<>{"0,0,0,0,0,0,0,0"}</>]]} />
 
-      <Prose>
-        If the KV heads can be collapsed, why not the Q heads too? Two reasons. First, the query heads are what select the information: different queries at the same token position pose different "what is relevant?" questions, and collapsing them would collapse the diversity of <em>reads</em>, not the redundancy of <em>stored memory</em>. Second, the Q heads do not contribute to the KV cache. The query is recomputed for every new token in the decode loop; it is not stored. Shrinking Q heads would reduce parameter count but not KV-cache memory, which is the bottleneck. Keeping Q at full resolution and collapsing only KV is therefore the precise intervention that targets the bottleneck without sacrificing the read-side expressiveness.
-      </Prose>
+<Prose>{"In "}<a href={"https://arxiv.org/html/2305.13245v3#S2.SS2"}>{"Ainslie et al.'s notation"}</a>{", “GQA-8” means "}<strong>{"eight KV groups"}</strong>{", not eight queries per group. A model with 32 queries and 8 KV heads has group size 4. A model with 64 queries and 8 KV heads has group size 8. Both have eight KV groups. Keeping these numbers separate prevents several apparent contradictions in model descriptions."}</Prose>
 
-      <Callout accent="gold">
-        Intuitive analogy: MHA is a library where every reader ({"Q"}) has their own private set of bookshelves ({"K, V"}). MQA is a library where every reader shares a single shared bookshelf. GQA is a library where readers are grouped by interest — eight readers per shelf — and each group has its own. The readers are still individually expressive; the storage is simply deduplicated.
-      </Callout>
+<H3>{"A shared key does not mean a shared question"}</H3>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"Imagine two readers consulting the same indexed records. One asks about the beginning of a movement; another asks about its most recent direction. They can assign different importance to the same records. The analogy describes shared information, not a guarantee that a particular head learns a human-named role."}</Prose>
 
-      <H3>3.1 The unified attention equation</H3>
+<Prose>{"In equations, the keys and values are shared, but "}<InlineMath>{"q_0"}</InlineMath>{" and "}<InlineMath>{"q_1"}</InlineMath>{" can differ. Their dot products, softmax weights and mixed outputs can therefore differ. MQA with eight query heads still produces eight head outputs. It is not single-head attention with a new name."}</Prose>
 
-      <Prose>
-        Write the standard Transformer per-layer attention. Let {"X ∈ ℝ^{B×T×d_{model}}"} be the input, {"h = n_{heads}"} the number of query heads, {"g = n_{kv\\_heads}"} the number of key/value heads (with {"h"} divisible by {"g"}), and {"d_h = d_{model} / h"} the per-head dimension. The group size — how many Q heads share each KV head — is {"s = h/g"}.
-      </Prose>
+<GqaWiring />
 
-      <MathBlock>{"Q = X W_Q \\in \\mathbb{R}^{B \\times T \\times h \\cdot d_h}, \\quad K = X W_K \\in \\mathbb{R}^{B \\times T \\times g \\cdot d_h}, \\quad V = X W_V \\in \\mathbb{R}^{B \\times T \\times g \\cdot d_h}"}</MathBlock>
+<Prose>{"Contiguous groups are a layout convention. An interleaved assignment can define a valid architecture if training, weights and inference consistently use it. Swapping from contiguous to interleaved routing while retaining a checkpoint's unchanged parameters generally changes its function. That is the bug—not a theorem that every noncontiguous grouping is intrinsically inferior."}</Prose>
 
-      <Prose>
-        Note the asymmetry in output dimension: {"W_Q"} projects to {"h · d_h = d_{model}"} features, but {"W_K"} and {"W_V"} project to the <em>smaller</em> {"g · d_h"}. When {"g = h"} this is MHA and the three projections have the same shape; when {"g = 1"} this is MQA and {"W_K, W_V"} shrink to a single {"d_h"}-vector output; intermediate {"g"} is GQA.
-      </Prose>
+<H2>{"3. Calculate the grouped operation"}</H2>
 
-      <Prose>
-        Reshape into heads, transpose for batched matmul:
-      </Prose>
+<H3>{"From projections to head outputs"}</H3>
 
-      <MathBlock>{"\\hat{Q} \\in \\mathbb{R}^{B \\times h \\times T \\times d_h}, \\quad \\hat{K} \\in \\mathbb{R}^{B \\times g \\times T \\times d_h}, \\quad \\hat{V} \\in \\mathbb{R}^{B \\times g \\times T \\times d_h}"}</MathBlock>
+<Prose>{"Let the query inputs have "}<InlineMath>{"T"}</InlineMath>{" rows, memory inputs have "}<InlineMath>{"S"}</InlineMath>{" rows and batch size be "}<InlineMath>{"B"}</InlineMath>{". In full self-attention these can be the same input; in an incremental step "}<InlineMath>{"T"}</InlineMath>{" may be 1 while "}<InlineMath>{"S"}</InlineMath>{" includes the prefix. After learned projections and head reshaping:"}</Prose>
 
-      <Prose>
-        For the attention computation, each Q head must be paired with its corresponding KV head. In GQA, Q heads {"\\{s \\cdot j, s \\cdot j + 1, \\ldots, s \\cdot j + s - 1\\}"} all pair with KV head {"j"}. The implementation trick is to <em>expand</em> {"\\hat{K}, \\hat{V}"} by repeating each of the {"g"} heads {"s"} times along the head dimension, producing tensors of shape {"B × h × T × d_h"} that line up one-to-one with {"\\hat{Q}"}. This is exactly what {"torch.repeat_interleave(dim=1)"} does. After expansion, attention is computed identically to MHA:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"Q\\in\\mathbb R^{B\\times H_q\\times T\\times d_k},\\quad\nK\\in\\mathbb R^{B\\times H_{kv}\\times S\\times d_k},\\quad\nV\\in\\mathbb R^{B\\times H_{kv}\\times S\\times d_v}."}</MathBlock></div>
 
-      <MathBlock>{"\\text{Attn}(Q, K, V) = \\mathrm{softmax}\\!\\left(\\frac{\\hat{Q} \\hat{K}^\\top}{\\sqrt{d_h}}\\right) \\hat{V}"}</MathBlock>
+<Prose>{"Under the contiguous convention, query head "}<InlineMath>{"h"}</InlineMath>{" reads memory head "}<InlineMath>{"g(h)=\\lfloor h/R\\rfloor"}</InlineMath>{". Its score and output are"}</Prose>
 
-      <H3>3.2 KV cache memory</H3>
+<div className="neural-equation"><MathBlock>{"s_{h,t,j}=\\frac{q_{h,t}^{\\top}k_{g(h),j}}{\\sqrt{d_k}}+b_{h,t,j},\\quad\na_{h,t,:}=\\operatorname{softmax}_{\\text{legal keys}}(s_{h,t,:}),\\quad\no_{h,t}=\\sum_j a_{h,t,j}v_{g(h),j}."}</MathBlock></div>
 
-      <Prose>
-        At inference, the KV cache stores {"\\hat{K}"} and {"\\hat{V}"} — crucially, the <em>unexpanded</em> versions with only {"g"} heads, not {"h"}. The expansion is done just-in-time during attention computation and does not multiply the cache size.
-      </Prose>
+<Prose>{"Here "}<InlineMath>{"b"}</InlineMath>{" may contain an appropriate position bias. An illegal key is excluded, conventionally by a score of negative infinity before softmax. Setting an illegal score to zero does not exclude it: its exponential would be 1."}</Prose>
 
-      <MathBlock>{"\\text{KV bytes}(L) = 2 \\cdot L \\cdot g \\cdot d_h \\cdot n_{\\text{layers}} \\cdot \\text{dtype\\_bytes}"}</MathBlock>
+<Prose>{"Concatenate all "}<InlineMath>{"H_q"}</InlineMath>{" output heads, producing width "}<InlineMath>{"H_qd_v"}</InlineMath>{", then apply an output map back to width "}<InlineMath>{"D"}</InlineMath>{". This is followed by the residual and feedforward processing from "}<a href={"/learn/path/full-curriculum/transformer-block-architecture?module=deep-learning-fundamentals"}>{"Transformer Block Architecture"}</a>{". Sharing K/V changes the K/V projection shapes inside attention; it leaves the external row width compatible with the rest of the block."}</Prose>
 
-      <Prose>
-        The factor of {"2"} is for K plus V; {"L"} is the current sequence length; {"dtype\\_bytes = 2"} for fp16/bf16, {"1"} for fp8/int8, {"0.5"} for int4. For any fixed {"h, d_h, n_{layers}, L"}, the KV cache is a strictly linear function of {"g"}. Collapsing {"g"} from {"h"} (MHA) to {"h/8"} (GQA g=8) to {"1"} (MQA) shrinks the cache by {"8×"} then {"64×"} respectively.
-      </Prose>
+<H3>{"A four-query, two-memory example"}</H3>
 
-      <H3>3.3 Concrete numbers for Llama-2 70B</H3>
+<Prose>{"Use one query position, three legal memory positions and "}<InlineMath>{"d_k=d_v=2"}</InlineMath>{". These are deliberately chosen arithmetic inputs, not learned language-model features."}</Prose>
 
-      <Prose>
-        The canonical worked example. Llama-2 70B has {"d_{model} = 8192"}, {"h = 64"}, {"d_h = 128"}, {"n_{layers} = 80"}. The per-token KV cost for each variant is:
-      </Prose>
+<Prose>{"The four queries are"}</Prose>
 
-      <MathBlock>{"\\text{MHA: } 2 \\cdot 64 \\cdot 128 \\cdot 80 \\cdot 2 = 2{,}621{,}440 \\text{ bytes} \\approx 2.5 \\text{ MB/token}"}</MathBlock>
-      <MathBlock>{"\\text{GQA } g=8\\text{: } 2 \\cdot 8 \\cdot 128 \\cdot 80 \\cdot 2 = 327{,}680 \\text{ bytes} \\approx 320 \\text{ KB/token}"}</MathBlock>
-      <MathBlock>{"\\text{MQA: } 2 \\cdot 1 \\cdot 128 \\cdot 80 \\cdot 2 = 40{,}960 \\text{ bytes} \\approx 40 \\text{ KB/token}"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"q_0=\\sqrt2[1,0],\\quad q_1=\\sqrt2[0,1],\\quad\nq_2=\\sqrt2[-1,0],\\quad q_3=\\sqrt2[0,-1]."}</MathBlock></div>
 
-      <Prose>
-        At a 32k context window, MHA's cache is {"2.5 \\text{ MB} \\times 32768 \\approx 82 \\text{ GB}"}; the H100 has 80 GB of HBM and Llama-2 70B weights in fp16 are 140 GB. MHA at 32k is impossible on a single H100 — you cannot even fit the cache. GQA {"g=8"} pulls the cache down to {"\\approx 10.5 \\text{ GB}"}, and MQA to {"\\approx 1.3 \\text{ GB}"}. Ainslie's decision to ship Llama-2 70B with GQA {"g=8"} is what makes 70B inference at long context practical on single-node hardware.
-      </Prose>
+<Prose>{"Each group holds three keys and values:"}</Prose>
 
-      <H3>3.4 Parameter count</H3>
+<NeuralTable caption={"A four-query, two-memory example"} headers={[<>{"Position"}</>,<>{"Group 0 key"}</>,<>{"Group 0 value"}</>,<>{"Group 1 key"}</>,<>{"Group 1 value"}</>]} rows={[[<>{"0"}</>,<>{"[1,0]"}</>,<>{"[2,0]"}</>,<>{"[1,1]"}</>,<>{"[1,3]"}</>],[<>{"1"}</>,<>{"[0,1]"}</>,<>{"[0,4]"}</>,<>{"[−1,0]"}</>,<>{"[−1,2]"}</>],[<>{"2"}</>,<>{"[1,1]"}</>,<>{"[2,2]"}</>,<>{"[0,−1]"}</>,<>{"[3,0]"}</>]]} />
 
-      <Prose>
-        Though parameters are not the main motivation, the parameter count of the attention layer is also reduced. {"W_Q"} remains {"d_{model} × h · d_h = d_{model}^2"} parameters; {"W_K"} and {"W_V"} shrink to {"d_{model} × g · d_h = d_{model}^2 · g/h"} parameters each. Total parameters in the attention block:
-      </Prose>
+<Prose>{"Queries 0 and 1 read group 0; queries 2 and 3 read group 1. For query 0, dividing by "}<InlineMath>{"\\sqrt2"}</InlineMath>{" cancels the chosen query factor, giving scores "}<code>{"[1,0,1]"}</code>{". Their exponentials are "}<code>{"[e,1,e]"}</code>{", so the weights are approximately "}<code>{"[0.422319,0.155362,0.422319]"}</code>{". The output is"}</Prose>
 
-      <MathBlock>{"P_{\\text{attn}} = d_{\\text{model}}^2 \\cdot \\left(2 + 2 \\cdot \\frac{g}{h}\\right)"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"0.422319[2,0]+0.155362[0,4]+0.422319[2,2]\n\\approx[1.689275,1.466087]."}</MathBlock></div>
 
-      <Prose>
-        For {"h = 64, g = 8"} this is {"d_{model}^2 \\cdot 2.25"} instead of {"d_{model}^2 \\cdot 4"}, a 44% reduction in attention-layer parameters. The FFN (MLP) block typically dominates the total parameter count, so the overall model parameter reduction from adopting GQA is modest — roughly 5–10% at Llama scale. This is why Llama-2 70B is still called "70B" even though it uses GQA.
-      </Prose>
+<Prose>{"Performing the same calculation for the other queries gives:"}</Prose>
 
-      <H3>3.5 Uptraining: initializing GQA from MHA</H3>
+<NeuralTable caption={"A four-query, two-memory example"} headers={[<>{"Query head"}</>,<>{"KV group"}</>,<>{"Scaled scores"}</>,<>{"Weights over positions 0,1,2"}</>,<>{"Mixed output"}</>]} rows={[[<>{"0"}</>,<>{"0"}</>,<>{"[1,0,1]"}</>,<>{"[0.422319,0.155362,0.422319]"}</>,<>{"[1.689275,1.466087]"}</>],[<>{"1"}</>,<>{"0"}</>,<>{"[0,1,1]"}</>,<>{"[0.155362,0.422319,0.422319]"}</>,<>{"[1.155362,2.533913]"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"[−1,1,0]"}</>,<>{"[0.090031,0.665241,0.244728]"}</>,<>{"[0.158975,1.600574]"}</>],[<>{"3"}</>,<>{"1"}</>,<>{"[−1,0,1]"}</>,<>{"[0.090031,0.244728,0.665241]"}</>,<>{"[1.841025,0.759549]"}</>]]} />
 
-      <Prose>
-        Ainslie et al.'s key practical contribution is that you do not have to train a GQA model from scratch. Given an existing MHA checkpoint, initialize the GQA key and value weights by <em>averaging</em> the MHA key/value heads within each group:
-      </Prose>
+<Prose>{"The two readers of group 0 plainly have different answers. Their shared memory did not force their attention weights to coincide."}</Prose>
 
-      <MathBlock>{"W_K^{\\text{GQA}}[j] = \\frac{1}{s} \\sum_{i=s \\cdot j}^{s \\cdot j + s - 1} W_K^{\\text{MHA}}[i], \\quad j = 0, 1, \\ldots, g-1"}</MathBlock>
+<H3>{"Edit a head and inspect which outputs change"}</H3>
 
-      <Prose>
-        (Analogous formula for {"W_V"}.) {"W_Q"} and {"W_O"} copy over unchanged. This initialization is not optimal — the averaged heads have not been trained to work together as a single shared head — but it is a principled starting point that recovers {"\\approx 90\\%"} of final quality within the first few hundred training steps. The full uptraining recipe is: load the MHA checkpoint, apply the averaging init, continue training with the original data mixture for {"\\alpha \\cdot T_{\\text{original}}"} steps where {"\\alpha \\approx 0.05–0.1"}. A 5-10% compute overhead, in exchange for an {"8×"} KV cache reduction at serving time, is a bargain that every production team takes.
-      </Prose>
+<Prose>{"Change the first value of group 0 from "}<code>{"[2,0]"}</code>{" to "}<code>{"[3,−1]"}</code>{". No score changes because scores use Q and K. The two group-0 outputs change by their respective weight on that position times "}<code>{"[1,−1]"}</code>{". Heads 2 and 3 are unchanged because they read another group."}</Prose>
 
-      <H3>3.6 Why averaging is the right init</H3>
+<Prose>{"Now instead change group 0's first key from "}<code>{"[1,0]"}</code>{" to "}<code>{"[2,0]"}</code>{". Query 0's first score increases. Query 1's score does "}<strong>{"not"}</strong>{" change in this special fixture: its query has zero x component. A shared key edit can influence every reader in its group, but it need not do so for every particular query. This controlled null is more informative than an animation that always lights up all arrows as “affected.”"}</Prose>
 
-      <Prose>
-        Consider the pre-uptrain GQA forward pass. If {"W_K^{\\text{GQA}}[j]"} is the mean of {"s"} MHA K-heads and all {"s"} Q-heads within group {"j"} attend against it, the expected attention logits are the average of the logits each Q-head would have produced against its own MHA K-head. For a softmax that has not moved far from its MHA-trained operating point, this mean behaves like a {"1/s"}-scaled smoother of the original attention distributions. It is already close to "the average correct behavior"; the uptraining then has to learn to compensate for the loss of per-head specificity by adjusting neighboring weights. Starting from random init, by contrast, requires the model to rediscover the entire attention structure from scratch — hence the {"10×"} slower convergence reported by Ainslie.
-      </Prose>
+<GqaReadLab />
 
-      <H3>3.7 Compute FLOPs</H3>
+<H3>{"Repeat is one implementation, not the definition"}</H3>
 
-      <Prose>
-        Once the KV heads are expanded to match Q heads inside the attention kernel, the FLOPs of the attention computation are identical to MHA. GQA saves memory and memory bandwidth, not arithmetic. This is the right trade for modern accelerators, where tensor-core FLOPs are cheap and HBM bandwidth is scarce — the GPU is memory-bound on decode, and cutting memory traffic by {"8×"} roughly translates to an {"8×"} decode-step speedup in the regime where attention dominates.
-      </Prose>
+<Prose>{"An easy reference implementation repeats each KV head "}<InlineMath>{"R"}</InlineMath>{" times and calls ordinary multi-head attention. This gives the correct function, but explicit "}<code>{"repeat_interleave"}</code>{" allocates repeated tensors. Its gradients are valid because backward sums the contributions from copies; valid differentiation does not make the forward a zero-cost view."}</Prose>
 
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
+<Prose>{"We can instead reshape queries as "}<code>{"[B,Hkv,R,T,dk]"}</code>{" and keep K/V compact. Compute scores with"}</Prose>
 
-      <Prose>
-        The code below was run on PyTorch 2.6 with CUDA. Every {"# Output:"} comment is real stdout from the run. We implement MHA, MQA, and GQA as a single unified class parameterized by {"n_{kv\\_heads}"}; verify output shapes and gradient flow; measure actual KV tensor sizes as a function of sequence length; and demonstrate the uptraining initialization.
-      </Prose>
+<CodeBlock language={"python"}>{"scores = torch.einsum(\"bgrtd,bgud->bgrtu\", grouped_query, keys) / math.sqrt(dk)\nweights = scores.softmax(dim=-1)\noutputs = torch.einsum(\"bgrtu,bgud->bgrtd\", weights, values)"}</CodeBlock>
 
-      <H3>4.1 Unified attention class</H3>
+<Prose>{"The letters name axes: "}<code>{"g"}</code>{" is a KV group, "}<code>{"r"}</code>{" a reader within it, "}<code>{"t"}</code>{" a query position and "}<code>{"u"}</code>{" a memory position. Summing over "}<code>{"d"}</code>{" makes scores; summing over "}<code>{"u"}</code>{" mixes values. A mask belongs before softmax. The full executable program below includes it."}</Prose>
 
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import math
+<Prose>{"This eager grouped form avoids an explicit repeated K/V array. It still forms one score distribution per "}<strong>{"query head"}</strong>{", so its score tensor has "}<InlineMath>{"BH_qTS"}</InlineMath>{" entries. A fused kernel can tile this work and reuse K/V within its execution strategy. Do not infer a particular physical memory-traffic count merely from a high-level "}<code>{"einsum"}</code>{"."}</Prose>
 
-torch.manual_seed(0)
-device = "cuda"
+<H2>{"4. Build the cache and count the savings honestly"}</H2>
 
+<H3>{"Store compact K/V, retain the position contract"}</H3>
 
-class GroupedQueryAttention(nn.Module):
-    """Unified MHA / GQA / MQA. Set n_kv_heads to control the variant:
-         n_kv_heads == n_heads  -> MHA  (one KV head per Q head)
-         1 < n_kv_heads < h     -> GQA  (groups of Q heads share a KV head)
-         n_kv_heads == 1        -> MQA  (all Q heads share one KV head)
-    """
-    def __init__(self, d_model=512, n_heads=8, n_kv_heads=None):
-        super().__init__()
-        assert d_model % n_heads == 0
-        self.n_heads    = n_heads
-        self.n_kv_heads = n_kv_heads if n_kv_heads is not None else n_heads
-        assert n_heads % self.n_kv_heads == 0, "n_heads must be divisible by n_kv_heads"
-        self.head_dim   = d_model // n_heads
-        self.group_size = n_heads // self.n_kv_heads   # Q heads per KV head
-        self.d_model    = d_model
-
-        self.W_q = nn.Linear(d_model, n_heads         * self.head_dim, bias=False)
-        self.W_k = nn.Linear(d_model, self.n_kv_heads * self.head_dim, bias=False)
-        self.W_v = nn.Linear(d_model, self.n_kv_heads * self.head_dim, bias=False)
-        self.W_o = nn.Linear(n_heads         * self.head_dim, d_model, bias=False)
-
-    def forward(self, x):
-        B, T, _ = x.shape
-        q = self.W_q(x).view(B, T, self.n_heads,    self.head_dim).transpose(1, 2)  # [B, h, T, d_h]
-        k = self.W_k(x).view(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)  # [B, g, T, d_h]
-        v = self.W_v(x).view(B, T, self.n_kv_heads, self.head_dim).transpose(1, 2)
-
-        # Expand KV to match Q head count. This is the only GQA-specific line.
-        if self.group_size > 1:
-            k = k.repeat_interleave(self.group_size, dim=1)   # [B, h, T, d_h]
-            v = v.repeat_interleave(self.group_size, dim=1)
-
-        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
-        attn   = F.softmax(scores, dim=-1)
-        out    = torch.matmul(attn, v)                         # [B, h, T, d_h]
-        out    = out.transpose(1, 2).contiguous().view(B, T, self.d_model)
-        return self.W_o(out)`}
-      </CodeBlock>
-
-      <Prose>
-        One class, one hyperparameter. When {"n_{kv\\_heads} == n_{heads}"} this degenerates exactly to MHA; when {"n_{kv\\_heads} == 1"} exactly to MQA. The single GQA-specific construct is the {"repeat_interleave"} — it expands each of the {"g"} KV heads {"s"} times so that head {"i"} of Q pairs with head {"i // s"} of the underlying {"g"}-head KV tensor. The expansion is a view-like operation in PyTorch and does not materialize new memory in the computation graph — the KV cache itself (at inference) stores only the {"g"} unique heads.
-      </Prose>
-
-      <H3>4.2 Shape parity and gradient check</H3>
-
-      <CodeBlock language="python">
-{`B, T, D = 2, 32, 512
-x = torch.randn(B, T, D, device=device)
-
-mha  = GroupedQueryAttention(D, n_heads=8, n_kv_heads=8).to(device)
-gqa4 = GroupedQueryAttention(D, n_heads=8, n_kv_heads=4).to(device)
-gqa2 = GroupedQueryAttention(D, n_heads=8, n_kv_heads=2).to(device)
-mqa  = GroupedQueryAttention(D, n_heads=8, n_kv_heads=1).to(device)
-
-for name, m in [("MHA", mha), ("GQA(g=4)", gqa4), ("GQA(g=2)", gqa2), ("MQA", mqa)]:
-    y = m(x)
-    n_param = sum(p.numel() for p in m.parameters())
-    print(f"{name:10s} out={tuple(y.shape)}  params={n_param:7,}  kv_heads={m.n_kv_heads}  group_size={m.group_size}")
-
-y = gqa2(x).sum(); y.backward()
-print("grad W_q ok:", gqa2.W_q.weight.grad.abs().mean().item() > 0)
-print("grad W_k ok:", gqa2.W_k.weight.grad.abs().mean().item() > 0)
-print("grad W_v ok:", gqa2.W_v.weight.grad.abs().mean().item() > 0)
-
-# Output:
-#   MHA        out=(2, 32, 512)  params=1,048,576  kv_heads=8  group_size=1
-#   GQA(g=4)   out=(2, 32, 512)  params=786,432    kv_heads=4  group_size=2
-#   GQA(g=2)   out=(2, 32, 512)  params=655,360    kv_heads=2  group_size=4
-#   MQA        out=(2, 32, 512)  params=589,824    kv_heads=1  group_size=8
-#   grad W_q ok: True
-#   grad W_k ok: True
-#   grad W_v ok: True`}
-      </CodeBlock>
-
-      <Prose>
-        All variants produce the same output shape — the external contract of the attention layer is unchanged. The parameter counts drop as expected: MHA has {"4 \\cdot d_{model}^2 = 4 \\cdot 512^2 = 1{,}048{,}576"} parameters; GQA {"g=4"} has {"(2 + 2 \\cdot 4/8) \\cdot 512^2 = 3 \\cdot 512^2 = 786{,}432"}; MQA has {"(2 + 2/8) \\cdot 512^2 = 2.25 \\cdot 512^2 = 589{,}824"}. Gradients flow cleanly through the {"repeat_interleave"} expansion because it is just a view op.
-      </Prose>
-
-      <H3>4.3 KV cache sizing as a function of sequence length</H3>
-
-      <CodeBlock language="python">
-{`# Measure the actual K/V tensor bytes — this is the storage the cache would hold.
-# Note: we measure the *unexpanded* K,V, since the cache stores those.
-import torch
-
-D, H = 512, 8
-mha = GroupedQueryAttention(D, n_heads=H, n_kv_heads=H).to(device).half()
-gqa = GroupedQueryAttention(D, n_heads=H, n_kv_heads=2).to(device).half()
-mqa = GroupedQueryAttention(D, n_heads=H, n_kv_heads=1).to(device).half()
-
-def kv_bytes(m, x):
-    B, T, _ = x.shape
-    k = m.W_k(x).view(B, T, m.n_kv_heads, m.head_dim)
-    v = m.W_v(x).view(B, T, m.n_kv_heads, m.head_dim)
-    return (k.numel() + v.numel()) * k.element_size()
-
-print(f"{'L':>6} {'MHA KV (KB)':>14} {'GQA(2) KV (KB)':>16} {'MQA KV (KB)':>14} {'ratio MHA/MQA':>16}")
-for L in [128, 512, 1024, 2048, 4096, 8192]:
-    x = torch.randn(1, L, D, device=device, dtype=torch.float16)
-    b_mha = kv_bytes(mha, x) / 1024
-    b_gqa = kv_bytes(gqa, x) / 1024
-    b_mqa = kv_bytes(mqa, x) / 1024
-    print(f"{L:>6} {b_mha:>14.2f} {b_gqa:>16.2f} {b_mqa:>14.2f} {b_mha/b_mqa:>15.1f}x")
-
-# Output:
-#        L    MHA KV (KB)   GQA(2) KV (KB)    MQA KV (KB)    ratio MHA/MQA
-#      128         256.00            64.00          32.00             8.0x
-#      512        1024.00           256.00         128.00             8.0x
-#     1024        2048.00           512.00         256.00             8.0x
-#     2048        4096.00          1024.00         512.00             8.0x
-#     4096        8192.00          2048.00        1024.00             8.0x
-#     8192       16384.00          4096.00        2048.00             8.0x`}
-      </CodeBlock>
-
-      <Prose>
-        The ratios are exactly as the math predicts — linear in {"g"}, linear in {"L"}. An {"8×"} reduction MHA → MQA at every sequence length; a {"4×"} reduction MHA → GQA {"g=2"}. The absolute numbers are small here because we are running on a toy {"d_{model} = 512, n_{layers} = 1"} configuration. Scale up to Llama-2 70B's 80 layers and {"d_h = 128"} and the numbers become the 82 GB vs 10.5 GB vs 1.3 GB we saw in section 3.3.
-      </Prose>
-
-      <H3>4.4 Projected KV cache for Llama-2 70B at production contexts</H3>
-
-      <CodeBlock language="python">
-{`# Llama-2 70B: h=64 Q heads, 8 KV heads (GQA g=8), head_dim=128, n_layers=80.
-# KV per token = 2 * n_kv_heads * head_dim * n_layers * dtype_bytes
-
-def kv_cache_bytes(L, n_kv_heads, head_dim=128, n_layers=80, dtype_bytes=2):
-    return 2 * n_kv_heads * head_dim * n_layers * L * dtype_bytes
-
-print(f"{'L (ctx)':>10} {'MHA (GB)':>12} {'GQA g=8 (GB)':>14} {'MQA (GB)':>12} {'MHA/GQA':>10}")
-for L in [2048, 4096, 8192, 16384, 32768, 65536, 131072]:
-    mha_gb  = kv_cache_bytes(L, 64) / 1e9
-    gqa_gb  = kv_cache_bytes(L, 8)  / 1e9
-    mqa_gb  = kv_cache_bytes(L, 1)  / 1e9
-    print(f"{L:>10} {mha_gb:>12.2f} {gqa_gb:>14.2f} {mqa_gb:>12.2f} {mha_gb/gqa_gb:>9.1f}x")
-
-# Output:
-#      L (ctx)     MHA (GB)   GQA g=8 (GB)     MQA (GB)    MHA/GQA
-#         2048         5.37           0.67         0.08       8.0x
-#         4096        10.74           1.34         0.17       8.0x
-#         8192        21.47           2.68         0.34       8.0x
-#        16384        42.95           5.37         0.67       8.0x
-#        32768        85.90          10.74         1.34       8.0x
-#        65536       171.80          21.47         2.68       8.0x
-#       131072       343.60          42.95         5.37       8.0x`}
-      </CodeBlock>
-
-      <Prose>
-        Reading the 32k row: MHA costs 85.90 GB of KV cache per single inference stream — exceeds the H100's 80 GB of HBM before even loading model weights. GQA {"g=8"} brings this to 10.74 GB per stream, which leaves room for the model (in quantized form) plus a handful of concurrent sessions on a single 80GB H100. MQA drops it further to 1.34 GB, enabling dozens of concurrent 32k sessions but at the quality cost we will quantify in section 6. At 128k context, MHA is flatly infeasible (343 GB per stream); GQA is {"\\approx 43"} GB — fits on H200 (141 GB) with room for model weights; MQA is 5.4 GB. The horizontal scaling properties of frontier long-context serving are effectively defined by this table.
-      </Prose>
-
-      <H3>4.5 Uptraining from MHA: the averaging init</H3>
-
-      <CodeBlock language="python">
-{`def uptrain_init_gqa_from_mha(mha, n_kv_heads):
-    """Ainslie 2023 recipe: per-group mean of MHA K/V heads
-       -> initial GQA K/V heads.  Q and O copy directly."""
-    D, h_q, head_dim = mha.d_model, mha.n_heads, mha.head_dim
-    group = h_q // n_kv_heads
-    gqa   = GroupedQueryAttention(D, n_heads=h_q, n_kv_heads=n_kv_heads).to(mha.W_q.weight.device)
-
-    gqa.W_q.weight.data.copy_(mha.W_q.weight.data)
-    gqa.W_o.weight.data.copy_(mha.W_o.weight.data)
-
-    W_k = mha.W_k.weight.data.view(h_q, head_dim, D)                        # [h, d_h, D]
-    W_v = mha.W_v.weight.data.view(h_q, head_dim, D)
-    W_k_grouped = W_k.view(n_kv_heads, group, head_dim, D).mean(dim=1)      # [g, d_h, D]
-    W_v_grouped = W_v.view(n_kv_heads, group, head_dim, D).mean(dim=1)
-    gqa.W_k.weight.data.copy_(W_k_grouped.reshape(n_kv_heads * head_dim, D))
-    gqa.W_v.weight.data.copy_(W_v_grouped.reshape(n_kv_heads * head_dim, D))
-    return gqa
-
-
-# Train MHA on a synthetic copy task; then convert to GQA and uptrain briefly.
-D, H, T = 256, 8, 16
-mha = GroupedQueryAttention(D, n_heads=H, n_kv_heads=H).to(device)
-x = torch.randn(64, T, D, device=device)
-y = torch.roll(x, shifts=1, dims=1)   # target: roll input by one position
-
-opt = torch.optim.Adam(mha.parameters(), lr=3e-3)
-for _ in range(2000):
-    loss = F.mse_loss(mha(x), y)
-    opt.zero_grad(); loss.backward(); opt.step()
-print(f"MHA trained loss (2000 steps):          {loss.item():.5f}")
-
-gqa_up = uptrain_init_gqa_from_mha(mha, n_kv_heads=2)
-with torch.no_grad():
-    print(f"GQA(g=2) init via uptrain, 0 steps:     {F.mse_loss(gqa_up(x), y).item():.5f}")
-
-opt = torch.optim.Adam(gqa_up.parameters(), lr=1e-3)
-for _ in range(200):
-    loss = F.mse_loss(gqa_up(x), y)
-    opt.zero_grad(); loss.backward(); opt.step()
-print(f"GQA(g=2) uptrained 200 steps:           {loss.item():.5f}")
-
-# Output:
-#   MHA trained loss (2000 steps):          0.21469
-#   GQA(g=2) init via uptrain, 0 steps:     2.02489
-#   GQA(g=2) uptrained 200 steps:           0.73332`}
-      </CodeBlock>
-
-      <Prose>
-        The zero-step uptrain loss ({"2.02"}) is noticeably worse than the MHA endpoint ({"0.21"}) — averaging eight heads into two discards real information. But the averaging init is a <em>warm start</em>: by step 200 the loss has dropped to {"0.73"}, already in the neighborhood of what the model will eventually converge to. On real language modeling benchmarks with Ainslie's full schedule ({"\\alpha = 0.05"} of pretrain compute), the final gap to MHA quality closes to within noise. The toy task here is not sensitive enough to show the full quality recovery, but the warm-start mechanism is clearly operational.
-      </Prose>
-
-      <H3>4.6 Verifying the repeat-interleave pattern</H3>
-
-      <CodeBlock language="python">
-{`# Visualize the Q -> KV head mapping.  With n_kv=2 and group=4,
-# Q heads 0..3 pair with KV head 0; Q heads 4..7 pair with KV head 1.
-import torch
-
-B, T, n_kv, d_h = 1, 4, 2, 4
-group = 4
-
-k = torch.arange(n_kv * d_h).view(1, n_kv, 1, d_h).expand(B, n_kv, T, d_h).float()
-print("K before repeat_interleave: shape =", tuple(k.shape))
-print(k[0, :, 0, :])
-
-k_exp = k.repeat_interleave(group, dim=1)
-print("K after repeat_interleave(4, dim=1):  shape =", tuple(k_exp.shape))
-print(k_exp[0, :, 0, :])
-
-# Output:
-#   K before repeat_interleave: shape = (1, 2, 4, 4)
-#   tensor([[0., 1., 2., 3.],
-#           [4., 5., 6., 7.]])
-#   K after repeat_interleave(4, dim=1):  shape = (1, 8, 4, 4)
-#   tensor([[0., 1., 2., 3.],
-#           [0., 1., 2., 3.],
-#           [0., 1., 2., 3.],
-#           [0., 1., 2., 3.],
-#           [4., 5., 6., 7.],
-#           [4., 5., 6., 7.],
-#           [4., 5., 6., 7.],
-#           [4., 5., 6., 7.]])`}
-      </CodeBlock>
-
-      <Prose>
-        The expansion pattern is unambiguous: each of the original {"g = 2"} heads is replicated {"group = 4"} times contiguously. Q heads {"\\{0, 1, 2, 3\\}"} see the identical copy of the first KV head; Q heads {"\\{4, 5, 6, 7\\}"} see the identical copy of the second. The alternative — {"repeat(group, dim=1)"} — would have given you {"[h0, h1, h0, h1, ..., h0, h1]"}, which is <em>not</em> what GQA wants. Getting this wrong silently produces a model that trains but learns a wrong Q-to-KV grouping and underperforms. Always verify with a small printout.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production patterns</H2>
-
-      <H3>5.1 HuggingFace LlamaConfig</H3>
-
-      <CodeBlock language="python">
-{`from transformers import LlamaConfig
-
-# Llama-2 70B uses GQA: 64 Q heads, 8 KV heads, head_dim=128, 80 layers.
-cfg = LlamaConfig(
-    hidden_size=8192,
-    num_attention_heads=64,
-    num_key_value_heads=8,
-    num_hidden_layers=80,
-)
-print("Llama-2 70B config:")
-print(f"  hidden_size           = {cfg.hidden_size}")
-print(f"  num_attention_heads   = {cfg.num_attention_heads}  (Q heads)")
-print(f"  num_key_value_heads   = {cfg.num_key_value_heads}  (KV heads)")
-print(f"  head_dim              = {cfg.hidden_size // cfg.num_attention_heads}")
-print(f"  group_size (Q per KV) = {cfg.num_attention_heads // cfg.num_key_value_heads}")
-print(f"  is_gqa                = {cfg.num_key_value_heads != cfg.num_attention_heads}")
-
-# Output:
-#   Llama-2 70B config:
-#     hidden_size           = 8192
-#     num_attention_heads   = 64  (Q heads)
-#     num_key_value_heads   = 8   (KV heads)
-#     head_dim              = 128
-#     group_size (Q per KV) = 8
-#     is_gqa                = True`}
-      </CodeBlock>
-
-      <Prose>
-        The single parameter {"num_key_value_heads"} controls everything. Set it equal to {"num_attention_heads"} for MHA, to {"1"} for MQA, to any divisor in between for GQA. HuggingFace's implementation handles the repeat-interleave expansion internally; the public API exposes only the configuration.
-      </Prose>
-
-      <H3>5.2 The HuggingFace Llama attention layer (annotated)</H3>
-
-      <CodeBlock language="python">
-{`# Condensed from transformers/models/llama/modeling_llama.py.
-# The core GQA-specific logic is the 'repeat_kv' helper.
-
-def repeat_kv(hidden_states, n_rep):
-    """Expand (B, n_kv_heads, T, d_h) -> (B, n_kv_heads * n_rep, T, d_h)."""
-    batch, num_kv_heads, slen, head_dim = hidden_states.shape
-    if n_rep == 1:
-        return hidden_states
-    hidden_states = hidden_states[:, :, None, :, :].expand(
-        batch, num_kv_heads, n_rep, slen, head_dim
-    )
-    return hidden_states.reshape(batch, num_kv_heads * n_rep, slen, head_dim)
-
-
-class LlamaAttention(nn.Module):
-    def __init__(self, config):
-        ...
-        self.num_heads         = config.num_attention_heads
-        self.num_key_value_heads = config.num_key_value_heads
-        self.num_key_value_groups = self.num_heads // self.num_key_value_heads
-        # ... q_proj, k_proj, v_proj, o_proj ...
-
-    def forward(self, hidden_states, position_ids, past_key_value=None, ...):
-        bsz, q_len, _ = hidden_states.size()
-
-        query_states = self.q_proj(hidden_states).view(bsz, q_len, self.num_heads,         self.head_dim).transpose(1, 2)
-        key_states   = self.k_proj(hidden_states).view(bsz, q_len, self.num_key_value_heads, self.head_dim).transpose(1, 2)
-        value_states = self.v_proj(hidden_states).view(bsz, q_len, self.num_key_value_heads, self.head_dim).transpose(1, 2)
-
-        # RoPE applied BEFORE K expansion (important! see section 9).
-        cos, sin = self.rotary_emb(value_states, position_ids)
-        query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)
-
-        # Append to KV cache (still at num_key_value_heads resolution).
-        if past_key_value is not None:
-            key_states, value_states = past_key_value.update(key_states, value_states, ...)
-
-        # Expand for attention — AFTER the cache write.
-        key_states   = repeat_kv(key_states,   self.num_key_value_groups)
-        value_states = repeat_kv(value_states, self.num_key_value_groups)
-
-        # Now standard MHA-style attention.
-        attn_weights = torch.matmul(query_states, key_states.transpose(2, 3)) / math.sqrt(self.head_dim)
-        attn_weights = F.softmax(attn_weights + attention_mask, dim=-1)
-        attn_output  = torch.matmul(attn_weights, value_states)
-
-        return self.o_proj(attn_output.transpose(1, 2).reshape(bsz, q_len, -1))`}
-      </CodeBlock>
-
-      <Prose>
-        Two things to note. First, the KV cache stores the <em>unexpanded</em> tensors at {"num_key_value_heads"} resolution — this is the whole point, and getting it wrong (storing the expanded versions) would throw away all the memory savings. Second, RoPE is applied <em>before</em> the {"repeat_kv"} expansion, at the original {"num_key_value_heads"} count. This is correct because RoPE is a function of position, and all Q heads within a GQA group should see the same rotated key; applying RoPE after the expansion would waste compute and, in a naively written implementation, introduce subtle inconsistencies (see failure mode 9.4).
-      </Prose>
-
-      <H3>5.3 vLLM and TensorRT-LLM</H3>
-
-      <Prose>
-        Both of the two main production serving engines have native GQA support. vLLM's PagedAttention (Kwon et al. 2023, arXiv:2309.06180) is a memory-management scheme that breaks the KV cache into fixed-size page blocks and allocates them on demand, which stacks cleanly on GQA — the pages store the {"n_{kv\\_heads}"}-dimensional KV tensors, and the attention kernel does the expansion inside the GPU. PagedAttention alone typically delivers {"2–4×"} throughput improvements from better batching; PagedAttention plus GQA {"g=8"} compounds those gains and is why vLLM can serve Llama-2 70B at thousands of tokens per second per H100. TensorRT-LLM's {"gpt_attention_plugin"} takes {"num_kv_heads"} as a configuration and generates fused CUDA kernels that execute attention directly over the grouped representation without the explicit expansion — a further constant-factor speedup.
-      </Prose>
-
-      <H3>5.4 FlashAttention-2 and GQA</H3>
-
-      <Prose>
-        Tri Dao's FlashAttention-2 (arXiv:2307.08691) released in 2023 with first-class GQA and MQA support. The fused kernel loops over the query head index and, for each {"i ∈ \\{0, ..., h-1\\}"}, indexes into KV head {"i // s"}. The expansion never materializes in memory — it is done via index arithmetic inside the tiling loop. This is essential for long contexts: FlashAttention already cuts attention memory from {"O(T^2)"} to {"O(T)"} by tiling softmax; adding GQA on top cuts the KV reads by another factor of {"s"}. The combination is what makes 128k-context inference tractable on current hardware. In {"F.scaled_dot_product_attention"} (PyTorch 2.x's SDPA), GQA is supported automatically when the provided K/V tensors have fewer heads than Q — the runtime dispatches to a flash-style kernel that handles the expansion implicitly.
-      </Prose>
-
-      <H3>5.5 Models that ship GQA by default in 2026</H3>
-
-      <Prose>
-        Llama-2 70B (first Meta release with GQA; {"g = 8"}). Llama-3 8B/70B/405B (all GQA). Mistral 7B ({"h = 32, n_{kv} = 8, g = 4"}). Mixtral 8x7B (inherits Mistral's attention config per expert). Qwen2 and Qwen2.5 at all sizes. DeepSeek-V1 and DeepSeek-Coder used GQA; DeepSeek-V2 introduced MLA (Multi-head Latent Attention) as a further evolution. Command R+, Yi, Falcon 180B (Falcon originally used MQA, the 180B revision moved to GQA). The published and inferred architectures for Gemini, GPT-4/4o, and Claude 3/3.5 are all consistent with GQA-style KV sharing at inference — the throughput profiles at long context are otherwise hard to explain. If a model larger than {"\\approx 13\\text{B}"} parameters was trained after mid-2023 and you do not know its attention architecture, GQA is the correct prior.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 KV cache size vs sequence length (Llama-2 70B)</H3>
-
-      <Prose>
-        The signature plot of the GQA era. Three configurations of Llama-2 70B's attention — MHA, GQA {"g=8"}, MQA — with KV cache size plotted as a function of sequence length. Note the log-scale y-axis: MHA's cache is a strict {"8×"} above GQA's and {"64×"} above MQA's at every context length. The crossover points where each configuration exhausts an 80 GB H100's memory are annotated implicitly by where each curve crosses {"y = 80 \\text{ GB}"}.
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "MHA (h=64 KV)",  color: "#f87171",    points: [[2048, 5.37], [4096, 10.74], [8192, 21.47], [16384, 42.95], [32768, 85.90], [65536, 171.80], [131072, 343.60]] },
-          { name: "GQA g=8",        color: colors.gold,  points: [[2048, 0.67], [4096, 1.34],  [8192, 2.68],  [16384, 5.37],  [32768, 10.74], [65536, 21.47],  [131072, 42.95]] },
-          { name: "MQA",            color: colors.green, points: [[2048, 0.08], [4096, 0.17],  [8192, 0.34],  [16384, 0.67],  [32768, 1.34],  [65536, 2.68],   [131072, 5.37]] },
-        ]}
-        xLabel="context length (tokens)"
-        yLabel="KV cache (GB)"
-        label="Llama-70B KV cache vs context"
-      />
-
-      <Prose>
-        The practical reading: the 32k row is where MHA first becomes infeasible on a single H100 (85.9 GB). GQA {"g=8"} stays under 11 GB through 32k and is the reason the ecosystem converged on this configuration. MQA stays under 6 GB all the way to 128k but pays the quality tax shown in 6.4.
-      </Prose>
-
-      <H3>6.2 GQA attention computation step-by-step</H3>
-
-      <Prose>
-        One attention layer of Llama-2 70B ({"h = 64, g = 8, s = 8, d_h = 128, T = 4"}) walked through step by step.
-      </Prose>
-
-      <StepTrace
-        label="GQA forward pass (T=4, h=64, g=8)"
-        steps={[
-          {
-            label: "Project Q, K, V",
-            render: () => (
-              <Prose>
-                Input {"X ∈ ℝ^{B × T × d_{model}}"} with {"d_{model} = 8192"}. Apply three linear projections:
-                {" W_Q(X) ∈ ℝ^{B × 4 × 8192}"} (64 heads × 128 dim),
-                {" W_K(X) ∈ ℝ^{B × 4 × 1024}"} (8 heads × 128 dim),
-                {" W_V(X) ∈ ℝ^{B × 4 × 1024}"} (8 heads × 128 dim).
-                Note the asymmetry: K and V are {"8×"} smaller than Q on the feature axis.
-              </Prose>
-            ),
-          },
-          {
-            label: "Reshape to heads",
-            render: () => (
-              <Prose>
-                Reshape and transpose:
-                {" Q → [B, 64, 4, 128]"},
-                {" K → [B, 8, 4, 128]"},
-                {" V → [B, 8, 4, 128]"}.
-                At this point, in the KV cache, we <em>only store</em> the 8-head K and 8-head V. The cache for this layer is {"2 · 8 · 4 · 128 · 2 = 16{,}384"} bytes per step.
-              </Prose>
-            ),
-          },
-          {
-            label: "Apply RoPE",
-            render: () => (
-              <Prose>
-                Apply rotary positional embedding to {"Q"} and {"K"} <em>at their native head counts</em> (64 and 8). Do not apply RoPE after expansion — the expansion is a replication and expanded heads would get identical rotations which is wasteful; more importantly, RoPE must be in the cache-layout domain so that position increments work correctly on cached K.
-              </Prose>
-            ),
-          },
-          {
-            label: "Expand K, V",
-            render: () => (
-              <Prose>
-                For attention computation (not for the cache), expand each of the 8 KV heads 8 times:
-                {" K → [B, 64, 4, 128]"} via {"repeat_interleave(8, dim=1)"}. Q heads 0-7 now pair with replicated KV head 0; Q heads 8-15 with replicated KV head 1; and so on. In fused kernels (FlashAttention-2, TRT-LLM), this "expansion" is implemented as index arithmetic and never materializes in HBM.
-              </Prose>
-            ),
-          },
-          {
-            label: "Scaled dot-product",
-            render: () => (
-              <Prose>
-                {" scores = Q · Kᵀ / √d_h"} — shape {"[B, 64, 4, 4]"}.
-                {" attn = softmax(scores + mask, dim=-1)"} — the causal mask zeros out upper-triangular entries.
-                {" out = attn · V"} — shape {"[B, 64, 4, 128]"}.
-                From this point forward the arithmetic is identical to MHA; GQA's savings are entirely upstream, in memory.
-              </Prose>
-            ),
-          },
-          {
-            label: "Output projection",
-            render: () => (
-              <Prose>
-                Reshape back: {" out → [B, 4, 8192]"}. Apply {"W_O"}: {" out → [B, 4, 8192]"}. Add residual connection. Done. The next layer repeats with its own {"W_Q, W_K, W_V, W_O"} matrices.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6.3 Q-to-KV head mapping (Heatmap)</H3>
-
-      <Prose>
-        The group structure visualized. Rows are Q heads (16 of them for readability), columns are KV heads. A bright cell means "this Q head reads this KV head." MHA ({"g = 16"}) is the identity matrix. GQA ({"g = 4"}) has a block-diagonal structure: 4 consecutive Q heads per KV head. MQA ({"g = 1"}) is a single column — every Q head reads the one KV head.
-      </Prose>
-
-      <Heatmap
-        matrix={[
-          [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0],
-          [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0],
-          [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0],
-          [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1],
-        ]}
-        rowLabels={["Q0","Q1","Q2","Q3","Q4","Q5","Q6","Q7","Q8","Q9","Q10","Q11","Q12","Q13","Q14","Q15"]}
-        colLabels={["KV0","KV1","KV2","KV3"]}
-        colorScale="gold"
-        label="GQA(h=16, g=4) — Q head → KV head mapping"
-        cellSize={28}
-      />
-
-      <Prose>
-        The block structure is what gives GQA its name — groups of Q heads, each sharing a KV head. The choice of group boundaries is arbitrary (any partition of {"\\{0, ..., h-1\\}"} into {"g"} equal-size subsets would be algebraically equivalent after any permutation-consistent training); the convention is contiguous blocks because it aligns cleanly with {"repeat_interleave"} and CUDA memory access patterns.
-      </Prose>
-
-      <H3>6.4 Quality vs KV heads (GQA paper figure)</H3>
-
-      <Prose>
-        Reproduction of the benchmark numbers from Ainslie et al. 2023, figure 5 (T5-XXL uptrained to various {"g"}). The x-axis is number of KV heads (log-scaled conceptually); the y-axis is average benchmark score across the paper's suite. The curve is roughly flat from {"g = 32"} down to {"g = 8"}, then drops noticeably as {"g"} approaches 1.
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "Avg benchmark score", color: colors.gold, points: [[1, 46.6], [2, 47.4], [4, 47.7], [8, 47.9], [16, 47.8], [32, 47.9], [64, 48.0]] },
-        ]}
-        xLabel="n_kv_heads (g)"
-        yLabel="avg score"
-        label="GQA uptrain quality vs #KV heads (Ainslie 2023, approx.)"
-      />
-
-      <Prose>
-        The MHA endpoint ({"g = 64"}) scores {"48.0"}; {"g = 8"} scores {"47.9"} (within noise); {"g = 1"} (MQA) drops to {"46.6"} — about 1.4 points below MHA. This is the empirical Pareto: {"g = 8"} is the minimum KV-head count that preserves MHA quality, and anything larger is wasted KV memory. Every production GQA configuration you will encounter has been picked to sit on this shelf.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix — which variant, when</H2>
-
-      <H3>7.1 Model size ≥ 70B (dense): GQA g=8</H3>
-
-      <Prose>
-        For any dense model at 70B parameters or above, GQA with {"g = 8"} is the default and has been since Llama-2's release. The KV cache savings are essential at this scale (MHA is infeasible on single-node hardware at long context), and the quality preservation is strong enough that no large-scale published model in this size bracket has chosen anything else. Deviating from {"g = 8"} would require a compelling application-specific justification. Take this as a hard prior.
-      </Prose>
-
-      <H3>7.2 Model size 7B–30B: GQA g=4 or g=8</H3>
-
-      <Prose>
-        Mistral 7B uses {"g = 4"} ({"h = 32, n_{kv} = 8"}); Llama-3 8B uses {"g = 4"} ({"h = 32, n_{kv} = 8"}). At this scale, MHA remains feasible at most practical context lengths on consumer hardware, so the KV savings matter less per-model. But GQA is still chosen because (a) it preserves training-time investment portability if you ever want to scale up, (b) the quality cost at {"g = 4"} or {"g = 8"} is negligible, (c) the inference throughput gain stacks with continuous batching to give a clear wins in serving cost. {"g = 4"} is the common pick when {"h = 32"}; {"g = 8"} if {"h"} is larger.
-      </Prose>
-
-      <H3>7.3 Model size {"< 7B"}: MHA usually fine</H3>
-
-      <Prose>
-        For sub-7B models deployed at small context windows, the KV cache is not the bottleneck — the per-token compute of the FFN block dominates. MHA remains the reasonable default. That said, if you are training a small model with an eye on long-context use (32k+), GQA still buys you memory headroom at minimal cost and is worth doing.
-      </Prose>
-
-      <H3>7.4 Inference-throughput-critical workloads: MQA or GQA g=4</H3>
-
-      <Prose>
-        When the deployment is specifically optimized for maximum throughput per GPU — a classification endpoint, a short-form summarization service, an embedded edge deployment, an LLM-powered search reranker — and quality can tolerate the {"\\approx 1\\%"} hit, MQA is on the table. PaLM, the original Falcon, and several streaming-inference products shipped with MQA. The {"64×"} KV cache reduction vs MHA translates directly into larger batch sizes, higher concurrency, and lower $/token. If the quality hit is unacceptable, {"g = 4"} is the aggressive-but-safe middle ground.
-      </Prose>
-
-      <H3>7.5 New research architecture: start with GQA g=8</H3>
-
-      <Prose>
-        When you are prototyping a new model or architecture and do not want attention choice to be a variable you are debugging, use GQA with {"g = 8"}. It is the safe default everyone else uses, it preserves your upward compatibility with Llama-style weight conversions and serving kernels, and it avoids the situation where a reviewer later asks "why MHA?" and you do not have a good answer.
-      </Prose>
-
-      <H3>7.6 Fine-tuning / conversion of an MHA checkpoint</H3>
-
-      <Prose>
-        If you have an MHA-trained model and want the GQA memory profile without the retrain cost, use the uptraining recipe from section 3.5: average K/V heads within groups, then continue training for {"5–10\\%"} of the original compute on the original or a matching data mixture. This is the concrete procedure Ainslie used to convert T5-XXL to GQA and what Meta used to produce Llama-2 70B from its MHA-style predecessor. Expect the first 5% of uptrain steps to be dominated by recovering the averaged K/V representations; the remaining 5% tunes the Q side to exploit the new grouped layout.
-      </Prose>
-
-      <Callout accent="gold">
-        One-line rule: at {"\\geq 70\\text{B}"} parameters, always GQA {"g=8"}. Below 70B, GQA {"g=4"} or {"g=8"} if you care about long context; MHA if you do not. MQA only when throughput is the explicit dominant objective and the 1% quality hit is acceptable. Never pick anything exotic without a measured reason.
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Single-GPU long-context serving</H3>
-
-      <Prose>
-        The dominant scaling win of GQA is that it enables Llama-2 70B (and its successors) to serve 32k and even 128k context on single-node hardware. With MHA, a 70B model at 32k needs more HBM than an H100 has — period. With GQA {"g=8"} the KV cache drops to {"\\approx 11 \\text{ GB}"} at 32k, which leaves room for an int4-quantized model ({"\\approx 35 \\text{ GB}"}) plus headroom. With GQA {"g=8"} the same H100 can serve 6-8 concurrent 32k sessions, which is the threshold at which serving economics become viable. Nothing Meta did at the training architecture level matters more for deployed throughput than the choice of {"num_key_value_heads = 8"}.
-      </Prose>
-
-      <H3>8.2 MQA pushes further but compromises quality</H3>
-
-      <Prose>
-        At the MQA extreme, the {"64×"} KV reduction enables concurrency counts that would be otherwise impossible. A single H100 running an int4 Llama-2 70B with MQA could in principle host tens of concurrent 32k sessions (the math: {"(80 - 35) / 1.34 \\approx 33"} sessions). Whether that is worth the {"\\approx 1\\%"} benchmark drop is a product decision — for many commercial applications, especially chat that scores well on human eval even when MMLU drops a point, it is. Custom model providers with specific workloads to serve sometimes ship MQA; generalist frontier models almost never do.
-      </Prose>
-
-      <H3>8.3 Uptraining cost is a one-time investment</H3>
-
-      <Prose>
-        Converting MHA → GQA via uptraining costs roughly {"5–10\\%"} of the original pretrain compute (Ainslie 2023). For a 70B model whose original pretrain was, say, 2e24 FLOP, uptraining is 1–2e23 FLOP — large in absolute terms but amortized over the entire deployment lifetime. The savings come at every single inference request, forever. Even under pessimistic assumptions about inference-vs-training compute ratios, uptraining pays for itself within weeks of production serving.
-      </Prose>
-
-      <H3>8.4 Stacking with PagedAttention</H3>
-
-      <Prose>
-        vLLM's PagedAttention partitions the KV cache into fixed-size pages (typically 16 tokens) and allocates them on demand. This decouples the per-session cache from the batch structure — requests can share pages, variable-length requests do not waste allocation, preemption and swapping become tractable. PagedAttention is orthogonal to the MHA/GQA/MQA choice: it manages whatever KV cache the model produces. The savings stack multiplicatively: GQA cuts the per-token cache by {"8×"}, PagedAttention removes another {"\\approx 2-4×"} of waste from fragmentation, and the combined effect on throughput is {"\\approx 16-30×"} vs naive MHA-with-contiguous-allocation. This compounding is why the default vLLM+Llama-2-70B configuration hits {"\\approx 3000"} tokens/sec/H100 where a hypothetical MHA+contiguous version would be under 200.
-      </Prose>
-
-      <H3>8.5 Stacking with speculative decoding</H3>
-
-      <Prose>
-        Speculative decoding (Leviathan et al. 2023, Chen et al. 2023) uses a small "draft" model to propose tokens that a large "target" model verifies in parallel. The verification step re-evaluates the target model's logits over the draft sequence, which reads the target model's KV cache. A smaller KV cache (GQA) means faster verification reads and thus a larger speedup from speculation. In practice, GQA+SpecDec compose to roughly {"2-3×"} additional throughput on top of plain GQA, and are the standard stack in production serving systems today.
-      </Prose>
-
-      <H3>8.6 What does not scale — training memory</H3>
-
-      <Prose>
-        GQA is an inference-time optimization. During training, the forward pass must still materialize the full expanded K and V for attention (or compute them on the fly via FlashAttention), and the backward pass must store activations for backpropagation. Training memory is dominated by activations and optimizer state, not the KV cache; GQA's training-time memory savings are modest ({"\\approx 5\\%"} of total activation memory in a typical Llama-style setup). Small-batch training with a "save on KV cache" mindset does not benefit from GQA. The mental frame to hold: GQA is an inference-serving architecture, not a training architecture; its memory benefits appear at decode time and compound with batch size, not at training time.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Wrong KV head × head_dim layout</H3>
-
-      <Prose>
-        The most common bug when writing GQA from scratch: reshaping {"W_K"}'s output into {"(n_{heads}, d_h)"} instead of {"(n_{kv\\_heads}, d_h)"}, and then silently getting a shape-valid tensor that has nothing to do with GQA. Symptoms: the code runs, the model trains, and quality is inexplicably bad. Diagnostic: after the reshape and transpose, assert the expected shape explicitly — {"assert K.shape == (B, self.n_kv_heads, T, self.head_dim)"}. Another common variant is forgetting to change {"W_K, W_V"}'s output dimension from {"h · d_h"} to {"g · d_h"} — the projection has too many parameters and the reshape crashes or (worse, if the arithmetic happens to work out) produces garbage.
-      </Prose>
-
-      <H3>9.2 Forgetting to expand K, V before attention</H3>
-
-      <Prose>
-        If you store and retrieve the KV cache at {"g"}-head resolution (correct) but forget to expand to {"h"} heads before computing attention (incorrect), the matmul {"Q · Kᵀ"} will fail with a shape mismatch — Q is {"[B, h, T, d_h]"} and K is {"[B, g, T, d_h]"} with {"g ≠ h"}. This is at least a <em>loud</em> failure — your code crashes — rather than a silent one. In FlashAttention-2 and SDPA, the expansion happens inside the kernel so you do not see the shape mismatch at the Python level, but you still need to ensure you are calling the GQA-capable kernel and not the plain-MHA one that expects matching head counts.
-      </Prose>
-
-      <H3>9.3 Initializing GQA from MHA without uptraining</H3>
-
-      <Prose>
-        You average the MHA K/V heads into GQA K/V heads and then load the weights into your inference engine without any further training. The model produces plausible but noticeably worse output, and quality benchmarks regress. This is the zero-step uptrain loss we saw in section 4.5: averaging heads discards information, and the model needs some amount of continued training to compensate. If you are doing this conversion, budget for the uptraining step; the warm-start init is a <em>start</em>, not an endpoint. Meta's Llama-2 70B would not have matched its Llama-1 MHA ancestor on any benchmark had they shipped the zero-step conversion.
-      </Prose>
-
-      <H3>9.4 RoPE applied after K expansion</H3>
-
-      <Prose>
-        Correct: apply RoPE to K at {"[B, g, T, d_h]"}, then expand to {"[B, h, T, d_h]"}. Wrong: expand first, then apply RoPE to the {"[B, h, T, d_h]"} expanded K. The <em>outputs</em> of the two orderings are usually mathematically identical (RoPE is a per-position, per-head rotation, and if all expanded copies start at the same position they receive the same rotation). But implementation-wise, (a) applying RoPE after expansion wastes {"s×"} compute on redundant rotations, and (b) in KV-cache-aware implementations it leads to storing the post-RoPE K in the cache at expanded size — which defeats GQA's memory savings entirely. Always apply RoPE at the {"n_{kv\\_heads}"} layout, in the cache-native representation, and expand only for attention computation.
-      </Prose>
-
-      <H3>9.5 Training from scratch with tiny batch: no memory win</H3>
-
-      <Prose>
-        You adopt GQA hoping to fit a larger batch into GPU memory during training. You are disappointed — the batch size is not meaningfully larger. This is because training memory is dominated by activations and optimizer state, not the KV cache. GQA shrinks the K/V activations by {"\\approx 8×"}, but K/V are only a small fraction of the per-layer activation budget (the FFN intermediate hidden states and the full {"T × T"} attention matrix dominate). Relief: GQA's inference-time memory savings are not training-time memory savings. If you need training memory relief, reach for gradient checkpointing, ZeRO-3, or FP8 optimizer state; GQA will not do it.
-      </Prose>
-
-      <H3>9.6 Mismatched {"num_key_value_heads"} between training and inference</H3>
-
-      <Prose>
-        You train with {"n_{kv} = 8"} but load the checkpoint into an inference engine configured for {"n_{kv} = 64"} (or vice versa). If the framework notices, you get a clear shape-mismatch error at weight load. If the framework does not notice — which happens when a custom runtime forces the weights into whatever shape it expects — you get silently wrong outputs. Diagnostic: always log {"num_attention_heads"} and {"num_key_value_heads"} from the loaded config at inference startup; assert they match the checkpoint.
-      </Prose>
-
-      <H3>9.7 Non-divisible {"h / n_{kv}"}</H3>
-
-      <Prose>
-        GQA requires {"n_{heads}"} to be an integer multiple of {"n_{kv\\_heads}"} so the groups are equal-sized and the {"repeat_interleave"} works cleanly. Picking {"h = 64, n_{kv} = 6"} will crash at the expansion step ({"64 / 6"} is not an integer) or, in some implementations, will silently use a non-uniform grouping and produce nonsense. Valid choices for {"h = 64"} are {"n_{kv} ∈ \\{1, 2, 4, 8, 16, 32, 64\\}"}. {"8"} is canonical.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        <strong>Shazeer (2019).</strong> "Fast Transformer Decoding: One Write-Head is All You Need." arXiv:1911.02150. The MQA paper. Six pages, one idea, extremely high density. Section 2 describes the mechanism; section 3 benchmarks against MHA on a small translation task. Worth reading in full for the sheer clarity of the thesis.
-      </Prose>
-
-      <Prose>
-        <strong>Ainslie, Lee-Thorp, de Jong, Zemlyanskiy, Lebrón, Sanghai (2023).</strong> "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints." EMNLP 2023. arXiv:2305.13245. The GQA paper. The entire framework — the interpolation between MHA and MQA, the uptraining recipe with averaging init, the quality-vs-{"n_{kv}"} ablation — is in sections 3 and 4. Figure 5 is the quality plot reproduced in section 6.4 here.
-      </Prose>
-
-      <Prose>
-        <strong>Touvron, Martin, Stone, et al. (2023).</strong> "Llama 2: Open Foundation and Fine-Tuned Chat Models." arXiv:2307.09288. Section 2.2 confirms the GQA configuration for Llama-2 70B ({"n_{kv\\_heads} = 8, n_{heads} = 64, d_h = 128"}) and reports the resulting inference efficiency improvements. The first public deployment of GQA at frontier scale and the paper that made everyone else adopt it.
-      </Prose>
-
-      <Prose>
-        <strong>Jiang, Sablayrolles, Mensch, et al. (2023).</strong> "Mistral 7B." arXiv:2310.06825. Documents GQA {"g=4"} ({"h = 32, n_{kv} = 8"}) at the 7B scale alongside sliding-window attention. Evidence that GQA is valuable well below the 70B threshold when long-context use is in play.
-      </Prose>
-
-      <Prose>
-        <strong>Kwon, Li, Zhuang, Sheng, Zheng, Yu, Gonzalez, Zhang, Stoica (2023).</strong> "Efficient Memory Management for Large Language Model Serving with PagedAttention." SOSP 2023. arXiv:2309.06180. vLLM. The memory-management layer that stacks on top of GQA to produce modern production serving throughput. Section 3 describes PagedAttention; the implementation is GQA-native.
-      </Prose>
-
-      <Prose>
-        <strong>Dao (2023).</strong> "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning." arXiv:2307.08691. Introduces first-class GQA and MQA kernel support in FlashAttention. Section 3.4 explicitly covers the grouped-KV variant and the index-arithmetic approach to avoiding explicit expansion.
-      </Prose>
-
-      <Prose>
-        <strong>Chowdhery et al. (2022).</strong> "PaLM: Scaling Language Modeling with Pathways." arXiv:2204.02311. Section 2.2 reports MQA adoption at 540B scale, the first large-scale deployment of Shazeer's 2019 idea. Useful as the "MQA at scale" counterpoint to the "GQA at scale" story that Llama-2 later told.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>11.1 Why does GQA save memory but not FLOPs at inference?</H3>
-
-      <Prose>
-        GQA stores fewer K and V heads in the cache ({"g"} instead of {"h"}), which is what shrinks memory and memory bandwidth. But when attention is actually computed, the K and V tensors must be expanded (via {"repeat_interleave"} or, in fused kernels, via index arithmetic) to match the {"h"} Q heads before the scaled-dot-product matmul. After expansion, the matmul is identical to MHA in size and therefore identical in FLOPs. The savings are entirely in (a) cache memory footprint, (b) HBM read bandwidth when loading K, V from cache into SMs. Since modern GPU attention decoding is memory-bound, the bandwidth savings translate roughly to a {"g/h"}-factor latency reduction even though FLOPs are unchanged.
-      </Prose>
-
-      <H3>11.2 Why {"g = 8"} and not some other value?</H3>
-
-      <Prose>
-        Empirically, Ainslie 2023 found that quality is flat from {"g = h"} down to {"g = 8"} and drops noticeably below that. {"g = 8"} is the smallest {"g"} that preserves MHA-level quality, and therefore the Pareto-optimal choice that maximizes memory savings subject to a no-quality-loss constraint. Going to {"g = 4"} costs a small amount of quality; {"g = 1"} (MQA) costs {"\\approx 1"} point. Going above {"g = 8"} wastes KV memory with no quality gain. The value is empirically derived, not theoretically predicted, but it has been replicated across enough model families (Llama, T5-style, decoder-only) that it can be treated as a well-established prior.
-      </Prose>
-
-      <H3>11.3 If I have a trained MHA model, what is the minimum-effort way to get GQA memory savings?</H3>
-
-      <Prose>
-        Use the uptraining recipe. (1) Load the MHA checkpoint. (2) Replace {"W_K"} and {"W_V"} with their group-averaged versions (section 3.5 formula): for each of the {"g"} target KV heads, take the mean of the corresponding {"s = h/g"} MHA heads. (3) Keep {"W_Q, W_O"} unchanged. (4) Continue training on the original or a matching data mixture for {"\\approx 5-10\\%"} of the original pretrain compute. The first few hundred steps recover the averaged-head representation; the remainder fine-tunes the full model for the new layout. At the end, you have a GQA checkpoint with near-MHA quality and {"h/g"}-fold KV cache savings. This is exactly the procedure in Ainslie 2023 section 3.2.
-      </Prose>
-
-      <H3>11.4 Why does RoPE need to be applied before K expansion?</H3>
-
-      <Prose>
-        Two reasons. First, compute efficiency: applying RoPE to {"g"} KV heads and then expanding is {"s×"} cheaper than expanding to {"h"} heads and then applying RoPE {"s×"} times over identical copies. Second, cache correctness: the KV cache stores K at {"g"}-head resolution. If RoPE is applied after expansion, you have applied RoPE to a transient expanded tensor and your cache still holds pre-RoPE K — the next decoding step, which reads K from cache and pairs it with a new Q (which has had RoPE applied), will have a position-phase mismatch. Applying RoPE pre-expansion keeps the cache in a RoPE-aware state and ensures position offsets compose correctly across decode steps.
-      </Prose>
-
-      <H3>11.5 Why doesn't GQA help training memory much?</H3>
-
-      <Prose>
-        Training memory is dominated by (a) stored activations for backpropagation — mostly the FFN intermediate representation at {"4 d_{model}"} and the {"T × T"} attention scores — and (b) optimizer state (two moments per parameter in Adam, at fp32, totals {"\\approx 6×"} the parameter memory). GQA shrinks the K/V activations and the K/V parameter count, but both are small fractions of the training-memory budget. FFN activations alone are typically larger than all of attention's activations combined. Optimizer state shrinks with GQA by the parameter-count reduction, which is {"\\approx 5-10\\%"} of the model. Net training memory savings are real but modest — single-digit percent. For real training memory relief, use gradient checkpointing (quadratically reduces activation memory), ZeRO-3 (shards optimizer state across ranks), or FP8 training. GQA is an inference-time memory architecture; its training-time effects are a side benefit, not the point.
-      </Prose>
-
-    </div>
-  ),
-};
-
-export default gqaMqaContent;
+<Prose>{"At a new position, project "}<InlineMath>{"H_q"}</InlineMath>{" queries and only "}<InlineMath>{"H_{kv}"}</InlineMath>{" keys and values. If using standard RoPE, rotate each query and each unique key at its proper logical position, then append the compact rotated keys and unrotated values to the cache. Read them using the group mapping."}</Prose>
+
+<Prose>{"If all copies receive the same position and frequency rule, “rotate then repeat” and “repeat then rotate” are mathematically equivalent. Rotating the unique keys avoids redundant work. Cache correctness depends on retaining a consistent rotated/unrotated convention and logical IDs; the mere ordering of two equivalent operations does not force an expanded cache or a position bug."}</Prose>
+
+<Prose>{"A one-position query tensor can correspond to logical position 32. The legal keys are positions 0–32, not only position 0. More generally, a new chunk at positions 3 and 4 against keys 0–4 needs"}</Prose>
+
+<CodeBlock language={"text"}>{"query 3: 1 1 1 1 0\nquery 4: 1 1 1 1 1"}</CodeBlock>
+
+<Prose>{"This is a logical-position relation. A generic upper-left triangle on a 2-by-5 tensor would instead permit only the first one and first two keys. Both arrays have valid shapes; only one describes this cached computation."}</Prose>
+
+<><GqaCompactWriteDiagram /><GqaMaskLab /></>
+
+<H3>{"Bytes come from actual tensor dimensions"}</H3>
+
+<Prose>{"For a uniform unquantized cache with batch size "}<InlineMath>{"B"}</InlineMath>{", "}<InlineMath>{"N"}</InlineMath>{" layers, prefix length "}<InlineMath>{"L"}</InlineMath>{", equal K/V head count "}<InlineMath>{"H_{kv}"}</InlineMath>{" and bytes per stored number "}<InlineMath>{"s"}</InlineMath>{", the K/V tensor payload is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C=B N L H_{kv}(d_k+d_v)s."}</MathBlock></div>
+
+<Prose>{"When "}<InlineMath>{"d_k=d_v=d_h"}</InlineMath>{", this becomes "}<InlineMath>{"2BNLH_{kv}d_hs"}</InlineMath>{". One factor 2 means “key plus value”; another factor may come from using two-byte FP16/BF16 numbers. Do not merge them and accidentally halve the answer."}</Prose>
+
+<Prose>{"For an illustrative architecture with 80 layers, 64 query heads, width 128 per K/V head and two-byte cache entries:"}</Prose>
+
+<NeuralTable caption={"Bytes come from actual tensor dimensions"} headers={[<>{"Distinct KV heads"}</>,<>{"Cache bytes per token, one sequence"}</>,<>{"Payload at 32,768 tokens"}</>,<>{"Same payload in decimal GB"}</>]} rows={[[<>{"64, MHA"}</>,<>{"2,621,440"}</>,<>{"80 GiB"}</>,<>{"85.899 GB"}</>],[<>{"8, GQA"}</>,<>{"327,680"}</>,<>{"10 GiB"}</>,<>{"10.737 GB"}</>],[<>{"1, MQA"}</>,<>{"40,960"}</>,<>{"1.25 GiB"}</>,<>{"1.342 GB"}</>]]} />
+
+<Prose>{"A GiB is "}<InlineMath>{"2^{30}"}</InlineMath>{" bytes; a decimal GB is "}<InlineMath>{"10^9"}</InlineMath>{" bytes. These are calculated tensor sizes for the stated configuration. They do not claim that a named checkpoint was trained for this context length or that the complete model fits a particular device."}</Prose>
+
+<Prose>{"The reduction from 64 KV heads to 8 is eightfold; from 8 to 1 is another eightfold; from 64 to 1 is sixty-fourfold. Group size, head count and the chosen comparison determine the ratio."}</Prose>
+
+<Prose>{"For variable request lengths and different attention layer types, sum the actual per-request, per-layer terms. An allocated cache may reserve maximum lengths or rounded pages instead of exactly the occupied tokens. Quantized caches also have scales, packing and other metadata; four-bit values do not imply that every stored quantity occupies exactly half a byte. Prefix sharing and distributed replication further distinguish logical tensor payload from physical allocation."}</Prose>
+
+<H3>{"Parameter arithmetic changes too"}</H3>
+
+<Prose>{"Without biases, projections have parameter counts"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"P_Q=DH_qd_k,\\quad P_K=DH_{kv}d_k,\\quad\nP_V=DH_{kv}d_v,\\quad P_O=DH_qd_v."}</MathBlock></div>
+
+<Prose>{"Their sum is "}<InlineMath>{"D(H_q+H_{kv})(d_k+d_v)"}</InlineMath>{". For the common "}<InlineMath>{"d_k=d_v=D/H_q"}</InlineMath>{" case:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"P_{\\rm attention}=2D^2\\left(1+\\frac{H_{kv}}{H_q}\\right)."}</MathBlock></div>
+
+<Prose>{"With "}<InlineMath>{"D=512,H_q=8"}</InlineMath>{", MHA has 1,048,576 attention-projection parameters; two-KV-head GQA has 655,360; MQA has 589,824. Biases, norms, feedforward layers and embeddings add their own parameters. The percentage saved in the "}<strong>{"whole model"}</strong>{" depends on that full architecture. It is not always 5%, and optimizer-state memory can also decrease when trainable parameter count decreases."}</Prose>
+
+<H3>{"Which arithmetic remains?"}</H3>
+
+<Prose>{"Ignoring small overheads and counting a multiply-add as two operations, one attention application needs approximately"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"2BH_qTSd_k\\quad\\text{for QK scores},\\qquad\n2BH_qTSd_v\\quad\\text{for mixing values}."}</MathBlock></div>
+
+<Prose>{"These terms retain "}<InlineMath>{"H_q"}</InlineMath>{", even when K/V are shared. Different queries still form different weighted sums. The K/V "}<strong>{"projection"}</strong>{" arithmetic does decrease with "}<InlineMath>{"H_{kv}"}</InlineMath>{". Thus “all FLOPs stay identical” is too broad; “the dense score and value-mixing arithmetic is unchanged at fixed query heads, widths and lengths” is the useful precise statement."}</Prose>
+
+<Prose>{"For one decode query with equal widths, these attention operations total about "}<InlineMath>{"4BH_qLd_h"}</InlineMath>{". An idealized read-once compact K/V payload is "}<InlineMath>{"2BH_{kv}Ld_hs"}</InlineMath>{", suggesting arithmetic per byte of "}<InlineMath>{"2R/s"}</InlineMath>{". With two-byte elements this is "}<InlineMath>{"R"}</InlineMath>{" operations per byte. This model assumes effective reuse and omits weights, writes, cache hierarchy and other work; it explains why sharing can help a bandwidth-limited kernel without predicting its measured speed."}</Prose>
+
+<Prose>{"If 60% of a step's time were reducible by a factor of 8 and everything else stayed fixed, the total speedup would be"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{1}{0.4+0.6/8}\\approx2.105,"}</MathBlock></div>
+
+<Prose>{"not 8. This is an illustrative Amdahl calculation, not an observed decoder timing. Real group counts may also change kernel occupancy, parallelism, batching and communication. Measure the workload before turning a storage ratio into a latency claim."}</Prose>
+
+<GqaBudgetLab />
+
+<H2>{"5. Implement the mechanism and verify a real API contract"}</H2>
+
+<H3>{"A complete transparent NumPy reference"}</H3>
+
+<Prose>{"This program loops over query heads so the assignment is easy to inspect. It does not repeat the stored K/V array. Python and NumPy are sufficient; no trained weights or GPU are needed. The displayed arrays are the hand example from §3."}</Prose>
+
+<CodeBlock language={"python"}>{"import math\nimport numpy as np\n\n\ndef grouped_attention(query, keys, values, query_positions, key_positions,\n                      mapping=None, causal=True):\n    # Q: [B,Hq,T,dk], K: [B,Hkv,S,dk], V: [B,Hkv,S,dv].\n    batch, query_heads, query_length, key_width = query.shape\n    kv_heads = keys.shape[1]\n    if query_heads % kv_heads or keys.shape[:3] != values.shape[:3]:\n        raise ValueError(\"Use equal-size groups and matching K/V head/slot counts.\")\n    if keys.shape[0] != batch or keys.shape[-1] != key_width:\n        raise ValueError(\"Batch and Q/K coordinate widths must agree.\")\n    if mapping is None:\n        mapping = np.arange(query_heads) // (query_heads // kv_heads)\n    mapping = np.asarray(mapping)\n    if (mapping.shape != (query_heads,) or np.any(mapping < 0)\n            or np.any(mapping >= kv_heads)):\n        raise ValueError(\"Each query head must name a valid KV head.\")\n    legal = np.ones((query_length, keys.shape[2]), dtype=bool)\n    if causal:\n        legal = np.asarray(key_positions)[None, :] <= np.asarray(query_positions)[:, None]\n    if not legal.any(-1).all():\n        raise ValueError(\"A query has no legal key.\")\n    outputs, weights = [], []\n    for head, memory_head in enumerate(mapping):\n        scores = query[:, head] @ keys[:, memory_head].swapaxes(-1, -2)\n        scores /= math.sqrt(key_width)\n        scores = np.where(legal, scores, -np.inf)\n        probabilities = np.exp(scores - scores.max(-1, keepdims=True))\n        probabilities /= probabilities.sum(-1, keepdims=True)\n        outputs.append(probabilities @ values[:, memory_head])\n        weights.append(probabilities)\n    return np.stack(outputs, 1), np.stack(weights, 1)\n\n\nq = np.array([[1,0], [0,1], [-1,0], [0,-1]], dtype=float)[None,:,None,:] * math.sqrt(2)\nk = np.array([[[1,0], [0,1], [1,1]], [[1,1], [-1,0], [0,-1]]], dtype=float)[None]\nv = np.array([[[2,0], [0,4], [2,2]], [[1,3], [-1,2], [3,0]]], dtype=float)[None]\noutput, weights = grouped_attention(q, k, v, [2], [0,1,2])\nprint(\"weights:\", np.round(weights[0,:,0], 6))\nprint(\"head outputs:\", np.round(output[0,:,0], 6))\n\n# The same function represented as MHA with tied/repeated K/V heads.\ntied, _ = grouped_attention(q, np.repeat(k, 2, axis=1),\n                           np.repeat(v, 2, axis=1), [2], [0,1,2])\nprint(\"tied MHA agrees:\", np.allclose(output, tied, atol=1e-12))\n\n# For one query at the last slot, a compact prefix plus the new entry agrees.\ncached_keys = np.concatenate((k[:,:,:2], k[:,:,2:]), axis=2)\ncached_values = np.concatenate((v[:,:,:2], v[:,:,2:]), axis=2)\ncached, _ = grouped_attention(q, cached_keys, cached_values, [2], [0,1,2])\nprint(\"compact cache agrees:\", np.allclose(output, cached, atol=1e-12))"}</CodeBlock>
+
+<Prose>{"The head outputs are "}<code>{"[1.689275,1.466087]"}</code>{", "}<code>{"[1.155362,2.533913]"}</code>{", "}<code>{"[0.158975,1.600574]"}</code>{" and "}<code>{"[1.841025,0.759549]"}</code>{", and both checks print "}<code>{"True"}</code>{". The compact-cache check here verifies the "}<strong>{"projected-array assembly"}</strong>{". The full neural program in §6 additionally verifies that projecting and processing an observed sequence incrementally reproduces all full-pass causal predictions."}</Prose>
+
+<Prose>{"This reference rejects an all-masked query instead of normalizing an empty set. A production kernel may specify another policy, such as a zero output, but the application must still distinguish “there is no legal evidence” from an ordinary attention distribution. Validate head counts, widths, masks and finite data at the actual input boundary."}</Prose>
+
+<H3>{"Calling PyTorch SDPA is an explicit choice"}</H3>
+
+<Prose>{"The "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html"}>{"PyTorch 2.14 SDPA contract"}</a>{" exposes "}<code>{"enable_gqa=True"}</code>{". It is false by default. Do not assume that fewer K/V heads automatically select the intended grouped operation in every API or backend. MQA can also happen to broadcast in some lower-level operations; that does not replace an explicit grouping contract."}</Prose>
+
+<Prose>{"For existing tensors Q/K/V with the shapes above, the relevant call is:"}</Prose>
+
+<CodeBlock language={"python"}>{"result = torch.nn.functional.scaled_dot_product_attention(\n    query, keys, values,\n    attn_mask=legal_mask,       # True means this key participates.\n    is_causal=False,           # The explicit mask already includes causal legality.\n    dropout_p=0.0,\n    enable_gqa=True,\n)"}</CodeBlock>
+
+<Prose>{"This is a call-site fragment; "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py"}>{"the complete operator-check program"}</a>{" supplies the tensors and executes it. Its CPU float64 output agreed with the direct grouped calculation to "}<InlineMath>{"2.23\\times10^{-16}"}</InlineMath>{" in the recorded PyTorch 2.14.0 environment. That observation is not evidence about CUDA dispatch, throughput or every supported shape."}</Prose>
+
+<GqaProgram file="mechanism-calculations.py" />
+
+<Prose>{"Pay attention to two particularly easy API mismatches. SDPA's boolean mask uses "}<code>{"True"}</code>{" for "}<strong>{"allowed"}</strong>{", whereas "}<code>{"MultiheadAttention"}</code>{"'s key-padding mask uses "}<code>{"True"}</code>{" for "}<strong>{"excluded padding"}</strong>{". Also, SDPA's documented non-square "}<code>{"is_causal=True"}</code>{" aligns a triangle at the "}<strong>{"upper left"}</strong>{". A cached query at the last position needs the offset relation from §4. In our one-query/three-key fixture, the upper-left mask allows only the first key, returning its value in each group instead of the correct three-key mixture."}</Prose>
+
+<Prose>{"The "}<a href={"https://github.com/Dao-AILab/flash-attention#how-to-use-flashattention"}>{"FlashAttention interface documentation"}</a>{" describes a bottom-right-aligned causal convention for its current unequal-length operation. These are different API contracts, despite similar parameter names. Compare each call with an explicit logical-position reference rather than transplanting a mask assumption between libraries. Backend support and fused-kernel constraints are version-specific; the recorded native checks do not require installing FlashAttention."}</Prose>
+
+<Prose>{"SDPA also applies dropout according to the "}<code>{"dropout_p"}</code>{" argument. Setting a surrounding module to evaluation mode does not automatically override a nonzero argument passed to the functional call. Use zero for deterministic cached inference unless the application deliberately defines another behavior."}</Prose>
+
+<Prose>{"The "}<a href={"https://github.com/huggingface/transformers/blob/main/src/transformers/models/llama/modeling_llama.py"}>{"maintained Llama source"}</a>{" provides a useful production reading exercise: inspect smaller K/V projections, native-head RoPE, compact cache update, then attention-backend dispatch. Its eager "}<code>{"repeat_kv"}</code>{" helper is a readable reference; it is not proof that an expand-plus-reshape path always avoids allocation. Inspect the actual storage and backend when that distinction matters."}</Prose>
+
+<H3>{"Make sharing visible to the optimizer"}</H3>
+
+<Prose>{"The complete "}<code>{"mechanism-calculations.py"}</code>{" also checks the derivative that sharing creates: reshape per-reader value gradients into "}<code>{"[B,Hkv,readers,S,dv]"}</code>{" and sum the readers axis. That result must equal the compact shared V gradient. This is the bridge from a storage choice to actual fitting, not a claim that averaging separately updated MHA weights implements the same update."}</Prose>
+
+<Prose>{"For an independent variation, use six query heads and two KV heads, with value width different from key width. Change the group reshape and output merge consistently; keep the true Q/K scale. "}<strong>{"Hint:"}</strong>{" each KV parameter now receives contributions from three readers. "}<strong>{"Solution:"}</strong>{" SDPA and the direct grouped operator should agree, and three per-reader gradients sum into each shared gradient. The real forecast program already owns projection, optimizer, conversion/uptraining and full-versus-cached state. Reuse it for this extension; do not rebuild the attention derivation or compare unrelated random fits."}</Prose>
+
+<H2>{"6. Convert a trained model and observe what survives"}</H2>
+
+<H3>{"Mean pooling is an initialization, not function preservation"}</H3>
+
+<Prose>{"An MHA checkpoint has separate K/V projection parameters for each head. To initialize a grouped model, average the original K-head matrices inside each new group and do the same for V. Copy the Q maps, output map and other compatible parameters."}</Prose>
+
+<Prose>{"For group "}<InlineMath>{"g"}</InlineMath>{" containing head indices "}<InlineMath>{"I_g"}</InlineMath>{":"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\overline W_{K,g}=\\frac1R\\sum_{h\\in I_g}W_{K,h},\\qquad\n\\overline W_{V,g}=\\frac1R\\sum_{h\\in I_g}W_{V,h}."}</MathBlock></div>
+
+<Prose>{"Average K/V biases too when those projections have biases. With PyTorch's output-by-input weight layout, reshape a key weight of shape "}<code>{"[Hq*dk,D]"}</code>{" into "}<code>{"[Hkv,R,dk,D]"}</code>{", average the reader axis and reshape to "}<code>{"[Hkv*dk,D]"}</code>{". Mixing the coordinate axis with the head axis produces a different projection, even if the final tensor has an acceptable shape."}</Prose>
+
+<Prose>{"The mean has a precise limited justification. It minimizes the sum of squared Euclidean/Frobenius distances to the matrices being averaged:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\sum_h\\|W_h-M\\|_F^2\n=\\sum_h\\|W_h-\\overline W\\|_F^2+R\\|M-\\overline W\\|_F^2."}</MathBlock></div>
+
+<Prose>{"The first term is independent of "}<InlineMath>{"M"}</InlineMath>{"; the second is smallest at the mean. This preserves a particular notion of proximity "}<strong>{"in parameter coordinates"}</strong>{". It does not minimize the final model's prediction loss or average attention outputs. Heads can use different learned coordinate bases, and softmax is nonlinear."}</Prose>
+
+<Prose>{"For a fixed query q, comparing it with the mean key gives the mean of its comparisons with all keys in that group. This is not the average of the original heads' own comparisons, which use different queries. Applying softmax then mixing averaged values introduces further nonlinear differences."}</Prose>
+
+<H3>{"A two-head counterexample"}</H3>
+
+<Prose>{"Take scalar queries 1 and 2. Head 0 has keys "}<code>{"[2,0]"}</code>{", values "}<code>{"[1,3]"}</code>{"; head 1 has keys "}<code>{"[0,2]"}</code>{", values "}<code>{"[5,−1]"}</code>{". Their original outputs are approximately 1.238406 and −0.892083. Mean-pooling keys gives "}<code>{"[1,1]"}</code>{", and mean-pooling values gives "}<code>{"[3,1]"}</code>{". Both retained queries now see equal scores over the two positions, so each produces output 2."}</Prose>
+
+<Prose>{"The averaged parameters have not preserved either original output, nor their average. No random numerical accident is needed to demonstrate the issue. Conversely, if the original K and V parameters inside each group are already identical and the positional/masking conventions agree, conversion preserves the function exactly. This tied-head case is a useful null control."}</Prose>
+
+<GqaConversionLab />
+
+<Prose>{"Further training lets the model adapt to the new structure. The original GQA study calls this "}<strong>{"uptraining"}</strong>{". Its T5 experiment continued the pretraining recipe after conversion, then evaluated downstream tasks. It did not establish that every checkpoint can be converted losslessly with a fixed number of updates. Use the original optimization/data recipe when reproducing a reported result; our local study deliberately uses a much smaller and different task."}</Prose>
+
+<H3>{"A real causal forecasting task"}</H3>
+
+<Prose>{"We use the same licensed "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"Libras Movement recordings"}</a>{" as the preceding positional lesson, but ask a new question: "}<strong>{"given the observed points so far, where will the next point be?"}</strong>{" Each record has 45 normalized x/y coordinates. Inputs 0–43 predict targets 1–44. The causal mask ensures a prediction cannot read its target or later points. Movement-class labels are used only to preserve the declared split, not as model inputs or forecast targets."}</Prose>
+
+<Prose>{"The source has 360 rows but 330 distinct trajectories. Remove the 30 additional exact duplicates after checking that duplicate labels agree, retain the first occurrence and use the existing seed-73 classwise split: 220 training, 50 validation and 60 test trajectories. Keep whole trajectories together. Fixed scaling "}<InlineMath>{"2x-1"}</InlineMath>{" supplies model inputs and targets; output RMSE is converted back to the original coordinate unit. The source lacks reliable per-row performer/session identifiers, so this is a row-level diagnostic, not evidence of generalization to a new signer or a deployable movement system. "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md"}>{"Original data, metadata and attribution"}</a>{" accompany the program."}</Prose>
+
+<Prose>{"A persistence baseline predicts the latest observed point unchanged. An affine baseline fits "}<InlineMath>{"\\widehat x_{t+1}=A x_t+b"}</InlineMath>{" to training transitions only. These simple models make it harder to mistake smooth motion for impressive architectural learning."}</Prose>
+
+<H3>{"A controlled conversion protocol"}</H3>
+
+<Prose>{"The neural model has a 2-to-24 coordinate projection, one pre-normalized Transformer block, four query heads of width 6, FFN width 48 with GELU, a final LayerNorm and a two-coordinate prediction at every row. It uses full Q/K RoPE with base 10000 and logical positions 0–43, biased maps, epsilon "}<InlineMath>{"10^{-5}"}</InlineMath>{" and no dropout. It predicts coordinates rather than classes or token probabilities."}</Prose>
+
+<Prose>{"First train the four-KV-head MHA parent using seed 101, 180 full-batch Adam updates at learning rate 0.003. Select the lowest validation MSE, taking the earliest exact tie. The selected parent is update 171."}</Prose>
+
+<Prose>{"From that one checkpoint, create three branches: continue MHA unchanged, convert to two-KV-head GQA by group means, and convert to one-KV-head MQA. Each branch then gets exactly 45 additional full-batch Adam updates at learning rate 0.001 with a fresh optimizer. Select by validation MSE, including the zero-update state as a candidate. The continued MHA branch controls for the benefit of simply doing more optimization. All shared weights are copied from the parent; no branch is retuned after seeing test performance."}</Prose>
+
+<Prose>{"This is a small conversion study, not a comparison of fully optimized architectures trained from scratch. Different branches have different parameter counts and may require different adaptation schedules. The fraction 45/180 is a count of these local updates, not a claim to reproduce the original paper's pretraining-compute fraction."}</Prose>
+
+<H3>{"The actual outcomes"}</H3>
+
+<Prose>{"RMSE below is per coordinate, in the original normalized coordinate units. Each neural test result averages errors over all 44 prediction slots of the same 60 held-out trajectories."}</Prose>
+
+<NeuralTable caption={"The actual outcomes"} headers={[<>{"Model/branch"}</>,<>{"Parameters"}</>,<>{"Selected extra update"}</>,<>{"Test RMSE before extra training"}</>,<>{"Test RMSE after selection"}</>]} rows={[[<>{"MHA continuation, 4 KV heads"}</>,<>{"5,042"}</>,<>{"41"}</>,<>{"0.015789"}</>,<>{"0.015617"}</>],[<>{"Converted GQA, 2 KV heads"}</>,<>{"4,442"}</>,<>{"45"}</>,<>{"0.077182"}</>,<>{"0.018268"}</>],[<>{"Converted MQA, 1 KV head"}</>,<>{"4,142"}</>,<>{"42"}</>,<>{"0.115174"}</>,<>{"0.025224"}</>],[<>{"Persistence baseline"}</>,<>{"0"}</>,<>{"—"}</>,<>{"—"}</>,<>{"0.026458"}</>],[<>{"Training-fitted affine baseline"}</>,<>{"6"}</>,<>{"—"}</>,<>{"—"}</>,<>{"0.026222"}</>]]} />
+
+<Prose>{"Averaging sharply worsens both converted models initially. Further training recovers much of that loss. GQA remains worse than the MHA control in this run; MQA is only slightly better than the simple baselines. These are informative outcomes, not failures to obtain the intended lesson. Cache size reductions are exact consequences of shape; quality recovery is an empirical question."}</Prose>
+
+<Prose>{"Validation RMSE after selection is 0.015260, 0.018438 and 0.025090 for MHA/GQA/MQA respectively. The GQA selection lands on the last allowed update, so this protocol does not establish its eventual converged quality. More adaptation might change the result; do not extend the schedule solely to improve a displayed test score. A new training question would need a newly declared protocol and appropriate evaluation boundary."}</Prose>
+
+<GqaTrainingHistory />
+
+<H3>{"Inspect one real forecast, including the cache"}</H3>
+
+<Prose>{"The visible example was chosen before fitting: source row 77. Observe its first 32 points, then predict point 32 under zero-based numbering. The actual next point is approximately "}<code>{"[0.593810,0.250000]"}</code>{"."}</Prose>
+
+<NeuralTable caption={"Inspect one real forecast, including the cache"} headers={[<>{"Selected branch"}</>,<>{"Next predicted point"}</>,<>{"Compact float32 K/V payload for this 32-point prefix"}</>]} rows={[[<>{"MHA"}</>,<>{"[0.600976,0.258456]"}</>,<>{"6,144 bytes"}</>],[<>{"GQA"}</>,<>{"[0.597412,0.259018]"}</>,<>{"3,072 bytes"}</>],[<>{"MQA"}</>,<>{"[0.607105,0.253203]"}</>,<>{"1,536 bytes"}</>]]} />
+
+<Prose>{"These are actual saved model outputs. The bytes are also checked against the actual K/V tensors: "}<code>{"[1,Hkv,32,6]"}</code>{" for each of K and V. They exclude position metadata and all other model state."}</Prose>
+
+<Prose>{"Feeding those same 32 observed points one at a time with the compact cache reproduced "}<strong>{"every"}</strong>{" full-pass causal forecast within "}<InlineMath>{"2.7\\times10^{-7}"}</InlineMath>{" in transformed coordinates. Shifting all logical IDs by 100 preserved the outputs within "}<InlineMath>{"2.4\\times10^{-7}"}</InlineMath>{" under this fixed RoPE model. Neither check means a new unseen input can be ignored; it verifies equivalence of two computations of the same specified function."}</Prose>
+
+<Prose>{"Reflect observed point 23's x coordinate using "}<InlineMath>{"x\\mapsto1-x"}</InlineMath>{". The final GQA next-point forecast changes from "}<code>{"[0.597412,0.259018]"}</code>{" to "}<code>{"[0.597468,0.258925]"}</code>{"; its earlier per-row predictions can change much more. Causality requires outputs "}<strong>{"before"}</strong>{" the edited point to stay unchanged. Attention to a changed old point can affect later queries even though we use a compact cache. Because the old observation changed, recompute the affected cached states rather than silently reusing a cache for a different prefix."}</Prose>
+
+<GqaForecastLab />
+
+<H3>{"One-step evaluation is not a generated rollout"}</H3>
+
+<Prose>{"In the table, each prediction receives the real preceding observations. This is teacher-forced evaluation. To forecast several future points, feed the model's own output back as its next input. Errors can change subsequent inputs and accumulate."}</Prose>
+
+<Prose>{"Starting from the same 32-point prefix, the GQA model's five generated points are approximately"}</Prose>
+
+<CodeBlock language={"text"}>{"[0.597412,0.259018]\n[0.590012,0.261214]\n[0.583480,0.265978]\n[0.577641,0.272512]\n[0.571721,0.279467]"}</CodeBlock>
+
+<Prose>{"Only the first prediction used the last true observed point as its newest input; each later prediction used the prior prediction. The workspace may reveal the actual recorded future afterward for inspection, but those values must not enter the rollout. Edited trajectories have no newly established ground truth. Also, the linear output is not constrained to 0–1; do not silently clip out-of-range predictions and describe the clipped path as the model's actual output."}</Prose>
+
+<Prose>{"This distinction connects the earlier sequence-model lessons to serving: caching removes repeated computation of an unchanged history; it does not remove the uncertainty or feedback loop of generation."}</Prose>
+
+<H3>{"Reproduce the complete study"}</H3>
+
+<Prose>{"Download "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py"}>{"the complete CPU program"}</a>{", "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data"}>{"the data"}</a>{", "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names"}>{"original metadata"}</a>{" and "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json"}>{"the recorded results"}</a>{" into one directory. With Python, NumPy and PyTorch installed:"}</Prose>
+
+<CodeBlock language={"bash"}>{"python author-calculations.py"}</CodeBlock>
+
+<Prose>{"The recorded environment was Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu, one CPU thread and deterministic algorithms. The program includes the complete model, causal/RoPE/grouped operator, mean-weight/bias conversion, both baselines, all fitting and checkpoint selection, split/duplicate checks, actual weight export and full/cached interventions. It does not rely on a hidden notebook, pretrained download or a GPU. Numerical environments can change last digits."}</Prose>
+
+<Prose>{"Read "}<code>{"CausalForecaster.forward"}</code>{" alongside the diagram: normalize the carried state; project native Q/K/V counts; rotate; append compact K/V and logical IDs; reshape the query-head axis into groups/readers; score and mask; mix values; combine heads; complete the residual/FFN path; forecast the next coordinate. The "}<code>{"convert"}</code>{" function shows exactly which parameters are averaged and which are copied."}</Prose>
+
+<GqaProgram />
+
+<Prose>{"The "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json"}>{"model/trace file"}</a>{" supports later interactive implementation. Its full author evidence is an optional download, not an eager browser payload. A page should load only the selected model's compact weights and selected example, and should evaluate changed inputs without training."}</Prose>
+
+<H2>{"7. Deeper connections: capacity, optimization and deployment"}</H2>
+
+<H3>{"Sharing ties parameters and accumulates gradients"}</H3>
+
+<Prose>{"For a fixed group, several query heads depend on the same K/V parameters. During training, the shared parameters receive contributions from every use. This is the same chain-rule principle as reusing a function or sharing a convolution kernel across image positions."}</Prose>
+
+<Prose>{"If the loss is "}<InlineMath>{"\\mathcal L"}</InlineMath>{" and group g's value at position j is "}<InlineMath>{"v_{g,j}"}</InlineMath>{", its direct value-path derivative is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial\\mathcal L}{\\partial v_{g,j}}\n=\\sum_{h:g(h)=g}\\sum_t\na_{h,t,j}\\frac{\\partial\\mathcal L}{\\partial o_{h,t}}."}</MathBlock></div>
+
+<Prose>{"Each reader contributes according to how much it used that value and how its output affected the loss. There is no extra automatic average over group size. If the loss itself is averaged across examples or positions, that normalization is already inside the upstream derivatives."}</Prose>
+
+<Prose>{"Keys have a more coupled effect because they alter softmax weights. For one reader/query, the derivative with respect to its scaled score is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial\\mathcal L}{\\partial s_{h,t,j}}\n=a_{h,t,j}\\left(\\frac{\\partial\\mathcal L}{\\partial o_{h,t}}\\right)^\\top\n(v_{g,j}-o_{h,t})."}</MathBlock></div>
+
+<Prose>{"Multiplying by "}<InlineMath>{"q_{h,t}/\\sqrt{d_k}"}</InlineMath>{" and summing over that group's readers/positions gives the shared key's gradient when the key enters scores through this dot product. The subtraction of the current mixture appears because increasing one key's weight decreases other normalized weights. Position transforms add their own chain-rule factors."}</Prose>
+
+<Prose>{"The "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py"}>{"operator-check program"}</a>{" differentiates a squared-output loss through direct grouped attention and separately through independent repeated value copies. Summing the per-copy gradients exactly recovers the shared-value gradient within float64 tolerance. This is a substantive check of the sharing mechanism, not merely “a gradient exists.”"}</Prose>
+
+<GqaGradientFigure />
+
+<H3>{"What capacity is being restricted?"}</H3>
+
+<Prose>{"At fixed head counts and widths, a grouped model can be represented as an MHA model whose K/V parameters are tied inside each group. MHA allows that tied choice and also permits separate K/V maps. GQA restricts this part of the parameterization while retaining query and output-head diversity."}</Prose>
+
+<Prose>{"This explains a capacity tradeoff, not a theorem that a finite trained MHA model must generalize better. Optimization, data volume, inductive bias and training budgets matter. A restriction can help some tasks, hurt others or make little practical difference. The local forecasting table and published studies are evidence under their own protocols."}</Prose>
+
+<Prose>{"Shared values also do not force all head outputs to be equal: different distributions form different combinations of the same value rows. Before output projection, each head's mixture is in the convex hull of its legal value vectors when attention is ordinary nonnegative row-softmax without dropout. Distinct heads may choose different points in that hull, and their output projections combine them differently. This geometric interpretation does not impose the same convex-hull restriction on the final residual state or forecast."}</Prose>
+
+<Prose>{"If an MHA checkpoint's heads use different feature bases, naive averaging can be a poor functional merge. Even a function-preserving head permutation changes which heads fall into contiguous groups unless grouping is transformed too. Group selection or learned conversion procedures are meaningful research choices. The mean-initialization recipe is a practical baseline, not a proof that the original order yields optimal groups."}</Prose>
+
+<H3>{"What the original studies actually establish"}</H3>
+
+<Prose>{"The "}<a href={"https://arxiv.org/html/2305.13245v3#S3"}>{"GQA paper's Table 1"}</a>{" reports this T5-XXL comparison after its specified 5% uptraining and task fine-tuning:"}</Prose>
+
+<NeuralTable caption={"What the original studies actually establish"} headers={[<>{"Attention"}</>,<>{"Average development-task score"}</>,<>{"Reported inference time, seconds per sample per TPUv4 chip"}</>]} rows={[[<>{"MHA"}</>,<>{"47.2"}</>,<>{"1.51"}</>],[<>{"MQA"}</>,<>{"46.6"}</>,<>{"0.24"}</>],[<>{"GQA with 8 KV groups"}</>,<>{"47.1"}</>,<>{"0.28"}</>]]} />
+
+<Prose>{"The average combines the paper's summarization, translation and question-answering metrics; it is not accuracy on one dataset. The authors optimized parallelization separately and used their stated batching/timing protocol. These rows illustrate their quality/time tradeoff, not a universal GPU speed multiplier. Their Figure 5 varies "}<strong>{"uptraining proportion"}</strong>{"; Figure 6 varies groups and reports "}<strong>{"time"}</strong>{". Neither is a measured seven-point quality curve proving that eight groups are always optimal. The limitations also identify encoder-decoder-only evaluation and the absence of a from-scratch XXL GQA comparison."}</Prose>
+
+<Prose>{"The "}<a href={"https://arxiv.org/pdf/1911.02150"}>{"MQA paper's model-quality section"}</a>{" likewise reports task- and metric-specific differences, including a beam-search translation score where MQA slightly exceeds its MHA baseline. Its comparison widens feedforward layers to match total parameter counts. There is no universal “MQA loses exactly 1%” law. The practical questions are which quality measures matter, what adaptations were performed, and what serving workload was measured."}</Prose>
+
+<H3>{"Three separate ways to reduce attention cost"}</H3>
+
+<NeuralTable caption={"Three separate ways to reduce attention cost"} headers={[<>{"Technique"}</>,<>{"What it changes"}</>,<>{"What it does not automatically establish"}</>]} rows={[[<>{"GQA/MQA"}</>,<>{"Number of distinct K/V heads"}</>,<>{"Fewer legal token positions or fixed-size sequence state"}</>],[<>{"Sliding/local attention"}</>,<>{"Which positions each query can read"}</>,<>{"Identical full-attention function or unlimited direct access to old tokens"}</>],[<>{"Tiled exact attention"}</>,<>{"How the same score/softmax/value calculation is scheduled and stored"}</>,<>{"A different mathematical attention operator or a smaller logical KV cache by itself"}</>],[<>{"Paged cache allocation"}</>,<>{"Where physical cache blocks are stored and shared"}</>,<>{"A change to learned projection widths or a universal throughput multiplier"}</>],[<>{"KV quantization"}</>,<>{"Representation precision and payload packing"}</>,<>{"Exact original floating-point outputs or zero metadata overhead"}</>]]} />
+
+<Prose>{"These can be combined when their implementation contracts agree. "}<a href={"https://arxiv.org/html/2310.06825v1#S2"}>{"Mistral 7B's architecture table"}</a>{" gives a concrete published example with 32 query heads and 8 KV heads, combined with sliding-window attention. That is group size 4, not four KV heads. The window and shared heads act on different axes. Its original context/window choices describe that checkpoint, not a recommendation that every new model use those settings."}</Prose>
+
+<Prose>{"Paged allocation rounds token storage into blocks and can support sharing identical prefix blocks with appropriate reference management. It does not guarantee that a logical eightfold GQA reduction multiplies another claimed fourfold saving into thirty-twofold throughput. Allocation efficiency, bandwidth, scheduling and computation interact. Treat the "}<a href={"https://arxiv.org/abs/2309.06180"}>{"original PagedAttention paper"}</a>{" as further systems reading; the local plots here contain no unmeasured serving numbers."}</Prose>
+
+<Prose>{"Speculative decoding has another role: a draft proposes several tokens and the target verifies them. GQA can supply the target's attention implementation, but its cache layout must support accepted/rejected prefix updates. The benefit depends on acceptance, batch/length and hardware. Do not assign a fixed extra multiplier just because both techniques are present."}</Prose>
+
+<H3>{"Logical sharing can be replicated across devices"}</H3>
+
+<Prose>{"Suppose tensor parallelism partitions query heads across eight devices. A simple implementation may replicate a single MQA KV head on all eight devices so each can perform its local reads. The model logically has one KV head, but aggregate physical storage contains eight copies. With eight GQA KV heads, a suitable one-group-per-device partition can avoid that particular replication."}</Prose>
+
+<Prose>{"For this simplified equal partition, aggregate stored-head copies can be "}<InlineMath>{"\\max(H_{kv},P)"}</InlineMath>{" when head counts and the "}<InlineMath>{"P"}</InlineMath>{" partitions are compatible and smaller counts are replicated. This is an example strategy, not a universal distributed-cache formula. A different algorithm might communicate or partition the state differently. Count actual per-device storage and communications; do not divide every cache estimate by the device count automatically. The "}<a href={"https://arxiv.org/html/2305.13245v3#S2.SS2"}>{"GQA method discussion"}</a>{" explicitly motivates grouped heads partly through this sharding issue."}</Prose>
+
+<GqaDistributedDiagram />
+
+<H3>{"When is this useful beyond chat?"}</H3>
+
+<Prose>{""}<strong>{"Streaming trajectories and sensor prediction."}</strong>{" Our point predictor is a small causal example. A long stream would keep adding cached records unless the architecture or application defines a window, reset or another memory mechanism. Shared heads reduce each stored record's width; they do not make indefinite storage finite. A reliable streaming application also needs a policy for missing observations, changed calibration and corrected historical inputs."}</Prose>
+
+<Prose>{""}<strong>{"Encoder-decoder systems."}</strong>{" A decoder can use GQA for self-attention over generated tokens and for cross-attention over fixed encoder outputs. The cross-attention K/V can be projected once from those encoder outputs and reused while decoding. Its source length can differ from the generated-prefix length. If encoder outputs change, their cached projections must be refreshed. GQA is not restricted to decoder-only language models, although its incremental motivation is strongest in particular workloads."}</Prose>
+
+<Prose>{""}<strong>{"Multimodal prefixes."}</strong>{" Image patches or audio features can contribute many positions to an autoregressive model's context. Shared K/V heads can reduce the representation stored for each such position, but positional coordinates, modality boundaries and legal cross-stream attention remain separate decisions. The later vision and cross-attention lessons own those representations."}</Prose>
+
+<Prose>{""}<strong>{"Mixture-of-experts models."}</strong>{" A Transformer may route feedforward computation to experts while keeping a shared attention layer. In that arrangement, expert count does not multiply the attention KV-head count. Read the actual block definition; the phrase “eight experts” does not mean eight independent copies of every attention cache. "}<a href={"/learn/path/full-curriculum/mixture-of-experts-transformers-moe?module=deep-learning-fundamentals"}>{"Mixture-of-Experts Transformers"}</a>{" develops that distinction."}</Prose>
+
+<GqaOwnershipDiagram />
+
+<H3>{"Choosing or reproducing a configuration"}</H3>
+
+<Prose>{"For a pretrained checkpoint, reproduce its query/KV counts, grouping, widths, positional convention and weights. Changing a configuration field alone is not a conversion. A changed projection shape needs transformed or newly learned parameters and an evaluated adaptation plan."}</Prose>
+
+<Prose>{"For a new model, compare reasonable head counts using the actual task, training budget and serving constraints. A short parallel encoder workload has a different performance profile from long autoregressive decode. Small models can benefit from sharing under suitable contexts, and large models do not all require the same eight groups. Quality, cache capacity, kernel availability and distributed layout jointly determine the choice."}</Prose>
+
+<Prose>{"Measure prefill and decode separately, with stated batch size, sequence lengths, dtype, device, kernels and synchronization. Distinguish latency per request from aggregate tokens per second and account for total model state, not only K/V payload. The transparent NumPy/PyTorch programs here teach correctness. Their Python loops and cache concatenation are not production scheduling advice; repeated concatenation copies existing storage, whereas a bounded or paged implementation can manage append positions directly."}</Prose>
+
+<Prose>{"Finally, the "}<a href={"/learn/path/full-curriculum/multi-head-latent-attention-mla?module=deep-learning-fundamentals"}>{"next topic, Multi-Head Latent Attention"}</a>{", changes a different representation choice: it compresses cache content into a latent representation and carefully handles positional components. Its actual computation cannot be inferred solely from a smaller-looking parameter count. The head/group/cache distinctions here are the prerequisite for understanding that design."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"8. Practice: reason about new inputs and constraints"}</H2>
+
+<Prose>{"Try each question before opening its hint or solution. Exercises 1–5 check the first-pass route; 6–9 use deeper reasoning. The downloadable programs can verify your calculations, but calculate or explain the mechanism."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Count readers and stored representations"}</H3>
+
+<Prose>{"A model has 12 query heads and 3 KV heads, using contiguous equal groups. Which KV head does query head 9 read? How many distinct attention distributions does one query position produce? If the key at one memory position in group 2 changes, which query heads can be affected? Must all of them change numerically?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Compute the number of readers per group, then apply integer division to the zero-based query-head index."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Group size is "}<InlineMath>{"R=12/3=4"}</InlineMath>{". Head 9 reads group "}<InlineMath>{"\\lfloor9/4\\rfloor=2"}</InlineMath>{". There are 12 attention distributions, one per query head. The changed group-2 key can affect heads 8,9,10,11. A particular score can remain unchanged if its query is orthogonal to the key edit; later output effects can also cancel. Heads outside that group are unaffected by this isolated projected-key change at this operation. A changed original input may influence other projections too, so that is a different intervention."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Sharing does not mean agreement"}</H3>
+
+<Prose>{"Two queries q0="}<code>{"[1,0]"}</code>{" and q1="}<code>{"[0,1]"}</code>{" share keys "}<code>{"[[2,0],[0,2]]"}</code>{" and values "}<code>{"[[1,0],[0,3]]"}</code>{", with head width 2. Compute each distribution and output. Then change the second value to "}<code>{"[2,3]"}</code>{". Which weights change, and by how much do the output x coordinates change?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The nonzero scaled logit is "}<InlineMath>{"2/\\sqrt2=\\sqrt2"}</InlineMath>{". Let "}<InlineMath>{"p=e^{\\sqrt2}/(1+e^{\\sqrt2})"}</InlineMath>{"."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{""}<InlineMath>{"p\\approx0.804430"}</InlineMath>{". The weights are "}<code>{"[p,1−p]"}</code>{" and "}<code>{"[1−p,p]"}</code>{"; outputs are approximately "}<code>{"[0.804430,0.586711]"}</code>{" and "}<code>{"[0.195570,2.413289]"}</code>{". Changing a value leaves weights unchanged. The x-coordinate increases are "}<InlineMath>{"2(1-p)\\approx0.391141"}</InlineMath>{" and "}<InlineMath>{"2p\\approx1.608859"}</InlineMath>{". Distinct queries read the same value edit in different proportions."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Count bytes without confusing units"}</H3>
+
+<Prose>{"There are two independent requests, 12 layers, 3 KV heads, prefix length 1024, key width 64, value width 32 and two bytes per stored number. Calculate the K/V payload in bytes and MiB. The model has 12 query heads: what would the payload be under MHA with those widths? Name two reasons the measured physical allocation might exceed the compact payload."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use "}<InlineMath>{"BNLH_{kv}(d_k+d_v)s"}</InlineMath>{". A MiB is "}<InlineMath>{"2^{20}"}</InlineMath>{" bytes. The value width does not have to equal the key width."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The payload is "}<InlineMath>{"2\\times12\\times1024\\times3\\times96\\times2=14,155,776"}</InlineMath>{" bytes, or 13.5 MiB. MHA has four times as many K/V heads, so it needs 54 MiB for these tensors. Reserved/padded capacity, page rounding, quantization metadata, duplicated prefixes or replication across devices can add physical storage; position/cache bookkeeping and other model state also need memory. Do not label this payload as the entire application's memory usage."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Repair a non-square causal mask"}</H3>
+
+<Prose>{"A decode chunk has query positions "}<code>{"[5,6]"}</code>{" and stored key positions "}<code>{"[0,1,2,3,4,5,6]"}</code>{". Write its legal mask. A developer passes only "}<code>{"is_causal=True"}</code>{" to an API documented to use an upper-left triangle for non-square inputs. What relation does that represent instead? Would GQA head sharing fix the error?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Compare actual logical positions, then separately consider local row indices 0 and 1."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The correct rows are "}<code>{"[1,1,1,1,1,1,0]"}</code>{" and "}<code>{"[1,1,1,1,1,1,1]"}</code>{". An upper-left triangle gives "}<code>{"[1,0,0,0,0,0,0]"}</code>{" and "}<code>{"[1,1,0,0,0,0,0]"}</code>{", as if queries were at local positions 0 and 1. Supply the intended explicit mask or an API-specific offset-aware causal bias. The head axis and causal-position axis are independent; fewer KV heads cannot repair the wrong legal set."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Design a fair conversion check"}</H3>
+
+<Prose>{"After mean-pooling an MHA checkpoint, a researcher trains only the converted model for 100 more updates, then compares it with the original checkpoint. What extra control would help separate conversion recovery from additional training? Which data can select the checkpoint? Under what special condition is mean conversion exactly function-preserving before any further update?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Match the continuation budget, keep test data outside selection, and think about already-tied projection heads."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Continue an unchanged MHA branch for the same declared additional-update protocol, and report both models' before/after states. Use validation data for checkpoint selection and held-out test data for final assessment, with group/duplicate boundaries appropriate to the task. Mean conversion preserves the function if original K/V maps, including biases, are identical inside each target group and all relevant positional, mask and output conventions remain consistent. General group averaging is not lossless. Equal update counts also do not necessarily mean equal FLOPs, so state the comparison budget honestly."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Accumulate a shared value gradient"}</H3>
+
+<Prose>{"Two readers attend to one shared scalar value with weights 0.2 and 0.7 at the selected memory position. Their upstream output derivatives are 3 and −1. There is one query position per reader, and the loss already contains any intended averaging. What is the shared value gradient from these two uses? Would dividing by group size be correct?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Each use contributes attention weight times its upstream derivative. Add the contributions."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The gradient is "}<InlineMath>{"0.2\\times3+0.7\\times(-1)=-0.1"}</InlineMath>{". The contributions partly cancel. An extra division by two would change the defined objective's gradient; sharing sums uses. Any averaging desired by the loss must be specified in that loss and propagated normally."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. A cache ratio is not a timing result"}</H3>
+
+<Prose>{"In an explicitly assumed timing model, 40% of a step is work that would become four times faster, while the remaining 60% is unchanged. Calculate the total speedup. If compact KV storage also falls fourfold, may you report the calculated time as measured GPU performance?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Normalize the original time to 1 and add the new times of the two parts."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"New time is "}<InlineMath>{"0.6+0.4/4=0.7"}</InlineMath>{", so speedup is "}<InlineMath>{"1/0.7\\approx1.429"}</InlineMath>{". It is a consequence of the assumed decomposition, not a measurement. Real kernels may change reuse, occupancy and communication, and the fourfold storage reduction does not establish that the affected time portion accelerates fourfold. Label modeled and measured quantities separately."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Account for distributed replicas"}</H3>
+
+<Prose>{"A model has 32 query heads, 2 KV heads and 8 tensor-parallel devices. Under a simple layout that puts four queries on each device and replicates each KV head on the four devices reading it, how many physical KV-head copies exist in aggregate? How does that compare with its logical head count? Give another layout choice whose cost would need separate analysis."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Each of the two logical KV heads has four physical copies. Avoid assuming that model parallelism always divides every tensor evenly."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"There are "}<InlineMath>{"2\\times4=8"}</InlineMath>{" physical KV-head copies, four times the logical count. The local query computations remain distinct, but the shared memory has been replicated. A communicating or differently sharded cache could reduce replication while adding communication or another scheduling constraint. The correct accounting depends on that algorithm, not on head count alone."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Interpret a forecast without leaking its future"}</H3>
+
+<Prose>{"An observed prefix ends at point 19. You want five future predictions. A program computes the first forecast, then feeds the true point 20 before computing its second forecast. Has it performed a five-step generated rollout? If a learner edits observed point 7, can the old cache safely be reused unchanged? Explain both dependency errors."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Identify what information is available at the observation boundary, then what the cache's old states were functions of."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Feeding true point 20 makes the later calculation teacher-forced, not an autonomous rollout from the original boundary. A generated rollout feeds the model's own forecast as the next input. Editing point 7 changes projections and, in a multilayer causal network, can affect later hidden states and caches. Recompute the affected prefix states or use a correctly designed invalidation strategy; an old cache is valid for its original prefix, model and position convention. Caching accelerates an unchanged computation, not a changed history."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{"What comes next?"}</H2>
+
+<Prose>{"You can now distinguish query diversity from stored-head diversity, trace exact grouping and masks, count compact cache payload and evaluate what conversion actually preserves. Continue to "}<a href={"/learn/path/full-curriculum/multi-head-latent-attention-mla?module=deep-learning-fundamentals"}>{"Multi-Head Latent Attention"}</a>{". It compresses the cached representation through learned latent coordinates, so its score/value reconstruction and rotary components need a new derivation rather than a relabeled head-count diagram."}</Prose></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and another way to learn"}</H2>
+
+<ul><li>{""}<strong>{"Original mechanism and bandwidth reasoning:"}</strong>{" "}<a href={"https://arxiv.org/pdf/1911.02150"}>{"Shazeer, Fast Transformer Decoding: One Write-Head is All You Need"}</a>{". The full nine-page source was inspected, including batched/incremental "}<code>{"einsum"}</code>{" definitions, MQA construction, performance assumptions and translation/language-model protocols. Read §§2–3 for the computational argument, then §4 to see why a particular measured speedup and a particular quality metric must stay attached to their experiment."}</li><li>{""}<strong>{"Grouping and checkpoint conversion:"}</strong>{" "}<a href={"https://arxiv.org/html/2305.13245v3"}>{"Ainslie et al., GQA"}</a>{". The complete methods, experiments, ablations, limitations and stability appendix were inspected. The section structure is a useful deeper reading route: mean conversion, continued training, grouped heads, then actual comparisons. The "}<a href={"https://aclanthology.org/2023.emnlp-main.298.mp4"}>{"official EMNLP presentation"}</a>{" is linked from the "}<a href={"https://aclanthology.org/2023.emnlp-main.298/"}>{"ACL paper record"}</a>{". Its provenance and associated full paper were checked; the video was not independently watched or transcribed for this packet. Use it as an optional author presentation, not as separate verified experimental evidence."}</li><li>{""}<strong>{"A short alternative explanation:"}</strong>{" "}<a href={"https://sebastianraschka.com/llms-from-scratch/ch04/04_gqa/"}>{"Sebastian Raschka's GQA guide"}</a>{". The full inspected guide connects shared heads, smaller cache state and combinations with other architecture choices. It is a compact conceptual recap rather than this lesson's detailed conversion/masking proof. No popularity statement in that guide substitutes for a checkpoint's actual architecture disclosure."}</li><li>{""}<strong>{"An illustrated attention prerequisite:"}</strong>{" "}<a href={"https://www.3blue1brown.com/lessons/attention/"}>{"3Blue1Brown's Attention in transformers, step-by-step"}</a>{" has a video and written adaptation. The Q/K/softmax/value-mixing portions were inspected during the preceding attention/position packets and are reused as background reading. It explains why different queries can read shared information differently; it does not teach GQA cache implementation. Its visual orientation may use query columns rather than this lesson's query rows."}</li><li>{""}<strong>{"Versioned operator reference:"}</strong>{" "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html"}>{"PyTorch 2.14 scaled dot-product attention"}</a>{". The actual shape, grouping, dropout, boolean-mask, non-square-causal and backend sections were inspected. Match the documentation to the version you run. "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py"}>{"Our complete native checks"}</a>{" record what was executed locally."}</li><li>{""}<strong>{"Read a production attention layer:"}</strong>{" "}<a href={"https://github.com/huggingface/transformers/blob/main/src/transformers/models/llama/modeling_llama.py"}>{"Transformers' Llama attention source"}</a>{". The projection, native-head rotation, cache update, repeat helper and backend dispatch were inspected. The branch is mutable; pin a version for reproduction. The lesson's complete model is intentionally much smaller and independently implemented."}</li><li>{""}<strong>{"Kernel layout and mask conventions:"}</strong>{" "}<a href={"https://github.com/Dao-AILab/flash-attention#how-to-use-flashattention"}>{"FlashAttention usage and cache documentation"}</a>{". The GQA head mapping, unequal-length causal alignment, cache update and rotary-layout contracts were inspected. These details are valuable after the transparent implementation; no FlashAttention installation or GPU timing was performed here."}</li><li>{""}<strong>{"A concrete combined architecture:"}</strong>{" "}<a href={"https://arxiv.org/html/2310.06825v1#S2"}>{"Mistral 7B §2"}</a>{". The actual architecture table, rolling-cache and prefill/chunking explanation show that GQA and a local window address different dimensions. Read the checkpoint's own scope rather than generalizing its reported outcomes to every context or model."}</li><li>{""}<strong>{"Offline real-data work:"}</strong>{" "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{", "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md"}>{"data/protocol provenance"}</a>{", "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py"}>{"complete forecasting/conversion program"}</a>{", "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json"}>{"recorded outcomes"}</a>{" and "}<a href={"/learn-assets/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json"}>{"independent fixtures"}</a>{". The small study makes conversion and actual cached outputs inspectable without a large-model download."}</li></ul></section>
+</div> };
+export default lesson;

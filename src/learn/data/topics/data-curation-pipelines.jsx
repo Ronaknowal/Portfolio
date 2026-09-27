@@ -1422,9 +1422,9 @@ LocalPipelineExecutor(pipeline=pipeline, tasks=8).run()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Pass rate for a five-stage pipeline</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Pass rate for a five-stage pipeline</H3>
 
       <Prose>
         A pipeline has five independent stages with the following per-stage retention
@@ -1433,9 +1433,9 @@ LocalPipelineExecutor(pipeline=pipeline, tasks=8).run()`}
         the original corpus is 500 billion documents, how many documents remain? What
         is the effective cost per retained document if the classifier costs
         $0.00001 per document and runs on all documents that pass dedup?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Perplexity as signal and trap</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Perplexity as signal and trap</H3>
 
       <Prose>
         You train a perplexity filter using Wikipedia as the reference corpus. You then
@@ -1446,9 +1446,9 @@ LocalPipelineExecutor(pipeline=pipeline, tasks=8).run()`}
         drop, describe what assumption the perplexity filter is making that fails for
         that document type. How would you modify the reference corpus to address each
         failure?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Custom vs. open classifier</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Custom vs. open classifier</H3>
 
       <Prose>
         You are building a pretraining corpus for a medical language model. The available
@@ -1459,9 +1459,9 @@ LocalPipelineExecutor(pipeline=pipeline, tasks=8).run()`}
         class, what as the negative class, and how many examples do you need? At what
         point does retraining become worth the cost compared to using FineWeb-Edu with
         a manually adjusted threshold?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — LLM curator for a specialized domain</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — LLM curator for a specialized domain</H3>
 
       <Prose>
         You want to build an LLM-curator pipeline for a corpus of legal documents.
@@ -1471,9 +1471,9 @@ LocalPipelineExecutor(pipeline=pipeline, tasks=8).run()`}
         statutes, regulatory filings, legal journalism)? How do you ensure the annotation
         sample is domain-stratified? What failure mode occurs if you annotate only
         contracts and apply the resulting classifier to case law?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Diversity loss vs. threshold</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Diversity loss vs. threshold</H3>
 
       <Prose>
         You have a quality classifier that assigns scores in [0, 1]. You run it on
@@ -1486,7 +1486,7 @@ LocalPipelineExecutor(pipeline=pipeline, tasks=8).run()`}
         you would retain if you used a language-specific threshold set at the 50th
         percentile of each language's score distribution? Describe the downstream
         model capability implications of each choice.
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

@@ -28,7 +28,7 @@ Exponential matrix recurrence: C=f C_old+i k vᵀ; n=f n_old+i k; raw r=Cᵀq/ma
 
 Valid edits recompute the current state, outcome and causal explanation. A previous run may remain as an immutable labeled comparison, with its original inputs. There is no prediction, answer-submission or assessment state to invalidate.
 
-Worked presets are clearly marked and already solved. Fresh defaults below are different problems. Reset to fresh clears results, Show the current computed result and its contributing terms immediately. Restore a worked preset may show its worked output but must not count it as fresh practice. Reset execution state alone is a deliberate experiment and distinct from reset the whole interface.
+Worked presets are clearly marked and already solved. Fresh defaults below are different problems. Reset to fresh restores its inputs and immediately shows the computed result and contributing terms. Restore a worked preset may show its worked output but must not count it as fresh practice. Reset execution state alone is a deliberate experiment and distinct from reset the whole interface.
 
 Show current inputs, state, computed result and causal readouts from the start. Parameter edits update these together. A bounded Step/Run advances a recurrence or chunk computation and reports its current state; it does not unlock an answer. Invite a useful next edit through the mechanism shown.
 
@@ -73,15 +73,15 @@ Figures X03/X05/X08 remain visible inline as worked support; the investigations 
 
 The learner should distinguish candidate content, write strength, retention, normalization and output exposure. Fresh inputs are saved in `investigation-results.json` under `scalar_independent_inputs`: candidates `[.1,−.8,.5,.3]`, writes `[1,4,2,6]`, retention `[.9,.7,.4,.8]`, output gate `.6`.
 
-Prompt before execution: “If the last write is weakened from 6 to .75 while the earlier observations stay fixed, does the final exposed estimate rise, fall or stay unchanged? Explain which surviving evidence gains influence.” Show the current output. This problem differs from both solved scalar examples and the practice exercises.
+Starting comparison: “If the last write is weakened from 6 to .75 while the earlier observations stay fixed, does the final exposed estimate rise, fall or stay unchanged? Explain which surviving evidence gains influence.” Show the current output. This problem differs from both solved scalar examples and the practice exercises.
 
 Allow 2–12 editable observations, candidates in [−1,1], write log-weights in [−12,12], retention in [.01,1], and output gate in [0,1]. Raw write weight and log-weight can be synchronized equivalent input controls; they represent one active field. Allow adding, removing and reordering actual observations. Local errors preserve the previous valid data. A requested zero retention is a meaningful limiting case, but is outside this finite-log control; explain that boundary rather than silently substituting .01.
 
 ### Representation and live state
 
-Use a time-column ledger showing each observation's original candidate and its surviving weight at the selected step. Separate signed content contributions from positive mass. Totals feed the ratio and then the output valve. A signed output trace aligns with the time columns. A raw/stabilized display toggle changes only intermediate representation. Keyboard focus exposes the same numbers as optional hover. Run computes the experiment; Step inspects the already computed trace.
+Use a time-column ledger showing each observation's original candidate and its surviving weight at the selected step. Separate signed content contributions from positive mass. Totals feed the ratio and then the output valve. A signed output trace aligns with the time columns. A raw/stabilized display toggle changes only intermediate representation. Keyboard focus exposes the same numbers as optional hover. Every valid edit computes the bounded experiment; Step inspects its already computed trace.
 
- Compute the comparison from the complete current inputs. Changing any of these invalidates its feedback. Changing the selected time or raw/stabilized display does not. Reset restores the stated inputs and immediately displays their computed result. Worked resets are labeled solved examples and do not count as independent practice.
+ Compute the comparison from the complete current inputs. Changing any input immediately recomputes its current result; a pinned comparison preserves its original complete configuration. Changing the selected time or raw/stabilized display does not. Reset restores the stated inputs and immediately displays their computed result. Worked resets are labeled solved examples and do not count as independent practice.
 
 ### Checked outcomes, nulls and feedback
 
@@ -113,7 +113,7 @@ Allow 2–8 editable key/value/query rows, coordinates in [−4,4], write logs i
 
 Link the address plane, outer-product grid, stored C and n, signed contribution bars and read denominator. Show both output coordinates. Output values may exceed stored value-coordinate bounds; adapt the output axis with explicit labels rather than clamp. A selected matrix cell identifies its key row and value column. Raw and stabilized views represent the same operator. The deliberately incorrect floor branch is marked as an incorrect operator, not a legitimate checkpoint variant.
 
- Compute the comparison from the complete current inputs. Selecting a timestep, matrix cell or raw/scaled view only inspects the attempt. Editing values or invoking “zero query” invalidates it. Reset restores the stated inputs and immediately displays their computed result. Worked presets remain labeled solved.
+ Compute the comparison from the complete current inputs. Selecting a timestep, matrix cell or raw/scaled view only inspects the current computation. Editing values or invoking “zero query” recomputes it. Reset restores the stated inputs and immediately displays their computed result. Worked presets remain labeled solved.
 
 ### Exact contrasts and nulls
 
@@ -133,9 +133,9 @@ Phase two checks orientation, query scaling once, raw/stable parity at 1e−10, 
 
 Distinguish a different execution schedule from a different history. Use the exact seven-token fixture generated in `memory_mechanisms.py`: NumPy default_rng(229), normal q/k arrays of shape 7×3, normal v of shape 7×2, then write logs uniform [−.7,.9] and forget logs uniform [−1.2,−.05], in that draw order. Phase two must save the actual generated arrays as explicit fixture data; JavaScript Math.random does not reproduce NumPy's stream.
 
-Expose the actual q/k/v coordinates and gate values in an editable table. Allow 2–12 tokens, key width three, value width two, manual coordinates [−4,4], write logs [−2,2], retention [.05,1]. An optional initial-state table accepts C and n entries in [−4,4]. Default is empty state, chunk size three, state carry enabled. No precomputed parity badge appears .
+Expose the actual q/k/v coordinates and gate values in an editable table. Allow 2–12 tokens, key width three, value width two, manual coordinates [−4,4], write logs [−2,2], retention [.05,1]. An optional initial-state table accepts C and n entries in [−4,4]. Default is empty state, chunk size three, state carry enabled. The current computed parity difference is visible immediately.
 
-Prompt: “Will changing chunk length from three to two change the outputs if the full incoming state is preserved? Describe which evidence crosses the boundary.” An explicit reset-at-boundary experiment is a separate changed-history contrast.
+Starting comparison: change chunk length from three to two, inspect the output difference, and identify the evidence carried across the boundary. An explicit reset-at-boundary experiment is a separate changed-history contrast.
 
 ### Representation
 
@@ -193,7 +193,7 @@ The matrix model's final class remains four in this fixture while its logits cha
 
 Editing only rows six through eight leaves the first five prefix logits unchanged. Splitting after row three with complete carry matches full-sequence logits within 1e−5 in author checks. Explicit reset produces the saved `reset_final_logits`; do not invent a universal class change. Restoring pixels/order/model restores outputs. Blank is not a uniform-score null: seed-19 final classes are LSTM seven, sLSTM nine, mLSTM four. Explain learned biases and state transitions without treating blank classification as recognition success.
 
-Reversing rows is not a null because it changes the causal history. A model switch recompute current outputs and cached state. An unchanged input gives deterministic results; Run is not a random resampling button.
+Reversing rows is not a null because it changes the causal history. A model switch recomputes current outputs and cached state at the same edited input. An unchanged input gives deterministic results; Run is not a random resampling button.
 
 ### Feedback, performance and phase-two verification
 
@@ -205,7 +205,7 @@ Verify every layer and all eight prefixes against Python for both seeds and all 
 
 ## Deferred publication work
 
-Implement only under an authorized phase-two continuation. These author calculations are truth fixtures, not formal independent review or browser evidence. Phase two extracts compact assets, builds figures/investigations, checks affected displayed programs and numerical ports, performs independent correctness/learning review and browser/accessibility/loading/performance checks, integrates downloads and actual local links, and updates source-bound delivery status. Do not expose author-only expected answers in a fresh investigation's pre-run state. Preserve this pending packet until the later implementation and retention decision are complete.
+Implement only under an authorized phase-two continuation. These author calculations are truth fixtures, not formal independent review or browser evidence. Phase two extracts compact assets, builds figures/investigations, checks affected displayed programs and numerical ports, performs independent correctness/learning review and browser/accessibility/loading/performance checks, integrates downloads and actual local links, and updates source-bound delivery status. Show the current computed result throughout; retain author verification fixtures outside the deployed payload. Preserve this pending packet until the later implementation and retention decision are complete.
 
 
 ## Scratch/tool bridge presentation — 22 September 2026

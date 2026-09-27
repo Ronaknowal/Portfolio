@@ -1,0 +1,745 @@
+{
+  "restored": [
+    {
+      "id": "rwkv-linear-attention-models",
+      "file": "docs/teaching/drafts/rwkv-linear-attention-models/author_calculations.py",
+      "originalHash": "3f9d4728998e26a0a007590c664ab01da1c8871c9afec986e9f9755e8e00e537",
+      "restoredHash": "f9762f0c2ce21c692211adedca4e3467e3eb44cdf8bcb27fbe942e99e3ddc34d"
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "file": "docs/teaching/drafts/rwkv-linear-attention-models/linear_memory_mechanisms.py",
+      "originalHash": "b250d09559c7e334eff90dc54d23b6e073a035788aacee2fe880a6b30f16f734",
+      "restoredHash": "ce8505c18962b925152b5a133488e9063bd6cf102dc637788b60b442fdda8e49"
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "file": "docs/teaching/drafts/rwkv-linear-attention-models/trajectory_memory_models.py",
+      "originalHash": "5a0a655375827a4b27226fdaeae17fe5c0b9a2f60d51644dfdd9cbfcf65fabf3",
+      "restoredHash": "a966ae1b5378e73fd85326f3a25a70d1fb571cd353769b697f2a23881c0af344"
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "file": "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+      "originalHash": "59769707f44658e81a6ae25a4efc27a08fd339cfb7610cd6a7a261f273be4fe0",
+      "restoredHash": "e26716574f0fe08bfdac0e8c06fe55c5e5693abe160b4160af69b7c1fe6c334c"
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "file": "docs/teaching/drafts/self-attention-multi-head-attention/additional-calculations.py",
+      "originalHash": "578835f57ad7c7db89e302c90997f68e9907047fe0e749a510e508472b9f1477",
+      "restoredHash": "b6cb8b4443b5dfc0fcfba17639ea95e2d214f7cd6e6c0b91a9c488edf36b8bca"
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "file": "docs/teaching/drafts/self-attention-multi-head-attention/author-calculations.py",
+      "originalHash": "d577fa9a4ca502e66704dd3771745f54fe2f6c45e391b3536f3fb5b499928d26",
+      "restoredHash": "62bf46fd8b2c97173c5cb2cf5bfa39e9e629e2834391c33286f80e231f978fc1"
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "file": "docs/teaching/drafts/self-attention-multi-head-attention/data-provenance.md",
+      "originalHash": "2d64f404c21a92ecbb53af9ad8db32d0d59719c70afa0f1d6447fb9773bab66b",
+      "restoredHash": "addb7421f4812ab6321f7fc58cef8d2637722288f6768a995c52defba89079d8"
+    },
+    {
+      "id": "transformer-block-architecture",
+      "file": "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py",
+      "originalHash": "6c92113ac582b9afc6fee0d2a7b8765272bcca2ab2fc5c5f369c265b4521fa2c",
+      "restoredHash": "8fb20ccbde4ce37ce2e3c465ba839361920a3be079e777d1b61b20d844a63ee3"
+    },
+    {
+      "id": "transformer-block-architecture",
+      "file": "docs/teaching/drafts/transformer-block-architecture/author-calculations.py",
+      "originalHash": "eb6856d9a09f0ee59e88e67f6a365d2a9fa287f727e7726c57fc9992f0e98f47",
+      "restoredHash": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67"
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+      "originalHash": "5fdfdce1e93898fe4dfabdd6cd6019c9e72216e990726de4d832d3c754147019",
+      "restoredHash": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063"
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+      "originalHash": "d897b6bce1bbe1be26c84d54a9108ad3c92e1801e9abae5675cbbdf11e5e9094",
+      "restoredHash": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19"
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+      "originalHash": "aa51fc88ddb9f28de6678728a71ae521af2e3c6eb6eb98b649b551a4890bbe41",
+      "restoredHash": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7"
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "file": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+      "originalHash": "5b25071b2f8657ee518188d604f195c3aebd11ba6231bd3e61b52568e6221680",
+      "restoredHash": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e"
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "file": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md",
+      "originalHash": "805de963cdf08723e9bdf13ae3a2dd619b84d045a335a57912aba5af18b2efcb",
+      "restoredHash": "5bdd2638d5d44e66377f864a8be873da74d1efeb7abbb49d74450b49361e8fdc"
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "file": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+      "originalHash": "62d55508988fbf20a083af971aa40ea257fa996c40a5af5b02e441f6477755dc",
+      "restoredHash": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f"
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "file": "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py",
+      "originalHash": "e47e6704187c00f5a2bf3912a5efa85c3dd66af4f4629ab37002fe09e7638678",
+      "restoredHash": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050"
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "file": "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md",
+      "originalHash": "896a50924f888be5b3fa8e3c97363ef524013f444d2bf53d034bc9869e6aa0d3",
+      "restoredHash": "c3959ca4d11ac04974386661e7db092e0237ff48a9461a52682c0c7f6ac4494f"
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "file": "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py",
+      "originalHash": "af131f8274a3e0602c35edd34b05877650446b169d9e261a56ae3086703a1a47",
+      "restoredHash": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903"
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "file": "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py",
+      "originalHash": "b77135ac473f87d9e272aa7f1c455f8a473b4794281a27d8bc92102c902f7c99",
+      "restoredHash": "41775434b5695361ded32290a674b3980b69d31c232f21a0892913a8d9756f35"
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "file": "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+      "originalHash": "f046a14a56b6946be82caa92e7624fb79e92ca61832fe6ff200f9fa343ab8841",
+      "restoredHash": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272"
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "file": "docs/teaching/drafts/sparse-linear-attention-variants/author-calculations.py",
+      "originalHash": "4dc15de8333ed00619d31d1e85b61a499e2c0eff96595256e0139ffdb0b6aef3",
+      "restoredHash": "4ef246b18bda80a485ba15fd1b9f1a578887ea71e78b0351f84f820ff2425489"
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "file": "docs/teaching/drafts/sparse-linear-attention-variants/author-checks.py",
+      "originalHash": "9434049b635ccc29d17df10c878232ba4e69196a032d37d7824c3a8745e867b6",
+      "restoredHash": "1ab2ac8c106ff0ee18ccb728dc60defcf6abe1fb9016bbe9120f0c9d3a24bc14"
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "file": "docs/teaching/drafts/sparse-linear-attention-variants/provenance.md",
+      "originalHash": "8a7d580fdc4759957de8a8047363e5a28e2de90f8ec7a7c9e7d67d60ff361d27",
+      "restoredHash": "6180814a8c531020feb9118bdccfc9aa32cd4e22658c012f9ce5d9f31a1402e5"
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "file": "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py",
+      "originalHash": "aa15b641449beb0bc61d100a59bbcf5acd190a8dc4dbeb169f991093d2baa30c",
+      "restoredHash": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-checks.py",
+      "originalHash": "18a9bbc91010ff263574111479d926d19e1a6b77ec1bf8035abd524de19ad801",
+      "restoredHash": "76adb01ca4e43db1e7fcaff888f88355bd155c175b52fc3a10855c8bfa6ae54a"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/experiment-contract.md",
+      "originalHash": "eff4ded43fe844ebd3df7770e0d7092aa883052b5103abb5ba1a3740eb72e3bf",
+      "restoredHash": "79449bae4f31679168847ba90b2b1b9990509ef73837dee32d6b5d63b30d57e7"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py",
+      "originalHash": "141a5c29a54ebc93e6711a750d03694abc9f816eebadb49ffb2d75924a6b8694",
+      "restoredHash": "88dd5ac7916805f4b41fa93c0534b9450bb9c5dcb0b0ed8d94ab2e01654e0401"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.names",
+      "originalHash": "c2f28561475f65dbc77a1ec6c1ea357a6a302f751d0f44a0133e25d5206f5d79",
+      "restoredHash": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tes",
+      "originalHash": "8c4bacff910ed7a054411acfa52c599de6a46321a649315a61723e68ec776cdf",
+      "restoredHash": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tra",
+      "originalHash": "49826d04491178b19e1edfba78b8145b046dd34d5efceca5195740de84eafaf4",
+      "restoredHash": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py",
+      "originalHash": "10943caf2e0750541a288c17b00dff690f1260bcef497f69d12c14900ca8e377",
+      "restoredHash": "d4b873d5dd7d07d27f4921f472a67607e4d9efc725d1c120cb4d20a58f000e56"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-study.py",
+      "originalHash": "daed2af08b92bb1283d9dcd892a2cb899d83815529024dcdb320105e8d356674",
+      "restoredHash": "f8adbeb6d36e99108647422256e087caed3db309d01b65fc04f6fd45f78f41f6"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+      "originalHash": "f7cde7ab25282e4a222cbff333234865a589c38c78df282f2660766657149a77",
+      "restoredHash": "53d6ad6e7206b9bc4f01f9f880bdb913839380c7e3248a33f359509c0557ec99"
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/check_author_packet.py",
+      "originalHash": "ccc75a8354a52a22f1d5761de8425a74a30a1bbdf6d1ed1c5ba09010d50e56d6",
+      "restoredHash": "3f3ee29a2e4bdefeb6b85b77ea5e1ec92c548fd2efb33c0a417010f91b1779df"
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/data-provenance.md",
+      "originalHash": "d997b439ed29549632dde4a69d4bc2486074453d8512b3a70a50b6f138c49e1a",
+      "restoredHash": "c35d0dc12cd0daeaaf876833727e5e9e8db18d70b0dd7728d4591de042c26396"
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_calculations.py",
+      "originalHash": "63a87f3b1b0f3800aa7b6468cadc5d5db310fd1f7786fc80d2211345a7e75a84",
+      "restoredHash": "cac5dc8f449333c6572eaa78157998627c6f5a130c7a98a1adc60f2c6df08d08"
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_study.py",
+      "originalHash": "70302022c0b651e2b2480696438f80d5f9577225f125d52269d01a376bc6e620",
+      "restoredHash": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3"
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "file": "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py",
+      "originalHash": "52d1705c8470325af00679a30af61c2cc121274d2462ae9d72c0ff761ddc745b",
+      "restoredHash": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e"
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "file": "docs/teaching/drafts/interleaved-cross-attention-architectures/data-provenance.md",
+      "originalHash": "314c84bd0eafa7aff4c858f8e52ef9cf1aa81096e4169d58718ba106c3fa591a",
+      "restoredHash": "5ad81095d9db8c9e9a18abc8e2b959d858b7585431d72f038ec058e0d329faff"
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "file": "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py",
+      "originalHash": "ed3bb0115a5d85883b8bb23bfb33f88f78b148c8965ab84a4fa291f6b96472e7",
+      "restoredHash": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010"
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "file": "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md",
+      "originalHash": "ad1a7797a4f62fcc838efe0a8713500bdb687c5be337cd5bc2a608715fb491e5",
+      "restoredHash": "07d132e9db6b0a7b6edc4ab6742b77a8149498ef278295ab589489d3edae374c"
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "file": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/NETWORKX-LICENSE.txt",
+      "originalHash": "668745f186bba0fe0fbe9589977a893ed17c855f8af1e2e66ede08ea4c1d2183",
+      "restoredHash": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33"
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "file": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md",
+      "originalHash": "87dfb49840b76003508530ce841c5b39d85ca3fc4cbc980a0478dc245d34ab6a",
+      "restoredHash": "e0b3b3aae9d00ec86725d4b37a23bd3d2f64cd7a62db6293dab36e6bc55ddd91"
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "file": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py",
+      "originalHash": "8cf24ac6a7d21c376ed32b5c72d05b29f9270c662d877dc27fc239107b204ffe",
+      "restoredHash": "9c851659a8eac177518a9fdf4f047e3a05cc124c9b89dc54075e31b6e89b9e83"
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "file": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+      "originalHash": "da9d518466a9603784fa8348e98045a8718c51b971c8ce2c492e9fb1b0ec29e4",
+      "restoredHash": "d800a949661537c7c9d15c5f6e5f5d6061fb0857d58b74cdb055a7691889af95"
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/NETWORKX-LICENSE.txt",
+      "originalHash": "668745f186bba0fe0fbe9589977a893ed17c855f8af1e2e66ede08ea4c1d2183",
+      "restoredHash": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33"
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/data-provenance.md",
+      "originalHash": "dba7cd4372304e59080a86ccb2765984aea89fe07d7019364d6285bd4ca850c2",
+      "restoredHash": "40f3044c61b8caa1115071da68bed9b57e59b30228408965518b96812c41df5b"
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-calculations.py",
+      "originalHash": "d2b61b8bee7ba8353dbb23a6226d47784fb1d4215d964755e990ce2ce2cfd939",
+      "restoredHash": "40f133ae7196d77d460a22127808bf483135df18880a67347c65e8f5ada4ad92"
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/graph-transformer-study.py",
+      "originalHash": "8464fc17f0163dff3615d48555203f3caf004536f1d52bc9a0a69415fd6c3d04",
+      "restoredHash": "95fd8386ea8aa62c2ba8bd64e002f489af39fa832f8a274546ec548f255a8ee7"
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "file": "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py",
+      "originalHash": "59dd408a360a5757d74eebf11f784e915b2ccbca50982b6825028eebeca28faa",
+      "restoredHash": "f57facd7f4aa07452c255f67ed1e320096cca37d7f1a77822161e57a3919baee"
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "file": "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py",
+      "originalHash": "7296533d502ed29be6f59103eef14c3bcb1a01cbad7b530562c6570e72a7dd3a",
+      "restoredHash": "623453c29a018ef4ab3152282246d44f2ad25d0263a6f8faafc4bd766d17125e"
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "file": "docs/teaching/drafts/spectral-normalization-gradient-penalty/critic-regularization-study.py",
+      "originalHash": "6d3305a61e9247ae26b63bedff34e5a214c3e6372411ffc7ed2b6208546da407",
+      "restoredHash": "f5e6e7ffc02d95598034a8599e92e86a4709f88cec84d70d49f2f456cfcf975f"
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "file": "docs/teaching/drafts/spectral-normalization-gradient-penalty/data-provenance.md",
+      "originalHash": "91c1596620203f4a65ce812b2df85170dcbca0069e36e26f8feffa6488bc79ee",
+      "restoredHash": "79d7285eab96e83e1151455e20ccd53cda9248f65e7b12443b9f4b6dbffff35d"
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "file": "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-calculations.py",
+      "originalHash": "5f993998c90773a4e056f74bf6c21fd964c5f1271b948f1fab30ddb464979de8",
+      "restoredHash": "fcb66168467c6c1519c91702cd3712d75db9d04c47040e0ccf2fc74831561801"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py",
+      "originalHash": "ecd7cebc14e526b6ef766b79d95b901e6966a4433353f16bbcc05eacdb9cb7f9",
+      "restoredHash": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py",
+      "originalHash": "794c52d5560e96f229656c4565a1ebcf19d7569ea8fe2fb0ff4718eaa833e37f",
+      "restoredHash": "2ea65126d5326acd37019a8832085e5e7cb28fe5be82bb530893c041bba73c45"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py",
+      "originalHash": "c3032cd7ee7f3cb4eba2e857724128716c2b3901bcc8126c0529752cc8406fdf",
+      "restoredHash": "587c99ba4dce210f7c2b4d706d25bf5586ee6a76f40b8a6bd0439bfbde2b6ad9"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py",
+      "originalHash": "21c27e5955b3b825e7d2087421e30f9e188e0c01c8dd9e9372ff6403e9bb7168",
+      "restoredHash": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/optdigits.names",
+      "originalHash": "c2f28561475f65dbc77a1ec6c1ea357a6a302f751d0f44a0133e25d5206f5d79",
+      "restoredHash": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes",
+      "originalHash": "8c4bacff910ed7a054411acfa52c599de6a46321a649315a61723e68ec776cdf",
+      "restoredHash": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8"
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "file": "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra",
+      "originalHash": "49826d04491178b19e1edfba78b8145b046dd34d5efceca5195740de84eafaf4",
+      "restoredHash": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py",
+      "originalHash": "e6ef799fdbeb7f541eb032631547e6c7caea948a5f08d46c0aab9ee32c50c57a",
+      "restoredHash": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py",
+      "originalHash": "d59ef85a8f0417211be3a13a6e79cc56e7fe72a03cc5e8266d5d45605132b8f9",
+      "restoredHash": "ac16f65ff36e39a78bc4343f14aff4234c84eee568d3aacc435f954e8d5245a9"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names",
+      "originalHash": "c2f28561475f65dbc77a1ec6c1ea357a6a302f751d0f44a0133e25d5206f5d79",
+      "restoredHash": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes",
+      "originalHash": "8c4bacff910ed7a054411acfa52c599de6a46321a649315a61723e68ec776cdf",
+      "restoredHash": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra",
+      "originalHash": "49826d04491178b19e1edfba78b8145b046dd34d5efceca5195740de84eafaf4",
+      "restoredHash": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py",
+      "originalHash": "2ed4097f05a2a5e0d5fae490135fafdc5004d8bd3e764cebf3c0e0600cd8f3ca",
+      "restoredHash": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/author_calculations.py",
+      "originalHash": "c51807202943ce125133ad950649cb3a7d0719ee1b1c8da0c993f0d7ade8f5b7",
+      "restoredHash": "afc03ab280a25e3ec589cba60ed9449aa9d5f7e4c10b67e128ece5b6599d9b43"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/check_author_packet.py",
+      "originalHash": "05b94a7e7acd9b6835d282957afea925265c3ac04066c949142757ff8250b024",
+      "restoredHash": "4aefa3d2158e94f801e49a4f058bece255e7fa43bf9947cb7e3aef6fb2b0ef7a"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/convolution_mechanisms.py",
+      "originalHash": "fe7018ce0b243e07ee73ba4bceecbb020e254c55e1da9e2500fc0029c45beaba",
+      "restoredHash": "499a1af14787c65e0d056baba4ba8efbd3d51609b59edc414ce593296ed31ce5"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/splice.data",
+      "originalHash": "900e3478b24b9a467487d3128db76ae3e4b5ef9fefdc8da9234c52f9a78b30b4",
+      "restoredHash": "ebbae10c85d3c285e2a2489a37e42bc2ee8d91d15005e391a9962fa3389a114f"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/splice.names",
+      "originalHash": "754c3a5effa65ed23674c5dbd8a4fe3eed30e0b36861971ddc716cfa3c6cf0c7",
+      "restoredHash": "dd67d612a9c57a1230fbeed1e6e0a2130559f419b01765799627236bc7f6fff1"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/splice_models.py",
+      "originalHash": "6fa80988101a4f47620f0f57b51fe7bea09120318d96e88a4fb3ec739c86534d",
+      "restoredHash": "b3157678c6594094e9a6d7f87df9f682ab9eca80d113752ca5451a9d8d3c1476"
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "file": "docs/teaching/drafts/hyena-long-convolution-models/blocked_convolution.py",
+      "originalHash": "112e62c3998151036e29abe692cce3aed2d0d918dc9f4c079eeff0d007aa551a",
+      "restoredHash": "e57f23494187c37a294d21d51737b72f533f84245815407c13c96abc7e565c7f"
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "file": "docs/teaching/drafts/ring-attention-sequence-parallelism/attention-partition-study.py",
+      "originalHash": "3dabf32e16b0989d60048b0d3e502f89bc45001c5a5068438d2b61349f7662a8",
+      "restoredHash": "f9efea1d0b93ac632a14dfb265c8cd40f480f354effc54eb4fc4a0cc4ccfe9f1"
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "file": "docs/teaching/drafts/ring-attention-sequence-parallelism/data-provenance.md",
+      "originalHash": "86acb6ebcca1a3394d612456a1645d70f751f889d3db5aff396f7b8e1b50ac5e",
+      "restoredHash": "ff27e7ad41b55a58363de6fc5dc70d5dffacb86941a0dec0bc77a99b55261243"
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "file": "docs/teaching/drafts/ring-attention-sequence-parallelism/ring-attention-reference.py",
+      "originalHash": "757146fa54f133f18733cff8e7d8e2a6688e08e0fd7470a97fa3329b37e6187a",
+      "restoredHash": "f28aad941b105046a5e51d0ab8ce9bb1dde88b560211498325a1513214c0f34c"
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "file": "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-calculations.py",
+      "originalHash": "50b1a8da42748cbb2b3efdf3bcfb244c99dadeb6473c54acc49ac7165e8b9dbe",
+      "restoredHash": "b759da93dc2fdbd799b3f6676faf904cee17137ccc9aaf34fc5447276c6a1364"
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "file": "docs/teaching/drafts/ring-attention-sequence-parallelism/distributed_ring.py",
+      "originalHash": "642411f981c00f4541d4cfe570b15df49848bf7e9ff407ecd1f491e8e24bf4dd",
+      "restoredHash": "ec48dcaceeb572531112545ed4af0414916cd28d41439f3021f167dffa99c17a"
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "file": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/data-provenance.md",
+      "originalHash": "2b89050a7e680bd7d5af1a84c35cc3998335a7db514b83f19fd4c00451ddf149",
+      "restoredHash": "a99641d02cb0307352842ed3263c3e0217458619a10190269a2b71cea0b99a0f"
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "file": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py",
+      "originalHash": "8fc8fa071cb157904cf9c7e1f33b54f376b4d560382b1bdddc284793c714a756",
+      "restoredHash": "fcb3cf3c8679d2e44d3e2b91200cc3d9f50501890c149b6942b122502e899b61"
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "file": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py",
+      "originalHash": "e74c9c6c59fda35e767f2261a00372c5f6c0c6bac80e844661806d3a9650428b",
+      "restoredHash": "5a11ed8a9de5728ceb1e6c36b4f84126a434893433c967b09e9f5002fa745f1c"
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "file": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py",
+      "originalHash": "90cc341dfb0d1e9d434d547fc67358894239c771d6077f762614f3a28ea481c5",
+      "restoredHash": "fdc7fa01cb133e3d9baa2f35eeb89b25583b6f8971ab268ca4c9539e2c53bf74"
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "file": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_library_bridge.py",
+      "originalHash": "b78a355e3a54b4a9028ec2e8ea315b9e3e1ffe4efeec0dfa7532bca6a72fc7f7",
+      "restoredHash": "4ab6557e0d4c0b065b3efa7519e1f110a7ed504fe04df1795f4d83ab331c32b2"
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "file": "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py",
+      "originalHash": "446826c447bf2301ac5afa7b550ad46f63e42723097ff5b9b4be2d7f359c5613",
+      "restoredHash": "f02445d85c27c145a7a80ea5bd9c7752c3208f165372b30d572e3585e2d52a37"
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "file": "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md",
+      "originalHash": "308a85926958b52f570e7d1c1d9fb262aee873fc5668a6ba718d87835310c1be",
+      "restoredHash": "0c942b22745c5b19048fd11435e66dd0812a92c9d630cf60256eaca2efab0dd6"
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "file": "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv",
+      "originalHash": "32041679ae8a4827b7f43d867bf3733966116f77d65e88d28209416995888f0e",
+      "restoredHash": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7"
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "file": "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py",
+      "originalHash": "9d56248fad428c88453f0abce6d3ea176e69bdb15269ab35b340049d2932361e",
+      "restoredHash": "a8c05ebe2ee0096362cf7f4ced5ae41bdb8707d481e5c096ed0a0b1f043fb65b"
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "file": "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py",
+      "originalHash": "e699060c87c8e58a9367cd540b16d1bc13d9124f1968d5e66921ceb15c250e89",
+      "restoredHash": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author_calculations.py",
+      "originalHash": "61ec1e9cce036b9a97c9b56e58b3aafb4ad9563efc79ab26a9673ab5eb3b5817",
+      "restoredHash": "7d7891b4b8b2e5e1f6dd2b88984de0817c8951947993a92898fd3c4b3a28ca1b"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/data-provenance.md",
+      "originalHash": "46ae833ce3086c6ce10e4c6b33b2c5b594d5c867192dc3538b309ca3ec140565",
+      "restoredHash": "d32e63aead999de1e9dfc959fc039f1eb7a5a28af9baa5c023f6cc0851f395b1"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/deployment_example.py",
+      "originalHash": "eeb1285931180e0fad82e8761595d4563693d1ed7b5d0ac582b746865f5f18b9",
+      "restoredHash": "fe01f649636a705ecc5c08d2aad5a0408d251f669605e89cef924df896aa43ab"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/hybrid_mechanisms.py",
+      "originalHash": "a066f713d82851c8bb453a7b4399c685e82641f3f5d0753c3f0aa58391263942",
+      "restoredHash": "c449a8b2733ec6ca3c1211e4b75358142eba2e3d1f2f726fb89cb30f82a73c6b"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/inspect_stroke.py",
+      "originalHash": "b88d799392e6ea3ec6e61eaef6f7445952ba869f40f957c07c909a0689f2b558",
+      "restoredHash": "ec1a4290f35da91a2940b78ab310221e8e8ed1da4a31c7764418b2c7f4c6c79f"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet_checks.py",
+      "originalHash": "bad2f2fea5f3ac2dcd8f898d6d0d5d8f6dbdca17a2bc4a876b767c0deaa92ac2",
+      "restoredHash": "84bd806e432ba4fc49eb29771f2b73d1e191491bf3d622e69efebfe7a986c9cb"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.names",
+      "originalHash": "2c9a471ad87ade2cf00e9ff99ba4f435979bf00d24b5664c5dbfa3babe2ee0a8",
+      "restoredHash": "a90a76e1edac6f1b50f4b44db80587d7b92601fcbb153c83c2c3210c21b34f60"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tes",
+      "originalHash": "b39ad1f72138bc1aff5db215904868b9645acdc3c08b542b9348a15af960e9b5",
+      "restoredHash": "8bd03229c5c5291fefe43e45465dd948d2645bf23328b9d993e0b777666b2015"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tra",
+      "originalHash": "2c321247782d83a52a0c451fec1b4f462b01a60a873d1f567dddb2b47e39e57e",
+      "restoredHash": "e2b9eb9f0d0467e2b64a4816a3420edf2b8043447576f4b84337aba44a9f97d3"
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "file": "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke_models.py",
+      "originalHash": "9edb4558e422c8dc4f02923bb4bd441ef9d595cec0c586bdd3068c93b9c4a0b9",
+      "restoredHash": "bda2789c50ae1bb246c4c60ed6e300ca1e121119f91f676210ebe67bc5040785"
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "file": "docs/teaching/drafts/titans-multi-memory-architecture/check_author_packet.py",
+      "originalHash": "9b6011db8d1fdd5c4782338fd2149cc3785c69e409a23d8d9908260a7a20450e",
+      "restoredHash": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604"
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "file": "docs/teaching/drafts/titans-multi-memory-architecture/data-provenance.md",
+      "originalHash": "501e2ab9d69e1309e499af9db8a26a30294072b4aece012ab433d196a84381ed",
+      "restoredHash": "446647378996491495f06e08034db00abb8d5c0c165c3f559680d390e8fa3384"
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "file": "docs/teaching/drafts/titans-multi-memory-architecture/experiment-protocol.md",
+      "originalHash": "81fd5ad2bf713e79b118deb2d8665933ff49246adb8d1dd090eae2207895c924",
+      "restoredHash": "e1295e508c7f4f09f7af129dfa520353e31b8fd9659f44f3e82247a405a0a66a"
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "file": "docs/teaching/drafts/titans-multi-memory-architecture/memory_mechanisms.py",
+      "originalHash": "3bf9f6457b7c498a55913f4618fbb0d1cc83be51f8c404d633e7bfd0cf9e7567",
+      "restoredHash": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6"
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "file": "docs/teaching/drafts/titans-multi-memory-architecture/neural_memory.py",
+      "originalHash": "e2855e57e0f69b66c14058e36db0a59b944afb316d337d97005231949e41e1ac",
+      "restoredHash": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258"
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "file": "docs/teaching/drafts/titans-multi-memory-architecture/rental_memory_study.py",
+      "originalHash": "7e679a68412a0f93d5a2ddc0c8eb1e4a5c31b0f9763a9394c89840ff96a999f0",
+      "restoredHash": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037"
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "file": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author_checks.py",
+      "originalHash": "54a5f7de62ecfd606ed4b1e4746184e36b1f49c81463e44434cb3e3a27909157",
+      "restoredHash": "9e51c6efcc27b42a936dace4696ee2d5948f3676c56dd0cce2fe251b64882a4c"
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "file": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/data-provenance.md",
+      "originalHash": "ccab36c17bf3280709ba647f8c51f5e9c100bb8ae8a57c5b8f1f2307ed79ed5e",
+      "restoredHash": "72c775683b1c359d08d3432edd151c305e7284377e3178ed58cb862cdf7e992e"
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "file": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace_update.py",
+      "originalHash": "dfd08b9457bac4f1529e2cc7f0decf6da92aa41a4991af5f06dfebf8b2862431",
+      "restoredHash": "1087dc17806584c6f08bf97c3e523f25ba7d882735165e36da4d6aa23c9ca432"
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "file": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/train_iris.py",
+      "originalHash": "7115334fdd95bd43425b5d54713226e26d35a39166541bb4ff7580eccd31f53a",
+      "restoredHash": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798"
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "file": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py",
+      "originalHash": "c420749debfbe57fb347371d8de53315e8187b3fdbb1a341f4a835a3fe433f3b",
+      "restoredHash": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277"
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "file": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+      "originalHash": "0fd8008f96547a24977437d02d6f2eff34ea8bb947155d9ea82414fad34d09df",
+      "restoredHash": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f"
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "file": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md",
+      "originalHash": "a0ba2f53571e885c765a07a0a3c1831408ef18cd5a66a89bbcb18e9a41b08c47",
+      "restoredHash": "287e3306f83dcc950ac737062f993adc6dd98f078bbd1567e47a23980c3fcb63"
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "file": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md",
+      "originalHash": "67f740570b7808227e4a38c83a19707403ba5d1bef1ab80872f1e8f560eb2db8",
+      "restoredHash": "e9d40df4e70499f3980936dd3ee367a4c53c2bf233843e068f563b8824115032"
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "file": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py",
+      "originalHash": "7409d1e77fe32fc261f0d7d0eadc46b32a0146f998c46c009278339b63ca22ce",
+      "restoredHash": "3572f7e69cdfa2cdd6922727e9ecb10f99b38129eef915862e15f4d784bda0b2"
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "file": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py",
+      "originalHash": "61dfd80f8550079dbcecfc2b756fa1441d0e27a10296fe0039713088eaa958fc",
+      "restoredHash": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d"
+    }
+  ],
+  "needsReview": [
+    {
+      "id": "self-attention-multi-head-attention",
+      "file": "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md"
+    },
+    {
+      "id": "transformer-block-architecture",
+      "file": "docs/teaching/drafts/transformer-block-architecture/lesson.md"
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md"
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "file": "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md"
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md"
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "file": "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md"
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "file": "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md"
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md"
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "file": "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md"
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "file": "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md"
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "file": "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md"
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "file": "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md"
+    }
+  ],
+  "rule": "Only normalized line endings when the resulting bytes exactly equal the saved content hash. Other differences remain intact for full author assessment."
+}

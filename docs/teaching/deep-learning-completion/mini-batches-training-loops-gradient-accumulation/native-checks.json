@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Complete supplied scalar PyTorch program reproduces retained printed output",
+      "passed": true
+    },
+    {
+      "name": "Complete real Iris train(32) reproduces every epoch metric",
+      "passed": true
+    },
+    {
+      "name": "Complete real Iris train(12) reproduces every epoch metric",
+      "passed": true
+    },
+    {
+      "name": "Complete real Iris train(7) reproduces every epoch metric",
+      "passed": true
+    },
+    {
+      "name": "Three physical partitions keep80 optimizer updates, with80/220/380 backward calls",
+      "passed": true
+    },
+    {
+      "name": "Physical12: all final weights and momentum match full32",
+      "passed": true
+    },
+    {
+      "name": "Physical7: all final weights and momentum match full32",
+      "passed": true
+    },
+    {
+      "name": "Weighted class-index CE retains denominator7",
+      "passed": true
+    },
+    {
+      "name": "Weighted probability-target CE uses target-position count4",
+      "passed": true
+    },
+    {
+      "name": "All-ignored sum is zero without taking an undefined mean",
+      "passed": true
+    },
+    {
+      "name": "Prepared contrast normalization agrees with native BatchNorm",
+      "passed": true
+    },
+    {
+      "name": "Prepared equal normalization agrees with native BatchNorm",
+      "passed": true
+    },
+    {
+      "name": "Prepared constant normalization agrees with native BatchNorm",
+      "passed": true
+    }
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author-results.json": "ab86f9783b6086faf3150f13076fceaf092adf4c540ebf28b4d11f7ae35a584d",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author_checks.py": "9e51c6efcc27b42a936dace4696ee2d5948f3676c56dd0cce2fe251b64882a4c",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/data-provenance.md": "72c775683b1c359d08d3432edd151c305e7284377e3178ed58cb862cdf7e992e",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md": "b9c48342f5a90ea791427f58ba2534e646b56ee43ba4f6255dcbc03a772b660f",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris-output.txt": "2408925f0b00a8732b7b0fdd50d33744f3f2a18877f9cc4952ef9f6aede5656e",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris.csv": "777674aa8e8ed6bc0a6758822616f02bceac793e0044a2676d9ee328316bf8b0",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md": "4721e66fdbff24b4c121baa54abc584888b8b147e45b3a789b9fb427be45edc9",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace-output.txt": "234151da8c926affc262c49f756bac1308c7b41b26b3f0a2aefa9e9d80f755bb",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace_update.py": "1087dc17806584c6f08bf97c3e523f25ba7d882735165e36da4d6aa23c9ca432",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/train_iris.py": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798",
+    "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md": "ac0e9af864d4bc31048f1b521748eb8c83a97c0c4c49e637159157e2ff4d951d"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "threads": 1,
+    "dtype": "float64",
+    "device": "cpu"
+  },
+  "cases": {
+    "scalar": 54,
+    "weighted": 12,
+    "normalization": 27,
+    "iris": 12
+  },
+  "limitations": [
+    "The successful verification executed all three declared 20-epoch CPU fits with unchanged settings. An earlier export attempt repeated those same fits before failing on an integer fixture tensor; the dtype was corrected without tuning or selecting runs.",
+    "AMP and multi-process DDP are operation contracts supported by primary docs and scalar arithmetic, not hardware executions."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "topicId": "spectral-normalization-gradient-penalty",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/calculated-inputs.json",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/critic-regularization-study.py",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/data-provenance.md",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/design.md",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/digits-400.csv",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-calculations.py",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-results.json",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/calculated-inputs.json": "bbbd8a4cfe5bfbf9205868a7544d5d0dd623afc78d0316e229c6b5606779474d",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/critic-regularization-study.py": "f5e6e7ffc02d95598034a8599e92e86a4709f88cec84d70d49f2f456cfcf975f",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/data-provenance.md": "79d7285eab96e83e1151455e20ccd53cda9248f65e7b12443b9f4b6dbffff35d",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/design.md": "2b1f81e5eaad3d4729fad2b59ea1bcea72c11939b1e2c73ca55580167487bc8d",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md": "5f0cf622e219482504a606c37f098997f11d0aa2c4c355ef99f1b3c960ef241b",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-calculations.py": "fcb66168467c6c1519c91702cd3712d75db9d04c47040e0ccf2fc74831561801",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-results.json": "472c0d519309bd9af032b01e4ce415462d5fe403ae27b0be50e7a03d131f2fe6",
+    "docs/teaching/drafts/spectral-normalization-gradient-penalty/visual-specifications.md": "feb6a8708ad738d1578893c04e82a4988348f8841175b7dfaf41e481c5b8f7fb"
+  },
+  "manuscript": "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/spectral-normalization-gradient-penalty/visual-specifications.md",
+  "reconciliation": [
+    "Read the full current manuscript, all visual contracts, design and provenance, both complete programs, all recorded data/model fields and sensitivity evidence. No destination note exists for this topic.",
+    "Current prepared files retain their recorded bytes; no substantive preflight changes require historical hash replacement.",
+    "Confirmed complete inline training source equals its canonical executable; preserve all nine fixed-budget outcomes including unfavorable gradient-penalty fits and stronger bootstrap baseline.",
+    "Distinguish exact finite-matrix norms, finite power estimates, sampled derivatives and full graph bounds. Keep original full evidence downloadable while splitting lossless runtime assets by selected fit.",
+    "Current live exploration contract controls all investigations; complete sensitivity program will also be accessible on demand beside its explanation."
+  ],
+  "checks": [
+    {
+      "name": "Full concept-by-concept reading and representation planning complete",
+      "passed": true
+    },
+    {
+      "name": "Inline canonical program equality",
+      "passed": true
+    },
+    {
+      "name": "All9 complete frozen models, source data and full sensitivity fixture consumed",
+      "passed": true
+    },
+    {
+      "name": "Current PyTorch parametrization and primary SN/GP sources consulted",
+      "passed": true
+    }
+  ],
+  "research": [
+    {
+      "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrizations.spectral_norm.html",
+      "checked": "2026-09-27",
+      "scope": "Versioned API; native mode/access and buffer checks will verify installed behavior."
+    }
+  ]
+}

@@ -222,7 +222,7 @@ export function BatchInvestigation() {
       <p>{compareNumbers(result.user.radius, result.geometric.radius) === 'same' ? 'Your batch and farthest-first have equal coverage on these inputs.' : 'The two batches leave different maximum distances to a center.'} Neither distance establishes label accuracy.</p>
       <div className="active-controls"><button disabled={step === 0} onClick={() => setStep(step - 1)}>Previous geometric step</button><button disabled={step === result.geometric.steps.length} onClick={() => setStep(step + 1)}>Next geometric step</button></div>
       <p>Geometric step {step} / {result.geometric.steps.length}: {step === 0 ? 'only the existing anchors are centers.' : `add ${result.geometric.steps[step - 1].id}; radius becomes ${formatActiveValue(result.geometric.steps[step - 1].radius)}.`} Ties use identifier order; selected identifiers are always masked.</p>
-      <details><summary>Inspect your batch's own distances</summary><LessonTable caption="Your chosen batch: nearest centers" headers={['Candidate', 'Nearest center', 'Distance']} rows={result.user.assignments.map(row => [row.id, row.center.id, formatActiveValue(row.distance)])} /></details>
+      <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect your batch's own distances</h4><LessonTable caption="Your chosen batch: nearest centers" headers={['Candidate', 'Nearest center', 'Distance']} rows={result.user.assignments.map(row => [row.id, row.center.id, formatActiveValue(row.distance)])} /></section>
     </div>}
   </section>;
 }

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T21:36:47.075Z",
+  "topicId": "message-passing-graph-convolutions-gcn-gat-graphsage",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T21-32-42-688Z.json",
+  "buildReceiptHash": "3f53ed2ad7181fa19694d39f577b07e6d384cc15651d5f227d85843a14ecb001",
+  "publicationMapping": "./topics/message-passing-graph-convolutions-gcn-gat-graphsage.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

@@ -1,0 +1,39 @@
+{
+  "topicId": "xlstm-extended-lstm",
+  "passed": true,
+  "comparisons": 622023,
+  "maximumFloat32LogitError": 0.00008632359882376761,
+  "maximumFreshError": 2.375877272697835e-14,
+  "maximumGradientError": 1.1206349448400488e-7,
+  "checks": [
+    {
+      "name": "All3600 retained validation reads and every prefix argmax agree with native selected fits",
+      "passed": true
+    },
+    {
+      "name": "54 fresh float64 full networks: every stage,state,logit plus reset and normalizer-only reset",
+      "passed": true
+    },
+    {
+      "name": "3456 fresh pixel derivatives versus native autograd",
+      "passed": true
+    },
+    {
+      "name": "Every reader complete-state carry and changed grouping preserve the full function",
+      "passed": true
+    },
+    {
+      "name": "Raw/scaled scalar and matrix,floor-active failure,log1000 null,causal dense/chunk schedules,nonempty incoming state,short final chunks and12 edited settings",
+      "passed": true
+    },
+    {
+      "name": "Exact BigInt state accounting",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Full-network float32 absolute logit tolerance1e-4 and exact argmax comparison at every retained prefix.",
+    "New native float64 full-network stages1e-10; finite differences2e-7.",
+    "Browser paint/live inputs and integration build remain separate checks."
+  ]
+}

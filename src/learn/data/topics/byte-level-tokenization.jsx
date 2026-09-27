@@ -709,7 +709,7 @@ class CANINEInput(nn.Module):
       {/* ======================================================================
           12. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>12. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>12. Self-check exercises</H2>
 
       <Prose>
         <strong>1. The bytes_to_unicode necessity.</strong> GPT-2's byte-level BPE maps each of the 256 byte values to a printable Unicode character before running merges. Construct a concrete input string for which writing the naïve byte-level BPE vocab file — one that stores raw bytes directly as strings in JSON — would break. Hint: what happens to byte 0x22 (double quote), byte 0x0A (newline), or byte 0x00 (null) when you put them in a JSON string literal?
@@ -736,7 +736,7 @@ class CANINEInput(nn.Module):
           ====================================================================== */}
       <Prose>
         Byte-level tokenization solved universality cleanly and in 2019. The subword vocabulary question was never about whether we had the right primitive — we do, it's bytes — but about whether we had the right compression on top of them. The next topic, on dynamic tokenization, is about the layer above: once the floor is byte-level and the hybrid is mature, what does it take to let the tokenizer adapt to the actual distribution of inputs in production rather than a frozen snapshot from training?
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

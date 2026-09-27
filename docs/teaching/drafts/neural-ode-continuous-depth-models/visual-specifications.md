@@ -28,7 +28,7 @@ Explain each current outcome from the field, numerical approximation or chosen o
 
 Use code-native SVG/HTML/canvas as appropriate. Supply keyboard/numeric alternatives to dragging and a table equivalent for quantities encoded spatially. Titles, legends, color-independent styles, sufficient contrast, focus, concise live status and non-hover access are mandatory. Motion is learner-triggered, with instant state changes under reduced motion. At narrow widths stack coordinated panels; allow a labeled inner table scroll instead of whole-page overflow. Preserve axes/scale rather than shrinking text beyond usability.
 
-No browser training, remote model loading or unbounded automatic solver loop. Load only this lesson and the selected small model/fixture when needed. Programmatic numeric computations run on Run; stepping a completed trace only selects stored points. Use a bounded worker if profiling shows a main-thread issue, with cancel/stale-result protection. Do not ship all twelve fit curves, source data and author metadata eagerly. Retain them as attributable downloads and derive compact runtime assets with hashes.
+No browser training, remote model loading or unbounded automatic solver loop. Load only this lesson and the selected small model/fixture when needed. Bounded numeric computations update on valid edits; selecting a completed trace step only selects stored points. Use a bounded worker if profiling shows a main-thread issue, with cancel/stale-result protection. Do not ship all twelve fit curves, source data and author metadata eagerly. Retain them as attributable downloads and derive compact runtime assets with hashes.
 
 ## Inline figures at the point of explanation
 
@@ -75,7 +75,7 @@ Use the exact Euler/Heun controller in ode_calculations.py: two calls per attemp
 
 ## O-I3 — Which loss are you differentiating?
 
-**Fresh setup.** θ=0.3, z0=0.8, target=1, T=0.7, three steps. Ask for the gradient sign and whether the exact continuous and finite-program gradients must agree. The worked setup is θ=−0.7, z0=1.2, target=0.4, T=1.3, four steps. Controls: θ in [−2,1], z0 and target in [−2,2], T in [0.1,2], steps 3/4/16/64, Euler or classical RK4.
+**Fresh setup.** θ=0.3, z0=0.8, target=1, T=0.7, three steps. Display the gradient sign and compare the exact continuous and finite-program gradients immediately. The worked setup is θ=−0.7, z0=1.2, target=0.4, T=1.3, four steps. Controls: θ in [−2,1], z0 and target in [−2,2], T in [0.1,2], steps 3/4/16/64, Euler or classical RK4.
 
 **Computation.** Use z'=θz and half squared terminal loss. Exact z=z0 exp(θT), with gradient (z−target)Tz. Euler's amplification is R(u)=1+u. Classical RK4 uses R(u)=1+u+u²/2+u³/6+u⁴/24, where u=θT/n. Differentiate the finite recurrence analytically, propagating state sensitivity step by step; this avoids division when R=0. Compare central differences with ε=1e−6.
 
@@ -103,7 +103,7 @@ The coarse-solver inset uses z'=−2z and one Euler step h=1, mapping [−1,1] t
 
 ## O-I5 — Edit a measurement, keep the model
 
-**Fresh task.** Validation source 70, seed 37, Neural ODE, four classical RK4 steps. Show its four actual raw measurements and withhold the species label until after Run. Ask for the effect of adding 0.6 cm to petal length on versicolor probability. Worked source 64 is solved inline; validation source 109 supplies another legitimate case. Do not turn assessment samples into a hidden hyperparameter-tuning control.
+**Fresh task.** Validation source 70, seed 37, Neural ODE, four classical RK4 steps. Show its four actual raw measurements and recorded species label immediately. Changing petal length by 0.6 cm immediately recalculates the versicolor probability and its difference from the unchanged baseline. Worked source 64 is solved inline; validation source 109 supplies another legitimate case. Do not turn assessment samples into a hidden hyperparameter-tuning control.
 
 **Input and model controls.** Edit all four raw features within the original CSV's observed column ranges, printed in centimeters. The named ±0.6 cm interventions must either use the recorded valid sources or explicitly extend the local editable interval with a hypothetical-input label; never silently clip. Select ODE/augmented ODE, seed 13/37/61, Euler/RK4 and steps 4/16/64. Each selector loads the corresponding actual weights. No browser training.
 
@@ -123,7 +123,7 @@ The independent NumPy/PyTorch maximum logit/state error is at most 8.9e−16 ove
 
 ## O-I6 — Separate observation from query
 
-**Fresh controls.** Times [0.1,0.7,1.4], values [1,−1,0.5], query 1.6 and initial state zero. Between observations h'=−0.5h; at an observation h+=0.7h−+0.3x. Ask for the effect of deleting the middle observation versus replacing its value with zero.
+**Fresh controls.** Times [0.1,0.7,1.4], values [1,−1,0.5], query 1.6 and initial state zero. Between observations h'=−0.5h; at an observation h+=0.7h−+0.3x. Display the current effect of deleting the middle observation versus replacing its value with zero.
 
 Allow two to eight observations, strictly increasing times in [0,3], values in [−2,2] and query in [0,3]. The initial version rejects duplicate observation times with a local explanation, rather than silently choosing an order for simultaneous updates.
 

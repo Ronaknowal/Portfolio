@@ -1,0 +1,49 @@
+{
+  "topicId": "dropout-droppath-stochastic-depth",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:34:40.162Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx",
+    "src/learn/components/lesson-labs/DropoutNoiseIntuition.jsx",
+    "src/learn/components/lesson-labs/dropout-noise-intuition.css",
+    "docs/teaching/drafts/dropout-droppath-stochastic-depth/lesson.md",
+    "scripts/render-dropout-lesson.mjs",
+    "docs/teaching/concept-intuition/dropout-droppath-stochastic-depth/independent-review.md",
+    "scripts/review-network-architecture-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx": "91fc3a6e5c2f05b829c09c5c08e26ae1f29f6642207f29889cbec34bd387cf65",
+    "src/learn/components/lesson-labs/DropoutNoiseIntuition.jsx": "e271b69a6b2f937c09ce17937b4474de5d21e023a2b01212d0e4179e42191baa",
+    "src/learn/components/lesson-labs/dropout-noise-intuition.css": "c140c7c7e43109e3c9ac559077b894df2cb8919470aa3b35196d06715f64d219",
+    "docs/teaching/drafts/dropout-droppath-stochastic-depth/lesson.md": "fd88ad1ad9a0c47f1802b5d965086f0caefa31a3165d8a655ba1ca820caa66cd",
+    "scripts/render-dropout-lesson.mjs": "4f055e9b763f8e8f345374942c3cf0014e95d15373b29aef1a661cd02fc4b2ad",
+    "docs/teaching/concept-intuition/dropout-droppath-stochastic-depth/independent-review.md": "383b8a814bc03617f1ede070881c15c2d5b4cf1427ddc55a1a2b1f04f32680e6",
+    "scripts/review-network-architecture-intuition.mjs": "5185333ed3ee2340f3d1f1d25474db08870c76a3bd6fee4311dac897be3a78c7"
+  },
+  "checks": [
+    {
+      "name": "Changed Gaussian inputs preserve marginals while exposing nonzero shared-weight covariance",
+      "status": "passed"
+    },
+    {
+      "name": "Changed mixture total variance does not divide model variance by draw count",
+      "status": "passed"
+    },
+    {
+      "name": "Changed DropConnect and activation masks have distinct effective matrices",
+      "status": "passed"
+    },
+    {
+      "name": "Shake-Shake forward and backward coefficients remain separate",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/dropout-droppath-stochastic-depth/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged historical campaigns retained; no new fitting or library-execution claim."
+}

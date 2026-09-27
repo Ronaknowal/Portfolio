@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "comparisons": 1971,
+  "maximumError": 2.6645352591003757e-15,
+  "tolerance": 1e-11,
+  "scope": "Independent native masked softmax, actual MultiheadAttention across three widths/head layouts, autograd gates; permutation/forbidden-memory/null/streaming/identity/accounting/dependency checks."
+}

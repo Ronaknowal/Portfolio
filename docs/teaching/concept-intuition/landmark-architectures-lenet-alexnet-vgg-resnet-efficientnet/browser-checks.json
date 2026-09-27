@@ -1,0 +1,76 @@
+{
+  "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx": "a27213957cec1b6e39bed2079181a3e0ae4cc7eba1dfa24f8b3b204f1a7ba1f3",
+    "src/learn/components/lesson-labs/LandmarkFamilyIntuition.jsx": "a6ba7f3e9784668a267e23c6ed7197f594fdd4db3f2e64c28a39165b418cc0a8",
+    "src/learn/components/lesson-labs/landmark-family-intuition.css": "99805f37e048160eab52f30f2ec4a5a1e15ebf90079c93715d80718b88abe5c3"
+  },
+  "scope": "Actual visual inspection of the concept-level additions at desktop and phone widths, with the recorded 820px DOM-boundary pass. Deeper disclosures opened where needed. Existing unrelated labs and historical native fits are not recertified.",
+  "evidence": {
+    "rendered": {
+      "file": "docs/teaching/concept-intuition/rendered-checks.json",
+      "indices": []
+    },
+    "additionalFigures": {
+      "file": "docs/teaching/concept-intuition/extra-rendered-checks.json",
+      "indices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    "intermediateWidth": {
+      "file": "docs/teaching/concept-intuition/midpoint-checks.json",
+      "indices": [
+        46
+      ]
+    },
+    "finalCopy": {
+      "file": "docs/teaching/concept-intuition/copy-checks.json",
+      "indices": [
+        0,
+        18
+      ]
+    }
+  },
+  "sourceContinuity": {
+    "observedBuilds": [
+      "2026-09-26T15:23:34.962Z"
+    ],
+    "finalBuild": "2026-09-26T16:01:07.158Z",
+    "laterCopyFiles": [
+      "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx"
+    ],
+    "explanation": "Measurements retain the build tags and scope at which they were captured. The final source has passed independent reading and build checks. Unchanged visual components reuse those observations; subsequent prose corrections have the separately recorded final rendered-copy checks. This is not a claim that every old lab was rerun."
+  },
+  "interactions": [],
+  "findings": [
+    {
+      "message": "Rendered the RegNet width equation and removed literal emphasis markers.",
+      "status": "closed",
+      "recheckIndices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "copyIndices": [
+        0,
+        18
+      ]
+    }
+  ],
+  "limits": [
+    "No human learner trial or exhaustive screen-reader audit.",
+    "Browser text-zoom override was unavailable: the attempted shortcut did not change viewport or device pixel ratio, so zoom is not certified. Actual 390, 820 and 1280 pixel layouts were checked.",
+    "Full-viewport screenshots were inspected in the task; retained JSON records observations rather than duplicating all temporary images."
+  ]
+}

@@ -1,0 +1,18 @@
+.diagnostics-lesson{overflow-wrap:anywhere}
+.diagnostic-controls,.diagnostic-records{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:.9rem;margin:1rem 0}
+.diagnostic-controls>*,.diagnostic-records>*{min-width:0}
+.diagnostic-record{border:1px solid #555;background:#1b1b1b;padding:.8rem;min-width:0}
+.diagnostic-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,410px),1fr));gap:1rem}
+.diagnostic-figure{margin:1.4rem 0;padding:1rem;border:1px solid #555;background:#171717;min-width:0;max-width:100%}
+.diagnostic-figure figcaption{font-weight:650;color:#eddbb4;margin-bottom:.8rem}
+.diagnostic-scroll,.diagnostic-plot-scroll{overflow-x:auto;max-width:100%;min-width:0}
+.diagnostic-scroll svg{display:block;width:100%;height:auto}
+.diagnostic-scroll text{fill:#eee;font:12px system-ui,sans-serif}
+.diagnostic-scroll path,.diagnostic-scroll line,.diagnostic-scroll polyline{stroke:#aaa;fill:none}
+.diagnostic-scroll rect{fill:#242424;stroke:#aaa}
+.diagnostic-scroll circle{fill:#ddd;stroke:#ddd}
+.diagnostic-plot-scroll .neural-plot,.diagnostic-plot-scroll .neural-chart{min-width:400px;max-height:none}
+.diagnostic-note{display:flex;flex-direction:column;gap:.5rem}.diagnostic-note textarea{width:100%;min-height:85px;background:#202020;color:#eee;padding:.6rem;border:1px solid #777}
+.diagnostic-source{overflow-x:auto;padding:1rem;background:#111;font-size:.8rem;line-height:1.6}
+.diagnostic-downloads{display:flex;flex-wrap:wrap;gap:.8rem;margin:1rem 0}
+@media(max-width:720px){.diagnostic-figure{padding:.6rem}}

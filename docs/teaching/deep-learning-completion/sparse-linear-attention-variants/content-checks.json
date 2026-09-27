@@ -1,0 +1,55 @@
+{
+  "topicId": "sparse-linear-attention-variants",
+  "passed": true,
+  "manuscript": "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/sparse-linear-attention-variants/visual-specifications.md",
+  "sourceFiles": [
+    "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py",
+    "docs/teaching/drafts/sparse-linear-attention-variants/author-calculations.py",
+    "docs/teaching/drafts/sparse-linear-attention-variants/author-checks.py",
+    "docs/teaching/drafts/sparse-linear-attention-variants/author-results.json",
+    "docs/teaching/drafts/sparse-linear-attention-variants/design.md",
+    "docs/teaching/drafts/sparse-linear-attention-variants/forecast-models.json",
+    "docs/teaching/drafts/sparse-linear-attention-variants/fresh-controls.json",
+    "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md",
+    "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-calculations.py",
+    "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-results.json",
+    "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.data",
+    "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.names",
+    "docs/teaching/drafts/sparse-linear-attention-variants/provenance.md",
+    "docs/teaching/drafts/sparse-linear-attention-variants/random-feature-results.json",
+    "docs/teaching/drafts/sparse-linear-attention-variants/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699",
+    "docs/teaching/drafts/sparse-linear-attention-variants/author-calculations.py": "4ef246b18bda80a485ba15fd1b9f1a578887ea71e78b0351f84f820ff2425489",
+    "docs/teaching/drafts/sparse-linear-attention-variants/author-checks.py": "1ab2ac8c106ff0ee18ccb728dc60defcf6abe1fb9016bbe9120f0c9d3a24bc14",
+    "docs/teaching/drafts/sparse-linear-attention-variants/author-results.json": "c61e87d8042ecf0c5178dfc9511f08b665d2b86f49c2f5398fcab35b3b08e7ef",
+    "docs/teaching/drafts/sparse-linear-attention-variants/design.md": "800f61e0bcd48446afe7a670a81fc45f579e103619ae51c89d8466847e895b1e",
+    "docs/teaching/drafts/sparse-linear-attention-variants/forecast-models.json": "88df8b8a043421f2fad9464d7f88b3fd09903962ab5fada111b53572897e0e46",
+    "docs/teaching/drafts/sparse-linear-attention-variants/fresh-controls.json": "3d0b388c7afdc4b057ebd968b937844c70fd6ba2e3de28e1d8e4eb8c9b5bfb42",
+    "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md": "2a3316f13cf2359909770c18bdc3a2f363d294b6e0f67c33b8453ea63aeed32a",
+    "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-calculations.py": "c051e46623dff472db194066ee87b08b8c54516ebcfb6570318274ed4d771d7a",
+    "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-results.json": "28ad1267aa3382e30984d55421db7a450bc273e72930d3051b17d3f90a3b19b7",
+    "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+    "docs/teaching/drafts/sparse-linear-attention-variants/provenance.md": "450269fa8cf65fefc42f0f95d115592ec3e630d935599334a19acffe79bfc42d",
+    "docs/teaching/drafts/sparse-linear-attention-variants/random-feature-results.json": "f12d8c5859d042d9290f5471c9765fe0db8c2fb20b570a9d15d0240b360a5448",
+    "docs/teaching/drafts/sparse-linear-attention-variants/visual-specifications.md": "110525f67b33dd5e24d1316fb45ec4b414135c768750a975c175694c025333ba"
+  },
+  "reconciliation": [
+    "Consumed the complete current manuscript, visual specifications, design, provenance, programs and frozen results. Retained substantive prepared changes and original experiment evidence.",
+    "Root restored only byte-identical historical line endings. This checkpoint binds the actual reviewed current packet, without rewriting historical evidence.",
+    "Current live-exploration standard supersedes any historical prediction-gate wording. Runtime diagrams replace author-facing visual instructions; practice remains separately disclosed."
+  ],
+  "checks": [
+    {
+      "name": "Complete manuscript, mechanism-specific representation plan, scratch/library route and changed practice reviewed",
+      "passed": true
+    },
+    {
+      "name": "Native/runtime/browser work is separately tracked; prepared results do not certify new implementation",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+.mla-lesson { overflow-wrap: anywhere; }
+.mla-figure, .mla-plane { margin: 1.5rem 0; padding: 1rem; border: 1px solid #514630; border-radius: 5px; background: #171717; max-width: 100%; overflow-x: auto; }
+.mla-figure figcaption, .mla-plane figcaption { color: #eed9b0; font-weight: 650; margin-bottom: .9rem; }
+.mla-diagram { width: 100%; height: auto; display: block; }
+.mla-plane .mla-diagram { min-width: 320px; }
+.mla-figure > .mla-diagram { min-width: 600px; }
+.mla-diagram text { fill: #e7e1d7; font-size: 12px; font-family: inherit; }
+.mla-diagram rect { fill: #24211d; stroke: #b5a17b; }
+.mla-diagram path { fill: none; stroke: #bcab8d; }
+.mla-scroll { overflow-x: auto; }
+.mla-wide { min-width: 640px; }
+.mla-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 1rem; margin: 1rem 0; }
+.mla-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.mla-path-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+.mla-path-columns > section { border-top: 2px solid #d8b768; padding: .5rem; }
+.mla-key { padding: 0; list-style: none; }
+.mla-key li { margin: .4rem 0; }
+.mla-key i { width: .7rem; height: .7rem; display: inline-block; margin-right: .5rem; }
+.mla-score-rails { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; min-width: 600px; }
+.mla-score-rails > div { display: flex; flex-direction: column; border: 1px solid #73603d; padding: .7rem; gap: .4rem; text-align: center; }
+.mla-score-rails span { font-size: .8rem; }
+.mla-matrix-editor { min-width: 0; margin: 1rem 0; border: 1px solid #50483a; }
+.mla-matrix-editor > div { display: grid; gap: .7rem; }
+.mla-matrix-editor .neural-number-control--numeric { min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.mla-matrix-editor label { overflow-wrap: anywhere; }
+@media (max-width: 680px) { .mla-matrix-editor > div { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+.mla-record { display: flex; min-width: 0; margin: 1.4rem 0; }
+.mla-record span { min-width: 80px; padding: .7rem; border: 1px solid #b59a62; background: #29231a; }
+.mla-record span + span { background: #1c2530; border-color: #7394bb; }
+.mla-record b { display: block; }
+.mla-code { max-width: 100%; overflow-x: auto; padding: 1rem; font-size: .8rem; line-height: 1.6; background: #111; }
+@media (max-width: 680px) { .mla-path-columns { grid-template-columns: minmax(0, 1fr); } .mla-figure, .mla-plane { padding: .65rem; } }
+
+.mla-sensitivity { min-width: 360px; }
+
+.mla-plot-scroll { min-width: 0; max-width: 100%; overflow-x: auto; }
+.mla-plot-scroll .neural-plot, .mla-plot-scroll .neural-chart { min-width: 340px; max-height: none; }
+
+.mla-output-diagram, .mla-cache-coordinates { min-width: 720px; }
+.mla-quantized-record { min-width: 680px; }

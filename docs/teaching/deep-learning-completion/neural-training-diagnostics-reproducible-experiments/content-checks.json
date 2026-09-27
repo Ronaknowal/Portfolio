@@ -1,0 +1,78 @@
+{
+  "topicId": "neural-training-diagnostics-reproducible-experiments",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/author-verification.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculation-results.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/prediction-retention-check.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/split.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine-results.json",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine.csv",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/author-verification.json": "5c47803a03b66f20869b5567aea9c265c0172d9a5bbda802e03bb86b8f193dca",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculation-results.json": "6ad1f028f621e1d280b4c7b8a5a4b25849fce1fd108e88280452ea90571c9dfe",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json": "737d99c93c3a8e093054f0d8d09a6ba6fd0c831a5532f4c1940e72a2f18a1d76",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md": "287e3306f83dcc950ac737062f993adc6dd98f078bbd1567e47a23980c3fcb63",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md": "d9145695a2cc1519f532e4b09cd4af36d48f772aa490127194331de015f44e20",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md": "e9d40df4e70499f3980936dd3ee367a4c53c2bf233843e068f563b8824115032",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md": "c487e18cb28cc05f2ecbbc59b93d875a97e5083e244c988e432d6025211fb228",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/prediction-retention-check.json": "b7cce268b375a827bcdf10d71a1fe36d3a9f80ada50dcc38398a55572346115d",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/split.json": "8204aed7bd9edff16f90355f6640629fc46e0e862820dfc87ba1dce7d3491e73",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py": "3572f7e69cdfa2cdd6922727e9ecb10f99b38129eef915862e15f4d784bda0b2",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md": "ce8dba5cf66e63be30ad640d40f2a60830b946963b6a3b6f16021326626b8556",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine-results.json": "7c8f520c4357379fc79e6d863890eecab4b131a543744357a24c965ce9af3774",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine.csv": "68386101f5ee41ef2a03d50bb8fe6dc5d4ac86aac31b6e987616be00a8c9c728",
+    "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d"
+  },
+  "manuscript": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md",
+  "reconciliation": [
+    "Consumed entire current16-file packet: all11 manuscript sections/references, complete design/specs/programs/protocol/provenance, all JSON records and CSV schema/rows; parsed every retained run/trace/row prediction.",
+    "Finish preflight has no destination note; resolved unassigned bit-manipulation history is unrelated. Original blueprint outcomes and full diagnostic/replay teaching retained.",
+    "Replaced implementation-directed opening and stale prepared-publication text/relative cross-topic links with current learner-facing routes and deployed prerequisite code.",
+    "Removed residual prediction/commitment/explicit-Run gate wording in lab contracts. Fresh entered-score mode starts from explicitly constructed suggested fixture so it is playable immediately; provenance remains descriptive, not graded.",
+    "Preserved every exact calculation, native measurement, negative clean-overfit result, all seeds, trace points, row predictions and four changed case files plus synthesis and checkpoint-boundary practice.",
+    "Rechecked current PyTorch2.14 module-mode/autograd separation, BatchNorm population versus running variance, scheduler creation/load order and reproducibility limitations against primary docs; retained original historical source snapshot annotations.",
+    "Independent review clarified F4 row-inspection wording; the retained final-update-400 restriction is unchanged."
+  ],
+  "checks": [
+    {
+      "name": "Full prepared packet and finish note/blueprint consumed",
+      "passed": true
+    },
+    {
+      "name": "Observation versus diagnosis reasoning and declared data-role boundary preserved",
+      "passed": true
+    },
+    {
+      "name": "Four distinct immediate labs plus real-row/curve/replay inspection planned",
+      "passed": true
+    },
+    {
+      "name": "Full scratch measurements and ordinary PyTorch programs explained; concrete prerequisite engines linked",
+      "passed": true
+    },
+    {
+      "name": "Advanced finite-difference, variation-source, RNG and mid-group state intuition retained",
+      "passed": true
+    },
+    {
+      "name": "Large Wine result will remain downloadable but only lossless selected projections will be fetched by local views",
+      "passed": true
+    }
+  ],
+  "assessment": "Content ready. Runtime, native re-execution, independent review and browser/integration remain."
+}

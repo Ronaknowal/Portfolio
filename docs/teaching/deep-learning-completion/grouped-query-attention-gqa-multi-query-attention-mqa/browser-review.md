@@ -1,0 +1,30 @@
+# GQA/MQA rendered review
+
+Integration reviewer: `/root`. Production preview, actual browser controls, full desktop and narrow-phone observations. These are observed results, not simulated UI assertions. Final receipt binds the reviewed build after the findings below are repaired.
+
+## Mechanisms and changed/null controls
+
+- Shared reads initially produce q0 `[1.689275, 1.466087]`, q1 `[1.155362, 2.533913]`, q2 `[.158975, 1.600574]`, q3 `[1.841025, .759549]`. Changing group-zero value-zero x from 2 to 4 changes q0 by .844638 and q1 by .310725, leaving the other group and read weights unchanged. Relabeling complete groups is a null intervention; interleaving their assignment changes q1/q2.
+- Appending logical record3 leaves the selected query at logical2 unchanged because the new record is future. Selecting query row1 at logical3 includes it and produces `[2.375382,-.156918]`, `[2,.593845]`, `[.476223,1.137997]`, `[2.019345,.366436]`. Reversing complete records preserves these answers. Selecting the wrong local-triangle mask changes q0 to `[3,-1]` and produces reference error2.7927187025. After reset, query logical0 and key0 logical5 leave that query with no legal key: the workspace shows undefined, not a fabricated zero distribution.
+- Independent cache-mask investigation: logical queries3/4 produce `[2.268941,3.731059]`/`[3,3]`; wrong local triangle gives `[1,5]`/`[1.268941,4.731059]`. Key logical10 can be excluded; complete-record reversal preserves the answer. Logical and physical positions are separately visible.
+- Budget default is10GiB versus MHA80GiB. One KV head reduces this to1.25GiB while the displayed1,073,741,824 score/mix operations stay fixed. Projection parameters change9,437,184 to8,519,680. The Amdahl calculation explicitly uses an assumed fraction, yielding2.105263x, rather than claiming a measured speedup. Q12/KV3/prefix1024 gives125,829,120bytes (.117188GiB), MHA.46875GiB,1,966,080parameters,6,291,456operations. Compatible divisor choices are explained. Clearing the token number and clicking Reset once restores the whole default10GiB state.
+- Mean conversion outputs2/2 versus the original1.238406/- .892083; tied-head fixture preserves1.238406/1.035972. Adding candidate key offset1 changes the mean key from`[1,1]`to`[2,1]`, key distance4to6 (excess2), while value distance16 stays fixed, and changes outputs to2.462117/2.761594. Tied fixture clears candidate offsets and preserves the original function.
+- Shared-gradient investigation: changing the second upstream contribution from-1 to1 changes the shared gradient-.1to1.3. This distinguishes summed training signals from merely displaying shared heads.
+
+## Real retained model
+
+Default two-KV model, prefix32: next forecast`[.597412,.259018]`, compact cache`[1,2,32,6]`,3072bytes, full/incremental discrepancy0. Editing frame23 x to.4 gives`[.597523,.259001]`; the earlier forecast remains unchanged. Logical-ID shift9 is null. Switching to one-KV MQA gives`[.609368,.253795]`for that intervention versus its unedited`[.607105,.253203]`,1536bytes. Reset restores the original specimen and full/incremental equality.
+
+A controlled missing-asset check moved only the generated preview copy of`runtime-1.json`, then requested MQA. The download failed and offered Retry. The original generated file was restored immediately; Retry successfully loaded the correct MQA model and its1536-byte cache. The initial raw JSON parse error was a usability finding: author replaced it with a connection/retry explanation in both GQA and MLA. Source assets were never removed. This is a local failure/recovery check, not an external service test.
+
+## Visual/interaction findings
+
+The first review found tiny painted labels and ambiguous positional controls. These were repaired with native-width local diagrams, explicit logical IDs/query rows, reference-mask comparison, candidate conversion distance and updated explanations. Additional actual diagrams cover prompt/generated availability, compact rotation/append, cache payload axes, physical replicas, cross-attention cache lifetimes and MoE ownership. Desktop compact-cache screenshot shows rotated unique K, unrotated V and distinct two-KV/four-query reads. Shared controls use the neutral/amber theme.
+
+## Final build and accessibility follow-up
+
+Production build19:16:57 covers the repaired runtime without any in-build source changes. Reloaded that build: bringing the lazy model investigation into view loads MQA and reproduces `[.607105,.253203]`, `[1,1,32,6]`,1536bytes and full/incremental difference0. The model deliberately waits until its section is near the viewport; changing a select offscreen does not start a download. A second attempted missing-asset probe stayed offscreen and therefore did not trigger a request; the generated asset was restored immediately. The earlier actual failure/retry evidence remains applicable, while the new friendly error copy was independently source-reviewed. No second failure is claimed.
+
+At320px the page client/scroll widths are both305. The timeline remains660px, head diagrams420px, additional architecture diagrams680px and charts340px inside bounded local scroll regions. Screenshot of the sharing diagram confirms readable labels and neutral/amber controls. Keyboard ArrowRight moves the focused table region16.67px while preserving page width. The shared number-control invalid/reset interaction was exercised above. Desktop compact-cache screenshot was also inspected; no SVG text is uniformly shrunk to fit the phone.
+
+The deferred mechanism-program disclosure loads8,423characters containing the full NumPy/PyTorch source. The first practice solution opens independently and explains group2,12query distributions, heads8–11 and the orthogonal-query null. Mathematical rendering contains no KaTeX error nodes. No warnings or errors were observed in the final console check. Learner completion was not changed. Representative viewport/control checks do not establish an exhaustive Cartesian input sweep or a learner study.

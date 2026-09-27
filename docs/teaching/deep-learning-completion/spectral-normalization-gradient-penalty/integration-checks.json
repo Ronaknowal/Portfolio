@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T21:02:49.564Z",
+  "topicId": "spectral-normalization-gradient-penalty",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T20-54-11-212Z.json",
+  "buildReceiptHash": "c52050a72c27e735d068930d5067cf786bdb53edf5b3e7c168ec45510e913f27",
+  "publicationMapping": "./topics/spectral-normalization-gradient-penalty.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

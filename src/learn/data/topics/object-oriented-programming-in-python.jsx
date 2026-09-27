@@ -47,11 +47,11 @@ export default {
     <Checkpoint prompt="After the complete example, run evening.add(99). What are both means? What changes if you use alias.add(99) instead?">
       <Prose>Evening becomes 99.0; morning stays 24.0. Using alias instead changes morning to (18 + 24 + 30 + 99) / 4 = 42.75, and evening remains empty. Identify the receiving object before doing the arithmetic.</Prose>
     </Checkpoint>
-    <details className="oop-deeper"><summary>Deeper experiment: save a method, then reassign its old name</summary>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper experiment: save a method, then reassign its old name</h3>
       <Prose>Predict whether the saved method follows the name morning when that name is reassigned to evening. Inspect <Code>__self__</Code>, the remembered receiver, and <Code>__func__</Code>, the underlying function.</Prose>
       <BoundMethodRetentionFigure />
       <PythonExample example={oopExamples.bound}><Prose>The saved method still refers to the original morning object. Reassigning the name morning does not rewire that saved reference. Its call changes the old object's list, while the name morning now reaches evening's empty list.</Prose></PythonExample>
-    </details>
+    </section>
 
     <H2>3. Locate state before changing it</H2>
     <Prose>A class can also have attributes. A shared constant such as <Code>unit = "C"</Code> in the class body can be appropriate. A single shared readings list usually is not: it would mix independent experiments. The difference is <em>where the list is created and which attribute refers to it</em>.</Prose>
@@ -87,12 +87,12 @@ export default {
     <Checkpoint prompt="The latest log contains 18 and 24. You save old = log.values, then try log.add(float('nan')). What are old, log.values and len(log) after catching the exception?">
       <Prose>Old and the current snapshot are both (18.0, 24.0), and len(log) is 2. The finite-value gate raises before append. This tests the invariant and failure behaviour, not just the successful path.</Prose>
     </Checkpoint>
-    <details className="oop-deeper"><summary>Deeper limits: encapsulation, setters, numeric range and batch operations</summary>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper limits: encapsulation, setters, numeric range and batch operations</h3>
       <Prose>Python still lets determined callers access <Code>_values</Code>. Encapsulation means an explicit supported interface and maintained rules; it is not a security boundary. A double-leading underscore triggers name mangling to reduce subclass name collisions, not true secrecy.</Prose>
       <Prose>A property is a descriptor: an object whose hooks control attribute access. The simple “instance first, class next” diagram from the shared-list experiment is not the complete descriptor lookup algorithm. A property can take precedence over an ordinary instance-dictionary entry. A <Code>@name.setter</Code> method can validate assignments when replacement is part of the public contract; we intentionally omit that operation here.</Prose>
       <Prose>Our mean implementation is appropriate for these small temperature examples. Finite inputs alone do not ensure finite intermediate arithmetic: summing huge finite floats can overflow. Numerical range, rounding and robust aggregation require their own analysis. The input policy also intentionally excludes Decimal and some NumPy scalar types; supporting them requires a deliberate conversion and precision policy.</Prose>
       <Prose>If you later add <Code>add_many</Code>, decide whether a bad reading rejects the whole batch or whether earlier valid readings remain. Repeated calls to add naturally permit partial progress. To promise an all-or-nothing batch, validate and convert into temporary storage first, then extend the internal list after every input passes.</Prose>
-    </details>
+    </section>
 
     <H2>5. Connect objects through small contracts</H2>
     <Prose>A report must show the same Celsius input in different formats. The report's job is to add a label. A separate formatter's job is to turn a Celsius number into temperature text. The report <em>has a formatter</em>; it is not a kind of formatter. Giving one object a reference to another object it uses is <strong>composition</strong>.</Prose>
@@ -106,11 +106,11 @@ export default {
     <Checkpoint prompt="A colleague proposes CelsiusMorningLog, FahrenheitMorningLog, CelsiusEveningLog and FahrenheitEveningLog subclasses. How would you reduce this design?">
       <Prose>Keep the time-specific readings in ReadingLog instances. Keep the formatting choice in a separate collaborator. A report uses the chosen formatter with the data it is given. The two independent choices no longer require a new subclass for every combination.</Prose>
     </Checkpoint>
-    <details className="oop-deeper"><summary>Deeper branch: typed interfaces and behavioural tests</summary>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper branch: typed interfaces and behavioural tests</h3>
       <Prose><Code>typing.Protocol</Code> describes a structural interface for a static type checker: a class can satisfy it by providing compatible operations without inheriting from it. An abstract base class can declare required abstract methods and prevent instantiation until those methods are implemented. Both help express a contract, but neither proves the implementation's semantic correctness.</Prose>
       <Prose>Test each responsibility at its boundary. For FahrenheitFormatter, check known conversions including 0°C → 32°F and 20°C → 68°F. For Report, use a predictable collaborator and check delegation and labelling. For ReadingLog, check independent instances, empty state, accepted values, rejected inputs and unchanged state after failure.</Prose>
       <Prose>The Python basics lesson introduced <Code>assert</Code>: it raises AssertionError when its condition is false. Here it is a lightweight reproducible test. Python can omit assertions under optimisation, so do not use assert as production validation for untrusted inputs. The later testing topic builds a maintained test suite around these same behavioural questions.</Prose>
-    </details>
+    </section>
 
     <H2>6. Distinguish record values from object identity</H2>
     <Prose>Sometimes an object's main job is to carry named fields. A single reading might contain a Celsius value and tags. Writing a custom initialiser, display and field-by-field equality for every such record is repetitive. A <strong>dataclass</strong> can generate that routine code.</Prose>
@@ -121,28 +121,28 @@ export default {
     <Checkpoint prompt="If alias = a and alias.tags.append('checked'), which record changes? Would replacing the dataclass with a normal class automatically change the alias relationship?">
       <Prose>A changes through the alias; b remains independent. Aliasing is about references, regardless of whether the class was decorated as a dataclass. The decorator changes generated methods, not the meaning of assignment.</Prose>
     </Checkpoint>
-    <details className="oop-deeper"><summary>Deeper experiment: frozen does not mean recursively immutable</summary>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper experiment: frozen does not mean recursively immutable</h3>
       <Prose><Code>frozen=True</Code> blocks ordinary field reassignment. It does not freeze a mutable object stored inside a field, and does not validate a type annotation. Predict all three outputs before running this small counterexample.</Prose>
       <PythonExample example={oopExamples.frozen}><Prose>Appending changes the list object without reassigning the tags field. Directly reassigning celsius is blocked. Passing text still succeeds because no runtime validation was written. For an immutable record contract, choose immutable field values and add validation where needed, for example in <Code>__post_init__</Code>.</Prose></PythonExample>
       <Prose>A <strong>hash</strong> is a value used to locate keys in dictionaries and sets. Equal keys must have equal hashes, and a key's hash must remain stable while stored. Mutable equality-defining fields make that contract difficult. A frozen dataclass may receive a generated hash, but hashing can still fail if a participating field is unhashable. Do not add <Code>unsafe_hash=True</Code> simply to suppress an error.</Prose>
       <Prose>The common dataclass options in these examples work on Python 3.10+. More recent releases have changed details of generated equality for unusual values such as NaN; our finite simple records do not rely on those edge cases. Consult the documentation for your runtime before depending on generated-method internals.</Prose>
-    </details>
+    </section>
 
     <H2>7. Use inheritance when a subtype keeps the promise</H2>
     <Prose><strong>Inheritance</strong> lets a class use and specialise behaviour from a base class. It fits when the specialised object can be substituted where the base kind is expected. A calibrated sensor can still support a sensor's interface while adding a correction offset. A report, however, is not a kind of sensor; composition fits that relationship better.</Prose>
-    <details className="oop-deeper"><summary>Deeper branch: a complete subclass, super and substitution</summary>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper branch: a complete subclass, super and substitution</h3>
       <Prose>The base Sensor promises a correction operation that takes a raw Celsius reading and returns a corrected Celsius reading. Its default correction is unchanged input. CalibratedSensor applies a fixed offset instead. This is an illustrative correction model, not a calibration procedure or a claim that every real sensor has a constant error.</Prose>
       <PythonExample example={oopExamples.inheritance}><Prose>The base initialiser establishes name; the subclass then adds offset. <Code>correct</Code> is overridden: Python selects the subclass's implementation for this instance. <Code>describe</Code> extends the base description using super. Adding −0.5 to 24 produces 23.5 in the same unit.</Prose></PythonExample>
       <Prose><Code>super()</Code> delegates according to the <strong>method resolution order</strong>, or MRO: the ordered class search used to resolve inherited behaviour. In this single-inheritance example, the next class is Sensor, followed by object. With multiple inheritance, “my parent” is an incomplete mental model; cooperative calls and compatible signatures matter.</Prose>
       <Prose>Substitution requires more than an <Code>isinstance</Code> result. If a subclass suddenly rejects inputs the base accepts, returns an unrelated type, changes units without saying so or introduces surprising side effects, a caller may break. Inherit a meaningful contract, not just convenient lines of code. Multiple inheritance, descriptors and metaclasses are further topics, not requirements for a well-designed small class.</Prose>
-    </details>
+    </section>
     <Checkpoint prompt="A FahrenheitSensor subclass returns Fahrenheit from correct(raw), although the base Sensor promises a corrected Celsius value. What goes wrong when a caller adds the result to Celsius readings?">
       <Prose>The code can run while mixing units and producing an invalid result. The subclass breaks the output-meaning contract. Preserve Celsius inside the sensor interface and put Fahrenheit conversion at an explicit formatting/conversion boundary.</Prose>
     </Checkpoint>
 
     <H2>8. Choose methods by what information they need</H2>
     <Prose>Most methods in this lesson operate on a particular object and therefore receive self. Two other standard forms are useful once that mechanism is clear: a class method receives the class, and a static method receives no automatic first argument.</Prose>
-    <details className="oop-deeper"><summary>Deeper branch: an alternative constructor and a related utility</summary>
+    <section className="oop-deeper lesson-teaching-section" data-lesson-teaching=""><h3 className="lesson-teaching-section__title">Deeper branch: an alternative constructor and a related utility</h3>
       <PythonExample example={oopExamples.methods}><Prose>The instance method reads one object's celsius state. <Code>from_fahrenheit</Code> is an alternative constructor: convert the input, then call cls to create an instance of the receiving class. <Code>unit</Code> needs neither an instance nor a class; a module-level constant would also be reasonable here.</Prose></PythonExample>
       <LessonTable caption="What is automatically supplied?" headers={["Definition", "First argument supplied by Python", "Appropriate responsibility"]} rows={[
         ["def method(self, ...)", "The receiving instance", "Read or change this object's state."],
@@ -150,9 +150,9 @@ export default {
         ["@staticmethod; def method(...)", "Nothing", "A closely related utility independent of instance/class state."],
       ]} />
       <Prose>Like self, cls is a conventional parameter name. Using cls in an inherited factory can preserve the receiving subclass, provided that subclass supports the required constructor arguments. The <a href="/learn/topic/decorators-context-managers">decorators lesson</a> explains how these transformations work beneath the @ notation.</Prose>
-    </details>
+    </section>
 
-    <H2>9. Build and test an independent design</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>9. Build and test an independent design</H2>
     <section className="oop-mission" aria-label="Independent dataset split investigation">
       <h3>Keep dataset membership independent; swap its report</h3>
       <p>A data project has a training split and an empty validation split. A split is a named collection of sample IDs, not the data files themselves. Design it without copying the reading log line for line: the valid values and useful operations are different.</p>
@@ -172,9 +172,9 @@ export default {
         <p>Try duplicate IDs in the constructor. Try adding 7, "" and three spaces to an existing split. Save a snapshot before an accepted addition. Add a LinesFormatter that returns one ID per line or "(empty)". Then explain whether this class alone guarantees that training and validation sets never overlap.</p>
         <details><summary>Check your transfer reasoning</summary><p>Duplicate constructor input raises ValueError, so construction does not return a valid split to the caller. Adding 7 raises TypeError; blank text raises ValueError; an existing split keeps its prior contents after each rejection. A previously returned tuple snapshot remains unchanged after a later addition. LinesFormatter can use <Code>"\n".join(split.sample_ids) or "(empty)"</Code>, and requires no SplitReport changes.</p><p>Two individually valid splits may still contain the same ID. Cross-split disjointness is a different invariant owned by a dataset/partition operation that can inspect both. Do not claim data-leakage protection from a class that only enforces uniqueness within one list.</p></details>
       </details>
-    </section>
+    </section></section>
 
-    <H3>Choose the smallest design that keeps the contract clear</H3>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H3>Choose the smallest design that keeps the contract clear</H3>
     <LessonTable caption="Practical starting points, not rigid rules" headers={["Need", "Start with", "Reason"]} rows={[
       ["Compute a result from inputs", "Function", "No persistent object state is necessary."],
       ["Carry a few named values", "Dictionary or dataclass", "Make the record easy to inspect."],
@@ -183,7 +183,7 @@ export default {
       ["Specialise a genuine substitutable kind", "Inheritance", "Preserve the base contract while extending behaviour."],
     ]} />
     <Prose><strong>Before moving on:</strong> explain what self receives without saying “the class”; predict a shared-list bug by tracing lookup; distinguish identity from equality; reject a bad input without changing state; and swap a report's collaborator without editing the report. Revisit the relevant investigation if any answer still requires guessing.</Prose>
-    <Prose>Next in this module, <a href="/learn/topic/iterators-iterables-generators">Iterators, Iterables &amp; Generators</a> shows how custom objects participate in loops and keep traversal state. Decorators and context managers then add behavior and control resource lifetimes; testing turns your contracts into repeatable checks. Later, Pandas moves from individually modelled records to tables. On a focused path, follow the reader's named Next link for its selected module topics.</Prose>
+    <Prose>Next in this module, <a href="/learn/topic/iterators-iterables-generators">Iterators, Iterables &amp; Generators</a> shows how custom objects participate in loops and keep traversal state. Decorators and context managers then add behavior and control resource lifetimes; testing turns your contracts into repeatable checks. Later, Pandas moves from individually modelled records to tables. On a focused path, follow the reader's named Next link for its selected module topics.</Prose></section>
     <Sources>
       <li><a href="https://docs.python.org/3/tutorial/classes.html#method-objects">Python tutorial: bound methods, class/instance variables and inheritance</a></li>
       <li><a href="https://docs.python.org/3/reference/datamodel.html#customizing-attribute-access">Python data model: attribute access, descriptors and special methods</a></li>

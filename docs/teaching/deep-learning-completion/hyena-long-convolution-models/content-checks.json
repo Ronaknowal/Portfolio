@@ -1,0 +1,75 @@
+{
+  "topicId": "hyena-long-convolution-models",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/hyena-long-convolution-models/author-checks.json",
+    "docs/teaching/drafts/hyena-long-convolution-models/author-results.json",
+    "docs/teaching/drafts/hyena-long-convolution-models/author_calculations.py",
+    "docs/teaching/drafts/hyena-long-convolution-models/check_author_packet.py",
+    "docs/teaching/drafts/hyena-long-convolution-models/convolution_mechanisms.py",
+    "docs/teaching/drafts/hyena-long-convolution-models/data-provenance.md",
+    "docs/teaching/drafts/hyena-long-convolution-models/design.md",
+    "docs/teaching/drafts/hyena-long-convolution-models/lesson.md",
+    "docs/teaching/drafts/hyena-long-convolution-models/mechanism-results.json",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice-fits.npz",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice-results.json",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice.data",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice.names",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice_models.py",
+    "docs/teaching/drafts/hyena-long-convolution-models/visual-specifications.md",
+    "docs/teaching/drafts/hyena-long-convolution-models/blocked_convolution.py"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/hyena-long-convolution-models/author-checks.json": "f86fda7e77db978b6a1ad208148554a03e983e003d65746a9d493da2a36fddf3",
+    "docs/teaching/drafts/hyena-long-convolution-models/author-results.json": "c75d8b038f36b0d1e04d052c1fc9f2e1930e547bc864a4031ed79b3e24ec298c",
+    "docs/teaching/drafts/hyena-long-convolution-models/author_calculations.py": "afc03ab280a25e3ec589cba60ed9449aa9d5f7e4c10b67e128ece5b6599d9b43",
+    "docs/teaching/drafts/hyena-long-convolution-models/check_author_packet.py": "4aefa3d2158e94f801e49a4f058bece255e7fa43bf9947cb7e3aef6fb2b0ef7a",
+    "docs/teaching/drafts/hyena-long-convolution-models/convolution_mechanisms.py": "499a1af14787c65e0d056baba4ba8efbd3d51609b59edc414ce593296ed31ce5",
+    "docs/teaching/drafts/hyena-long-convolution-models/data-provenance.md": "5d8fe28c32ee2702b60c95fba3867c7677fc6f9e789397178a712485f5f7c07e",
+    "docs/teaching/drafts/hyena-long-convolution-models/design.md": "7c69a98ce194387d7a7829450cc2799b175c2a7849e399efbfa861f74fa32043",
+    "docs/teaching/drafts/hyena-long-convolution-models/lesson.md": "10d3272fc04f11b083fc25e62c258c56ddc9dbbbb75521c92bf3924177ec9de1",
+    "docs/teaching/drafts/hyena-long-convolution-models/mechanism-results.json": "c638510904c09b643f217d5ae55ad0c038eea613e18c7f086db4bf5b89fa6e92",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice-fits.npz": "50eeefa980aafbb319878fd791ce36ad6e11fe4b3ba1f0364977998cc6bfda52",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice-results.json": "7a71b0799bf5b4f88e6aaf76e24828a082733a98a35b9c7f10cb463d85416bc1",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice.data": "ebbae10c85d3c285e2a2489a37e42bc2ee8d91d15005e391a9962fa3389a114f",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice.names": "dd67d612a9c57a1230fbeed1e6e0a2130559f419b01765799627236bc7f6fff1",
+    "docs/teaching/drafts/hyena-long-convolution-models/splice_models.py": "b3157678c6594094e9a6d7f87df9f682ab9eca80d113752ca5451a9d8d3c1476",
+    "docs/teaching/drafts/hyena-long-convolution-models/visual-specifications.md": "8b62cd6d5323339e30dfbf10db2c155134ad960e924274e8e2b041abb3e62428",
+    "docs/teaching/drafts/hyena-long-convolution-models/blocked_convolution.py": "e57f23494187c37a294d21d51737b72f533f84245815407c13c96abc7e565c7f"
+  },
+  "manuscript": "docs/teaching/drafts/hyena-long-convolution-models/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/hyena-long-convolution-models/visual-specifications.md",
+  "reconciliation": [
+    "Read full646-line manuscript,137-line specification,112-line design,complete provenance/metadata and all five programs; parsed every saved JSON number,155 NPZ arrays/61404 finite values and all3190 raw60-symbol records. No destination note exists.",
+    "Preflight current content was hash-valid after root line-ending reconciliation. Preserved all source programs,raw data,NPZ selected fits and measured results.",
+    "Repaired seven stale live-interaction/author-direction/grammar passages including explicit prediction request in HC and broken decision-time sentence. All four investigations now direct meaningful input edits and visible computed comparisons; independent written practice retained.",
+    "Retained added blocked_convolution.py bridge and complete embedded source. Historical author-check script predates this addition and expects3 Python blocks/20 disclosures/original runtime hash; current manuscript has4 blocks/21 disclosures. Preserve historical evidence without claiming that obsolete structural checker passes; scoped native/render checks will verify current full packet.",
+    "Rechecked primary original Hyena formal hierarchy and conditional two-filter derivation, official HyenaDNA positional buffers/modulation/order2 single-long-filter code and FFT normalization,StripedHyena2 section2 short/medium/modal states,and SciPy oaconvolve full-vs-centered same contract. Original full canonical research coverage in design retained, no large model or benchmark reproduction claim.",
+    "Math uses dollar inline delimiters and standalone bracket blocks; generator will normalize only inline delimiters outside code without dropping mathematics."
+  ],
+  "checks": [
+    {
+      "name": "Complete prepared source and numerical/source assets consumed",
+      "passed": true
+    },
+    {
+      "name": "All20 H01–H20 figure contracts and4HA–HD investigations preserved",
+      "passed": true
+    },
+    {
+      "name": "All10 independent hint/solution pairs and added blocked-FFT transfer solution retained",
+      "passed": true
+    },
+    {
+      "name": "Live opening and HC contain meaningful computed edits without prediction entry",
+      "passed": true
+    },
+    {
+      "name": "Native model contract,fullprograms,actual measurements and scoped primaryresearch read",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Content review only; native execution,ported math,complete rendered diagrams,independentreview and browser remain implementation steps."
+  ]
+}

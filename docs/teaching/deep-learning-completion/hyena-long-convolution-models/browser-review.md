@@ -1,0 +1,23 @@
+# Hyena — rendered review
+
+Root review27 September2026. Functional review used23:01:05 productionbuild, desktop1280×960 and phone320×900. Final receipt follows topic-local signed-stem layout correction.
+
+HA: fresh causal[1,1.5,0,3.25,−.25]. Pin and finalinput1→5 preserve firstfour causal outputs, giving last1.75; circular becomes[6,.25,0,3.25,1.75]. Identity kernel agrees across routes. K>L is explicitly unavailable for circular; direct fallback is labeled without dropping taps. FFT/reference gap≤4.441e−16 in these edits. Blank numeric followed byTab shows bounded-input instruction and retained lastvalue2; one Reset restores. FFT result includes harmless−5.551e−17 instead of exactzero, explicitly reported as arithmetic error.
+
+HB: opening sender2 produces[1,.625,7.5,−2.25]. Reset plus precedingfilter gives[1,1.125,2,−.5]. Inspecting receiver0/sender3 gives future coefficientzero; closing every sender yields allzero while retaining the hierarchy. Pin and Reset preserve/reinitialize full route settings. Default signed-output diagram exposed a negative-value label clipped1.58px and index3 overlapping its negative endpoint; author moved indices into a separate lower row and enlarged the viewBox. Final painted check follows.
+
+Blocked FFT: initial seven-sample result[1,1.5,≈0,3.5,−.375,2.375,1.5]. B1 uses sevenblocks and exactagreement; maximumB16 uses one padded32-point transform with error1.11e−15. Ten-sample practice B3 uses fourblocks including the final short block, outputs[1,−2.5,1.75,2.25,−2.5,3.5,−1.0625,−.5,1.4375,1.125], error1.11e−16. Misaligned centered-same and history-reset comparisons remain distinct from correct output.
+
+Streaming: fresh recurrence/direct difference5.551e−17. Carrying any selected boundary preserves; resetting at3 changesmax0.096875. Finite two-tap error0.49296875≤bound0.903515625; allfinite taps makes bound/errorzero. Residues[.001,0] keep separate scientific y-ticks, register contribution−.0005, and finite signed filter coefficients; numerical scale is visible rather than repeatedzero labels.
+
+Actual DNA: source4/gated29 defaultEI probability.92635975; boundary30/31→AA changes toIE .76018674 (nativefloat32 fixture differs by expected bounded rounding). AllambiguousN changes toN .9547846, notuniform. Lag5 and unitgate intervention produces actual different output; block1/channel15 inspect actual internals. Linear29 and ungated29 use the same edited sequence; linear explicitly has neither longfilter nor gates. Pincreatedwithgated29 keeps sequence/settings and is explicitly recomputed through currentfit for controlled comparison. Rapid fit changes settle on the selected model.
+
+Missing gated71 distasset displays friendly retry. Recovery preserves two-baseedit,lag5,unitgates,block1/channel15 and pin, returningIE. RestoredSHA25613baaadacfc91f72ed058cd05c4e4b50bc2d0a2276bbb85128d3a7ee172aaaef. InvalidrawAC? keeps prior valid inference and clearly requests exactly60 supported symbols. Reset restores fullsource4/gated29. Keyboardselectedindex59 then symbolR creates3edits; all30 positions before earliestindex30 have exact hidden-differencezero while finalclassification remains responsive. Classprobability always uses fixed0–1.
+
+H08 loaded currentfitted block1/channel15: full180 rows (60raw,60envelope,60product) plusheader, lagcoordinate r/59. H13 includes all four80-point polylines. Large workloadL1048576,D8192 keeps exactactivation bytes17179869184 and materialized-array bytes2199023255552; results are inventories, timingexplicitlyunmeasured. No arrays of that analytic size are allocated.
+
+Allfour complete program readers opened (7329/9490/4999/2031 renderedcharacters includingwrapper). Allten solutions and added blocked-FFT hint/solution opened; fullcode remains selectable, on-demand. Initial53SVGscan found only the signed-stem issue. Desktop actual screenshot inspected it; phoneactual screenshot reviewed controls/labels,60basebuttons in sixcolumns,48.52pxhigh, keyboardselector and localfigure/table scrolling. Document305/305 with fullprograms/solutions and maximumworkload open. Console warning/error list empty. No screenshots or heldassets were retained as disposable files.
+
+## Final layout correction
+
+Production23:08:11build: all53 non-KaTeX SVGs pass painted-text bounds after both fitted-filter and DNA assets loaded. Signed values and indices now have separate rows (worstnegative valuebaseline233,indices268,viewBoxheight285). Actual desktop screenshot confirms endpoint−1 and index3 are distinct; phone actual screenshot and local scroll remain usable,305/305 documentwidth. Negative value label has48.67px bottomclearance. All earlier functional/native comparisons reuse unchanged engine and study source.

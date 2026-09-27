@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "All sixteen native original/pixel/permutation/fresh probes match logits, probabilities, all features and sixteen attention rows",
+      "passed": true
+    },
+    {
+      "name": "Patch contributions, coefficient changes, complete unfold coordinates and nontrivial null",
+      "passed": true
+    },
+    {
+      "name": "Spatial paths compose; boundary mask and relative bias have distinct measurable effects",
+      "passed": true
+    },
+    {
+      "name": "Cross-view targets use stable probabilities, exact derivatives, offset null and collapsed stationary case",
+      "passed": true
+    },
+    {
+      "name": "Gram matrix geometry and cosine matching retain explicit normalization",
+      "passed": true
+    },
+    {
+      "name": "Frozen model meaningful pixel contrast, input null, content permutation and joint invariance",
+      "passed": true
+    },
+    {
+      "name": "Calculated operation counts and all seventeen native weighted-value products agree",
+      "passed": true
+    },
+    {
+      "name": "Current JSX parses, imports exist, and every deployed learner file matches canonical bytes",
+      "passed": true
+    }
+  ],
+  "nativeFixtures": 16,
+  "maximumLogitError": 0.0000071308217224341774,
+  "maximumFeatureError": 0.000003842455850389115,
+  "maximumAttentionError": 4.420206821675876e-7,
+  "maximumPCAError": 0.0000025625749625612926
+}

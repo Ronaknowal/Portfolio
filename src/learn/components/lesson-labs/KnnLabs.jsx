@@ -190,7 +190,7 @@ export function KdTreeSearchLab() {
     <NeighborMap query={points[query]} selected={visited} split={event} title="Visited rows and the current split plane" />
     <p className="knn-result" aria-live="polite">Step {step + 1}/{report.events.length}: {event.explanation} Best distance {fixed(event.best.distance, 6)}.</p>
     <p>The dashed blue line extends the current node's split plane across the drawing to show its distance bound. It is not the entire tree partition. Bright rows have actually been visited; the full trace finds {report.best.id} with {report.visits} distance evaluations rather than 8 for this query.</p>
-    <details><summary>Read the trace so far</summary><ol>{report.events.slice(0, step + 1).map((row, index) => <li key={index}>{row.explanation}</li>)}</ol></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read the trace so far</h4><ol>{report.events.slice(0, step + 1).map((row, index) => <li key={index}>{row.explanation}</li>)}</ol></section>
   </Investigation>;
 }
 export function CandidateRecallLab() {

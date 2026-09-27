@@ -1,0 +1,41 @@
+.lesson-compass {
+  margin: 0 0 2.5rem;
+  padding: 1.25rem 0 1.5rem;
+  border-block: 1px solid var(--learn-border, #303030);
+  color: var(--learn-text, #d5d5d5);
+  font-size: .95rem;
+  line-height: 1.65;
+}
+.lesson-compass__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .9rem; }
+.lesson-compass__heading > span { color: var(--learn-muted, #999); font-size: .8rem; white-space: nowrap; }
+.lesson-compass .lesson-compass__eyebrow,
+.lesson-compass .lesson-compass__index-label { margin: 0; color: var(--learn-accent, #eab94e); font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
+.lesson-compass p { margin: 0 0 .8rem; }
+.lesson-compass strong { color: var(--learn-text, #e4e4e4); font-weight: 600; }
+.lesson-compass__summary:empty,
+.lesson-compass__route:empty,
+.lesson-compass__prerequisites:empty,
+.lesson-compass__exploration-notes:empty,
+.lesson-compass__summary:not(:empty) + .lesson-compass__fallback,
+.lesson-compass__prerequisites:not(:empty) + .lesson-compass__prerequisites-fallback,
+.lesson-compass__exploration-notes:not(:empty) + .lesson-compass__exploration-fallback { display: none; }
+.lesson-compass__preparation,
+.lesson-compass__exploration { border-top: 1px solid var(--learn-border, #303030); }
+.lesson-compass summary { padding: .65rem 0; min-height: 44px; cursor: pointer; color: var(--learn-text, #d5d5d5); font-size: .88rem; }
+.lesson-compass details[open] { padding-bottom: .6rem; }
+.lesson-compass details ul { padding-left: 1.25rem; margin: .5rem 0; }
+.lesson-compass :where(a, a:visited) { color: var(--learn-accent, #eab94e); text-underline-offset: .2em; }
+.lesson-compass a:hover { color: #ffe0a0; }
+.lesson-compass :is(a, summary):focus-visible { outline: 2px solid var(--learn-accent, #eab94e); outline-offset: 3px; border-radius: 2px; }
+.lesson-compass nav { margin-top: 1rem; }
+.lesson-compass .lesson-compass__sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.6rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+.lesson-compass__sections li { margin: 0; border-bottom: 1px solid var(--learn-border, #303030); min-width: 0; }
+.lesson-compass__sections a { display: grid; grid-template-columns: 2.15em minmax(0, 1fr); gap: .4rem; align-items: baseline; min-height: 44px; padding: .65rem .25rem .65rem 0; text-decoration: none; line-height: 1.5; font-size: .88rem; overflow-wrap: anywhere; }
+.lesson-compass__sections a:hover { background: #171717; }
+.lesson-compass__section-number { color: var(--learn-muted, #aaa); font-variant-numeric: tabular-nums; font-size: .78rem; }
+.reader-article [id] { scroll-margin-top: 90px; }
+.reader-section-heading:focus-visible { outline: 2px solid var(--learn-accent, #eab94e); outline-offset: 5px; }
+@media (max-width: 700px) {
+  .lesson-compass .lesson-compass__sections { grid-template-columns: minmax(0, 1fr); }
+  .lesson-compass__heading { gap: .6rem; }
+}

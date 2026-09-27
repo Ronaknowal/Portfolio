@@ -1,0 +1,755 @@
+{
+  "schemaVersion": 1,
+  "recordedOn": "2026-09-28",
+  "scope": "Authoring-only changes made by the lesson_navigation_audit agent: 38 prepared-renderer callers, the shared renderer, and two newly added helper/check scripts. Excludes parent-owned runtime/topic changes and the later Active Learning Python generator.",
+  "method": "Reconstructed before bytes in memory by reversing only this agent's known edits; parsed reconstructed JavaScript; compared SHA-256 bytes to every current content.files/implementation.reviewedFiles binding in the central ledger. Code and ledger files were never overwritten.",
+  "ledger": "docs/teaching/lesson-delivery-progress.json",
+  "summary": {
+    "existingFiles": 39,
+    "ledgerBoundFiles": 37,
+    "exactLedgerMatches": 37,
+    "unboundExistingFiles": 2,
+    "addedFiles": 2,
+    "mismatches": 0,
+    "sourceFilesWritten": 0
+  },
+  "inverseEdits": {
+    "removeIdDestinationOption": {
+      "removeExactlyOnce": " preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,",
+      "preserveAllOtherBytes": true
+    },
+    "removeStaticDestinationOption": {
+      "removeExactlyOnce": " preserveOpeningFrom: 'src/learn/data/topics/dropout-droppath-stochastic-depth.jsx',",
+      "preserveAllOtherBytes": true
+    },
+    "reverseRendererOpeningPatchAndContextLineEndings": {
+      "steps": [
+        "Remove the added lesson-opening-annotations import line.",
+        "Restore the original renderPreparedLesson signature without opening and preserveOpeningFrom options.",
+        "Remove openingUses validation between the parts declaration and inline helper.",
+        "Restore the original two-line if(replacement)/else Prose emission block.",
+        "Remove openingUses final validation and restore return { jsx: parts.join(\\n\\n), sections }.",
+        "Restore CRLF on the five apply_patch hunk-context lines: original line numbers 1, 30, 31, 85, 87. Preserve the three pre-existing LF-only ordered-list lines 76, 77, 79."
+      ],
+      "beforeLineEndings": {
+        "crlf": 84,
+        "lfOnly": 3
+      },
+      "afterLineEndings": {
+        "crlf": 75,
+        "lfOnly": 25
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "scripts/generate-advanced-optimizer-lesson.mjs",
+      "beforeHash": "5d1af069acd19376c53f815a82418146b3fa2ae618fcc9585b4e891e81b8485a",
+      "afterHash": "dd869282828379ce350e2dcc37551f4f69643a43a76e04322bb728c2739f26d3",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+          "phase": "implementation",
+          "recordedHash": "5d1af069acd19376c53f815a82418146b3fa2ae618fcc9585b4e891e81b8485a"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-capsule-lesson.mjs",
+      "beforeHash": "6e751a3d5dac02a83ba2bd6d1d890f1434613264fbd5faaf1538d524295cf94b",
+      "afterHash": "9e6bb6d2f771f2ee8047ff94f57dfcd0652f6480b320e87a00de1d451db19900",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "capsule-networks",
+          "phase": "content",
+          "recordedHash": "6e751a3d5dac02a83ba2bd6d1d890f1434613264fbd5faaf1538d524295cf94b"
+        },
+        {
+          "topicId": "capsule-networks",
+          "phase": "implementation",
+          "recordedHash": "6e751a3d5dac02a83ba2bd6d1d890f1434613264fbd5faaf1538d524295cf94b"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-convnext-lesson.mjs",
+      "beforeHash": "9b315ffb6f3436751cec37d356553c792f1844b1223d08bf9e482c32dc184531",
+      "afterHash": "67bbc054144291bd309771398f2aafe3144eee813b152a6f40146384730e3f9b",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "convnext-modern-cnn-designs",
+          "phase": "content",
+          "recordedHash": "9b315ffb6f3436751cec37d356553c792f1844b1223d08bf9e482c32dc184531"
+        },
+        {
+          "topicId": "convnext-modern-cnn-designs",
+          "phase": "implementation",
+          "recordedHash": "9b315ffb6f3436751cec37d356553c792f1844b1223d08bf9e482c32dc184531"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-convolution-lesson.mjs",
+      "beforeHash": "38d3440eed3dda6d0e8aa203ba09de3ab55d65a436c26895e62debaf6f43dad2",
+      "afterHash": "7526631c3903f460858df6ea59203ab31a949d5fc9be1959b70aa9c749e38a7e",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "convolution-pooling-receptive-fields",
+          "phase": "content",
+          "recordedHash": "38d3440eed3dda6d0e8aa203ba09de3ab55d65a436c26895e62debaf6f43dad2"
+        },
+        {
+          "topicId": "convolution-pooling-receptive-fields",
+          "phase": "implementation",
+          "recordedHash": "38d3440eed3dda6d0e8aa203ba09de3ab55d65a436c26895e62debaf6f43dad2"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-depthwise-convolution-lesson.mjs",
+      "beforeHash": "d04527ee65846c8371667748e22a2685d4a16359da49f1c7112d3af1f6462106",
+      "afterHash": "d10ca21a70d2aab3bde50eb457d843a70d8cdd934529acc41a88b4a627780b9f",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "depthwise-separable-dilated-convolutions",
+          "phase": "content",
+          "recordedHash": "d04527ee65846c8371667748e22a2685d4a16359da49f1c7112d3af1f6462106"
+        },
+        {
+          "topicId": "depthwise-separable-dilated-convolutions",
+          "phase": "implementation",
+          "recordedHash": "d04527ee65846c8371667748e22a2685d4a16359da49f1c7112d3af1f6462106"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-grouped-query-lesson.mjs",
+      "beforeHash": "a49ccd892a9a0c6e99439e9aea86e7bd63294259e6c3abe0f9306f506a9c7f9a",
+      "afterHash": "902975c12a3d5914d362b3a1121e437dff07d5460ad3e4deb5b9045930e49375",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "grouped-query-attention-gqa-multi-query-attention-mqa",
+          "phase": "implementation",
+          "recordedHash": "a49ccd892a9a0c6e99439e9aea86e7bd63294259e6c3abe0f9306f506a9c7f9a"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-hopfield-lesson.mjs",
+      "beforeHash": "bc53a4c1d76249c426e325ab5f17947fc3fc3844926c55e57cfbf66674c19221",
+      "afterHash": "62166ea515ca9648db74ff1c3272e42cd0736f5e1c745a1fbd18a7f07f9d0a1c",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "modern-hopfield-networks",
+          "phase": "implementation",
+          "recordedHash": "bc53a4c1d76249c426e325ab5f17947fc3fc3844926c55e57cfbf66674c19221"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-hybrid-jamba-lesson.mjs",
+      "beforeHash": "197e6e2f74784145d08349d720ed341011ac39bd61b1e34b24695ae7f26f846a",
+      "afterHash": "5f6ba5ee62d24c0f151d27b80811589e7a27acb59a7c7a887be1bc35799aa2e0",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "hybrid-ssm-transformer-architectures-jamba",
+          "phase": "implementation",
+          "recordedHash": "197e6e2f74784145d08349d720ed341011ac39bd61b1e34b24695ae7f26f846a"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-hyena-lesson.mjs",
+      "beforeHash": "23719dc1ba1cbc0363e747a5fdbbd9863e6915edaefd9dfac2d95f6082427f28",
+      "afterHash": "c9027735606dea2c7e275cd8e921cb74cb1e4198e88241c542b107d80273506e",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "hyena-long-convolution-models",
+          "phase": "implementation",
+          "recordedHash": "23719dc1ba1cbc0363e747a5fdbbd9863e6915edaefd9dfac2d95f6082427f28"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-landmark-architecture-lesson.mjs",
+      "beforeHash": "783ef6a085a9b3cf1f019c3744ebc9a097b54711d8284a6a3d827d20b351f351",
+      "afterHash": "3a7f306a0bbf22c556c624f968dc989574ee800b1e5fa21844896921a54aabdf",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+          "phase": "content",
+          "recordedHash": "783ef6a085a9b3cf1f019c3744ebc9a097b54711d8284a6a3d827d20b351f351"
+        },
+        {
+          "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+          "phase": "implementation",
+          "recordedHash": "783ef6a085a9b3cf1f019c3744ebc9a097b54711d8284a6a3d827d20b351f351"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-latent-attention-lesson.mjs",
+      "beforeHash": "379eaaf712c8bd0d412a0ecf0befccba56335840b7881d07b788e48ae3d6e6d4",
+      "afterHash": "83542c4219d7c2af66e1ffcf98a249492777ae85f6e9bcfc4ed768b016d92a74",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "multi-head-latent-attention-mla",
+          "phase": "implementation",
+          "recordedHash": "379eaaf712c8bd0d412a0ecf0befccba56335840b7881d07b788e48ae3d6e6d4"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-loss-functions-lesson.mjs",
+      "beforeHash": "2d3b28d809ddb9deca2b3828c0b7a41400d2fd76e647272fb1a967c06c952383",
+      "afterHash": "c508dc94e78f06becd0f9f34ffc4cf9f55a1a7083cd32269c5644c3e2570f304",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": false,
+      "beforeMatchesEveryLedgerBinding": null,
+      "bindings": []
+    },
+    {
+      "path": "scripts/generate-minibatch-loop-lesson.mjs",
+      "beforeHash": "26f0ab46c01a4026ea7aca8cfa3c57a36722b7471e29f6893989eba54afa0b77",
+      "afterHash": "e6a815bf52d07484473a10c59403567c98f7b3d1542301b8a789e7a3c8a7763c",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "mini-batches-training-loops-gradient-accumulation",
+          "phase": "implementation",
+          "recordedHash": "26f0ab46c01a4026ea7aca8cfa3c57a36722b7471e29f6893989eba54afa0b77"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-neural-ode-lesson.mjs",
+      "beforeHash": "77bd3590c77d9653b208b3d933c082d12e7de756741bcee1a5854731f9a6a404",
+      "afterHash": "24efcf5f473c96c5ea442559072f56a58447904ec794effdf914fffca30c857b",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "neural-ode-continuous-depth-models",
+          "phase": "implementation",
+          "recordedHash": "77bd3590c77d9653b208b3d933c082d12e7de756741bcee1a5854731f9a6a404"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-normalization-lesson.mjs",
+      "beforeHash": "56a9e5a545aaeab9110b4d8c401d2f094916404ac81de0538cfacef0ce5a68ba",
+      "afterHash": "15ec867223650870d00bae6cae99e15e0edfad90313a3203cadc229c19b454f4",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": false,
+      "beforeMatchesEveryLedgerBinding": null,
+      "bindings": []
+    },
+    {
+      "path": "scripts/generate-positional-encoding-lesson.mjs",
+      "beforeHash": "91fda8cdd8469fa2a4a1207bab3f5394d87d7dc76e88215c320e011802de1d3c",
+      "afterHash": "f4a170c8d719b1f5119c51b652b7931f60d6f39e2fac2f83785e164f449cd27c",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "positional-encodings-sinusoidal-learned-rope-alibi",
+          "phase": "implementation",
+          "recordedHash": "91fda8cdd8469fa2a4a1207bab3f5394d87d7dc76e88215c320e011802de1d3c"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-rbm-lesson.mjs",
+      "beforeHash": "ecc5576fc63361299bc27cc9181068f2235a05833da4c1d26c1f796098bd36e4",
+      "afterHash": "98cce80dedd06d664ea67d145a3863249d7e55ddfc5d3dba51242e483bb79146",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+          "phase": "implementation",
+          "recordedHash": "ecc5576fc63361299bc27cc9181068f2235a05833da4c1d26c1f796098bd36e4"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-recurrent-attention-lesson.mjs",
+      "beforeHash": "787b954a3237b4af7d4eefb7b64f92d85e1ec66650ee2587e6a4479b1f2fc393",
+      "afterHash": "6b3dc4edbb28bdf4db0f9480601ac950f17c36aeef0a4c08481a9d603ff30d10",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "attention-mechanism-bahdanau-luong",
+          "phase": "content",
+          "recordedHash": "787b954a3237b4af7d4eefb7b64f92d85e1ec66650ee2587e6a4479b1f2fc393"
+        },
+        {
+          "topicId": "attention-mechanism-bahdanau-luong",
+          "phase": "implementation",
+          "recordedHash": "787b954a3237b4af7d4eefb7b64f92d85e1ec66650ee2587e6a4479b1f2fc393"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-ring-attention-lesson.mjs",
+      "beforeHash": "ec6d0ed87d7c4b83ecb95241fdcfc95cc83348610b9ed9a87965c3023745aef7",
+      "afterHash": "acb70a8486067b7d33653fdc2f41e17b894aa8b4086170c37e3094a906cbff05",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "ring-attention-sequence-parallelism",
+          "phase": "implementation",
+          "recordedHash": "ec6d0ed87d7c4b83ecb95241fdcfc95cc83348610b9ed9a87965c3023745aef7"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-seq2seq-lesson.mjs",
+      "beforeHash": "9b75bbc8fa91d5762061462378770048fa90ed222cf1ca4987e9b461885deb23",
+      "afterHash": "240ddcc55189fbba5e1b7dd9409ebe56048a6cbb23b16249cb8df6e866ce349e",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "sequence-to-sequence-encoder-decoder",
+          "phase": "content",
+          "recordedHash": "9b75bbc8fa91d5762061462378770048fa90ed222cf1ca4987e9b461885deb23"
+        },
+        {
+          "topicId": "sequence-to-sequence-encoder-decoder",
+          "phase": "implementation",
+          "recordedHash": "9b75bbc8fa91d5762061462378770048fa90ed222cf1ca4987e9b461885deb23"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-spectral-lesson.mjs",
+      "beforeHash": "c24d29c834022f10be15d716ed48896900b4690ad329eb92fa46a6a64cddf5f8",
+      "afterHash": "17a7d72122be61dcb374bc1aa26a6e7d2f7163b9e6353aa395988d0504adc309",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "spectral-normalization-gradient-penalty",
+          "phase": "implementation",
+          "recordedHash": "c24d29c834022f10be15d716ed48896900b4690ad329eb92fa46a6a64cddf5f8"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-state-space-lesson.mjs",
+      "beforeHash": "a7b695a96a5c19770866d2c967eb9f66ad3ca23085391d74ea4373499951fda8",
+      "afterHash": "c82cf74bc8bf25838f7f636d7f123d1e9811a9df1920cb37365e6e73e39845d2",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "state-space-models-s4-mamba-mamba-2",
+          "phase": "content",
+          "recordedHash": "a7b695a96a5c19770866d2c967eb9f66ad3ca23085391d74ea4373499951fda8"
+        },
+        {
+          "topicId": "state-space-models-s4-mamba-mamba-2",
+          "phase": "implementation",
+          "recordedHash": "a7b695a96a5c19770866d2c967eb9f66ad3ca23085391d74ea4373499951fda8"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-titans-memory-lesson.mjs",
+      "beforeHash": "08e692259941dcf691c45e1b8b82909df97e087d5fdada74eae33188cdbc453d",
+      "afterHash": "0369f978f83982afdb43d48bb7dad2c9700e13dd084a6d26025d90c2c7c0c3f6",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "titans-multi-memory-architecture",
+          "phase": "implementation",
+          "recordedHash": "08e692259941dcf691c45e1b8b82909df97e087d5fdada74eae33188cdbc453d"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-training-diagnostics-lesson.mjs",
+      "beforeHash": "0bb06d832b4f8be1692599f05e34237ade0b7e5f3e0b5a66d4742989aec2a414",
+      "afterHash": "be53ea7cb464867ab8495f0938c0a96e95ed91768797378c491f374816b2ecbd",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "neural-training-diagnostics-reproducible-experiments",
+          "phase": "implementation",
+          "recordedHash": "0bb06d832b4f8be1692599f05e34237ade0b7e5f3e0b5a66d4742989aec2a414"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-transformer-block-lesson.mjs",
+      "beforeHash": "fc143a9a55a69377d113f011dba523cc57c24f13fe4d88ba4b6b12e81946b27c",
+      "afterHash": "6bbeedc64b337ae80566b32cc434af5769398d7061d7d06dce9907896ad8b048",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "transformer-block-architecture",
+          "phase": "implementation",
+          "recordedHash": "fc143a9a55a69377d113f011dba523cc57c24f13fe4d88ba4b6b12e81946b27c"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-weight-initialization-lesson.mjs",
+      "beforeHash": "39e81e1b3671e03e1e9ff1a793a8194f9fb4c8aad5e9cdf64bbaceca6ab60da1",
+      "afterHash": "b9d6250570c64abccd8aa9bd482e21dcc76d13bc720727a49e3345f155c52633",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "weight-initialization-xavier-kaiming-p",
+          "phase": "content",
+          "recordedHash": "39e81e1b3671e03e1e9ff1a793a8194f9fb4c8aad5e9cdf64bbaceca6ab60da1"
+        },
+        {
+          "topicId": "weight-initialization-xavier-kaiming-p",
+          "phase": "implementation",
+          "recordedHash": "39e81e1b3671e03e1e9ff1a793a8194f9fb4c8aad5e9cdf64bbaceca6ab60da1"
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate-xlstm-lesson.mjs",
+      "beforeHash": "ebdd2eeb0ab41bb7db6c992952462820f95d0c998461a0a98d85443476c23a56",
+      "afterHash": "c986b9156d964697220babd085aa30a0034915cde6458435c9867c3570dfb689",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "xlstm-extended-lstm",
+          "phase": "implementation",
+          "recordedHash": "ebdd2eeb0ab41bb7db6c992952462820f95d0c998461a0a98d85443476c23a56"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-cross-attention-lesson.mjs",
+      "beforeHash": "77fd652d2e46ec36a3b1582b9c9cdaa8c45246c9d6c1832a7b14f7e597a1cdd8",
+      "afterHash": "c871b9b7cc189a9103bba8193da05dc601393028c486cc71cfb6c8eda81582d9",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "interleaved-cross-attention-architectures",
+          "phase": "implementation",
+          "recordedHash": "77fd652d2e46ec36a3b1582b9c9cdaa8c45246c9d6c1832a7b14f7e597a1cdd8"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-dropout-lesson.mjs",
+      "beforeHash": "4f055e9b763f8e8f345374942c3cf0014e95d15373b29aef1a661cd02fc4b2ad",
+      "afterHash": "3897cf8d811f59b5178369efa0883a2a44dea260c2a1ef68e50a3c6a9d68257a",
+      "reconstruction": "removeStaticDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "dropout-droppath-stochastic-depth",
+          "phase": "content",
+          "recordedHash": "4f055e9b763f8e8f345374942c3cf0014e95d15373b29aef1a661cd02fc4b2ad"
+        },
+        {
+          "topicId": "dropout-droppath-stochastic-depth",
+          "phase": "implementation",
+          "recordedHash": "4f055e9b763f8e8f345374942c3cf0014e95d15373b29aef1a661cd02fc4b2ad"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-geometric-graph-lesson.mjs",
+      "beforeHash": "8a45bab68f32f6ebf841d5d4a98033950291c3cdea82ddbecf3e4f39b1271fed",
+      "afterHash": "08672ad2092ec947b6accba7cb21b1454616598ef25d0c2e88209dae906890d7",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "graph-transformers-geometric-deep-learning",
+          "phase": "implementation",
+          "recordedHash": "8a45bab68f32f6ebf841d5d4a98033950291c3cdea82ddbecf3e4f39b1271fed"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-long-context-lesson.mjs",
+      "beforeHash": "becabe6e41675cfe6130dcc7ae6e312e213d396a17f5735b777562059bca5e3b",
+      "afterHash": "2cf6ffeda2571cc2f94d192bda545dfa3484b435242138d7592d9233a6814b97",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+          "phase": "content",
+          "recordedHash": "becabe6e41675cfe6130dcc7ae6e312e213d396a17f5735b777562059bca5e3b"
+        },
+        {
+          "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+          "phase": "implementation",
+          "recordedHash": "becabe6e41675cfe6130dcc7ae6e312e213d396a17f5735b777562059bca5e3b"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-message-passing-lesson.mjs",
+      "beforeHash": "6320f3980229a284ce0a941b5e00886b79a47c1ab0ac68e90647ed3cff137168",
+      "afterHash": "c5694281984aef49a6d0589ab023b1604e3ac3c1f965ca93cac7453ff3dc7eda",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "message-passing-graph-convolutions-gcn-gat-graphsage",
+          "phase": "implementation",
+          "recordedHash": "6320f3980229a284ce0a941b5e00886b79a47c1ab0ac68e90647ed3cff137168"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-moe-lesson.mjs",
+      "beforeHash": "5b4ba1d866d77eebcd720958220ec1800370aad240937703212d5e0446857787",
+      "afterHash": "cf6215a7176727c27b9fb4f1124495df9c0853d00bdb99d1735ce4c93af521e7",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "mixture-of-experts-transformers-moe",
+          "phase": "implementation",
+          "recordedHash": "5b4ba1d866d77eebcd720958220ec1800370aad240937703212d5e0446857787"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-recurrent-lesson.mjs",
+      "beforeHash": "b3a681ac8e79bb7f3bbc0a90699975cfbf6175bda5829151b4c0ddce4c3b3bd4",
+      "afterHash": "c8b9b7e6f490474f0b1c655c800ca3fcbefa5408602bb362c6c401be92945914",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "rnns-lstms-grus",
+          "phase": "content",
+          "recordedHash": "b3a681ac8e79bb7f3bbc0a90699975cfbf6175bda5829151b4c0ddce4c3b3bd4"
+        },
+        {
+          "topicId": "rnns-lstms-grus",
+          "phase": "implementation",
+          "recordedHash": "b3a681ac8e79bb7f3bbc0a90699975cfbf6175bda5829151b4c0ddce4c3b3bd4"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-rwkv-memory-lesson.mjs",
+      "beforeHash": "a622ea9f2cc76db7279e7df0a4c6f3ffefb8f3f9183f7f13917f30fc4c2b15c5",
+      "afterHash": "3f3c8e31c3ef07f73b72dd9bce3215eec763338777f0c2cb92ecb19b37cb163f",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "rwkv-linear-attention-models",
+          "phase": "implementation",
+          "recordedHash": "a622ea9f2cc76db7279e7df0a4c6f3ffefb8f3f9183f7f13917f30fc4c2b15c5"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-self-attention-lesson.mjs",
+      "beforeHash": "e971cae50a5a3176bc556a2016ef0047ef56af5de444c0e56e30dd27ebabadd5",
+      "afterHash": "96fd988d87bbf4169ac729321a26f059b570137dafabf051b95539af6f4364a9",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "self-attention-multi-head-attention",
+          "phase": "implementation",
+          "recordedHash": "e971cae50a5a3176bc556a2016ef0047ef56af5de444c0e56e30dd27ebabadd5"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-sparse-attention-lesson.mjs",
+      "beforeHash": "c272bf708758b2d46e69cf1bcec9e7aa4a7bc72e5d6571888c7cdad13b5b71ac",
+      "afterHash": "a355fd7660e3598e24829efefca6202040042c8d1bc87aa7248561cb3e642740",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "sparse-linear-attention-variants",
+          "phase": "implementation",
+          "recordedHash": "c272bf708758b2d46e69cf1bcec9e7aa4a7bc72e5d6571888c7cdad13b5b71ac"
+        }
+      ]
+    },
+    {
+      "path": "scripts/render-vision-transformer-lesson.mjs",
+      "beforeHash": "2abb58c13cd68eb386f5bfd5cc4c150aaeaee3e5f8aed5c916ea8b5e7d3b8b5d",
+      "afterHash": "f0032adfea5a8dce8254c4345cfcf0e2f31e3bc252a44da233ac0334b0834269",
+      "reconstruction": "removeIdDestinationOption",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "vision-transformers-vit-deit-swin-dinov2",
+          "phase": "implementation",
+          "recordedHash": "2abb58c13cd68eb386f5bfd5cc4c150aaeaee3e5f8aed5c916ea8b5e7d3b8b5d"
+        }
+      ]
+    },
+    {
+      "path": "scripts/lib/prepared-lesson-renderer.mjs",
+      "beforeHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6",
+      "afterHash": "e50cc577922ab45339180446ee036d157f9c07fc74226308a4491c755d3da21f",
+      "reconstruction": "reverseRendererOpeningPatchAndContextLineEndings",
+      "ledgerBound": true,
+      "beforeMatchesEveryLedgerBinding": true,
+      "bindings": [
+        {
+          "topicId": "multi-head-latent-attention-mla",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "graph-transformers-geometric-deep-learning",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "spectral-normalization-gradient-penalty",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "modern-hopfield-networks",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "xlstm-extended-lstm",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "hyena-long-convolution-models",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "ring-attention-sequence-parallelism",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "neural-ode-continuous-depth-models",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "hybrid-ssm-transformer-architectures-jamba",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "titans-multi-memory-architecture",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "mini-batches-training-loops-gradient-accumulation",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        },
+        {
+          "topicId": "neural-training-diagnostics-reproducible-experiments",
+          "phase": "implementation",
+          "recordedHash": "5c5428df3e7fd127c8961d21f51d23d49c17ae4d8c58d6f90af390dd06c8e8f6"
+        }
+      ]
+    }
+  ],
+  "addedFiles": [
+    {
+      "path": "scripts/lib/lesson-opening-annotations.mjs",
+      "beforeHash": null,
+      "afterHash": "b88656acef65c27dc1c34921a2b9df6e6e1dc3aa849d84692fb4b6f6bd47a990",
+      "createdByThisTask": true,
+      "ledgerBound": false
+    },
+    {
+      "path": "scripts/check-lesson-opening-authoring.mjs",
+      "beforeHash": null,
+      "afterHash": "94e71ab4bc246fe06a91780706e4183368dac296d8f58016ecb5a4b1ddaa742f",
+      "createdByThisTask": true,
+      "ledgerBound": false
+    }
+  ]
+}

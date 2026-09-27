@@ -1,0 +1,3997 @@
+[
+  {
+    "topicId": "convnext-modern-cnn-designs",
+    "selector": ".convnext-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 390,
+      "heading": "Pool, then normalize",
+      "rect": {
+        "bottom": 1117.5729370117188,
+        "height": 635.4791870117188,
+        "left": 20,
+        "right": 370,
+        "top": 482.09375,
+        "width": 350,
+        "x": 20,
+        "y": 482.09375
+      },
+      "text": "Pool, then normalizeTwo locations: [1, 3] and [9, 5]↓ average each channel[5, 4]↓ compare channelsapproximately [1, −1]Normalize, then poolTwo locations: [1, 3] and [9, 5]↓ compare channels at each locationapproximately [−1, 1] and [1, −1]↓ average each channelapproximately [0, 0]Constructed two-location, two-channel map. LayerNorm uses unit scale, zero shift and ε=10⁻⁶, so displayed ±1 values are approximate. Local normalization removes each location’s scale before pooling; the stronger second location can no longer dominate the pooled channel contrast. The reference head uses the pool-then-normalize order.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "depthwise-separable-dilated-convolutions",
+    "selector": ".depthwise-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Each amber three-dot segment is a shifted copy of the previous reachable set. At d=3 the copies touch as consecutive integers: −2 is followed by −1, and 1 by 2. At d=4, −2 and 2 are missing (crosses). Compare the right end of the left copy, −d+S, with the left end of the middle copy, −S: no missing integer requires −S≤−d+S+1, or d≤2S+1.",
+      "rect": {
+        "bottom": 1064.041748046875,
+        "height": 528.7396240234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 535.3021240234375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 535.3021240234375
+      },
+      "text": "S=1, next dilation d=3-5-4-3-2-1012345S=1, next dilation d=4-5-4-3-2-1012345original-input integer offsetEach amber three-dot segment is a shifted copy of the previous reachable set. At d=3 the copies touch as consecutive integers: −2 is followed by −1, and 1 by 2. At d=4, −2 and 2 are missing (crosses). Compare the right end of the left copy, −d+S, with the left end of the middle copy, −S: no missing integer requires −S≤−d+S+1, or d≤2S+1.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "sequence-to-sequence-encoder-decoder",
+    "selector": ".seq2seq-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Reference prefix",
+      "rect": {
+        "bottom": 989.8854675292968,
+        "height": 379.4583435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 610.4271240234375,
+        "width": 760,
+        "x": 344,
+        "y": 610.4271240234375
+      },
+      "text": "Reference prefixProbability mass over training pairsShown prefixTarget 0Target 100.50100.5Every 0 prefix is followed by target 0; every 1 prefix by target 1.Independent replacement prefixProbability mass over training pairsShown prefixTarget 0Target 100.250.2510.250.25Each shown prefix is paired equally often with either target.Constructed equal mixture of true sequences 00 and 11. In the replacement case, an independent fair bit replaces the prefix while the original second-token target stays. The off-diagonal mass is created by the training procedure. A model minimizing this second-token cross-entropy should now output 50/50 for either prefix, losing the original dependency. This is the fully replaced limiting example, not a claim about every schedule or empirical outcome.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "sequence-to-sequence-encoder-decoder",
+    "selector": ".seq2seq-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Reference prefix",
+      "rect": {
+        "bottom": 1190.9688110351562,
+        "height": 782.5208740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 408.4479370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 408.4479370117187
+      },
+      "text": "Reference prefixProbability mass over training pairsShown prefixTarget 0Target 100.50100.5Every 0 prefix is followed by target 0; every 1 prefix by target 1.Independent replacement prefixProbability mass over training pairsShown prefixTarget 0Target 100.250.2510.250.25Each shown prefix is paired equally often with either target.Constructed equal mixture of true sequences 00 and 11. In the replacement case, an independent fair bit replaces the prefix while the original second-token target stays. The off-diagonal mass is created by the training procedure. A model minimizing this second-token cross-entropy should now output 50/50 for either prefix, losing the original dependency. This is the fully replaced limiting example, not a claim about every schedule or empirical outcome.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "convolution-pooling-receptive-fields",
+    "selector": ".conv-op-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Adaptive bins are defined by boundaries, not equal-sized partitions",
+      "rect": {
+        "bottom": 1194.8125610351562,
+        "height": 790.0208740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 404.7916870117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 404.7916870117187
+      },
+      "text": "Adaptive bins are defined by boundaries, not equal-sized partitionsFixed input [1, 2, 3, 4, 5]. Change the requested output count to see exactly which input indices each bin averages.Output count: 3i=01i=12i=23i=34i=45Bin 0: [0, 2) → mean 1.51/21/2———Bin 1: [1, 4) → mean 3—1/31/31/3—Bin 2: [3, 5) → mean 4.5———1/21/2Reset to three binsStart = floor(i × 5 / output count); end = ceil((i + 1) × 5 / output count), excluding the end index. A column highlighted in several rows contributes to several outputs. Counts above five can repeat bins; this is averaging existing values, not interpolation of a new signal.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "convolution-pooling-receptive-fields",
+    "selector": ".conv-op-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Absorb a fixed channel scale and offset into the filter",
+      "rect": {
+        "bottom": 1153.9271240234375,
+        "height": 707.3958740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 446.53125,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 446.53125
+      },
+      "text": "Absorb a fixed channel scale and offset into the filterOne constructed output channel: kernel [2, −1], bias 1, patch [3, 4]. Frozen BN values: μ = 1, v = 3.99, ε = 0.01, γ = 4, β = −3.Convolution, then evaluation BNz = 2(3) − 4 + 1 = 3√(v + ε) = 2BN(z) = 4(3 − 1) / 2 − 3Output = 1Fold constants, then convolveα = γ / √(v + ε) = 2New kernel = [4, −2]New bias = −3 + 2(1 − 1) = −3Output = 4(3) − 2(4) − 3 = 1Substitute z = Wx + b into α(z − μ) + β: distribute α over both Wx and b − μ. It is this algebra, with fixed statistics, that removes the separate BN operation. The scale multiplies every tap for this output channel. A negative γ would also reverse their signs.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": [],
+    "interactionChecks": [
+      "Keyboard End: 7 bins, means 1,1.5,2.5,3,3.5,4.5,5; overlapping/repeated contributions update.",
+      "Keyboard Home: 1 bin [0,5), mean3.",
+      "Reset:3 bins, means1.5,3,4.5."
+    ]
+  },
+  {
+    "topicId": "convolution-pooling-receptive-fields",
+    "selector": ".conv-op-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Adaptive bins are defined by boundaries, not equal-sized partitions",
+      "rect": {
+        "bottom": 1112.1979675292969,
+        "height": 623.7708740234375,
+        "left": 344,
+        "right": 1104,
+        "top": 488.4270935058594,
+        "width": 760,
+        "x": 344,
+        "y": 488.4270935058594
+      },
+      "text": "Adaptive bins are defined by boundaries, not equal-sized partitionsFixed input [1, 2, 3, 4, 5]. Change the requested output count to see exactly which input indices each bin averages.Output count: 3i=01i=12i=23i=34i=45Bin 0: [0, 2) → mean 1.51/21/2———Bin 1: [1, 4) → mean 3—1/31/31/3—Bin 2: [3, 5) → mean 4.5———1/21/2Reset to three binsStart = floor(i × 5 / output count); end = ceil((i + 1) × 5 / output count), excluding the end index. A column highlighted in several rows contributes to several outputs. Counts above five can repeat bins; this is averaging existing values, not interpolation of a new signal.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "convolution-pooling-receptive-fields",
+    "selector": ".conv-op-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Absorb a fixed channel scale and offset into the filter",
+      "rect": {
+        "bottom": 988.1146240234376,
+        "height": 376.7604370117187,
+        "left": 344,
+        "right": 1104,
+        "top": 611.3541870117188,
+        "width": 760,
+        "x": 344,
+        "y": 611.3541870117188
+      },
+      "text": "Absorb a fixed channel scale and offset into the filterOne constructed output channel: kernel [2, −1], bias 1, patch [3, 4]. Frozen BN values: μ = 1, v = 3.99, ε = 0.01, γ = 4, β = −3.Convolution, then evaluation BNz = 2(3) − 4 + 1 = 3√(v + ε) = 2BN(z) = 4(3 − 1) / 2 − 3Output = 1Fold constants, then convolveα = γ / √(v + ε) = 2New kernel = [4, −2]New bias = −3 + 2(1 − 1) = −3Output = 4(3) − 2(4) − 3 = 1Substitute z = Wx + b into α(z − μ) + β: distribute α over both Wx and b − μ. It is this algebra, with fixed statistics, that removes the separate BN operation. The scale multiplies every tap for this output channel. A negative γ would also reverse their signs.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "New channels are appended; earlier channels remain available",
+      "rect": {
+        "bottom": 1256.9583740234375,
+        "height": 913.3541870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 343.60418701171875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 343.60418701171875
+      },
+      "text": "New channels are appended; earlier channels remain availableConstructed dense block: 8 initial channels, growth rate 3, four layers. Every layer reads all groups accumulated before it.Initial state: 8 channelsOriginal 8After layer 1: 11 channelsOriginal 8L1: 3After layer 2: 14 channelsOriginal 8L1: 3L2: 3After layer 3: 17 channelsOriginal 8L1: 3L2: 3L3: 3After layer 4: 20 channelsOriginal 8L1: 3L2: 3L3: 3L4: 3For a simplified 3×3 dense layer that directly emits 3 channels, layer 1 has 9 × 8 × 3 = 216 weights; layer 4 has 9 × 17 × 3 = 459. Constant output growth does not imply constant per-layer cost. Actual DenseNet bottlenecks and transition compression add their own contracts.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A smooth width rule becomes repeated stages",
+      "rect": {
+        "bottom": 1444.6459197998047,
+        "height": 1288.947998046875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 155.6979217529297,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 155.6979217529297
+      },
+      "text": "A smooth width rule becomes repeated stagesConstructed rule: uⱼ = 16 + 8j, then wⱼ = 16 × 2round(log₂(uⱼ/16)). Six blocks, indexed 0–5.Block 0Proposal 16Rounded exponent 016 channelsBlock 1Proposal 24Rounded exponent 132 channelsBlock 2Proposal 32Rounded exponent 132 channelsBlock 3Proposal 40Rounded exponent 132 channelsBlock 4Proposal 48Rounded exponent 264 channelsBlock 5Proposal 56Rounded exponent 264 channelsConsecutive equal widths form stages: 16 channels × 1 block, 32 × 3, then 64 × 2. This is a width-rule illustration, not a trained named RegNet. All widths here already divide by 8; a complete builder must also satisfy its channel rounding, bottleneck and group divisibility rules.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Frozen weights still transmit a gradient to their input",
+      "rect": {
+        "bottom": 1310.6666870117188,
+        "height": 1021.6354370117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 289.03125,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 289.03125
+      },
+      "text": "Frozen weights still transmit a gradient to their inputTwo-pixel toy feature: φ(u) = u₁ + u₂, with fixed coefficients [1, 1]. Target y = [1, 1], so φ(y) = 2. Feature loss L = (φ(ŷ) − 2)².Trainable generator → ŷFixed feature rule → φ(ŷ)Compare with 2 → lossGradient can pass throughŷ = [2, 1] → φ(ŷ) = 3 → L = 1∂L/∂φ = 2(3 − 2) = 2∂φ/∂ŷ = [1, 1]∂L/∂ŷ = [2, 2]Continue through the generator to its parameters. The feature coefficients stay fixed.The feature can miss a changeŷ = [2, 0] → φ(ŷ) = 2 → L = 0The target is [1, 1]. Different pixels give the same sum. Pixelwise mean squared error is 1 despite zero feature loss.Freezing φ's parameters differs from detaching φ(ŷ) or computing that branch under no_grad: either would break the generator's needed gradient. The target-feature branch can be computed without a gradient when y is fixed. Real feature networks retain much richer structure, but still define their own notions of similarity.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "New channels are appended; earlier channels remain available",
+      "rect": {
+        "bottom": 1137.7708435058594,
+        "height": 676.1875,
+        "left": 344,
+        "right": 1104,
+        "top": 461.5833435058594,
+        "width": 760,
+        "x": 344,
+        "y": 461.5833435058594
+      },
+      "text": "New channels are appended; earlier channels remain availableConstructed dense block: 8 initial channels, growth rate 3, four layers. Every layer reads all groups accumulated before it.Initial state: 8 channelsOriginal 8After layer 1: 11 channelsOriginal 8L1: 3After layer 2: 14 channelsOriginal 8L1: 3L2: 3After layer 3: 17 channelsOriginal 8L1: 3L2: 3L3: 3After layer 4: 20 channelsOriginal 8L1: 3L2: 3L3: 3L4: 3For a simplified 3×3 dense layer that directly emits 3 channels, layer 1 has 9 × 8 × 3 = 216 weights; layer 4 has 9 × 17 × 3 = 459. Constant output growth does not imply constant per-layer cost. Actual DenseNet bottlenecks and transition compression add their own contracts.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A smooth width rule becomes repeated stages",
+      "rect": {
+        "bottom": 1063.3541870117188,
+        "height": 527.1041870117188,
+        "left": 344,
+        "right": 1104,
+        "top": 536.25,
+        "width": 760,
+        "x": 344,
+        "y": 536.25
+      },
+      "text": "A smooth width rule becomes repeated stagesConstructed rule: uⱼ = 16 + 8j, then wⱼ = 16 × 2round(log₂(uⱼ/16)). Six blocks, indexed 0–5.Block 0Proposal 16Rounded exponent 016 channelsBlock 1Proposal 24Rounded exponent 132 channelsBlock 2Proposal 32Rounded exponent 132 channelsBlock 3Proposal 40Rounded exponent 132 channelsBlock 4Proposal 48Rounded exponent 264 channelsBlock 5Proposal 56Rounded exponent 264 channelsConsecutive equal widths form stages: 16 channels × 1 block, 32 × 3, then 64 × 2. This is a width-rule illustration, not a trained named RegNet. All widths here already divide by 8; a complete builder must also satisfy its channel rounding, bottleneck and group divisibility rules.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "selector": ".landmark-family-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Frozen weights still transmit a gradient to their input",
+      "rect": {
+        "bottom": 1080.822998046875,
+        "height": 562.0833740234375,
+        "left": 344,
+        "right": 1104,
+        "top": 518.7396240234375,
+        "width": 760,
+        "x": 344,
+        "y": 518.7396240234375
+      },
+      "text": "Frozen weights still transmit a gradient to their inputTwo-pixel toy feature: φ(u) = u₁ + u₂, with fixed coefficients [1, 1]. Target y = [1, 1], so φ(y) = 2. Feature loss L = (φ(ŷ) − 2)².Trainable generator → ŷFixed feature rule → φ(ŷ)Compare with 2 → lossGradient can pass throughŷ = [2, 1] → φ(ŷ) = 3 → L = 1∂L/∂φ = 2(3 − 2) = 2∂φ/∂ŷ = [1, 1]∂L/∂ŷ = [2, 2]Continue through the generator to its parameters. The feature coefficients stay fixed.The feature can miss a changeŷ = [2, 0] → φ(ŷ) = 2 → L = 0The target is [1, 1]. Different pixels give the same sum. Pixelwise mean squared error is 1 despite zero feature loss.Freezing φ's parameters differs from detaching φ(ŷ) or computing that branch under no_grad: either would break the generator's needed gradient. The target-feature branch can be computed without a gradient when y is fixed. Real feature networks retain much richer structure, but still define their own notions of similarity.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "decision-trees-random-forests",
+    "selector": ".tree-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Impurity is the chance that two independent labels disagree.",
+      "rect": {
+        "bottom": 1005.625030517578,
+        "height": 411.1458435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 594.4791870117188,
+        "width": 760,
+        "x": 344,
+        "y": 594.4791870117188
+      },
+      "text": "Impurity is the chance that two independent labels disagree.Constructed leaf: three class-0 rows and one class-1 row. Choose a row, put it back, then choose again. Each of the 16 ordered pairs is equally likely.first ↓second →A: 0B: 0C: 0D: 1A: 0===≠B: 0===≠C: 0===≠D: 1≠≠≠=Six amber cells disagree: Gini = 6/16 = 0.375. A majority-class predictor makes one error in four, or 0.25. These quantities ask different questions, so they need not match.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "decision-trees-random-forests",
+    "selector": ".tree-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Similarity can mean “the fitted trees make the same distinctions.”",
+      "rect": {
+        "bottom": 971.3541870117188,
+        "height": 342.75,
+        "left": 344,
+        "right": 1104,
+        "top": 628.6041870117188,
+        "width": 760,
+        "x": 344,
+        "y": 628.6041870117188
+      },
+      "text": "Similarity can mean “the fitted trees make the same distinctions.”ATree 1 → leaf 1Tree 2 → leaf 2BTree 1 → leaf 1Tree 2 → leaf 3CTree 1 → leaf 4Tree 2 → leaf 3A–B: share Tree 1 only → 1/2. B–C: share Tree 2 only → 1/2. A–C: share neither → 0.Each tree supplies a separate set of leaf slots. Put a 1 in the reached slot and 0 elsewhere. Two observations contribute 1 to their dot product for each shared slot; dividing by two gives the shared-leaf fraction. Leaf 3 in one tree is never confused with leaf 3 in another tree.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "decision-trees-random-forests",
+    "selector": ".tree-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A threshold moves the boundary; the counts move one row at a time.",
+      "rect": {
+        "bottom": 1256.6666870117188,
+        "height": 912.6875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 343.97918701171875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 343.97918701171875
+      },
+      "text": "A threshold moves the boundary; the counts move one row at a time.Constructed sorted inputs x = [1, 2, 3, 4], labels = [0, 0, 1, 1]. Parent Gini is 0.5. Every arrow marks a candidate cut between distinct inputs.x=10↓x=20x=31x=41t = 1.5: left counts [1, 0], right counts [1, 2]Gain = 0.166667x=10x=20↓x=31x=41t = 2.5: left counts [2, 0], right counts [0, 2]Gain = 0.500000x=10x=20x=31↓x=41t = 3.5: left counts [2, 1], right counts [0, 1]Gain = 0.166667Counts are [class 0, class 1]. Moving from t=1.5 to t=2.5 transfers one class-0 row from right to left. The middle cut makes both children pure. A prefix scan updates counts without rebuilding each child list; this drawing shows its states, not a measured speedup.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "decision-trees-random-forests",
+    "selector": ".tree-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Similarity can mean “the fitted trees make the same distinctions.”",
+      "rect": {
+        "bottom": 1048.3854370117188,
+        "height": 496.90625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 551.4791870117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 551.4791870117188
+      },
+      "text": "Similarity can mean “the fitted trees make the same distinctions.”ATree 1 → leaf 1Tree 2 → leaf 2BTree 1 → leaf 1Tree 2 → leaf 3CTree 1 → leaf 4Tree 2 → leaf 3A–B: share Tree 1 only → 1/2. B–C: share Tree 2 only → 1/2. A–C: share neither → 0.Each tree supplies a separate set of leaf slots. Put a 1 in the reached slot and 0 elsewhere. Two observations contribute 1 to their dot product for each shared slot; dividing by two gives the shared-leaf fraction. Leaf 3 in one tree is never confused with leaf 3 in another tree.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-nearest-neighbors-knn",
+    "selector": ".knn-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Perfectly matching inputs can still produce different outcomes.",
+      "rect": {
+        "bottom": 1102.8646240234375,
+        "height": 605.6146240234375,
+        "left": 344,
+        "right": 1104,
+        "top": 497.25,
+        "width": 760,
+        "x": 344,
+        "y": 497.25
+      },
+      "text": "Perfectly matching inputs can still produce different outcomes.Two independent labels, each positive with probability 0.8. Column widths represent the neighbor's label probabilities; row heights represent the new outcome's. Cell area is their product.neighbor +−64%16%16%4%+−new label: + top, − belowAmber cells disagree: 16% + 16% = 32%. Always choosing the more likely class at this same input makes only 20% errors. A neighbor supplies a sample of the local outcome distribution; one sample is noisier than knowing its majority.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-nearest-neighbors-knn",
+    "selector": ".knn-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "You can rule out an entire group before measuring every member.",
+      "rect": {
+        "bottom": 1125.1979370117188,
+        "height": 649.7916870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 475.40625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 475.40625
+      },
+      "text": "You can rule out an entire group before measuring every member.qbestc03468distance along the center lineCenter distance = 6; group radius = 2. Even the closest possible point in the ball is 6 − 2 = 4 away. We already have a neighbor at distance 3, so this group cannot improve a 1NN result. The amber segment is the lower bound, not a measured group member.If the current best were 5 away, the bound would no longer exclude a better member. Search the group; a loose bound is permission to inspect, not proof that a better member exists.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "selector": ".boosting-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "The same initial push can justify different step sizes.",
+      "rect": {
+        "bottom": 1073.6563110351562,
+        "height": 546.8021240234375,
+        "left": 344,
+        "right": 1104,
+        "top": 526.8541870117188,
+        "width": 760,
+        "x": 344,
+        "y": 526.8541870117188
+      },
+      "text": "The same initial push can justify different step sizes.Two constructed leaf surrogates share gradient G=−2 and penalty λ=1. Their Hessian sums differ. Each curve is −2w + (H+1)w²/2, with the old loss subtracted.H=1: best w=10−16012proposed correction w →H=4: best w=0.40−16012proposed correction w →Both curves initially fall at rate −2. The more curved one turns upward sooner, so its minimizing correction is smaller. The shared axes show actual surrogate values; a logistic loss may depart from this quadratic away from the expansion point.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "selector": ".boosting-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "The model used to judge row 4 determines its training residual.",
+      "rect": {
+        "bottom": 965.3854370117188,
+        "height": 330.54168701171875,
+        "left": 344,
+        "right": 1104,
+        "top": 634.84375,
+        "width": 760,
+        "x": 344,
+        "y": 634.84375
+      },
+      "text": "The model used to judge row 4 determines its training residual.Exclude row 4 from its judging modelRows 1, 2, 3 → prefix model M₃Prediction for row 4 = 1Then compare with its target 6Residual = 6 − 1 = 5Use the full-prefix model insteadRows 1, 2, 3, 4 → model M₄Prediction for row 4 = 1.5Row 4 already helped fit this valueResidual = 6 − 1.5 = 4.5These are the constant-learner miniature's second-round inputs, not a CatBoost benchmark. The left route reveals why an eligible prefix matters: the target is used after producing that row's prediction, instead of already influencing the model used to judge it. Ordinary boosting intentionally fits training residuals; Ordered boosting changes this particular dependency.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "selector": ".boosting-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A small tree approximates six requests with two shared answers.",
+      "rect": {
+        "bottom": 1170.8333435058594,
+        "height": 741.1875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 429.6458435058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 429.6458435058594
+      },
+      "text": "A small tree approximates six requests with two shared answers.Same six training rows as section 1; current prediction is 5 everywhere. Each row requests its own residual. The stump at x=3.5 can offer only one correction per side.Neutral = requested changeAmber = available leaf correctionx=1-3 → -2.67x=2-3 → -2.67x=3-2 → -2.67x=42 → 2.67x=53 → 2.67x=63 → 2.67Left means decrease; right means increase. Both bar types use the same scale. A rate of 0.5 applies half of the amber correction. Rows in one leaf still have different remaining errors, so another round can ask a different question.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "selector": ".boosting-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "The model used to judge row 4 determines its training residual.",
+      "rect": {
+        "bottom": 1140.7291870117188,
+        "height": 681.1041870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 459.625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 459.625
+      },
+      "text": "The model used to judge row 4 determines its training residual.Exclude row 4 from its judging modelRows 1, 2, 3 → prefix model M₃Prediction for row 4 = 1Then compare with its target 6Residual = 6 − 1 = 5Use the full-prefix model insteadRows 1, 2, 3, 4 → model M₄Prediction for row 4 = 1.5Row 4 already helped fit this valueResidual = 6 − 1.5 = 4.5These are the constant-learner miniature's second-round inputs, not a CatBoost benchmark. The left route reveals why an eligible prefix matters: the target is used after producing that row's prediction, instead of already influencing the model used to judge it. Ordinary boosting intentionally fits training residuals; Ordered boosting changes this particular dependency.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "support-vector-machines-svm",
+    "selector": ".svm-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Hinge loss pays for the missing score margin, not just wrong labels.",
+      "rect": {
+        "bottom": 1094.8958435058594,
+        "height": 589.59375,
+        "left": 344,
+        "right": 1104,
+        "top": 505.3020935058594,
+        "width": 760,
+        "x": 344,
+        "y": 505.3020935058594
+      },
+      "text": "Hinge loss pays for the missing score margin, not just wrong labels.Wrong side: y f = -0.2, loss = 1.2012Correct side, too close: y f = 0.6, loss = 0.4012Beyond the requested margin: y f = 1.7, loss = 0.0012Zero separates correct from incorrect sides; one marks the requested label-signed score. Amber length is max(0,1−y f). This axis is a normalized score, not an input-space distance: divide by ‖w‖ for the corresponding geometric distance when w is nonzero.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "support-vector-machines-svm",
+    "selector": ".svm-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Every kernel column has a stored observation and coefficient attached to it.",
+      "rect": {
+        "bottom": 991.8750610351562,
+        "height": 383.5729370117187,
+        "left": 344,
+        "right": 1104,
+        "top": 608.3021240234375,
+        "width": 760,
+        "x": 344,
+        "y": 608.3021240234375
+      },
+      "text": "Every kernel column has a stored observation and coefficient attached to it.Linear-kernel classifier trained on A: x=0,label −1 and B: x=2,label +1. Signed coefficients are [−0.5,+0.5], with b=−1.Query x=1Similarity to A: 1 × 0 = 0Similarity to B: 1 × 2 = 2Score: 0 × (−0.5) + 2 × 0.5 − 1 = 0Query x=3Similarity to A: 3 × 0 = 0Similarity to B: 3 × 2 = 6Score: 0 × (−0.5) + 6 × 0.5 − 1 = 2The query-by-training matrix is [[0,2],[0,6]]. Its two columns mean A then B. Reversing them without reversing the coefficients changes both scores. The first query is exactly on the boundary; the second is on the positive side. Query-to-query similarities cannot replace these required training references.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "support-vector-machines-svm",
+    "selector": ".svm-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A feasible solution and a lower bound squeeze the optimum from opposite sides.",
+      "rect": {
+        "bottom": 1210.7396240234375,
+        "height": 821.5833740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 389.15625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 389.15625
+      },
+      "text": "A feasible solution and a lower bound squeeze the optimum from opposite sides.Same two training points: x=−1,y=−1 and x=1,y=1; C=0.25. Set both dual coefficients to α, w=2α and b=0. All three shown states are feasible.α₁=α₂=0, w=0D=0.000 ≤ optimum ≤ P=0.500; gap 0.50000.250.5α₁=α₂=0.1, w=0.2D=0.180 ≤ optimum ≤ P=0.420; gap 0.24000.250.5α₁=α₂=0.25, w=0.5D=0.375 ≤ optimum ≤ P=0.375; gap 0.00000.250.5Amber dot = feasible dual lower bound. White ring = attained primal cost. At the last state both equal 0.375, proving this training optimum. The dots coincide intentionally. This proves optimization, not future accuracy.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "support-vector-machines-svm",
+    "selector": ".svm-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Every kernel column has a stored observation and coefficient attached to it.",
+      "rect": {
+        "bottom": 1182.6354370117188,
+        "height": 765.8125,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 416.8229370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 416.8229370117187
+      },
+      "text": "Every kernel column has a stored observation and coefficient attached to it.Linear-kernel classifier trained on A: x=0,label −1 and B: x=2,label +1. Signed coefficients are [−0.5,+0.5], with b=−1.Query x=1Similarity to A: 1 × 0 = 0Similarity to B: 1 × 2 = 2Score: 0 × (−0.5) + 2 × 0.5 − 1 = 0Query x=3Similarity to A: 3 × 0 = 0Similarity to B: 3 × 2 = 6Score: 0 × (−0.5) + 6 × 0.5 − 1 = 2The query-by-training matrix is [[0,2],[0,6]]. Its two columns mean A then B. Reversing them without reversing the coefficients changes both scores. The first query is exactly on the boundary; the second is on the positive side. Query-to-query similarities cannot replace these required training references.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "selector": ".nb-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "“The alarm is off” supplies evidence; “the alarm was not measured” may not.",
+      "rect": {
+        "bottom": 1017.1042175292968,
+        "height": 434.4583435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 582.6458740234375,
+        "width": 760,
+        "x": 344,
+        "y": 582.6458740234375
+      },
+      "text": "“The alarm is off” supplies evidence; “the alarm was not measured” may not.Constructed population: fault prior 0.2; alarm-positive rates 0.8 under fault and 0.4 under normal. Assume measurement failure itself supplies no extra class information.Observed offFault likelihood: 1−0.8=0.2Normal likelihood: 1−0.4=0.6Fault weight: 0.2×0.2=0.04Normal weight: 0.8×0.6=0.48Fault posterior: 0.04/0.52 = 1/13Unobserved alarmFault likelihood: 0.8+0.2=1Normal likelihood: 0.4+0.6=1Fault weight: 0.2×1=0.2Normal weight: 0.8×1=0.8Fault posterior: unchanged at 0.2Marginalizing means allowing both possible alarm values and adding their probabilities. Encoding an unobserved alarm as zero would silently take the observed-off branch even though no off observation occurred.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "selector": ".nb-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Two future tokens share the same uncertain vocabulary composition.",
+      "rect": {
+        "bottom": 1023.1354675292968,
+        "height": 446.7395935058594,
+        "left": 344,
+        "right": 1104,
+        "top": 576.3958740234375,
+        "width": 760,
+        "x": 344,
+        "y": 576.3958740234375
+      },
+      "text": "Two future tokens share the same uncertain vocabulary composition.Posterior shapes (4,1) are represented by four A units and one B unit. They are parameters of uncertainty, not five new observed test tokens.Freeze the mean tableFirst A: 4/5AAAABSecond A: still 4/5AAAABP(AA) = 16/25 = 0.64Integrate shared uncertaintyFirst A: 4/5AAAABGiven the first is A: 5/6AAAAABP(AA) = (4/5)(5/6) = 2/3The integrated second step is a conditional factorization of the joint future event AA. It accounts for what the first hypothetical A tells us about the shared composition. It does not use a hidden class label or refit on an observed test answer. At fixed composition the draws remain independent; averaging over an uncertain shared composition creates predictive dependence.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "selector": ".nb-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Independent within each group does not mean independent after mixing groups.",
+      "rect": {
+        "bottom": 1176.625,
+        "height": 753.5625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 423.0625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 423.0625
+      },
+      "text": "Independent within each group does not mean independent after mixing groups.Constructed equal-size classes. Two binary features A and B are generated independently after the class is chosen.Class 0: half the populationA is onp=0.2B is onp=0.2Both on: 0.2 × 0.2 = 0.04Class 1: half the populationA is onp=0.8B is onp=0.8Both on: 0.8 × 0.8 = 0.64After pooling: P(A=1)=P(B=1)=0.5, but P(A=1,B=1)=0.5×0.04+0.5×0.64=0.34, rather than 0.5×0.5=0.25.Seeing A on makes class 1 more plausible; class 1 also makes B on more likely. The hidden class links the pooled observations. Naive Bayes assumes a factorization within each class, not across this mixture.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "selector": ".nb-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "“The alarm is off” supplies evidence; “the alarm was not measured” may not.",
+      "rect": {
+        "bottom": 1246,
+        "height": 892.65625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 353.34375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 353.34375
+      },
+      "text": "“The alarm is off” supplies evidence; “the alarm was not measured” may not.Constructed population: fault prior 0.2; alarm-positive rates 0.8 under fault and 0.4 under normal. Assume measurement failure itself supplies no extra class information.Observed offFault likelihood: 1−0.8=0.2Normal likelihood: 1−0.4=0.6Fault weight: 0.2×0.2=0.04Normal weight: 0.8×0.6=0.48Fault posterior: 0.04/0.52 = 1/13Unobserved alarmFault likelihood: 0.8+0.2=1Normal likelihood: 0.4+0.6=1Fault weight: 0.2×1=0.2Normal weight: 0.8×1=0.8Fault posterior: unchanged at 0.2Marginalizing means allowing both possible alarm values and adding their probabilities. Encoding an unobserved alarm as zero would silently take the observed-off branch even though no off observation occurred.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "naive-bayes-probabilistic-classifiers",
+    "selector": ".nb-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Two future tokens share the same uncertain vocabulary composition.",
+      "rect": {
+        "bottom": 1269.1458740234375,
+        "height": 938.5729370117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 330.57293701171875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 330.57293701171875
+      },
+      "text": "Two future tokens share the same uncertain vocabulary composition.Posterior shapes (4,1) are represented by four A units and one B unit. They are parameters of uncertainty, not five new observed test tokens.Freeze the mean tableFirst A: 4/5AAAABSecond A: still 4/5AAAABP(AA) = 16/25 = 0.64Integrate shared uncertaintyFirst A: 4/5AAAABGiven the first is A: 5/6AAAAABP(AA) = (4/5)(5/6) = 2/3The integrated second step is a conditional factorization of the joint future event AA. It accounts for what the first hypothetical A tells us about the shared composition. It does not use a hidden class label or refit on an observed test answer. At fixed composition the draws remain independent; averaging over an uncertain shared composition creates predictive dependence.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ensemble-methods-stacking",
+    "selector": ".ensemble-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Train the combiner on honest predictions; serve it with refitted bases.",
+      "rect": {
+        "bottom": 1109.4895935058594,
+        "height": 618.375,
+        "left": 344,
+        "right": 1104,
+        "top": 491.1145935058594,
+        "width": 760,
+        "x": 344,
+        "y": 491.1145935058594
+      },
+      "text": "Train the combiner on honest predictions; serve it with refitted bases.The two columns below always mean [neighbor forecast, line forecast]. They retain that meaning even though the fitted base objects change.Collect out-of-fold featuresFor held-out A,D, fit bases only on B,C,E,F.A contributes [2, −0.35] with target 1. Repeat for every fold to fill all six rows.Learn and keep the combinerFit on the six-row OOF matrix and its six targets.Keep neighbor weight w≈0.228273; the line receives 1−w.Refit the bases for servingFit a fresh line and neighbor model using all A–F.The saved bases now use all available training information. The combiner stays unchanged.Answer a new queryx=2.5 → full-data bases → [2, 4.333333]Apply the stored rule: (1−w)·4.333333+w·2≈3.800695 hours.The fold-specific models construct a training dataset for the combiner. They are not the models ordinarily retained for serving this stack. A full-data base prediction on A would be an in-sample result; substituting it into A's OOF row would change the learning problem.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ensemble-methods-stacking",
+    "selector": ".ensemble-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A meta-model gives each score its own meaning before combining it.",
+      "rect": {
+        "bottom": 1001.2708740234376,
+        "height": 402.09375,
+        "left": 344,
+        "right": 1104,
+        "top": 599.1771240234375,
+        "width": 760,
+        "x": 344,
+        "y": 599.1771240234375
+      },
+      "text": "A meta-model gives each score its own meaning before combining it.Constructed binary example, independent of the measured API run. Suppose an already fitted logistic combiner has intercept −1 and coefficients [2, 0.5].Base A: probabilityClass-1 probability = 0.8Learned coefficient 2Contribution: 2 × 0.8 = 1.6Base B: marginSigned decision score = 2Learned coefficient 0.5Contribution: 0.5 × 2 = 1Add contributions and intercept: −1 + 1.6 + 1 = 1.6Apply the logistic link: 1/(1+e⁻¹·⁶)≈0.832018.The margin 2 is allowed because it is a feature, not a probability. A raw mean (0.8+2)/2=1.4 would not be a valid probability. Learned coefficients and the link define a new prediction rule; they do not guarantee its calibration. Their values must come from correctly owned meta-training data.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ensemble-methods-stacking",
+    "selector": ".ensemble-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A stronger vote helps the rows this stump gets right and hurts the rows it gets wrong.",
+      "rect": {
+        "bottom": 1241.9896240234375,
+        "height": 884.3021240234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 357.6875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 357.6875
+      },
+      "text": "A stronger vote helps the rows this stump gets right and hurts the rows it gets wrong.Keep the first stump fixed, with weighted error ε=1/6. These curves are computed from its exact loss multiplier, not from a new training experiment.00.5100.81.6loss multipliervote strength αCorrect rows: (5/6)e⁻ᵅWrong rows: (1/6)eᵅTotal Z: the sum of bothAt α=½ log 5≈0.804719, both groups contribute √5/6≈0.372678. Their total is √5/3≈0.745356.Initially the benefit of strengthening this mostly correct stump outweighs the damage. Eventually the growing wrong-row term catches up. At the minimum, one small extra increase saves exactly as much loss as it adds. This is why the derivative balances the two terms—and why the wrong rows hold half the newly normalized mass.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ensemble-methods-stacking",
+    "selector": ".ensemble-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A meta-model gives each score its own meaning before combining it.",
+      "rect": {
+        "bottom": 1224.9479370117188,
+        "height": 849.28125,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 375.6666870117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 375.6666870117187
+      },
+      "text": "A meta-model gives each score its own meaning before combining it.Constructed binary example, independent of the measured API run. Suppose an already fitted logistic combiner has intercept −1 and coefficients [2, 0.5].Base A: probabilityClass-1 probability = 0.8Learned coefficient 2Contribution: 2 × 0.8 = 1.6Base B: marginSigned decision score = 2Learned coefficient 0.5Contribution: 0.5 × 2 = 1Add contributions and intercept: −1 + 1.6 + 1 = 1.6Apply the logistic link: 1/(1+e⁻¹·⁶)≈0.832018.The margin 2 is allowed because it is a feature, not a probability. A raw mean (0.8+2)/2=1.4 would not be a valid probability. Learned coefficients and the link define a new prediction rule; they do not guarantee its calibration. Their values must come from correctly owned meta-training data.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "selector": ".rec-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Same factors and counts as the confidence lab: q₁=(1,0), q₂=(0,1), q₃=(1,1), with weights 5, 1, 3. The all-item Gram gives one copy of every outer product. Sparse corrections add only 5−1 and 3−1 copies. The unobserved item contributes [[0,0],[0,1]] to the baseline; skipping its stored row does not erase its loss.",
+      "rect": {
+        "bottom": 925.8333587646484,
+        "height": 252.1666717529297,
+        "left": 344,
+        "right": 1104,
+        "top": 673.6666870117188,
+        "width": 760,
+        "x": 344,
+        "y": 673.6666870117188
+      },
+      "text": "The unobserved second item is still inside the first matrix2112Every item, weight 1+4000Item 1: four extra copies+2222Item 3: two extra copies+1001Penalty λI=9335User normal matrixSame factors and counts as the confidence lab: q₁=(1,0), q₂=(0,1), q₃=(1,1), with weights 5, 1, 3. The all-item Gram gives one copy of every outer product. Sparse corrections add only 5−1 and 3−1 copies. The unobserved item contributes [[0,0],[0,1]] to the baseline; skipping its stored row does not erase its loss.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "selector": ".rec-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Each bar is one full probability mass. A's reward probability stays .4; B's stays .8. Multipliers .5/.8=.625 and .5/.2=2.5 turn the logging contributions .32 and .16 into target contributions .20 and .40. A rare logged B click counts more because B is more common in the target policy.",
+      "rect": {
+        "bottom": 1009.5313110351562,
+        "height": 419.4166870117187,
+        "left": 344,
+        "right": 1104,
+        "top": 590.1146240234375,
+        "width": 760,
+        "x": 344,
+        "y": 590.1146240234375
+      },
+      "text": "Reweight the opportunities to click, not the click probabilitiesLogging mixA 80%B 20%Expected clicks: .8 × .4 + .2 × .8 = .48Target mixA 50%B 50%Expected clicks: .5 × .4 + .5 × .8 = .60Each bar is one full probability mass. A's reward probability stays .4; B's stays .8. Multipliers .5/.8=.625 and .5/.2=2.5 turn the logging contributions .32 and .16 into target contributions .20 and .40. A rare logged B click counts more because B is more common in the target policy.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "selector": ".rec-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Constructed scalar block: fixed item factors 1 and 2, observed ratings 4 and 2, λ=1. Predictions are p and 2p. Loss is (4−p)² + (2−2p)² + p². Its slope 12p−16 becomes zero at p=4/3, where loss is 28/3. ALS finds this block's bottom before switching which side is allowed to move.",
+      "rect": {
+        "bottom": 1088.8854370117188,
+        "height": 577.5625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 511.3229370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 511.3229370117187
+      },
+      "text": "Freeze item factors; move just this user's one coordinate010200123squared error + penaltyminimum at p = 4/3user factor pConstructed scalar block: fixed item factors 1 and 2, observed ratings 4 and 2, λ=1. Predictions are p and 2p. Loss is (4−p)² + (2−2p)² + p². Its slope 12p−16 becomes zero at p=4/3, where loss is 28/3. ALS finds this block's bottom before switching which side is allowed to move.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+    "selector": ".rec-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Same factors and counts as the confidence lab: q₁=(1,0), q₂=(0,1), q₃=(1,1), with weights 5, 1, 3. The all-item Gram gives one copy of every outer product. Sparse corrections add only 5−1 and 3−1 copies. The unobserved item contributes [[0,0],[0,1]] to the baseline; skipping its stored row does not erase its loss.",
+      "rect": {
+        "bottom": 1108.9375610351562,
+        "height": 617.9896240234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 490.9479370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 490.9479370117187
+      },
+      "text": "The unobserved second item is still inside the first matrix2112Every item, weight 1+4000Item 1: four extra copies+2222Item 3: two extra copies+1001Penalty λI=9335User normal matrixSame factors and counts as the confidence lab: q₁=(1,0), q₂=(0,1), q₃=(1,1), with weights 5, 1, 3. The all-item Gram gives one copy of every outer product. Sparse corrections add only 5−1 and 3−1 copies. The unobserved item contributes [[0,0],[0,1]] to the baseline; skipping its stored row does not erase its loss.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "selector": ".sv-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Calculated illustration: reference rate .1/day; event-time percentiles 25%, 50%, 75%. Matching dots denote the same percentile in two distributions, not the same subject's observed counterfactual. Medians move from 6.93 to 13.86 days. At day 10, the stretched survival reads the original curve at day 5: S₁(10)=S₀(5). AFT changes where you read the time axis.",
+      "rect": {
+        "bottom": 1057.7708740234375,
+        "height": 516,
+        "left": 344,
+        "right": 1104,
+        "top": 541.7708740234375,
+        "width": 760,
+        "x": 344,
+        "y": 541.7708740234375
+      },
+      "text": "Time ratio 2 moves each quantile to twice its original dayReferenceTime multiplied by 225%50%75%0102030event time (days)Calculated illustration: reference rate .1/day; event-time percentiles 25%, 50%, 75%. Matching dots denote the same percentile in two distributions, not the same subject's observed counterfactual. Medians move from 6.93 to 13.86 days. At day 10, the stretched survival reads the original curve at day 5: S₁(10)=S₀(5). AFT changes where you read the time axis.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "selector": ".sv-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Constructed snapshot, separate from the six-record lab. Both descriptions concern the same next infinitesimal cause-1 probability increment dF₁. Cause-specific hazard divides it by .20; subdistribution hazard divides it by .70. The latter bookkeeping includes cause-2 outcomes, although those subjects cannot experience a new first cause-1 event. This is why its denominator is not an ordinary physical risk set.",
+      "rect": {
+        "bottom": 982.8021240234376,
+        "height": 366.1875,
+        "left": 344,
+        "right": 1104,
+        "top": 616.6146240234375,
+        "width": 760,
+        "x": 344,
+        "y": 616.6146240234375
+      },
+      "text": "The two hazards divide by different probability masses20%30%50%Amber: event-free · white: cause 1 · charcoal: cause 2Cause-specific denominatorEvent-free only: .20Subdistribution denominatorNo cause 1 yet: .20 + .50 = .70Constructed snapshot, separate from the six-record lab. Both descriptions concern the same next infinitesimal cause-1 probability increment dF₁. Cause-specific hazard divides it by .20; subdistribution hazard divides it by .70. The latter bookkeeping includes cause-2 outcomes, although those subjects cannot experience a new first cause-1 event. This is why its denominator is not an ordinary physical risk set.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "selector": ".sv-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "All bars use the same 0–6.5 risk-weight scale. The tied failures carry total weight 3. Efron subtracts half that mass before the second factor; it does not claim that a particular subject with weight 1.5 actually failed first. Both numerators remain the product 1×2. The figure isolates the denominator approximation before the full likelihood multiplies event-time contributions.",
+      "rect": {
+        "bottom": 1106.750030517578,
+        "height": 613.9791870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 492.7708435058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 492.7708435058594
+      },
+      "text": "Two tied failures: what remains in the second denominator?Breslow · first factor6.5Breslow · second factor6.5Efron · first factor6.5Efron · second factor6.5 − ½ × 3 = 5All bars use the same 0–6.5 risk-weight scale. The tied failures carry total weight 3. Efron subtracts half that mass before the second factor; it does not claim that a particular subject with weight 1.5 actually failed first. Both numerators remain the product 1×2. The figure isolates the denominator approximation before the full likelihood multiplies event-time contributions.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "selector": ".sv-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Calculated illustration: reference rate .1/day; event-time percentiles 25%, 50%, 75%. Matching dots denote the same percentile in two distributions, not the same subject's observed counterfactual. Medians move from 6.93 to 13.86 days. At day 10, the stretched survival reads the original curve at day 5: S₁(10)=S₀(5). AFT changes where you read the time axis.",
+      "rect": {
+        "bottom": 1086.3438110351562,
+        "height": 572.6666870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 513.6771240234375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 513.6771240234375
+      },
+      "text": "Time ratio 2 moves each quantile to twice its original dayReferenceTime multiplied by 225%50%75%0102030event time (days)Calculated illustration: reference rate .1/day; event-time percentiles 25%, 50%, 75%. Matching dots denote the same percentile in two distributions, not the same subject's observed counterfactual. Medians move from 6.93 to 13.86 days. At day 10, the stretched survival reads the original curve at day 5: S₁(10)=S₀(5). AFT changes where you read the time axis.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "rect": {
+        "bottom": 1014.4791870117188,
+        "height": 428.9375,
+        "left": 362,
+        "right": 1088,
+        "top": 585.5416870117188,
+        "width": 726,
+        "x": 362,
+        "y": 585.5416870117188
+      },
+      "text": "A mean plus a count preserves whole-group costs; it cannot undo a groupOriginal members02Summary → new centermean 1c = 4For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "rect": {
+        "bottom": 1010.8125610351562,
+        "height": 421.3854370117187,
+        "left": 38,
+        "right": 338.66668701171875,
+        "top": 589.4271240234375,
+        "width": 300.66668701171875,
+        "x": 38,
+        "y": 589.4271240234375
+      },
+      "text": "A path of short edges can connect far-apart endpoints1140126one-dimensional positionThis line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "pca-dimensionality-reduction",
+    "selector": ".pca-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "The same four observations, now drawn in score coordinates. Divide score 1 by √6 and score 2 by √(2/3). Both new coordinate magnitudes become √3/2≈.8660. A/B's original score distance √2 becomes √3, while A/C's 3√2 becomes √3: unequal separations become equal. Every panel uses the same numeric scale on both axes. Whitening rescales distances; it is more than another rotation.",
+      "rect": {
+        "bottom": 1042.1875,
+        "height": 484.21875,
+        "left": 344,
+        "right": 1104,
+        "top": 557.96875,
+        "width": 760,
+        "x": 344,
+        "y": 557.96875
+      },
+      "text": "Ordinary PCA scores-2-2-1-11122ABCDscore 1score 2After whitening-2-2-1-11122ABCDwhitened coordinate 1coordinate 2The same four observations, now drawn in score coordinates. Divide score 1 by √6 and score 2 by √(2/3). Both new coordinate magnitudes become √3/2≈.8660. A/B's original score distance √2 becomes √3, while A/C's 3√2 becomes √3: unequal separations become equal. Every panel uses the same numeric scale on both axes. Whitening rescales distances; it is more than another rotation.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "pca-dimensionality-reduction",
+    "selector": ".pca-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Constructed observations with true signal (2,2), shown by a white circle, and measured input shown by an amber diamond. The fixed retained line is x₂=x₁. Orthogonal noise (1,−1) disappears on projection; parallel noise (1,1) survives unchanged. Axes use equal scales. These examples inspect a given projection; estimating its direction from noisy data remains a separate fitting step.",
+      "rect": {
+        "bottom": 1065.6979370117188,
+        "height": 531.2916870117188,
+        "left": 344,
+        "right": 1104,
+        "top": 534.40625,
+        "width": 760,
+        "x": 344,
+        "y": 534.40625
+      },
+      "text": "Noise across the signal002244sensor 1sensor 2(3,1) projects to (2,2)Noise along the signal002244sensor 1sensor 2(3,3) projects to (3,3)Constructed observations with true signal (2,2), shown by a white circle, and measured input shown by an amber diamond. The fixed retained line is x₂=x₁. Orthogonal noise (1,−1) disappears on projection; parallel noise (1,1) survives unchanged. Axes use equal scales. These examples inspect a given projection; estimating its direction from noisy data remains a separate fitting step.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "pca-dimensionality-reduction",
+    "selector": ".pca-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "The same four observations, now drawn in score coordinates. Divide score 1 by √6 and score 2 by √(2/3). Both new coordinate magnitudes become √3/2≈.8660. A/B's original score distance √2 becomes √3, while A/C's 3√2 becomes √3: unequal separations become equal. Every panel uses the same numeric scale on both axes. Whitening rescales distances; it is more than another rotation.",
+      "rect": {
+        "bottom": 1295.4167175292969,
+        "height": 990.7708740234376,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 304.6458435058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 304.6458435058594
+      },
+      "text": "Ordinary PCA scores-2-2-1-11122ABCDscore 1score 2After whitening-2-2-1-11122ABCDwhitened coordinate 1coordinate 2The same four observations, now drawn in score coordinates. Divide score 1 by √6 and score 2 by √(2/3). Both new coordinate magnitudes become √3/2≈.8660. A/B's original score distance √2 becomes √3, while A/C's 3√2 becomes √3: unequal separations become equal. Every panel uses the same numeric scale on both axes. Whitening rescales distances; it is more than another rotation.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+    "selector": ".ce-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Trace upward from each leaf until the paths meet. AB meets at 1; AC and BC both meet at 2. The horizontal leaf positions merely lay out the tree; their printed values give the original locations. The tree preserves AB's distance but compresses original AC=3 and BC=2 into the same height.",
+      "rect": {
+        "bottom": 1018.9479675292968,
+        "height": 438.2083435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 580.7396240234375,
+        "width": 760,
+        "x": 344,
+        "y": 580.7396240234375
+      },
+      "text": "merge height012A: 0B: 1C: 3Trace upward from each leaf until the paths meet. AB meets at 1; AC and BC both meet at 2. The horizontal leaf positions merely lay out the tree; their printed values give the original locations. The tree preserves AB's distance but compresses original AC=3 and BC=2 into the same height.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+    "selector": ".ce-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "DB combines the average distance to each center (2/3 on either side) with center separation 7: (2/3+2/3)/7=4/21. Dunn instead uses the closest cross-group pair and the widest within-group pair: 5/2. Neither is the silhouette's average distance from a selected observation to all members of a group.",
+      "rect": {
+        "bottom": 1038.593780517578,
+        "height": 477.3020935058594,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 561.2916870117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 561.2916870117188
+      },
+      "text": "Same data, different summaries012789DB: centers are 7 apartDunn: closest across = 5Dunn: widest inside = 2DB combines the average distance to each center (2/3 on either side) with center separation 7: (2/3+2/3)/7=4/21. Dunn instead uses the closest cross-group pair and the widest within-group pair: 5/2. Neither is the silhouette's average distance from a selected observation to all members of a group.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dbscan-density-based-clustering",
+    "selector": ".db-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Use the original trail, ε=1 and m=4. Add a distinct observation I′ at the same position as I. Each zero row now counts D, E, I and I′ and becomes core. The graph acquires a path between the former components. I and I′ are offset vertically only to show two row identities; both physical positions are x=0. Other original core neighbors of D and E are omitted from this graph excerpt; J remains isolated.",
+      "rect": {
+        "bottom": 1058.8854370117188,
+        "height": 518.1979370117188,
+        "left": 344,
+        "right": 1104,
+        "top": 540.6875,
+        "width": 760,
+        "x": 344,
+        "y": 540.6875
+      },
+      "text": "Before: I cannot transmitD: −1I: 0E: 1I's neighbors: D, I, ERefit: both zero rows are coreDEII′Use the original trail, ε=1 and m=4. Add a distinct observation I′ at the same position as I. Each zero row now counts D, E, I and I′ and becomes core. The graph acquires a path between the former components. I and I′ are offset vertically only to show two row identities; both physical positions are x=0. Other original core neighbors of D and E are omitted from this graph excerpt; J remains isolated.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dbscan-density-based-clustering",
+    "selector": ".db-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A declared finite condensed branch with minimum cluster size 2 is born at λ=2. One row leaves at 3 and the remaining two leave at 5. Sum lifetimes: (3−2)+(5−2)+(5−2)=7. Or sum the shaded count-by-density areas: 3×1+2×2=7. The area counts retained rows through density levels; it is not geographic area or a probability. This tree is illustrative, not an Iris fit.",
+      "rect": {
+        "bottom": 1061.5833740234375,
+        "height": 523.8229370117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 537.7604370117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 537.7604370117188
+      },
+      "text": "rows remaining in this branch1232345λ = 1 / radius3×12×2A declared finite condensed branch with minimum cluster size 2 is born at λ=2. One row leaves at 3 and the remaining two leave at 5. Sum lifetimes: (3−2)+(5−2)+(5−2)=7. Or sum the shaded count-by-density areas: 3×1+2×2=7. The area counts retained rows through density levels; it is not geographic area or a probability. This tree is illustrative, not an Iris fit.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "bayesian-networks-causal-graphical-models",
+    "selector": ".bn-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A message preserves every way the other cluster can be affected.",
+      "rect": {
+        "bottom": 1072.9583740234375,
+        "height": 545.9479370117188,
+        "left": 344,
+        "right": 1104,
+        "top": 527.0104370117188,
+        "width": 760,
+        "x": 344,
+        "y": 527.0104370117188
+      },
+      "text": "A message preserves every way the other cluster can be affected.New constructed model: P(A,B,C) is proportional to φ(A,B)ψ(B,C). Both factors are unnormalized. The clusters {A,B} and {B,C} share only B, so their separator is {B}.Left cluster: {A,B}φ rows are A; columns are B.Factor φA \\ B01021113Send a function of B →Sum out A separately for each B.B=0: 2+1 = 3B=1: 1+3 = 4Keep both entries. A single total 7 would erase which B was supported.Right cluster: {B,C}ψ rows are B; columns are C.Factor ψB \\ C01041112At the receiving cluster, multiply each B row by its incoming message, then sum B:C=0: 3·4+4·1 = 16C=1: 3·1+4·2 = 11.Total mass = 27; P(C=1) = 11/27≈0.407407.The message already accounts for A, so the receiving cluster never needs to enumerate A again. A reverse message would similarly sum out C. In a larger junction tree, the running-intersection property ensures that a variable absent from the separator cannot reappear elsewhere beyond that separator.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "bayesian-networks-causal-graphical-models",
+    "selector": ".bn-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Each rule asks a different question in a specifically edited graph.",
+      "rect": {
+        "bottom": 1693.3854522705078,
+        "height": 1787.3021240234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": -93.91667175292967,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": -93.91667175292967
+      },
+      "text": "Each rule asks a different question in a specifically edited graph.Three separate causal models, each with independent external noises and the required probability support. Amber marks an already fixed X. Dashed, crossed edges are deleted for the displayed test.1. Can an observation be ignored?XYZOriginal model: X→Y and X→Z. There are no incoming X arrows to cut. Given X, the fork Y←X→Z is blocked.P(y | do(x), z) = P(y | do(x))Observing a second consequence of the already fixed X adds no information about Y in this model.2. Can action become observation?× cutXYOriginal model: X→Y only. For this test cut X's outgoing arrow. No route between X and Y remains.P(y | do(x)) = P(y | x)The cut is a test for exchanging the expressions; it does not claim that the real effect X→Y vanishes. A hidden common cause would leave a route and invalidate this argument.3. Can an extra action be ignored?× cutZXYOriginal model: Z→X→Y. Fixing X cuts Z→X. There are no incoming Z arrows or extra W observations; Z is separated from Y.P(y | do(x), do(z)) = P(y | do(x))Once X is fixed, changing the variable that used to determine X cannot travel through that replaced mechanism.These small cases explain the operations. In a larger graph, use the full rule—including its conditioning set and, for rule 3, the ancestor restriction—rather than matching only a familiar-looking fragment.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "conditional-random-fields-crf",
+    "selector": ".crf-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Incomplete labels teach a set of possible paths, not a guessed completion.",
+      "rect": {
+        "bottom": 1161.2188110351562,
+        "height": 722.6146240234375,
+        "left": 344,
+        "right": 1104,
+        "top": 438.6041870117187,
+        "width": 760,
+        "x": 344,
+        "y": 438.6041870117187
+      },
+      "text": "Incomplete labels teach a set of possible paths, not a guessed completion.Use the same two-position model. Change what is observed, then move the A→B factor. All other factors stay fixed; the model is recomputed immediately without fitting or sampling.Observed labelsBoth: ABFirst is A; second unknownNeither label observedA→B positive factor: 4AAmass 3Matches known labelsABmass 24Matches known labelsBAmass 1Contradicts known labelsBBmass 2Contradicts known labelsCompatible mass 27 / all-path mass 30 = 0.900000Negative log-likelihood = 0.105361At the original factor 4, fully observed AB gives 24/30=.8; only the first A gives (3+24)/30=.9; no labels gives 30/30=1. In that last mode the loss stays zero while the path probabilities still change: ordinary conditional likelihood receives no labeling information from this input alone.Reset worked case",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "conditional-random-fields-crf",
+    "selector": ".crf-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Sample a whole path by keeping its label dependencies intact.",
+      "rect": {
+        "bottom": 983.7708435058594,
+        "height": 367.8958435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 615.875,
+        "width": 760,
+        "x": 344,
+        "y": 615.875
+      },
+      "text": "Sample a whole path by keeping its label dependencies intact.Original factor-4 model. First draw the final label from [4/30,26/30]. Then draw the preceding label conditional on that result.Final label A: chance 4/30Earlier-label weights: A has 3·1=3; B has 1·1=1.A first: 3/4 → path AAB first: 1/4 → path BAAA: (4/30)(3/4)=3/30BA: (4/30)(1/4)=1/30Final label B: chance 26/30Earlier-label weights: A has 3·4=12; B has 1·1=1.A first: 12/13 → path ABB first: 1/13 → path BBAB: (26/30)(12/13)=24/30BB: (26/30)(1/13)=2/30Every path regains its original probability. Drawing the first label independently from its marginal .9 would instead give AB probability .9·26/30=.78, changing the joint distribution. These branches describe exact sampling probabilities, not observed frequencies from a finite run.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "conditional-random-fields-crf",
+    "selector": ".crf-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A second-order score needs the last two labels before choosing the next one.",
+      "rect": {
+        "bottom": 1149.53125,
+        "height": 698.78125,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 450.75,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 450.75
+      },
+      "text": "A second-order score needs the last two labels before choosing the next one.At a prefix ending in A,B, retain the pair (A,B). A new label completes a three-label score; then drop the oldest label.ABretained pairAdd A → score (A,B,A) → retain (B,A)Add B → score (A,B,B) → retain (B,B)The next pair must begin with B because that is the label both windows share. A transition from pair (A,B) directly to (A,A) is inconsistent: it would replace the shared label rather than slide the window.There are K² possible remembered pairs, but only K consistent extensions per pair. That gives K³ candidate triple updates per position, explaining O(TK³), instead of K⁴ transitions between arbitrary pairs. This counts dense second-order label work; it excludes input encoding.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "conditional-random-fields-crf",
+    "selector": ".crf-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Sample a whole path by keeping its label dependencies intact.",
+      "rect": {
+        "bottom": 1201.2916870117188,
+        "height": 802.75,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 398.5416870117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 398.5416870117187
+      },
+      "text": "Sample a whole path by keeping its label dependencies intact.Original factor-4 model. First draw the final label from [4/30,26/30]. Then draw the preceding label conditional on that result.Final label A: chance 4/30Earlier-label weights: A has 3·1=3; B has 1·1=1.A first: 3/4 → path AAB first: 1/4 → path BAAA: (4/30)(3/4)=3/30BA: (4/30)(1/4)=1/30Final label B: chance 26/30Earlier-label weights: A has 3·4=12; B has 1·1=1.A first: 12/13 → path ABB first: 1/13 → path BBAB: (26/30)(12/13)=24/30BB: (26/30)(1/13)=2/30Every path regains its original probability. Drawing the first label independently from its marginal .9 would instead give AB probability .9·26/30=.78, changing the joint distribution. These branches describe exact sampling probabilities, not observed frequencies from a finite run.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gaussian-processes-gp",
+    "selector": ".gp-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A long length scale expects observations to move together.",
+      "rect": {
+        "bottom": 1161.5833435058594,
+        "height": 723.21875,
+        "left": 344,
+        "right": 1104,
+        "top": 438.3645935058594,
+        "width": 760,
+        "x": 344,
+        "y": 438.3645935058594
+      },
+      "text": "A long length scale expects observations to move together.Same two observations y=[1,−1], inputs [0,2] and noise variance .25. Each ellipse is the one-standard-deviation contour of the joint observation Gaussian—not a 95% region. Amber is the actual observation vector.Length ℓ=0.3y₁y₂-1-1011Variance along together direction (1,1)/√2: 1.250000Variance along opposite direction (1,−1)/√2: 1.250000Length ℓ=3y₁y₂-1-1011Variance along together direction (1,1)/√2: 2.050737Variance along opposite direction (1,−1)/√2: 0.449263The residual vector points entirely along the opposite direction. Its squared length is 2, so the quadratic fit cost rᵀC⁻¹r is 2 divided by that direction's variance. The long-scale model squeezes precisely the direction these observations use. The determinant term also matters; this geometric fact explains the fit-cost change, not the entire model-selection decision by itself.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gaussian-processes-gp",
+    "selector": ".gp-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "One inducing value leaves uncertainty about how the function bends around it.",
+      "rect": {
+        "bottom": 1062.6250610351562,
+        "height": 525.4583740234375,
+        "left": 344,
+        "right": 1104,
+        "top": 537.1666870117188,
+        "width": 760,
+        "x": 344,
+        "y": 537.1666870117188
+      },
+      "text": "One inducing value leaves uncertainty about how the function bends around it.Constructed RBF prior with length one and variance one. Training inputs are −1,0,1; retain one inducing variable u=f(0). Each column splits prior variance 1 into Q's diagonal and the residual diagonal of K−Q.x=-1Represented 0.368Residual 0.632x=0Represented 1.000Residual 0.000x=1Represented 0.368Residual 0.632White: Qᵢᵢ = k(xᵢ,0)²/k(0,0)=exp(−xᵢ²). Amber: remaining prior variance 1−Qᵢᵢ. Given u exactly, f(0) is known, but f(−1) and f(1) are not.Residual trace = 1.264241. With noise variance .25, the bound subtracts trace/(2·.25) = 2.528482.This residual is about what u represents before observing y; it is not the final noisy-data posterior variance. More useful inducing locations can reduce the unexplained directions. Simply discarding the amber portion would make the approximation appear more informative than this representation warrants.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gaussian-processes-gp",
+    "selector": ".gp-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Recurrence and persistence are two different assumptions.",
+      "rect": {
+        "bottom": 1125.5104370117188,
+        "height": 651.03125,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 474.4791870117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 474.4791870117187
+      },
+      "text": "Recurrence and persistence are two different assumptions.Unit variance, period one day. The dashed periodic covariance returns to 1 every day; multiplying it by an RBF with decay length two days produces the amber curve.00.510246covarianceseparation in daysSame-hour covariance after 2, 4 and 6 days is respectively e⁻⁰·⁵≈.6065, e⁻²≈.1353 and e⁻⁴·⁵≈.0111 in the product model. Periodicity says which phases resemble one another; the decay says how long that resemblance persists. These are computed covariance curves, not sampled functions or measurements.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "gaussian-processes-gp",
+    "selector": ".gp-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "One inducing value leaves uncertainty about how the function bends around it.",
+      "rect": {
+        "bottom": 1256.406280517578,
+        "height": 912.5416870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 343.8645935058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 343.8645935058594
+      },
+      "text": "One inducing value leaves uncertainty about how the function bends around it.Constructed RBF prior with length one and variance one. Training inputs are −1,0,1; retain one inducing variable u=f(0). Each column splits prior variance 1 into Q's diagonal and the residual diagonal of K−Q.x=-1Represented 0.368Residual 0.632x=0Represented 1.000Residual 0.000x=1Represented 0.368Residual 0.632White: Qᵢᵢ = k(xᵢ,0)²/k(0,0)=exp(−xᵢ²). Amber: remaining prior variance 1−Qᵢᵢ. Given u exactly, f(0) is known, but f(−1) and f(1) are not.Residual trace = 1.264241. With noise variance .25, the bound subtracts trace/(2·.25) = 2.528482.This residual is about what u represents before observing y; it is not the final noisy-data posterior variance. More useful inducing locations can reduce the unexplained directions. Simply discarding the amber portion would make the approximation appear more informative than this representation warrants.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "semi-supervised-learning-label-propagation-self-training-co-training",
+    "selector": ".ssl-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Explore which branch supplies the target and which receives the gradient",
+      "rect": {
+        "bottom": 1130.8229370117188,
+        "height": 661.9791870117188,
+        "left": 344,
+        "right": 1104,
+        "top": 468.84375,
+        "width": 760,
+        "x": 344,
+        "y": 468.84375
+      },
+      "text": "Explore which branch supplies the target and which receives the gradientOne constructed binary example. The weak view always favors class 1 here. Controls change supplied model outputs; this does not simulate image augmentation or train a network.Weak-view class-1 probability: 0.98Acceptance threshold: 0.95Strong-view class-1 probability: 0.401 · Freeze the proposed targetWeak output: [0.02, 0.98]Accepted → target [0, 1]No gradient through the hard target or threshold decision in this update.2 · Score the strong viewStrong output: [0.60, 0.40]Masked loss: 0.9163Derivative w.r.t. strong class-1 logit: -0.6000A negative derivative asks gradient descent to raise that logit.Reset exampleMove the weak score across the threshold, then change the strong score. Once accepted, making the weak score more confident does not further scale this hard-label loss. Confidence selects a target; it does not establish that the target is correct.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "semi-supervised-learning-label-propagation-self-training-co-training",
+    "selector": ".ssl-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Agreement depends on the coordinates being compared",
+      "rect": {
+        "bottom": 1335.9583740234375,
+        "height": 1072.2708740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 263.6875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 263.6875
+      },
+      "text": "Agreement depends on the coordinates being comparedA—B—C has unit edge weights and degrees 1, 2, 1. These are constructed score columns, not fitted class probabilities.Equal raw scoresABCCommon bar-height scale in both panelsRaw: 1.000, 1.000, 1.000Normalized: 1.000, 0.707, 1.000Normalized energy: 0.171573Equal normalized scoresABCCommon bar-height scale in both panelsRaw: 1.000, 1.414, 1.000Normalized: 1.000, 1.000, 1.000Normalized energy: 0.000000White bars show fᵢ; amber bars show fᵢ / √dᵢ. The normalized smoothness term compares amber bars across edges. Zero smoothness cost alone does not make these scores the fitted solution: label fidelity still contributes to the full objective.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "active-learning",
+    "selector": ".active-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Similar uncertainty can point toward different parameter changes",
+      "rect": {
+        "bottom": 1151.0833740234375,
+        "height": 702.7396240234375,
+        "left": 344,
+        "right": 1104,
+        "top": 448.34375,
+        "width": 760,
+        "x": 344,
+        "y": 448.34375
+      },
+      "text": "Similar uncertainty can point toward different parameter changesAll three candidates have probabilities [0.6, 0.4], with pseudo-label 0. Their two class-gradient blocks are [−0.4z, +0.4z].ABCz₁z₂0This is the two-dimensional feature plane. Here the full gradient squared distance equals 0.32 times squared feature distance, so it preserves this geometry exactly up to scale.After A is selectedDistance-squared sampling for the next centerCandidated² to AProbabilityB0.00640.0025C2.56000.9975B repeats almost the same gradient direction. C receives 99.75% of this sampling probability. It is favored, not guaranteed to be selected.Constructed conditional sampling step with A already selected. For varying probabilities the gradient geometry need not preserve feature distances this simply. The true label remains unobserved; acquisition still asks the oracle before training on the selected item.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "active-learning",
+    "selector": ".active-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "An uncertain measurement can help little at the location you care about",
+      "rect": {
+        "bottom": 1338.46875,
+        "height": 1077.5,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 260.96875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 260.96875
+      },
+      "text": "An uncertain measurement can help little at the location you care aboutConstructed valid GP covariance: target variance 1; noise variance 0.25; covariance between A and B is zero. All variances and covariances use squared response units.Measure candidate AOwn variance: 4Covariance with target: 0.2BeforeAfter01 variance unitReduction: 0.009412Remaining: 0.990588Measure candidate BOwn variance: 1Covariance with target: 0.8BeforeAfter01 variance unitReduction: 0.512000Remaining: 0.488000White = remaining target variance; amber = reduction. A has the larger uncertainty about itself, but B is more informative about this target. These bars compute the stated GP formula; they do not show measured prediction error or refitted kernel parameters.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "selector": ".metric-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Choose what receives one vote before averaging",
+      "rect": {
+        "bottom": 1076.5416870117188,
+        "height": 553.09375,
+        "left": 344,
+        "right": 1104,
+        "top": 523.4479370117188,
+        "width": 760,
+        "x": 344,
+        "y": 523.4479370117188
+      },
+      "text": "Choose what receives one vote before averagingEach class gets the same weightClass 0: weight 0.3333 × F1 0.7619Contribution: 0.253968Class 1: weight 0.3333 × F1 0.5000Contribution: 0.166667Class 2: weight 0.3333 × F1 0.0000Contribution: 0.000000Sum: 0.420635Each class gets its support weightClass 0: weight 0.6250 × F1 0.7619Contribution: 0.476190Class 1: weight 0.2500 × F1 0.5000Contribution: 0.125000Class 2: weight 0.1250 × F1 0.0000Contribution: 0.000000Sum: 0.601190Every weight bar has a fixed 0–1 scale. Class 2 contributes zero in both averages because its F1 is zero; its missing performance receives more weight under macro averaging. Micro averaging follows a different route: pool the individual decision counts first, then form the ratio.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "selector": ".metric-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "The best single number depends on what errors cost",
+      "rect": {
+        "bottom": 1613.802083015442,
+        "height": 1627.5625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": -13.760416984558104,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": -13.760416984558104
+      },
+      "text": "The best single number depends on what errors costTreat the five durations [1, 2, 3, 4, 10] as equally likely possible outcomes for one forecast context. Each curve averages the stated loss over all five outcomes.Absolute error900341012One forecast, minutesVertical: mean loss, minutes.Best forecast: 3Loss there: 2.20Squared error8000341012One forecast, minutesVertical: mean loss, minutes².Best forecast: 4Loss there: 10.0090% pinball loss400341012One forecast, minutesVertical: mean loss, minutes.Best forecast: 10Loss there: 0.60The different vertical scales are labeled; compare each curve's minimizer, not their heights across panels. These exact empirical objectives explain median, mean and upper-quantile targets. They are not fitted-model performance curves.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "pac-learning-vc-dimension",
+    "selector": ".pac-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "The comparison threshold is .5 and the required separation γ is .1. Output .55 is above the threshold, but it cannot witness the positive margin condition f(x)≥.6. Output .65 can; output .35 satisfies the negative condition f(x)≤.4. Shattering asks for every requested pattern across all selected inputs with their thresholds fixed in advance. A single point crossing a threshold does not establish the dimension.",
+      "rect": {
+        "bottom": 998.2291870117188,
+        "height": 397.1041870117187,
+        "left": 344,
+        "right": 1104,
+        "top": 601.125,
+        "width": 760,
+        "x": 344,
+        "y": 601.125
+      },
+      "text": "At one fixed input0.30.40.50.60.7.55function output f(x)The comparison threshold is .5 and the required separation γ is .1. Output .55 is above the threshold, but it cannot witness the positive margin condition f(x)≥.6. Output .65 can; output .35 satisfies the negative condition f(x)≤.4. Shattering asks for every requested pattern across all selected inputs with their thresholds fixed in advance. A single point crossing a threshold does not establish the dimension.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "pac-learning-vc-dimension",
+    "selector": ".pac-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Remove the last of three ordered points, then restore its label",
+      "rect": {
+        "bottom": 1094.6458740234375,
+        "height": 589.9166870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 504.7291870117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 504.7291870117187
+      },
+      "text": "Remove the last of three ordered points, then restore its labelFirst two labelsAllowed full patternsBeyond counting the prefix once00000, 001one extra copy01010, 011one extra copy10100no extra copy11110, 111one extra copyThere are 4 distinct prefixes and 3 prefixes with both extensions, giving 4+3=7 full patterns. Prefix 10 cannot extend to 101. The extra-copy collection contains 00, 01 and 11 but not 10: its flexibility has dropped from the interval class's two-point shattering to at most one-point shattering. This small enumeration exposes the two collections in Sauer's recurrence.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "calibration-conformal-prediction",
+    "selector": ".cal-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Constructed intermediate values at one new input. Each center and residual belong to the same leave-one-out fit. Keep lower candidates [9,12,7] and upper candidates [11,16,9], then apply the method's finite-sample lower/upper order-statistic rules. Replacing all three centers by one final prediction discards the between-fit variation. These segments are intermediate candidates, not three separately guaranteed intervals.",
+      "rect": {
+        "bottom": 1038.3958740234375,
+        "height": 476.34375,
+        "left": 344,
+        "right": 1104,
+        "top": 562.0521240234375,
+        "width": 760,
+        "x": 344,
+        "y": 562.0521240234375
+      },
+      "text": "omit 1911omit 21216omit 3796810121416Constructed intermediate values at one new input. Each center and residual belong to the same leave-one-out fit. Keep lower candidates [9,12,7] and upper candidates [11,16,9], then apply the method's finite-sample lower/upper order-statistic rules. Replacing all three centers by one final prediction discards the between-fit variation. These segments are intermediate candidates, not three separately guaranteed intervals.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "calibration-conformal-prediction",
+    "selector": ".cal-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Solid amber: τ=.8. Dashed neutral: τ=.2. At τ=.8, predicting 1 when y=2 costs .8; predicting 3 costs .2. The asymmetric cost pushes a fitted upper quantile upward. At τ=.5 the two sides have equal slope, giving absolute-error median fitting. These are single-outcome loss curves, not fitted quantiles.",
+      "rect": {
+        "bottom": 1051.2813110351562,
+        "height": 503.1354370117187,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 548.1458740234375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 548.1458740234375
+      },
+      "text": "01234lossproposed prediction q; y=2Solid amber: τ=.8. Dashed neutral: τ=.2. At τ=.8, predicting 1 when y=2 costs .8; predicting 3 costs .2. The asymmetric cost pushes a fitted upper quantile upward. At τ=.5 the two sides have equal slope, giving absolute-error median fitting. These are single-outcome loss curves, not fitted quantiles.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "time-series-validation-forecasting-baselines",
+    "selector": ".ts-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Ten constructed seven-day paths",
+      "rect": {
+        "bottom": 1414.5000457763672,
+        "height": 1229.4583740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 185.0416717529297,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 185.0416717529297
+      },
+      "text": "Misses spread across pathsTen constructed seven-day pathsPathD1D2D3D4D5D6D71×······2·×·····3··×····4···×···5····×··6·····×·7······×8·······9·······10·······Every day: 9/10 insideEntire path: 3/10 insideMisses coincide on one pathTen constructed seven-day pathsPathD1D2D3D4D5D6D71×××××××2·······3·······4·······5·······6·······7·······8·······9·······10·······Every day: 9/10 insideEntire path: 9/10 insideDot = inside that day's interval; × = outside. Each column has the same 90% empirical coverage in both constructions. Requiring all seven entries in a row to be inside leaves three complete paths when misses are spread across paths, and nine when misses coincide on one path. Daily coverage alone does not determine their joint coverage. These are counting examples, not fitted interval results or an independence assumption.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": ".ete-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "The observed fraction is one, but a small perfect sample does not establish a perfect population. Wilson's approximate 95% interval remains about [0.722, 1]. A naive plug-in normal interval uses zero estimated variance at this boundary and collapses to [1,1]. Neither interval repairs dependence or unrepresentative sampling.",
+      "rect": {
+        "bottom": 1011,
+        "height": 422.3125,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 588.6875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 588.6875
+      },
+      "text": "10 successes / 10 hypothetical trials0.72200.51Candidate population success rateThe observed fraction is one, but a small perfect sample does not establish a perfect population. Wilson's approximate 95% interval remains about [0.722, 1]. A naive plug-in normal interval uses zero estimated variance at this boundary and collapses to [1,1]. Neither interval repairs dependence or unrepresentative sampling.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A batch adds examples, not extra neurons",
+      "rect": {
+        "bottom": 1037.8645935058594,
+        "height": 476.3645935058594,
+        "left": 344,
+        "right": 1104,
+        "top": 561.5,
+        "width": 760,
+        "x": 344,
+        "y": 561.5
+      },
+      "text": "A batch adds examples, not extra neuronsTwo example rows X2−103Columns are input features.Two neuron rules W1.5−2−11Rows are neurons. Biases: −1 and 0.5.Example 1: (2, -1)Neuron 14ReLU → 4Neuron 2−2.5ReLU → 0Example 2: (0, 3)Neuron 1−7ReLU → 0Neuron 23.5ReLU → 3.5Top-left result: 2 × 1.5 + (−1) × (−2) − 1 = 4. Top-right: 2 × (−1) + (−1) × 1 + 0.5 = −2.5. The second example uses those same two rules and biases. Transposing W puts each neuron’s rule in a column for X @ W.T.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "One score rises; every probability can change",
+      "rect": {
+        "bottom": 988.3333740234376,
+        "height": 377.0625,
+        "left": 344,
+        "right": 1104,
+        "top": 611.2708740234375,
+        "width": 760,
+        "x": 344,
+        "y": 611.2708740234375
+      },
+      "text": "One score rises; every probability can changeScores (1, 2, 3)Class 1: 0.09Class 2: 0.2447Class 3: 0.6652Scores (1, 2, 4)Class 1: 0.042Class 2: 0.1142Class 3: 0.8438Each strip is one unit of probability; segments retain class order. Only score 3 changed. Its larger exponential takes more of the shared total, reducing the other two shares. Their ratio stays e¹:e². Independent sigmoids would leave the first two outputs unchanged.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "index": 3,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A hard cutoff becomes an input-dependent fraction",
+      "rect": {
+        "bottom": 1035.8750610351562,
+        "height": 471.4479370117187,
+        "left": 344,
+        "right": 1104,
+        "top": 564.4271240234375,
+        "width": 760,
+        "x": 344,
+        "y": 564.4271240234375
+      },
+      "text": "A hard cutoff becomes an input-dependent fractionEach bar shows the multiplier between 0 and 1. Multiply it by the signed input to obtain the activation. GELU values here use the standard-normal CDF.Input z = -1ReLU0 × -1 = 0GELU0.1587 × -1 = −0.1587SiLU0.2689 × -1 = −0.2689Input z = 1ReLU1 × 1 = 1GELU0.8413 × 1 = 0.8413SiLU0.7311 × 1 = 0.7311At a negative input, a positive multiplier preserves a small negative output; it does not flip the sign. SwiGLU’s later multiplication can flip a separate value because its SiLU gate itself can be negative.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A mistaken row supplies the direction of its own correction",
+      "rect": {
+        "bottom": 1166.4479370117188,
+        "height": 733.5625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 432.8854370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 432.8854370117187
+      },
+      "text": "A mistaken row supplies the direction of its own correctionConstructed input (1, 2), desired label +1, step 0.5. The score starts at −1.Current parametersw₁−1w₂0bias0Add half the augmented inputw₁0.5w₂1bias0.5Updated parametersw₁−0.5w₂1bias0.5New score: (−0.5) × 1 + 1 × 2 + 0.5 = 2The first input changes its own contribution by 0.5; the second by 2; the bias by 0.5. Together they raise this row’s score by 3. For a mistaken negative label, the same correction is subtracted. Another row has different input products and need not improve.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "One score rises; every probability can change",
+      "rect": {
+        "bottom": 1056.1979370117188,
+        "height": 513.0625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 543.1354370117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 543.1354370117188
+      },
+      "text": "One score rises; every probability can changeScores (1, 2, 3)Class 1: 0.09Class 2: 0.2447Class 3: 0.6652Scores (1, 2, 4)Class 1: 0.042Class 2: 0.1142Class 3: 0.8438Each strip is one unit of probability; segments retain class order. Only score 3 changed. Its larger exponential takes more of the shared total, reducing the other two shares. Their ratio stays e¹:e². Independent sigmoids would leave the first two outputs unchanged.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "perceptrons-neurons-activation-functions",
+    "selector": ".neuron-intuition",
+    "index": 3,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A hard cutoff becomes an input-dependent fraction",
+      "rect": {
+        "bottom": 1207.7708740234375,
+        "height": 815.4479370117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 392.3229370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 392.3229370117187
+      },
+      "text": "A hard cutoff becomes an input-dependent fractionEach bar shows the multiplier between 0 and 1. Multiply it by the signed input to obtain the activation. GELU values here use the standard-normal CDF.Input z = -1ReLU0 × -1 = 0GELU0.1587 × -1 = −0.1587SiLU0.2689 × -1 = −0.2689Input z = 1ReLU1 × 1 = 1GELU0.8413 × 1 = 0.8413SiLU0.7311 × 1 = 0.7311At a negative input, a positive multiplier preserves a small negative output; it does not flip the sign. SwiGLU’s later multiplication can flip a separate value because its SiLU gate itself can be negative.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "backpropagation-automatic-differentiation",
+    "selector": "[data-backprop-figure=\"matrix-sensitivity\"], [data-backprop-figure=\"ce-signal\"], [data-backprop-figure=\"microbatch-weights\"]",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Cross-entropy compares allocated probability with the target allocation",
+      "rect": {
+        "bottom": 1058.5208740234375,
+        "height": 516.46875,
+        "left": 344,
+        "right": 1104,
+        "top": 542.0521240234375,
+        "width": 760,
+        "x": 344,
+        "y": 542.0521240234375
+      },
+      "text": "Cross-entropy compares allocated probability with the target allocationA · 0.2B · 0.3C · 0.5Probability minus one-hot targetScroll the table horizontally to inspect every column.Probability minus one-hot targetClassp − targetLogit derivativeGradient descent directionA.2 − 0+.2Lower this logitB (true).3 − 1−.7Raise this logitC.5 − 0+.5Lower more stronglyThe derivatives add to zero: .2 − .7 + .5 = 0. Shifting all logits equally changes no probability, so there is no loss sensitivity along that common-shift direction.One unweighted example, true class B. These are logit derivatives; a parameter gradient also multiplies by the derivatives of its logits. No batch averaging factor is needed for this one row.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "backpropagation-automatic-differentiation",
+    "selector": "[data-backprop-figure=\"matrix-sensitivity\"], [data-backprop-figure=\"ce-signal\"], [data-backprop-figure=\"microbatch-weights\"]",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Each example should keep the same share of the objective",
+      "rect": {
+        "bottom": 1256.3125,
+        "height": 912.8125,
+        "left": 344,
+        "right": 1104,
+        "top": 343.5,
+        "width": 760,
+        "x": 344,
+        "y": 343.5
+      },
+      "text": "Each example should keep the same share of the objectiveDesired full-batch mean(ℓ₁ + ℓ₂ + ℓ₃ + ℓ₄ + ℓ₅) / 50.2ℓ10.2ℓ20.2ℓ30.2ℓ40.2ℓ5Unweighted sum of two means(ℓ₁ + ℓ₂) / 2 + (ℓ₃ + ℓ₄ + ℓ₅) / 30.5ℓ10.5ℓ2⅓ℓ3⅓ℓ4⅓ℓ5Means weighted by group size(2/5) × mean(first 2) + (3/5) × mean(last 3)0.2ℓ10.2ℓ20.2ℓ30.2ℓ40.2ℓ5In the unweighted sum, an example in the small group has 1.5 times the coefficient of an example in the large group. Dividing that sum by two rescales it but preserves the unequal weighting. Multiplying each group mean by its fraction of the five examples repairs both.Five examples split into groups of two and three. Column heights encode each example's coefficient on a common 0–0.5 scale. These are objective weights, not loss magnitudes.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "backpropagation-automatic-differentiation",
+    "selector": "[data-backprop-figure=\"matrix-sensitivity\"], [data-backprop-figure=\"ce-signal\"], [data-backprop-figure=\"microbatch-weights\"]",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "One input reaches two outputs; one weight is reused by two rows",
+      "rect": {
+        "bottom": 1319.2917175292969,
+        "height": 1038.4896240234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 280.8020935058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 280.8020935058594
+      },
+      "text": "One input reaches two outputs; one weight is reused by two rowsOne input a₁ = 2Other input a₂ = −1↗ coefficient 3 → y₁ = 3a₁ + a₂ = 5← contribution 2 × 3 = 6↘ coefficient −2 → y₂ = −2a₁ + 4a₂ = −8← contribution (−1) × (−2) = 2Collect at a₁: 6 + 2 = 8. Increasing a₁ by ε changes the outputs by (3ε, −2ε); their first-order loss effect is 2(3ε) − 1(−2ε) = 8ε.The same collection rule for a shared weightScroll the table horizontally to inspect every column.The same collection rule for a shared weightUse of weight wInput multiplying wOutput sensitivityContribution to w1222 × 2 = 425-15 × (−1) = −5Collect both usesTwo training rowsSum contributions4 − 5 = −1The first calculation sums across output columns for an input. The second sums across example rows for a shared weight. Those are the two contractions in GBᵀ and AᵀG.Constructed linear example. Arrows carry local derivatives, not forward values. The incoming output sensitivities (2, −1) already include the rest of the loss.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "backpropagation-automatic-differentiation",
+    "selector": "[data-backprop-figure=\"matrix-sensitivity\"], [data-backprop-figure=\"ce-signal\"], [data-backprop-figure=\"microbatch-weights\"]",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Cross-entropy compares allocated probability with the target allocation",
+      "rect": {
+        "bottom": 1182.3958740234375,
+        "height": 764.5208740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 417.875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 417.875
+      },
+      "text": "Cross-entropy compares allocated probability with the target allocationA · 0.2B · 0.3C · 0.5Probability minus one-hot targetScroll the table horizontally to inspect every column.Probability minus one-hot targetClassp − targetLogit derivativeGradient descent directionA.2 − 0+.2Lower this logitB (true).3 − 1−.7Raise this logitC.5 − 0+.5Lower more stronglyThe derivatives add to zero: .2 − .7 + .5 = 0. Shifting all logits equally changes no probability, so there is no loss sensitivity along that common-shift direction.One unweighted example, true class B. These are logit derivatives; a parameter gradient also multiplies by the derivatives of its logits. No batch averaging factor is needed for this one row.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "loss-functions-ce-mse-focal-contrastive-triplet",
+    "selector": ".loss-intuition-figure",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Ask for extra angular agreement with the correct class",
+      "rect": {
+        "bottom": 1045.0729370117188,
+        "height": 489.7291870117187,
+        "left": 344,
+        "right": 1104,
+        "top": 555.34375,
+        "width": 760,
+        "x": 344,
+        "y": 555.34375
+      },
+      "text": "Ask for extra angular agreement with the correct classClass direction · 0°Solid: feature θ = 30°Dashed: score at θ + m = 40°With margin 10° (π/18 radians) and logit scale 10: the ordinary target logit is 10 cos 30° ≈ 8.6603; the margin target logit is 10 cos 40° ≈ 7.6604. Other class logits stay fixed.The feature remains on the solid ray. The dashed ray visualizes the angle used to score the true class, not a transformed embedding. On this decreasing-cosine branch, recovering the old target score requires stronger alignment. This local geometric example is not a complete ArcFace boundary-policy implementation.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "loss-functions-ce-mse-focal-contrastive-triplet",
+    "selector": ".loss-intuition-figure",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A high quantile puts a stronger pull on underestimates",
+      "rect": {
+        "bottom": 1153.8438110351562,
+        "height": 708.2083740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 445.6354370117187,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 445.6354370117187
+      },
+      "text": "A high quantile puts a stronger pull on underestimatesFive measurements: 1, 2, 3, 4, 10. Quantile q = .75. Each measurement above the estimate contributes −.75 to its derivative; each below contributes +.25.Current estimate 3.5y = 1←+.25y = 2←+.25y = 3←+.25y = 4→−.75y = 10→−.75Total derivative −.75: subtracting it moves the estimate upward.Current estimate 4.5y = 1←+.25y = 2←+.25y = 3←+.25y = 4←+.25y = 10→−.75Total derivative +.25: subtracting it moves the estimate downward.Arrows show gradient-descent direction for the estimate, not positions on a number line. The optimum is the kink at 4: a valid subgradient there includes zero. We sum here; averaging divides every derivative by five without moving the optimum.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "batch-layer-group-rms-normalization",
+    "selector": ".normalization-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Running statistics retain a fading history",
+      "rect": {
+        "bottom": 1016.4063110351562,
+        "height": 432.5104370117187,
+        "left": 344,
+        "right": 1104,
+        "top": 583.8958740234375,
+        "width": 760,
+        "x": 344,
+        "y": 583.8958740234375
+      },
+      "text": "Running statistics retain a fading historyMomentum .1; initial mean 0; successive batch means 4, 8, 2. Expanding the update after three batches gives:Initial buffer: weight 0.729 × mean 0 = 0.000Batch 1: weight 0.081 × mean 4 = 0.324Batch 2: weight 0.09 × mean 8 = 0.720Batch 3: weight 0.1 × mean 2 = 0.200Running mean = .324 + .720 + .200 = 1.244. The initial zero still owns 72.9% of the weighting. It has not become an equal average of the three batches.The strip encodes weights, not statistic values. A batch's weight is multiplied by .9 after every subsequent update. This is fixed momentum, not the optional cumulative-average setting.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "batch-layer-group-rms-normalization",
+    "selector": ".normalization-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Statistics travel across features; parameter contributions collect across tokens",
+      "rect": {
+        "bottom": 1019.7917175292968,
+        "height": 440.2083435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 579.5833740234375,
+        "width": 760,
+        "x": 344,
+        "y": 579.5833740234375
+      },
+      "text": "Statistics travel across features; parameter contributions collect across tokensOne sequence, two tokens, three features per token. LayerNorm(3) gives each row its own mean and scale; the same three γ values serve both rows.Feature 1γ₁Feature 2γ₂Feature 3γ₃Token 1 →123Token 2 →246Collect γ gradients ↓d₁₁h₁₁+ d₂₁h₂₁d₁₂h₁₂+ d₂₂h₂₂d₁₃h₁₃+ d₂₃h₂₃h is the normalized input; d is the arriving output derivative. Row membership determines statistics. Column reuse determines γ-gradient sums. Across a batch, each column also collects the other examples' contributions. β collects d over the same parameter-sharing uses.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "batch-layer-group-rms-normalization",
+    "selector": ".normalization-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A hidden route from the future into the present",
+      "rect": {
+        "bottom": 1153.1042175292969,
+        "height": 705.5833740234375,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 447.5208435058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 447.5208435058594
+      },
+      "text": "A hidden route from the future into the presentOriginal two-token sequencePresent token[1, 3]Future token[5, 7]↓ Shared statistics across all four values: μ = 4, v = 5↖ First output = (1 − 4) / √(5 + ε) ≈ -1.341639Only the future token changesPresent token[1, 3]Future token[15, 17]↓ Shared statistics across all four values: μ = 9, v = 50↖ First output = (1 − 9) / √(50 + ε) ≈ -1.131371ε = 10⁻⁵, identity affine parameters. Time-and-feature normalization changes the present output even though its input is fixed. Per-token LayerNorm uses [1, 3] alone and keeps the first output at approximately −.999995 in both cases. A causal attention mask cannot block this separate statistics route.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "batch-layer-group-rms-normalization",
+    "selector": ".normalization-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Statistics travel across features; parameter contributions collect across tokens",
+      "rect": {
+        "bottom": 1085.7396240234375,
+        "height": 571.2916870117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 514.4479370117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 514.4479370117188
+      },
+      "text": "Statistics travel across features; parameter contributions collect across tokensOne sequence, two tokens, three features per token. LayerNorm(3) gives each row its own mean and scale; the same three γ values serve both rows.Feature 1γ₁Feature 2γ₂Feature 3γ₃Token 1 →123Token 2 →246Collect γ gradients ↓d₁₁h₁₁+ d₂₁h₂₁d₁₂h₁₂+ d₂₂h₂₂d₁₃h₁₃+ d₂₃h₂₃h is the normalized input; d is the arriving output derivative. Row membership determines statistics. Column reuse determines γ-gradient sums. Across a batch, each column also collects the other examples' contributions. β collects d over the same parameter-sharing uses.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "transfer-learning-fine-tuning-strategies",
+    "selector": ".transfer-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "One measurement controls one output direction",
+      "rect": {
+        "bottom": 1086.2604370117188,
+        "height": 572.8854370117188,
+        "left": 344,
+        "right": 1104,
+        "top": 513.375,
+        "width": 760,
+        "x": 344,
+        "y": 513.375
+      },
+      "text": "One measurement controls one output directionHold A = [1, −1], B = [1, 2]ᵀ and scale s = 1 fixed. Different inputs change the amount and sign of the correction, but every correction stays on the line through B.(1, 2)(-2, -4)(0, 0)Output coordinates · equal unit scalesx = (2, 1)Ax = 1Correction = (1, 2)x = (0, 2)Ax = -2Correction = (-2, -4)x = (3, 3)Ax = 0Correction = (0, 0)This shows the added correction, not the full output Wx + BAx. The base W can still produce outputs outside this line. Learning B can change the line; a fixed rank-one adapter still offers only one correction direction at a time.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "transfer-learning-fine-tuning-strategies",
+    "selector": ".transfer-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Follow one feature correction through the detour",
+      "rect": {
+        "bottom": 1080.7188110351562,
+        "height": 561.9896240234375,
+        "left": 344,
+        "right": 1104,
+        "top": 518.7291870117188,
+        "width": 760,
+        "x": 344,
+        "y": 518.7291870117188
+      },
+      "text": "Follow one feature correction through the detourh = (1, 2); down weights D = [1, −1]; up weights U = [.5, −.25]ᵀ; both biases zero. This is an after-initialization example with nonzero up weights.Keep the direct routeh = (1, 2) ─────────→ add at the endMeasure a differenceDh = 1 − 2 = −1Apply the nonlinearitytanh(−1) = -0.761594Distribute the correctionU tanh(Dh) = (-0.380797, 0.190399)Rejoin the original featuresh′ = (0.619203, 2.190399)The intermediate bottleneck is one number, yet it affects two output coordinates. Doubling h does not generally double the correction because tanh is nonlinear. Unlike a fixed linear LoRA path, this detour cannot generally be absorbed into one constant matrix.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "transfer-learning-fine-tuning-strategies",
+    "selector": ".transfer-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A head can fail for two different reasons",
+      "rect": {
+        "bottom": 1330.635498046875,
+        "height": 1061.354248046875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 269.28125,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 269.28125
+      },
+      "text": "A head can fail for two different reasonsTask: decide whether two signs agree. Filled circles mean “same”; hollow squares mean “different.” Reuse the XOR-style geometry from the neuron lesson.Keep both coordinates(-1, -1)(-1, 1)(1, -1)(1, 1)A linear decision boundary cannot solve all four rows. A nonlinear head can use the sign of x₁x₂. The information is still present.Keep only the first coordinateFeature = -1● same□ differentBoth inputs now coincide.Feature = 1● same□ differentBoth inputs now coincide.Each feature value must serve conflicting labels. No deterministic head receiving only this feature can distinguish both cases.Constructed four-row example. The two-coordinate problem is a restriction of the head; the one-coordinate problem is lost information. Optimization and regularization can also weaken a measured probe, so its score alone does not identify the cause.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "transfer-learning-fine-tuning-strategies",
+    "selector": ".transfer-intuition",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "One measurement controls one output direction",
+      "rect": {
+        "bottom": 1246.6041870117188,
+        "height": 893.4479370117188,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 353.15625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 353.15625
+      },
+      "text": "One measurement controls one output directionHold A = [1, −1], B = [1, 2]ᵀ and scale s = 1 fixed. Different inputs change the amount and sign of the correction, but every correction stays on the line through B.(1, 2)(-2, -4)(0, 0)Output coordinates · equal unit scalesx = (2, 1)Ax = 1Correction = (1, 2)x = (0, 2)Ax = -2Correction = (-2, -4)x = (3, 3)Ax = 0Correction = (0, 0)This shows the added correction, not the full output Wx + BAx. The base W can still produce outputs outside this line. Learning B can change the line; a fixed rank-one adapter still offers only one correction direction at a time.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Which edges disappear together?",
+      "rect": {
+        "bottom": 1040.0104675292969,
+        "height": 480.0833435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 559.9271240234375,
+        "width": 760,
+        "x": 344,
+        "y": 559.9271240234375
+      },
+      "text": "Which edges disappear together?Input h = [1, 2]; weight rows [1, 1] and [1, −1]; output is Wh. For this comparison, use inverted scaling with keep probability 0.5.One activation decisionMask [1, 0] on h. Both recipients lose input 2.2020Recipient 1: 2 × 1 + 0 × 2 = 2Recipient 2: 2 × 1 + 0 × 2 = 2One decision per connectionKeep only the two diagonal weights. The recipients lose different inputs.200-2Recipient 1: 2 × 1 + 0 × 2 = 2Recipient 2: 0 × 1 + -2 × 2 = -4Rows are recipients; columns are inputs. Activation masking removes a whole column of the effective weight matrix. Connection masking can retain part of that column. This example applies our inverted convention to both operations; it does not assert that the original DropConnect paper used that convention.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Move the random draw to the quantity the loss actually uses",
+      "rect": {
+        "bottom": 1005.250030517578,
+        "height": 410.4895935058594,
+        "left": 344,
+        "right": 1104,
+        "top": 594.7604370117188,
+        "width": 760,
+        "x": 344,
+        "y": 594.7604370117188
+      },
+      "text": "Move the random draw to the quantity the loss actually usesFixed input [1, 2]. Independent Gaussian weights have means [0.5, −0.25] and variances [0.04, 0.01].Draw weights, then sumw₁ = 0.5 + 0.2ε₁w₂ = −0.25 + 0.1ε₂z = w₁ + 2w₂z = 0.2ε₁ + 0.2ε₂Compute moments, then draw zMean = 1(0.5) + 2(−0.25) = 0Variance = 1²(0.04) + 2²(0.01) = 0.08z = √0.08 εEach ε is standard normal. Both routes give the same single-example distribution N(0, 0.08), not identical draws. Independent local draws across examples preserve the sum of expected per-example losses; they do not preserve the joint covariance produced by one shared weight draw. Batch-coupled computations need additional analysis.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "The same number of zeros can remove different evidence",
+      "rect": {
+        "bottom": 1260.8750610351562,
+        "height": 922.0208740234376,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 338.85418701171875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 338.85418701171875
+      },
+      "text": "The same number of zeros can remove different evidenceConstructed 5 × 5 feature map masks: amber means retained; × means removed. Both remove 9 of 25 positions.Scattered positions×•×•×•×•×•••×•••×•×•••••×A contiguous 3 × 3 region••••••×××••×××••×××••••••A local detector can often use neighboring retained activations around scattered gaps. A block removes an entire neighborhood. These are chosen mask shapes, not samples or measured results from the DropBlock algorithm; its center sampling, overlap and rescaling still matter.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Move the random draw to the quantity the loss actually uses",
+      "rect": {
+        "bottom": 1174.1458435058594,
+        "height": 747.65625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 426.4895935058594,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 426.4895935058594
+      },
+      "text": "Move the random draw to the quantity the loss actually usesFixed input [1, 2]. Independent Gaussian weights have means [0.5, −0.25] and variances [0.04, 0.01].Draw weights, then sumw₁ = 0.5 + 0.2ε₁w₂ = −0.25 + 0.1ε₂z = w₁ + 2w₂z = 0.2ε₁ + 0.2ε₂Compute moments, then draw zMean = 1(0.5) + 2(−0.25) = 0Variance = 1²(0.04) + 2²(0.01) = 0.08z = √0.08 εEach ε is standard normal. Both routes give the same single-example distribution N(0, 0.08), not identical draws. Independent local draws across examples preserve the sum of expected per-example losses; they do not preserve the joint covariance produced by one shared weight draw. Batch-coupled computations need additional analysis.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "rnns-lstms-grus",
+    "selector": ".neural-table",
+    "index": 9,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": -364.5208282470703,
+        "height": 163.0729217529297,
+        "left": 368.6666870117187,
+        "right": 1079.3333740234375,
+        "top": -527.59375,
+        "width": 710.6666870117188,
+        "x": 368.6666870117187,
+        "y": -527.59375
+      },
+      "text": "Forward → and backward ← states at each valid positionPositionForward, paddedBackward, paddedBackward, true length1[0.20774, -0.02949, 0.18718][0.30487, 0.17152, 0.09222][0.18813, -0.05065, -0.06211]2[0.03243, -0.14923, 0.30278][0.35858, 0.38254, 0.16934][-0.02437, -0.09209, 0.02741]",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "rnns-lstms-grus",
+    "selector": ".neural-table",
+    "index": 9,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 958.8125610351562,
+        "height": 317.66668701171875,
+        "left": 32.66666793823242,
+        "right": 342.0000114440918,
+        "top": 641.1458740234375,
+        "width": 309.3333435058594,
+        "x": 32.66666793823242,
+        "y": 641.1458740234375
+      },
+      "text": "Forward → and backward ← states at each valid positionPositionForward, paddedBackward, paddedBackward, true length1[0.20774, -0.02949, 0.18718][0.30487, 0.17152, 0.09222][0.18813, -0.05065, -0.06211]2[0.03243, -0.14923, 0.30278][0.35858, 0.38254, 0.16934][-0.02437, -0.09209, 0.02741]",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "sequence-to-sequence-encoder-decoder",
+    "selector": ".neural-table:has(table[aria-label=\"9. Deeper connections and practical extensions\"])",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 903.2395935058594,
+        "height": 206.83334350585935,
+        "left": 344,
+        "right": 1104,
+        "top": 696.40625,
+        "width": 760,
+        "x": 344,
+        "y": 696.40625
+      },
+      "text": "9. Deeper connections and practical extensionsAligned informationEncode A B C, then decode X Y ZEncode C B A, then decode X Y ZA needed for XA→B→C→X: 3 edgesA→X: 1 edgeB needed for YB→C→X→Y: 3 edgesB→A→X→Y: 3 edgesC needed for ZC→X→Y→Z: 3 edgesC→B→A→X→Y→Z: 5 edges",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "sequence-to-sequence-encoder-decoder",
+    "selector": ".neural-table:has(table[aria-label=\"9. Deeper connections and practical extensions\"])",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 968.4896240234376,
+        "height": 337.63543701171875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 630.8541870117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 630.8541870117188
+      },
+      "text": "9. Deeper connections and practical extensionsAligned informationEncode A B C, then decode X Y ZEncode C B A, then decode X Y ZA needed for XA→B→C→X: 3 edgesA→X: 1 edgeB needed for YB→C→X→Y: 3 edgesB→A→X→Y: 3 edgesC needed for ZC→X→Y→Z: 3 edgesC→B→A→X→Y→Z: 5 edges",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "rnns-lstms-grus",
+    "selector": ".neural-table:has(table[aria-label=\"7. Different lengths, stacks and directions\"])",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 956.1770935058594,
+        "height": 312.1145935058594,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 644.0625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 644.0625
+      },
+      "text": "7. Different lengths, stacks and directionsOutput positionForward component has readBackward component has readAAD C B ABA BD C BCA B CD CDA B C DD",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "attention-mechanism-bahdanau-luong",
+    "selector": ".neural-table:has(table[aria-label=\"Remember where a speech reader has been\"])",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 969.093780517578,
+        "height": 338.1145935058594,
+        "left": 344,
+        "right": 1104,
+        "top": 630.9791870117188,
+        "width": 760,
+        "x": 344,
+        "y": 630.9791870117188
+      },
+      "text": "Remember where a speech reader has beenRead or tallySource ASource BSource CTotalFirst completed read0.60.30.11Second completed read0.20.50.31Coverage before the third read0.80.80.42Third read0.10.20.71Overlap: smaller of current share and old tally0.10.20.40.7Coverage after the third read0.91.01.13",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "attention-mechanism-bahdanau-luong",
+    "selector": ".neural-table:has(table[aria-label=\"Remember where a speech reader has been\"])",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 999.8333740234376,
+        "height": 399.6354370117187,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 600.1979370117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 600.1979370117188
+      },
+      "text": "Remember where a speech reader has beenRead or tallySource ASource BSource CTotalFirst completed read0.60.30.11Second completed read0.20.50.31Coverage before the third read0.80.80.42Third read0.10.20.71Overlap: smaller of current share and old tally0.10.20.40.7Coverage after the third read0.91.01.13",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "selector": ".neural-table:has(table[aria-label=\"3.4 A reused position needs a coherent address\"])",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 947.0833740234376,
+        "height": 294.35418701171875,
+        "left": 344,
+        "right": 1104,
+        "top": 652.7291870117188,
+        "width": 760,
+        "x": 344,
+        "y": 652.7291870117188
+      },
+      "text": "3.4 A reused position needs a coherent addressContributionNear key: r=+1Far key: r=−1Global distance term v r, for either query+0.5−0.5Query-dependent distance term q r when q=+1+1−1Total distance score when q=+1+1.5−1.5Query-dependent distance term q r when q=−1−1+1Total distance score when q=−1−0.5+0.5",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "selector": ".neural-table:has(table[aria-label=\"3.4 A reused position needs a coherent address\"])",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 1024.3541870117188,
+        "height": 448.25,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 576.1041870117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 576.1041870117188
+      },
+      "text": "3.4 A reused position needs a coherent addressContributionNear key: r=+1Far key: r=−1Global distance term v r, for either query+0.5−0.5Query-dependent distance term q r when q=+1+1−1Total distance score when q=+1+1.5−1.5Query-dependent distance term q r when q=−1−1+1Total distance score when q=−1−0.5+0.5",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"]), .neural-table:has(table[aria-label=\"Preserve that memory structure without expensive dense work\"])",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 881.8333587646484,
+        "height": 163.0729217529297,
+        "left": 344,
+        "right": 1104,
+        "top": 718.7604370117188,
+        "width": 760,
+        "x": 344,
+        "y": 718.7604370117188
+      },
+      "text": "A calculation you can reconcile by handOutput time0123Linear convolution1212Destination in a length-3 circle0120",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"]), .neural-table:has(table[aria-label=\"Preserve that memory structure without expensive dense work\"])",
+    "index": 2,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 925.03125,
+        "height": 250.59375,
+        "left": 344,
+        "right": 1104,
+        "top": 674.4375,
+        "width": 760,
+        "x": 344,
+        "y": 674.4375
+      },
+      "text": "Preserve that memory structure without expensive dense workPart of the inverse calculationValueEasy diagonal inverse R₀[1,0;0,0.5]Scalar denominator 1+qᵀR₀p2.5Rank-one correction R₀p qᵀR₀ / 2.5[0.4,0.2;0.2,0.1]Diagonal inverse minus correction[0.6,−0.2;−0.2,0.4]",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"]), .neural-table:has(table[aria-label=\"Preserve that memory structure without expensive dense work\"])",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 889.2708740234375,
+        "height": 178.40625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 710.8646240234375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 710.8646240234375
+      },
+      "text": "A calculation you can reconcile by handOutput time0123Linear convolution1212Destination in a length-3 circle0120",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"]), .neural-table:has(table[aria-label=\"Preserve that memory structure without expensive dense work\"])",
+    "index": 2,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 983.0521240234376,
+        "height": 366.7604370117187,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 616.2916870117188,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 616.2916870117188
+      },
+      "text": "Preserve that memory structure without expensive dense workPart of the inverse calculationValueEasy diagonal inverse R₀[1,0;0,0.5]Scalar denominator 1+qᵀR₀p2.5Rank-one correction R₀p qᵀR₀ / 2.5[0.4,0.2;0.2,0.1]Diagonal inverse minus correction[0.6,−0.2;−0.2,0.4]",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "linear-logistic-regression",
+    "selector": ".linear-intuition",
+    "index": 2,
+    "width": 820,
+    "height": 1600,
+    "info": {
+      "documentWidth": 805,
+      "heading": "Different penalties answer “how much evidence is enough?” differently.",
+      "rect": {
+        "bottom": 1486.0729598999023,
+        "height": 1372.7083740234375,
+        "left": 321,
+        "right": 763.6666870117188,
+        "top": 113.36458587646484,
+        "width": 442.6666870117187,
+        "x": 321,
+        "y": 113.36458587646484
+      },
+      "text": "Different penalties answer “how much evidence is enough?” differently.No penaltyw = aa: −2 to 2 →w: −2 to 2 ↑For a = 0.3: w = 0.3Ridge, λ = 0.5w = a / 1.5a: −2 to 2 →w: −2 to 2 ↑For a = 0.3: w = 0.2Lasso, λ = 0.5w = sign(a) max(|a| − 0.5, 0)a: −2 to 2 →w: −2 to 2 ↑For a = 0.3: w = 0.0Calculated for the scalar objective (w − a)²/2 plus the named penalty. Axes have equal units in all three panels. Ridge continuously shrinks the evidence; lasso creates a whole interval of evidence values that map to exactly zero.",
+      "viewport": [
+        820,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "dropout-droppath-stochastic-depth",
+    "selector": ".drop-noise-intuition",
+    "index": 0,
+    "width": 820,
+    "height": 1600,
+    "info": {
+      "documentWidth": 805,
+      "heading": "The same number of zeros can remove different evidence",
+      "rect": {
+        "bottom": 1210.4791870117188,
+        "height": 820.4375,
+        "left": 321,
+        "right": 763.6666870117188,
+        "top": 390.0416870117187,
+        "width": 442.6666870117187,
+        "x": 321,
+        "y": 390.0416870117187
+      },
+      "text": "The same number of zeros can remove different evidenceConstructed 5 × 5 feature map masks: amber means retained; × means removed. Both remove 9 of 25 positions.Scattered positions×•×•×•×•×•••×•••×•×•••••×A contiguous 3 × 3 region••••••×××••×××••×××••••••A local detector can often use neighboring retained activations around scattered gaps. A block removes an entire neighborhood. These are chosen mask shapes, not samples or measured results from the DropBlock algorithm; its center sampling, overlap and rescaling still matter.",
+      "viewport": [
+        820,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "rnns-lstms-grus",
+    "selector": ".neural-table:has(table[aria-label=\"7. Different lengths, stacks and directions\"])",
+    "index": 0,
+    "width": 820,
+    "height": 1600,
+    "info": {
+      "documentWidth": 805,
+      "rect": {
+        "bottom": 936.7291870117188,
+        "height": 273.6875,
+        "left": 321,
+        "right": 763.6666870117188,
+        "top": 663.0416870117188,
+        "width": 442.6666870117187,
+        "x": 321,
+        "y": 663.0416870117188
+      },
+      "text": "7. Different lengths, stacks and directionsOutput positionForward component has readBackward component has readAAD C B ABA BD C BCA B CD CDA B C DD",
+      "viewport": [
+        820,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "selector": ".lesson-table-wrap[aria-label=\"One seven-day target, three different label states at a day-20 snapshot (constructed)\"], .lesson-table-wrap[aria-label=\"A proxy can improve while the intended outcome worsens (constructed equal-size trials)\"]",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "One seven-day target, three different label states at a day-20 snapshot (constructed)",
+      "rect": {
+        "bottom": 942.0000610351562,
+        "height": 283.41668701171875,
+        "left": 344,
+        "right": 1104,
+        "top": 658.5833740234375,
+        "width": 760,
+        "x": 344,
+        "y": 658.5833740234375
+      },
+      "text": "One seven-day target, three different label states at a day-20 snapshot (constructed)Signup dayKnown history at snapshotWhat can be labeled?10No event through day 17; full reliable follow-upNegative: the entire target window was observed18No event yetUnresolved: days 21–25 are still in the future18Event on day 19, reliably recorded by day 20Positive: an event within the window is already established",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "selector": ".lesson-table-wrap[aria-label=\"One seven-day target, three different label states at a day-20 snapshot (constructed)\"], .lesson-table-wrap[aria-label=\"A proxy can improve while the intended outcome worsens (constructed equal-size trials)\"]",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "A proxy can improve while the intended outcome worsens (constructed equal-size trials)",
+      "rect": {
+        "bottom": 885.3333740234375,
+        "height": 170.375,
+        "left": 344,
+        "right": 1104,
+        "top": 714.9583740234375,
+        "width": 760,
+        "x": 344,
+        "y": 714.9583740234375
+      },
+      "text": "A proxy can improve while the intended outcome worsens (constructed equal-size trials)Recommendation ruleClicked out of 100 recommendationsClicked videos later rated usefulCurrent rule4030 of those 40Click-focused variant6020 of those 60",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "selector": ".lesson-table-wrap[aria-label=\"One seven-day target, three different label states at a day-20 snapshot (constructed)\"], .lesson-table-wrap[aria-label=\"A proxy can improve while the intended outcome worsens (constructed equal-size trials)\"]",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "One seven-day target, three different label states at a day-20 snapshot (constructed)",
+      "rect": {
+        "bottom": 1014.5104370117188,
+        "height": 429.0729370117187,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 585.4375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 585.4375
+      },
+      "text": "One seven-day target, three different label states at a day-20 snapshot (constructed)Signup dayKnown history at snapshotWhat can be labeled?10No event through day 17; full reliable follow-upNegative: the entire target window was observed18No event yetUnresolved: days 21–25 are still in the future18Event on day 19, reliably recorded by day 20Positive: an event within the window is already established",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "ml-problem-formulation-baselines-data-leakage",
+    "selector": ".lesson-table-wrap[aria-label=\"One seven-day target, three different label states at a day-20 snapshot (constructed)\"], .lesson-table-wrap[aria-label=\"A proxy can improve while the intended outcome worsens (constructed equal-size trials)\"]",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "A proxy can improve while the intended outcome worsens (constructed equal-size trials)",
+      "rect": {
+        "bottom": 991.0208435058594,
+        "height": 381.5520935058594,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 609.46875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 609.46875
+      },
+      "text": "A proxy can improve while the intended outcome worsens (constructed equal-size trials)Recommendation ruleClicked out of 100 recommendationsClicked videos later rated usefulCurrent rule4030 of those 40Click-focused variant6020 of those 60",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "time-series-validation-forecasting-baselines",
+    "selector": ".lesson-table-wrap[aria-label=\"At issue day 20 with immediate reporting, the last eligible training origin depends on the output\"]",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "At issue day 20 with immediate reporting, the last eligible training origin depends on the output",
+      "rect": {
+        "bottom": 928.8229675292968,
+        "height": 257.8958435058594,
+        "left": 344,
+        "right": 1104,
+        "top": 670.9271240234375,
+        "width": 760,
+        "x": 344,
+        "y": 670.9271240234375
+      },
+      "text": "At issue day 20 with immediate reporting, the last eligible training origin depends on the outputTraining outputLatest origin sLast label day neededDirect one-day target1920Direct three-day target1720Direct seven-day target1320Joint next-seven-day vector, all labels required1320 (the seventh coordinate)",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "time-series-validation-forecasting-baselines",
+    "selector": ".lesson-table-wrap[aria-label=\"At issue day 20 with immediate reporting, the last eligible training origin depends on the output\"]",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "At issue day 20 with immediate reporting, the last eligible training origin depends on the output",
+      "rect": {
+        "bottom": 1011.2708435058594,
+        "height": 422.6458435058594,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 588.625,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 588.625
+      },
+      "text": "At issue day 20 with immediate reporting, the last eligible training origin depends on the outputTraining outputLatest origin sLast label day neededDirect one-day target1920Direct three-day target1720Direct seven-day target1320Joint next-seven-day vector, all labels required1320 (the seventh coordinate)",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": "div[data-constructed-fixture^=\"Original four-case\"] .ete-table, div[data-constructed-fixture^=\"Original finite score-noise\"] .ete-table",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 901.1979370117188,
+        "height": 202.96875,
+        "left": 344,
+        "right": 1104,
+        "top": 698.2291870117188,
+        "width": 760,
+        "x": 344,
+        "y": 698.2291870117188
+      },
+      "text": "Pairing keeps the same case on both sides of the comparison (constructed)Case IDReference error indicatorCandidate error indicatorRepair contribution: reference − candidateA000B10+1C01−1D10+1",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": "div[data-constructed-fixture^=\"Original four-case\"] .ete-table, div[data-constructed-fixture^=\"Original finite score-noise\"] .ete-table",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 901.7604370117188,
+        "height": 202.96875,
+        "left": 344,
+        "right": 1104,
+        "top": 698.7916870117188,
+        "width": 760,
+        "x": 344,
+        "y": 698.7916870117188
+      },
+      "text": "Selecting the larger of two unbiased scores can make the reported score optimisticEqually likely noise outcomeCandidate A scoreCandidate B scoreSelected scoreBoth high.6.6.6A high, B low.6.4.6A low, B high.4.6.6Both low.4.4.4",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": "div[data-constructed-fixture^=\"Original four-case\"] .ete-table, div[data-constructed-fixture^=\"Original finite score-noise\"] .ete-table",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 1254.0729370117188,
+        "height": 908.6875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 345.38543701171875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 345.38543701171875
+      },
+      "text": "Pairing keeps the same case on both sides of the comparison (constructed)Case IDReference error indicatorCandidate error indicatorRepair contribution: reference − candidateA000B10+1C01−1D10+1",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": "div[data-constructed-fixture^=\"Original four-case\"] .ete-table, div[data-constructed-fixture^=\"Original finite score-noise\"] .ete-table",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 1254.40625,
+        "height": 908.6875,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 345.71875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 345.71875
+      },
+      "text": "Selecting the larger of two unbiased scores can make the reported score optimisticEqually likely noise outcomeCandidate A scoreCandidate B scoreSelected scoreBoth high.6.6.6A high, B low.6.4.6A low, B high.4.6.6Both low.4.4.4",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "rect": {
+        "bottom": 1010.8125610351562,
+        "height": 421.3854370117187,
+        "left": 38,
+        "right": 338.66668701171875,
+        "top": 589.4271240234375,
+        "width": 300.66668701171875,
+        "x": 38,
+        "y": 589.4271240234375
+      },
+      "text": "A path of short edges can connect far-apart endpoints1140126one-dimensional positionThis line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "rect": {
+        "bottom": 1046.0208740234375,
+        "height": 491.96875,
+        "left": 38,
+        "right": 338.66668701171875,
+        "top": 554.0521240234375,
+        "width": 300.66668701171875,
+        "x": 38,
+        "y": 554.0521240234375
+      },
+      "text": "A mean plus a count preserves whole-group costs; it cannot undo a groupOriginal members02Summary → new centermean 1c = 4For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "rect": {
+        "bottom": 966.4895935058594,
+        "height": 333.1458435058594,
+        "left": 362,
+        "right": 1088,
+        "top": 633.34375,
+        "width": 726,
+        "x": 362,
+        "y": 633.34375
+      },
+      "text": "A path of short edges can connect far-apart endpoints1140126one-dimensional positionThis line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "rect": {
+        "bottom": 1014.4791870117188,
+        "height": 428.9375,
+        "left": 362,
+        "right": 1088,
+        "top": 585.5416870117188,
+        "width": 726,
+        "x": 362,
+        "y": 585.5416870117188
+      },
+      "text": "A mean plus a count preserves whole-group costs; it cannot undo a groupOriginal members02Summary → new centermean 1c = 4For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"])",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 932.7917175292968,
+        "height": 265.9270935058594,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 666.8646240234375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 666.8646240234375
+      },
+      "text": "A calculation you can reconcile by handTimeLinear contributionSlot in length-3 circle010121212320",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"])",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 925.3541870117188,
+        "height": 250.59375,
+        "left": 344,
+        "right": 1104,
+        "top": 674.7604370117188,
+        "width": 760,
+        "x": 344,
+        "y": 674.7604370117188
+      },
+      "text": "A calculation you can reconcile by handTimeLinear contributionSlot in length-3 circle010121212320",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "depthwise-separable-dilated-convolutions",
+    "selector": ".depthwise-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Each amber three-dot segment is a shifted copy of the previous reachable set. At d=3 the copies touch as consecutive integers: −2 is followed by −1, and 1 by 2. At d=4, −2 and 2 are missing (crosses). Compare the right end of the left copy, −d+S, with the left end of the middle copy, −S: no missing integer requires −S≤−d+S+1, or d≤2S+1.",
+      "rect": {
+        "bottom": 1066.8438110351562,
+        "height": 533.6458740234375,
+        "left": 344,
+        "right": 1104,
+        "top": 533.1979370117188,
+        "width": 760,
+        "x": 344,
+        "y": 533.1979370117188
+      },
+      "text": "S=1, next dilation d=3-5-4-3-2-1012345S=1, next dilation d=4-5-4-3-2-1012345original-input integer offsetEach amber three-dot segment is a shifted copy of the previous reachable set. At d=3 the copies touch as consecutive integers: −2 is followed by −1, and 1 by 2. At d=4, −2 and 2 are missing (crosses). Compare the right end of the left copy, −d+S, with the left end of the middle copy, −S: no missing integer requires −S≤−d+S+1, or d≤2S+1.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "convnext-modern-cnn-designs",
+    "selector": ".convnext-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Pool, then normalize",
+      "rect": {
+        "bottom": 962.6979370117188,
+        "height": 325.53125,
+        "left": 344,
+        "right": 1104,
+        "top": 637.1666870117188,
+        "width": 760,
+        "x": 344,
+        "y": 637.1666870117188
+      },
+      "text": "Pool, then normalizeTwo locations: [1, 3] and [9, 5]↓ average each channel[5, 4]↓ compare channelsapproximately [1, −1]Normalize, then poolTwo locations: [1, 3] and [9, 5]↓ compare channels at each locationapproximately [−1, 1] and [1, −1]↓ average each channelapproximately [0, 0]Constructed two-location, two-channel map. LayerNorm uses unit scale, zero shift and ε=10⁻⁶, so displayed ±1 values are approximate. Local normalization removes each location’s scale before pooling; the stronger second location can no longer dominate the pooled channel contrast. The reference head uses the pool-then-normalize order.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "end-to-end-supervised-learning-error-analysis",
+    "selector": ".ete-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "The observed fraction is one, but a small perfect sample does not establish a perfect population. Wilson's approximate 95% interval remains about [0.722, 1]. A naive plug-in normal interval uses zero estimated variance at this boundary and collapses to [1,1]. Neither interval repairs dependence or unrepresentative sampling.",
+      "rect": {
+        "bottom": 983.5208740234376,
+        "height": 367.4791870117187,
+        "left": 344,
+        "right": 1104,
+        "top": 616.0416870117188,
+        "width": 760,
+        "x": 344,
+        "y": 616.0416870117188
+      },
+      "text": "10 successes / 10 hypothetical trials0.72200.51Candidate population success rateThe observed fraction is one, but a small perfect sample does not establish a perfect population. Wilson's approximate 95% interval remains about [0.722, 1]. A naive plug-in normal interval uses zero estimated variance at this boundary and collapses to [1,1]. Neither interval repairs dependence or unrepresentative sampling.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T15:23:34.962Z",
+    "findings": []
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "rect": {
+        "bottom": 1010.3646240234376,
+        "height": 421.3854370117187,
+        "left": 38,
+        "right": 338.66668701171875,
+        "top": 588.9791870117188,
+        "width": 300.66668701171875,
+        "x": 38,
+        "y": 588.9791870117188
+      },
+      "text": "A path of short edges can connect far-apart endpoints1140126one-dimensional positionThis line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "rect": {
+        "bottom": 1045.7916870117188,
+        "height": 491.96875,
+        "left": 38,
+        "right": 338.66668701171875,
+        "top": 553.8229370117188,
+        "width": 300.66668701171875,
+        "x": 38,
+        "y": 553.8229370117188
+      },
+      "text": "A mean plus a count preserves whole-group costs; it cannot undo a groupOriginal members02Summary → new centermean 1c = 4For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "This line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "rect": {
+        "bottom": 966.4895935058594,
+        "height": 333.1458435058594,
+        "left": 362,
+        "right": 1088,
+        "top": 633.34375,
+        "width": 726,
+        "x": 362,
+        "y": 633.34375
+      },
+      "text": "A path of short edges can connect far-apart endpoints1140126one-dimensional positionThis line's minimum spanning tree uses edges of length 1, 1 and 4. Keeping edges at most 1 gives groups {0,1,2} and {6}. The first group's endpoints are two units apart. Complete linkage would evaluate that endpoint distance too; single linkage only needs an unbroken path.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "k-means-hierarchical-clustering",
+    "selector": ".cluster-structure",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "rect": {
+        "bottom": 1014.4791870117188,
+        "height": 428.9375,
+        "left": 362,
+        "right": 1088,
+        "top": 585.5416870117188,
+        "width": 726,
+        "x": 362,
+        "y": 585.5416870117188
+      },
+      "text": "A mean plus a count preserves whole-group costs; it cannot undo a groupOriginal members02Summary → new centermean 1c = 4For {0,2}, N=2, LS=2, SS=4. Internal scatter is 4−2²/2=2. With shared center 4, add N(1−4)²=18; total 20 agrees with (0−4)²+(2−4)². If the original points could choose separate centers 0 and 2, their error would instead be zero. Compressing them into an indivisible weighted mean excludes that assignment.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "capsule-networks",
+    "selector": ".capsule-intuition",
+    "index": 0,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "heading": "Length direction",
+      "rect": {
+        "bottom": 1283.3541870117188,
+        "height": 966.0625,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 317.29168701171875,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 317.29168701171875
+      },
+      "text": "Length directions=(3,4)q = (0.6, 0.8)Move along the arrow. The already saturated length changes very little.Output change ≈ 0.01479 δ · qTurning directions=(3,4)t = (−0.8, 0.6)Move sideways. The direction still responds more strongly.Output change ≈ 0.19231 δ · tLocal, first-order changes for a small input perturbation of size δ at radius 5. The two amber input segments have equal length. The output multipliers are calculated derivatives, not measured classification effects; terms of order δ² and higher are omitted.",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "capsule-networks",
+    "selector": ".capsule-intuition",
+    "index": 0,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "heading": "Length direction",
+      "rect": {
+        "bottom": 1041.7813110351562,
+        "height": 483.8229370117187,
+        "left": 344,
+        "right": 1104,
+        "top": 557.9583740234375,
+        "width": 760,
+        "x": 344,
+        "y": 557.9583740234375
+      },
+      "text": "Length directions=(3,4)q = (0.6, 0.8)Move along the arrow. The already saturated length changes very little.Output change ≈ 0.01479 δ · qTurning directions=(3,4)t = (−0.8, 0.6)Move sideways. The direction still responds more strongly.Output change ≈ 0.19231 δ · tLocal, first-order changes for a small input perturbation of size δ at radius 5. The two amber input segments have equal length. The output multipliers are calculated derivatives, not measured classification effects; terms of order δ² and higher are omitted.",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"])",
+    "index": 1,
+    "width": 390,
+    "height": 1600,
+    "info": {
+      "documentWidth": 375,
+      "rect": {
+        "bottom": 932.7917175292968,
+        "height": 265.9270935058594,
+        "left": 20,
+        "right": 354.66668701171875,
+        "top": 666.8646240234375,
+        "width": 334.66668701171875,
+        "x": 20,
+        "y": 666.8646240234375
+      },
+      "text": "A calculation you can reconcile by handTimeLinear contributionSlot in length-3 circle010121212320",
+      "viewport": [
+        390,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  },
+  {
+    "topicId": "state-space-models-s4-mamba-mamba-2",
+    "selector": ".neural-table:has(table[aria-label=\"A calculation you can reconcile by hand\"])",
+    "index": 1,
+    "width": 1280,
+    "height": 1600,
+    "info": {
+      "documentWidth": 1265,
+      "rect": {
+        "bottom": 925.3541870117188,
+        "height": 250.59375,
+        "left": 344,
+        "right": 1104,
+        "top": 674.7604370117188,
+        "width": 760,
+        "x": 344,
+        "y": 674.7604370117188
+      },
+      "text": "A calculation you can reconcile by handTimeLinear contributionSlot in length-3 circle010121212320",
+      "viewport": [
+        1280,
+        1600
+      ]
+    },
+    "buildStartedAt": "2026-09-26T16:01:07.158Z",
+    "findings": [],
+    "recordingCorrection": "The reused capture helper retained an earlier build tag. This observation was performed after the final 16:01 build, with fresh page navigation; final source checkpoint supplies its identity."
+  }
+]

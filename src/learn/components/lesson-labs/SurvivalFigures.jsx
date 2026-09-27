@@ -131,10 +131,10 @@ export function SurvivalTreeFigure() {
       </div>)}
     </div>
     <div className="survival-figure-result">Right-group log-rank totals: U = {fixed(splitScore.difference)}, V = {fixed(splitScore.variance)}. This split’s score U²/V = <strong>{fixed(splitScore.statistic)}</strong>.</div>
-    <details className="survival-figure-details"><summary>Inspect the risk-set calculation for this score</summary>
+    <section className="survival-figure-details lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Inspect the risk-set calculation for this score</h4>
       <p>At event days 2, 3 and 4, the right group has 4/8, 3/7 and 2/6 of the risk set and supplies one failure each. Later events occur after that group’s follow-up has ended, so their right-group contributions are zero.</p>
       <p>U = (1 − 4/8) + (1 − 3/7) + (1 − 2/6) = 73/42. V = 1/4 + 12/49 + 2/9 = 1265/1764. Hence U²/V = 5329/1265. These are split-ranking calculations, not a validated effect estimate or a post-selection p-value.</p>
-    </details>
+    </section>
     <figcaption>The covariate x is an illustrative numerical scale. This is one supplied candidate threshold on eight training records, not an optimized or validated tree. A new x routes to the matching leaf curve. Both panels share the same time and probability axes. Kaplan–Meier survival and exp(−Nelson–Aalen H) are not identical finite-sample estimates.</figcaption>
   </figure>;
 }

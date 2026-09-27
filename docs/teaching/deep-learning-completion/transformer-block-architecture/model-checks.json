@@ -1,0 +1,698 @@
+{
+  "topicId": "transformer-block-architecture",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Shift-stable softmax",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "LayerNorm common-offset invariance",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "GELU independent reference at ±1",
+      "passed": true,
+      "maxAbsoluteError": 9.900906650095465e-9,
+      "tolerance": 2e-7
+    },
+    {
+      "name": "SwiGLU gate projection reads the actual input",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "SwiGLU value projection",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "SwiGLU signed write and output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "SwiGLU zero-gate projection null",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: weights",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: update",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: weights",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: update",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: context",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "post: output",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: weights",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: update",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_pre: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: weights",
+      "passed": true,
+      "maxAbsoluteError": 3.469446951953614e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: update",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "zero_post: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: weights",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: update",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: context",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: hidden",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "edited_pre: output",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Analytic/finite-difference 1,2,5,8/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-10,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 1,2,5,8/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 1.0136563810547727e-10,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 1,2,5,8/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 1.0696670771359607e-9,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference -0.03,-0.01,0.01,0.03/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-10,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference -0.03,-0.01,0.01,0.03/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 8.672728313285916e-9,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference -0.03,-0.01,0.01,0.03/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 1.6953421777543554e-8,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 2,2,2,2/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 1.7554165586408654e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 2,2,2,2/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0.0000029555419018834073,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 2,2,2,2/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 0.000007860667437853408,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 0,0,0,0/1,1,1,1",
+      "passed": true,
+      "maxAbsoluteError": 2.710505431213761e-14,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 0,0,0,0/1,-1,0,0",
+      "passed": true,
+      "maxAbsoluteError": 0.0000029646352572854084,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Analytic/finite-difference 0,0,0,0/2,-0.5,0.2,4",
+      "passed": true,
+      "maxAbsoluteError": 0.000007633935865669628,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Exact copy entropy denominator",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pre-norm retained original logits",
+      "passed": true,
+      "maxAbsoluteError": 8.321318190063209e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 5.937132407929369e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm reverse_coordinates_fixed_time",
+      "passed": true,
+      "maxAbsoluteError": 5.88713223503845e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm frame23_x_reflection",
+      "passed": true,
+      "maxAbsoluteError": 0.0000011745132415530435,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 7.953020737978822e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 8.398411344145984e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 input",
+      "passed": true,
+      "maxAbsoluteError": 5.710863870689309e-8,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 4.2257471433160276e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 update",
+      "passed": true,
+      "maxAbsoluteError": 2.0508176357125762e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 residual",
+      "passed": true,
+      "maxAbsoluteError": 2.1075916845081366e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 context",
+      "passed": true,
+      "maxAbsoluteError": 2.1075916845081366e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 7.173505988111728e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 hidden",
+      "passed": true,
+      "maxAbsoluteError": 5.160423084404897e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 2.1081992773730462e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 output",
+      "passed": true,
+      "maxAbsoluteError": 4.1779556392285144e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 0 weights",
+      "passed": true,
+      "maxAbsoluteError": 1.4208768739365496e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 input",
+      "passed": true,
+      "maxAbsoluteError": 4.1779556392285144e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 0.0000023152187915709277,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 update",
+      "passed": true,
+      "maxAbsoluteError": 4.421264017118176e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 residual",
+      "passed": true,
+      "maxAbsoluteError": 5.476655348113368e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 context",
+      "passed": true,
+      "maxAbsoluteError": 5.476655348113368e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 9.85888711557692e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 hidden",
+      "passed": true,
+      "maxAbsoluteError": 0.0000011585473669306623,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 6.602499511565441e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 output",
+      "passed": true,
+      "maxAbsoluteError": 6.708178803549458e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "pre-norm layer 1 weights",
+      "passed": true,
+      "maxAbsoluteError": 2.027292145406756e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm retained original logits",
+      "passed": true,
+      "maxAbsoluteError": 0.0000019152233692310006,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm paired_permutation",
+      "passed": true,
+      "maxAbsoluteError": 6.213847618674606e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm reverse_coordinates_fixed_time",
+      "passed": true,
+      "maxAbsoluteError": 0.000001111843907164456,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm frame23_x_reflection",
+      "passed": true,
+      "maxAbsoluteError": 3.941966437714939e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm masked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000014383862110278756,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm unmasked_padding",
+      "passed": true,
+      "maxAbsoluteError": 0.0000015598378420578207,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 input",
+      "passed": true,
+      "maxAbsoluteError": 6.16959656696281e-8,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 6.16959656696281e-8,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 update",
+      "passed": true,
+      "maxAbsoluteError": 1.217798167862938e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 residual",
+      "passed": true,
+      "maxAbsoluteError": 1.4987363428087264e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 context",
+      "passed": true,
+      "maxAbsoluteError": 5.040822694812874e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 5.040822694812874e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 hidden",
+      "passed": true,
+      "maxAbsoluteError": 9.341667475126769e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 5.127067435051202e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 output",
+      "passed": true,
+      "maxAbsoluteError": 7.287845229519974e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 0 weights",
+      "passed": true,
+      "maxAbsoluteError": 3.947814150584428e-8,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 input",
+      "passed": true,
+      "maxAbsoluteError": 7.287845229519974e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 attentionInput",
+      "passed": true,
+      "maxAbsoluteError": 7.287845229519974e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 update",
+      "passed": true,
+      "maxAbsoluteError": 7.273780944228037e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 residual",
+      "passed": true,
+      "maxAbsoluteError": 9.244719914036637e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 context",
+      "passed": true,
+      "maxAbsoluteError": 0.0000013860269088006305,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 ffnInput",
+      "passed": true,
+      "maxAbsoluteError": 0.0000013860269088006305,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 hidden",
+      "passed": true,
+      "maxAbsoluteError": 0.0000015323224791252699,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 ffnUpdate",
+      "passed": true,
+      "maxAbsoluteError": 0.0000012136032960796683,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 output",
+      "passed": true,
+      "maxAbsoluteError": 0.000002195239597657661,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "post-norm layer 1 weights",
+      "passed": true,
+      "maxAbsoluteError": 2.0590496338512843e-7,
+      "tolerance": 0.0001
+    },
+    {
+      "name": "Babel JSX parse src/learn/data/topics/transformer-block-architecture.jsx",
+      "passed": true
+    },
+    {
+      "name": "Babel JSX parse src/learn/components/lesson-labs/TransformerBlockLabs.jsx",
+      "passed": true
+    },
+    {
+      "name": "Babel JSX parse src/learn/components/lesson-labs/TransformerBlockDiagrams.jsx",
+      "passed": true
+    },
+    {
+      "name": "Babel JSX parse src/learn/components/lesson-labs/TransformerBlockMechanisms.jsx",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Float64 JavaScript versus retained float32 PyTorch checkpoints; 1e-4 absolute bound.",
+    "No hardware speed claim. Browser geometry and interactions reviewed separately."
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Complete prepared arithmetic/data/state/causality checker executes on copied immutable inputs",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0.1: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0.25: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Outer graph mode at rate 0.5: identical forward and disconnected detached derivative",
+      "passed": true
+    },
+    {
+      "name": "Seed 3: full 366-day native replay matches all four retained trace quantities",
+      "passed": true
+    },
+    {
+      "name": "Seed 7: full 366-day native replay matches all four retained trace quantities",
+      "passed": true
+    },
+    {
+      "name": "Seed 19: full 366-day native replay matches all four retained trace quantities",
+      "passed": true
+    },
+    {
+      "name": "Arrival edit at 380 preserves that day and every prior forecast",
+      "passed": true
+    },
+    {
+      "name": "Arrival edit at 548 preserves that day and every prior forecast",
+      "passed": true
+    },
+    {
+      "name": "Arrival edit at 720 preserves that day and every prior forecast",
+      "passed": true
+    }
+  ],
+  "preparedChecker": {
+    "phase": "author content checks",
+    "checks": [
+      "Manual orthogonal/correlated write and stored trace agree",
+      "Zero key, momentum-only change, full-decay-not-reset, no-update null",
+      "Sequential versus anchor mismatch; size-one and zero-rate equality",
+      "Outer derivative by analytic scalar and nonlinear finite differences",
+      "Gated topology prefix contrast/null, causality, continuation, isolation, reset, disabled writes",
+      "All real seeds: source/splits, aggregates, replay, zero-update, checkpoint and future-target perturbation",
+      "Score-before-write residual4 versus invalid score-after-write residual0",
+      "Changed practice arithmetic, exact momentum reversal and fixed-Jacobian counterexample"
+    ],
+    "browser_and_independent_review": "deferred to implementation",
+    "environment": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "torch": "2.14.0+cpu",
+      "device": "cpu",
+      "dtype": "float64",
+      "threads": 1
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "threads": 1,
+    "device": "cpu",
+    "dtype": "float64"
+  },
+  "sourceHashes": {
+    "docs/teaching/drafts/titans-multi-memory-architecture/author-checks.json": "5690cc4b4ff4c06ce7466da4cc33bb1c54a2fba0fe9e2c319355e16a9b775d98",
+    "docs/teaching/drafts/titans-multi-memory-architecture/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "docs/teaching/drafts/titans-multi-memory-architecture/check_author_packet.py": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604",
+    "docs/teaching/drafts/titans-multi-memory-architecture/data-provenance.md": "06fd9d703263613fd133a774ed900a81a1ad05c769f5773a81b3d904f5899666",
+    "docs/teaching/drafts/titans-multi-memory-architecture/design.md": "3d1a0e3d9edff88af6db61c3e0f8f6d99edc3d4f34c2808e7d044ef4677a8e34",
+    "docs/teaching/drafts/titans-multi-memory-architecture/experiment-protocol.md": "e1295e508c7f4f09f7af129dfa520353e31b8fd9659f44f3e82247a405a0a66a",
+    "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md": "ac95cd713f4210b19580ce16fb9e55dd72fa2c3f7c79c294d8b6a1b44530a259",
+    "docs/teaching/drafts/titans-multi-memory-architecture/mechanism-results.json": "23f58d46147a2df876dc8163b7cea92f59cdd46c2806d13a1c5f081f65d7a375",
+    "docs/teaching/drafts/titans-multi-memory-architecture/memory_mechanisms.py": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6",
+    "docs/teaching/drafts/titans-multi-memory-architecture/neural_memory.py": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258",
+    "docs/teaching/drafts/titans-multi-memory-architecture/rental-results.json": "45e6b63c663377a8c8d0b20139594fc7636d01db350258613bd07603d6ff0261",
+    "docs/teaching/drafts/titans-multi-memory-architecture/rental_memory_study.py": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037",
+    "docs/teaching/drafts/titans-multi-memory-architecture/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+    "docs/teaching/drafts/titans-multi-memory-architecture/visual-specifications.md": "b9e2338a814639085d0ff375709b5c03131be684d51d576e9a44b2f95547f757"
+  },
+  "limitations": [
+    "Replayed all saved initial weights; no new 1000-step fits or hyperparameter selection.",
+    "The gated block is an explicit small MAG specialization, not a published Titans checkpoint.",
+    "Native execution does not establish browser rendering or controls."
+  ]
+}

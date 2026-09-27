@@ -102,8 +102,8 @@ export function TimelineLab() {
 
   return <Investigation title="Investigation 1 · move the arrival, keep the event"
     question={'Four calibration records, each with the time its event happened and the time its value reached '
-      + 'the serving system. A prediction has to be made at the cutoff. Say which record it is entitled to '
-      + 'use — then change an arrival, a cutoff, an age limit or a value and say it again.'}
+      + 'the serving system. A prediction has to be made at the cutoff. Change an arrival, a cutoff, an age limit or a value '
+      + 'and inspect which record is available to use and why.'}
     role={{ kind: 'constructed', text: 'A constructed history in abstract time units. Every number here is an '
       + 'integer and the selection is exact, so there is no tolerance and no estimate anywhere in this lab. '
       + 'No value is taken from the bank records.' }}

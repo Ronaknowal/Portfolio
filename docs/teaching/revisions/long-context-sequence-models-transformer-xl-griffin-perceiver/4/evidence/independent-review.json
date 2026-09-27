@@ -1,0 +1,40 @@
+{
+  "revision": 4,
+  "reviewer": "state_space_implementation (complementary agent)",
+  "reviewDate": "2026-09-26",
+  "status": "no-open-findings-within-scope",
+  "scope": [
+    "Read full revised manuscript, including deeper computational/gradient section, training/library bridge, all practice and resources.",
+    "Inspected all four new intuition components and their exported fixture arithmetic.",
+    "Reviewed beginner progression and prose-to-operation continuity across Transformer-XL, Griffin, Perceiver/IO/AR and the real-data task.",
+    "Checked attention shares/mask denominator, cache truncation example, RG-LRU exact-limit distinction, paired permutation vs positional reassignment, output-query shape, two-stage causal leak and detached-gradient arithmetic."
+  ],
+  "findings": [
+    {
+      "issue": "The phrase same read weights in the repeated latent read confused shared model parameters with recomputed attention weights.",
+      "resolution": "Author revised manuscript to distinguish shared projection parameters from generally changed weights produced by changed latent queries.",
+      "status": "closed by source inspection"
+    },
+    {
+      "issue": "Canonical manuscript retained a prepared-only relative lesson.md link.",
+      "resolution": "Author replaced with valid learning route in current packet and removed obsolete renderer patch.",
+      "status": "closed by source inspection"
+    },
+    {
+      "issue": "Canonical packet retained concatenated inspected22September2026 date.",
+      "resolution": "Author corrected spacing directly in manuscript.",
+      "status": "closed by source inspection"
+    }
+  ],
+  "assessment": "The route now starts with missing accessible evidence, teaches a weighted read before equations, separates retention from injection by a zero-input contrast, and motivates latent capacity with a same-mean geometry collision. Each architecture has a concrete need, operation, worked values and useful experiment. Existing technical boundaries, empirical outcomes, programs and exercises remain. No additional substantive correctness or continuity finding was found within this review scope.",
+  "limitations": [
+    "This is an independent source/pedagogy/numerical reading review, not an independent full browser test or a new native training run.",
+    "It does not claim exhaustive future API compatibility or learner mastery."
+  ],
+  "sourceHashes": {
+    "docs/teaching/revisions/long-context-sequence-models-transformer-xl-griffin-perceiver/4/lesson.md": "3023159656927ceb817e03875518c76ee2747c031836240d0ee3ef550b4a29b4",
+    "src/learn/components/lesson-labs/LongContextIntuitionFigures.jsx": "0da734d8f26be5e92449d0baf2a61fbbdd3f3dd7d87565220399229eeb944156",
+    "src/learn/data/long-context-intuition.js": "7c77b32c5353e596f2ed390c3ab5777fd4ab01ac92f55930be8cfa2b2385e466",
+    "scripts/render-long-context-lesson.mjs": "e111e217f34715aad69063bc77cad103b11d77555776c80b0d9a3e5b8639f052"
+  }
+}

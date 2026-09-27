@@ -1,0 +1,40 @@
+{
+  "topicId": "rnns-lstms-grus",
+  "date": "2026-09-26T15:41:49.451Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/rnns-lstms-grus.jsx",
+    "src/learn/components/lesson-labs/RecurrentIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/recurrent-intuition.css",
+    "docs/teaching/drafts/rnns-lstms-grus/lesson.md",
+    "scripts/render-recurrent-lesson.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/rnns-lstms-grus.jsx": "a72cdcd3de5fdd190aa318d459de2e1fa79e38582d7a73fc0c1674f3b2f2f2a5",
+    "src/learn/components/lesson-labs/RecurrentIntuitionFigures.jsx": "d36b234a7dd927a6cec39b54a3974e7eec4322e3166350bad6ac03fa3fc2f808",
+    "src/learn/components/lesson-labs/recurrent-intuition.css": "34f5947cd6c588a1d20c6a624c3aec06ec9b8e2e1f380e87f6a143beb0b7fe4f",
+    "docs/teaching/drafts/rnns-lstms-grus/lesson.md": "d3013a99c4af5e989137ffd0a9b56774356b0d3c40046680e0f0bbb82c1c6b6f",
+    "scripts/render-recurrent-lesson.mjs": "b3a681ac8e79bb7f3bbc0a90699975cfbf6175bda5829151b4c0ddce4c3b3bd4"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "GRU convex-state range invariant",
+    "Alternating zero-eigenvalue matrices preserve an amplifying direction",
+    "Two-state chain-rule path sum",
+    "Projected LSTM parameter dimensions",
+    "Bidirectional output versus endpoint dependencies",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/recurrent-models.js",
+    "src/learn/components/lesson-labs/RecurrentLabs.jsx",
+    "public/learn-assets/rnns-lstms-grus/pen-models.json",
+    "public/learn-assets/rnns-lstms-grus/calculated-inputs.json"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

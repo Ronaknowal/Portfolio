@@ -1,0 +1,7 @@
+# Independent concept-level review
+
+Read all fourteen sections, twelve changed practices, resources, and both new figure/CSS sources. Radius/count precede core graph, border attachment precedes asymmetric reachability, and the same trail connects parameter choice to OPTICS and HDBSCAN. The real Iris comparison preserves population and coverage. New explanations separately reveal min-over-discovered versus max-within-candidate operations, directed versus mutual reachability, condensed-branch identities, persistence as area, and a new row's actual density effect. The complete scratch/library routes and scientific limitations remain.
+
+Independently recounted the original and duplicate-zero neighborhoods: I goes from 3 to 4, I-prime has 4, and J remains isolated. Recomputed directed reachability 1 versus 1.25 and mutual value 1.25; compared the sum of three lifetimes with two rectangle areas, both 7. Checked graph excerpt labels, offset disclosure, and stable core connections. No numerical issue found.
+
+Corrected one stale first-pass phrase that called the immediate border exploration a 'prediction'; it now invites exploration, consistent with the actual ungated lab. Scoped author verifier refreshed the source checkpoint. Every changed JSX parses and source bytes match the author record. Unchanged native fits were not rerun. Rendered layout and live control operation remain separate integration evidence.

@@ -1,0 +1,75 @@
+{
+  "topicId": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/calculated-inputs.json",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/data-provenance.md",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/design.md",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/digits-400.csv",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/fitted-optimizer-states.json",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/LICENSE-lion.txt",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/LICENSE-sophia.txt",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lion_pytorch.py",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_library_bridge.py",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/sophia.py",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/study-results.json",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/visual-specifications.md",
+    "docs/teaching/topic-notes/advanced-optimizers-lion-sophia-prodigy-schedule-free.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/calculated-inputs.json": "0a3a27ffba9f2c4678d3ff966cb35daa21c2c7ec5f06e0632efc6a4315f3660f",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/data-provenance.md": "bc75856224cb25576fde1e92b3dab9e5a8a52b5e65970c81f7fb1bf693bb1400",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/design.md": "1c06d9ffb8e8ecced5a7031ae803547eb4ef280e5f28ad7e0b2cee07a8ea35da",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/fitted-optimizer-states.json": "1ef7c3d5ecfda062a8e9ac5b604369abac2e6b54ff11929938166e0b94c942a0",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md": "16b5ae91b63101418b6b94cc0cbc8e2c9f8aaafd2cc1eba78b0b52c1e97ea1f0",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/LICENSE-lion.txt": "9e1d2eb8c31e22dd7c7a0999ee1db23de8dde21215b14fa4b6f396789d594b3d",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/LICENSE-sophia.txt": "d012b2556fefaa3beceacc7e1fdd3d2fcfb93168f00f007919c74c011ecd0604",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lion_pytorch.py": "5ea5d205df80a0cf5f4794e50e3ffe27628e036c4d37664554a424f7b186f9fb",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py": "fcb3cf3c8679d2e44d3e2b91200cc3d9f50501890c149b6942b122502e899b61",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_library_bridge.py": "4ab6557e0d4c0b065b3efa7519e1f110a7ed504fe04df1795f4d83ab331c32b2",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py": "5a11ed8a9de5728ceb1e6c36b4f84126a434893433c967b09e9f5002fa745f1c",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py": "fdc7fa01cb133e3d9baa2f35eeb89b25583b6f8971ab268ca4c9539e2c53bf74",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/sophia.py": "6822bce9acfedd575e2515222b24a4d927edd6ee5464fc1ce2988224fbfb5855",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/study-results.json": "880353688c5565e1228d57e2b7299ed47449fad967e8a1102cfb976bb9db12eb",
+    "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/visual-specifications.md": "418298c01813ce417b903a7448526c68c6eb251c4102ab845b795b36be7a92fd",
+    "docs/teaching/topic-notes/advanced-optimizers-lion-sophia-prodigy-schedule-free.md": "f0677886d6fa68c2fbc043e1a14d85fb10ac7c16e5afcea76615fbb6b3bedc19"
+  },
+  "reconciliation": [
+    "Read the entire prepared manuscript, all visual contracts, design/provenance, full scratch/study/calculation/library sources and topic note; parsed every saved result/state and retained all original packet bytes except explicit teaching wording edits.",
+    "Root exact-hash CRLF reconciliation reused; no broad historical hash rewrite.",
+    "Removed surviving Prodigy prediction request and Lion before-step answer instruction; current results remain immediate.",
+    "Downloaded exact pinned official Lion/Sophia source and license files; source reviewed and unchanged, learner downloads explicit.",
+    "Keep complete 24-fit recorded results and all12 states; native execution verifies saved states without repeating unchanged fits.",
+    "The complete ordinary-library bridge now executed all four actual APIs; manuscript/provenance report exact eight-update outcomes and checkpoint replay, separate from historical fitting.",
+    "Implementation adds explicit source-bound native results and pinned download instructions while preserving full prepared depth and original measured outcomes."
+  ],
+  "checks": [
+    {
+      "name": "Full prepared source/specification and scoped-note consumption",
+      "passed": true
+    },
+    {
+      "name": "Concept progression retains complete mechanism and worked intermediates for all4 methods, deeper variants and API choices",
+      "passed": true
+    },
+    {
+      "name": "All supplied Python source parses; allJSON numeric values finite",
+      "passed": true
+    },
+    {
+      "name": "No prediction-entry or answer-unlock contract",
+      "passed": true
+    },
+    {
+      "name": "Primary pinned source acquired and inspected with licenses; current PyTorch Muon docs verified",
+      "passed": true
+    }
+  ],
+  "manuscript": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/visual-specifications.md"
+}

@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "cases": 200,
+  "maxLogitError": 0.000005561923673624847,
+  "maxWeightSumError": 1.2212453270876722e-15,
+  "maxNullError": 1.021405182655144e-14,
+  "default": {
+    "class": 1,
+    "pClass1": 0.7806529906497901
+  },
+  "firstPoint": {
+    "class": 10,
+    "pClass1": 0.0000709838569807559
+  },
+  "smallEdit": {
+    "class": 1,
+    "pClass1": 0.7807972424352297
+  },
+  "nodeInferenceMs": {
+    "median": 3.637200000000121,
+    "max": 16.851800000000026,
+    "note": "Local Node CPU measurement, not browser or architecture benchmark"
+  },
+  "reviewedFiles": {
+    "src/learn/data/long-context-models.js": "cd2f2f775b7d2a9f1d623e72b76f6e25c44dbae58ae2323d8af911ec287dce82",
+    "src/learn/components/lesson-labs/LongContextLabs.jsx": "d7c23024d9a8c1ff7dcb14837eabc5ae970a3fa1eb0ec59e789a3e36ae613a89",
+    "src/learn/components/lesson-labs/LongContextTrajectoryLab.jsx": "1ffee5f2ed41e79cab617eb09ac8760641642a63fbafd4ecf5dad585c19b5a0d",
+    "src/learn/components/lesson-labs/LongContextFigures.jsx": "36e39125039e87c227cd1b264732907094258778f64ad7fe7dbf206cf6494791",
+    "src/learn/components/lesson-labs/long-context-labs.css": "6750069dbb91846bee54641ccae3e39d0210c79a6b164a94d915a8ba0d6d2707",
+    "src/learn/data/topics/long-context-sequence-models-transformer-xl-griffin-perceiver.jsx": "cdf0f128e1fa98c54e3e30ad35c13861cdba48060ceae42d9dc2f3be503a0470",
+    "scripts/render-long-context-lesson.mjs": "fd49be54c09556a8d0bae3a0d100cbad7bd2a8ed4f10cb1cb6aed9addd2c592f",
+    "scripts/verify-long-context-models.mjs": "0b34876859c43883bad400abb9d3148aec8618d974c1e6105ac6b8037ea7e7fc",
+    "public/learn-code/long-context-sequence-models-transformer-xl-griffin-perceiver/trajectory-models.json": "ca9c3e0e39566e8d0afb547412d2e94380a95c970cc80a707a506ad18d8dccf3",
+    "docs/teaching/evidence/long-context/native-validation-logits.json": "b08d5a5f2349f68f20dc919c4883a250d10c17bed532b2091e3c4c697f7452bb",
+    "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/small-fits.npz": "b8984b1ac51391d982546f39c7d254211dcfbcbcb7de5c7630336ac1e38dac3f",
+    "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/investigation-checks.json": "9519dcda88b996c8e46ed6ffa3f3412888d3bd375f29ccbc56f65982f3e63708"
+  }
+}

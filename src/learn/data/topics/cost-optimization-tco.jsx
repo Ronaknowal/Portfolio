@@ -852,9 +852,9 @@ Team < 5 ML engineers           | Managed API for all prod use   | Indirect cost
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Honest break-even with engineering overhead</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Honest break-even with engineering overhead</H3>
 
       <Prose>
         Your product runs 2,000 MTok/month on Claude Sonnet 4.6 ($3.00/$15.00 per MTok, 80/20 split). You are considering self-hosting Llama 3 70B on 4× H100 at a specialist cloud ($3.00/GPU-hr on-demand). Your team would need one dedicated MLOps engineer at $220K fully-loaded annual cost. Compute: (a) the current monthly API cost, (b) the self-hosted monthly TCO including engineering, and (c) the token volume at which self-hosting would break even against the API cost assuming engineering stays fixed.
@@ -891,9 +891,9 @@ be_volume = (fixed_self + compute) / api_blended
 # => 5,050 MTok/month — 2.5x current volume, not reachable on 4x H100
 # Correct conclusion: self-hosting loses at 2,000 MTok/month; break-even needs
 # either much higher volume (5,000+ MTok) or lower engineering overhead.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2 — Reserved vs on-demand decision</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Reserved vs on-demand decision</H3>
 
       <Prose>
         Your deployment runs 6 GPUs during weekday business hours (9am–9pm, 12 hours) and 2 GPUs otherwise. You are choosing between on-demand pricing at $8/GPU-hr and a 1-year reserved commitment at $4.40/GPU-hr (45% discount). Compute the monthly cost under each strategy — (a) pure on-demand, (b) reserve 2 GPUs + on-demand for the rest, (c) reserve 6 GPUs. Which is cheapest, and what is the minimum utilization rate for the reserved strategy to beat on-demand?
@@ -937,9 +937,9 @@ print(f"Reserved break-even utilization: {be_util:.1%}")
 
 # Strategy (b) wins because it matches reserved to the minimum (always-on)
 # floor and uses on-demand only for the burst above that floor.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 3 — Utilization tax calculation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Utilization tax calculation</H3>
 
       <Prose>
         A self-hosted Llama 3 70B deployment on 8× H100 ($3.00/GPU-hr) runs at 52% average GPU utilization. The theoretical maximum throughput at 100% utilization is 1,000 tok/sec per GPU. What is the effective $/MTok at actual utilization? How much does cost per token improve if utilization rises to 75%? What is the monthly dollar savings from the utilization improvement?
@@ -986,9 +986,9 @@ print(f"Monthly savings (equiv. GPU reduction): \${savings_month:,.2f}")
 # $/MTok at 75% util:      $1.3333
 # Monthly savings (equiv. GPU reduction): $5,386.15
 # Going from 52% to 75% utilization saves the equivalent of ~2.5 GPUs/month.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 4 — Compliance cost step-function</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Compliance cost step-function</H3>
 
       <Prose>
         Your AI product processes general business documents on a managed API at $8,500/month in API fees. A potential enterprise customer requires HIPAA BAA coverage and SOC2 Type II certification. Your legal team estimates: HIPAA BAA setup (attorney fees, policy updates) at $15,000 one-time; SOC2 Type II audit at $30,000/year; ongoing compliance tooling (logging, access controls, audit trail) at $2,500/month; one part-time security engineer at 0.3 FTE ($240K fully-loaded) to maintain compliance posture. What is the minimum annual contract value the enterprise customer must bring to justify the compliance investment? What does the first-year TCO look like with vs without the customer?
@@ -1033,9 +1033,9 @@ print(f"First-year TCO with enterprise:    \${total_with_customer:,.0f}")
 print(f"Net first-year cost of compliance: \${annual_compliance:,.0f}")
 print(f"Break-even ACV (yr 1):             \${min_acv:,.0f}")
 print(f"Break-even ACV (yr 2+):            \${annual_compliance - hipaa_setup_onetime + enterprise_api_additional:,.0f}")`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 5 — Full TCO scenario for a new product</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Full TCO scenario for a new product</H3>
 
       <Prose>
         A team is launching an AI writing assistant. Month 1 traffic: 50 MTok. Month 6 traffic: 500 MTok. Month 12 traffic: 2,000 MTok. They are choosing between (A) starting on managed API and staying there through month 12, or (B) self-hosting from day one on 2× H100 ($3.00/GPU-hr specialist cloud) with 1.0 FTE engineering. Compute the cumulative 12-month TCO for each option using Claude Sonnet 4.6 pricing, assuming linear traffic growth between the milestones. Which option wins and at what month does the crossover occur, if any?
@@ -1093,7 +1093,7 @@ for i, m in enumerate(months):
 # At 2,000 MTok/month the monthly cost finally approaches parity on compute alone,
 # but the 12-month cumulative deficit never recovers.
 # Conclusion: for this traffic ramp, managed API wins decisively in year 1.`}
-      </CodeBlock>
+      </CodeBlock></div></section>
 
     </div>
   ),

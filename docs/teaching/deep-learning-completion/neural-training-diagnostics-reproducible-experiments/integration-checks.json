@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:50:12.585Z",
+  "topicId": "neural-training-diagnostics-reproducible-experiments",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-37-57-988Z.json",
+  "buildReceiptHash": "6d049dc66a2320434a657e2ea1bc3bc95fa2ecd21baa4baabc4c67fd82e09e91",
+  "publicationMapping": "./topics/neural-training-diagnostics-reproducible-experiments.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

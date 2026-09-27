@@ -1,0 +1,35 @@
+{
+  "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+    "src/learn/components/lesson-labs/BoostingIntuition.jsx",
+    "src/learn/components/lesson-labs/boosting-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx": "cd35a4a052fa051a5d8b0faba84f433bdd4c7fb87077348c2fad9ab3f203c7d3",
+    "src/learn/components/lesson-labs/BoostingIntuition.jsx": "5a17b0180777e101fc34b1719b5c758bd3385ae8ae8d1b57049dfcdce7247b71",
+    "src/learn/components/lesson-labs/boosting-intuition.css": "4508fb3444fdb25c7cfe2aeb5000f045eb1d09a59009e9304a0e6701918087b4"
+  },
+  "scope": "Complete lesson read; three native explanatory figures; unchanged canonical native fits reused",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Residual corrections reproduce MSE 2",
+      "passed": true
+    },
+    {
+      "name": "Curvature minima and complete plotted coordinate bounds",
+      "passed": true
+    },
+    {
+      "name": "Nonlinear expectation and prefix residual arithmetic",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

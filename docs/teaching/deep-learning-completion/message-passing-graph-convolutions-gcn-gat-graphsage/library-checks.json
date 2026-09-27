@@ -1,0 +1,136 @@
+{
+  "passed": true,
+  "actualPyg": "2.8.0.post1",
+  "result": {
+    "route": "PyG 2.8.0.post1",
+    "torch": "2.14.0+cpu",
+    "checks": {
+      "path_and_isolate/gcn": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "path_and_isolate/sage": {
+        "output_error": 2.7755575615628914e-17,
+        "parameter_gradient_error": 3.469446951953614e-18,
+        "matched_sgd_step": true
+      },
+      "path_and_isolate/gat": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 2.7755575615628914e-17,
+        "matched_sgd_step": true
+      },
+      "edited_directed/gcn": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "edited_directed/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 1.1102230246251565e-16,
+        "matched_sgd_step": true
+      },
+      "edited_directed/gat": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 5.551115123125783e-17,
+        "matched_sgd_step": true
+      },
+      "unequal_directed/gcn": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "unequal_directed/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "unequal_directed/gat": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 5.551115123125783e-17,
+        "matched_sgd_step": true
+      },
+      "no_edges/gcn": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "no_edges/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "no_edges/gat": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      }
+    }
+  },
+  "scratch": {
+    "route": "dense scratch oracle",
+    "torch": "2.14.0+cpu",
+    "checks": {
+      "path_and_isolate/gcn": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "path_and_isolate/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "path_and_isolate/gat": {
+        "output_error": 5.551115123125783e-17,
+        "parameter_gradient_error": 2.7755575615628914e-16,
+        "matched_sgd_step": true
+      },
+      "edited_directed/gcn": {
+        "output_error": 2.7755575615628914e-17,
+        "parameter_gradient_error": 5.551115123125783e-17,
+        "matched_sgd_step": true
+      },
+      "edited_directed/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "edited_directed/gat": {
+        "output_error": 5.551115123125783e-17,
+        "parameter_gradient_error": 2.220446049250313e-16,
+        "matched_sgd_step": true
+      },
+      "unequal_directed/gcn": {
+        "output_error": 2.7755575615628914e-17,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "unequal_directed/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "unequal_directed/gat": {
+        "output_error": 8.326672684688674e-17,
+        "parameter_gradient_error": 6.938893903907228e-17,
+        "matched_sgd_step": true
+      },
+      "no_edges/gcn": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "no_edges/sage": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      },
+      "no_edges/gat": {
+        "output_error": 0.0,
+        "parameter_gradient_error": 0.0,
+        "matched_sgd_step": true
+      }
+    }
+  }
+}

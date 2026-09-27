@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "60 fresh positive-kernel sequences: independently normalized pair sums, unequal chunks, future-write invariance and undefined zero reads",
+      "passed": true
+    },
+    {
+      "name": "180 fresh stable RWKV paths against enumerated historical weights, signed values, no forgetting and large common key shifts",
+      "passed": true
+    },
+    {
+      "name": "30 nonunit-key delta gradients by finite differences and arbitrary-direction full-matrix RWKV-7 products",
+      "passed": true
+    },
+    {
+      "name": "Published corpus equals the 50 validation IDs; both fitted models preserve all prefix features under later path edits on 12 specimens",
+      "passed": true
+    }
+  ],
+  "sourceFiles": [
+    "src/learn/data/rwkv-memory-models.js",
+    "public/learn-assets/rwkv-linear-attention-models/trajectory-models.json",
+    "scripts/review-rwkv-memory.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/rwkv-memory-models.js": "a4aa622d4994ea7bf6e0afe9a14b0a1110fb2b2d1d35733fa0ca263eeba5228a",
+    "public/learn-assets/rwkv-linear-attention-models/trajectory-models.json": "13dd4a29713e9c59d9dd0b182d420b2b192696c55f4977fe52d4821ed5f344fe",
+    "scripts/review-rwkv-memory.mjs": "ec9282db31797bfee61ad92187c38479c0032b094f370bf6b9376805feac8e67"
+  },
+  "scope": "Complementary operator and causal-prefix review only; figures/browser reviewed separately."
+}

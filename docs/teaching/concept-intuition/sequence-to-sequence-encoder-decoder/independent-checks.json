@@ -1,0 +1,45 @@
+{
+  "topicId": "sequence-to-sequence-encoder-decoder",
+  "reviewer": "classical_representation_intuition",
+  "independent": true,
+  "reviewedAt": "2026-09-26T15:44:08.107Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx",
+    "src/learn/components/lesson-labs/Seq2SeqIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/seq2seq-intuition.css",
+    "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md",
+    "scripts/generate-seq2seq-lesson.mjs",
+    "docs/teaching/concept-intuition/sequence-to-sequence-encoder-decoder/independent-review.md",
+    "scripts/review-convolution-sequence-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "7a8e736b7f3434ff815537399c3ce5fd8d24ecc5844bdde371da9f71becbbcc8",
+    "src/learn/components/lesson-labs/Seq2SeqIntuitionFigures.jsx": "7885cf0dfb9eb4c59fa5ac5bc4b3aff01f7f8b7c53b0bdb08da059a428c94691",
+    "src/learn/components/lesson-labs/seq2seq-intuition.css": "b81e3d2ab7ae1c958e4b1dd30ba6c54c446d1ddc199d27d1c48923fba10a0316",
+    "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md": "cd8e40434eece6557fbdb1ff408a0c3ff361186f1638bc2035ce8360b25debef",
+    "scripts/generate-seq2seq-lesson.mjs": "9b75bbc8fa91d5762061462378770048fa90ed222cf1ca4987e9b461885deb23",
+    "docs/teaching/concept-intuition/sequence-to-sequence-encoder-decoder/independent-review.md": "73855af5592951851a4b1b72dc74bd740137d15bcddd251010e86ac5db8f6975",
+    "scripts/review-convolution-sequence-intuition.mjs": "4b0e76a35ef4ecc4904244361dd2b381bf93f18b90168612d7ba41e4c7b3ce06"
+  },
+  "checks": [
+    {
+      "name": "Unequal replacement-prefix fixture learns the target marginal independent of shown prefix",
+      "status": "passed"
+    },
+    {
+      "name": "Changed complete-answer reward derivative matches finite differences",
+      "status": "passed"
+    },
+    {
+      "name": "Four-alignment reversal paths and changed length-normalized stopping counterexample",
+      "status": "passed"
+    }
+  ],
+  "correctnessReview": "accepted at source level",
+  "learningExperienceReview": "accepted at source level; heuristic review, not an actual learner trial",
+  "fullReading": "docs/teaching/concept-intuition/sequence-to-sequence-encoder-decoder/independent-review.md",
+  "actualBrowserInspection": false,
+  "browserReview": "root records separately",
+  "nativeExecution": "Unchanged scientific campaigns retained; no new native fit or library-execution claim."
+}

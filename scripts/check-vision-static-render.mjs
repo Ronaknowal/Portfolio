@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import { build } from 'esbuild';
+const kinds = ['patches','cls','permutation','resolution','cost','windows','hierarchy','library','deit','dino','dinov2','gram','results','atlas'];
+const labs = ['VisionPatchLab','VisionImageLab','VisionWindowLab','VisionBiasLab','VisionDinoLab','VisionGramLab'];
+const result = await build({stdin:{contents:`import {createElement} from 'react';import {renderToString} from 'react-dom/server';import {VisionFigure} from './src/learn/components/lesson-labs/VisionTransformerFigures.jsx';import * as labs from './src/learn/components/lesson-labs/VisionTransformerLabs.jsx';import topic from './src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx';export const lengths=[...${JSON.stringify(kinds)}.map(kind=>renderToString(createElement(VisionFigure,{kind})).length),...${JSON.stringify(labs)}.map(name=>renderToString(createElement(labs[name])).length),renderToString(createElement(topic.content)).length];`,resolveDir:process.cwd(),loader:'jsx'},write:false,bundle:true,format:'cjs',platform:'node',jsx:'automatic',loader:{'.css':'empty'},external:['react','react-dom/server']});
+const module={exports:{}};new Function('require','module','exports',result.outputFiles[0].text)(createRequire(import.meta.url),module,module.exports);
+if(module.exports.lengths.some(length=>length<100))throw new Error('An expected figure or lab rendered empty');
+const receipt={passed:true,figures:kinds,labs,wholeLessonRendered:true,nonemptyMarkupLengths:module.exports.lengths,scope:'Author render smoke; browser keyboard/layout/network still separate'};
+fs.writeFileSync('docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/static-checks.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));

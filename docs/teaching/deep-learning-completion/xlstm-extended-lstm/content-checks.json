@@ -1,0 +1,83 @@
+{
+  "topicId": "xlstm-extended-lstm",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/xlstm-extended-lstm/author-checks.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/data-provenance.md",
+    "docs/teaching/drafts/xlstm-extended-lstm/design.md",
+    "docs/teaching/drafts/xlstm-extended-lstm/investigation-results.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/lesson.md",
+    "docs/teaching/drafts/xlstm-extended-lstm/mechanism-results.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/memory_mechanisms.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-fits.npz",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-results.json",
+    "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py",
+    "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/xlstm-extended-lstm/author-checks.json": "49eee276225c978f58cffaaaf3781695d2ae9eab8edd0e124daf0b4593dd775a",
+    "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87",
+    "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py": "ac16f65ff36e39a78bc4343f14aff4234c84eee568d3aacc435f954e8d5245a9",
+    "docs/teaching/drafts/xlstm-extended-lstm/data-provenance.md": "1176a88e452cda054b0c5864d88317eeb2862a9a97b9e48aeb8a86f6882eab6c",
+    "docs/teaching/drafts/xlstm-extended-lstm/design.md": "b2b9d7260ac7c60697b381504b99c561270f1746d6298023752e313642a54e51",
+    "docs/teaching/drafts/xlstm-extended-lstm/investigation-results.json": "c1cf1993620cee4572777710e6af0a38b34696bdeae17862ea7f574c15d54950",
+    "docs/teaching/drafts/xlstm-extended-lstm/lesson.md": "d8e32f7807e2ca12ebfb8d525d2ef23e1631b261209b264e038e8105bae40954",
+    "docs/teaching/drafts/xlstm-extended-lstm/mechanism-results.json": "898b9af1b4a8939313e63bb07ba10cecfd3473388bac403ab7cdffaf697205d8",
+    "docs/teaching/drafts/xlstm-extended-lstm/memory_mechanisms.py": "538752b266ac151392bfecd53f37d00d2f0464f1c70a466d5b4c5dd2672394cf",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-fits.npz": "c4abe0356e06951ce2a67fdbdd676fb4e5822b34b4863821d348495d73d2680a",
+    "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-results.json": "04cd0c138ad94e8bacf876384c3b95eaf7e8091dfe4ddb8743a83ed82d9c389f",
+    "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2",
+    "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md": "38c7c7e92a6d3c2d9fea83b26878724d723f4bb3da44f8abf31f4c53e80d89c6"
+  },
+  "reconciliation": [
+    "Full691-line manuscript,216-line specification,166-line design,47-line provenance,all four programs,original metadata,author checks and every structured numerical/source array consumed. No destination note exists.",
+    "Preflight specification was substantive/stale: recorded166fd2b2… versus baseline actual cc9b4707…. Retained the full working specification including the scalar/matrix state-inspector bridge and current visible-output contract; did not restore historical hashes or discard working edits.",
+    "Reconciled contradictory older reset/Run/prediction phrasing in manuscript/spec: valid edits immediately compute current results, pins keep full original configuration, step selectors inspect existing calculations. Replaced author-direction opening with actual learner actions. Independent written practice is preserved.",
+    "Added concrete program/data/provenance download links where the manuscript formerly named an unspecified bundle. All mathematical programs,raw data,fits and measurements remain byte-identical to the accepted prepared packet.",
+    "Rechecked primary 7B equations5–9,original block AppendixA.4,TFLA sigmoid variant equations22–24,actual32/8/256/512 float32 configuration/model-card loading,PyTorch LSTM i/f/g/o and both-bias layout; retained dated/scoped research claims. Application source ownership/presence-mask/decision-time reading retained."
+  ],
+  "checks": [
+    {
+      "name": "Complete canonical manuscript/spec/design/provenance/programs read and all data arrays parsed with finite/range validation",
+      "passed": true
+    },
+    {
+      "name": "Scalar/matrix recurrence,orientation,transformed floor,causal chunk decomposition,full network layer composition reconciled with code and primary sources",
+      "passed": true
+    },
+    {
+      "name": "Six actual selected models,all150-epoch curves and original1k/300/1797 roles preserved including weak matrix results",
+      "passed": true
+    },
+    {
+      "name": "Twenty mechanism figure anchors,four distinct live investigations,ten independent practices and scratch/tool bridge retained",
+      "passed": true
+    }
+  ],
+  "manuscript": "docs/teaching/drafts/xlstm-extended-lstm/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md",
+  "primarySourcesRechecked": [
+    "https://arxiv.org/html/2405.04517v2",
+    "https://arxiv.org/html/2503.13427v1",
+    "https://arxiv.org/html/2503.14376v2",
+    "https://huggingface.co/NX-AI/xLSTM-7b/blob/main/config.json",
+    "https://huggingface.co/NX-AI/xLSTM-7b",
+    "https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html",
+    "https://nx-ai.github.io/vision-lstm/",
+    "https://arxiv.org/html/2505.23719v2",
+    "https://arxiv.org/html/2410.22391v2",
+    "https://arxiv.org/html/2510.02228v2"
+  ],
+  "limits": [
+    "New native execution,JS implementation,independent review,browser/integration remain next; historical author evidence is not relabeled as new.",
+    "xLSTM-Mixer v3 HTML retrieval failed; preserved prior detailed author source reading and verified paper identity/abstract. No video or optional pretrained model/GPU kernel execution claimed."
+  ]
+}

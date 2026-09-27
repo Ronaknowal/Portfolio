@@ -1,33 +1,93 @@
 # Educational authoring: current handoff
 
-Updated 24 September 2026. Read this entry point and the selected topic's record,
+Updated 28 September 2026. Read this entry point and the selected topic's record,
 not the whole history of completed batches. The user's current request defines
-scope and delivery mode. This cleanup authorizes no lesson implementation.
+scope and delivery mode. A completed historical increment is not a new work queue.
 
 ## Current state
 
+The [Copy-button feedback follow-up](docs/teaching/lesson-code-access/copy-feedback.md)
+adds an immediate, temporary amber “✓ Copied” state at each shared code button.
+Its later presentation receipt owns the two changed shared runtime files; earlier
+code-access and scientific receipts remain preserved snapshots.
+
+The [visible teaching and code-access follow-up](docs/teaching/lesson-code-access/README.md)
+keeps explanations, derivations, diagrams and instructional code in the reading
+flow without dropdown clicks. Authored practice, hints and solutions retain
+their disclosures. Code blocks share Copy/Download controls, canonical program
+names and a common file index; practice and optional files keep their own
+disclosure boundary. Large instructional source can load automatically near
+the viewport. Future authoring must preserve these visible sections and use the
+shared code/file components, including the renderer's explicit teaching metadata.
+This later presentation receipt supersedes the lesson-ending receipt for current
+source identity. Earlier ending, opening and scientific receipts remain unchanged
+evidence for their recorded scopes; this follow-up is not a new scientific review
+or an authoring queue.
+
+The [recurring lesson-ending follow-up](docs/teaching/lesson-endings/README.md)
+standardizes practice boundaries, native hint/solution controls, annotated
+resource lists and continuation styling across published lessons. Further
+learning and technical references remain separate in the shared `Sources`
+component; authored resource groupings and DSA practice stages retain their
+meaning. Use explicit ending metadata and the shared styles for future work.
+This is a presentation review, not a new scientific review or authoring queue.
+Its recorded presentation evidence remains preserved; use the later code-access
+receipt for current source identity.
+
+The [shared lesson-opening follow-up](docs/teaching/lesson-navigation/README.md)
+is complete. Every published lesson now uses the same Learning compass immediately
+below its title: topic-owned guidance and a full list of main-section jump links.
+All 42 DL openings and 15 older formats were checked in the browser. The central
+ledger retains the 81 current ML/DL checkpoints through a scoped presentation
+review, preserving the original scientific receipts and 96 historical rows.
+Use the latest presentation review for the shared-source identity. Register future
+guidance with `LessonIntro` or `Prose opening`; do not add separate custom TOCs.
+
+The implementation of **all 24 prepared DL topics, positions 19–42, is complete**.
+All **42 Deep Learning Fundamentals & Architectures lessons** now have completed
+implementation checkpoints. The first 18 were preserved; the remaining 24 have
+current author, independent, browser and production-build evidence. See the
+[completed implementation record](docs/teaching/deep-learning-completion/README.md)
+and [final integration checks](docs/teaching/deep-learning-completion/integration-checks.json).
+There is no remaining implementation queue for this module. A new user request
+defines the next scope; user acceptance remains separate from implementation review.
+
+The 26 September concept-by-concept intuition revision is **complete for all 39 implemented Classical ML lessons and the first 18 implemented Deep Learning lessons**. All 57 revised topics have current content and implementation checkpoints, independent concept/correctness reviews, rendered observations and final build evidence. See [the completed review record](docs/teaching/concept-intuition/README.md). Review every learning transition within each future lesson, not just its opening; keep depth, code and practice. Prepared but unimplemented topics retain their phase boundary. The central delivery ledger owns phase status; this completed review is evidence, not a new work queue.
+
 The [central delivery ledger](docs/teaching/lesson-delivery-progress.json) records
-**177 content-complete topics, 150 implementation-complete topics, and 27 prepared
-implementations remaining**. These are the 24 September checkpoint counts, not
+**177 content-complete topics, 177 implementation-complete topics, and zero prepared
+implementations remaining**. These are the 27 September recorded checkpoint counts, not
 hard-coded future targets. Publication, current authoring revision and user
 acceptance are separate states. Use the topic preflight for effective status and
 source identity instead of interpreting an old count as current.
 
 All Programming & Scientific Computing, DSA, Mathematical & Statistical Foundations,
-and Classical ML improved implementations have recorded reviews. The first **15**
-Deep Learning Fundamentals & Architectures topics are implemented; positions **16–42**
-have prepared content. The next eligible topic in that module's order is
-**Attention Mechanism (Bahdanau, Luong)**, only under a scoped implementation request.
-Prepared does not mean implemented. Retain every pending packet and its code,
-references, visual/lab specifications and source-bound checkpoint.
+and Classical ML improved implementations have recorded reviews. All **42**
+Deep Learning Fundamentals & Architectures topics have current implementations.
+For future content-first requests, prepared still does not mean implemented.
+Retain packets and their code, references, visual/lab specifications and
+source-bound checkpoints when a phase-two implementation consumes them.
 
-The latest DL completion is [specialized convolutions through sequence generation](docs/teaching/DEEP-LEARNING-SEQUENCE-IMPLEMENTATION.md).
+The earlier [57-topic concept-by-concept revision](docs/teaching/concept-intuition/README.md) includes local teaching improvements to Attention, Long Context and State Space and remains current for its unchanged scope. Their earlier [revision-4 reading-progression work](docs/teaching/ATTENTION-MEMORY-INTUITION-REVISION.md) and [original implementation record](docs/teaching/DEEP-LEARNING-ATTENTION-MEMORY-IMPLEMENTATION.md) remain historical evidence for unchanged explanations, numerical engines, programs and measured experiments. The central ledger points to each topic's current manuscript and review; do not substitute an older packet for that source.
 The [prepared-writing revision](docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md)
-added explained scratch/library code and specifications. All 27 remaining packets
-retain phase two for native execution, independent implementation review, website
-integration and browser checks. The completed [implementation-depth remediation](docs/teaching/implementation-depth/REMEDIATION.md)
+added explained scratch/library code and specifications. All 24 of those DL packets
+have now completed phase two, including native execution, independent implementation
+review, website integration and browser checks. The completed [implementation-depth remediation](docs/teaching/implementation-depth/REMEDIATION.md)
 and [lesson usability review](docs/teaching/LESSON-USABILITY-REVIEW.md) are evidence
 for their recorded scope, not a reason to reopen every lesson or certify unrelated code.
+
+The current Windows checkout's strict source-identity inventory reports **81 current
+content and implementation checkpoints**, distinct from the recorded totals above.
+These 39 Classical ML and 42 DL topics match their exact hashes. The other **96
+historical ledger rows** remain preserved, not retrospectively recertified.
+The DL completion preserved all **232 original publication mappings** and added
+Mini-batches and Training Diagnostics, for **234 current mappings**.
+Earlier work identified CRLF checkout differences in some historical prepared files.
+If a future selected topic fails preflight, distinguish a line-ending change from a
+substantive edit. Restore line endings only when the resulting bytes equal its
+existing hash; otherwise investigate the real change. Never refresh all historical
+hashes merely to make counts agree. See [the final integration evidence](docs/teaching/deep-learning-completion/integration-checks.json)
+and the topic's browser receipt for actual coverage and limits.
 
 ## Start here
 
@@ -61,6 +121,7 @@ must already include complete explained code and precise visual/lab specificatio
 not a task for the finish agent to research missing core teaching.
 
 Use topic-specific illustrations and playable investigations where they help.
+Apply the [teaching loop at every conceptual transition](LESSON-TEACHING-STANDARD.md#apply-the-teaching-loop-at-every-conceptual-transition), including variants, implementation choices and advanced branches. The topic's design map must locate the actual explanation, worked intermediate steps and useful representation for each new hurdle; an introductory analogy alone is insufficient.
 Changing a control should show its effect immediately; there is **no learner-
 prediction entry, even optional**, and no answer-unlock gate. Scientific model
 predictions and separate practice remain valid. Use multiple investigations when
@@ -95,6 +156,16 @@ Linux Basics is the user's explicitly approved quality reference. Preserve its m
 A completed, correctness-reviewed lesson was found on 12 September 2026 to teach less well than its evidence suggested: cautions repeated after every result, labs that were guided traces rather than investigations, a fixture that could not show the contrast placed beside it, a chart whose axis hid its own elbow, no real data, and displayed code bloated by reviewer-driven guards. The standard now carries the rules that would have caught each of these: the once-stated caution rule, the first-pass route, the three investigation requirements and fixture check, figure perceptibility, real data for data methods, displayed-code clarity, the canonical-reference coverage check, and a [learning-experience checklist](LESSON-TEACHING-STANDARD.md#learning-experience-checklist) that both author and independent reviewer run separately from correctness review. An agent doing end-to-end delivery runs that checklist before reporting readiness and records its findings; passing verifiers is not a substitute.
 
 Start with the learner's problem and familiar intuition, then introduce terminology, mechanism, formal detail, worked examples and changed practice. Keep essential reasoning visible. Use inline diagrams at the point of explanation, plus interactive investigations when changing inputs reveals something useful. Multiple difficult mechanisms may need different diagrams or labs. Consistency means reliable teaching and usable controls, not identical boxes.
+
+The user's 26 September review of Attention, Long Context and State Space requested
+stronger intuition even after their correctness checks passed. Revision 4 rebuilds
+those lessons around a concrete need, a visible limitation and one complete repair,
+then connects diagrams, worked values, notation and implementation. Follow the
+standard's **Build the reason before naming the machinery** guidance: investigate
+how strong resources teach the idea, preserve technical depth, and review the full
+reading progression rather than adding a generic introduction. Revised content and
+reviews live under `docs/teaching/revisions/<topic-id>/4/`; revision-3 scientific
+evidence remains historical evidence for its unchanged engines and assets.
 
 During writing, reconsider scope/title and valuable applications. Include material here when this is its best teaching home; otherwise persist a reasoned [destination-topic note](docs/teaching/topic-notes/README.md) for the actual owner. Preserve IDs, progress, memberships and old links if a title changes. Do not expand into a whole-catalogue audit.
 

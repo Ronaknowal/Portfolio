@@ -343,8 +343,8 @@ export function ManifoldDigitsFigure() {
     </div>
     {colorLabels && <DigitLegend />}
     <p className="mnfig-note">Equal x/y scale within each map. Map coordinates have arbitrary units; raw radii cannot be compared across these methods.</p>
-    <details className="mnfig-measurements">
-      <summary>Exact measurements for source {queryId}</summary>
+    <section className="mnfig-measurements lesson-teaching-section" data-lesson-teaching="">
+      <h4 className="lesson-teaching-section__title">Exact measurements for source {queryId}</h4>
       <p className="mnfig-note">The 8 × 8 integer pixel grid below is in row-major order, on the original 0–16 scale.</p>
       {Array.from({ length: 8 }, (_, index) => <p key={index} className="mnfig-pixel-row"><strong>Row {index + 1}:</strong> {row.pixels.slice(index * 8, index * 8 + 8).join(', ')}</p>)}
       <DataTable className="mnfig-stack-narrow" caption="The selected observation’s fitted coordinates, rounded to nine decimal places"
@@ -353,7 +353,7 @@ export function ManifoldDigitsFigure() {
           const index = MANIFOLD_DIGITS.rows.findIndex(candidate => candidate.sourceRow === queryId);
           return [layout.key === 'pca' ? 'PCA' : 't-SNE p30', ...layout.coordinates[index].map(value => format(value, 9))];
         })} />
-    </details>
+    </section>
     <RetentionOverview layouts={comparisons} />
     <DataTable caption="Trustworthiness T₁₀ and continuity C₁₀; native scikit-learn sorting convention"
       headings={['Map', 'T₁₀', 'C₁₀']}

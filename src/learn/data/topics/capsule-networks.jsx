@@ -3,19 +3,20 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { CapsuleSensitivityFigure } from '../../components/lesson-labs/CapsuleIntuitionFigures.jsx';
 import { CapsuleGrouping, CapsuleVoteLab, CapsuleSquashLab, CapsuleEvidenceLab, CapsuleFrozenInvestigation, CapsuleGeometryFigure, CapsuleEMLab, CapsuleClassicShape, CapsuleProgram, capsuleAsset } from '../../components/lesson-labs/CapsuleLabs.jsx';
 export default {
  title: 'Capsule Networks',
  readTime: '~70 min read + code, live investigations and practice; optional deeper mechanics',
  hasIntegratedGuide: true,
  content: () => <div className="neural-lesson capsule-lesson"><LessonIntro prerequisites="Vector addition, matrix multiplication, convolution shapes and the idea of learning through a loss. Capsule-specific vocabulary and axes are introduced here." sections={[["1-a-capsule-is-a-bundle-of-properties","1. A capsule is a bundle of properties"],["2-from-a-part-to-a-prediction-about-a-whole","2. From a part to a prediction about a whole"],["3-routing-is-a-short-inference-computation","3. Routing is a short inference computation"],["4-build-the-classifier-and-its-objective","4. Build the classifier and its objective"],["5-run-a-controlled-experiment-on-real-digits","5. Run a controlled experiment on real digits"],["6-geometry-reconstruction-and-a-useful-failure","6. Geometry, reconstruction and a useful failure"],["7-deeper-mechanics-gradients-and-explicit-coordinate-frames","7. Deeper mechanics: gradients and explicit coordinate frames"],["follow-routing-all-the-way-into-a-trainable-program","Follow routing all the way into a trainable program"],["8-architecture-costs-and-alternative-routing-designs","8. Architecture costs and alternative routing designs"],["9-practice-implement-explain-and-compare","9. Practice: implement, explain and compare"],["10-continue-and-learn-another-way","10. Continue and learn another way"]]}>Follow one image from grouped properties to votes, assignments and class vectors. Build the mechanism, train a controlled model, and test what its geometry actually supports.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Follow the coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Follow the coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result."}</Prose>
 
-<Prose>{"A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A "}<strong>{"capsule network"}</strong>{" tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts inspect a compatible whole."}</Prose>
+<Prose>{"A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A "}<strong>{"capsule network"}</strong>{" tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts support a compatible whole."}</Prose>
 
 <Prose>{"In "}<a href={"/learn/path/full-curriculum/convnext-modern-cnn-designs?module=deep-learning-fundamentals"}>{"ConvNeXt"}</a>{", we changed how a convolutional network mixes spatial and channel information. Here the question changes: "}<strong>{"can the network decide, for this particular input, which higher-level entity should receive each part's evidence?"}</strong>{" We will build that computation, train a small classifier and test what the computation does and does not establish."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow sections 1–6, run the small offline program or inspect its saved results, then attempt practice 1–5 and 8. You only need vector addition, matrix multiplication and the idea that a loss guides parameter updates. Sections 7–8 and practice 6–7 develop derivatives, matrix routing and engineering tradeoffs; they are a deeper branch, not a condition for understanding the core lesson."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow sections 1–6, run the small offline program or inspect its saved results, then attempt practice 1–5 and 8. You only need vector addition, matrix multiplication and the idea that a loss guides parameter updates. Sections 7–8 and practice 6–7 develop derivatives, matrix routing and engineering tradeoffs; they are a deeper branch, not a condition for understanding the core lesson."}</Prose>
 
 <H2>{"1. A capsule is a bundle of properties"}</H2>
 
@@ -83,7 +84,7 @@ export default {
 
 <Prose>{"Start a logit "}<InlineMath>{"b_{ij}=0"}</InlineMath>{" for each child–parent pair. A logit is an unconstrained score used by softmax. For each routing step:"}</Prose>
 
-<ol><li>{"Compute "}<InlineMath>{"c_{ij}=\\exp(b_{ij})/\\sum_k\\exp(b_{ik})"}</InlineMath>{", normalizing over candidate parents."}</li><li>{"Sum the weighted votes into "}<InlineMath>{"s_j"}</InlineMath>{", then squash to obtain "}<InlineMath>{"v_j"}</InlineMath>{"."}</li><li>{"If another routing step remains, update "}<InlineMath>{"b_{ij}\\leftarrow b_{ij}+\\widehat u_{j|i}^{\\mathsf T}v_j"}</InlineMath>{"."}</li></ol>
+<ol start={1}><li>{"Compute "}<InlineMath>{"c_{ij}=\\exp(b_{ij})/\\sum_k\\exp(b_{ik})"}</InlineMath>{", normalizing over candidate parents."}</li><li>{"Sum the weighted votes into "}<InlineMath>{"s_j"}</InlineMath>{", then squash to obtain "}<InlineMath>{"v_j"}</InlineMath>{"."}</li><li>{"If another routing step remains, update "}<InlineMath>{"b_{ij}\\leftarrow b_{ij}+\\widehat u_{j|i}^{\\mathsf T}v_j"}</InlineMath>{"."}</li></ol>
 
 <Prose>{"Subtracting the row maximum before exponentiation gives the same softmax with better numerical stability. The agreement is a "}<strong>{"dot product"}</strong>{": both direction and magnitude affect it. It is not cosine similarity unless the operands are explicitly normalized, which would define a different routing rule."}</Prose>
 
@@ -243,9 +244,15 @@ export default {
 
 <Prose>{"For "}<InlineMath>{"s=(.3,.4)"}</InlineMath>{", "}<InlineMath>{"r=.5"}</InlineMath>{", radial sensitivity is .64 and tangent sensitivity .4. For "}<InlineMath>{"s=(3,4)"}</InlineMath>{", "}<InlineMath>{"r=5"}</InlineMath>{", they are approximately .01479 and .19231. A very long vector is much harder to lengthen than to rotate locally."}</Prose>
 
+<Prose>{"Derive the two directions separately. Along the unit arrow "}<InlineMath>{"q"}</InlineMath>{", changing input radius changes output length "}<InlineMath>{"g(r)=r^2/(1+r^2)"}</InlineMath>{", so the multiplier is "}<InlineMath>{"g'(r)=2r/(1+r^2)^2"}</InlineMath>{". A tiny perpendicular displacement has zero first-order effect on radius, so it is multiplied by the existing scale "}<InlineMath>{"r/(1+r^2)"}</InlineMath>{". These are the two eigen-directions of the Jacobian: one scalar cannot describe the layer's sensitivity. At radius 5, even though the output is nearly saturated in length, a directional correction is about 13 times as responsive as an equal radial correction."}</Prose>
+
+<CapsuleSensitivityFigure />
+
 <Prose>{"The "}<a href={"/learn-assets/capsule-networks/capsule-mechanics.py"}>{"mechanics program"}</a>{" computes the analytical Jacobian and checks it by central differences. At zero the exact derivative is zero; a finite difference has a small step-dependent residual. This is a numerical approximation, not a contradictory derivative."}</Prose>
 
 <Prose>{"For the three-step routing fixture, differentiating the full computation agrees with central differences to about "}<InlineMath>{"1.2\\times10^{-10}"}</InlineMath>{". Detaching earlier routing calculations gives the same scalar loss but a gradient differing by up to .03752. Both can be coded; only the full derivative matches the stated full forward function's derivative."}</Prose>
+
+<Prose>{"The missing path under detachment is easy to locate. The final parent receives a direct vote contribution, but an earlier vote also changes agreement, which changes the next coupling, which changes the final sum. If "}<InlineMath>{"s(u)=c(u)u"}</InlineMath>{" in a scalar illustration, its derivative is "}<InlineMath>{"c(u)+u c'(u)"}</InlineMath>{". Detaching the coupling keeps the first term and removes the second. For "}<InlineMath>{"c(u)=\\operatorname{sigmoid}(u)"}</InlineMath>{" at "}<InlineMath>{"u=1"}</InlineMath>{", both forward values are .73106, but the derivatives are .92767 and .73106. This illustrates the computation-graph choice; it is not a substitute for the full routing calculation above."}</Prose>
 
 <H3>{"Why explicit matrices can help—and what they do not guarantee"}</H3>
 
@@ -293,6 +300,8 @@ export default {
 
 <Prose>{"It fixes "}<InlineMath>{"\\beta_u=\\beta_a=0"}</InlineMath>{", variance floor .01 and inverse temperatures .5, .75 and 1. These are declared illustration settings; a trained matrix-capsule model learns cost parameters and uses a chosen schedule."}</Prose>
 
+<Prose>{"Why does tighter agreement raise activation in this expression? Consider one coordinate, effective mass 2, zero cost parameters and "}<InlineMath>{"\\lambda=1"}</InlineMath>{". With standard deviation .5 the cost is "}<InlineMath>{"2\\log(.5)=-1.3863"}</InlineMath>{", giving activation .8; with standard deviation 2 it is "}<InlineMath>{"2\\log2=1.3863"}</InlineMath>{", giving .2. A tight group is cheaper to describe under the Gaussian model. Negative log-density costs can be negative because a continuous density can exceed one; they are not negative probabilities. The same incentive can make an almost-zero spread spuriously attractive, explaining the variance floor and the interest in uncertainty-aware alternatives. This comparison fixes mass and all other terms; it is not a universal monotonic rule when assignments also change."}</Prose>
+
 <Prose>{"For three children with activations "}<InlineMath>{"1,1,.5"}</InlineMath>{", parent-A first coordinates "}<InlineMath>{"0,.2,2"}</InlineMath>{" and parent-B first coordinates "}<InlineMath>{"0,3,3.2"}</InlineMath>{", uniform responsibilities give mass 1.25 per parent. The first means are .48 and 1.84. After three rounds they are approximately .10881 and 2.81927. The second coordinate is zero for every vote, so its variance hits the stated floor. Making the third child inactive makes edits to its votes irrelevant to the estimated means."}</Prose>
 
 <Prose>{"The resemblance to "}<a href={"/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml"}>{"Gaussian-mixture EM"}</a>{" is useful, but each capsule parent sees a differently transformed version of the children, and parent activations do not sum to one. It is not ordinary maximum-likelihood fitting of one common observed dataset. The matrix-capsule paper discusses the change-of-variables issue when comparing densities in different transformed spaces. "}<a href={"https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf"}>{"Matrix Capsules with EM Routing"}</a>{""}</Prose>
@@ -337,11 +346,17 @@ export default {
 
 <Prose>{"Matrix multiplication of a "}<InlineMath>{"4\\times4"}</InlineMath>{" pose by a learned "}<InlineMath>{"4\\times4"}</InlineMath>{" relation uses 16 learned parameters per relation. An unrestricted linear map of a flattened 16-vector to another 16-vector uses 256. That parameter reduction imposes structure; it is not a free replacement for every arbitrary vector map."}</Prose>
 
+<Prose>{"To see the restriction, take one row of the pose matrix. Right multiplication applies the same 4×4 relation to that row as to every other row; it does not arbitrarily mix entries from different pose rows. Likewise, sharing a type-to-type transformation across image positions reduces learned parameters, while every position still produces its own votes. Sharing alone does not eliminate the vote tensor's memory cost. Restricting each child to nearby parents is a separate change that also reduces the number of materialized connections."}</Prose>
+
 <Prose>{"Three alternative directions answer different shortcomings:"}</Prose>
 
 <NeuralTable caption={"8. Architecture costs and alternative routing designs"} headers={[<>{"Direction"}</>,<>{"Mechanism"}</>,<>{"What to examine"}</>]} rows={[[<>{"Diagonal EM routing"}</>,<>{"Estimate vote clusters, spread and activation separately"}</>,<>{"Variance floors, negligible mass, log-domain numerics, local sharing"}</>],[<>{"Variational-Bayes routing"}</>,<>{"Maintain approximate uncertainty over mixture parameters and assignments with priors"}</>,<>{"Prior strength, approximation assumptions, whether variance-collapse behavior improves"}</>],[<>{"STAR-Caps"}</>,<>{"Use learned attentive coefficients and binary routing gates with a straight-through gradient estimator"}</>,<>{"Discrete forward choices versus surrogate gradients, actual sparse execution and measured cost"}</>]]} />
 
 <Prose>{"The "}<a href={"https://ojs.aaai.org/index.php/AAAI/article/view/5785"}>{"AAAI 2020 variational-routing paper"}</a>{" and "}<a href={"https://karim-ahmed.github.io/publications/starcaps.pdf"}>{"NeurIPS 2019 STAR-Caps paper"}</a>{" are distinct algorithms, not extra loop counts for the vector-routing function above. STAR-Caps includes ImageNet experiments, so “capsules have never been tried on ImageNet” is incorrect. Historical results should be read with their architecture, data and training conditions, not used as an undated ranking."}</Prose>
+
+<Prose>{"Two short bridges make those alternatives easier to approach. A point estimate can become overconfident about a parent supported by almost no mass; a distribution over its parameters can retain uncertainty and let a prior matter more when evidence is scarce. As a separate Gaussian illustration, a mean with prior "}<InlineMath>{"N(0,1)"}</InlineMath>{", known observation variance 1 and one observed vote 2 has posterior mean 1 and variance .5. Nine identical observed votes 2 move those to 1.8 and .1. This is not the complete variational capsule algorithm; it shows the role that posterior uncertainty adds beyond one fitted mean and spread. Read the variational paper for its actual priors and factorization."}</Prose>
+
+<Prose>{"A binary gate has a different problem: its hard forward decision has derivative zero away from its threshold and no ordinary derivative at the jump. A "}<strong>{"straight-through estimator"}</strong>{" deliberately supplies a surrogate backward derivative so parameters can change. For example, a forward rule "}<InlineMath>{"1[s>0]"}</InlineMath>{" at "}<InlineMath>{"s=1"}</InlineMath>{" returns 1; using a sigmoid derivative in backpropagation supplies about .1966 even though the hard rule's true derivative there is 0. That is a generic illustration, not a claim that STAR-Caps uses precisely this surrogate. When reading its estimator, keep three questions separate: which routes are active, which gradient is used to train them, and whether the runtime actually skips inactive work."}</Prose>
 
 <Prose>{"For matrix capsules, "}<strong>{"spread loss"}</strong>{" is another objective:"}</Prose>
 
@@ -349,11 +364,13 @@ export default {
 
 <Prose>{"It asks the true activation to exceed each wrong activation by a margin "}<InlineMath>{"m"}</InlineMath>{", often increased during training. Unlike the earlier independent thresholds .9 and .1, it penalizes a relative activation gap."}</Prose>
 
+<Prose>{"For "}<InlineMath>{"m=.2"}</InlineMath>{", true/wrong activations (.6,.3) have gap .3 and zero spread penalty, while (.9,.8) have gap .1 and penalty .01. A high true score is therefore insufficient if a competitor is nearly as high. Adding the same .1 to both activations leaves this pairwise penalty unchanged whenever the values remain in range. The earlier separate .9/.1 targets do not have that translation property."}</Prose>
+
 <Prose>{"Applications involving geometric structure or overlapping instances can justify capsule experiments. They still need matched baselines, valid splits and a specific failure hypothesis. Neither an attractive reconstruction nor resistance to one attack proves general robustness. A 3D viewpoint change can reveal or hide surfaces; it is not always an invertible 2D image transform."}</Prose>
 
-<H2>{"9. Practice: implement, explain and compare"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"9. Practice: implement, explain and compare"}</H2>
 
-<H3>{"1. Repeated evidence is not an average"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Repeated evidence is not an average"}</H3>
 
 <Prose>{"There are two identical children. Each sends "}<InlineMath>{"(1,0)"}</InlineMath>{" to both of two parents. What is each parent's length after one step? Add two more identical children. What changes, and will further routing break the symmetry?"}</Prose>
 
@@ -371,9 +388,9 @@ export default {
 
 <Prose>{"Two children give "}<InlineMath>{"s=(1,0)"}</InlineMath>{", so the length is .5. Four give "}<InlineMath>{"s=(2,0)"}</InlineMath>{", so the length is .8. Both parents are identical at every step and each row remains "}<InlineMath>{"(.5,.5)"}</InlineMath>{". More evidence changes magnitude; it does not create a reason to prefer either parent."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. A positive agreement can still lose share"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. A positive agreement can still lose share"}</H3>
 
 <Prose>{"A child currently has logits "}<InlineMath>{"(0,0)"}</InlineMath>{". The next agreements are "}<InlineMath>{"(1,2)"}</InlineMath>{". Did the first parent gain or lose coupling, even though its agreement was positive?"}</Prose>
 
@@ -391,9 +408,9 @@ export default {
 
 <Prose>{"Its coupling falls from .5 to "}<InlineMath>{"e^1/(e^1+e^2)=1/(1+e)\\approx.26894"}</InlineMath>{". A positive absolute update is not necessarily a relative gain."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Change the loss convention correctly"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Change the loss convention correctly"}</H3>
 
 <Prose>{"A "}<InlineMath>{"16\\times16"}</InlineMath>{" reconstruction uses .0005 times summed squared error. Your API returns mean squared error over pixels. What coefficient preserves the objective? If the true class has length .8 and two wrong classes have lengths .2 and .4, compute the margin loss."}</Prose>
 
@@ -411,9 +428,9 @@ export default {
 
 <Prose>{"Use "}<InlineMath>{".0005\\cdot256=.128"}</InlineMath>{" times pixel MSE. The margin terms are "}<InlineMath>{"(.9-.8)^2+.5(.2-.1)^2+.5(.4-.1)^2=.01+.005+.045=.06"}</InlineMath>{", assuming all other wrong lengths are at most .1."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Repair a leaking reconstruction report"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Repair a leaking reconstruction report"}</H3>
 
 <Prose>{"A program evaluates classification without labels, but reconstructs every development image using its known true class and labels the result “inference reconstruction.” Rewrite the protocol and specify which numbers to retain."}</Prose>
 
@@ -431,9 +448,9 @@ export default {
 
 <Prose>{"Select the longest class capsule to compute ordinary inference reconstruction. Retain the true-label-masked reconstruction under an explicit “label-conditioned diagnostic” label. Report both MSEs and classification errors if the distinction is useful. Neither reconstruction should change classification scores. Do not supply the true label to select a capsule in a claimed label-free system."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Design a new routing comparison"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Design a new routing comparison"}</H3>
 
 <Prose>{"You want to know whether routing helps with left-shifted digits. The existing table contains only right and downward shifts. Specify a comparison that does not treat those table rows as a new untouched test, then make and check a prediction with the program."}</Prose>
 
@@ -451,9 +468,9 @@ export default {
 
 <Prose>{"One valid development investigation holds each of the six models fixed, applies a one-pixel left shift with zero fill, inspects label-preservation failures and compares paired one-step/three-step training configurations. Show the current computed result and its contributing terms immediately. The result is exploratory because the dataset and models have already been studied. A subsequent final claim needs a separately reserved, relevant evaluation set and a frozen protocol. The numeric left-shift result is intentionally not supplied: generate it, retain the changed inputs and explain both counts and disagreement cases."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Disprove an equivariance claim"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Disprove an equivariance claim"}</H3>
 
 <Prose>{"An engineer says any learned linear vote map preserves rotation because it is a matrix. Use "}<InlineMath>{"u=(1,0)"}</InlineMath>{", "}<InlineMath>{"W=\\operatorname{diag}(3,1)"}</InlineMath>{" and a "}<InlineMath>{"90^\\circ"}</InlineMath>{" rotation to test the claim. What must replace that assertion?"}</Prose>
 
@@ -471,9 +488,9 @@ export default {
 
 <Prose>{""}<InlineMath>{"WRu=W(0,1)=(0,1)"}</InlineMath>{", while "}<InlineMath>{"RWu=R(3,0)=(0,3)"}</InlineMath>{". The diagram does not commute. Specify input/output group actions and constrain "}<InlineMath>{"W\\rho_{\\text{in}}=\\rho_{\\text{out}}W"}</InlineMath>{"; also verify the encoder, nonlinearities, routing and readout preserve the intended transformation contract."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. A low-activation child and diagonal EM"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. A low-activation child and diagonal EM"}</H3>
 
 <Prose>{"For one parent, two scalar votes are 0 and 4. Responsibilities are both .5; child activations are 1 and .25. Calculate effective mass, mean and variance before a variance floor. Why is repeatedly multiplying the responsibilities by activation in place wrong?"}</Prose>
 
@@ -491,9 +508,9 @@ export default {
 
 <Prose>{"Mass is .625, mean is "}<InlineMath>{".125\\cdot4/.625=.8"}</InlineMath>{", and variance is "}<InlineMath>{"[.5(.8)^2+.125(3.2)^2]/.625=2.56"}</InlineMath>{". Repeated in-place multiplication would turn the second activation factor into .25², .25³ and so on, changing the specified model. Each iteration uses the new normalized "}<InlineMath>{"R"}</InlineMath>{" and multiplies by the unchanged "}<InlineMath>{"a"}</InlineMath>{" once."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"8. Explain a reconstruction edit without inventing semantics"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Explain a reconstruction edit without inventing semantics"}</H3>
 
 <Prose>{"Use either saved image and the fixed seed-1 three-step model. Change a selected class-vector coordinate by a value other than the demonstrated ±.1. Predict what changes and what must remain invariant. What evidence would justify naming the coordinate “stroke thickness”?"}</Prose>
 
@@ -513,14 +530,14 @@ export default {
 
 </details>
 
-<Prose>{""}<strong>{"Readiness:"}</strong>{" you can follow one image through grouping, voting, routing, scoring and reconstruction; explain why routing normalizes over parents for each child; distinguish input-dependent assignments from trained weights; and design a comparison whose conclusion matches the data. For the deeper branch, derive a squash sensitivity, check a transformation identity and trace one EM update."}</Prose>
+<Prose>{""}<strong>{"Readiness:"}</strong>{" you can follow one image through grouping, voting, routing, scoring and reconstruction; explain why routing normalizes over parents for each child; distinguish input-dependent assignments from trained weights; and design a comparison whose conclusion matches the data. For the deeper branch, derive a squash sensitivity, check a transformation identity and trace one EM update."}</Prose></div></section>
 
-<H2>{"10. Continue and learn another way"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"10. Continue and learn another way"}</H2>
 
 <Prose>{"Next in the module is "}<a href={"/learn/path/full-curriculum/rnns-lstms-grus?module=deep-learning-fundamentals"}>{"RNNs, LSTMs and GRUs"}</a>{". We move from repeated assignment refinement for one image to a state updated over observations in time. The connection is repeated computation; the purpose and state lifetime are different."}</Prose>
 
 <Prose>{"Useful references and alternate routes:"}</Prose>
 
-<ul><li>{""}<a href={"https://arxiv.org/abs/1710.09829"}>{"Dynamic Routing Between Capsules — Sabour, Frosst and Hinton"}</a>{". Read the routing procedure with the child/parent axes beside it, then the reconstruction experiment. Its ordinary MNIST result and the separately trained affNIST-transfer model are different protocols; do not merge their scores."}</li><li>{""}<a href={"https://www.cs.toronto.edu/~saaraa/CapsuleSlides.pdf"}>{"Introduction to Capsules — Sara Sabour's slides"}</a>{". A visual route through coordinate frames, agreement and assignment, especially slides 10–40. Some slides use cosine terminology; the implemented vector-routing agreement in this lesson is the dot product."}</li><li>{""}<a href={"https://www.crcv.ucf.edu/cvpr2019-tutorial/"}>{"Capsule Networks for Computer Vision — UCF CVPR 2019 tutorial"}</a>{". The historical university index links talks and slides (it returned a gateway error during the September2026 implementation check; use the accessible author slides above if unavailable), including Sabour's introduction, a survey, video capsules and segmentation. It is historical research teaching, with separate prerequisites for the application sessions; the full video was not watched for this packet."}</li><li>{""}<a href={"https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf"}>{"Matrix Capsules with EM Routing"}</a>{". Follow the pose/activation distinction and algorithm, then Appendix A for why transforming Gaussian votes differ from fitting an ordinary mixture."}</li><li>{""}<a href={"https://proceedings.mlr.press/v101/paik19a.html"}>{"Capsule Networks Need an Improved Routing Algorithm"}</a>{". An alternative reading centered on controlled comparisons and assignment polarization. Its experiments are evidence under those configurations, not a universal impossibility theorem."}</li><li>{""}<a href={"https://ojs.aaai.org/index.php/AAAI/article/view/5785"}>{"Capsule Routing via Variational Bayes"}</a>{". A deeper probabilistic route; read after the local EM bridge and prior Gaussian-mixture material."}</li><li>{""}<a href={"https://karim-ahmed.github.io/publications/starcaps.pdf"}>{"STAR-Caps"}</a>{". Study the distinction between a discrete routing decision and its straight-through training gradient before attempting to reproduce this architecture."}</li><li>{""}<a href={"/learn-assets/capsule-networks/data-provenance.md"}>{"Data and calculation provenance"}</a>{", "}<a href={"/learn-assets/capsule-networks/capsule-learning.py"}>{"complete learning program"}</a>{", "}<a href={"/learn-assets/capsule-networks/capsule-mechanics.py"}>{"constructed mechanics program"}</a>{" and its "}<a href={"/learn-assets/capsule-networks/capsule_learning_import.py"}>{"small import helper"}</a>{". The first trains the offline model; the second supplies exact routing, geometry, derivative and EM fixtures. No browser lab is required to inspect the underlying arithmetic."}</li></ul>
+<ul><li>{""}<a href={"https://arxiv.org/abs/1710.09829"}>{"Dynamic Routing Between Capsules — Sabour, Frosst and Hinton"}</a>{". Read the routing procedure with the child/parent axes beside it, then the reconstruction experiment. Its ordinary MNIST result and the separately trained affNIST-transfer model are different protocols; do not merge their scores."}</li><li>{""}<a href={"https://www.cs.toronto.edu/~saaraa/CapsuleSlides.pdf"}>{"Introduction to Capsules — Sara Sabour's slides"}</a>{". A visual route through coordinate frames, agreement and assignment, especially slides 10–40. Some slides use cosine terminology; the implemented vector-routing agreement in this lesson is the dot product."}</li><li>{""}<a href={"https://www.crcv.ucf.edu/cvpr2019-tutorial/"}>{"Capsule Networks for Computer Vision — UCF CVPR 2019 tutorial"}</a>{". The historical university index links talks and slides (it returned a gateway error during the September2026 implementation check; use the accessible author slides above if unavailable), including Sabour's introduction, a survey, video capsules and segmentation. It is historical research teaching, with separate prerequisites for the application sessions; the full video was not watched for this packet."}</li><li>{""}<a href={"https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf"}>{"Matrix Capsules with EM Routing"}</a>{". Follow the pose/activation distinction and algorithm, then Appendix A for why transforming Gaussian votes differ from fitting an ordinary mixture."}</li><li>{""}<a href={"https://proceedings.mlr.press/v101/paik19a.html"}>{"Capsule Networks Need an Improved Routing Algorithm"}</a>{". An alternative reading centered on controlled comparisons and assignment polarization. Its experiments are evidence under those configurations, not a universal impossibility theorem."}</li><li>{""}<a href={"https://ojs.aaai.org/index.php/AAAI/article/view/5785"}>{"Capsule Routing via Variational Bayes"}</a>{". A deeper probabilistic route; read after the local EM bridge and prior Gaussian-mixture material."}</li><li>{""}<a href={"https://karim-ahmed.github.io/publications/starcaps.pdf"}>{"STAR-Caps"}</a>{". Study the distinction between a discrete routing decision and its straight-through training gradient before attempting to reproduce this architecture."}</li><li>{""}<a href={"/learn-assets/capsule-networks/data-provenance.md"}>{"Data and calculation provenance"}</a>{", "}<a href={"/learn-assets/capsule-networks/capsule-learning.py"}>{"complete learning program"}</a>{", "}<a href={"/learn-assets/capsule-networks/capsule-mechanics.py"}>{"constructed mechanics program"}</a>{" and its "}<a href={"/learn-assets/capsule-networks/capsule_learning_import.py"}>{"small import helper"}</a>{". The first trains the offline model; the second supplies exact routing, geometry, derivative and EM fixtures. No browser lab is required to inspect the underlying arithmetic."}</li></ul></section>
 </div>
 };

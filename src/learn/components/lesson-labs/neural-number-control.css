@@ -1,0 +1,12 @@
+/* A slider and its exact number are two views of the same value. Keep them
+   together so controls do not push the explanatory result far below the fold. */
+.neural-number.neural-number-control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 6rem;
+  align-items: center;
+  gap: .4rem .75rem;
+}
+.neural-number-control > label,
+.neural-number-control > small { grid-column: 1 / -1; }
+.neural-number-control > input { width: 100%; min-width: 0; box-sizing: border-box; }
+.neural-number-control--numeric > input { grid-column: 1 / -1; }

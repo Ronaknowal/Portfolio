@@ -1,0 +1,42 @@
+{
+  "runtimeFiles": [
+    "src/learn/data/topics/sparse-linear-attention-variants.jsx",
+    "src/learn/data/sparse-attention-models.js",
+    "src/learn/data/sparse-attention-examples.json",
+    "src/learn/components/lesson-labs/SparseAttentionFigures.jsx",
+    "src/learn/components/lesson-labs/SparseAttentionLabs.jsx",
+    "src/learn/components/lesson-labs/sparse-attention.css",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx",
+    "src/learn/components/lesson-labs/neural-number-control.css",
+    "public/learn-assets/sparse-linear-attention-variants/dense-forecast.json",
+    "public/learn-assets/sparse-linear-attention-variants/window-forecast.json",
+    "public/learn-assets/sparse-linear-attention-variants/kernel-forecast.json",
+    "scripts/prepare-sparse-attention-assets.py",
+    "scripts/render-sparse-attention-lesson.mjs",
+    "scripts/verify-sparse-attention-models.mjs"
+  ],
+  "evidence": [
+    "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/design.md",
+    "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/native-checks.json",
+    "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/native-fixtures.json",
+    "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/mechanism-results.json",
+    "docs/teaching/deep-learning-completion/sparse-linear-attention-variants/model-checks.json"
+  ],
+  "browserInventory": [
+    "Inline figures: four representations plus explicit2x6 coefficient matrix; removed-mass bars/products; three causal hub layer graphs; outer-product writes/prefix matrices; Gaussian estimator/normalization; projected future routes; three Nyström matrices/right association; three distinct NSA/DSA/CSA2 diagrams; actual source77 prefix32 plus forecast markers",
+    "sparse-graph: L4–16/W1–8/hub/source/target/layers1–4; hub4 versushub0; individual legal edge checkboxes; future-disabled cells; reset",
+    "sparse-read: selectedlogit/value/retainedcheckboxes; remove key1 default; emptyset error; constant[2,-1]; shared+1000; pinned comparison and reset; exact weight disclosure",
+    "sparse-memory: query/key/value edits; signed2x2 state/difference; zeroquery undefined; append/back/next/evict; pinprefix; constant[2,-2]; reset",
+    "sparse-random: fixed seed5 nestedm8/16/32/64; Q/K/V edits; receiverselection; key1 change preservingquery0; constant values; reset; all24 measuredtrials and seedhighlight",
+    "sparse-projection: queryposition/selectedsource/value/coefficient; futurevalue3→-4; zero coefficient; append/remove lengths3–6; reset; prefix terms remain unrenormalized",
+    "sparse-tiles: keyboardcell edits; blocks1/2/4/8; equal-eight-edge dispersedpreset; clear all; reset; candidate counts distinct from timings",
+    "sparse-forecast: open lazythreeassets/loadingerrorretry; default27points; selected19yreflection remote window-null; inside-window reflection allchange; length8–44; head0–2; modelmemory selection; actual8x8 kernelmatrix; coordinate restore and reset; true nextpoint removed for edits",
+    "Three deferred fullprogram disclosures; allten practice problems and closed hints/solutions; phone320/390 desktop figurelabels/scrolling/keyboard/reset after invalid numericinput; no eager modelrequests beforeforecast open"
+  ],
+  "limits": [
+    "No model retraining; complete retained fits and all observed outcomes preserved",
+    "No measured accelerator timing, compiled GPU FlexAttention run or full NSA/DSA/CSA2 reproduction claimed",
+    "Author numerical/source review complete; independent, browser and shared integration remain"
+  ]
+}

@@ -3,6 +3,7 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { DropBlockFootprintFigure, DropConnectTopologyFigure, LocalNoiseFigure } from '../../components/lesson-labs/DropoutNoiseIntuition.jsx';
 import { DropoutUpdateLab, DropoutExpectationLab, DropoutGeometryLab, DropoutBranchLab, DropoutDepthLab, DropoutModeLab, DropoutMeasuredLab, DropoutMonteCarloLab, DropoutProgram } from '../../components/lesson-labs/DropoutLabs.jsx';
 
 export default {
@@ -11,7 +12,7 @@ export default {
   hasIntegratedGuide: true,
   content: () => <div className="neural-lesson dropout-lesson">
     <LessonIntro prerequisites="Activations, multiplication, means and a loss gradient. The previous residual-connections lesson explains the direct and correction paths; mask probabilities and tensor axes are introduced here." sections={[["learn-with-some-information-temporarily-missing","Learn with some information temporarily missing"],["1-a-mask-changes-values-then-changes-an-update","1. A mask changes values, then changes an update"],["2-why-divide-by-the-keep-probability","2. Why divide by the keep probability?"],["3-what-gets-hidden-geometry-matters","3. What gets hidden? Geometry matters"],["4-drop-the-correction-while-keeping-the-direct-path","4. Drop the correction while keeping the direct path"],["5-modes-state-and-a-normalization-trap","5. Modes, state and a normalization trap"],["use-the-mask-contract-in-a-library-without-changing-its-meaning","Use the mask contract in a library without changing its meaning"],["6-a-complete-experiment-does-masking-help-these-digits","6. A complete experiment: does masking help these digits?"],["7-optional-several-predictions-from-one-dropout-model","7. Optional: several predictions from one dropout model"],["8-optional-choose-a-noise-pattern-for-a-reason","8. Optional: choose a noise pattern for a reason"],["9-practice-with-changed-inputs","9. Practice with changed inputs"],["10-continue-and-read-another-explanation","10. Continue and read another explanation"]]}>Follow a mask through values, gradients, network geometry and real training evidence.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped."}</Prose>
 
 <H2>{"Learn with some information temporarily missing"}</H2>
 
@@ -21,7 +22,7 @@ export default {
 
 <Prose>{"The "}<a href={"/learn/path/full-curriculum/residual-connections-skip-connections?module=deep-learning-fundamentals"}>{"previous lesson on residual connections"}</a>{" showed that a direct path can preserve a representation while another path changes it. Here we ask what happens when the correction is sometimes absent."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow the two-value example, mask geometry, residual branch calculation, train/evaluation mode distinction and real digit comparison; then try practice 1–5. Monte Carlo uncertainty and specialized noise families are optional deeper branches. You need multiplication, averages, a loss and its gradient; these are refreshed where used."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow the two-value example, mask geometry, residual branch calculation, train/evaluation mode distinction and real digit comparison; then try practice 1–5. Monte Carlo uncertainty and specialized noise families are optional deeper branches. You need multiplication, averages, a loss and its gradient; these are refreshed where used."}</Prose>
 
 <H2>{"1. A mask changes values, then changes an update"}</H2>
 
@@ -245,21 +246,53 @@ export default {
 
 <Prose>{"For regression, spread of sampled prediction means omits observation noise. In a model that explicitly assumes Gaussian observation variance "}<InlineMath>{"\\tau^{-1}"}</InlineMath>{", predictive variance includes that term plus variability of the means; "}<InlineMath>{"\\tau"}</InlineMath>{" is precision, and "}<InlineMath>{"\\tau^{-1}"}</InlineMath>{" is variance. Increasing "}<InlineMath>{"T"}</InlineMath>{" reduces Monte Carlo estimation noise, not model bias or all uncertainty."}</Prose>
 
+<Prose>{"For a concrete regression mixture, let two equally weighted masks produce means 1 and 3, each with observation variance 0.25. The mean is 2. The variance of those two means is "}<InlineMath>{"[(1-2)^2+(3-2)^2]/2=1"}</InlineMath>{", so the mixture's predictive variance is "}<InlineMath>{"1+0.25=1.25"}</InlineMath>{". The divisor 2 describes this exact two-component mixture; it is not an unbiased sample-variance estimate. Dividing 1.25 by the number of passes would describe neither the future observation's spread nor this predictive mixture."}</Prose>
+
 <Prose>{"A useful application is selecting examples for labeling: disagreement can suggest where another label might help. Another is routing ambiguous inputs for human review. Both require validating the acquisition/deferral policy on the deployment setting. They are possible uses of these quantities, not safety or coverage certificates."}</Prose>
 
 <H2>{"8. Optional: choose a noise pattern for a reason"}</H2>
 
-<Prose>{"Several related methods answer different questions:"}</Prose>
+<Prose>{"Several related methods answer different questions. Follow what is shared by each random decision before choosing a method."}</Prose>
 
-<ul><li>{""}<strong>{"DropBlock"}</strong>{" hides contiguous regions within feature maps. A "}<InlineMath>{"3\\times3"}</InlineMath>{" blank region interrupts local redundant evidence differently from nine scattered zeros. Overlapping blocks and boundaries mean the seed probability for block centers is not simply the final fraction removed. Read the "}<a href={"https://arxiv.org/abs/1810.12890"}>{"original DropBlock paper"}</a>{" before implementing its sampling and normalization recipe."}</li><li>{""}<strong>{"DropConnect"}</strong>{" masks weights rather than activations. A missing activation removes its contribution to every recipient; missing individual weights can remove different connections to different recipients. "}<a href={"https://proceedings.mlr.press/v28/wan13.html"}>{"Wan et al."}</a>{" develop that distinction."}</li><li>{""}<strong>{"Zoneout"}</strong>{" carries selected previous recurrent-state values forward instead of replacing them with zero. If the old state is 0.7 and a proposed update is 0.2, a preserve decision returns 0.7. It is a memory-preserving intervention across time, not ordinary hidden dropout under another name. "}<a href={"https://arxiv.org/abs/1606.01305"}>{"Zoneout"}</a>{"."}</li><li>{""}<strong>{"Shake-Shake"}</strong>{" uses stochastic affine combinations of parallel branches; "}<strong>{"ShakeDrop"}</strong>{" develops a related residual regularizer with its own stabilization behavior. Their forward/backward recipes require separate study; arbitrary branch noise is not an interchangeable substitute. "}<a href={"https://arxiv.org/abs/1705.07485"}>{"Shake-Shake"}</a>{", "}<a href={"https://arxiv.org/abs/1802.02375"}>{"ShakeDrop"}</a>{"."}</li><li>{""}<strong>{"Gaussian/variational dropout"}</strong>{" extends multiplicative noise and can learn noise parameters. Kingma et al.'s local reparameterization and Molchanov et al.'s sparsification are distinct developments from ordinary fixed-rate MC dropout. Additional parameter cost depends on whether noise parameters are shared or per weight; fixed Bernoulli dropout does not double model parameters. "}<a href={"https://arxiv.org/abs/1506.02557"}>{"Local reparameterization"}</a>{", "}<a href={"https://arxiv.org/abs/1701.05369"}>{"variational sparsification"}</a>{"."}</li></ul>
+<H3>{"Hide a neighborhood, or hide individual connections?"}</H3>
+
+<Prose>{""}<strong>{"DropBlock"}</strong>{" hides contiguous regions within feature maps. Neighboring activations can encode similar evidence, so scattered zeros can leave many substitutes. Removing a whole local patch asks the network to use evidence elsewhere. The footprint comparison below isolates this distinction."}</Prose>
+
+<DropBlockFootprintFigure />
+
+<Prose>{"DropBlock samples centers and expands them into blocks. Overlap and boundaries mean the center probability is not the final fraction removed. Its normalization also accounts for retained positions. Read the "}<a href={"https://proceedings.neurips.cc/paper/2018/file/7edcfb2d8f6a659ef4cd1e6c9b6d7079-Paper.pdf"}>{"original paper, Figure 1 and Algorithm 1"}</a>{" for the sampling recipe and its assumptions; a manually drawn block is not a complete implementation."}</Prose>
+
+<Prose>{""}<strong>{"DropConnect"}</strong>{" masks weights rather than activations. A missing activation removes its contribution to every recipient; missing individual weights can remove different connections to different recipients. The effective matrix makes this difference visible."}</Prose>
+
+<DropConnectTopologyFigure />
+
+<Prose>{""}<a href={"https://proceedings.mlr.press/v28/wan13.pdf"}>{"Wan et al., section 2.2"}</a>{" develops the connection-mask model and how to estimate its predictions. The inverted scaling in our comparison is an explicit teaching convention, not a claim about the original paper's inference approximation."}</Prose>
+
+<H3>{"Preserve an old state, or perturb a branch mixture?"}</H3>
+
+<Prose>{""}<strong>{"Zoneout"}</strong>{" carries selected previous recurrent-state values forward instead of replacing them with zero. If the old state is 0.7 and a proposed update is 0.2, a preserve decision returns 0.7. It is a memory-preserving intervention across time, not ordinary hidden dropout under another name. "}<a href={"https://arxiv.org/abs/1606.01305"}>{"Zoneout"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Shake-Shake"}</strong>{" blends two residual branches with a random coefficient. For branch outputs 1 and 3 and forward coefficient 0.25, the correction is "}<InlineMath>{"0.25(1)+0.75(3)=2.5"}</InlineMath>{". Its original training procedure samples another coefficient for the backward pass: with 0.75 and upstream gradient 1, the branch gradients are 0.75 and 0.25. Those are deliberately different from differentiating the fixed forward mixture, which would give 0.25 and 0.75. Test-time coefficients are 0.5. This explains why simply adding a random multiplier with ordinary automatic differentiation does not reproduce the full procedure. "}<a href={"https://arxiv.org/pdf/1705.07485"}>{"Shake-Shake, sections 1.2–1.3"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"ShakeDrop"}</strong>{" develops a related residual regularizer with a different forward/backward recipe and stabilization behavior. It deserves its own implementation study; arbitrary branch noise is not interchangeable with it. "}<a href={"https://arxiv.org/abs/1802.02375"}>{"ShakeDrop"}</a>{"."}</Prose>
+
+<H3>{"Replace binary noise with a distribution you can differentiate through"}</H3>
+
+<Prose>{""}<strong>{"Gaussian dropout"}</strong>{" uses continuous multiplicative noise; "}<strong>{"variational dropout"}</strong>{" can learn noise parameters. Local reparameterization answers a computational question inside such models: must we draw every noisy weight separately for every example, or can we directly draw the activation those weights produce?"}</Prose>
+
+<Prose>{"For independent Gaussian weights, a linear combination is Gaussian. Compute its mean by a weighted sum and its variance by a sum of squared-input-weighted variances. Then sample that activation directly. The two routes below agree on a single example's distribution."}</Prose>
+
+<LocalNoiseFigure />
+
+<Prose>{"This is a way to estimate a factorized expected-loss objective efficiently, not a claim that all batchwise randomness is identical. "}<a href={"https://arxiv.org/pdf/1506.02557"}>{"Kingma et al., section 2.3 and equation 6"}</a>{" derives the local moments and discusses gradient variance. "}<a href={"https://arxiv.org/abs/1701.05369"}>{"Molchanov et al.'s variational sparsification"}</a>{" is a distinct development. Parameter cost depends on whether noise parameters are shared or per weight; fixed Bernoulli dropout does not double model parameters."}</Prose>
 
 <Prose>{"Attention probability dropout offers another instructive preview. A normalized row "}<InlineMath>{"[0.25,0.75]"}</InlineMath>{", mask "}<InlineMath>{"[1,0]"}</InlineMath>{" and "}<InlineMath>{"q=0.5"}</InlineMath>{" becomes "}<InlineMath>{"[0.5,0]"}</InlineMath>{", whose sum is 0.5. The operation preserves each weight's expectation, not the row sum on every pass. Renormalizing afterward defines a different operation. The attention lesson will explain the values being mixed; the masking calculation already shows why a sampled result need not be a convex average."}</Prose>
 
 <Prose>{"A practical choice starts with the unmasked baseline, the dependency you want to perturb, and a valid validation procedure. Compare a small set of rates and placement choices. Revisit learning rate or training duration if the noisy objective is difficult to fit. Do not copy an architecture's default as a theorem about your data, or assume massive datasets make memorization impossible."}</Prose>
 
-<H2>{"9. Practice with changed inputs"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"9. Practice with changed inputs"}</H2>
 
-<H3>{"1. Repair the scaling"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Repair the scaling"}</H3>
 
 <Prose>{"A value 3 survives with probability 0.75. A program multiplies survivors by 0.75. What are its expected output and the correct survivor value?"}</Prose>
 
@@ -277,9 +310,9 @@ export default {
 
 <Prose>{"Its expectation is "}<InlineMath>{"0.75(3\\cdot0.75)=1.6875"}</InlineMath>{". Correct inverted scaling returns "}<InlineMath>{"3/0.75=4"}</InlineMath>{" when kept and 0 otherwise, giving expectation 3."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Follow a different update"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Follow a different update"}</H3>
 
 <Prose>{"Let "}<InlineMath>{"h=[2,-1]"}</InlineMath>{", "}<InlineMath>{"w=[0.5,1]"}</InlineMath>{", target 0, "}<InlineMath>{"q=0.5"}</InlineMath>{", mask "}<InlineMath>{"[0,1]"}</InlineMath>{", half-squared loss. Find output, weight gradient and weights after an SGD step of 0.1."}</Prose>
 
@@ -297,9 +330,9 @@ export default {
 
 <Prose>{"Masked input "}<InlineMath>{"[0,-2]"}</InlineMath>{", output −2, loss 2, gradient "}<InlineMath>{"[0,4]"}</InlineMath>{", new weights "}<InlineMath>{"[0.5,0.6]"}</InlineMath>{". With the same mask the new output is −1.2 and loss 0.72."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Design the mask axes"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Design the mask axes"}</H3>
 
 <Prose>{"For "}<InlineMath>{"[B,T,D]=[3,5,4]"}</InlineMath>{", hide a feature consistently over all time positions for each example, but allow different examples to keep different features. What mask shape is appropriate?"}</Prose>
 
@@ -317,9 +350,9 @@ export default {
 
 <Prose>{""}<InlineMath>{"[3,1,4]"}</InlineMath>{". A "}<InlineMath>{"[3,5,4]"}</InlineMath>{" mask varies over time; "}<InlineMath>{"[3,1,1]"}</InlineMath>{" hides the whole example's branch; "}<InlineMath>{"[1,1,4]"}</InlineMath>{" forces the same feature decisions across examples. Actual recurrent placement needs its own temporal-state reasoning."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Catch two validation bugs"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Catch two validation bugs"}</H3>
 
 <Prose>{"A model with dropout and BatchNorm is scored inside "}<code>{"no_grad()"}</code>{" after training. A second engineer “fixes” its randomness by resetting the random seed before each prediction."}</Prose>
 
@@ -337,9 +370,9 @@ export default {
 
 <Prose>{""}<code>{"no_grad()"}</code>{" alone leaves training behavior active. Resetting the seed repeats randomness rather than making the intended deterministic predictor; BatchNorm state can still change. Use "}<code>{"eval()"}</code>{" plus no gradient recording for ordinary validation. For an explicitly requested MC procedure, selectively enable dropout and draw fresh masks without modifying BatchNorm state."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Choose from evidence"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Choose from evidence"}</H3>
 
 <Prose>{"Model A scores training CE 0.01 and validation CE 0.20. Model B scores 0.30 on both. Which has the smaller gap, and which has the better observed validation loss?"}</Prose>
 
@@ -357,9 +390,9 @@ export default {
 
 <Prose>{"B has zero gap; A has lower validation loss. B's small gap is compatible with underfitting. These values are a hypothetical diagnostic, not the digit measurements. The gap alone is not the selection objective."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Count blocks and distinguish conventions"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Count blocks and distinguish conventions"}</H3>
 
 <Prose>{"Six blocks use a zero-first schedule ending at drop probability 0.4. Find the rates and expected active count. A programmer computes every correction before masking. Does your answer predict saved computation?"}</Prose>
 
@@ -377,9 +410,9 @@ export default {
 
 <Prose>{"Rates "}<InlineMath>{"[0,0.08,0.16,0.24,0.32,0.4]"}</InlineMath>{" sum to 1.2, so expected active count is 4.8. Every correction was computed; 20% fewer active contributions does not imply 20% less computation."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. Explain a zero uncertainty score"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Explain a zero uncertainty score"}</H3>
 
 <Prose>{"Every MC pass assigns probability 0.99 to the same wrong class. What does low mask disagreement establish?"}</Prose>
 
@@ -397,14 +430,14 @@ export default {
 
 <Prose>{"The sampled masks agree, not that the prediction is correct or the input familiar. More passes estimate that agreement more precisely. Assess probability quality and any deferral policy against observed outcomes on relevant held-out data."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"10. Continue and read another explanation"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"10. Continue and read another explanation"}</H2>
 
 <Prose>{"You can now trace a sampled mask through values, gradients and mode changes, distinguish masking units, and interpret an actual validation comparison. Next, "}<a href={"/learn/path/full-curriculum/convolution-pooling-receptive-fields?module=deep-learning-fundamentals"}>{"Convolution, Pooling & Receptive Fields"}</a>{" explains how spatially arranged features are created and combined—the structure that made channel and region masks meaningful here."}</Prose>
 
 <Prose>{"For another learning route, "}<a href={"https://d2l.ai/chapter_multilayer-perceptrons/dropout.html"}>{"Dive into Deep Learning §5.6"}</a>{" offers a small network diagram and a from-scratch/built-in comparison. Its example uses Fashion-MNIST and a different experiment budget. Use it to connect the masked diagram to code, not as a substitute for checking this lesson's outcomes."}</Prose>
 
-<Prose>{"The "}<a href={"https://jmlr.org/papers/v15/srivastava14a.html"}>{"2014 JMLR dropout paper"}</a>{" is the historical reference: §§4–5 formalize model/training, §7 studies rates and model averaging, and §9 explores marginalization. Its symbol "}<InlineMath>{"p"}</InlineMath>{" is a "}<strong>{"keep"}</strong>{" probability; this lesson uses "}<InlineMath>{"p"}</InlineMath>{" for "}<strong>{"drop"}</strong>{" probability. The exact input-dropout squared-loss penalty is taught in the "}<a href={"/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml"}>{"Classical ML regularization lesson"}</a>{"; the deep nonlinear objective here should not be silently replaced by a generic L2 penalty. The paper's RBM and unsupervised-pretraining extensions are further probabilistic-model study, not prerequisites for this route."}</Prose>
+<Prose>{"The "}<a href={"https://jmlr.org/papers/v15/srivastava14a.html"}>{"2014 JMLR dropout paper"}</a>{" is the historical reference: §§4–5 formalize model/training, §7 studies rates and model averaging, and §9 explores marginalization. Its symbol "}<InlineMath>{"p"}</InlineMath>{" is a "}<strong>{"keep"}</strong>{" probability; this lesson uses "}<InlineMath>{"p"}</InlineMath>{" for "}<strong>{"drop"}</strong>{" probability. The exact input-dropout squared-loss penalty is taught in the "}<a href={"/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml"}>{"Classical ML regularization lesson"}</a>{"; the deep nonlinear objective here should not be silently replaced by a generic L2 penalty. The paper's RBM and unsupervised-pretraining extensions are further probabilistic-model study, not prerequisites for this route."}</Prose></section>
   </div>,
 };

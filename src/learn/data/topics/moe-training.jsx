@@ -854,37 +854,37 @@ total_loss = main_loss + 0.01 * l_aux`}
       {/* ====================================================================
           11. SELF-CHECK EXERCISES
           ==================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1: Derive the balance condition</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1: Derive the balance condition</H3>
 
       <Prose>
         The auxiliary loss is <Code>L_aux = N · Σ f_i · P_i</Code>. Using the method of Lagrange multipliers with constraints <Code>Σ f_i = 1</Code> and <Code>Σ P_i = 1</Code>, show that the minimum is achieved when <Code>f_i = P_i = 1/N</Code> for all <Code>i</Code>, giving <Code>f_i · P_i = 1/N²</Code> per expert and a total loss of 1. What does this tell you about the implicit assumption that uniform routing is the unique optimum?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2: Why capacity_factor must exceed 1.0</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2: Why capacity_factor must exceed 1.0</H3>
 
       <Prose>
         Model token arrivals at expert <Code>i</Code> across a batch of <Code>T</Code> tokens as a Binomial random variable with parameters <Code>T·k</Code> and <Code>p = 1/N</Code>. Using the normal approximation, compute the probability that expert <Code>i</Code> receives more than <Code>T·k/N</Code> tokens (i.e., exactly its fair share — the capacity at <Code>C=1.0</Code>) as a function of <Code>T</Code>, <Code>k</Code>, and <Code>N</Code>. For <Code>T=512</Code>, <Code>k=2</Code>, <Code>N=8</Code>, what capacity factor is needed to keep the overflow probability below 5%? Below 1%?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3: Design a 100B-total / 37B-active MoE</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3: Design a 100B-total / 37B-active MoE</H3>
 
       <Prose>
         You want a model with 100B total parameters and 37B active parameters per token, using top-2 routing. The non-expert parameters (attention, embeddings, norms) account for 5B parameters. Each expert must be a symmetric two-layer FFN with <Code>d_model = 4096</Code> and <Code>d_ff = 4 × d_model</Code>. How many experts N do you need? How many of the 100B total parameters are in the expert pool? Is this configuration feasible with the given <Code>d_model</Code> and <Code>d_ff</Code>? If not, what adjustment to <Code>d_ff</Code> brings it within 5% of the target?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4: Routing variance as a collapse diagnostic</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4: Routing variance as a collapse diagnostic</H3>
 
       <Prose>
         Define routing variance for a batch as <Code>Var(f) = (1/N) · Σ (f_i − 1/N)²</Code>. Show that this quantity equals zero at perfect balance and equals <Code>(N−1)/N²</Code> at total collapse (all tokens to one expert). Implement a monitor function that logs routing variance every 100 steps and define a threshold above which training should be paused and the auxiliary loss coefficient increased. What threshold would you set for N=8? For N=64?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5: Auxiliary loss weight tradeoff</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5: Auxiliary loss weight tradeoff</H3>
 
       <Prose>
         Consider the loss <Code>L = L_LM + α · L_aux</Code>. For small α, describe qualitatively what happens to the router during training (which effect dominates — task loss or aux loss?). For α = 1.0, what does the routing converge to and why? Sketch the expected shape of the curve: validation perplexity as a function of α (from 0 to 1), and explain the shape. Where is the optimal α likely to lie and why? How would you expect this optimal α to shift as N increases from 8 to 256?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

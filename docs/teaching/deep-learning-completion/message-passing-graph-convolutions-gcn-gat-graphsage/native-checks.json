@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "python": "3.12.14",
+  "torch": "2.14.0+cpu",
+  "numpy": "2.3.5",
+  "pyg": "2.8.0.post1",
+  "threads": 1,
+  "checks": [
+    "Complete displayed and companion program identical; all twelve fits rerun, every historical output exactly reproduced",
+    "Actual installed PyG GCN/SAGE/GAT: all12 graph/operator including unequal directed receiving degrees output/input-gradient/parameter-gradient/SGD cases passed",
+    "20 full trained-model baseline/removed/feature/edge/permutation outputs retained; all4 seed11 baseline probabilities exactly replay historical values",
+    "9 fresh native graph-layer fixtures span directed and empty-edge cases"
+  ],
+  "limits": [
+    "No GPU performance or new benchmark claim",
+    "Edits hold original graph-derived features fixed unless explicitly entered; no retraining in browser"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "topicId": "t-sne-umap-manifold-learning",
+  "reviewedAt": "2026-09-26T15:03:49.627Z",
+  "sourceFiles": [
+    "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+    "docs/teaching/concept-intuition/t-sne-umap-manifold-learning/review.md",
+    "scripts/verify-representation-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "adf872a6073393df294673a4520b2f5f6bb3ebcaf69c31b28504ba528e9082f7",
+    "docs/teaching/concept-intuition/t-sne-umap-manifold-learning/review.md": "0ae01aed93b89bb07fa62b48a6baf965083663987931ab80bbc398d7283f14be",
+    "scripts/verify-representation-concept-intuition.mjs": "665d4e670b6977ebc15815db6b352af7cf6f7d95ceb51ee7f98692ff3fd4d14d"
+  },
+  "checks": [
+    {
+      "name": "Complete lesson reading and local concept map",
+      "status": "author-reviewed",
+      "evidence": "docs/teaching/concept-intuition/t-sne-umap-manifold-learning/review.md"
+    },
+    {
+      "name": "JSX syntax transform",
+      "status": "passed"
+    },
+    {
+      "name": "Local affinity scale cancellation",
+      "status": "passed"
+    },
+    {
+      "name": "Global ordered-pair denominator at both layouts",
+      "status": "passed"
+    },
+    {
+      "name": "Attractive and repulsive endpoint losses",
+      "status": "passed"
+    }
+  ],
+  "unchangedEvidence": "Existing numerical models, native programs, datasets and fit campaigns retained; no claim of a fresh native campaign.",
+  "independentReview": "pending",
+  "browserReview": "pending root inspection",
+  "integration": "pending"
+}

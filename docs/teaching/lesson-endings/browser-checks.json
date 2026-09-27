@@ -1,0 +1,492 @@
+{
+  "passed": true,
+  "recordedOn": "2026-09-28",
+  "scope": "Presentation only; existing numerical and scientific evidence reused",
+  "desktop": [
+    {
+      "brokenJumps": [],
+      "exercises": 4,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "8. Practise with new failures and new data"
+        },
+        {
+          "kind": "next",
+          "title": "Ready to continue"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "randomized-linear-algebra",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 12,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "13. Practise with changed questions"
+        },
+        {
+          "kind": "next",
+          "title": "14. Connect the two models and continue"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "linear-logistic-regression",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 6,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "9. Practice with changed inputs"
+        },
+        {
+          "kind": "next",
+          "title": "10. Readiness and the next question"
+        },
+        {
+          "kind": "resources",
+          "title": "11. References & another way to learn it"
+        }
+      ],
+      "slug": "independent-component-analysis-ica",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 0,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "13. Rebuild the reasoning on changed inputs"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "linked-lists-stacks-queues",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 0,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "10. Investigate a new dataset"
+        },
+        {
+          "kind": "next",
+          "title": "12. Check your readiness and carry the structure forward"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "numpy-arrays-broadcasting-vectorization",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 0,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "15. Produce a changed solver report"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "numerical-pdes-grids-finite-elements-stability",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 8,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "10. Practice, investigate and explain"
+        },
+        {
+          "kind": "next",
+          "title": "Continue from the mechanism to a complete model"
+        },
+        {
+          "kind": "resources",
+          "title": "References and another way to learn"
+        }
+      ],
+      "slug": "self-attention-multi-head-attention",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 6,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "10. Practice and transfer"
+        },
+        {
+          "kind": "next",
+          "title": "Where to go next"
+        },
+        {
+          "kind": "resources",
+          "title": "References and other ways to learn"
+        }
+      ],
+      "slug": "transfer-learning-fine-tuning-strategies",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 8,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "8. Practice: reason about a changed design"
+        },
+        {
+          "kind": "resources",
+          "title": "9. Readiness, connections and other ways to learn"
+        }
+      ],
+      "slug": "convnext-modern-cnn-designs",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 8,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "10. Practice: build, diagnose and change the problem"
+        },
+        {
+          "kind": "resources",
+          "title": "11. References, another way to learn, and the next step"
+        }
+      ],
+      "slug": "sequence-to-sequence-encoder-decoder",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 10,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "9. Practice: predict, calculate and diagnose"
+        },
+        {
+          "kind": "resources",
+          "title": "References & another way to learn it"
+        }
+      ],
+      "slug": "modern-hopfield-networks",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 8,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "14. Practice: repair the computation, not just the labels"
+        },
+        {
+          "kind": "next",
+          "title": "15. Continue learning"
+        }
+      ],
+      "slug": "ring-attention-sequence-parallelism",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 5,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "10. Independent case file"
+        },
+        {
+          "kind": "next",
+          "title": "11. Readiness and next study"
+        },
+        {
+          "kind": "resources",
+          "title": "References and another way to learn it"
+        }
+      ],
+      "slug": "neural-training-diagnostics-reproducible-experiments",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 5,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "7. Practice: calculate, diagnose, and transfer"
+        },
+        {
+          "kind": "resources",
+          "title": "10. References & another way to learn it"
+        }
+      ],
+      "slug": "gaussian-processes-gp",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 9,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "9. Practice: calculate, diagnose and transfer"
+        },
+        {
+          "kind": "next",
+          "title": "11. What you should now be able to do"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "pca-dimensionality-reduction",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 10,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "13. Practise, diagnose and transfer"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "k-means-hierarchical-clustering",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 0,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "8. Practise and check"
+        },
+        {
+          "kind": "next",
+          "title": "Ready for the next topic?"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "python-basics-types-control-flow-functions-modules",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 0,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "11. Self-check exercises"
+        }
+      ],
+      "slug": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 0,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "9. Practice: justify the next question and the resulting claim"
+        },
+        {
+          "kind": "resources",
+          "title": "10. Other ways to learn and where to go next"
+        }
+      ],
+      "slug": "active-learning",
+      "width": 1280
+    },
+    {
+      "brokenJumps": [],
+      "exercises": 13,
+      "loadError": false,
+      "overflow": false,
+      "sections": [
+        {
+          "kind": "practice",
+          "title": "Independent practice: change the law, not just the button"
+        },
+        {
+          "kind": "further-learning",
+          "title": "Further learning"
+        },
+        {
+          "kind": "references",
+          "title": "Technical references"
+        }
+      ],
+      "slug": "stochastic-processes-markov-chains-brownian-motion-poisson",
+      "width": 1280
+    }
+  ],
+  "mobile": [
+    {
+      "brokenJumps": [],
+      "endingOverflow": [],
+      "overflow": false,
+      "slug": "randomized-linear-algebra",
+      "width": 320
+    },
+    {
+      "brokenJumps": [],
+      "endingOverflow": [],
+      "overflow": false,
+      "slug": "transfer-learning-fine-tuning-strategies",
+      "width": 320
+    },
+    {
+      "brokenJumps": [],
+      "endingOverflow": [],
+      "overflow": false,
+      "slug": "linked-lists-stacks-queues",
+      "width": 320
+    },
+    {
+      "brokenJumps": [],
+      "endingOverflow": [],
+      "overflow": false,
+      "slug": "independent-component-analysis-ica",
+      "width": 320
+    },
+    {
+      "brokenJumps": [],
+      "endingOverflow": [],
+      "overflow": false,
+      "slug": "ring-attention-sequence-parallelism",
+      "width": 320
+    },
+    {
+      "brokenJumps": [],
+      "endingOverflow": [],
+      "overflow": false,
+      "slug": "numerical-pdes-grids-finite-elements-stability",
+      "width": 320
+    }
+  ],
+  "keyboard": {
+    "page": "randomized-linear-algebra",
+    "hintOpenedWithEnter": true,
+    "solutionRemainedClosed": true
+  },
+  "build": {
+    "passed": true,
+    "command": "node node_modules/vite/bin/vite.js build --logLevel warn",
+    "note": "Existing large-chunk warning remains; lazy import checks pass."
+  },
+  "checks": [
+    "All observed endings render without load errors",
+    "Existing section fragment targets resolve",
+    "No horizontal document or ending overflow at 320px",
+    "Authored resource annotations and separate Sources sections remain visible"
+  ],
+  "limitations": [
+    "Representative browser coverage; full content-conservation checks cover all234 published sources",
+    "No new scientific or numerical experiment execution",
+    "No external link availability or source research recertification"
+  ]
+}

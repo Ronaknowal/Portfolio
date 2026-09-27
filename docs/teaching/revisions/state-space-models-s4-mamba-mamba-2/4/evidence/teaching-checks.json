@@ -1,0 +1,40 @@
+{
+  "revision": 4,
+  "passed": true,
+  "checks": [
+    "Retain/write defaults, latest-only and no-write endpoints, whole-history average, 101 retention values against independently expanded signed-input sums.",
+    "Impulse birth rows, absent future cells and exact column sums independently agree with recurrence, including signed inputs and retention endpoints.",
+    "Marked-memory, two-step delay, constant smoothing, changed distraction gaps and no-marker null.",
+    "Two-by-two retained/outer-product/read arithmetic agrees with the previously verified SSD operator; smoothing/continuous-step bridge checked.",
+    "Parsed all topic JSX; complete 12-section route, 19 visual groups, four existing labs and three full program readers; all prior code blocks, nine end exercises, changed-code task, technical boundaries and external resources retained.",
+    "Exact source-hash identity justifies reuse of historical numerical/native checks for unchanged engines, live labs, fitted weights, data, measured results and Python mechanisms; no native training or GPU execution repeated."
+  ],
+  "scope": "Teaching arithmetic, coverage/source checks. Browser and independent reading review are recorded separately; this does not reapprove changed prose using an old runtime receipt.",
+  "reusedEvidence": {
+    "docs/teaching/evidence/state-space-models.json": "8b1f4d44e2fff78ff676dfc912ffbc65b0ac154475bf3141901ff39e1b592b25",
+    "docs/teaching/evidence/state-space-native.json": "1ec7734ae210a6a889e66d95e09621fad2a4fe6c1fc7e93d8d2b1aa8af6e4953"
+  },
+  "unchangedNativeSources": {
+    "trajectory_state_models.py": "088d36df510c9d0a223530399d44c010ee6c236ef8a221be2b7576484efdfeea",
+    "state_space_mechanisms.py": "e8f7c83bd9acc617dc9628047fe33c510a2e5bfde8ff10ce32e165fe43bbcb03",
+    "trajectory-state-fits.npz": "92f71a9f8c902ce8beaf497f1cca32518a0892df1ac99c71e877ca66a227f059",
+    "movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d"
+  },
+  "sourceHashes": {
+    "docs/teaching/revisions/state-space-models-s4-mamba-mamba-2/4/lesson.md": "7e0e714032642b2edc07fc1ad893cfeb181dd0b03f57c4d3d16759e49a3a5fd7",
+    "docs/teaching/revisions/state-space-models-s4-mamba-mamba-2/4/design.md": "1b72e144a17efc7f621583a9e700514b24f29ce8d4f4b4946884423b27324fee",
+    "docs/teaching/revisions/state-space-models-s4-mamba-mamba-2/4/visual-specifications.md": "8a93092fd4186f4835823d9b927e200893563b740bb99c6f8532e96f8fb2b96b",
+    "src/learn/data/topics/state-space-models-s4-mamba-mamba-2.jsx": "30fa6417f59d57b68c04f307a4de28be05454e5512f6f21290d325aa58f58d4b",
+    "src/learn/data/state-space-intuition.js": "4f1e632bb3abb603e81b1970984cfd423f30c18ad0270b74c474ac3369e717f0",
+    "src/learn/components/lesson-labs/StateSpaceIntuition.jsx": "d89434017b8b7252c6e9811d7993b74b876f3515da6cd84646ae1da09fbf5f23",
+    "src/learn/components/lesson-labs/StateSpaceFigures.jsx": "d6d962b9e5cd8aa5c75dcf515ab1d2dc2ed6bae8aa02e80d5f432370c08b585c",
+    "src/learn/components/lesson-labs/state-space-labs.css": "394dbcf228d38da23be57d63e77a25a65c082890835b1f13b285cc612c7cf497",
+    "scripts/generate-state-space-lesson.mjs": "7d2c4fd1b9e6acdf424826db4ae3459382f58c42d2c7b9a5508ce78906005ce7",
+    "scripts/verify-state-space-teaching.mjs": "28086c570928bb5f8900cd03f803e7457fd07684b03ad8b2a431b040866e36fa",
+    "src/learn/data/state-space-models.js": "1c63d687facf2600a76a10c55fff3eebf32f20a8d51cbdb04887ea2371ab43a3",
+    "src/learn/components/lesson-labs/StateSpaceLabs.jsx": "a046802ffacec9bef58d94fc481db6bf44b9fbe4a510e494b82f9231897dff82",
+    "src/learn/data/state-space-measurements.json": "6a212f8d64259d21eb94ea7a97d5ee11a939b9d67ff970e1544194119c8019c0",
+    "public/learn-code/state-space-models-s4-mamba-mamba-2/trajectory-inference.json": "cb8927b548d0da1087a979c67ca3ff67339fbb77310d6b726bde22d0605ea6a4",
+    "public/learn-code/state-space-models-s4-mamba-mamba-2/trajectory-results.json": "1fe580d632c616e0e86d99f3af76b4eb0c559862a840185fe891dc2783ba6c64"
+  }
+}

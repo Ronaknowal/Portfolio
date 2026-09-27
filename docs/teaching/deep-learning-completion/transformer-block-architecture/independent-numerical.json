@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "comparisons": 13674,
+  "maxAbsoluteError": 7.373355480067012e-7,
+  "checks": [
+    "Six unseen edited/constant/interleaved-padding cases compared with independent functional torch SDPA in float64, including both full block outputs",
+    "Complete-record reverse null for every case",
+    "Interspersed masked records reproduce original computation in both layers and valid-only pool",
+    "Three independent autograd probes including constant input and all-ones null",
+    "Signed feature contribution sums and changed-practice parameter/scaling counts"
+  ],
+  "limits": [
+    "No duplicate training campaign.",
+    "Browser painted geometry and interaction acceptance remain root-owned."
+  ]
+}

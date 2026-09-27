@@ -107,7 +107,7 @@ export function TokenEvidenceLab() {
   const extent = Math.max(2, ...finiteTerms.map(Math.abs));
   const position = frame.logOdds === null ? null : Math.max(-1, Math.min(1, frame.logOdds / extent));
   return <Investigation id="token-evidence" kicker="FOLLOW A MESSAGE" title="Spend one token of evidence at a time">
-    <p>Predict which way adding <strong>meeting</strong> after <strong>free</strong> will move the odds. The five-word vocabulary and three training documents stay fixed.</p>
+    <p>Add <strong>meeting</strong> after <strong>free</strong> and follow how its likelihood contribution changes the odds. The five-word vocabulary and three training documents stay fixed.</p>
     <form className="nb-form" onSubmit={apply}>
       <label>Message <input aria-label="Message" value={draft} onChange={event => setDraft(event.target.value)} maxLength={301} /></label>
       <label>Alpha <input aria-label="Alpha" value={alphaDraft} onChange={event => setAlphaDraft(event.target.value)} inputMode="decimal" /></label>
@@ -136,9 +136,9 @@ export function TokenEvidenceLab() {
         Larger score chooses <strong>{classNames[frame.decision]}</strong>; exact ties choose Ham here.</p> : <p className="nb-error">Both classes assign zero likelihood to this observed prefix. The posterior is undefined; choosing a class would hide a failed model.</p>}
     </div>
     <LessonTable caption="Active fitted token probabilities" headers={['Word', 'Ham count / θ', 'Spam count / θ']} rows={naiveBayesVocabulary.map((word, j) => [word, state.parameters.wordCounts[0][j] + ' / ' + number(state.parameters.probabilities[0][j]), state.parameters.wordCounts[1][j] + ' / ' + number(state.parameters.probabilities[1][j])])} />
-    <details><summary>Check the class scores at this step</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Check the class scores at this step</h4>
       <LessonTable caption="Scores are normalized across classes" headers={['Class', 'Unnormalized log score', 'Probability']} rows={classNames.map((label, c) => [label, number(frame.scores[c]), frame.probabilities ? probability(frame.probabilities[c]) : 'undefined'])} />
-    </details>
+    </section>
     <p><strong>Transfer:</strong> try <em>free meeting</em> with alpha 0, then alpha 1. Explain why stable arithmetic cannot repair a likelihood that the model made exactly zero.</p>
   </Investigation>;
 }
@@ -168,7 +168,7 @@ export function GaussianObservationLab() {
   const [width, setWidth] = useState(0.4);
   const state = gaussianObservationState(reading, width);
   return <Investigation id="gaussian-observation" kicker="HEIGHT IS NOT PROBABILITY" title="Which spread explains this reading?">
-    <p>Two equally common classes have the same mean, 0 mV, but standard deviations 1 and 2 mV. Predict which class gains probability as a reading moves far into either tail.</p>
+    <p>Two equally common classes have the same mean, 0 mV, but standard deviations 1 and 2 mV. Move the reading into either tail and compare how the two densities change the class probabilities.</p>
     <div className="nb-controls"><Range label="Reading in mV" value={reading} onChange={setReading} min={-5} max={5} step={0.1} />
       <Range label="Interval width in mV" value={width} onChange={setWidth} min={0.1} max={1} step={0.1} /></div>
     <figure className="nb-figure"><PlotFrame label="Normal density curves with observed reading and interval" xLabel="Reading (mV)" yLabel="Density (1/mV)" xDomain={[-6, 6]} yDomain={[0, 0.44]} xTicks={[-6, -3, 0, 3, 6]} yTicks={[0, 0.2, 0.4]}>
@@ -299,7 +299,7 @@ export function ReliabilityLab() {
     <LessonTable caption="Trace every bin to its cases" headers={['Probability bin', 'Case IDs', 'Mean p / observed fraction']} rows={state.bins.map(bin => [number(bin.lower, 2) + ' ≤ p ' + (bin.upper === 1 ? '≤ ' : '< ') + number(bin.upper, 2), bin.cases.map(item => item.id).join(', ') || 'empty', bin.count ? number(bin.meanPrediction) + ' / ' + number(bin.observedFraction) : 'not defined'])} />
     <p aria-live="polite">Brier loss: <strong>{number(state.brier, 6)}</strong>. Log loss: <strong>{number(state.logLoss, 6)}</strong>.
       These use all twelve cases and do not depend on bin count. Lower scores are preferable on this fixed outcome set; they do not alone isolate calibration.</p>
-    <details><summary>Inspect all twelve predictions and outcomes</summary><LessonTable caption="Cases behind the reliability view" headers={['Case', 'Predicted p', 'Outcome']} rows={state.cases.map(item => [item.id, number(item.probability), item.outcome])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Inspect all twelve predictions and outcomes</h4><LessonTable caption="Cases behind the reliability view" headers={['Case', 'Predicted p', 'Outcome']} rows={state.cases.map(item => [item.id, number(item.probability), item.outcome])} /></section>
     <button onClick={() => {
       setBins(4);
       setCompression(false);

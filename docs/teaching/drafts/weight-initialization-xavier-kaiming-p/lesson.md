@@ -76,6 +76,8 @@ Here \(n\) is **fan-in**, the number of contributions to this output. Assume ini
 E_w[z^2\mid x]=s^2\sum_i x_i^2.
 \]
 
+For two inputs the missing algebra is visible: \((w_1x_1+w_2x_2)^2=w_1^2x_1^2+w_2^2x_2^2+2w_1w_2x_1x_2\). The last term averages to zero because \(E[w_1w_2]=E[w_1]E[w_2]=0\), even if both fixed inputs are positive. For example, \(x=[1,2]\) gives \(E_w[z^2]=5s^2\). This is an average over weight draws; an individual draw still contains its cross term.
+
 If the input coordinates share second moment \(q\), averaging over inputs gives \(E[z^2]=ns^2q\). Input coordinates do not have to have zero mean for this calculation. What removes the cross terms is the assumption about the weights. After training, weights depend on the data and such independence is no longer a reliable description.
 
 For a symmetric preactivation distribution, exactly half its squared mass is on either side of zero:
@@ -245,6 +247,10 @@ Suppose a learning rate worked well in a 32-unit network. Can you tune cheaply t
 
 A forward sum of independent zero-mean random terms tends to grow on the order of the square root of their count. But a learning update is correlated with the inputs that produced its gradient. Summing those correlated changes can scale differently. Therefore an initialization that controls the first forward pass is not enough to control the size of the first learned feature change.
 
+**Inline illustration — a gradient aligns its own contributions.** Follow four signs through a single linear SGD step, then compare how random and aligned sums grow with width.
+
+If \(z=\sum_iw_ix_i\), \(w=0\), \(y=1\) and every \(x_i\) is ±1, squared-loss gradients are \(-x_i\). Updating gives \(\Delta w_i=\eta x_i\) and therefore \(\Delta z=\eta\sum_i x_i^2=\eta n\). There is no sign cancellation. Independent zero-mean changes of magnitude \(\eta\) would instead have output RMS \(\eta\sqrt n\). This is the missing link between an initialization calculation and an update calculation: the latter reuses the inputs that determined the change. It motivates coordinated scaling, while the precise scaling still depends on architecture and optimizer.
+
 **Maximal update parametrization**, written μP, coordinates initialization, forward multipliers, and optimizer scaling as width changes. Its associated μTransfer procedure tunes a smaller model and transfers eligible settings under the matching parametrization. It does not mean that every finite model has exactly the same best learning rate, nor that a rule derived for Adam can simply be copied into SGD. [μTransfer paper](https://arxiv.org/abs/2203.03466), [Microsoft's implementation and coordinate-check guide](https://github.com/microsoft/mup)
 
 Here is the exact restricted case in `WidthMLP`: a bias-free 64→\(n\)→\(n\)→10 MLP with two ReLUs, fixed input/output sizes, base width \(n_0=32\), and width multiplier \(m=n/n_0\).
@@ -287,6 +293,8 @@ For seed 1 and learning rate 0.01, the μP mean absolute output at initializatio
 ## Deeper tools and practical failure checks
 
 **Data-dependent initialization.** LSUV starts with orthogonal weights, sends a calibration batch through successive layers, and rescales each layer toward a chosen output variance. This adapts to an observed distribution rather than only an assumed one. The procedure is bounded by a tolerance and maximum iteration count. A zero or tiny variance needs a diagnostic stop, not division by zero. Calibration on training inputs is legitimate; using a held-out evaluation distribution to fit those scales consumes that information. The chosen measurement point—before or after an activation—must be explicit. [LSUV, Algorithm 1](https://arxiv.org/pdf/1511.06422)
+
+For the simplest rescaling arithmetic, a linear output with measured variance 9 can be divided by 3 to reach variance 1. Dividing weights by 9 would instead reduce variance to 1/9. With intervening nonlinearities or nonzero biases, measure the actual next pass rather than assume this linear calculation still describes it. Once an earlier layer changes, recompute the later layer's input before calibrating that later layer.
 
 **Residual initialization.** A residual block computes \(x+F(x)\). Making \(F\) initially small can begin near a usable identity map. Fixup uses a coordinated recipe including depth-scaled earlier branch weights, zero final branch/classification layers, and specified scalar multipliers and biases. For a branch containing \(r\) weight layers, its earlier branch weights use a factor \(L^{-1/(2r-2)}\), where \(L\) is the number of residual branches. This is not a universal instruction to multiply any second layer by \(1/\sqrt L\). The next lesson makes the paths and placement concrete. [Fixup, §3](https://arxiv.org/pdf/1901.09321)
 

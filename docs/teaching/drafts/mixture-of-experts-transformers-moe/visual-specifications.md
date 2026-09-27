@@ -58,7 +58,7 @@ F9 additionally exposes a selected patch's actual 16-component normalized expert
 
 ## I2 — Fill capacity slots and return token contributions
 
-**Fresh problem.** Use five tokens, four experts, k=2 and routes [[0,1],[0,2],[0,3],[1,2],[0,1]]. Every gate initially has weight .5; expert i returns scalar i+1. Capacity begins at 2, with proposed change to 3. Ask rejected assignment count, fully dropped token IDs and token 4's output.
+**Fresh problem.** Use five tokens, four experts, k=2 and routes [[0,1],[0,2],[0,3],[1,2],[0,1]]. Every gate initially has weight .5; expert i returns scalar i+1. Capacity begins at 2, with proposed change to 3. Display rejected assignment count, fully dropped token IDs and token 4's output.
 
 At capacity 2, three assignments are rejected, token 4 loses both routes and outputs are [1.5,2,2,2.5,0]. At capacity 3, only token 4→expert 0 is rejected, no token loses all routes and outputs are [1.5,2,2.5,2.5,1]. Capacity 4 rejects nothing.
 
@@ -66,13 +66,13 @@ At capacity 2, three assignments are rejected, token 4 loses both routes and out
 
 The default drops assignments without reweighting. An optional survivor-renormalization toggle is labelled as a changed model and computes its own answers; if all routes drop, output remains zero. Dropless mode accepts every assignment and is order invariant after returning rows to original IDs. Repeating the same run is a null.
 
-**View.** Editable token cards move into actual slot bins; rejected paths stay visible. Count requested/retained assignments, affected tokens and fully dropped tokens separately. The residual path remains outside the expert bins. Keyboard order buttons and a numerical return table provide full access. Run animation begins only reduced motion shows static retained/rejected tables.
+**View.** Editable token cards move into actual slot bins; rejected paths stay visible. Count requested/retained assignments, affected tokens and fully dropped tokens separately. The residual path remains outside the expert bins. Keyboard order buttons and a numerical return table provide full access. The retained/rejected paths and tables remain visible without animation; optional stepping follows the current dispatch order.
 
 **Phase-two checks.** Match saved capacity 2/3/4 and reordered fixtures, dropless order invariance, additive return, disabled duplicate IDs, Reset restores the stated inputs and immediately displays their computed result.
 
 ## I3 — Separate balance from numerical scale and task quality
 
-**Fresh problem.** Four three-expert probability rows are [.6,.3,.1], [.5,.4,.1], [.2,.7,.1], [.1,.2,.7]. Use top-1 and the q=count/(Tk), P=mean(full-softmax) convention. Baseline q=[.5,.25,.25], P=[.35,.4,.25], balance loss 1.0125. Stage changing the first row to [.2,.7,.1]; q becomes [.25,.5,.25], P becomes [.25,.5,.25], loss 1.125. show whether counts/means change and whether this establishes an accuracy change. It does not determine task accuracy.
+**Fresh problem.** Four three-expert probability rows are [.6,.3,.1], [.5,.4,.1], [.2,.7,.1], [.1,.2,.7]. Use top-1 and the q=count/(Tk), P=mean(full-softmax) convention. Baseline q=[.5,.25,.25], P=[.35,.4,.25], balance loss 1.0125. Stage changing the first row to [.2,.7,.1]; q becomes [.25,.5,.25], P becomes [.25,.5,.25], loss 1.125. Show whether counts/means change and whether this establishes an accuracy change. It does not determine task accuracy.
 
 **Actions.** Edit row logits, k=1/2, grouping and common logit offset. Always recompute normalized rows, selected counts and N·dot(q,P). There is no capacity dropping in this investigation. Distinguish per-group aggregation from a global product. A second fresh numerical-scale question starts p=[.2,.5,.3], logits log(p), and stages common shift +2: probabilities/routes/balance stay fixed while z-loss changes 0→4.
 
@@ -94,19 +94,19 @@ Bounds: widths 8–4096, N=2–256, k≤N, T=1–4096, bytes 1/2/4/8, r∈[0,1].
 
 ## I5 — Edit a real image and inspect learned paths
 
-**Fresh problem.** Use moe_001_17 and validation digit 7, original optdigits.tra row 2030; trained_fixtures["7"] binds the reference. Show observed pixels and a staged lower-four-rows-zero edit. Hide final class scores, changed routes and outcomes until the learner observe whether route identities, mixture values and class label can change. An optional predicted class is immediately computed.
+**Fresh problem.** Use moe_001_17 and validation digit 7, original optdigits.tra row 2030; trained_fixtures["7"] binds the reference. Show observed pixels and a staged lower-four-rows-zero edit. Show final class scores, current routes and intermediate vectors immediately. Pixel, temperature and expert edits recompute the model output without a learner prediction entry or reveal gate.
 
 Author results: clean prediction 7, p7=.96999669075, counts [1,12,16,3]. Lower-half-zero predicts 3, p7=.00776563585, counts [16,11,4,1]. This is the actual fixture outcome, not a guarantee for arbitrary edits. The upper-left 2×2 patch is already zero: zeroing it is an exact input null. Doubling temperature preserves routes/counts and class 7 but gives p7=.96980702877. Disabling expert 0 retains class 7 and gives p7=.97009193897.
 
 **Actions.** Edit any of 64 integer counts 0–16 through a pointer/keyboard grid; choose a bounded curated validation image or enter a custom image; set temperature .5–3; disable one expert or none; inspect patch 0–15, head 0/1 and expert 0–3. Disabling an expert zeroes its contribution without changing routes or renormalizing survivors. A selected patch's input vector, full router probabilities, selected weights and combined output are computed from the current edited image. Never substitute a preset animation for inference.
 
-Hover/focus can inspect input identity, router weights, selected experts and actual routes immediately. Selecting a used or unused expert chooses the next real intervention; changing its output recomputes the token contribution and final result without an answer submission.
+Hover/focus can inspect input identity, router weights, selected experts and actual routes immediately. Disabling a used or unused expert is the real intervention; the zeroed contribution and final result recompute without an answer submission.
 
 **Exact model.** Divide counts by 16. Reshape to B×4×2×4×2, permute into patch-row, patch-column, local-row, local-column order, then reshape to B×16×4. Apply biased 4→16 projection and learned 16×16 position vectors. LayerNorm uses epsilon 1e-5, population variance and learned weight/bias. A bias-free 16→48 QKV projection forms two heads of width 8; scores divide by √8 and softmax over all 16 keys. Concatenate weighted values, apply bias-free output projection and residual. A second LayerNorm feeds the bias-free 16→4 router, divided by temperature. Top-2 selected scores are softmaxed. Bias-free SwiGLU experts have width 16, SiLU activation x/(1+exp(-x)), weighted gather/scatter-add and FFN residual. Final LayerNorm, mean over sixteen patch vectors and biased 16→10 classifier produce logits. Class softmax is for inspection. Weights are in fitted-models.json. No padding, dropout, capacity dropping, gradients or optimizer runs in the browser.
 
 **Representation.** Link the 8×8 pixel grid to patch lanes, selected expert contributions and class bars. Attention weights and router weights have separate views. Show an actual selected patch's weighted vector calculation, with a selected component and full table available. Small probability differences use numerical deltas or an explicitly labelled zoom. Editing one patch can change other patch representations through bidirectional attention; do not simply recolor the edited patch.
 
-**Performance and verification.** Lazy-load one selected 4,762-parameter model and curated images, not all twelve models and training histories. Run on explicit action, cancel stale work and use a worker if measured need warrants it. Check model logits/probabilities, all patch selections/weights/vectors, patch orientation, unused-expert and zero-patch nulls, temperature contrast, lower-half edit and disabled-expert policy against all saved variants. Single-versus-batch companion agreement permits documented float32 roundoff. Verify keyboard editing, readable mobile views, load/error recovery, visible-current-result consistency and live recomputation independently in phase two.
+**Performance and verification.** Lazy-load one selected 4,762-parameter model and curated images, not all twelve models and training histories. Load the selected model on opening, then recompute on valid edits with no stale result; use a worker if measured need warrants it. Check model logits/probabilities, all patch selections/weights/vectors, patch orientation, unused-expert and zero-patch nulls, temperature contrast, lower-half edit and disabled-expert policy against all saved variants. Single-versus-batch companion agreement permits documented float32 roundoff. Verify keyboard editing, readable mobile views, load/error recovery, visible-current-result consistency and live recomputation independently in phase two.
 
 ## Continuation
 
@@ -120,3 +120,12 @@ Phase two separately checks numerical portability, reproduction downloads, rende
 Use the existing token-to-expert flow to show dropless selection and the separately declared capacity policy; distinguish task-gate and auxiliary gradient rails. Changing top2 to top1 updates gate weights and the local derivative immediately. Keep production grouping/all-to-all as a labeled systems continuation, not an unimplemented browser performance toggle.
 
 Use topic-owned responsive diagrams and local scrolling for code/matrices. Long filenames and links wrap within the reader at 320px. Show source/setup/download dependencies at the relevant explanation; deferred Python programs load only on request. Keep labels outside geometric marks where possible, fixed scale comparisons truthful, and current results visible during edits. No learner prediction field, submit button, answer lock or optional prediction gate is specified. Existing numerical/interaction checks still apply, and optional package/checkpoint routes carry their actual unexecuted status until phase two supplies evidence.
+
+
+## Implemented representation decisions — 27 September 2026
+
+All eleven inline figure families and five investigations are implemented, with a separate send/return communication circuit added at §6. The complete twelve-section manuscript and its twelve changed practice problems remain. Route fans plus two signed coordinate ribbons replace the proposed two-dimensional contribution arrows: both coordinates, every product and the vector sum remain visible. Capacity diagrams keep token identities in fixed rows and show retained solid versus rejected dashed paths; an editable dispatch-order list records the actual traversal, without motion or a run/reveal button. Objective grouping is selectable between all rows, pairs and individual rows. Exact tables supplement every aggregate.
+
+The frozen image model loads one 4,762-parameter checkpoint on opening. It executes only selected, enabled expert branches; unexecuted outputs are labelled as such, never replaced by a claimed measured zero. Disabling a selected expert makes its contribution zero while retaining the original routes and gate weights. All sixty-four pixel counts, both curated records, every receiver patch, both attention heads and all sixteen vector coordinates are inspectable. Attention weights and router probabilities have distinct displays. Whole-program disclosures fetch the exact deployed Python bytes on request.
+
+The retained twelve fits were replayed natively without refitting. Actual PyTorch registered modules, sparse gather/index_add, all-parameter gradient agreement and twenty-two full-model portability cases are checked. Native and JavaScript receipts bind their current sources. Browser/device/network observations and independent review remain separate. Distributed GPU backends are a clearly bounded continuation, with no unexecuted speed claim.

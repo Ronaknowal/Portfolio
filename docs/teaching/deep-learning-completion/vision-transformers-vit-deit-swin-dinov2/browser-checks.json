@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "topicId": "vision-transformers-vit-deit-swin-dinov2",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T20:11:29.509Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T20-07-57-572Z.json",
+  "sourceHashes": {
+    "src/learn/data/topics/vision-transformers-vit-deit-swin-dinov2.jsx": "1b8a4cc6d31fe4769b0c78fb980e7c72fead52fc49b8f1dc7cf2f6c11cde488c",
+    "src/learn/data/vision-transformer-models.js": "d58038fc6b1951eeb6a9cc194814d2ef90d9b33798d09675bc4d5eea34a97dc7",
+    "src/learn/data/vision-transformer-examples.json": "de093942fbe59ba34983cb163a3766ca6c5bfc8bd20ddd2200eb7182960f9c4e",
+    "src/learn/components/lesson-labs/VisionTransformerFigures.jsx": "3baf75147321c134412ff76d4f041a4a7c30ce46e384540fb9464df618340b9d",
+    "src/learn/components/lesson-labs/VisionTransformerLabs.jsx": "95d5ba486cca0c61cae51971af5c9eb179e43aedfeef325e9a069af0f0abd9e9",
+    "src/learn/components/lesson-labs/vision-transformer.css": "e1e0655b427d1c277d8fd67f4f5808ce214f42bba033e6d113f8180d7d65694f",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "public/learn-assets/vision-transformers-vit-deit-swin-dinov2/plain-vit.json": "96347a0c8dff5a9434e8c0e74c8c5c2e500e654772c097496cc709d791f6b83c",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/author-checks.py": "76adb01ca4e43db1e7fcaff888f88355bd155c175b52fc3a10855c8bfa6ae54a",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/author-results.json": "5b69626a627ec0aa219d077b15b498489bdcd2cef862ba3cdebb1b776ebbe27d",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/experiment-contract.md": "79449bae4f31679168847ba90b2b1b9990509ef73837dee32d6b5d63b30d57e7",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py": "88dd5ac7916805f4b41fa93c0534b9450bb9c5dcb0b0ed8d94ab2e01654e0401",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/mechanism-results.json": "f21abd7a0eeddbea43a600699af6d40c124c4753b950cc9309551c5df92510c2",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/provenance.md": "ae4caf2d7b198878e6c120090aec18c625aa1062018fc3ca5c76f6021df0f4da",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/study-results.json": "c8ee1dbe45f3ef3ba304bb3e87e5aada66ab0b656e41134712a7e0515596157d",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py": "d4b873d5dd7d07d27f4921f472a67607e4d9efc725d1c120cb4d20a58f000e56",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-models.json": "8d54dbd897354124917986293f6596a7fb0a858de6dd68ecf40382f56afc6a08",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/vision-study.py": "f8adbeb6d36e99108647422256e087caed3db309d01b65fc04f6fd45f78f41f6",
+    "public/learn-code/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py": "d46afd3f2752860737b94358215eedb03c912e60bc625d180181a0bc79988fd9",
+    "docs/teaching/deep-learning-completion/vision-transformers-vit-deit-swin-dinov2/browser-review.md": "3c15e8a35fc7c059b0c5a4661800f4c19dc3f440423a42c5a1a9104c0eb199ae"
+  },
+  "checks": [
+    "Six distinct live mechanisms and altered actual digit inference with null/contrast cases",
+    "Desktop and320px painted geometry, local keyboard scroll and first-click invalid reset",
+    "Real missing model asset failure and successful retry after byte-checked restoration",
+    "Deferred code and independent practice solution open correctly",
+    "Corrected teacher-loss arrow inspected on final built source"
+  ],
+  "findings": [
+    {
+      "issue": "Teacher argmax arrow crossed CLS head",
+      "status": "closed"
+    }
+  ],
+  "limitations": "No optional pretrained DINO checkpoint run; local browser observations do not claim every device."
+}

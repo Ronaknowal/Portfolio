@@ -1,0 +1,16 @@
+.rec-intuition { margin: 1.8rem 0; padding: 1rem 0; border-block: 1px solid #38332b; color: #e3e3e3; }
+.rec-intuition > p { margin-top: 0; }
+.rec-intuition svg { display: block; width: min(100%, 440px); height: auto; margin: 1rem auto; }
+.rec-intuition svg text { fill: #d4d4d4; font: 13px ui-monospace, monospace; }
+.rec-intuition figcaption { font-size: .95rem; line-height: 1.7; margin-top: 1rem; }
+.rec-intuition-sum { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: flex-start; }
+.rec-intuition-sum > div { display: flex; align-items: center; gap: .65rem; flex: 1 1 130px; }
+.rec-intuition-sum p { font-size: .85rem; line-height: 1.5; max-width: 145px; }
+.rec-intuition-matrix { display: grid; grid-template-columns: repeat(2, 2.25rem); padding: .45rem; border-inline: 2px solid #e8b44a; text-align: center; gap: .25rem; font: 1rem ui-monospace, monospace; }
+.rec-intuition-operator { color: #e8b44a; font-size: 1.3rem; min-width: .8rem; }
+.rec-intuition-mixture { margin: 1.25rem 0; }
+.rec-intuition-bar { display: flex; margin-top: .5rem; width: 100%; height: 2.5rem; }
+.rec-intuition-bar span { display: grid; place-content: center; box-sizing: border-box; background: #e8b44a; color: #15110a; font-size: .85rem; white-space: nowrap; }
+.rec-intuition-bar span + span { background: #2a2a2a; color: #eee; border: 1px solid #888; }
+.rec-intuition-mixture p { margin: .45rem 0 0; font-size: .9rem; }
+@media (max-width: 450px) { .rec-intuition svg text { font-size: 15px; } }

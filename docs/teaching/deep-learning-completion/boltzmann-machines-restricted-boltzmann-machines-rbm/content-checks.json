@@ -1,0 +1,59 @@
+{
+  "topicId": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+  "passed": true,
+  "sourceFiles": [
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/calculated-inputs.json",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/digits-400.csv",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/visual-specifications.md",
+    "docs/teaching/topic-notes/boltzmann-machines-restricted-boltzmann-machines-rbm.md"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py": "623453c29a018ef4ab3152282246d44f2ad25d0263a6f8faafc4bd766d17125e",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/calculated-inputs.json": "217a5e81b51bda1397f99fae73918329a20c4e0c6f3dfd531a159d49c08da9ca",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md": "ace625dde8b461db7816540e94e0b1ed9e3d021c60d8009a64ef7db8ddb9849d",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md": "9d273a8741310c2cc728592caaf3066faef21f26b47bc8da40e4100ce9dd537b",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md": "a290d62836ca4d07c5e98a54c17ac3fe42a3d96d941f3ff862c987617b5ec2c9",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py": "f57facd7f4aa07452c255f67ed1e320096cca37d7f1a77822161e57a3919baee",
+    "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/visual-specifications.md": "8826193f360c18b437caac66c56806338392bef21a88aa64d98f25c7be248e52",
+    "docs/teaching/topic-notes/boltzmann-machines-restricted-boltzmann-machines-rbm.md": "e233ffef016e86d11ca1ef8d902980c6b030f53d2e2e436a1b6b02255f921014"
+  },
+  "manuscript": "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md",
+  "visualSpecifications": "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/visual-specifications.md",
+  "reconciliation": [
+    "Fully read current manuscript, all visual contracts, both complete programs, design/provenance and destination note; consumed numeric evidence structure, nine model states, original CSV and recorded roles.",
+    "Preserved substantive current provenance: correct sklearn-derived original data IDs/hash, binary duplicate audit, 238/80/80 roles, exact versus sampled statistics, original nine-fit experiment and later bounded investigation calculations. No unsupported historical hash refresh or fit-result rewrite.",
+    "Removed two obsolete submission/answer-entry clauses in visual specifications; current live exploration contract controls all runtime investigations.",
+    "Retained expanded fitted-library bridge and same-parameter probability/transition checks; current official sklearn1.9.1 API confirms PCD, transform and pseudo-likelihood contracts."
+  ],
+  "checks": [
+    {
+      "name": "Complete displayed rbm-study.py equals its executable canonical source and parses",
+      "passed": true
+    },
+    {
+      "name": "Complete displayed bernoulli_rbm_bridge.py equals its executable canonical source and parses",
+      "passed": true
+    },
+    {
+      "name": "Reviewed complete concept sequence, exact arithmetic, fixed experiment protocol, all outcome tables and changed practice",
+      "passed": true
+    },
+    {
+      "name": "Prepared file dependencies present and substantive stale provenance reconciled",
+      "passed": true
+    }
+  ],
+  "research": [
+    {
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.BernoulliRBM.html",
+      "checked": "2026-09-27",
+      "scope": "PCD, components orientation, transform, gibbs and pseudo-likelihood contract"
+    }
+  ]
+}

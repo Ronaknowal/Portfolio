@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "p": 0.7310585786300049,
+  "GGN": 0.7864477329659274,
+  "extra": -0.5378828427399902,
+  "fullHessian": 0.2485648902259372,
+  "checks": [
+    "Independent torch second derivative for nonlinear Jacobian illustration; GGN plus residual second derivative equals full Hessian"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "topicId": "pac-learning-vc-dimension",
+  "date": "2026-09-26T15:56:15.025Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/pac-learning-vc-dimension.jsx",
+    "src/learn/components/lesson-labs/PacIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/pac-intuition.css",
+    "src/learn/components/lesson-labs/PacLabs.jsx"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/pac-learning-vc-dimension.jsx": "82f27f1aa76ba161946a8ec05515c3584143c385fe0619263d4c5a85514ec11a",
+    "src/learn/components/lesson-labs/PacIntuitionFigures.jsx": "3e086a4eac920b3675f82430fdae620d9305e47d93568fb602e1695e588b5fb6",
+    "src/learn/components/lesson-labs/pac-intuition.css": "5510c2f90a4dc88880880528665db7dcb2b1687fe103e77acf7e2e10fc107ffb",
+    "src/learn/components/lesson-labs/PacLabs.jsx": "e63e5166c249ea748094c1c4014778fc80c7a2b0fcd4e0e16b44c77f2690937d"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Sauer prefix/extra-extension enumeration",
+    "Unseen-label completion expected risk",
+    "Countable-family confidence allocation",
+    "Pseudo-threshold versus positive/negative margin witness",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/pac-models.js",
+    "src/learn/data/pac-examples.js",
+    "src/learn/components/lesson-labs/PacFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

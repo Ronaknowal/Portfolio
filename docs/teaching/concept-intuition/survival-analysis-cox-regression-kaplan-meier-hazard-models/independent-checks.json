@@ -1,0 +1,30 @@
+{
+  "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+  "reviewer": "classical_prediction_intuition",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+    "src/learn/components/lesson-labs/SurvivalIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/survival-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "65815bfe3587ec567f6a20d76c5d3a77dbe04166268ed6ef15c28e92294a38a9",
+    "src/learn/components/lesson-labs/SurvivalIntuitionFigures.jsx": "9b865b1781eb518d4bbc5376c400de080fca7b52a8bd0b9954f313ce69da44fb",
+    "src/learn/components/lesson-labs/survival-intuition.css": "53768fc075eb20791b755f5c8bca68e384a0849f7e3b0cd7c3f782adf811367b"
+  },
+  "checks": [
+    {
+      "name": "Full lesson, worked cases, practice and changed visual source read",
+      "passed": true
+    },
+    {
+      "name": "Independent targeted arithmetic and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Actual source hashes agree with author checkpoint",
+      "passed": true
+    }
+  ],
+  "findings": []
+}

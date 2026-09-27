@@ -1,0 +1,35 @@
+{
+  "topicId": "rademacher-complexity-generalization-bounds",
+  "date": "2026-09-26T15:38:43.502Z",
+  "authorChecksPassed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+    "src/learn/components/lesson-labs/RademacherIntuitionFigures.jsx",
+    "src/learn/components/lesson-labs/rademacher-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "53ce84a9038bbe6372d19108ccd8505017c902c224de34b1c9d329655722d4d8",
+    "src/learn/components/lesson-labs/RademacherIntuitionFigures.jsx": "d770049d3f0032e50e15389f7d5e5ea1ad66a4a2d4fc77d43054e48574893ba1",
+    "src/learn/components/lesson-labs/rademacher-intuition.css": "d2676e196ef2c89e1e2cc1e57f757525a2efbae550b69b34bef68d1040deadf4"
+  },
+  "actualChecks": [
+    "All changed JSX parsed with installed esbuild",
+    "Nested prediction-grid cover radii and telescoping reconstruction",
+    "Illustrative local-envelope fixed point",
+    "Positive ReLU rescaling preserves scores",
+    "Equal-mean distributions retain different KL costs",
+    "Unchanged retained runtime/example identities matched pre-task baseline"
+  ],
+  "retainedUnchanged": [
+    "src/learn/data/rademacher-models.js",
+    "src/learn/data/rademacher-examples.js",
+    "src/learn/components/lesson-labs/RademacherLabs.jsx",
+    "src/learn/components/lesson-labs/RademacherFigures.jsx"
+  ],
+  "pending": [
+    "Independent full-reading review",
+    "Rendered desktop, intermediate and phone visual checks",
+    "Shared production integration"
+  ],
+  "limits": "Author arithmetic and parse checks only. No new native fit, browser visit or independent review is implied."
+}

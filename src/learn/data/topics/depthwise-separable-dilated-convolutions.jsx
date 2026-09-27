@@ -3,19 +3,20 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { DilationIntervalFigure } from '../../components/lesson-labs/DepthwiseIntuitionFigures.jsx';
 import { DepthwiseChannelLab, DepthwiseRankLab, DepthwiseStencilLab, DepthwiseCoverageLab, DepthwiseContextLab, DepthwiseDigitLab, DepthwiseProgram, DepthwiseSupportingFigure } from '../../components/lesson-labs/DepthwiseConvolutionLabs.jsx';
 export default {
   title: 'Depthwise Separable & Dilated Convolutions',
   readTime: '~65 min read + experiments and practice',
   hasIntegratedGuide: true,
   content: () => <div className="neural-lesson depthwise-lesson"><LessonIntro prerequisites="Weighted sums and the preceding convolution lesson; spatial and channel axes, rank and receptive-field units are refreshed locally." sections={[["1-separate-the-spatial-and-channel-questions","1. Separate the spatial and channel questions"],["2-what-is-saved-and-what-is-restricted","2. What is saved—and what is restricted?"],["3-dilation-changes-positions-not-the-number-of-learned-taps","3. Dilation changes positions, not the number of learned taps"],["4-implement-the-operator-you-actually-mean","4. Implement the operator you actually mean"],["5-put-the-two-mechanisms-into-useful-architectures","5. Put the two mechanisms into useful architectures"],["6-a-real-experiment-compress-a-trained-layer-then-inspect-the-damage","6. A real experiment: compress a trained layer, then inspect the damage"],["reuse-the-spatial-operator-and-own-the-factorization","Reuse the spatial operator and own the factorization"],["7-diagnose-before-adding-another-architectural-feature","7. Diagnose before adding another architectural feature"],["8-practice-on-changed-problems","8. Practice on changed problems"],["9-readiness-and-the-next-design-question","9. Readiness and the next design question"]]}>Separate spatial filtering, channel mixing and sampling reach; inspect their costs and an actual compressed model.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit depthwise/pointwise filter entries, channel cells, stencil dilation/offsets, serial rates and parallel branch choices; manipulate retained digit inputs where weights are available. Update output contributions, rank restrictions, visited lattice sites, branch union and exact frozen-model outputs. Keep coverage geometry separate from learned influence. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose separability, dilation or parallel context from expressiveness, blind spots and the measured budget."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit depthwise/pointwise filter entries, channel cells, stencil dilation/offsets, serial rates and parallel branch choices; manipulate retained digit inputs where weights are available. Update output contributions, rank restrictions, visited lattice sites, branch union and exact frozen-model outputs. Keep coverage geometry separate from learned influence. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose separability, dilation or parallel context from expressiveness, blind spots and the measured budget."}</Prose>
 
 <Prose>{"A convolution usually answers two questions at once: "}<strong>{"what pattern appears nearby, and how should evidence from different channels be combined?"}</strong>{" A depthwise separable layer separates those jobs. A dilated layer changes a different choice: "}<strong>{"how far apart should the sampled positions be?"}</strong>{""}</Prose>
 
 <Prose>{"These choices matter when a camera model must fit a device budget, when a segmentation model needs both local boundaries and distant context, or when you want to understand why a seemingly cheaper replacement changes predictions. The previous "}<a href={"/learn/path/full-curriculum/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet?module=deep-learning-fundamentals"}>{"Landmark Architectures lesson"}</a>{" compared complete CNN designs. Here we open two of their building blocks and follow the actual numbers."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" read sections 1–4 to understand the operators, 6–7 for a practical experiment and diagnosis, then attempt practice 1–5. Section 5 connects the mechanisms to mobile models and segmentation. The rank proof, gradient derivation and interval-coverage argument deepen the explanation; you can return to them without delaying the basic investigations. You need weighted sums and the idea that training changes weights to reduce a loss. Shapes, channel mixing and sampling geometry are refreshed here."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" read sections 1–4 to understand the operators, 6–7 for a practical experiment and diagnosis, then attempt practice 1–5. Section 5 connects the mechanisms to mobile models and segmentation. The rank proof, gradient derivation and interval-coverage argument deepen the explanation; you can return to them without delaying the basic investigations. You need weighted sums and the idea that training changes weights to reduce a loss. Shapes, channel mixing and sampling geometry are refreshed here."}</Prose>
 
 <H2>{"1. Separate the spatial and channel questions"}</H2>
 
@@ -25,7 +26,7 @@ export default {
 
 <Prose>{"Imagine two input maps: one describes vertical contrast and another brightness. Standard convolution can use a different spatial treatment of each map for each output. A depthwise separable layer instead:"}</Prose>
 
-<ol><li>{"Applies a spatial filter to each input channel independently. This is the "}<strong>{"depthwise"}</strong>{" step."}</li><li>{"Combines the resulting channel values at each location with learned weights. This is a "}<strong>{"pointwise"}</strong>{", or "}<InlineMath>{"1\\times1"}</InlineMath>{", convolution."}</li></ol>
+<ol start={1}><li>{"Applies a spatial filter to each input channel independently. This is the "}<strong>{"depthwise"}</strong>{" step."}</li><li>{"Combines the resulting channel values at each location with learned weights. This is a "}<strong>{"pointwise"}</strong>{", or "}<InlineMath>{"1\\times1"}</InlineMath>{", convolution."}</li></ol>
 
 <Prose>{"The pointwise operation has no spatial reach by itself. It can still perform substantial computation because it mixes all channels at every location. “One by one” describes its spatial kernel, not its channel connectivity."}</Prose>
 
@@ -131,6 +132,8 @@ export default {
 
 <Prose>{"Stride moves the "}<strong>{"output centers"}</strong>{"; dilation spaces the "}<strong>{"taps within each output's stencil"}</strong>{". Zero padding supplies values outside the input. A dilated layer can also be depthwise: one choice concerns channel connectivity, the other concerns spatial sampling."}</Prose>
 
+<Prose>{"The output-size formula counts where the whole stencil fits in the padded array. For input length 8, one padded position on each side, three taps, dilation 2 and stride 2, the padded length is 10 and the stencil spans 5 positions. Its leftmost index may be 0, 2 or 4: three placements. The next start, 6, would end at index 10, outside indices 0–9. Thus "}<InlineMath>{"\\lfloor(10-5)/2\\rfloor+1=3"}</InlineMath>{". This explains both the floor (a partial final placement does not count) and the final one (the start at zero counts)."}</Prose>
+
 <Prose>{"At fixed output dimensions, changing dilation does not change the number of kernel weights or MAC terms. With no padding, larger dilation shrinks the output, so even the operation count changes. Always state the shape policy before comparing cost."}</Prose>
 
 <H3>{"Receptive field, jump and actual coverage"}</H3>
@@ -153,17 +156,21 @@ export default {
 
 <DepthwiseCoverageLab />
 
-<details>
+<section data-lesson-teaching="" className="lesson-teaching-section">
 
-<summary>Deeper: construct a gap-free schedule and see its limit</summary>
+<h3 className="lesson-teaching-section__title">Deeper: construct a gap-free schedule and see its limit</h3>
 
 <Prose>{"Suppose all offsets from "}<InlineMath>{"-S"}</InlineMath>{" through "}<InlineMath>{"S"}</InlineMath>{" are reachable. A new three-tap layer of rate "}<InlineMath>{"d"}</InlineMath>{" makes three shifted intervals centered at "}<InlineMath>{"-d,0,d"}</InlineMath>{". They join without missing integers if "}<InlineMath>{"d\\leq2S+1"}</InlineMath>{". The new covered interval is "}<InlineMath>{"[-S-d,S+d]"}</InlineMath>{"."}</Prose>
+
+<Prose>{"Compare the three shifted copies before using the inequality. For the existing offsets −1,0,1, rate 3 joins consecutive integer positions, whereas rate 4 leaves a missing integer between neighboring copies. The overlap test is about discrete sites, so immediately adjacent integer endpoints are enough; continuous interval overlap is not required."}</Prose>
+
+<DilationIntervalFigure />
 
 <Prose>{"Starting with "}<InlineMath>{"S=0"}</InlineMath>{" forces the first rate to be 1 for this construction. Choosing the largest permitted rate each time gives rates "}<InlineMath>{"1,3,9,27,\\ldots"}</InlineMath>{" and bounding widths "}<InlineMath>{"3,9,27,81,\\ldots"}</InlineMath>{". This is the same place-value idea as representing offsets with digits −1, 0 and 1 in powers of three."}</Prose>
 
 <Prose>{"This is an exact sufficient construction for the stated unbounded, stride-one setting. It is not a recommendation to use enormous rates on tiny images. On a finite map, boundary padding can consume almost all the outer taps. Nor does complete structural coverage imply equal influence or better accuracy."}</Prose>
 
-</details>
+</section>
 
 <H2>{"4. Implement the operator you actually mean"}</H2>
 
@@ -189,6 +196,8 @@ export default {
 
 <Prose>{"This is inference folding. Training BatchNorm depends on current batch statistics, so the same fixed-folding argument does not apply. A global-pooling branch with one image and a "}<InlineMath>{"1\\times1"}</InlineMath>{" map has only one value per channel; training-mode BatchNorm cannot estimate its usual channel variance from that singleton. Use an appropriate trained inference state or deliberately choose a different normalization design; changing only gradient tracking does not change module mode."}</Prose>
 
+<Prose>{"Read the folding equation as “multiply the entire convolution by one fixed channel gain, then shift it.” In a scalar construction, let convolution output be "}<InlineMath>{"2x+1"}</InlineMath>{", stored mean 3, "}<InlineMath>{"\\sqrt{v+\\epsilon}=2"}</InlineMath>{", scale "}<InlineMath>{"\\gamma=4"}</InlineMath>{" and shift "}<InlineMath>{"\\beta=5"}</InlineMath>{". Evaluation BatchNorm gives "}<InlineMath>{"5+4[(2x+1)-3]/2=4x+1"}</InlineMath>{". At x=3 both paths give 13. The weights double and the bias changes because subtracting the stored mean is also part of the affine operation. Folding requires all those quantities to stay fixed."}</Prose>
+
 <H2>{"5. Put the two mechanisms into useful architectures"}</H2>
 
 <H3>{"Mobile networks: spend channel mixing carefully"}</H3>
@@ -200,6 +209,12 @@ export default {
 <Prose>{"Reducing both spatial dimensions by "}<InlineMath>{"\\rho"}</InlineMath>{" multiplies this by approximately "}<InlineMath>{"\\rho^2"}</InlineMath>{", subject to integer rounding and boundary stages. Width and resolution are different choices: narrowing removes feature capacity, whereas downsampling can remove fine spatial evidence. The broad architecture comparison in the previous lesson now has a mechanistic explanation."}</Prose>
 
 <Prose>{""}<a href={"https://arxiv.org/abs/1801.04381"}>{"MobileNet V2"}</a>{" expands a narrow representation with a pointwise operation, performs depthwise spatial work in the expanded space, and projects back without a final clipping activation in the branch. When shapes match, a residual path connects the narrow endpoints. Expansion provides multiple nonlinear features before compression; the linear projection avoids obligatorily zeroing every negative projected value."}</Prose>
+
+<Prose>{"A scalar construction makes the information argument concrete. Expand x into the two channels (x,−x), then apply ReLU and project with weights (1,−1):"}</Prose>
+
+<NeuralTable caption={"Mobile networks: spend channel mixing carefully"} headers={[<>{"Input x"}</>,<>{"Expanded channels"}</>,<>{"After channelwise ReLU"}</>,<>{"Linear projection"}</>]} rows={[[<>{"−2"}</>,<>{"(−2, 2)"}</>,<>{"(0, 2)"}</>,<>{"−2"}</>],[<>{"2"}</>,<>{"(2, −2)"}</>,<>{"(2, 0)"}</>,<>{"2"}</>]]} />
+
+<Prose>{"The expanded representation retains the sign in which channel is active. A final ReLU on the narrow output would map every negative x to zero and lose those distinctions in this branch. This illustrates why extra channels before a nonlinearity can preserve useful information; it does not guarantee every learned expansion is invertible. The residual path, when present, provides a separate route for the input."}</Prose>
 
 <Prose>{"For equal input/output width "}<InlineMath>{"C"}</InlineMath>{", expansion factor "}<InlineMath>{"t"}</InlineMath>{", stride one and a "}<InlineMath>{"k\\times k"}</InlineMath>{" spatial operation, branch weights before biases/normalization are"}</Prose>
 
@@ -256,6 +271,8 @@ export default {
 <Prose>{"For each input channel, flatten its 12 output filters into a "}<InlineMath>{"12\\times9"}</InlineMath>{" matrix. "}<strong>{"Singular value decomposition"}</strong>{", or SVD, writes this matrix as a sum of independent rank-one patterns, ordered by strength. Keeping the first "}<InlineMath>{"m"}</InlineMath>{" patterns gives the smallest squared error between original and reconstructed weights among rank-at-most-"}<InlineMath>{"m"}</InlineMath>{" matrices. This statement concerns the weights; it does not minimize classification loss or guarantee better predictions as "}<InlineMath>{"m"}</InlineMath>{" increases."}</Prose>
 
 <Prose>{"The saved program puts the retained right singular vectors into depthwise filters and the scaled left vectors into pointwise mixing weights. It copies the old output bias to the pointwise layer, adds no activation between the factors, and retains the original ReLU after them. Everything else stays fixed. Multipliers 1, 2, 4 and 9 are declared before observing results. No compressed model is retrained."}</Prose>
+
+<Prose>{"Why can a mathematically best weight approximation damage useful outputs? Consider a two-tap matrix "}<InlineMath>{"W=\\operatorname{diag}(4,3)"}</InlineMath>{". Its best rank-one Frobenius approximation keeps "}<InlineMath>{"\\operatorname{diag}(4,0)"}</InlineMath>{", discarding squared weight energy 9. Patch (100,0) is reproduced exactly as (400,0), but patch (0,10) changes from (0,30) to (0,0). The same discarded weights matter very differently for the two inputs. Frobenius error gives each weight entry equal importance; actual output error depends on which patches occur, and classification further depends on later layers and decision margins. Inspect input-dependent effects as well as the singular-value budget."}</Prose>
 
 <Prose>{"Download "}<a href={"/learn-code/depthwise-separable-dilated-convolutions/convolution-factorization.py"}>{"the complete training and factorization program"}</a>{" beside the CSV. In a Python environment with NumPy, scikit-learn and PyTorch:"}</Prose>
 
@@ -325,9 +342,9 @@ export default {
 
 <Prose>{"If RGB handling worries you, remember that pointwise mixing can combine color-channel responses. The real restriction is the spatial/channel factorization, not an inability to use colors. Whether that restriction is appropriate in an input stem is an empirical design question, not a universal prohibition."}</Prose>
 
-<H2>{"8. Practice on changed problems"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"8. Practice on changed problems"}</H2>
 
-<H3>{"1. Follow a changed channel through the layer"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Follow a changed channel through the layer"}</H3>
 
 <Prose>{"Use input channels A "}<InlineMath>{"[2,1,0]"}</InlineMath>{", B "}<InlineMath>{"[1,3,2]"}</InlineMath>{", spatial filters A "}<InlineMath>{"[1,2]"}</InlineMath>{", B "}<InlineMath>{"[-1,1]"}</InlineMath>{", and pointwise weights "}<InlineMath>{"[0.5,2]"}</InlineMath>{". Find both outputs. Then change A's final value from 0 to 4: which output changes, and by how much?"}</Prose>
 
@@ -345,9 +362,9 @@ export default {
 
 <Prose>{"A filters to "}<InlineMath>{"[4,1]"}</InlineMath>{" and B to "}<InlineMath>{"[2,-1]"}</InlineMath>{". Outputs are "}<InlineMath>{"[6,-1.5]"}</InlineMath>{". Editing A's last value changes its second filtered value from 1 to 9, so the second output increases by "}<InlineMath>{"0.5(8)=4"}</InlineMath>{" to 2.5. The first remains 6."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Budget expressiveness"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Budget expressiveness"}</H3>
 
 <Prose>{"A "}<InlineMath>{"3\\times3"}</InlineMath>{" layer has 16 inputs and 24 outputs. Compare a dense layer with a separable pair using multiplier two. Ignore biases. Does a smaller parameter count prove equivalence or faster inference?"}</Prose>
 
@@ -365,9 +382,9 @@ export default {
 
 <Prose>{"Dense: "}<InlineMath>{"9(16)(24)=3456"}</InlineMath>{" weights. Separable: "}<InlineMath>{"16(2)(9+24)=1056"}</InlineMath>{". The effective per-input-channel rank is at most two, so an arbitrary dense layer need not be representable. Hardware execution and all other operations determine elapsed time."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Repair a misleading receptive field"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Repair a misleading receptive field"}</H3>
 
 <Prose>{"Two three-tap layers use rates 1 and 4. List reachable offsets, identify the gaps, and choose a replacement second rate that reaches every offset in a seven-position span."}</Prose>
 
@@ -385,9 +402,9 @@ export default {
 
 <Prose>{"Rates 1 and 4 reach "}<InlineMath>{"\\{-5,-4,-3,-1,0,1,3,4,5\\}"}</InlineMath>{" and miss −2,2 inside their eleven-position bound. Second rate 2 produces every offset −3 through 3, a seven-position span. The repaired field is smaller but fully covered."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Respect original-image units"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Respect original-image units"}</H3>
 
 <Prose>{"Incoming features have receptive-field width 7 and jump 2 input pixels. Add a kernel of size 3, dilation 3 and stride 2. Find the new field width and jump. Explain why "}<InlineMath>{"2(2\\cdot3+1)"}</InlineMath>{" is not the field width."}</Prose>
 
@@ -405,9 +422,9 @@ export default {
 
 <Prose>{""}<InlineMath>{"r'=7+(3-1)(3)(2)=19"}</InlineMath>{", and "}<InlineMath>{"j'=2(2)=4"}</InlineMath>{". Multiplying a seven-tap-span outline by the old jump gives 14, which ignores the incoming field width and conflates center spacing with the coverage of one feature."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Design the next compression experiment"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Design the next compression experiment"}</H3>
 
 <Prose>{"A rank-two replacement has worse development accuracy than the original, but fewer MACs. Propose an experiment that answers whether training adaptation can recover useful accuracy. Identify which data may drive updates and what evidence is still needed before a latency claim."}</Prose>
 
@@ -425,9 +442,9 @@ export default {
 
 <Prose>{"Start from the same saved dense model and the declared rank-two conversion. Predeclare an optimizer, update budget and which layers may change. Fine-tune only on training images; retain the original and unadapted compressed models as baselines. Compare development counts, cross-entropy and relevant slices after the fixed run, and report all chosen seeds. Selecting a strategy on development consumes that evidence; later reporting needs a frozen evaluation. MAC reduction still requires a measured deployment timing comparison with documented device, software and input contract."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. A spatial summary can miss a rearrangement"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. A spatial summary can miss a rearrangement"}</H3>
 
 <Prose>{"An ASPP image-summary branch averages a channel whose "}<InlineMath>{"2\\times2"}</InlineMath>{" values are "}<InlineMath>{"[1,3;5,7]"}</InlineMath>{". Swap the top-left and bottom-right values. Can this branch alone identify the swap? Could a local branch respond differently?"}</Prose>
 
@@ -445,9 +462,9 @@ export default {
 
 <Prose>{"The mean remains 4, so the pooled vector and its deterministic projection remain identical. A local branch may change because the values at its sampled positions changed. A particular symmetric filter or location could still give the same result; dependency permits a change but does not guarantee one."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. An advanced construction challenge"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. An advanced construction challenge"}</H3>
 
 <Prose>{"Using four serial three-tap, stride-one layers on an unbounded line, construct a gap-free schedule with the largest possible number of distinct reachable positions. State why the result is a structural upper bound, and why it may be unsuitable for an "}<InlineMath>{"8\\times8"}</InlineMath>{" feature map."}</Prose>
 
@@ -465,16 +482,16 @@ export default {
 
 <Prose>{"There are "}<InlineMath>{"3^4=81"}</InlineMath>{" tap-choice paths, so at most 81 distinct positions can be reached. Rates 1,3,9,27 reach every integer from −40 to 40, attaining that bound. Finite maps invalidate the unbounded-input premise: many taps address padding, and the nominal span does not create new image information."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"9. Readiness and the next design question"}</H2>
+<section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{"9. Readiness and the next design question"}</H2>
 
 <Prose>{"You are ready to continue when you can trace spatial filtering and channel mixing separately; state the rank restriction of a linear separable pair; calculate weights and MACs with the correct output shapes; distinguish dilation from stride; and test sampled-site coverage instead of trusting a bounding rectangle. In practice, you should also be able to identify whether an architectural change was retrained, whether its evaluation data was already used for selection, and whether a speed claim was actually measured."}</Prose>
 
-<Prose>{"Next in the module is "}<strong>{""}<a href={"/learn/path/full-curriculum/convnext-modern-cnn-designs?module=deep-learning-fundamentals"}>{"ConvNeXt & Modern CNN Designs"}</a>{""}</strong>{". It builds on this distinction between spatial mixing and channel mixing, then changes normalization, activation placement, stage design and training. We will ask what evidence supports those changes rather than assuming a newer name explains the improvement."}</Prose>
+<Prose>{"Next in the module is "}<strong>{""}<a href={"/learn/path/full-curriculum/convnext-modern-cnn-designs?module=deep-learning-fundamentals"}>{"ConvNeXt & Modern CNN Designs"}</a>{""}</strong>{". It builds on this distinction between spatial mixing and channel mixing, then changes normalization, activation placement, stage design and training. We will ask what evidence supports those changes rather than assuming a newer name explains the improvement."}</Prose></section>
 
-<H3>{"References and other ways to learn"}</H3>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H3>{"References and other ways to learn"}</H3>
 
-<ul><li>{""}<a href={"https://arxiv.org/abs/1704.04861"}>{"MobileNets V1, Howard et al."}</a>{": sections 3.1–3.4 explain separable filtering and width/resolution choices. Read after sections 1–2; its historical model and reported costs have a specific shape/training context."}</li><li>{""}<a href={"https://arxiv.org/abs/1610.02357"}>{"Xception, Chollet"}</a>{": section 4.7 is a useful contrasting activation-placement experiment. Its conclusion is about the tested architecture."}</li><li>{""}<a href={"https://arxiv.org/abs/1801.04381"}>{"MobileNet V2, Sandler et al."}</a>{": sections 3.2–3.4 and the block table explain linear bottlenecks and inverted residuals. Its geometric motivation needs more linear algebra than the first-pass route."}</li><li>{""}<a href={"https://arxiv.org/abs/1905.02244"}>{"Searching for MobileNet V3, Howard et al."}</a>{": section 5 distinguishes the hard gate from hard-swish and documents architecture-specific deployment decisions."}</li><li>{""}<a href={"https://arxiv.org/abs/1511.07122"}>{"Multi-Scale Context Aggregation by Dilated Convolutions, Yu and Koltun"}</a>{": sections 2–3 introduce the operator and a context module; later sections separate the front end and evaluation. Useful after drawing exact tap positions."}</li><li>{""}<a href={"https://arxiv.org/abs/1702.08502"}>{"Understanding Convolution for Semantic Segmentation, Wang et al."}</a>{": section 3.2 explains hybrid dilation and gap conditions. Use it with explicit support enumeration rather than reading its common-factor warning as a sufficient theorem."}</li><li>{""}<a href={"https://arxiv.org/abs/1706.05587"}>{"DeepLab V3"}</a>{" and "}<a href={"https://arxiv.org/abs/1802.02611"}>{"V3+"}</a>{": respectively, parallel context branches and a boundary-refining decoder. Keep versions, output stride and training protocol distinct."}</li><li>{""}<a href={"https://d2l.ai/chapter_convolutional-neural-networks/channels.html"}>{"Dive into Deep Learning: Multiple Input and Multiple Output Channels"}</a>{": an alternate visual and code route for the local channel operations and "}<InlineMath>{"1\\times1"}</InlineMath>{" mixing. Its full standard-convolution examples are especially useful before the factorization proof; the book's own environment setup differs from our self-contained files."}</li><li>{""}<a href={"https://distill.pub/2019/computing-receptive-fields/"}>{"Distill: Computing Receptive Fields"}</a>{": an interactive geometry explanation with derivations for size, location and multi-path networks. Pair the outline diagrams with this lesson's explicit sampled-site sets."}</li><li>{""}<a href={"https://docs.pytorch.org/docs/2.9/generated/torch.nn.Conv2d.html"}>{"PyTorch Conv2d reference"}</a>{" and "}<a href={"https://docs.pytorch.org/vision/main/_modules/torchvision/models/segmentation/deeplabv3.html"}>{"Torchvision ASPP source"}</a>{": API and implementation references, not substitutes for the mechanism. The former is a stable 2.9 documentation page; the latter is a changing main-branch view inspected on 13 September 2026. Our saved calculations ran with PyTorch 2.14.0+cpu."}</li></ul>
+<ul><li>{""}<a href={"https://arxiv.org/abs/1704.04861"}>{"MobileNets V1, Howard et al."}</a>{": sections 3.1–3.4 explain separable filtering and width/resolution choices. Read after sections 1–2; its historical model and reported costs have a specific shape/training context."}</li><li>{""}<a href={"https://arxiv.org/abs/1610.02357"}>{"Xception, Chollet"}</a>{": section 4.7 is a useful contrasting activation-placement experiment. Its conclusion is about the tested architecture."}</li><li>{""}<a href={"https://arxiv.org/abs/1801.04381"}>{"MobileNet V2, Sandler et al."}</a>{": sections 3.2–3.4 and the block table explain linear bottlenecks and inverted residuals. Its geometric motivation needs more linear algebra than the first-pass route."}</li><li>{""}<a href={"https://arxiv.org/abs/1905.02244"}>{"Searching for MobileNet V3, Howard et al."}</a>{": section 5 distinguishes the hard gate from hard-swish and documents architecture-specific deployment decisions."}</li><li>{""}<a href={"https://arxiv.org/abs/1511.07122"}>{"Multi-Scale Context Aggregation by Dilated Convolutions, Yu and Koltun"}</a>{": sections 2–3 introduce the operator and a context module; later sections separate the front end and evaluation. Useful after drawing exact tap positions."}</li><li>{""}<a href={"https://arxiv.org/abs/1702.08502"}>{"Understanding Convolution for Semantic Segmentation, Wang et al."}</a>{": section 3.2 explains hybrid dilation and gap conditions. Use it with explicit support enumeration rather than reading its common-factor warning as a sufficient theorem."}</li><li>{""}<a href={"https://arxiv.org/abs/1706.05587"}>{"DeepLab V3"}</a>{" and "}<a href={"https://arxiv.org/abs/1802.02611"}>{"V3+"}</a>{": respectively, parallel context branches and a boundary-refining decoder. Keep versions, output stride and training protocol distinct."}</li><li>{""}<a href={"https://d2l.ai/chapter_convolutional-neural-networks/channels.html"}>{"Dive into Deep Learning: Multiple Input and Multiple Output Channels"}</a>{": an alternate visual and code route for the local channel operations and "}<InlineMath>{"1\\times1"}</InlineMath>{" mixing. Its full standard-convolution examples are especially useful before the factorization proof; the book's own environment setup differs from our self-contained files."}</li><li>{""}<a href={"https://distill.pub/2019/computing-receptive-fields/"}>{"Distill: Computing Receptive Fields"}</a>{": an interactive geometry explanation with derivations for size, location and multi-path networks. Pair the outline diagrams with this lesson's explicit sampled-site sets."}</li><li>{""}<a href={"https://docs.pytorch.org/docs/2.9/generated/torch.nn.Conv2d.html"}>{"PyTorch Conv2d reference"}</a>{" and "}<a href={"https://docs.pytorch.org/vision/main/_modules/torchvision/models/segmentation/deeplabv3.html"}>{"Torchvision ASPP source"}</a>{": API and implementation references, not substitutes for the mechanism. The former is a stable 2.9 documentation page; the latter is a changing main-branch view inspected on 13 September 2026. Our saved calculations ran with PyTorch 2.14.0+cpu."}</li></ul></section>
   </div>,
 };

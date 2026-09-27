@@ -24,7 +24,7 @@ Choose a representation for each question: token strips and owned buffers for pl
 
 Every investigation opens with its current inputs and output visible. Valid edits recompute both dense-reference and ring results and their difference where applicable. Step advances block communication or summary merging; Reset restores the fixture. No prediction or reveal state is used.
 
-Use explicit Run, Step, Previous and Reset controls. Reset restores the stated inputs and immediately displays their computed result. Keep original and edited states distinct. Async jobs carry the exact revision; discard older responses. Debounce dragging or require Run to avoid queued calculations. Do not train models or fetch external datasets in the browser.
+Use Step, Previous and Reset controls to inspect chronology while complete current results remain visible. Reset restores the stated inputs and immediately displays their computed result. Keep original and edited states distinct. Async jobs carry the exact revision; discard older responses. Keep calculations bounded; debounce only expensive dragging and show pending state if needed. Do not train models or fetch external datasets in the browser.
 
 Provide keyboard fields for every drag action, visible units, errors and focus order. Pair color with rank/head/document labels or line patterns. Touch targets should be at least 44px. Reduced motion removes travel animation without hiding states. No hover-only numbers. On narrow screens, stack lanes/planes and offer row-oriented tables. Caption every figure as constructed arithmetic, frozen real-model evidence or a hypothetical cost model, as applicable.
 
@@ -56,7 +56,7 @@ The saved scalar trace gives:
 
 Named bug comparisons are equal block averaging (3.2) and omitted rescaling (9.5/2.75). Show these only as explained failures. Reversed arrival and a common offset of 1000 are computed null controls.
 
-Since the first answer appears in the prose, computed mode starts with the fresh scores [ln3,0,ln2,0] and values [4,−1,7,2], or a learner-created edit. Display 27/7 immediately for the matching fixture, with its weighted contributions. Calculate and explain a numeric output with absolute/relative tolerance 1e−6, against the current computation. A separate categorical task asks whether an edit changes the output. in the current live view, explain the signed contributions and actual denominator.
+Since the first answer appears in the prose, computed mode starts with the fresh scores [ln3,0,ln2,0] and values [4,−1,7,2], or a learner-created edit. Display 27/7 immediately for the matching fixture, with its weighted contributions. Display the computed output and dense-reference discrepancy, with absolute/relative tolerance 1e−6 clearly identified. Explain how each signed contribution and the actual denominator determine the result.
 
 The optional decoding view merges independently generated (m,ℓ,u) summaries at their common maximum. Generate summaries from records by default; do not imply arbitrary inconsistent triples are valid probability summaries. Check zero/negative values, block masking, offset/reversal nulls, edit invalidation, reset, keyboard input and stable arithmetic.
 
@@ -76,7 +76,7 @@ A tile is charged for all its cells whenever at least one cell is valid. Sum the
 
 The editor swaps actual labeled position records between owners, preserving equal counts. Recompute from individual positions. Support L = 4–32 and P = 1–8, with P ≤ L. Equal-layout formulas require L divisible by P; this zigzag preset requires L divisible by 2P. Disable an unsupported preset with a precise explanation. Uneven ownership remains available in the identity explanation, but must not use the equal-c formulas.
 
-Start an assessment with L = 12, P = 3 or an unsolved user swap. show whether arrangement has lower summed round-critical work, allowing a tie. Calculate and explain computed counts, not an assumption that striping always wins. Show both useful-pair total and executed-cell count. At coarse 4×4 granularity in the L16/P4 example, all three arrangements reach 64: retain this null.
+Start the editable investigation with L = 12, P = 3. Compare the current arrangement’s summed round-critical work with the standard layouts, allowing a tie. Calculate and explain computed counts, not an assumption that striping always wins. Show both useful-pair total and executed-cell count. At coarse 4×4 granularity in the L16/P4 example, all three arrangements reach 64: retain this null.
 
 A second mode uses the seven-position asymmetric fixture, with document IDs [0,0,0,1,1,1,1]. Removing document membership changes the recorded output by a maximum 1.7043724677. Advanced tables expose the actual Q/K/V inputs. Editing a document ID changes the mask and recomputes attention; the quoted maximum applies only to its saved fixture. Renaming owners or reversing circulation preserves the function.
 
@@ -98,7 +98,7 @@ All timing is explicitly hypothetical. Defaults: P = 4, Hq = 8, Hkv = 2, d = 64,
 
 Use payload = 2BcHkvds and two-GEMM work = 4Bc²Hqd. Compute C = work/F and D = latency + payload/R. Serial total is PC + (P−1)D; ideal overlap is C + (P−1)max(C,D). Softmax, projections and other operations are excluded. These lanes must not look like a captured profiler trace or a hardware benchmark.
 
-Before Run, show whether compute or transfer limits a round, allowing equality within relative tolerance 1e−6. A fresh abstract timeline task uses C = 4µs, D = 7µs and P = 4, producing serial 37µs and ideal overlap 25µs. Keep direct C/D mode visibly separate from dimensional mode. P = 1 removes transfers; increasing bandwidth retains the latency floor.
+Immediately show whether compute or transfer limits a round, allowing equality within relative tolerance 1e−6. A fresh abstract timeline task uses C = 4µs, D = 7µs and P = 4, producing serial 37µs and ideal overlap 25µs. Keep direct C/D mode visibly separate from dimensional mode. P = 1 removes transfers; increasing bandwidth retains the latency floor.
 
 Scaling controls explicitly distinguish fixed global L from fixed local c. The basic equal-chunk calculator requires L divisible by P. With global L = 4096, P = 4 gives 85.89934592µs, while P = 16 gives 70.66377728µs. With fixed c = 1024, display the growing global sequence and step cost. The x axis is P, y axis microseconds; label every line as calculated. Do not allocate tensors to draw analytic large-L results.
 
@@ -134,9 +134,9 @@ Changed Q/K/V requires a new forward pass and log-normalizer before backward. Em
 
 **Placement:** section 10. Link an editable 45-point trajectory to actual queries, owner buffers, attention contributions and output comparisons.
 
-Start with source 77 (actual class 4, predicted 5). The fresh source is 20 (actual 1, predicted 2). Preserve both classification errors in the current live view. Classification accuracy is not a Calculate and explain of execution equivalence.
+Start with source 77 (actual class 4, predicted 5). The fresh source is 20 (actual 1, predicted 2). Preserve both classification errors in the current live view. Classification accuracy and execution equivalence answer different questions.
 
-Inputs are normalized hand-centroid coordinates in [0,1]. Edit x/y by dragging or fields; display frame indices 1–45 while arrays use 0–44. Controls choose head 1–2, query 1–45, owner count 1–8, direction, ownership, point edit and Run. Show the original trajectory as a ghost path. Selecting a query/head changes only the view; editing a point recomputes the model. Do not replace a learner's edited path with a precomputed scenario.
+Inputs are normalized hand-centroid coordinates in [0,1]. Edit x/y by dragging or fields; display frame indices 1–45 while arrays use 0–44. Controls choose head 1–2, query 1–45, owner count 1–8, direction, ownership and point edits with immediate current computation. Show the original trajectory as a ghost path. Selecting a query/head changes only the view; editing a point recomputes the model. Do not replace a learner's edited path with a precomputed scenario.
 
 Exact model contract:
 
@@ -155,7 +155,7 @@ Worked edits:
 - Source77, frame23 x + .10: maximum probability change .009604586289.
 - Source20, frame10 x − .15: maximum probability change .003941857836.
 
-These numbers are fixtures, not answers for arbitrary edits. Require a new unsolved edit after the demonstration. Reversing circulation, changing ownership or renaming ranks preserves the mathematical function. A point edit may have a very small effect; show that result honestly.
+These numbers are fixtures, not answers for arbitrary edits. Offer further point edits freely; do not require an action before showing the result. Reversing circulation, changing ownership or renaming ranks preserves the mathematical function. A point edit may have a very small effect; show that result honestly.
 
 The per-query ring view uses current Q/K/V. For each received block, show actual key IDs, contributions and m/ℓ/u. The saved trace records owner IDs, not all intermediate summaries: compute the latter from retained arrays using the reference. A partial normalization must say “among visited keys,” not pretend to be final global attention. Final global weights require all blocks.
 

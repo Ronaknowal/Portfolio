@@ -1,0 +1,145 @@
+/* Recurring lesson endings share a reading rhythm, not a content template. */
+.reader-article .lesson-ending {
+  margin-block: 48px 32px;
+  padding-block-start: 28px;
+  border-block-start: 1px solid #333;
+  min-width: 0;
+}
+.reader-article .lesson-ending > :first-child { margin-block-start: 0 !important; }
+.reader-article .lesson-ending > :last-child { margin-block-end: 0; }
+.reader-article .lesson-ending--next {
+  border-inline-start: 2px solid #b78a35;
+  border-block-start: 0;
+  padding: 4px 0 4px 20px;
+}
+.reader-article .lesson-exercise,
+.reader-article .lesson-ending--practice > .neural-practice {
+  margin-block: 30px;
+  padding-block: 22px 6px;
+  border-block-start: 1px solid #333;
+  min-width: 0;
+}
+.reader-article .lesson-exercise > :first-child,
+.reader-article .lesson-exercise > section > :first-child { margin-block-start: 0 !important; }
+.reader-article .lesson-exercise > :is(section, .lesson-check) {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.reader-article .lesson-exercise .lesson-check {
+  border-inline-start: 0;
+  margin-block: 16px 0;
+  padding: 0;
+}
+.reader-article .lesson-ending--practice details {
+  margin-block: 10px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #111;
+  padding: 0 16px;
+  min-width: 0;
+}
+.reader-article .lesson-ending--practice details > summary {
+  cursor: pointer;
+  color: #e2b55a;
+  font: inherit;
+  font-size: .95rem;
+  font-weight: 500;
+  line-height: 1.6;
+  min-height: 44px;
+  padding: 12px 0;
+}
+.reader-article .lesson-ending--practice details[open] {
+  padding-block-end: 12px;
+}
+.reader-article .lesson-ending--practice details[open] > summary {
+  border-block-end: 1px solid #333;
+  margin-block-end: 16px;
+}
+.reader-article .lesson-ending--practice .lesson-check details[open] > div {
+  border: 0;
+  padding: 0;
+}
+.reader-article .lesson-ending--practice details > :last-child { margin-block-end: 0; }
+.reader-article .lesson-ending--practice summary:focus-visible,
+.reader-article .lesson-ending a:focus-visible {
+  outline: 2px solid #e2b55a;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.reader-article :is(.lesson-ending--resources, .lesson-ending--further-learning, .lesson-ending--references) {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #bdbdbd;
+}
+.reader-article .lesson-resource-list > ul,
+.reader-article .lesson-resource-list .nt-resources > ul,
+.reader-article .lesson-ending--resources ul,
+.reader-article [data-lesson-resource-list] ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.reader-article .lesson-resource-list > ul > li,
+.reader-article .lesson-resource-list .nt-resources > ul > li,
+.reader-article .lesson-ending--resources ul > li,
+.reader-article [data-lesson-resource-list] ul > li,
+.reader-article .lesson-resource-list > p {
+  padding-block: 18px;
+  margin: 0;
+  border-block-end: 1px solid #292929;
+  overflow-wrap: anywhere;
+}
+.reader-article .lesson-resource-list > ul > li:first-child,
+.reader-article .lesson-resource-list .nt-resources > ul > li:first-child,
+.reader-article .lesson-ending--resources ul > li:first-child,
+.reader-article .lesson-resource-list > p:first-child { padding-block-start: 4px; }
+.reader-article .lesson-ending a {
+  color: #e2b55a;
+  text-decoration-color: #967436;
+  text-underline-offset: .22em;
+  text-decoration-thickness: 1px;
+  overflow-wrap: anywhere;
+}
+.reader-article .lesson-ending a:hover { color: #f3d28a; text-decoration-color: currentColor; }
+.reader-article .lesson-ending .lesson-note { margin-block: 20px 0; font-size: .875rem; }
+.reader-article .lesson-ending--practice > ol > li,
+.reader-article .lesson-ending--practice > ul > li { margin-block: 18px; padding-inline-start: 4px; }
+.reader-article .lesson-ending--practice > section:has(> h3) {
+  margin-block: 30px;
+  padding-block: 22px 6px;
+  border-block-start: 1px solid #333;
+}
+/* Older self-check answers remain visible; their presentation uses the same
+   neutral/amber palette as disclosures without changing their teaching role. */
+.reader-article .lesson-ending--practice aside[role="note"] {
+  border-inline-start-color: #b78a35 !important;
+  font-size: 1rem !important;
+}
+.reader-article .lesson-ending--practice aside[role="note"] > div:first-child {
+  color: #e2b55a !important;
+  font-size: .75rem !important;
+}
+.reader-article .dsa-practice {
+  padding-block-start: 28px;
+  border-block-start: 1px solid #333;
+}
+.reader-article .dsa-practice > h2 { margin-block-start: 0; }
+.reader-article .dsa-practice .dsa-practice__reveals details {
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #111;
+  padding-inline: 12px;
+  margin-block: 10px;
+}
+.reader-article .dsa-practice .dsa-practice__reveals summary { color: #e2b55a; font-size: .95rem; }
+.reader-article .dsa-practice .dsa-practice__reveals details[open] { padding-block-end: 12px; }
+.reader-article .dsa-practice .dsa-practice__reveals details[open] > summary {
+  border-block-end: 1px solid #333;
+  margin-block-end: 12px;
+}
+@media (max-width: 600px) {
+  .reader-article .lesson-ending { margin-block: 36px 26px; padding-block-start: 22px; }
+  .reader-article .lesson-ending--next { padding: 4px 0 4px 14px; }
+  .reader-article .lesson-ending--practice details { padding-inline: 12px; }
+}

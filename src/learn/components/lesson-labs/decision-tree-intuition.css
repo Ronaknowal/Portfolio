@@ -1,0 +1,16 @@
+.tree-intuition { margin: 1.6rem 0; padding: 1rem; background: #101010; border: 1px solid #383838; border-radius: 6px; }
+.tree-intuition p { font-size: .95rem; line-height: 1.65; }
+.tree-intuition figcaption { color: #eee; margin-bottom: .75rem; }
+.tree-pair-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); max-width: 430px; gap: 3px; font-size: .9rem; }
+.tree-pair-grid > span, .tree-pair-row > span { display: grid; place-items: center; padding: .4rem .1rem; min-height: 34px; background: #1c1c1c; }
+.tree-pair-row { display: contents; }
+.tree-pair-row > .tree-pair-different { background: #352a13; color: #f0c15b; border: 1px solid #a87c28; }
+.tree-scan-state { margin-top: 1rem; padding-top: .7rem; border-top: 1px solid #333; }
+.tree-scan-strip { display: flex; max-width: 380px; gap: .7rem; padding-top: .7rem; }
+.tree-scan-strip > span { position: relative; flex: 1; text-align: center; padding: .3rem; border: 1px solid #666; }
+.tree-scan-strip strong, .tree-scan-strip small { display: block; }
+.tree-scan-strip i { position: absolute; right: -.65rem; top: -.9rem; color: #e8b84b; font-style: normal; }
+.tree-scan-strip .tree-scan-cut { border-right: 3px solid #e8b84b; }
+.tree-leaf-signatures { display: grid; gap: .7rem; }
+.tree-leaf-signatures > div { display: flex; flex-wrap: wrap; gap: .65rem; padding: .6rem; border-bottom: 1px solid #444; }
+.tree-leaf-signatures > div strong { color: #e8b84b; }

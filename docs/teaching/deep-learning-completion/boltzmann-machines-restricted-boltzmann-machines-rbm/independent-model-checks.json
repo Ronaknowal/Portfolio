@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "reviewer": "/root/graph_attention_implementation",
+  "checks": [
+    {
+      "name": "64 fresh asymmetric 4-visible/3-hidden joint oracles, all/sparse/no evidence and missing-placeholder invariance",
+      "passed": true,
+      "scalarComparisons": 6464
+    },
+    {
+      "name": "48 fresh tiny gradients from independent scalar expectations and central differences; simultaneous update and exact transitions",
+      "passed": true,
+      "scalarComparisons": 2064
+    },
+    {
+      "name": "All nine real fits: new three-missing-bit conditionals checked by independent visible-plus-hidden joint enumeration",
+      "passed": true,
+      "scalarComparisons": 2880
+    },
+    {
+      "name": "Persistent-state causality, exact-sample distribution and clamped observed bits on fresh constructed model",
+      "passed": true,
+      "scalarComparisons": 4
+    }
+  ],
+  "scalarComparisons": 11412,
+  "maximumObservedErrorAcrossDifferentTolerances": 0.0016455576896849955,
+  "trustRoot": "Independently written scalar joint-state enumeration and central differences; does not call production free-energy/conditional functions for reference values",
+  "reusedAuthorEvidence": [
+    "native-checks.json (52 actual checks)",
+    "model-checks.json (281 actual checks)"
+  ],
+  "limitations": [
+    "No training campaigns repeated",
+    "Browser and painted geometry remain root scope"
+  ],
+  "sourceHashes": {
+    "src/learn/data/rbm-models.js": "20665699679dffa3faf1d512a3d21490597f6db56233df1472f22867382cf072",
+    "scripts/review-rbm-models.mjs": "df0ea037396c25c3a3e463429164e62d7857572676776835cf7dffa313b4158a"
+  }
+}

@@ -56,7 +56,7 @@ convolution MACs. These counts omit bias addition, activation, normalization, po
 
 For `64 → 128`, a 3×3 kernel and 14×14 output, the bias-free weight count is **73,728**, but the convolution uses **14,450,688 MACs**. Each learned weight is reused at 196 positions. That is why a parameter count cannot stand in for runtime.
 
-Before continuing, predict the effect of doubling both channel counts while leaving the spatial grid unchanged. Compare bias-free weights, convolution MACs and output-map elements.
+Compare the effect of doubling both channel counts while leaving the spatial grid unchanged. Compare bias-free weights, convolution MACs and output-map elements.
 
 <details><summary>Hint</summary>
 
@@ -335,9 +335,13 @@ These ideas complete the useful historical context without making every named fa
 
 **DenseNet retains earlier maps by concatenation.** A layer receives `[x₀,x₁,…,xₗ₋₁]` and produces a small set of new channels. Starting with 8 channels and adding 3 per layer gives widths 8,11,14,17,20. Reusing prior maps can support feature and gradient access, while the widening inputs and retained activations affect computation and memory. Transition layers can compress channels and downsample. This is a different connectivity contract from residual addition. [DenseNet, §3](https://arxiv.org/pdf/1608.06993).
 
-**RegNet asks about a family of designs.** Start with proposed block widths `u_j=w₀+w_a j`, quantize them into repeated widths, and group consecutive equal-width blocks into stages. The result is a small set of design parameters controlling an entire network. Evaluating distributions of sampled designs asks whether a design space reliably produces good candidates, rather than celebrating one searched winner. Its empirical conclusions depend on its search and evaluation protocol. [RegNet, §3](https://arxiv.org/pdf/2003.13678).
+**RegNet asks about a family of designs.** Start with proposed block widths \(u_j=w_0+w_a j\), quantize them into repeated widths, and group consecutive equal-width blocks into stages. The result is a small set of design parameters controlling an entire network. Evaluating distributions of sampled designs asks whether a design space reliably produces good candidates, rather than celebrating one searched winner. Its empirical conclusions depend on its search and evaluation protocol. [RegNet, §3](https://arxiv.org/pdf/2003.13678).
+
+To see how that width rule becomes stages, round the exponent of a multiplicative width grid, not each proposed width to the nearest arbitrary integer. For base width 16 and multiplier 2, allowed widths are 16, 32, 64, … . The figure follows all six block proposals through that conversion. [RegNet, equations 2–4](https://arxiv.org/pdf/2003.13678).
 
 **NFNet separates normalization from the requirements it helps satisfy.** Its construction combines scaled weight standardization, controlled residual-branch scales and adaptive gradient clipping. The clipping threshold depends on a gradient norm relative to a parameter norm; it is not the same operation as multiplying a residual branch by a constant. This illustrates a general lesson: removing BatchNorm responsibly requires addressing training behavior, not simply deleting a module and expecting the old recipe to work. [NFNet, §§3–4](https://arxiv.org/pdf/2102.06171).
+
+For one AGC unit, take weights [3,4] with norm 5 and gradient [6,8] with norm 10. A chosen ratio limit 0.1 permits gradient norm 0.5, so multiply the gradient by 0.5/10 to obtain [0.3,0.4]. Its direction is preserved while its size is capped relative to that unit's weights. With plain SGD at learning rate 0.01, the relative update norm is 0.001. Momentum or an adaptive optimizer changes that direct update interpretation. The paper floors the parameter norm by a small positive value to avoid forcing every zero-initialized unit's gradient to zero. This clipping example is one ingredient, not an implementation of the full NFNet recipe. [NFNet, section 3 and equation 3](https://arxiv.org/pdf/2102.06171).
 
 **Learned features can define another model's loss.** In perceptual-loss work, an image transformation network produces an image `ŷ`. A separately pretrained, frozen feature network `φ` maps `ŷ` and a target image `y` into features. A loss such as
 
@@ -346,6 +350,8 @@ L_{\mathrm{feature}}=\frac{1}{CHW}\|\phi_j(\hat y)-\phi_j(y)\|_2^2
 \]
 
 compares one layer's representation. Gradients pass through the frozen feature computation to the generated image, even though the feature network's weights are not being updated. A deeper layer can tolerate pixel changes that a pixelwise loss heavily penalizes, but the chosen features can also overlook changes that matter to a human. This is a useful application of VGG's intermediate maps, not a guarantee of perceptual correctness. [Johnson, Alahi and Fei-Fei, §3.2](https://arxiv.org/pdf/1603.08155).
+
+The frozen-feature example below separates two easily confused facts: a parameter can remain unchanged while its computation still participates in backpropagation, and equal features need not imply equal inputs. Follow the derivative back to the generated image before deciding which branch can safely disable gradient tracking.
 
 MobileNet refinements and ConvNeXt follow in their own lessons. Wide residual networks change channel capacity; grouped ResNeXt branches change the transformation grouping. Stochastic-depth training already has a [separate home](../dropout-droppath-stochastic-depth/lesson.md). These are combinations of design choices, not steps on a ladder where every later name makes every earlier one obsolete.
 
@@ -553,7 +559,7 @@ A 1×1 skip convolution 24→48 with stride 2 returns `N×48×8×8`. The branch 
 
 ### 4. Change the class-map question
 
-Use the two maps in §9 with new class weights `[−1,2]` and bias −0.5. Compute the map and score. Increase the first map's top-left cell from 1 to 5. Predict, then calculate, the new score.
+Use the two maps in §9 with new class weights `[−1,2]` and bias −0.5. Compute the map and score. Increase the first map's top-left cell from 1 to 5. Calculate the new score and explain its direction.
 
 <details><summary>Hint</summary>
 

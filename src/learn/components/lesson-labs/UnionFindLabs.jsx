@@ -48,13 +48,13 @@ function Groups({
 function ParentTable({
   state
 }) {
-  return <details className="uf-details"><summary>Exact parent and component-size table</summary>
+  return <section className="uf-details lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Exact parent and component-size table</h4>
     <div className="uf-table-scroll" tabIndex={0} role="region" aria-label="Parent table">
       <table><caption>Size is authoritative only at a root. A dash hides stale non-root entries.</caption><thead><tr><th>Element</th><th>Parent</th><th>Representative</th><th>Root size</th></tr></thead>
         <tbody>{state.parent.map((parent, node) => <tr key={node}><th>{node}</th><td>{parent}</td><td>{representative(state, node)}</td><td>{parent === node ? state.size[node] : '—'}</td></tr>)}</tbody>
       </table>
     </div>
-  </details>;
+  </section>;
 }
 function StepControls({
   frames,
@@ -199,7 +199,7 @@ export function IslandUnionLab() {
     <div className="uf-island-layout"><div className="uf-grid" role="group" aria-label="Five by five island grid">
       {state.active.map((active, index) => <button type="button" key={index} className={active ? 'uf-cell uf-cell--open' : 'uf-cell'} onClick={() => open(index)} aria-label={`Cell ${Math.floor(index / 5)}, ${index % 5}: ${active ? `open, component ${labels.get(index)}` : 'closed; open cell'}`} aria-pressed={active}><small>{Math.floor(index / 5)},{index % 5}</small><b>{active ? labels.get(index) : '·'}</b></button>)}
     </div><div><p className="uf-island-count"><strong>{state.count}</strong> active {state.count === 1 ? 'island' : 'islands'}</p><p>{state.active.filter(Boolean).length} open cells</p><p className="uf-note">New count = old count + 1 − successful unions. Closed cells do not count as singleton islands.</p></div></div>
-    <details className="uf-details"><summary>Exact active component memberships</summary><ul>{groups.length ? groups.map(group => <li key={group.root}>Label {Math.min(...group.members)}; DSU root {group.root}; cells {group.members.map(node => `(${Math.floor(node / 5)},${node % 5})`).join(', ')}</li>) : <li>No active cells.</li>}</ul></details>
+    <section className="uf-details lesson-teaching-section" data-lesson-teaching=""><h4 className="lesson-teaching-section__title">Exact active component memberships</h4><ul>{groups.length ? groups.map(group => <li key={group.root}>Label {Math.min(...group.members)}; DSU root {group.root}; cells {group.members.map(node => `(${Math.floor(node / 5)},${node % 5})`).join(', ')}</li>) : <li>No active cells.</li>}</ul></section>
     <p className="uf-note">Opening an already open cell is a no-op. This lab supports additions; use reset for a new scenario. Ordinary Union-Find cannot close a cell and discover whether its island splits.</p>
   </section>;
 }

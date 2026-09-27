@@ -1,0 +1,40 @@
+{
+  "topicId": "gaussian-mixture-models-gmm-em-algorithm",
+  "reviewer": "/root/classical_structure_intuition",
+  "reviewedAt": "2026-09-26T15:30:03.465Z",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx",
+    "docs/teaching/concept-intuition/gaussian-mixture-models-gmm-em-algorithm/review.md",
+    "scripts/verify-representation-concept-intuition.mjs"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "77aaba034776ce1d3e999caac76e843144e1c376f8cc75d3b5611432f80124a0",
+    "docs/teaching/concept-intuition/gaussian-mixture-models-gmm-em-algorithm/review.md": "4cd13f21d4b41e476b12655bae8c9f9cc86aaa88beedf31c4d40c092dc99d528",
+    "scripts/verify-representation-concept-intuition.mjs": "665d4e670b6977ebc15815db6b352af7cf6f7d95ceb51ee7f98692ff3fd4d14d"
+  },
+  "checks": [
+    {
+      "name": "Independent complete lesson reading and concept-transition assessment",
+      "passed": true
+    },
+    {
+      "name": "Current author source bindings and JSX parse",
+      "passed": true
+    },
+    {
+      "name": "Independent weighted EM update and next responsibility",
+      "passed": true
+    },
+    {
+      "name": "Jensen gap equals posterior KL and closes at posterior",
+      "passed": true
+    },
+    {
+      "name": "Mixture, average and conditional spread are distinct",
+      "passed": true
+    }
+  ],
+  "findings": [],
+  "limits": "Independent content, arithmetic and source review. Browser paint/interaction checks are owned by root; unchanged fits were not rerun."
+}

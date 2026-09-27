@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "python": "3.12.14",
+  "torch": "2.14.0+cpu",
+  "numpy": "2.3.5",
+  "pyg": "2.8.0.post1",
+  "threads": 1,
+  "checks": [
+    "Complete displayed program identical; all twelve full fits exactly reproduce all historical results",
+    "Complete geometry program rerun; original arithmetic exactly reproduced",
+    "Actual PyG GPS forward/input and parameter gradients/SGD step, separate-batch isolation and within-graph permutation passed",
+    "Third isolate, cross-graph feature edit, missing batch and permutation: five full native GPS fixtures",
+    "24 full real fitted-model intervention oracles; four baseline probability arrays exactly replay originals",
+    "Three new QR orthogonal/translation geometry probes and native autograd energy-derived forces",
+    "All24 trained-model interventions additionally evaluated in native float64 to separate browser arithmetic agreement from retained float32 study rounding"
+  ],
+  "limits": [
+    "No pretrained network, molecular dataset or GPU performance claimed",
+    "Twelve weak observed graph outcomes preserved without model selection"
+  ]
+}

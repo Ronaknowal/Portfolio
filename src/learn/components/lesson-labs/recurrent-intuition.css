@@ -1,0 +1,7 @@
+.recurrent-intuition { margin:1.5rem 0; padding:1rem; border:1px solid #333; background:#101010; border-radius:8px; }
+.recurrent-intuition-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.recurrent-intuition h4 { margin:0 0 .5rem; font-size:.95rem; color:#e8b44a; }
+.recurrent-intuition svg { display:block; width:100%; height:auto; max-width:240px; }
+.recurrent-intuition svg text { fill:#ddd; font-size:12px; }
+.recurrent-lesson .recurrent-intuition figcaption { color:#b9b9b9; font-size:.9rem; line-height:1.65; margin-top:1rem; font-weight:400; }
+@media(max-width:600px) { .recurrent-intuition-stages { grid-template-columns:1fr; } }

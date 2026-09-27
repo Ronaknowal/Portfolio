@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "checks": 16695,
+  "freshNativeInputs": 10,
+  "freshNativeFaultBranches": 150,
+  "inputGradientCoordinates": 160,
+  "unevenChunkPartition": [
+    2,
+    1,
+    2,
+    3
+  ],
+  "linearNativeInputs": 2,
+  "internalStateAndAttentionRelabelings": 10,
+  "randomMechanismCases": 80,
+  "maxNativeError": 4.374278717023117e-14,
+  "maxGradientError": 1.0358342482363891e-10,
+  "maxSymmetryError": 1.554312234475219e-14,
+  "allSixDisplayedHistoriesAndMetricsIdentical": true,
+  "sourceFilesVerified": 61,
+  "cancellingFourExpertPrefixGeometry": [
+    [
+      518.4782608695652,
+      122.52173913043478
+    ],
+    [
+      561.9565217391305,
+      79.04347826086956
+    ],
+    [
+      518.4782608695652,
+      122.52173913043478
+    ],
+    [
+      475,
+      166
+    ]
+  ],
+  "scope": "Independent complementary tests against native full tensor forward/autograd plus cache faults, closed-form mechanisms and basis symmetries. Author native checkpoint/float32 evidence reused; no retraining, browser or large checkpoint execution."
+}

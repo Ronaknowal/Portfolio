@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "scope": "Filename/asset routing and actual CodeBlock copy/download handlers; host stub does not certify native browser clipboard or file-save behavior",
+  "exactWhitespaceUnicodeLineEndings": true,
+  "canonicalFilenameAndUrl": true,
+  "clipboardFailure": true,
+  "outputMetadata": true
+}

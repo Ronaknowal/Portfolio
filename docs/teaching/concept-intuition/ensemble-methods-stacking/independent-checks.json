@@ -1,0 +1,33 @@
+{
+  "topicId": "ensemble-methods-stacking",
+  "reviewer": "root",
+  "reviewedOn": "2026-09-26",
+  "passed": true,
+  "sourceFiles": [
+    "src/learn/data/topics/ensemble-methods-stacking.jsx",
+    "src/learn/components/lesson-labs/EnsembleIntuition.jsx",
+    "src/learn/components/lesson-labs/ensemble-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/ensemble-methods-stacking.jsx": "5d58f3b9ec8823e0321375a69175b11653c53825fc3955cd0e8cb838cbc06b51",
+    "src/learn/components/lesson-labs/EnsembleIntuition.jsx": "c9d0ab2869d0ad479248791d6eac6c53dec4551e2303dc2e1cbd9476fc183798",
+    "src/learn/components/lesson-labs/ensemble-intuition.css": "f55b4d59c29007b4394e5e7d9a15e63c5269612059be179aa8a2e29aeb4da569"
+  },
+  "checks": [
+    {
+      "name": "Complete revised lesson and new figure source review",
+      "passed": true
+    },
+    {
+      "name": "Independent mathematical checks in scripts/verify-prediction-concept-review.mjs",
+      "passed": true
+    },
+    {
+      "name": "Independent learning-experience checklist; rendered checks separate",
+      "passed": true
+    }
+  ],
+  "findings": [],
+  "browser": "Separate browser receipt required",
+  "limits": "No new native fit campaign or human learner trial."
+}

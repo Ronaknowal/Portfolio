@@ -1,0 +1,35 @@
+{
+  "topicId": "support-vector-machines-svm",
+  "reviewedOn": "2026-09-26",
+  "sourceFiles": [
+    "src/learn/data/topics/support-vector-machines-svm.jsx",
+    "src/learn/components/lesson-labs/SvmIntuition.jsx",
+    "src/learn/components/lesson-labs/svm-intuition.css"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/support-vector-machines-svm.jsx": "592732250b4a568657c8dea9ab27ddb0e8d9ea6f6ffc3dc0e19d7f11c424bfde",
+    "src/learn/components/lesson-labs/SvmIntuition.jsx": "7ed117c551eed899198f7833dd42d8ad2ba7bc0869c394bb98b9a0e02acf6b16",
+    "src/learn/components/lesson-labs/svm-intuition.css": "59af3e68d5c9211d7316e714fd8122c008dbb52b42ff2679498eff95679a6c2c"
+  },
+  "scope": "Complete lesson review, three topic-specific illustrations and bridges, original native programs retained",
+  "checks": [
+    {
+      "name": "Changed JSX parses",
+      "passed": true
+    },
+    {
+      "name": "Hinge values",
+      "passed": true
+    },
+    {
+      "name": "Dual feasibility and complete primal-dual brackets",
+      "passed": true
+    },
+    {
+      "name": "Owned precomputed-kernel columns reproduce saved predictor",
+      "passed": true
+    }
+  ],
+  "browser": "pending root",
+  "independentReview": "pending root"
+}

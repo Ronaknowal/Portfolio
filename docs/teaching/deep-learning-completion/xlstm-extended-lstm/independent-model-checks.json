@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "comparisons": 16522,
+  "newNativeReaders": 6,
+  "carriedStateDerivativeCoordinates": 466,
+  "randomizedMechanismCases": 100,
+  "maxNativeError": 1.5987211554602254e-14,
+  "maxCarriedStateGradientError": 1.2261728341012024e-8,
+  "maxReencodedStateLogitError": 1.5987211554602254e-14,
+  "sourceFilesVerified": 57,
+  "reusedAuthorComparisons": 622023,
+  "scope": "Every complete carried-state derivative versus independent PyTorch autograd, nonempty stabilized-state re-encoding, every cell family, class relabeling, new causal/carry cases, closed-history matrix expansion, rotated address bases, raw floor branches and extreme scalar log shift. No fitting or pretrained/GPU execution."
+}

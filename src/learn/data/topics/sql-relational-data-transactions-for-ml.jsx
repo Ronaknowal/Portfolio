@@ -111,7 +111,7 @@ WHERE r.minute <= 0`}</CodeBlock>
     ]} />
     <Prose>The feature extractor may also need a consistent snapshot when several queries read changing data. A transaction is not a historical dataset version: record query text, parameters, source version or snapshot identity, schema and extraction time to reproduce a training table. SQLite's local file architecture and concurrency differ from a server database such as PostgreSQL; do not transfer every locking assumption between them.</Prose>
 
-    <details className="data-deeper"><summary id="8-deeper-query-design-and-production-boundaries">8. Deeper: query design and production boundaries</summary>
+    <section className="data-deeper lesson-teaching-section" data-lesson-teaching=""><h2 id="8-deeper-query-design-and-production-boundaries" className="lesson-teaching-section__title">8. Deeper: query design and production boundaries</h2>
       <H3>Indexes support access patterns</H3>
       <Prose>An index is an extra structure that helps find rows without scanning every possible row. An index on readings' sensor and time columns may help repeated sensor/time lookups; it also consumes storage and work on updates. Inspect the database's query plan and measure the actual workload. This three-row example cannot establish a meaningful speedup.</Prose>
       <H3>Choose a row deliberately when you do not want a mean</H3>
@@ -121,9 +121,9 @@ WHERE r.minute <= 0`}</CodeBlock>
       <Prose>A transfer service must also check that both accounts exist, the intended rows were updated, authorization is correct and retries cannot duplicate an already committed transfer. Real failures include deadlocks, busy databases and uncertain client acknowledgements. Use the chosen engine's documented transaction/retry behavior; do not put an external email or file write inside a transaction and assume database rollback can undo it.</Prose>
       <H3>Connect to the rest of the data workflow</H3>
       <Prose>Files preserve data for exchange; tables provide relationships, queries and coordinated changes. A reproducible system may use both: ingest validated files, store constraints and lineage in a database, and export versioned feature files. Later lessons on Pandas, data contracts, time-series validation and MLOps extend these mechanisms. None of those tools removes the need to define a row's meaning.</Prose>
-    </details>
+    </section>
 
-    <H2>9. Practise a changed feature request</H2>
+    <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>9. Practise a changed feature request</H2>
     <Prose>Start from the original fixture. Add reading 4 for sensor B at minute 5 with a real value of zero. Add sensor D in room west without any readings. Extract features using only observations through minute 5. Before running the query, predict the four output rows, both counts and each mean. Keep C and D, exclude A's future reading, and prove each sensor appears exactly once.</Prose>
     <details className="data-deeper"><summary>Hint: work sensor by sensor</summary><Prose>A contributes only reading 1. B contributes a missing-valued observation and a measured zero. C and D each need a preserved sensor row. Keep the cutoff in ON, then group by the sensor key and count observation IDs separately from measured values.</Prose></details>
     <details className="data-deeper"><summary>Explained solution and runnable verification</summary><PythonExample example={sqlExamples.practice}><Prose>B has two observation records but only one measured value, zero, so its mean is 0. C and D have no observation IDs and no numeric mean. A's mean stays 18 because the minute-10 value is excluded. The uniqueness check catches duplicate entity rows even if their averages happen to look plausible.</Prose></PythonExample></details>
@@ -132,9 +132,9 @@ WHERE r.minute <= 0`}</CodeBlock>
     </Checkpoint>
     <Checkpoint prompt="Transaction transfer: what if A is debited outside BEGIN, then the application starts a transaction for B's credit and rolls it back?">
       <Prose>The already committed debit is outside the rollback boundary. The credits can still total 8. Put the complete logical change inside one transaction and verify the intended rows and rules, rather than adding BEGIN around only the statement that might fail.</Prose>
-    </Checkpoint>
-    <H3>Readiness and the next connection</H3>
-    <Prose>Before continuing, explain the four original joined rows, the difference between B and C, the ON/WHERE cutoff behavior, and the two transaction outcomes. Next in this module, <a href="/learn/topic/pandas-data-wrangling-joins-grouping">Pandas data wrangling, joins and grouping</a> carries keyed relationships and missing-value decisions into in-memory tables. Compare the two systems' actual join and null rules instead of assuming that similar vocabulary means identical behavior. On a focused path, use the reader's named Next link for its selected module topics.</Prose>
+    </Checkpoint></section>
+    <section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H3>Readiness and the next connection</H3>
+    <Prose>Before continuing, explain the four original joined rows, the difference between B and C, the ON/WHERE cutoff behavior, and the two transaction outcomes. Next in this module, <a href="/learn/topic/pandas-data-wrangling-joins-grouping">Pandas data wrangling, joins and grouping</a> carries keyed relationships and missing-value decisions into in-memory tables. Compare the two systems' actual join and null rules instead of assuming that similar vocabulary means identical behavior. On a focused path, use the reader's named Next link for its selected module topics.</Prose></section>
     <Sources>
       <li><a href="https://www.sqlite.org/lang_select.html">SQLite SELECT</a> — joins, NULL extension and query semantics.</li>
       <li><a href="https://www.sqlite.org/lang_aggfunc.html">SQLite aggregate functions</a> — COUNT and AVG with missing values.</li>

@@ -34,6 +34,6 @@ export default function ConfidenceLab() {
     </svg>
     <div className="lesson-results" aria-live="polite">This batch: <strong>{covered}/40 contain the truth ({(covered / 40 * 100).toFixed(1)}%)</strong>. Interval half-width: <strong>{(critical * 10 / Math.sqrt(n)).toFixed(2)} ms</strong>.</div>
     <p className="lesson-note">Predict, then try: increase n from 25 to 100. The width halves. Raising confidence widens intervals. A batch need not cover at exactly the requested percentage; coverage is a long-run property. Controls reuse the same random draws until you request a new batch.</p>
-    <details><summary>Read the exact intervals as a table</summary><LessonTable caption="Simulated experiments (milliseconds)" headers={["Experiment", "Mean", "Lower", "Upper", "Covers 100?"]} rows={intervals.map((d, i) => [i + 1, d.mean.toFixed(2), d.low.toFixed(2), d.high.toFixed(2), d.low <= 100 && d.high >= 100 ? "Yes" : "No"])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read the exact intervals as a table</h4><LessonTable caption="Simulated experiments (milliseconds)" headers={["Experiment", "Mean", "Lower", "Upper", "Covers 100?"]} rows={intervals.map((d, i) => [i + 1, d.mean.toFixed(2), d.low.toFixed(2), d.high.toFixed(2), d.low <= 100 && d.high >= 100 ? "Yes" : "No"])} /></section>
   </section>;
 }

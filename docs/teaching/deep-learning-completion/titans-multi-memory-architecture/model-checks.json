@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "comparisons": 11995,
+  "maxError": 9.94176962976212e-13,
+  "checks": [
+    {
+      "name": "24 two-output residual/outer-product/momentum/decay writes match NumPy",
+      "passed": true
+    },
+    {
+      "name": "18 full gated sequences agree in every attention, fast-state and read field",
+      "passed": true
+    },
+    {
+      "name": "Nine nonlinear hidden/output shapes and exact manual gradients match PyTorch",
+      "passed": true
+    },
+    {
+      "name": "Outer derivative agrees with retained PyTorch graph and recomputed finite differences",
+      "passed": true
+    },
+    {
+      "name": "Seed 3: all 366 real forecasts/losses/gradient norms/update norms and final state match native",
+      "passed": true
+    },
+    {
+      "name": "Seed 7: all 366 real forecasts/losses/gradient norms/update norms and final state match native",
+      "passed": true
+    },
+    {
+      "name": "Seed 19: all 366 real forecasts/losses/gradient norms/update norms and final state match native",
+      "passed": true
+    },
+    {
+      "name": "Three edited real arrivals match native and cannot change their own recorded forecasts",
+      "passed": true
+    },
+    {
+      "name": "Arbitrary two-target gradient schedules match independent closed polynomials and nulls",
+      "passed": true
+    },
+    {
+      "name": "Associative orthogonal/correlated, zero-key, zero-gradient momentum and full-decay examples",
+      "passed": true
+    },
+    {
+      "name": "Default and large exact integer payload counts",
+      "passed": true
+    },
+    {
+      "name": "All ten deployed learner downloads are byte-identical to their canonical sources",
+      "passed": true
+    }
+  ],
+  "nativeEvidence": "docs/teaching/deep-learning-completion/titans-multi-memory-architecture/native-checks.json",
+  "limitations": [
+    "Browser controls, painted geometry and network retry belong to rendered integration review."
+  ]
+}

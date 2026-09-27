@@ -141,13 +141,13 @@ export function AcquisitionCurves() {
     <div className="active-probability-key">{series.map(row => <span key={row.label}><i style={{ background: row.color }} />{row.label}{row.dash ? ` · dash ${row.dash}` : ' · solid'}</span>)}</div>
     <div className="active-controls"><label>Trace strategy<select aria-label="Trace strategy" value={strategy} onChange={event => { setStrategy(event.target.value); setRevealed(0); }}>{experiment.strategies.map(name => <option key={name}>{name}</option>)}</select></label>
       <label>Curve view<select aria-label="Curve view" value={run} onChange={event => { setRun(event.target.value); setRevealed(0); }}><option value="mean">All strategy means</option>{experiment.run_seeds.map((seed, index) => <option key={seed} value={index}>One run: seed {seed}</option>)}</select></label></div>
-    <details><summary>All 31 measured checkpoints</summary><LessonTable caption="Development correct out of 80 at every actual fit" headers={['Training labels', ...series.map(row => row.label)]} rows={Array.from({ length: 31 }, (_, index) => [6 + index, ...series.map(row => formatActiveValue(row.values[index]))])} /></details>
-    <details><summary>Replay acquired labels for {strategy}, seed {selectedTrace.seed}</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">All 31 measured checkpoints</h4><LessonTable caption="Development correct out of 80 at every actual fit" headers={['Training labels', ...series.map(row => row.label)]} rows={Array.from({ length: 31 }, (_, index) => [6 + index, ...series.map(row => formatActiveValue(row.values[index]))])} /></section>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Replay acquired labels for {strategy}, seed {selectedTrace.seed}</h4>
       <p className="active-small">Initial six pool indices: {selectedTrace.initial_pool_rows.join(', ')}. This replays saved evidence; it does not train in the browser.</p>
       <p>Newly acquired: {revealed} · fitted-label count after refit: {6 + revealed}</p>
       <div className="active-controls"><button disabled={revealed === 30} onClick={() => setRevealed(revealed + 1)}>Acquire next recorded label</button><button onClick={() => setRevealed(0)}>Reset replay</button></div>
       {revealed > 0 && <LessonTable caption="Only acquired oracle responses" headers={['Query', 'Source row', 'Acquired label', 'Pre-query P(class 1)']} rows={selectedTrace.queries.slice(0, revealed).map((query, index) => [index + 1, query.source_row, query.label, formatActiveValue(query.model_probability[1])])} />}
-    </details>
+    </section>
     <figcaption>Recorded UCI Banknote experiment, five paired initial-label sets, fixed 320/80/80 split. Means are across runs on the same rows; line segments connect actual checkpoints. The vertical axis is cropped to expose observed differences; a higher point means more correct development decisions. No smoothing, browser fitting or confidence-interval claim.</figcaption>
   </figure>;
 }
@@ -162,6 +162,6 @@ export function AnnotationTimeline() {
 export function ExperimentDownloads() {
   return <aside className="active-downloads"><h4>Reproduce the complete experiment</h4>
     <p className="active-small"><a href="/learn/downloads/active-learning/banknote-active-learning.py" download>Complete Python program</a> · <a href="/learn/downloads/active-learning/banknote-subset.csv" download>480-row data file</a> · <a href="/learn/downloads/active-learning/data-provenance.md" download>Data provenance and split</a></p>
-    <details><summary>Read the complete executable program</summary><CodeBlock language="python">{activeLearningProgram}</CodeBlock></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Read the complete executable program</h4><CodeBlock language="python" filename="banknote-active-learning.py">{activeLearningProgram}</CodeBlock></section>
   </aside>;
 }

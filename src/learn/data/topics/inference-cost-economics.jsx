@@ -739,9 +739,9 @@ Burst/unpredictable traffic | Managed API always              | Self-hosting idl
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Self-hosted $/MTok for Llama 3 70B</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Self-hosted $/MTok for Llama 3 70B</H3>
 
       <Prose>
         You have an 8× H100 cluster leased at $32/hr total (hyperscaler on-demand). Your serving stack achieves 5,000 aggregate tokens per second. Compute the $/MTok for output tokens on this cluster. How does this compare to Claude Sonnet 4.6's output price of $15/MTok? At what aggregate throughput would self-hosting cost exactly match Claude Sonnet 4.6's output price?
@@ -759,9 +759,9 @@ cost_per_mtok = cluster_cost_hr * 1_000_000 / (throughput_tps * 3600)
 be_tps = cluster_cost_hr * 1_000_000 / (15.00 * 3600)
 # => 593 tok/sec — well within reach; any reasonable Llama 3 70B serving
 # setup exceeds this, making self-hosting cheaper for pure output cost.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 2 — Monthly bill for mixed traffic</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Monthly bill for mixed traffic</H3>
 
       <Prose>
         Your product generates 100 million tokens per month in total, split 80% input and 20% output. The API you use charges $1.00/MTok input and $3.00/MTok output. What is your monthly bill? If you enable prefix caching and achieve a 70% cache hit rate (cache reads at 10% of input price), what does the bill become? How much do you save per year?
@@ -791,9 +791,9 @@ monthly_cached = total_mtok * (input_fraction * effective_input_rate +
 
 annual_savings = (monthly_no_cache - monthly_cached) * 12
 # => $606/year saved — meaningful but not transformative at this scale`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 3 — Break-even between GPT-4o and self-hosted Llama 3 70B</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Break-even between GPT-4o and self-hosted Llama 3 70B</H3>
 
       <Prose>
         Your product currently uses GPT-4o at $2.50/MTok input, $10.00/MTok output (80%/20% split). You are evaluating self-hosting Llama 3 70B on an 8× H100 cluster at $32/hr from a hyperscaler (or $20/hr from a specialist cloud), achieving 5,000 aggregate tok/sec. At what monthly token volume does each hardware option break even against the GPT-4o API bill? What does this imply about when to self-host?
@@ -819,9 +819,9 @@ break_even_b = cluster_b / (gpt4o_blended - self_rate_b)
 #
 # Implication: specialist cloud halves the break-even threshold.
 # 10.4B vs 5.0B tokens/month — the hardware rate matters as much as throughput.`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 4 — Cache savings at Anthropic pricing</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Cache savings at Anthropic pricing</H3>
 
       <Prose>
         You build an agent system using Claude Sonnet 4.6. Each agent turn sends a 5,000-token system prompt + tool manifest. You run 500,000 agent turns per month. Each turn additionally includes 1,500 tokens of unique context and generates 600 tokens of output. Compute the monthly cost (a) without prefix caching, and (b) with prefix caching at a 95% cache hit rate on the 5,000-token prefix (cache writes charged at 125% of input price, cache reads at 10%). How much do you save per month?
@@ -857,9 +857,9 @@ cached_total = write_cost + read_cost + fresh_cost + output_cost
 # fresh_cost: 500,000 * 1,500 * 3.00 / 1e6 = $2,250
 # output_cost: 500,000 * 600 * 15.00 / 1e6 = $4,500
 # total = $7,931.25/month — saves $6,319/month vs $14,250`}
-      </CodeBlock>
+      </CodeBlock></div>
 
-      <H3>Exercise 5 — Cost per token for a 1-trillion-parameter model on B200</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Cost per token for a 1-trillion-parameter model on B200</H3>
 
       <Prose>
         Estimate the decode-time $/MTok for a hypothetical 1-trillion-parameter dense model served on 16× NVIDIA B200 GPUs. B200 specs: 192 GB HBM3e per GPU, 4,500 GB/s HBM bandwidth per GPU, estimated lease cost $5/GPU-hr (specialist cloud, April 2026). Assume FP16 weights, tensor-parallel across all 16 GPUs, and 55% HBM bandwidth utilization efficiency. Show your reasoning and compare to frontier API prices.
@@ -894,7 +894,7 @@ cost_per_mtok = cluster_cost_hr * 1_000_000 / (tps * 3600)
 # This illustrates why 1T+ parameter dense models are not served commercially
 # at reasonable prices without massive distillation, MoE architecture,
 # or hardware generations beyond B200 with substantially higher bandwidth.`}
-      </CodeBlock>
+      </CodeBlock></div></section>
 
     </div>
   ),

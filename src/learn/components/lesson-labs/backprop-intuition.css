@@ -1,0 +1,13 @@
+.backprop-intuition-fork { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; gap: 1rem; }
+.backprop-intuition-paths p { border-left: 2px solid var(--accent, #e5b64a); padding-left: 1rem; }
+.backprop-intuition-shares { display: flex; min-height: 3rem; margin: 1.2rem 0; }
+.backprop-intuition-shares span { display: grid; place-content: center; color: #eee8db; border: 1px solid #a58139; background: #342b19; }
+.backprop-intuition-shares span:nth-child(2) { background: #514020; }
+.backprop-intuition-shares span:nth-child(3) { background: #6a5122; }
+.backprop-intuition-weight-row { border-top: 1px solid #39352c; padding-top: .8rem; margin-top: 1rem; }
+.backprop-intuition-weight-bars { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .7rem; max-width: 30rem; }
+.backprop-intuition-weight-bars > div { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+.backprop-intuition-weight-track { display: flex; align-items: flex-end; width: 65%; height: 5rem; border-bottom: 1px solid #8e8778; }
+.backprop-intuition-weight-track > span { width: 100%; background: #d5aa4c; }
+.backprop-intuition-weight-number { font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .backprop-intuition-fork { grid-template-columns: minmax(0, 1fr); } }

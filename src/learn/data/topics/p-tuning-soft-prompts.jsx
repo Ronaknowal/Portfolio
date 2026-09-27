@@ -767,49 +767,49 @@ Research / ablation / understanding PEFT    Try prompt tuning first — minimal
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Parameter arithmetic</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Parameter arithmetic</H3>
 
       <Prose>
         A 7B model has <Code>d=4096</Code>, <Code>L=32</Code> transformer layers, and you apply prompt tuning with <Code>N=50</Code> tokens. How many parameters are trainable? Now apply prefix tuning with the same <Code>N=50</Code>. How many? Now apply LoRA at rank <Code>r=16</Code> to all Q, K, V, and output projections (128 matrices total). Which method has the most trainable parameters in this configuration? Does more parameters always mean better accuracy?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Scale dependence</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Scale dependence</H3>
 
       <Prose>
         Lester et al. found that prompt tuning needs a large base model. Explain, from first principles, why this is the case. Consider: what does the frozen model need to already "know" for a soft prompt to steer it effectively? What happens when the base model lacks that knowledge? How does prefix tuning's deeper injection partially address this limitation?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Multi-task soft prompts</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Multi-task soft prompts</H3>
 
       <Prose>
         You have 100 tasks. You want to serve them from a single deployed base model. Design a serving architecture using soft prompts. How do you store the task-specific prompts? How do you handle batching when different requests in the same batch require different prompts? What are the padding implications? Now contrast this with a LoRA-based design. What are the tradeoffs in storage, latency, and implementation complexity?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — When prefix tuning beats LoRA</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — When prefix tuning beats LoRA</H3>
 
       <Prose>
         Describe a real-world scenario where prefix tuning is a better choice than LoRA. Consider: API-only access to a model, extreme per-task storage constraints, and a task where understanding intermediate attention patterns is critical. For the scenario you chose, estimate the per-task storage cost of prefix tuning vs LoRA at rank 8 on a 7B model with <Code>d=4096</Code> and <Code>L=32</Code>.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Initialization strategy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Initialization strategy</H3>
 
       <Prose>
         You are training a soft prompt for a medical diagnosis classification task on a 13B frozen model. Design an initialization strategy for the soft prompt vectors. What are the tradeoffs between random Gaussian initialization, vocabulary-sampled initialization, and initialization from embeddings of task-relevant terms like "diagnosis," "symptom," "condition"? How would you evaluate which initialization converges faster and which achieves better final accuracy? Consider also: if your dataset has class-imbalanced labels, should the initialization reflect that imbalance in any way?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 6 — Prefix vs prompt at inference</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 6 — Prefix vs prompt at inference</H3>
 
       <Prose>
         A system processes 10,000 requests per second, each with an average input length of 48 tokens. You are deciding between prompt tuning (N=20 prepended embedding tokens) and prefix tuning (N=20 per-layer KV prefixes across L=32 layers). Calculate the approximate increase in attention compute cost for each method relative to the baseline with no soft prompt. Assume standard quadratic attention with no KV cache. Which method adds more inference cost in this short-input regime? At what input length would the two methods have comparable relative overhead? Now factor in that prefix tuning's per-layer KV prefixes can be pre-computed and cached before any request arrives — does this change your analysis, and if so, how?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 7 — Conceptual: discrete vs continuous search</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 7 — Conceptual: discrete vs continuous search</H3>
 
       <Prose>
         Prompt engineering searches for a good discrete token sequence. Prompt tuning searches for good continuous vectors. Explain why the continuous search is easier for gradient-based optimization but harder for human interpretation. What does "nearest vocabulary token" analysis of a trained soft prompt tell you, and what are its limitations? If you found that a trained soft prompt's five tokens all mapped to the word "because," what would you infer about the task the prompt was trained for?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

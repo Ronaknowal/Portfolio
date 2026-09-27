@@ -1,0 +1,216 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Exact dataset/split identities regenerated",
+      "passed": true
+    },
+    {
+      "name": "linear-37 validation-selected epoch",
+      "passed": true
+    },
+    {
+      "name": "linear-37 parameter count",
+      "passed": true
+    },
+    {
+      "name": "linear-37 fit replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "linear-37 validation replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "linear-37 assessment replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "linear-37 all saved validation logits",
+      "passed": true,
+      "maximumDifference": 0.0
+    },
+    {
+      "name": "MMM-37 validation-selected epoch",
+      "passed": true
+    },
+    {
+      "name": "MMM-37 parameter count",
+      "passed": true
+    },
+    {
+      "name": "MMM-37 fit replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MMM-37 validation replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MMM-37 assessment replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MMM-37 all saved validation logits",
+      "passed": true,
+      "maximumDifference": 0.0
+    },
+    {
+      "name": "AAA-37 validation-selected epoch",
+      "passed": true
+    },
+    {
+      "name": "AAA-37 parameter count",
+      "passed": true
+    },
+    {
+      "name": "AAA-37 fit replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "AAA-37 validation replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "AAA-37 assessment replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "AAA-37 all saved validation logits",
+      "passed": true,
+      "maximumDifference": 0.0
+    },
+    {
+      "name": "MAM-37 validation-selected epoch",
+      "passed": true
+    },
+    {
+      "name": "MAM-37 parameter count",
+      "passed": true
+    },
+    {
+      "name": "MAM-37 fit replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MAM-37 validation replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MAM-37 assessment replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MAM-37 all saved validation logits",
+      "passed": true,
+      "maximumDifference": 0.0
+    },
+    {
+      "name": "AMM-37 validation-selected epoch",
+      "passed": true
+    },
+    {
+      "name": "AMM-37 parameter count",
+      "passed": true
+    },
+    {
+      "name": "AMM-37 fit replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "AMM-37 validation replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "AMM-37 assessment replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "AMM-37 all saved validation logits",
+      "passed": true,
+      "maximumDifference": 0.0
+    },
+    {
+      "name": "MAM-73 validation-selected epoch",
+      "passed": true
+    },
+    {
+      "name": "MAM-73 parameter count",
+      "passed": true
+    },
+    {
+      "name": "MAM-73 fit replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MAM-73 validation replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MAM-73 assessment replay",
+      "passed": true,
+      "crossEntropyDifference": 0.0
+    },
+    {
+      "name": "MAM-73 all saved validation logits",
+      "passed": true,
+      "maximumDifference": 0.0
+    }
+  ],
+  "fixtureTraces": 180,
+  "nativeGradientCoordinates": 80,
+  "downloadAllowlist": [
+    "hybrid_mechanisms.py",
+    "stroke_models.py",
+    "inspect_stroke.py",
+    "deployment_example.py",
+    "pendigits.tra",
+    "pendigits.tes",
+    "pendigits.names",
+    "stroke-fits.npz",
+    "stroke-results.json",
+    "data-provenance.md"
+  ],
+  "limitations": [
+    "All six saved checkpoints replayed; the original fitting campaign was retained without retraining.",
+    "Large pretrained Jamba deployment is syntax/source checked only; no CUDA kernels or foundation-model weights were run."
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author-results.json": "b5c58ed073e7f6f7b757a0ac1aec601092e7909d802f3677f97000b82befc4d1",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author_calculations.py": "7d7891b4b8b2e5e1f6dd2b88984de0817c8951947993a92898fd3c4b3a28ca1b",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/data-provenance.md": "d32e63aead999de1e9dfc959fc039f1eb7a5a28af9baa5c023f6cc0851f395b1",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/deployment_example.py": "fe01f649636a705ecc5c08d2aad5a0408d251f669605e89cef924df896aa43ab",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/design.md": "e37f505db4d80a52ae6a3f5086ca4242a9d88f28b1c935fc5b52a17d1f4d11da",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/hybrid_mechanisms.py": "c449a8b2733ec6ca3c1211e4b75358142eba2e3d1f2f726fb89cb30f82a73c6b",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/inspect_stroke.py": "ec1a4290f35da91a2940b78ab310221e8e8ed1da4a31c7764418b2c7f4c6c79f",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/lesson.md": "c8735f05f62fefec22dd1345a4ce41bd515817eae57bb51e6a2bc7d2300eb604",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/mechanism-results.json": "0bc0df6a7a2ea6ee42e05d952e5a69100bdb6cefe36b2fa66c1bed5efc668841",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet-checks.json": "42990a7777c282f106c977b83c7230b3180fba2384cb98fb64341e2b288d9515",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet_checks.py": "84bd806e432ba4fc49eb29771f2b73d1e191491bf3d622e69efebfe7a986c9cb",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.names": "a90a76e1edac6f1b50f4b44db80587d7b92601fcbb153c83c2c3210c21b34f60",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tes": "8bd03229c5c5291fefe43e45465dd948d2645bf23328b9d993e0b777666b2015",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tra": "e2b9eb9f0d0467e2b64a4816a3420edf2b8043447576f4b84337aba44a9f97d3",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/source-download.json": "f8ed1ce05202db530cf027c820a7c5908705dd4900e51b07ee2b566f534d7162",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke-fits.npz": "caf5ce4bb05fc2a033836dce431ec23b1dc91be4f1df8fbee41ca66a5571e3f6",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke-results.json": "8a29cdb71090e045acb9c1f7c32f6620e211c221122f94557ccb8d27e57ce421",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke_models.py": "bda2789c50ae1bb246c4c60ed6e300ca1e121119f91f676210ebe67bc5040785",
+    "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/visual-specifications.md": "8d25a8298657572e09fad83b3dfc2936b5ce65344046b6854404877506fce3a7"
+  }
+}

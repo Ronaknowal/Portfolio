@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "comparisons": 50619,
+  "maxError": 4.440892098500626e-16,
+  "checks": [
+    {
+      "name": "36 new scalar cases match native autograd and exact SGD; omitted branch remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "40 actual BatchNorm/linear combinations match forward values, both buffers and graph presence",
+      "passed": true
+    },
+    {
+      "name": "81 native restart cases match every prefix and continued state, including zero-rate velocity divergence and zero-momentum null",
+      "passed": true
+    },
+    {
+      "name": "Paired mean/sample SD and declared direction agree with independent statistics; one observation has undefined SD",
+      "passed": true
+    },
+    {
+      "name": "All selected-seed projections preserve every401-point trace, every final row and current metric lookup; all loss axes contain all retained values",
+      "passed": true
+    },
+    {
+      "name": "First observable divergence is distinguished from inferred unrecorded parameter-update divergence",
+      "passed": true
+    },
+    {
+      "name": "All ten allowed public program/data/evidence downloads are exact canonical copies",
+      "passed": true
+    }
+  ]
+}

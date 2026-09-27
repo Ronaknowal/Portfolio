@@ -246,9 +246,9 @@ export function PcaBudgetLab() {
     </div>}
     {<p className="pca-readout" aria-live="polite">Row {record.rowIndex} with {k} component{k === 1 ? '' : 's'}: {wineFeatures[feature]} measured {number(record.original[feature])}, recovered {number(record.rebuiltOriginal[feature])}; this wine's squared error over all 13 standardized features is {number(record.squaredError)} (validation average at this k: {number(curve.ratios[k] * curve.baselineMse * 13)}).</p>}
     {<Table caption={`Row ${record.rowIndex}: original, recovered and standardized residual for each feature at k = ${k}`} headings={['feature', 'original', 'recovered (original units)', 'standardized residual']} rows={wineFeatures.map((name, index) => [name, number(record.original[index]), number(record.rebuiltOriginal[index]), number(record.residuals[index])])} highlight={index => index === feature} />}
-    <details><summary>Training cumulative variance for comparison (a different quantity)</summary>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">Training cumulative variance for comparison (a different quantity)</h4>
       <Table caption="Fraction of training variance retained by the first k components; this is not the validation error above" headings={['k', 'cumulative training variance']} rows={wineSplit.trainingRatios.map((_, index) => [index + 1, percent(wineSplit.trainingRatios.slice(0, index + 1).reduce((sum, value) => sum + value, 0))])} />
-    </details>
+    </section>
     <p className="pca-caption">The curve steps down as k grows and can never rise, because each added direction removes a nonnegative residual from every wine. That is why a budget is needed: minimizing validation error alone selects all 13. Budgets of 0.10 and 0.11 select the same 8 components; 0.06 selects 10. At k = 13 every validation wine is recovered to machine precision, which says only that thirteen directions span thirteen features. An acceptable average can still hide a badly recovered measurement, so read one row before trusting the curve.</p>
   </Investigation>;
 }

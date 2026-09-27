@@ -1,3 +1,5 @@
+import { CodeBlock } from '../content/Code.jsx';
+import useLessonViewport from './useLessonViewport.js';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { NeuralLab, NeuralNumber, NeuralSelect, NeuralTable, NeuralPlot, formatNeural as fmt } from './NeuralLessonElements.jsx';
 import { boundaryExperiment, lstmAccounting, paddingExperiment, pointStatistics, recurrentSequence, resetPlacement, retentionPath, scalarRecurrence, streamOwnership } from '../../data/recurrent-models.js';
@@ -33,24 +35,28 @@ function useRecurrentData(file) {
 }
 
 export function RecurrentProgram({ file = 'recurrent-mechanics.py', title = 'Read the complete scratch recurrent mechanism', start, end }) {
-  const [open, setOpen] = useState(false), [code, setCode] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);
+  const [container, ready] = useLessonViewport();
+  const [code, setCode] = useState(null), [failed, setFailed] = useState(false), [attempt, setAttempt] = useState(0);
   useEffect(() => {
-    if (!open || code) return;
+    if (!ready) return undefined;
     const controller = new AbortController();
-    setFailed(false);
+    setCode(null); setFailed(false);
     fetch(assetBase + file, { signal: controller.signal }).then(response => {
       if (!response.ok) throw new Error('Source unavailable');
       return response.text();
     }).then(value => { if (!controller.signal.aborted) setCode(value); }).catch(() => { if (!controller.signal.aborted) setFailed(true); });
     return () => controller.abort();
-  }, [open, code, attempt, file]);
+  }, [ready, attempt, file]);
   const from = code && start ? code.indexOf(start) : 0;
   const to = code && end ? code.indexOf(end, from + 1) : code?.length;
   const excerpt = code && from >= 0 && to > from ? code.slice(from, to).trim() : null;
-  return <details className="neural-program" onToggle={event => setOpen(event.currentTarget.open)}><summary>{title}</summary>
+  return <section ref={container} className="lesson-teaching-section" data-lesson-teaching="code">
+    <h4 className="lesson-teaching-section__title">{title}</h4>
     <p><a href={assetBase + file} download>Download {file}</a> · This view comes from that exact program.</p>
-    {open && (excerpt ? <pre className="neural-program-source" tabIndex={0} role="region" aria-label={title}><code>{excerpt}</code></pre> : failed || code ? <p role="alert">This source view is unavailable. <button onClick={() => { setCode(null); setAttempt(value => value + 1); }}>Retry source</button></p> : <p role="status">Loading source…</p>)}
-  </details>;
+    {excerpt ? <CodeBlock language="python" filename={start || end ? file.replace(/\.py$/, '-excerpt.py') : file}>{excerpt}</CodeBlock>
+      : failed || code ? <p role="alert">This source view is unavailable. <button onClick={() => { setCode(null); setAttempt(value => value + 1); }}>Retry source</button></p>
+        : <p role="status">Loading source…</p>}
+  </section>;
 }
 
 function PointPath({ points, selected, onSelect, onMove, title = 'Numbered pen trajectory' }) {
@@ -178,7 +184,7 @@ function FrozenPenExplorer({ data }) {
     <NeuralTable caption={`Position ${point + 1}, feature ${feature + 1}: computed state and gates`} headers={['Quantity', 'Current value']} rows={[[ 'Hidden', fmt(current[point].hidden[feature], 7)], ...Object.entries(gates).map(([name, values]) => [name.replaceAll('_', ' '), fmt(values[feature], 7)])]} />
     <div className="neural-buttons"><button onClick={() => setPoints([...points].reverse())}>Reverse current trace</button><button onClick={() => setPoints(points.map((value, i) => i === 2 ? points[3] : i === 3 ? points[2] : value))}>Swap current points 3 and 4</button><button onClick={() => { setKind('gru'); setSample(0); setPoints(data.specimens[0].points); setPoint(2); setFeature(0); setSelectedClass(1); setRevision(revision + 1); }}>Reset fitted trace</button></div>
     <p>These are completed, resampled trajectories. Intermediate hidden readouts do not establish validated early recognition. A feature index has no assigned human meaning, and a probability change need not change the top class.</p>
-    <details><summary>All current coordinates and selected state values</summary><NeuralTable caption="Full eight-position trace" headers={['Position', 'x', 'y', 'Selected hidden']} rows={current.map((row, i) => [i + 1, fmt(points[i][0]), fmt(points[i][1]), fmt(row.hidden[feature], 7)])} /></details>
+    <section data-lesson-teaching="" className="lesson-teaching-section"><h4 className="lesson-teaching-section__title">All current coordinates and selected state values</h4><NeuralTable caption="Full eight-position trace" headers={['Position', 'x', 'y', 'Selected hidden']} rows={current.map((row, i) => [i + 1, fmt(points[i][0]), fmt(points[i][1]), fmt(row.hidden[feature], 7)])} /></section>
   </>;
 }
 

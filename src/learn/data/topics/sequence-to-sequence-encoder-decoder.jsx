@@ -3,19 +3,20 @@ import { Prose, H2, H3, CodeBlock } from '../../components/content';
 import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
 import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { ScheduledPrefixFigure } from '../../components/lesson-labs/Seq2SeqIntuitionFigures.jsx';
 import { Seq2SeqTimelines, Seq2SeqAlignmentLab, Seq2SeqBridgeLab, Seq2SeqTreeLab, Seq2SeqEvidenceFigure, Seq2SeqProgram, Seq2SeqFittedLab, seq2seqAsset } from '../../components/lesson-labs/Seq2SeqLabs.jsx';
 export default {
  title: 'Sequence-to-Sequence & Encoder-Decoder',
  readTime: '~65 min read + experiments and practice',
  hasIntegratedGuide: true,
  content: () => <div className="neural-lesson seq2seq-lesson"><LessonIntro prerequisites="Recurrent state updates and cross-entropy. Source/target tokens, shapes, context and loss normalization are refreshed before composing the model." sections={[["1-two-timelines-one-conditional-task","1. Two timelines, one conditional task"],["2-give-every-token-and-tensor-a-job","2. Give every token and tensor a job"],["3-how-the-encoder-and-decoder-communicate","3. How the encoder and decoder communicate"],["4-train-the-probability-of-the-whole-answer","4. Train the probability of the whole answer"],["5-generate-an-answer-then-search-more-than-one-route","5. Generate an answer, then search more than one route"],["6-a-real-experiment-learning-a-function-is-harder-than-remembering-pairs","6. A real experiment: learning a function is harder than remembering pairs"],["7-run-the-complete-small-model","7. Run the complete small model"],["8-diagnose-the-model-by-separating-four-questions","8. Diagnose the model by separating four questions"],["reuse-the-cell-implement-the-encoder-decoder-protocol","Reuse the cell; implement the encoder–decoder protocol"],["9-deeper-connections-and-practical-extensions","9. Deeper connections and practical extensions"],["10-practice-build-diagnose-and-change-the-problem","10. Practice: build, diagnose and change the problem"],["11-references-another-way-to-learn-and-the-next-step","11. References, another way to learn, and the next step"]]}>Read an input, learn a conditional output and inspect the difference between memorizing examples, generating an answer and finding a better route.</LessonIntro>
-<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit source/target shifts, bridge weights/rate, tiny probability trees, beam width and supported fitted source/prefix inputs. Show aligned timelines, dependency paths, sequence probabilities and bounded beam candidates live. Keep teacher-forced versus generated inputs explicit at every step. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish model probability from a decoding decision and identify when a prefix or alignment changes the actual task."}</Prose>
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit source/target shifts, bridge weights/rate, tiny probability trees, beam width and supported fitted source/prefix inputs. Show aligned timelines, dependency paths, sequence probabilities and bounded beam candidates live. Keep teacher-forced versus generated inputs explicit at every step. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish model probability from a decoding decision and identify when a prefix or alignment changes the actual task."}</Prose>
 
 <Prose>{"A handwriting classifier reads several pen positions and chooses one digit. Now change the request: read a word and generate its past tense. The input "}<code>{"walk"}</code>{" has four characters; "}<code>{"walked"}</code>{" has six. "}<code>{"eat"}</code>{" becomes "}<code>{"ate"}</code>{", so copying the input and appending a suffix is not enough. The system must decide both "}<strong>{"what comes next"}</strong>{" and "}<strong>{"when the answer is finished"}</strong>{"."}</Prose>
 
 <Prose>{"A sequence-to-sequence model learns a mapping from an ordered input to an ordered output. An "}<strong>{"encoder–decoder"}</strong>{" is one way to build it: an encoder turns the input into a learned representation; a decoder uses that representation to produce the output. Here we will build a small recurrent version, inspect its actual states, and discover why fitting the training examples does not mean it has learned a reusable spelling rule."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" follow sections 1–6 to understand the two networks, the shifted training targets, generation and a real experiment. Section7 supplies the complete CPU program. Use section 8 to diagnose it, then try the practice. The deeper branches in section 9 are optional on a first reading; they explain architectural variants, training objectives and production contracts."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow sections 1–6 to understand the two networks, the shifted training targets, generation and a real experiment. Section7 supplies the complete CPU program. Use section 8 to diagnose it, then try the practice. The deeper branches in section 9 are optional on a first reading; they explain architectural variants, training objectives and production contracts."}</Prose>
 
 <Prose>{"You need the idea that a recurrent state is an updated vector and that cross-entropy rewards probability placed on the correct outcome. We refresh both below. "}<a href={"/learn/path/full-curriculum/rnns-lstms-grus?module=deep-learning-fundamentals"}>{"RNNs, LSTMs and GRUs"}</a>{" provides the full cell equations."}</Prose>
 
@@ -51,7 +52,7 @@ export default {
 
 <Prose>{""}<code>{"<pad>"}</code>{" fills unused cells when examples of different lengths share a batch. It is storage, not a requested prediction. We use two distinct mechanisms:"}</Prose>
 
-<ol><li>{""}<strong>{"Source lengths:"}</strong>{" packing tells the recurrent encoder which source positions exist. The final state corresponds to the last real source token, including its EOS."}</li><li>{""}<strong>{"Target mask:"}</strong>{" the loss ignores target PAD positions. Output EOS is real and remains in the loss."}</li></ol>
+<ol start={1}><li>{""}<strong>{"Source lengths:"}</strong>{" packing tells the recurrent encoder which source positions exist. The final state corresponds to the last real source token, including its EOS."}</li><li>{""}<strong>{"Target mask:"}</strong>{" the loss ignores target PAD positions. Output EOS is real and remains in the loss."}</li></ol>
 
 <Prose>{"The decoder can emit only letters or EOS in this task. Before softmax, the program masks PAD, BOS and request-token logits to negative infinity. Their output probabilities become zero. This output-support rule is applied consistently during training and generation; it is not a late cosmetic cleanup of bad strings."}</Prose>
 
@@ -117,6 +118,8 @@ export default {
 
 <Prose>{"This gives equal weight to valid tokens. Averaging each sequence first would give equal weight to sequences and therefore relatively more weight to tokens in short answers. Both can be deliberate objectives; changing the denominator silently changes the training problem."}</Prose>
 
+<Prose>{"For a concrete comparison, suppose one answer has two valid tokens costing 1 nat each, and another has six costing 3 nats each. The token mean is (2×1+6×3)/8=2.5. Averaging the two sequence means gives (1+3)/2=2. Under the first rule every token has weight 1/8. Under the second, each short-answer token has weight 1/4 and each long-answer token 1/12. The threefold difference is a weighting choice, not a numerical rounding effect. Padding should receive zero weight under either rule."}</Prose>
+
 <H3>{"Teacher forcing: a known prefix, not the current answer"}</H3>
 
 <Prose>{"During training we know the reference output. "}<strong>{"Teacher forcing"}</strong>{" uses its previous tokens as the decoder inputs while scoring each next token. This directly evaluates the conditional factors in the likelihood above. It is ordinary maximum-likelihood training for this model, not a trick that makes the loss invalid."}</Prose>
@@ -131,9 +134,9 @@ export default {
 
 <Prose>{"The supplied calculation checks that derivative against a central finite difference. In the real model, a four-example batch gives a nonzero encoder input-weight gradient norm of 0.169993. Detaching the context gives the same forward computation but removes this decoder-to-encoder gradient path. That would defeat joint learning unless a separate encoder objective were intended."}</Prose>
 
-<details>
+<section data-lesson-teaching="" className="lesson-teaching-section">
 
-<summary>Follow the scalar derivative through the bridge</summary>
+<h3 className="lesson-teaching-section__title">Follow the scalar derivative through the bridge</h3>
 
 <Prose>{"For the two-token mean loss, the direct derivative at decoder step 1 is "}<InlineMath>{"p_1(A)-1"}</InlineMath>{", and at step 2 it is "}<InlineMath>{"p_2(A)"}</InlineMath>{" because EOS is correct there. Step2 also sends credit back through step 1:"}</Prose>
 
@@ -145,7 +148,7 @@ export default {
 
 <Prose>{"The product is −0.00556958. The first term in brackets is the direct contribution at source position 2; the second comes through the earlier encoder state. Both belong to the same parameter."}</Prose>
 
-</details>
+</section>
 
 <Prose>{"Return to "}<a href={"/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals"}>{"Backpropagation and Automatic Differentiation"}</a>{" for the full graph mechanics. Here the new point is where the two graphs meet."}</Prose>
 
@@ -281,9 +284,9 @@ export default {
 
 <H2>{"9. Deeper connections and practical extensions"}</H2>
 
-<details>
+<section data-lesson-teaching="" className="lesson-teaching-section">
 
-<summary>Different context interfaces: GRU, LSTM, stacks and attention</summary>
+<h3 className="lesson-teaching-section__title">Different context interfaces: GRU, LSTM, stacks and attention</h3>
 
 <Prose>{"Our decoder initializes from one GRU state. An LSTM has both hidden state "}<InlineMath>{"h"}</InlineMath>{" and cell state "}<InlineMath>{"c"}</InlineMath>{"; a complete handoff must say what happens to both. With several layers, state has a layer axis. A bidirectional encoder has two directional states per layer. “Pass the final hidden vector” is insufficient when the decoder expects a different shape or a missing cell state."}</Prose>
 
@@ -293,27 +296,41 @@ export default {
 
 <Prose>{"The 2014 Sutskever system demonstrated large recurrent encoder–decoder translation with word vocabularies and unknown-word tokens. Its reported 34.81 BLEU result used an ensemble of five models and beam 12. Source reversal shortened some important dependency paths; it did not reverse the target language or eliminate recurrent computation. The paper actually reported good performance on long sentences in that setting, so a universal “fails after 30 words” claim would misrepresent it. "}<a href={"https://arxiv.org/abs/1409.3215"}>{"Sequence to Sequence Learning with Neural Networks"}</a>{"."}</Prose>
 
-</details>
+<Prose>{"Use a constructed alignment A→X, B→Y, C→Z to see what reversal changes. Count state-to-state edges from the source token's encoder state to its aligned decoder output, in a single-summary recurrent chain:"}</Prose>
 
-<details>
+<NeuralTable caption={"9. Deeper connections and practical extensions"} headers={[<>{"Aligned information"}</>,<>{"Encode A B C, then decode X Y Z"}</>,<>{"Encode C B A, then decode X Y Z"}</>]} rows={[[<>{"A needed for X"}</>,<>{"A→B→C→X: 3 edges"}</>,<>{"A→X: 1 edge"}</>],[<>{"B needed for Y"}</>,<>{"B→C→X→Y: 3 edges"}</>,<>{"B→A→X→Y: 3 edges"}</>],[<>{"C needed for Z"}</>,<>{"C→X→Y→Z: 3 edges"}</>,<>{"C→B→A→X→Y→Z: 5 edges"}</>]]} />
 
-<summary>Teacher forcing, scheduled sampling and sequence objectives</summary>
+<Prose>{"Some early output dependencies become shorter while later ones become longer; the average in this small construction stays 3. Real language alignments are more complicated. Reversal is an ordering choice that changes credit paths, not a way to remove the source-summary bottleneck or a universal preprocessing rule."}</Prose>
+
+</section>
+
+<section data-lesson-teaching="" className="lesson-teaching-section">
+
+<h3 className="lesson-teaching-section__title">Teacher forcing, scheduled sampling and sequence objectives</h3>
 
 <Prose>{"Maximum likelihood scores observed prefixes. Deployment uses generated prefixes. That mismatch can expose weaknesses in an imperfect model, but the likelihood objective remains mathematically coherent. A generated-prefix intervention measures a particular response; it does not prove a universal account of every sequence error."}</Prose>
 
 <Prose>{"Scheduled sampling mixes reference and generated previous tokens during training, typically changing the mixing probability over time. The targets can remain the original next tokens even when the prefix has changed. That means it is no longer simply evaluating the original data likelihood. The original proposal reported useful results, while an analysis of the sampling objective showed an inconsistency even in a two-symbol setting: replacing the first symbol independently can encourage prediction of the second marginal rather than the correct conditional relationship. It is not an automatic required upgrade. "}<a href={"https://arxiv.org/abs/1506.03099"}>{"Bengio et al."}</a>{", "}<a href={"https://arxiv.org/abs/1511.05101"}>{"Huszár's analysis, section 4"}</a>{"."}</Prose>
 
+<Prose>{"The replacement can change the relationship being taught. Suppose the only true two-symbol sequences are 00 and 11, equally common. The second symbol should copy the first. If the first symbol is always replaced by an independent fair generated bit while the second target is kept, all four shown-prefix/target pairs become equally common. Half the examples now tell the model to contradict the shown bit. Predicting the target marginal 50/50 is optimal for that corrupted pair distribution. The figure isolates this limiting mechanism; partial replacement and real models require their own analysis."}</Prose>
+
+<ScheduledPrefixFigure />
+
 <Prose>{"Sequence-level objectives can optimize a reward or risk attached to the complete answer. They introduce their own estimation, optimization and evaluation questions. Label smoothing changes target distributions at the loss; it does not itself train on the model's wrong prefixes. Keep these mechanisms distinct when interpreting an experiment."}</Prose>
 
-</details>
+<Prose>{"For an inspectable sequence-level objective, let a tiny model choose between two complete answers A and B with probabilities .6 and .4, and assign task rewards 0 and 1. Expected reward is .4. If B's probability is a sigmoid of a logit difference, increasing that difference has reward derivative .4×.6=.24. The gradient acts on probability assigned to complete outcomes, not on a differentiable argmax string. Large output spaces cannot usually be enumerated like these two routes: sampling-based estimators or restricted candidate approximations introduce variance or bias, and the reward must actually reflect the task. Label smoothing instead redistributes a per-token training target; it does not perform this expected-reward calculation."}</Prose>
 
-<details>
+</section>
 
-<summary>Search costs, stopping and model deployment</summary>
+<section data-lesson-teaching="" className="lesson-teaching-section">
+
+<h3 className="lesson-teaching-section__title">Search costs, stopping and model deployment</h3>
 
 <Prose>{"With output vocabulary size "}<InlineMath>{"V"}</InlineMath>{", limit "}<InlineMath>{"T"}</InlineMath>{" and beam width "}<InlineMath>{"K"}</InlineMath>{", exhaustive enumeration has exponentially many possible paths, whereas beam expansion considers roughly "}<InlineMath>{"KVT"}</InlineMath>{" token extensions. This count omits the cost of each neural state update, embedding lookup, projection and sorting. It is an algorithmic description, not a measured latency claim."}</Prose>
 
 <Prose>{"For raw log scores, extending a particular live path cannot improve its score. A completed candidate that already beats every live prefix cannot be beaten by descendants of those retained prefixes. This does not recover routes already pruned. Length-normalized scores need a compatible bound because their denominator changes; borrowing a raw-score stopping proof would be invalid."}</Prose>
+
+<Prose>{"For example, a completed raw score −.8 beats a live prefix at −1.0; every descendant adds nonpositive log terms, so none of that prefix's completions can win. With the earlier length normalization at α=1, a length-1 prefix with raw score −1.0 has normalized score −1.0, but a length-5 completion with raw score −1.1 has normalized score −.66. It can overtake a completed candidate whose normalized score is −.8. A stopping bound must account for the allowed remaining lengths as well as possible log-score additions. This is why a stop rule and a scoring rule must be designed together."}</Prose>
 
 <Prose>{"In a deployed model, record the exact tokenizer and vocabulary, source normalization, checkpoint revision, input limit, decoder-start and EOS IDs, padding side, precision/device, beam or sampling settings, score definition, output limit and termination reason. For multilingual models a language token is checkpoint-specific, not a universal string format. Keep model and tokenizer versions paired."}</Prose>
 
@@ -323,11 +340,11 @@ export default {
 
 <Prose>{"An encoder–decoder can use source context and still invent unsupported content. A decoder-only model can also condition on an input prefix. Architecture family alone establishes neither faithfulness nor a universal speed ranking."}</Prose>
 
-</details>
+</section>
 
-<H2>{"10. Practice: build, diagnose and change the problem"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"10. Practice: build, diagnose and change the problem"}</H2>
 
-<H3>{"1. Repair a shifted target"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Repair a shifted target"}</H3>
 
 <Prose>{"For "}<code>{"try + past → tried"}</code>{", write the six decoder inputs and six target tokens. Which target position is lost if you train only on the five letters?"}</Prose>
 
@@ -345,9 +362,9 @@ export default {
 
 <Prose>{"Inputs: BOS,t,r,i,e,d. Targets: t,r,i,e,d,EOS. Omitting the sixth target removes the supervised instruction to stop after "}<code>{"d"}</code>{". EOS is not padding."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"2. Compute a fresh likelihood and loss mask"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Compute a fresh likelihood and loss mask"}</H3>
 
 <Prose>{"An answer "}<code>{"go"}</code>{" followed by EOS receives correct-token probabilities 0.8,0.5,0.25. Compute its sequence probability and mean token NLL. Two padded storage positions are appended. Should the valid-token mean change?"}</Prose>
 
@@ -365,9 +382,9 @@ export default {
 
 <Prose>{"The probability is 0.1. The total NLL is "}<InlineMath>{"-\\log(0.1)=2.302585"}</InlineMath>{", so the three-token mean is 0.767528. Correctly ignored padding leaves it unchanged. Dividing the same loss sum by five instead gives 0.460517 and silently changes the scale."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"3. Separate a source edit from an answer edit"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Separate a source edit from an answer edit"}</H3>
 
 <Prose>{"In teacher-forced training, change only the last character of a reference form. Must the encoder state change? Must the distribution predicting that changed target position change? What about the following decoder step?"}</Prose>
 
@@ -385,9 +402,9 @@ export default {
 
 <Prose>{"The encoder state stays fixed because its source is unchanged. The distribution at the edited target position stays fixed if the preceding prefix is unchanged; the correct label and loss can change. The following step receives the edited character as input and can have a different state and distribution."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"4. Make greedy lose, then make it win"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Make greedy lose, then make it win"}</H3>
 
 <Prose>{"Use a new tree: first A 0.55/B 0.45; after A choose EOS 0.60/C 0.40; after B choose EOS 0.85/C 0.15; after C emit EOS with probability 1. Enumerate all complete paths and compare greedy with beam 2. Then change only P(EOS|A) to 0.90 and its complement accordingly."}</Prose>
 
@@ -405,9 +422,9 @@ export default {
 
 <Prose>{"Initially A,EOS=.33; A,C,EOS=.22; B,EOS=.3825; B,C,EOS=.0675. Greedy returns A,EOS, while beam 2 finds B,EOS. After the edit A,EOS=.495 and A,C,EOS=.055, so both return A,EOS. Improving search does not require it to return a different answer on every input."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"5. Spot the leaked evaluation unit"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Spot the leaked evaluation unit"}</H3>
 
 <Prose>{"A dataset contains "}<code>{"worke→worked"}</code>{" in training and "}<code>{"work→worked"}</code>{" in development. A report says “all lemma strings are distinct, therefore this measures completely new lexical items.” What is wrong, and what did this lesson do?"}</Prose>
 
@@ -425,9 +442,9 @@ export default {
 
 <Prose>{"Distinct spellings can represent closely related variants and share targets. The report overstates what its check proves. This packet conservatively links selected lemma spellings sharing a target, keeps the connected group in one partition and records the policy. It still does not claim to have solved all linguistic alias detection."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"6. Explain a smaller loss but worse product"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Explain a smaller loss but worse product"}</H3>
 
 <Prose>{"Suppose model A has lower teacher-forced NLL, model B has better generated exact match, and a rule system beats both on this task. Which should you report? Does the discrepancy mean the NLL calculation is broken?"}</Prose>
 
@@ -445,9 +462,9 @@ export default {
 
 <Prose>{"Report all relevant measurements with the same data split and protocol. Lower NLL can improve average probabilities without changing argmax decisions in the same way, and generated prefixes can differ from reference prefixes. The discrepancy does not itself show a broken loss. Choose according to the deployment requirements and reliable evaluation; the rule system remains a legitimate candidate."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"7. Investigate a cap without pretending the answer ended"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Investigate a cap without pretending the answer ended"}</H3>
 
 <Prose>{"Use the saved seed 1 model on a development input. Set the generation limit to 3 tokens and compare with 16. Record the emitted tokens, EOS flag and log score. Explain why the three-token prefix can have a higher raw score but be an incomplete answer."}</Prose>
 
@@ -465,9 +482,9 @@ export default {
 
 <Prose>{"On "}<code>{"emmove + past"}</code>{" the limit 3 output is "}<code>{"emo"}</code>{" with EOS=false and log score −0.833265. The limit 16 run continues to "}<code>{"emoves"}</code>{" and EOS in this saved model. A prefix can have a larger probability than any single complete extension. The cap flag must remain visible; do not relabel "}<code>{"emo"}</code>{" as a natural completed prediction."}</Prose>
 
-</details>
+</details></div>
 
-<H3>{"8. Design the next controlled comparison"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Design the next controlled comparison"}</H3>
 
 <Prose>{"You want to replace the single context with access to all encoder states. Name what you would keep fixed, what you would measure, and one reason an improvement would not prove that attention alone caused every difference."}</Prose>
 
@@ -485,12 +502,12 @@ export default {
 
 <Prose>{"Keep the exact data/split, tokenization, target masking, training and evaluation definitions, decoding convention and declared seeds fixed where possible. Report parameter-count and compute changes, generated exact match, edits, termination and teacher-forced loss. Compare failures and source-length slices without selecting only favorable examples. Adding attention changes parameters and optimization as well as information access; a small controlled example is evidence for its protocol, not a universal causal ranking. The same development set remains development."}</Prose>
 
-</details>
+</details></div></section>
 
-<H2>{"11. References, another way to learn, and the next step"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"11. References, another way to learn, and the next step"}</H2>
 
 <ul><li>{""}<a href={"https://d2l.ai/chapter_recurrent-modern/seq2seq.html"}>{"Dive into Deep Learning 1.0.3: encoder–decoder, seq2seq and beam search"}</a>{". A useful second implementation route, especially the shifted-target and masking sections. Read the beam chapter with its exact score convention in view; increasing the denominator of a negative log score does not universally penalize longer outputs."}</li><li>{""}<a href={"https://arxiv.org/abs/1409.3215"}>{"Sutskever, Vinyals and Le 2014"}</a>{". Read section 2 for the original model contract and sections 3.2–3.3 for search and source reversal. Its large translation experiment is historical evidence, not the setup of our small character model."}</li><li>{""}<a href={"https://arxiv.org/abs/1406.1078"}>{"Cho et al. 2014: RNN Encoder–Decoder"}</a>{". A complementary formulation in which source context enters the conditional decoder. Useful after you can trace our simpler initial-state interface."}</li><li>{""}<a href={"https://www.youtube.com/watch?v=XXtpJxZBa2c"}>{"Stanford CS224N 2019, Lecture 8: Translation, Seq2Seq, Attention"}</a>{", with "}<a href={"https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes06-NMT_seq2seq_attention.pdf"}>{"companion notes"}</a>{". A lecture-based alternative covering the motivation and the transition to attention. The basic encoder–decoder portions fit this lesson; return to the attention portion after the next one. The resource's age matters for “current standard” statements and framework code."}</li><li>{""}<a href={"https://unimorph.github.io/"}>{"UniMorph schema and data project"}</a>{", "}<a href={"https://aclanthology.org/2022.lrec-1.89/"}>{"UniMorph 4.0 paper"}</a>{", and "}<a href={"https://github.com/unimorph/eng/tree/66e0e9e8e2dcd196da081a25a48e5c1fe3d8b49b"}>{"the pinned English source"}</a>{". These explain what the real lexical records mean. The supplied extract retains source row numbers, filtering, grouping and CC BY-SA 3.0 attribution."}</li><li>{""}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.CrossEntropyLoss.html"}>{"PyTorch 2.14 CrossEntropyLoss"}</a>{". Use this to verify raw-logit input, class indices, "}<code>{"ignore_index"}</code>{" and reduction when adapting the program."}</li></ul>
 
-<Prose>{"You can now connect source tokens, encoder state, decoder state, next-token probabilities, sequence loss and a complete generation procedure. Next, "}<a href={"/learn/path/full-curriculum/attention-mechanism-bahdanau-luong?module=deep-learning-fundamentals"}>{"Attention Mechanisms: Bahdanau and Luong"}</a>{" lets the decoder consult the sequence of encoder states at each output step. We will test that change on this same bounded task rather than assume it solves every failure."}</Prose>
+<Prose>{"You can now connect source tokens, encoder state, decoder state, next-token probabilities, sequence loss and a complete generation procedure. Next, "}<a href={"/learn/path/full-curriculum/attention-mechanism-bahdanau-luong?module=deep-learning-fundamentals"}>{"Attention Mechanisms: Bahdanau and Luong"}</a>{" lets the decoder consult the sequence of encoder states at each output step. We will test that change on this same bounded task rather than assume it solves every failure."}</Prose></section>
  </div>,
 };

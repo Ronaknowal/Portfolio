@@ -4,6 +4,9 @@ import convnextBlueprint from './convnext-modern-cnn-designs.js';
 import capsuleNetworksBlueprint from './capsule-networks.js';
 import recurrentNetworksBlueprint from './rnns-lstms-grus.js';
 import sequenceToSequenceBlueprint from './sequence-to-sequence-encoder-decoder.js';
+import recurrentAttentionBlueprint from './attention-mechanism-bahdanau-luong.js';
+import longContextBlueprint from './long-context-sequence-models-transformer-xl-griffin-perceiver.js';
+import stateSpaceBlueprint from './state-space-models-s4-mamba-mamba-2.js';
 import weightInitializationBlueprint from './weight-initialization-xavier-kaiming-p.js';
 import residualConnectionsBlueprint from './residual-connections-skip-connections.js';
 import dropoutDepthBlueprint from './dropout-droppath-stochastic-depth.js';
@@ -159,6 +162,9 @@ export const authoredBlueprints = {
   'Capsule Networks': capsuleNetworksBlueprint,
   'RNNs, LSTMs & GRUs': recurrentNetworksBlueprint,
   'Sequence-to-Sequence & Encoder-Decoder': sequenceToSequenceBlueprint,
+  'Attention Mechanism (Bahdanau, Luong)': recurrentAttentionBlueprint,
+  'Long-Context Sequence Models (Transformer-XL, Griffin, Perceiver)': longContextBlueprint,
+  'State Space Models (S4, Mamba, Mamba-2)': stateSpaceBlueprint,
   'Weight Initialization (Xavier, Kaiming, μP)': weightInitializationBlueprint,
   'Residual Connections & Skip Connections': residualConnectionsBlueprint,
   'Dropout, DropPath & Stochastic Depth': dropoutDepthBlueprint,

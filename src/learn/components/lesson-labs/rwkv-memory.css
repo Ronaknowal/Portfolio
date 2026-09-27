@@ -1,0 +1,37 @@
+.rwkv-memory-lesson { min-width: 0; overflow-wrap: anywhere; }
+.rwkv-memory-lesson .rwkv-figure, .rwkv-memory-lesson .rwkv-flow { margin: 1.5rem 0; padding: 1rem; border-left: 2px solid #d7a94e; background: #151515; }
+.rwkv-memory-lesson figcaption { color: #f1d28f; font-weight: 600; margin-bottom: .8rem; }
+.rwkv-panels { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start; }
+.rwkv-panels > * { flex: 1 1 220px; min-width: 0; }
+.rwkv-matrix { flex: 0 1 auto; margin: .5rem 0; }
+.rwkv-matrix [role="row"] { display: flex; }
+.rwkv-matrix [role="cell"] { display: inline-block; min-width: 4.2rem; text-align: center; padding: .55rem; border: 1px solid #555; background: #3a3020; font-variant-numeric: tabular-nums; }
+.rwkv-matrix [role="cell"].negative { background: #243443; }
+.rwkv-flow ol { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.rwkv-flow li { flex: 1 1 180px; border-top: 2px solid #666; padding-top: .6rem; }
+.rwkv-flow li strong, .rwkv-flow li span { display: block; }
+.rwkv-flow li span { margin-top: .4rem; color: #d2d2d2; }
+.rwkv-compass, .rwkv-path { max-width: 340px; margin: 1rem 0; }
+.rwkv-compass svg, .rwkv-path svg { width: 100%; height: auto; display: block; }
+.rwkv-memory-lesson details { margin: 1rem 0; }
+.rwkv-memory-lesson summary { cursor: pointer; color: #ecd29a; padding: .5rem 0; }
+.rwkv-diagram { max-width: 410px; margin: 1.5rem auto; }
+.rwkv-diagram svg, .rwkv-small-circuit { display: block; width: 100%; height: auto; }
+.rwkv-small-circuit { max-width: 330px; }
+.rwkv-diagram svg text, .rwkv-small-circuit text { font-family: inherit; font-size: 12px; }
+.rwkv-ribbon { margin: 1rem 0; min-width: 0; }
+.rwkv-ribbon > div { display: grid; grid-template-columns: 1.5rem minmax(60px, 1fr) 5rem; gap: .5rem; align-items: center; }
+.rwkv-ribbon > div > div { height: .8rem; position: relative; background: linear-gradient(90deg, #252525 49.8%, #b7b7b7 49.8%, #b7b7b7 50.2%, #252525 50.2%); }
+.rwkv-ribbon i { position: absolute; height: 100%; display: block; }
+.rwkv-ribbon output { font-variant-numeric: tabular-nums; font-size: .8rem; }
+.rwkv-diagram-scroll { max-width: 100%; overflow-x: auto; scrollbar-color: #b99451 #222; }
+.rwkv-diagram-scroll > svg { min-width: 340px; }
+.rwkv-compass .rwkv-diagram-scroll > svg { min-width: 240px; }
+.rwkv-path .rwkv-diagram-scroll > svg { min-width: 260px; }
+.rwkv-panels > .rwkv-diagram-scroll { flex: 1 1 300px; }
+@media (max-width: 480px) { .rwkv-panels { display: block; } .rwkv-memory-lesson .rwkv-figure { padding: .65rem; } .rwkv-matrix [role="cell"] { min-width: 3.6rem; } }
+
+.rwkv-plot-scroll { min-width: 0; max-width: 100%; overflow-x: auto; }
+.rwkv-plot-scroll > .neural-plot { min-width: 340px; }
+
+.rwkv-diagram-scroll > .rwkv-block-diagram { min-width: 360px; }

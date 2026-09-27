@@ -1,0 +1,7 @@
+# Independent concept-level review
+
+Read all 16 lesson sections, A-L practice, references, and the new figure/CSS sources in full. The narrative distinguishes observation from latent event time before risk sets, rates and survival products; Kaplan-Meier steps precede Greenwood uncertainty; Cox ranking precedes ties, baseline estimation and proportional-hazards checks; AFT time dilation, discrete hazards and competing-risk denominators receive separate worked mechanisms. Existing executable scratch/library routes and real-data protocol remain present.
+
+Independently enumerated all ten exact tied-risk pairs (sum 16), checked Breslow 8/169 and Efron 4/65, the Greenwood contribution ratio 28, exponential quartiles/time dilation, discrete event/censor prefixes .18/.72, the competing mass partition, and the eight-pump KM endpoint 35/128. These calculations are separate from the author's verifier. The two numerator/denominator contrasts and shared-axis AFT figure support the local conceptual transition without pretending to be empirical measurements.
+
+No substantive correctness or reading-progression finding remained. Parsed every changed JSX and verified actual bytes against the author checkpoint. Historical native fit outputs were not rerun; existing evidence is retained for those unchanged engines. Browser/mobile and control operation remain the integration owner's separate review.

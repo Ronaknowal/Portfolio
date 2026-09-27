@@ -197,7 +197,7 @@ A top-left triangular mask of shape `1 × 3` is `[True, False, False]`; that bel
 
 The robust idea is explicit: `allowed[i,j] = key_position[j] <= query_position[i]`, combined with padding or document boundaries as needed. Full-prefix and cached computations must use matching positions, the same parameters and evaluation behavior. The later GQA/MQA and MLA lessons change what is stored; the legality rule remains.
 
-**Investigate a leak.** Construct a four-position input/target alignment and decide which cells must be blocked. Predict whether editing a future value can change the current query output under your mask. Reveal, repair any illegal edge, and repeat with a one-query cached prefix. The all-legal result is not always correct; its correctness depends on the query's actual position.
+**Investigate a leak.** Edit the legal edges of a four-position input/target alignment and watch the current query output. Change a future donor's value, repair any illegal edge, and repeat with a one-query cached prefix. The visible output updates at each edit. The all-legal result is not always correct; its correctness depends on the query's actual position.
 
 ## 4. Let several heads form different mixtures
 
@@ -460,9 +460,9 @@ The displayed real trajectory is source row 77, labeled class 4, **anticlockwise
 
 <!-- Investigation SA6: editable real trajectory, per-head donor map, and class probabilities. -->
 
-Choose a receiver point and inspect its row in each head's attention map. The horizontal axis is donor point number; the vertical axis is receiver point number. High weight means a large mixing coefficient for that donor; its effect also depends on the value vector and output map. It is not automatically a physical neighbor or a movement label.
+Choose a receiver point and inspect its row in each head's attention map. In the selected-row strip, donor point number runs horizontally and bar height is its weight. The receiver and head selectors choose which row is displayed. High weight means a large mixing coefficient for that donor; its effect also depends on the value vector and output map. It is not automatically a physical neighbor or a movement label.
 
-Reverse all 45 points and inspect the new output beside the original. In the retained run, the largest logit change was approximately `2.15e-6`, consistent with floating-point rounding. Reversing both axes of the original heatmap reproduces the reversed sequence's attention map up to rounding. The array index naming each point changes; the pooled class decision does not.
+Reverse all 45 points and inspect the new output beside the original. In the retained run, the largest logit change was approximately `2.15e-6`, consistent with floating-point rounding. The full attention matrix would permute both its receiver and donor axes under reversal, up to rounding. In the displayed row strip, selecting the same physical receiver in its new position reveals the corresponding reordered donor weights. The array index naming each point changes; the pooled class decision does not.
 
 Now edit point 23's x-coordinate from about `.64217` to `.35783`, leaving its y-coordinate unchanged. That changes the set of observed coordinates. The clockwise-arc probability drops from about `81.11%` to `49.74%`; the anticlockwise-arc probability rises to about `18.15%`. The predicted class stays clockwise arc, but the distribution changes substantially. This is a hypothetical edited trajectory, so its correct real-world class is unknown. The experiment distinguishes “the model ignores order” from “the model ignores its input.”
 

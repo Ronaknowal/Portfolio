@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "comparisons": 12995,
+  "nativeModeTransitions": 200,
+  "trueSGDRestores": 80,
+  "newWineCheckpointBoundaries": [
+    2,
+    6,
+    8
+  ],
+  "randomizedScalarAndPairCases": 200,
+  "maxNativeError": 4.547473508864641e-13,
+  "maxFiniteDifferenceError": 1.039339281305729e-9,
+  "sourceFilesVerified": 59,
+  "reusedAuthorComparisons": 50619,
+  "scope": "Carried BatchNorm buffers with independent graph modes; real serialized SGD continuation; new complete Wine checkpoint boundaries; fresh scalar finite differences, coherent units, paired-score transformations, and all final per-row probability/target aggregates. No test score or repeated fitting campaign."
+}

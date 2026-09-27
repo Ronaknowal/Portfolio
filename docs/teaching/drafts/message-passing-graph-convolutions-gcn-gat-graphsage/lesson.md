@@ -1,6 +1,6 @@
 # Message Passing & Graph Convolutions (GCN, GAT, GraphSAGE)
 
-**Explore as you read.** Change directed edges/node features, aggregation/normalization, attention scores, masks and supported fitted-graph inputs. Update adjacency, degree factors, synchronized round states, reachability, information boundaries and fitted outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose aggregation and sampling from information flow, normalization and expressiveness while avoiding evaluation leakage.
+**Explore as you read.** Edit a node feature or reverse an edge and follow the next message-passing round. Compare degree weights, separate self and neighbor updates, and learned attention; then inspect how those choices affect an actual fitted graph model.
 
 
 A paper’s words help identify its subject. Its citations may help too: a short ambiguous paper could cite several unmistakable robotics papers. A model that reads each paper independently misses those relationships. A graph neural network gives each paper a representation that can be updated using information from connected papers.
@@ -36,7 +36,7 @@ We use a receiver-row convention: \(A_{vu}>0\) means node v can receive from nod
 For now use an undirected path with three nodes:
 
 \[
-0\;—\;1\;—\;2,\qquad x_0=1,\quad x_1=2,\quad x_2=4.
+0\;\text{—}\;1\;\text{—}\;2,\qquad x_0=1,\quad x_1=2,\quad x_2=4.
 \]
 
 The scalar features are constructed numbers, not measured properties. They let us inspect every contribution. The adjacency without self-loops is
@@ -71,7 +71,7 @@ With one round of strictly local messages, node 0 can use initial states from no
 
 The reachable set and its numerical influence are different views. An architecture diagram shows a possible dependency; a derivative or controlled edit shows an actual dependency at a specified input and parameter setting.
 
-**Investigation: move a value through two rounds.** Start on the three-node path with synchronized neighbor means. Inspect which outputs change when x₂ changes from 4 to 8. Reveal round 1 and round 2 separately. Then use an intentionally asynchronous update and reorder processing to expose the difference. Reset returns to synchronized semantics. The learner should explain a path, not just press Next through an animation.
+**Investigation: move a value through two rounds.** Start on the three-node path with synchronized neighbor means. Inspect which outputs change when x₂ changes from 4 to 8. Show round 1 and round 2 together, with the current round selected. Then use an intentionally asynchronous update and reorder processing to expose the difference. Reset returns to synchronized semantics. The learner should explain a path, not just press Next through an animation.
 
 ## 3. GCN: a normalized weighted sum
 
@@ -173,7 +173,7 @@ For **link prediction**, the held-out relationship itself generally must be remo
 
 The label mask and the message graph answer different questions. “Do not score this node during fitting” does not mean “this node cannot supply known features,” and it does not automatically authorize using its future relationships. State the intended setting in ordinary language before choosing a split API.
 
-**Investigation: place information behind the boundary.** A timeline has an observed graph, fitting labels and later edges/labels. The learner chooses which items may enter training for transductive, unseen-graph or future-edge tasks. Reveal one actual leakage path at a time. This activity evaluates the learner’s protocol choices, rather than pretending a generic train/test checkbox settles graph leakage.
+**Investigation: place information behind the boundary.** A timeline has an observed graph, fitting labels and later edges/labels. Changing the transductive, unseen-graph or future-edge protocol changes the permitted nodes, message edges and labels. Show the actual dependency paths immediately, including a deliberately introduced future-edge or label leak. This investigation follows the information available to a concrete computation.
 
 ## 6. A complete experiment on an observed network
 
@@ -360,7 +360,7 @@ if __name__ == "__main__":
 
 ### What happened, and what follows from it?
 
-Actual CPU results, with all seeds and raw denominators:
+Actual CPU results, with all seeds and raw denominators. The 27 September implementation run reexecuted the complete twelve-fit program with one CPU thread and reproduced every saved result exactly; the original unfavorable outcomes remain unchanged:
 
 | Model | Seed | Fit / 10 | Development / 6 | Assessment / 18 | Propagation removed / 18 |
 | --- | --- | --- | --- | --- | --- |
@@ -402,9 +402,9 @@ The input contract is a simple unweighted graph: `edge_index[0]` names sources, 
 | SAGE neighbor map, self map, bias | `SAGEConv.lin_l.weight`, `lin_r.weight`, `lin_l.bias` | Mean neighbors, no projection activation, no final L2 normalization |
 | GAT projection, sender score, receiver score | `GATConv.lin.weight`, `att_src`, `att_dst` | One head, slope .2, zero dropout, no extra residual |
 
-The file supplies the fixture, all imports and both implementations. In an environment with PyTorch, `python graph_library_bridge.py --scratch-only` compares the sparse mechanism with its dense equation. The author ran that bounded check with Torch 2.14.0 CPU: all nine graph/operator cases passed, including an isolate, a changed directed graph and an empty edge list; the largest displayed output discrepancy was about 5.56e-17. These are arithmetic fixtures, not a new accuracy benchmark.
+The file supplies the fixture, all imports and both implementations. In an environment with PyTorch, `python graph_library_bridge.py --scratch-only` compares the sparse mechanism with its dense equation. The 27 September 2026 execution used Torch 2.14.0 CPU: all twelve graph/operator cases passed, including an isolate, two directed cases with different degree patterns and an empty edge list; the largest output discrepancy against the dense equation was 8.33e-17. These are arithmetic fixtures, not a new accuracy benchmark.
 
-For the ordinary package route, install `torch-geometric==2.9.0` into a compatible PyTorch environment, then run `python graph_library_bridge.py`. The supplied mapping follows the [GCNConv](https://pytorch-geometric.readthedocs.io/en/2.9.0/generated/torch_geometric.nn.conv.GCNConv.html), [SAGEConv](https://pytorch-geometric.readthedocs.io/en/2.9.0/generated/torch_geometric.nn.conv.SAGEConv.html) and [GATConv](https://pytorch-geometric.readthedocs.io/en/2.9.0/generated/torch_geometric.nn.conv.GATConv.html) contracts. **This package route is written but has not been executed for this content revision.** Its assertions compare outputs, feature gradients, every mapped parameter gradient and an equal .03 SGD step. Expected results are agreement within the stated float64 tolerances, not invented saved output. This same layer can replace each corresponding layer in `NodeClassifier`; preserve the label mask, two nonlinear stages and training protocol when doing so.
+For the ordinary package route, install `torch-geometric==2.8.0.post1` into a compatible PyTorch environment, then run `python graph_library_bridge.py`. The implementation was executed with that package and Torch 2.14.0 CPU; all twelve graph/operator cases passed. Outputs differed by at most 2.78e-17 and mapped parameter gradients by at most 1.12e-16. Input gradients and an equal .03 SGD step also passed the program's float64 assertions. The added unequal-degree directed case distinguishes receiving-degree normalization from an accidental outgoing-degree convention. The documented [GCNConv](https://pytorch-geometric.readthedocs.io/en/2.8.0/generated/torch_geometric.nn.conv.GCNConv.html), [SAGEConv](https://pytorch-geometric.readthedocs.io/en/2.8.0/generated/torch_geometric.nn.conv.SAGEConv.html) and installed GATConv interfaces supply the concrete parameter mapping above. This same layer can replace each corresponding layer in `NodeClassifier`; preserve the label mask, ReLU between the two layers and training protocol when doing so. These package checks are small matched operations, not an additional accuracy benchmark.
 
 The sparse mechanism uses O(N d_in d_out + E d_out) arithmetic and O(N d_out + E d_out) working storage with the explicit gathered edge messages shown here, plus graph indices and parameters. This avoids a dense N×N attention/propagation matrix; it is not a universal speed guarantee. For very large graphs, a fused scatter/message kernel or sampled computation can reduce temporary storage. Keep `cached=False` when editing edges: cached normalizers describe the old graph.
 
@@ -589,7 +589,7 @@ The bound is 1+4+4·3=17 occurrences; distinct nodes may be fewer. Compare each 
 - [GCN](https://arxiv.org/pdf/1609.02907), [GraphSAGE](https://arxiv.org/pdf/1706.02216), and [GAT](https://arxiv.org/pdf/1710.10903): read their method sections while annotating the same receiver/message/update diagram. Note which training setting and aggregator each actually studies.
 - [Neural Message Passing for Quantum Chemistry](https://arxiv.org/pdf/1704.01212):§2 is the concise common framework; use the chemistry sections to see why edge features and graph readout matter.
 - [How Powerful are Graph Neural Networks?](https://arxiv.org/pdf/1810.00826): read the multiset conditions and failure examples before turning “sum is expressive” into a claim about arbitrary numerical features.
-- [How Attentive are Graph Attention Networks?](https://arxiv.org/abs/2105.14491): the static-ranking limitation and the motivation for GATv 2; useful after reproducing the two-sender example.
+- [How Attentive are Graph Attention Networks?](https://arxiv.org/abs/2105.14491): the static-ranking limitation and the motivation for GATv2; useful after reproducing the two-sender example.
 - [Stanford CS224W, Message Passing and Node Classification](https://www.youtube.com/watch?v=6g9vtxUmfwM): a spoken/visual route into the mechanism; [the instructor’s teaching page](https://ai.stanford.edu/~jure/teaching.html) links the course series. The lecture identity/topic and course association were checked; no claim is made that its entire video was watched for this packet.
 - [NetworkX’s karate-club documentation](https://networkx.org/documentation/stable/reference/generated/networkx.generators.social.karate_club_graph.html): data history, label meaning and indexing for reproducing the actual graph example.
 

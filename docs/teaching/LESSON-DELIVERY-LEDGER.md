@@ -47,6 +47,26 @@ The inventory distinguishes current authoring revision from publication. While a
 
 ## Updating a topic
 
+### Presentation-only follow-ups
+
+A shared reader/navigation change may preserve the scientific content while
+changing source hashes. Review and test that specific presentation delta; do not
+rerun or relabel unchanged numerical evidence. Retain the original receipts and
+append an `implementation.presentationReviews` record identifying the exact
+before/after files, text/code conservation checks, independent UI review and
+rendered/build coverage. Refresh only those reviewed file bindings in checkpoints
+that were current before the change. Add new shared runtime dependencies to the
+implementation binding when needed. Keep revision, phase completion dates and
+user acceptance unchanged. Preserve unrelated stale/historical rows byte-for-byte
+at the record level; a UI check cannot recertify their content.
+
+The [shared-opening review](lesson-navigation/README.md) is an example of this
+bounded follow-up. Earlier batch integration scripts describe their original
+snapshot; use the later presentation receipt and current central ledger for the
+updated source identity instead of editing historical scientific receipts.
+
+### Authoring and implementation steps
+
 1. **Start from the user's scope.** Retrieve the topic and notes. Record full or content-first mode. For a new revision, preserve the earlier entry/evidence in `previousRevisions`, remove the migration marker from the new current entry, set content in progress and implementation not started. Do not create a new revision merely to resume an unfinished one.
 2. **Complete content.** Write the actual lesson and precise visual/lab specifications. Include the explained from-scratch and ordinary-tool routes, exact reuse owners, comparison conventions and modification practice required by the teaching standard. A direction for the finish agent to research/write a known missing core implementation leaves content in progress; deferring its full execution or browser integration is allowed. Record references, actual author checks, uncertainties, deferred runtime verification and intended production destinations in the handoff. Identify `content.manuscript` and `content.visualSpecifications` and save their SHA256 hashes, plus every other required handoff input, in `content.files`, including instructional companion programs and the exact local prerequisite source they import. A prose link alone is not a substitute for recording a required code dependency. Only then mark content complete. A missing core section, unresolved material contradiction or outline alone leaves it in progress.
 3. **Honor the stopping point.** Content-first delivery now stops and reports “content complete; implementation not started.” Preserve its pending manuscript/specifications. Full delivery continues without a new permission question.

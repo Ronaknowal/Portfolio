@@ -5,19 +5,19 @@ import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
 import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
 import { NormalizationRulerFigure, NormalizationMembershipLab, NormalizationGeometryLab, BatchNormalizationStateLab, NormalizationGradientLab, NormalizationMeasuredLab, NormalizationPlacementLab } from '../../components/lesson-labs/NormalizationLabs.jsx';
 import NeuralProgram from '../../components/lesson-labs/NeuralProgram.jsx';
+import { NormalizationAxesFigure, CausalNormalizationFigure, RunningStatisticWeightsFigure } from '../../components/lesson-labs/NormalizationIntuitionFigures.jsx';
 export default {
   title: 'Batch, Layer, Group & RMS Normalization',
   readTime: '~65 min read + experiments and practice',
   hasIntegratedGuide: true,
   content: () => <div className="neural-lesson normalization-lesson">
   <LessonIntro prerequisites="Neural activations, a loss and a gradient. Mean, variance, tensor axes, trainable parameters and stored buffers are explained as they arise." sections={[["a-reference-frame-for-a-collection-of-numbers","A reference frame for a collection of numbers"],["tensor-axes-name-the-collection-before-applying-a-formula","Tensor axes: name the collection before applying a formula"],["layernorm-and-rmsnorm-on-a-feature-vector","LayerNorm and RMSNorm on a feature vector"],["batchnorm-remembers-information-between-forward-passes","BatchNorm remembers information between forward passes"],["the-operation-is-differentiable-including-its-statistics","The operation is differentiable, including its statistics"],["a-complete-cpu-experiment","A complete CPU experiment"],["deeper-placement-information-and-numerical-behavior","Deeper: placement, information, and numerical behavior"],["implement-the-derivative-and-connect-it-to-the-module","Implement the derivative and connect it to the module"],["practice-and-diagnosis","Practice and diagnosis"],["another-explanation-and-the-next-step","Another explanation and the next step"]]}>Name the values that share a statistic before choosing a normalization layer.</LessonIntro>
-  <Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit tensor cells, normalization method/group count, offset/scale, epsilon, affine values, mode and running-statistic parameters. Highlight each statistic membership set and show all affected outputs, means/variances and running buffers immediately. Compare changing another example with changing a member of the same group. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a normalizer and mode by its information dependencies, batch sensitivity and inference state."}</Prose>
 
 <Prose>{"A neural layer may receive numbers whose typical size changes as earlier layers learn. A tanh unit that used to receive values near zero can start receiving values near ten, where its output barely changes and its derivative is small. Normalization layers deliberately rescale collections of intermediate values. Their most important design decision is "}<strong>{"which values share the calculation"}</strong>{"."}</Prose>
 
 <Prose>{"The preceding loss lesson explained how predictions are judged. Here we inspect the intermediate activations that produce those predictions. We will follow a small collection of numbers through normalization, connect the operation to gradients, and compare real training runs."}</Prose>
 
-<Prose>{""}<strong>{"First pass:"}</strong>{" calculate one normalization, explore the axis map, compare BatchNorm's training/evaluation modes, and run the small handwriting experiment. The gradient derivation, residual placement, precision, and distributed sections are deeper branches. You do not need to know convolutions or Transformers to follow the core: the tensor axes are introduced locally."}</Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" calculate one normalization, explore the axis map, compare BatchNorm's training/evaluation modes, and run the small handwriting experiment. The gradient derivation, residual placement, precision, and distributed sections are deeper branches. You do not need to know convolutions or Transformers to follow the core: the tensor axes are introduced locally."}</Prose>
 
 <H2>{"A reference frame for a collection of numbers"}</H2>
 
@@ -87,7 +87,11 @@ export default {
 
 <NormalizationGeometryLab />
 
+<Prose>The two scales are connected by a useful identity: <InlineMath>{"\\operatorname{mean}(x^2)=v+\\mu^2"}</InlineMath>. RMS measures squared distance from zero; variance measures squared distance from the mean. For [1, 3], these are 5 and 1. For [11, 13], they are 145 and 1. Adding ten changed distance from zero, while leaving every difference between the features intact. This is the information RMSNorm and centered normalization treat differently.</Prose>
+
 <Prose>{"For a causal sequence model, an output at position "}<InlineMath>{"t"}</InlineMath>{" must not depend on future inputs. Per-token normalization over "}<InlineMath>{"D"}</InlineMath>{" respects that boundary. Normalizing over "}<InlineMath>{"(T,D)"}</InlineMath>{" mixes token positions and can introduce a future dependency even if attention itself has a causal mask. Padding included in a reduction can likewise change its statistics. Check the axes rather than assuming the layer's name guarantees the desired dependencies."}</Prose>
+
+<CausalNormalizationFigure />
 
 <H2>{"BatchNorm remembers information between forward passes"}</H2>
 
@@ -106,6 +110,8 @@ export default {
 <Prose>{"Calling "}<code>{"eval()"}</code>{" does not force these two functions to agree. It switches to the stored estimates, which are still immature after one pass. A mode bug, insufficiently representative running statistics, a distribution change, and incorrect preprocessing are different diagnoses."}</Prose>
 
 <BatchNormalizationStateLab />
+
+<RunningStatisticWeightsFigure />
 
 <H3>{"One image is not always one value"}</H3>
 
@@ -128,6 +134,8 @@ export default {
 <div className="neural-equation"><MathBlock>{"\\frac{\\partial L}{\\partial x_i}\n=\\frac1s\\left[u_i-\\operatorname{mean}(u)\n-\\hat x_i\\operatorname{mean}(u\\hat x)\\right]."}</MathBlock></div>
 
 <Prose>{"The two subtraction terms account for changing the group's center and scale. The formula is valid with the stated variance and epsilon convention; do not replace "}<InlineMath>{"\\hat x"}</InlineMath>{" with an independently sampled normalized vector."}</Prose>
+
+<Prose>Why must there be a centering correction? Add the same tiny amount to every input. Its mean rises by that amount too, leaving all normalized values unchanged. Consequently, the true input derivatives must sum to zero: a common shift has no first-order effect on any downstream scalar loss. Treating the measured mean as fixed would miss this cancellation. Similarly, with zero epsilon and nonzero variance, enlarging all deviations by the same positive factor leaves normalization unchanged; the variance correction removes that scale direction. Positive epsilon makes this second invariance approximate, while common-shift invariance remains exact in real arithmetic.</Prose>
 
 <Prose>{"For RMSNorm, with "}<InlineMath>{"r=\\sqrt{\\operatorname{mean}(x^2)+\\epsilon}"}</InlineMath>{", there is no centering correction:"}</Prose>
 
@@ -187,7 +195,7 @@ export default {
 
 <H3>{"Precision and epsilon"}</H3>
 
-<Prose>{"Epsilon is added to a variance or mean square, so it shares those squared units. Smaller epsilon can preserve more scale sensitivity at tiny magnitudes and can also produce larger inverse denominators. It is not automatically safer."}</Prose>
+<Prose>Epsilon is added to a variance or mean square, so it shares those squared units. If v = ε, centered outputs have variance 1/2; if v = .01ε, their variance is only about .0099. Epsilon therefore sets how strongly nearly constant groups are amplified. Reducing it permits larger inverse denominators and can increase sensitivity to some input perturbations. When variance dominates epsilon, positive common-rescaling invariance becomes more nearly exact. Smaller epsilon is not automatically safer.</Prose>
 
 <Prose>{"Floating-point "}<strong>{"range"}</strong>{" and "}<strong>{"precision"}</strong>{" are different. BF16 can represent small numbers such as "}<InlineMath>{"10^{-5}"}</InlineMath>{"; its coarse spacing near one does not imply that every smaller number is zero. Squaring a large FP16 activation can overflow before epsilon has any chance to help. For a hand-written low-precision RMS implementation, promote values before squaring and reducing:"}</Prose>
 
@@ -202,6 +210,8 @@ export default {
 <Prose>{"Fused implementations can reduce intermediate allocations and memory traversals. The exact passes and runtime depend on kernel, shape, dtype, hardware and compiler. RMSNorm's simpler statistic can save work, but fewer source-code operations do not establish a universal percentage improvement."}</Prose>
 
 <Prose>{"InstanceNorm's per-image, per-channel grouping has a useful connection to stylization: changing global contrast or channel offsets need not change normalized patterns. That property helps some image transformations but can erase intensity information needed elsewhere. "}<a href={"https://arxiv.org/abs/1607.08022"}>{"Ulyanov et al."}</a>{" introduced the method in a fast-stylization setting. Weight normalization is a different family: it writes a weight vector as "}<InlineMath>{"w=g\\,v/\\|v\\|"}</InlineMath>{", separating magnitude and direction rather than computing activation statistics. "}<a href={"https://arxiv.org/abs/1602.07868"}>{"Salimans and Kingma"}</a>{" is an alternate deeper route."}</Prose>
+
+<Prose>For weight normalization, take v = (3, 4) and g = 2. Its norm is 5, so the actual weight is (1.2, 1.6), of length 2. Replacing v by (30, 40) changes no weight; rotating v changes its direction, while changing g changes its length. This operation never asks which input examples share a mean. That is why it belongs to a different family despite sharing the word “normalization.”</Prose>
 
 <H2>{"Implement the derivative and connect it to the module"}</H2>
 
@@ -218,6 +228,8 @@ export default {
 <Prose>{"These are vector-Jacobian products: the routine computes the effect of one incoming gradient without constructing a dense Jacobian. For "}<InlineMath>{"M"}</InlineMath>{" input values it uses "}<InlineMath>{"O(M)"}</InlineMath>{" arithmetic and stored normalized activations; a dense "}<InlineMath>{"M\\times M"}</InlineMath>{" derivative matrix would waste space. Broadcasting keeps the group means small. NumPy's reductions and elementwise operations are the stated primitive boundary; this is not a custom GPU kernel or a mixed-precision emulation."}</Prose>
 
 <Prose>{"For "}<InlineMath>{"y=\\gamma h+\\beta"}</InlineMath>{", send "}<code>{"upstream * gamma"}</code>{" into the normalization VJP. The scale gradient sums "}<code>{"upstream * h"}</code>{" over the positions that share each scale parameter, and the shift gradient sums "}<code>{"upstream"}</code>{" over those same positions. Those parameter-sharing axes need not equal the normalization axes. A token LayerNorm with one scale per feature sums parameter gradients over tokens, while its normalization statistics reduce features. Conflating these reductions gives a plausible-looking tensor with the wrong derivative."}</Prose>
+
+<NormalizationAxesFigure />
 
 <Prose>{"Download "}<a href={"/learn-assets/batch-layer-group-rms-normalization/normalization-backward.py"}>{"normalization-backward.py"}</a>{", use the earlier environment, and run "}<code>{"python normalization-backward.py"}</code>{". It supplies all fixtures, matches forward values and manual input gradients against BatchNorm, LayerNorm, GroupNorm, InstanceNorm and RMSNorm, and compares the LayerNorm affine gradients. It also checks the manual derivative by finite differences, independently of PyTorch's backward engine. "}<a href={"/learn-assets/batch-layer-group-rms-normalization/normalization-backward-output.json"}>{"Recorded output"}</a>{" gives the actual errors. The existing forward experiment remains the owner of running mean/variance and evaluation-mode checks."}</Prose>
 
@@ -241,7 +253,7 @@ export default {
 
 </details>
 
-<H2>{"Practice and diagnosis"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"Practice and diagnosis"}</H2>
 
 <section className="neural-practice"><Prose>{""}<strong>{"Different grouping."}</strong>{" A tensor has shape "}<InlineMath>{"(2,6,3,4)"}</InlineMath>{". How many values contribute to one BatchNorm, GroupNorm with three groups, and InstanceNorm statistic?"}</Prose><details><summary>Hint</summary><Prose>{"hold the unreduced indices fixed."}</Prose></details><details><summary>Worked solution</summary><Prose>{"BatchNorm24; GroupNorm24 per example/group; InstanceNorm12. Equal group sizes do not mean equal memberships."}</Prose></details></section>
 
@@ -257,13 +269,13 @@ export default {
 
 <section className="neural-practice"><Prose>{""}<strong>{"Check apparent equivalence."}</strong>{" GroupNorm(1,4) and LayerNorm((4,1,2)) agree with identity affine parameters. Give a LayerNorm affine setting that GroupNorm's per-channel affine cannot match on arbitrary inputs with fixed shared statistics."}</Prose><details><summary>Worked solution</summary><Prose>{"give the two positions of one channel different shifts or scales. GroupNorm shares that channel's affine parameters across positions."}</Prose></details></section>
 
-<section className="neural-practice"><Prose>{""}<strong>{"Choose a diagnosis from evidence."}</strong>{" Validation becomes worse after changing cameras. Someone proposes running all test images through training-mode BatchNorm. Explain what information this uses and what should happen first."}</Prose><details><summary>Worked solution</summary><Prose>{"it adapts the predictor to the test input distribution and changes buffers; even without labels it is a changed evaluation protocol. First check preprocessing, mode, source/target distributions and representative development data; any adaptation should use a declared allowed dataset and be assessed under the intended deployment protocol."}</Prose></details></section>
+<section className="neural-practice"><Prose>{""}<strong>{"Choose a diagnosis from evidence."}</strong>{" Validation becomes worse after changing cameras. Someone proposes running all test images through training-mode BatchNorm. Explain what information this uses and what should happen first."}</Prose><details><summary>Worked solution</summary><Prose>{"it adapts the predictor to the test input distribution and changes buffers; even without labels it is a changed evaluation protocol. First check preprocessing, mode, source/target distributions and representative development data; any adaptation should use a declared allowed dataset and be assessed under the intended deployment protocol."}</Prose></details></section></section>
 
-<H2>{"Another explanation and the next step"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"Another explanation and the next step"}</H2>
 
 <Prose>{"Use "}<a href={"https://d2l.ai/chapter_convolutional-modern/batch-norm.html"}>{"Dive into Deep Learning's Batch Normalization chapter"}</a>{" for an alternate derivation and model example. Its from-scratch teaching code uses gradient-recording state as a shortcut for mode; keep the explicit train/eval versus no_grad distinction from this lesson when using real torch modules. The primary GroupNorm figure is especially useful for the axis investigation; the LayerNorm and RMSNorm papers explain why removing batch dependence and removing centering are separate decisions. These resources supplement the local lesson rather than supplying missing prerequisites."}</Prose>
 
 <Prose>{"Next is "}<strong>{"Transfer Learning and Fine-Tuning Strategies"}</strong>{". Reusing a learned network means deciding which weights and states are allowed to change. BatchNorm's distinction between trainable affine parameters, running buffers, and mode will be particularly useful there."}</Prose>
-  <p><a href="/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies?module=deep-learning-fundamentals">Continue to Transfer Learning and Fine-Tuning Strategies</a></p>
+  <p><a href="/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies?module=deep-learning-fundamentals">Continue to Transfer Learning and Fine-Tuning Strategies</a></p></section>
   </div>
 };

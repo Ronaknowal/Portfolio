@@ -1,939 +1,588 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Generated from the complete prepared manuscript by scripts/generate-latent-attention-lesson.mjs.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements';
+import { LatentStorageFigure, LatentScoreFigure, LatentPathsLab, LatentRotationLab, LatentBudgetLab, LatentRankLab, LatentSoftmaxFigure, LatentForecastLab, LatentProgram } from '../../components/lesson-labs/LatentAttentionLabs';
+import '../../components/lesson-labs/neural-lesson-neutral.css';
+const lesson = { title: 'Multi-Head Latent Attention (MLA)', readTime: '~65 min read + 90 min practice', content: () => <div className="mla-lesson neural-lesson neural-lesson-neutral">
+<Prose opening="exploration">{""}<strong>{"Explore as you read."}</strong>{" Edit latent vectors/projections, rotation, retained rank, payload dimensions and supported frozen-model prefixes. Show expanded and absorbed paths, commutation residuals, singular-direction effects, bytes/arithmetic and resulting outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose compression by the function and input directions it preserves; distinguish a low parameter error from low task error."}</Prose>
 
-const mlaContent = {
-  title: "Multi-Head Latent Attention (MLA)",
-  readTime: "~38 min",
-  content: () => (
-    <div>
+<Prose>{"Suppose several people need different summaries of the same record. We could store every summary. Or we could store a compact description from which each person's summary can be computed. The second option is useful only if the description retains what those people actually need."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{"Multi-head latent attention, or "}<strong>{"MLA"}</strong>{", applies this idea to a Transformer's memory. Each past position keeps a learned compact vector, plus the positional information required by its attention design. Different query heads read that shared representation through different learned maps. An algebraic rearrangement lets them do so without rebuilding every past head's keys and values for each new query."}</Prose>
 
-      <Prose>
-        By mid-2023 the serving story for large language models had converged on a painful truth: the bottleneck was no longer FLOPs or parameters, it was the <em>KV cache</em>. During autoregressive generation every layer of a multi-head-attention Transformer must retain the key and value projections of every token it has ever emitted, because each new token needs to attend to them. For a standard MHA decoder the cache is {"2 · n_layers · n_heads · d_head · sequence_length"} half-precision floats per sequence, and at realistic model and context sizes that number crosses the gigabyte threshold long before the parameters do. LLaMA-2-70B at a 32k context stores roughly 20 GB of KV cache per user alongside 140 GB of weights; at 128k the cache alone is 80 GB. Serving a single long-context conversation on an 80 GB GPU forces the cache to spill to host memory, which at fp16 bandwidth costs roughly a millisecond per megabyte read — more than the entire model's forward pass.
-      </Prose>
+<Prose>{"The "}<a href={"/learn/path/full-curriculum/grouped-query-attention-gqa-multi-query-attention-mqa?module=deep-learning-fundamentals"}>{"previous GQA/MQA lesson"}</a>{" reduced the number of distinct stored heads. Here we change the coordinates of the stored information itself. We will carefully distinguish "}<strong>{"an exact rearrangement of one MLA model"}</strong>{" from "}<strong>{"a lossy change to what that model can represent"}</strong>{"."}</Prose>
 
-      <Prose>
-        The industry's first response was to shrink the cache with head-sharing tricks. Shazeer's Multi-Query Attention (MQA, arXiv:1911.02150, 2019) pushed the extreme: keep one K and one V across all heads, so the cache is {"n_heads"} times smaller. MQA cut cache 8-96x depending on head count but consistently leaked quality — models trained with MQA lost 0.5 to 1.5 points on MMLU vs an equally sized MHA baseline. Ainslie et al. at Google, "GQA: Training Generalized Multi-Query Transformer Models" (arXiv:2305.13245, 2023), introduced Grouped-Query Attention as a compromise: partition heads into {"G"} groups, share K and V inside each group, get an {"n_heads / G"} cache reduction without the full quality collapse of MQA. GQA landed in LLaMA-2 (with {"G = 8"} for the 34B and 70B models), Mistral, Qwen, and essentially every production decoder shipped in 2023-2024. It was the new default, a 4-8x cache savings with a tolerable quality hit.
-      </Prose>
+<Prose opening="route">{""}<strong>{"First pass:"}</strong>{" follow §§1–6 and exercises 1–5. You will understand the latent representation, compute both equivalent attention paths, preserve the positional and scaling contracts, and interpret a real cache-compression experiment. Section 7 develops rank, conversion, differentiation and deployment connections; exercises 6–9 extend that reasoning. The core drawings and investigations appear beside the mechanisms they explain."}</Prose>
 
-      <Prose>
-        DeepSeek-AI's response in May 2024 was more aggressive. Liu et al., "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model" (arXiv:2405.04434), introduced <em>Multi-Head Latent Attention</em> — a mechanism that compresses the entire per-token K and V information into a single shared low-rank latent vector {"c_{kv}"}, then reconstructs per-head K and V on the fly via learned up-projection matrices. The cache stores {"c_{kv}"} (plus a small decoupled RoPE branch) instead of the full K and V. For the DeepSeek-V2 config ({"d = 5120, n_heads = 128, d_h = 128, d_c = 512, d_r = 64"}) MLA's cache is 576 floats per token per layer vs MHA's 32768 — a 57x reduction, which the paper rounds to a 93.3% memory saving on the comparable architecture. And crucially: unlike MQA and GQA, MLA loses no quality. The V2 paper's ablations show MLA matching or slightly beating MHA on the same data and parameter budget, and DeepSeek-V3 (671B total, 37B activated) kept MLA without modification.
-      </Prose>
+<H2>{"1. What should a decoder remember?"}</H2>
 
-      <Prose>
-        The second reason MLA matters is a subtler one: <em>it can be computed without ever materialising the reconstructed K and V</em>. Because the up-projection {"W^{UK}"} is a small fixed matrix shared across tokens, the matmul {"Q · K^T"} where {"K = W^{UK} · c_{kv}"} can be rewritten as {"(Q · W^{UK}) · c_{kv}^T"} — the model absorbs {"W^{UK}"} into an effective query projection {"Q' = Q · W^{UK}"} and then attends directly against the compressed latent {"c_{kv}"}. This turns the attention matmul from {"O(H · L · d_h)"} against full K into {"O(H · L · d_c)"} against compressed K, with {"d_c ≪ H · d_h"}. The same trick absorbs {"W^{UV}"} into the output projection. The compressed cache is not a storage trick bolted onto a normal MHA forward pass; it is the native representation against which attention runs. DeepSeek's inference stack, SGLang, vLLM, and TensorRT-LLM all now have MLA kernels that use the absorbed form to get the full compute benefit too.
-      </Prose>
+<H3>{"Refresh the dependency before changing the representation"}</H3>
 
-      <Prose>
-        The third reason MLA matters is that it preserves <em>positional information</em>. Rotary Position Embedding (RoPE, Su et al. arXiv:2104.09864, 2021) is the de-facto positional encoding in modern decoders, and RoPE multiplies Q and K by position-dependent rotation matrices before the dot product. This is incompatible with the MLA absorption trick: if K is reconstructed from {"c_{kv}"} via {"W^{UK}"} and then RoPE-rotated, the rotation cannot be absorbed into Q (it is position-dependent). DeepSeek's solution is the <em>decoupled RoPE branch</em>: split K (and correspondingly Q) into a content part that lives in the low-rank latent space and a position part that carries RoPE. The content part uses the absorbed MLA machinery; the position part is a tiny extra projection ({"d_r"} is typically 64, vs {"d_h · H"} = 16384 in DeepSeek-V2). The attention score is the sum of the content and position contributions. The decoupled RoPE adds {"d_r"} floats per token to the cache but preserves long-context behavior.
-      </Prose>
+<Prose>{"In "}<a href={"/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals"}>{"Self-Attention"}</a>{", a query compares with keys. Softmax turns the legal scores into weights, and a weighted sum of values produces a head's output. A causal query at position t can read positions up to t."}</Prose>
 
-      <Callout accent="gold">
-        MLA is to GQA what GQA was to MHA: one more level of compression, but with a cleverer reconstruction. GQA shrinks the cache by sharing K and V across head groups — a quality-safe factor of 4-8. MLA shrinks the cache by projecting K and V into a shared low-rank latent and reconstructing them per head on the fly — a quality-safe factor of 50-100. Whether you pay the engineering cost to adopt it depends on whether you are building a frontier serving stack or bolting attention onto an existing LLaMA clone.
-      </Callout>
+<Prose>{"For a fixed causal model, a new future input does not change earlier hidden states. We can therefore retain their keys and values instead of projecting them again at every generation step. This is the KV cache. It is separate at each layer. New queries are transient readers; past keys and values are reusable information."}</Prose>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{"Ordinary multi-head attention stores separate K/V representations for each head. GQA shares one K/V representation within each group; MQA shares one across all query heads. Their outputs still differ because the queries differ. MLA asks another question: "}<strong>{"can all those head-specific representations be generated from a smaller common vector?"}</strong>{""}</Prose>
 
-      <H3>2.1 The observation that seeds MLA</H3>
+<H3>{"A latent is a learned coordinate vector"}</H3>
 
-      <Prose>
-        In a standard MHA layer you store {"K ∈ R^{L × H · d_h}"} and {"V ∈ R^{L × H · d_h}"} per layer. That is roughly {"2 · H · d_h"} floats per token. But the <em>input</em> to the attention block is a single residual stream vector {"h ∈ R^d"}, and {"K"} and {"V"} are both deterministic linear functions of {"h"}: {"K = h · W^K, V = h · W^V"}. You could in principle store just {"h"} and recompute {"K, V"} on demand — that is {"d"} floats per token instead of {"2 H d_h"}. For LLaMA-2-70B, {"d = 8192"} and {"2 H d_h = 2 · 64 · 128 = 16384"}, so this trivial storage would save 2x. Too small to be exciting, and you would pay the full K and V recomputation cost at every generation step.
-      </Prose>
+<Prose>{"Let an attention input have D coordinates. A learned down-projection maps it to a smaller vector c with "}<InlineMath>{"d_c"}</InlineMath>{" coordinates. “Latent” means this is an internal representation. Its coordinates need not have names such as direction, subject or verb, and their values are not probabilities."}</Prose>
 
-      <Prose>
-        MLA's move is to notice that you do not need to store {"h"} directly. You can compress {"h"} into a much smaller latent {"c_{kv} ∈ R^{d_c}"} via a down-projection {"W^{DKV}"}, as long as the model learns to reconstruct from {"c_{kv}"} anything the {"K, V"} paths need. For DeepSeek-V2, {"d_c = 512"} — 10x smaller than {"d"} = 5120, and 32x smaller than {"2 H d_h"} = 32768. The ratio {"d_c / d"} is a hyperparameter; DeepSeek-V2 chose roughly {"4 · d_h = 4 · 128 = 512"}, noting that the latent can be this small because it only has to carry enough information to reconstruct {"K, V"}, not the whole residual stream.
-      </Prose>
+<Prose>{"Each head has its own key and value up-projection. These maps can turn the same c into different keys and values. Sharing c therefore does not mean that the reconstructed heads are identical. The distinction from GQA is concrete: GQA shares a head representation directly; MLA shares coordinates used to produce head representations."}</Prose>
 
-      <H3>2.2 Reconstruct per-head K and V with up-projections</H3>
+<LatentStorageFigure />
 
-      <Prose>
-        The compressed latent {"c_{kv}"} is a shared representation for all {"H"} heads. To recover the per-head {"K_h, V_h"} that the standard attention formula consumes, MLA learns two up-projection matrices {"W^{UK} ∈ R^{(H · d_h) × d_c}"} and {"W^{UV} ∈ R^{(H · d_h) × d_c}"}. Conceptually, {"K = W^{UK} · c_{kv}"} and {"V = W^{UV} · c_{kv}"}. Each head slice {"[h · d_h : (h+1) · d_h]"} of the up-projection is the matrix that produces head {"h"}'s K (or V). The total parameter count added is {"2 · H · d_h · d_c"}, and this is the price MLA pays for the compression: a few extra dense matmuls per forward pass. In exchange, inference-time storage drops from {"2 H d_h"} to {"d_c"} per token.
-      </Prose>
+<Prose>{"We are describing the dense, decoupled-rotary design introduced in DeepSeek-V2 and retained in the V3 architecture. Later variants can change the positional construction, sparsity or cache layout. The stable principle is to state exactly what is stored and how the model reads it; a model-family label alone does not determine a cache format."}</Prose>
 
-      <H3>2.3 The absorption trick saves compute too</H3>
+<H3>{"Three claims that must stay separate"}</H3>
 
-      <Prose>
-        The naive MLA inference loop is: at each step, pull {"c_{kv}"} from cache, up-project to full {"K, V"}, run standard attention. That gives the memory savings but not compute savings — reconstruction costs {"O(L · H · d_h · d_c)"} FLOPs per step for K and another {"O(L · H · d_h · d_c)"} for V. MLA's clever move is to rewrite attention so the reconstruction never happens. Since {"Q · K^T = Q · (W^{UK} · c_{kv})^T = (Q · W^{UK}) · c_{kv}^T"}, we can compute an absorbed query {"Q' = Q · W^{UK}"} (shape {"[L, H, d_c]"}) once per step and dot it against the cached {"c_{kv}"} (shape {"[L, d_c]"}). No K reconstruction. Same trick on the output side: {"Attention · V = Attention · (W^{UV} · c_{kv})"}, and since {"Attention"} is a small {"[L × L]"} matrix you do {"(Attention · c_{kv}) · W^{UV,T}"} — attend against the latent first (cheap), up-project the small result to {"d_h"} (cheaper still).
-      </Prose>
+<Prose>{"First, restricting information to a latent representation is an architectural choice. It may affect learnability and quality. Second, once an MLA model is defined, its reconstructed and absorbed computations can be mathematically identical. Third, whether either computation is faster depends on the workload and implementation."}</Prose>
 
-      <H3>2.4 Decoupled RoPE preserves positions</H3>
+<Prose>{"A smaller cache does not prove equal quality or the same factor of speedup. Conversely, a lossy rank reduction does not invalidate the exact algebra of the original model. Much of MLA becomes easier once these three questions are separated."}</Prose>
 
-      <Prose>
-        RoPE rotates Q and K by a position-dependent block-diagonal rotation matrix. If we tried to RoPE-rotate the reconstructed K and then absorb {"W^{UK}"} into Q, the position rotation would sit between them and could not be absorbed (rotations do not commute with arbitrary linear maps). MLA fixes this by splitting K into two parts: a content part {"K^{content}"} that is reconstructed from {"c_{kv}"} via {"W^{UK}"} and receives <em>no</em> RoPE, and a tiny positional part {"K^R"} of dimension {"d_r"} that is computed from the input residual stream via a small projection {"W^{KR}"} and <em>is</em> RoPE-rotated. Correspondingly, Q has a content part and a positional part of the same split. The attention score is the sum of two dot products: content dot content, plus positional dot positional. Because the positional part is small ({"d_r"} = 64 in DeepSeek-V2), and shared across heads, it adds only {"d_r"} floats per token to the cache.
-      </Prose>
+<H2>{"2. Build the representations and keep their shapes visible"}</H2>
 
-      <H3>2.5 Asymmetric compression: Q and KV are compressed differently</H3>
+<H3>{"Name the dimensions"}</H3>
 
-      <Prose>
-        Queries are not cached (each new query is computed from the current token only, so there is nothing to store long-term), but DeepSeek-V2 still compresses Q for a different reason: activation memory during training. A Q compression latent {"c_q ∈ R^{d_{c,q}}"} with {"d_{c,q}"} typically 1.5x the KV latent dim (DeepSeek-V2 uses {"d_{c,q} = 1536"}, {"d_c = 512"}) cuts the activation tensor size of the Q projection from {"L · H · d_h"} to {"L · d_{c,q}"} during the forward pass. The training-memory saving is real, and at inference there is no downside because Q is always recomputed anyway. So MLA is really three projections: {"W^{DKV}"} down, {"W^{DQ}"} down, and {"W^{KR}"} for the shared decoupled-RoPE K. Up-projections live on the query side (absorbed at inference) and on the V path (also absorbed).
-      </Prose>
+<Prose>{"We use column vectors in the equations and explicit row/batch axes in code."}</Prose>
 
-      <H3>2.6 Why the cache stays small even as heads grow</H3>
+<NeuralTable caption={"Name the dimensions"} headers={[<>{"Symbol"}</>,<>{"Meaning"}</>]} rows={[[<>{"D"}</>,<>{"Attention input and output row width"}</>],[<>{"H"}</>,<>{"Number of query/output heads"}</>],[<>{""}<InlineMath>{"d_c"}</InlineMath>{""}</>,<>{"Width of the cached content latent"}</>],[<>{""}<InlineMath>{"d_q"}</InlineMath>{""}</>,<>{"Width of the optional query latent"}</>],[<>{""}<InlineMath>{"d_k"}</InlineMath>{""}</>,<>{"One head's content-query/content-key width"}</>],[<>{""}<InlineMath>{"d_r"}</InlineMath>{""}</>,<>{"Rotary-query/shared-rotary-key width, an even number"}</>],[<>{""}<InlineMath>{"d_v"}</InlineMath>{""}</>,<>{"One head's value/output width"}</>],[<>{"L, T"}</>,<>{"Number of legal/stored memory positions and number of new query positions"}</>]]} />
 
-      <Prose>
-        The cache size per token is {"d_c + d_r"}, independent of the number of heads {"H"}. Double {"H"}, keep {"d_h"} fixed, and MHA's cache doubles; GQA with fixed {"G"} keeps the cache fixed at {"2 · G · d_h"}; MLA doesn't care at all. This is the asymptotic feature that makes MLA distinctive: you can scale {"H"} aggressively (DeepSeek-V2 has 128 heads at 5120 dim, more than typical) without paying for it at inference. Larger {"H"} gives more representational capacity per layer at essentially zero cache cost. This is one of the hidden reasons MoE models like DeepSeek-V3 are so compute-efficient at inference: wide attention plus sparse FFN plus tiny cache.
-      </Prose>
+<Prose>{"The important comparison is often "}<InlineMath>{"d_c"}</InlineMath>{" versus "}<strong>{"all heads' stored coordinates"}</strong>{", not versus one head's width. In a published V2-style configuration, "}<InlineMath>{"d_c=512"}</InlineMath>{" while "}<InlineMath>{"d_k=128"}</InlineMath>{". The latent is four times wider than one content head, yet much narrower than 128 heads together. Calling every operation on the latent “smaller” would already be misleading."}</Prose>
 
-      <H3>2.7 The mental model in one sentence</H3>
+<H3>{"Content keys and values come from the same latent"}</H3>
 
-      <Prose>
-        MLA stores, per token per layer, a single small latent vector plus a tiny positional tag, and computes attention directly against that compressed representation without ever materialising the full per-head keys and values. The attention formula is the same; the projections around it are rearranged so the cache shrinks and the compute stays small.
-      </Prose>
+<Prose>{"For attention input "}<InlineMath>{"h_s\\in\\mathbb R^D"}</InlineMath>{" at memory position s, begin with"}</Prose>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<div className="neural-equation"><MathBlock>{"c_s=W^{DKV}h_s,\\qquad\nk^C_{s,i}=U_{K,i}c_s,\\qquad\nv_{s,i}=U_{V,i}c_s."}</MathBlock></div>
 
-      <H3>3.1 Down-projection for KV</H3>
+<Prose>{"Here "}<InlineMath>{"W^{DKV}"}</InlineMath>{" has shape "}<InlineMath>{"[d_c,D]"}</InlineMath>{", "}<InlineMath>{"U_{K,i}"}</InlineMath>{" has shape "}<InlineMath>{"[d_k,d_c]"}</InlineMath>{" and "}<InlineMath>{"U_{V,i}"}</InlineMath>{" has shape "}<InlineMath>{"[d_v,d_c]"}</InlineMath>{". The superscript C identifies the content-key branch."}</Prose>
 
-      <Prose>
-        Let {"h_t ∈ R^d"} be the residual stream input at position {"t"}. The KV latent is
-      </Prose>
+<Prose>{"The actual implementation can normalize the down-projected vector before these up-projections. For example, a learned RMSNorm has the form"}</Prose>
 
-      <MathBlock>{"c_{kv}^{(t)} = W^{DKV} \\, h_t \\in \\mathbb{R}^{d_c}"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"c=\\gamma\\odot\\frac{z}{\\sqrt{\\frac1{d_c}\\sum_a z_a^2+\\epsilon}},\n\\qquad z=W^{DKV}h."}</MathBlock></div>
 
-      <Prose>
-        where {"W^{DKV} ∈ R^{d_c × d}"} is a learned dense matrix and {"d_c ≪ H · d_h"}. In DeepSeek-V2, {"d = 5120, d_c = 512, H · d_h = 16384"}. The latent {"c_{kv}^{(t)}"} is what we cache for position {"t"}. A LayerNorm on {"c_{kv}"} is important in practice for stability, since the latent must live in a well-conditioned space for the up-projections to reconstruct cleanly.
-      </Prose>
+<Prose>{"It rescales by a root-mean-square statistic without subtracting the mean. In that case, "}<strong>{"c in our subsequent equations is the normalized vector"}</strong>{", and that is the vector to cache. The original report's practical settings and the "}<a href={"https://github.com/deepseek-ai/DeepSeek-V3/blob/main/inference/model.py"}>{"official V3 inference implementation"}</a>{" use RMSNorm on the compressed latents. Replacing it with LayerNorm changes the model; omitting it is not automatically guaranteed to cause NaNs, but it changes a checkpoint's defined computation."}</Prose>
 
-      <H3>3.2 Up-projections reconstruct K and V per head</H3>
+<Prose>{"This distinction also matters for algebra. We can move linear up-projections across sums of c. We cannot treat RMSNorm as a fixed matrix and move it across an arbitrary down-projection or weighted sum."}</Prose>
 
-      <MathBlock>{"K^{content}_t = W^{UK} \\, c_{kv}^{(t)} \\in \\mathbb{R}^{H \\cdot d_h}, \\quad V_t = W^{UV} \\, c_{kv}^{(t)} \\in \\mathbb{R}^{H \\cdot d_h}"}</MathBlock>
+<H3>{"Queries have their own path"}</H3>
 
-      <Prose>
-        where {"W^{UK}, W^{UV} ∈ R^{(H · d_h) × d_c}"}. Reshape the {"H · d_h"} output into {"[H, d_h]"} and you have one {"d_h"}-dim K (or V) per head, same shape as MHA. In the naive form this is exactly what the attention kernel consumes.
-      </Prose>
+<Prose>{"A query can be produced directly from the current input, or through a separate latent:"}</Prose>
 
-      <H3>3.3 Query compression and per-head query</H3>
+<div className="neural-equation"><MathBlock>{"c^Q_t=\\operatorname{RMSNorm}(W^{DQ}h_t),\\qquad\nq^C_{t,i}=U_{Q,i}c^Q_t."}</MathBlock></div>
 
-      <MathBlock>{"c_q^{(t)} = W^{DQ} \\, h_t \\in \\mathbb{R}^{d_{c,q}}, \\quad Q^{content}_t = W^{UQ} \\, c_q^{(t)} \\in \\mathbb{R}^{H \\cdot d_h}"}</MathBlock>
+<Prose>{"The query latent is not the KV cache. It is computed for current queries; its factorization changes parameters, intermediate activations and computation. Whether it reduces peak training memory depends on which expanded tensors are saved or recomputed. A factorized projection does not magically remove every larger activation from autograd."}</Prose>
 
-      <Prose>
-        The Q compression mirrors KV compression but is not used for caching — its purpose is to reduce activation memory during training. Reshape {"Q^{content}_t"} to {"[H, d_h]"} and you have one per-head content query.
-      </Prose>
+<Prose>{"The "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V2/raw/main/config.json"}>{"published V2 configuration"}</a>{" uses "}<InlineMath>{"d_q=1536"}</InlineMath>{" and "}<InlineMath>{"d_c=512"}</InlineMath>{": the former is three times the latter. They are separate choices, not a universal ratio. Some implementations allow a direct query path when no query compression is desired."}</Prose>
 
-      <H3>3.4 Decoupled RoPE branches</H3>
+<H2>{"3. Preserve position without rebuilding every key"}</H2>
 
-      <Prose>
-        The shared RoPE-rotated K is
-      </Prose>
+<H3>{"Why a usual rotary key obstructs a fixed absorption"}</H3>
 
-      <MathBlock>{"k_R^{(t)} = \\mathrm{RoPE}(W^{KR} \\, h_t; t) \\in \\mathbb{R}^{d_r}"}</MathBlock>
+<Prose>{"Recall "}<a href={"/learn/path/full-curriculum/positional-encodings-sinusoidal-learned-rope-alibi?module=deep-learning-fundamentals"}>{"Positional Encodings"}</a>{". RoPE rotates coordinate pairs according to their logical position. Write that rotation as "}<InlineMath>{"R_s"}</InlineMath>{". A normally rotated reconstructed key would be "}<InlineMath>{"R_sU_Kc_s"}</InlineMath>{", giving score contribution"}</Prose>
 
-      <Prose>
-        where {"W^{KR} ∈ R^{d_r × d}"} and RoPE applies the position-{"t"} rotation. This is a single shared vector across all heads at position {"t"}, cached alongside {"c_{kv}^{(t)}"}. The per-head RoPE query is
-      </Prose>
+<div className="neural-equation"><MathBlock>{"(R_tq)^T(R_sU_Kc_s)\n=q^T R_t^T R_s U_Kc_s."}</MathBlock></div>
 
-      <MathBlock>{"q_R^{(t),h} = \\mathrm{RoPE}([W^{QR} c_q^{(t)}]_h; t) \\in \\mathbb{R}^{d_r}"}</MathBlock>
+<Prose>{"To compare a single effective query with every c, we would need to remove the key-position dependence from the factor beside c. In general, "}<InlineMath>{"R_t^TR_s"}</InlineMath>{" depends on s. There is no one key-position-independent query transform that absorbs all these rotations through an arbitrary "}<InlineMath>{"U_K"}</InlineMath>{"."}</Prose>
 
-      <Prose>
-        where {"W^{QR} ∈ R^{(H · d_r) × d_{c,q}}"} produces {"H"} slices of size {"d_r"}, each RoPE-rotated independently. Total extra cache cost: {"d_r"} floats per token ({"k_R"} only; {"q_R"} is not cached).
-      </Prose>
+<Prose>{"A small example makes the obstruction visible. Let"}</Prose>
 
-      <H3>3.5 Attention score with content plus RoPE parts</H3>
+<div className="neural-equation"><MathBlock>{"U_K=\\begin{bmatrix}2&0\\\\0&1\\end{bmatrix},\\qquad\nR=\\begin{bmatrix}0&-1\\\\1&0\\end{bmatrix}."}</MathBlock></div>
 
-      <Prose>
-        Concatenate content and RoPE along the feature axis to form the full per-head Q and K:
-      </Prose>
+<Prose>{"Stretching the x coordinate and then rotating does not equal rotating and then stretching it. Their difference is"}</Prose>
 
-      <MathBlock>{"Q_t^{h} = [Q^{content,h}_t; q_R^{(t),h}] \\in \\mathbb{R}^{d_h + d_r}"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"RU_K-U_KR=\\begin{bmatrix}0&1\\\\1&0\\end{bmatrix}."}</MathBlock></div>
 
-      <MathBlock>{"K_s^{h} = [K^{content,h}_s; k_R^{(s)}] \\in \\mathbb{R}^{d_h + d_r}"}</MathBlock>
+<Prose>{"With current query "}<InlineMath>{"[1,0]^T"}</InlineMath>{", a key with no rotation requires effective latent query "}<InlineMath>{"[2,0]^T"}</InlineMath>{"; a key with this quarter-turn rotation requires "}<InlineMath>{"[0,-1]^T"}</InlineMath>{". The transformation would depend on which past key we are reading."}</Prose>
 
-      <Prose>
-        Note the shared {"k_R^{(s)}"} is broadcast to all heads. The attention score is the standard scaled dot-product:
-      </Prose>
+<Prose>{"This is a statement about the general fixed-matrix rearrangement. Special structured maps or different positional architectures can have other identities. Applying RoPE to reconstructed keys is still a valid attention computation; it simply loses this particular easy absorption unless additional structure is supplied."}</Prose>
 
-      <MathBlock>{"s_{t,s}^{h} = \\frac{Q_t^{h} \\cdot K_s^{h}}{\\sqrt{d_h + d_r}}"}</MathBlock>
+<LatentRotationLab />
 
-      <Prose>
-        which factors as the sum of a content score and a positional score:
-      </Prose>
+<H3>{"A separate rotary branch"}</H3>
 
-      <MathBlock>{"s_{t,s}^{h} = \\frac{Q^{content,h}_t \\cdot K^{content,h}_s + q_R^{(t),h} \\cdot k_R^{(s)}}{\\sqrt{d_h + d_r}}"}</MathBlock>
+<Prose>{"The V2/V3-style solution keeps content keys unrotated and adds a small rotary branch:"}</Prose>
 
-      <H3>3.6 Attention output</H3>
+<div className="neural-equation"><MathBlock>{"k^R_s=R_s W^{KR}h_s,\\qquad\nq^R_{t,i}=R_t U_{QR,i}c^Q_t."}</MathBlock></div>
 
-      <MathBlock>{"\\alpha_{t,s}^{h} = \\frac{\\exp(s_{t,s}^{h})}{\\sum_{s'} \\exp(s_{t,s'}^{h})}, \\quad o_t^{h} = \\sum_s \\alpha_{t,s}^{h} V_s^{h}"}</MathBlock>
+<Prose>{"There is "}<strong>{"one shared rotary key per memory position"}</strong>{", while query heads have distinct rotary queries. Cache "}<InlineMath>{"c_s"}</InlineMath>{" and "}<InlineMath>{"k^R_s"}</InlineMath>{". The score for head i is"}</Prose>
 
-      <MathBlock>{"y_t = W^O \\, \\mathrm{concat}_h(o_t^{h})"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"\\ell_{t,s,i}=\n\\frac{(q^C_{t,i})^T U_{K,i}c_s+(q^R_{t,i})^Tk^R_s}\n{\\sqrt{d_k+d_r}}."}</MathBlock></div>
 
-      <Prose>
-        Same softmax, same weighted sum, same output projection as MHA. Only the K and V computation is rearranged.
-      </Prose>
+<Prose>{"Apply the causal/padding mask, then softmax over the legal memory positions. The resulting weights mix "}<InlineMath>{"U_{V,i}c_s"}</InlineMath>{"."}</Prose>
 
-      <H3>3.7 The absorbed form — no explicit K</H3>
+<Prose>{"The rotary branch is not a stored integer position or a content-free tag: it is a projected input vector rotated using a position. Likewise, “NoPE/content” means that this particular branch receives no direct rotary transform. Its input hidden state may already contain positional information from earlier layers. Do not interpret the name as proof that every latent coordinate contains only semantics and no information about order."}</Prose>
 
-      <Prose>
-        Substituting {"K^{content,h}_s = W^{UK}_h c_{kv}^{(s)}"} into the content score gives
-      </Prose>
+<Prose>{"Decoupling preserves a specified positional mechanism. It does not by itself guarantee good behavior at arbitrary unseen lengths. Context extension still depends on frequency/scaling choices, training and evaluation, as the preceding positional lesson explained. A causal mask itself also carries an ordering constraint; removing an explicit positional branch does not justify the blanket statement that a causal network has no way to distinguish order."}</Prose>
 
-      <MathBlock>{"Q^{content,h}_t \\cdot K^{content,h}_s = Q^{content,h}_t \\cdot (W^{UK}_h \\, c_{kv}^{(s)}) = ((W^{UK}_h)^\\top Q^{content,h}_t) \\cdot c_{kv}^{(s)}"}</MathBlock>
+<LatentScoreFigure />
 
-      <Prose>
-        Define the absorbed query per head:
-      </Prose>
+<H2>{"4. Read the latent directly: the exact rearrangement"}</H2>
 
-      <MathBlock>{"\\tilde{Q}^{h}_t = (W^{UK}_h)^\\top \\, Q^{content,h}_t \\in \\mathbb{R}^{d_c}"}</MathBlock>
+<H3>{"Absorb the key up-projection into the query"}</H3>
 
-      <Prose>
-        Then the content score is
-      </Prose>
+<Prose>{"For any fixed head and query,"}</Prose>
 
-      <MathBlock>{"Q^{content,h}_t \\cdot K^{content,h}_s = \\tilde{Q}^{h}_t \\cdot c_{kv}^{(s)}"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"(q^C)^T U_K c=(U_K^Tq^C)^Tc."}</MathBlock></div>
 
-      <Prose>
-        which is a {"d_c"}-dim dot product against the cached latent — no K reconstruction. In practice the product {"W^{UQ} \\cdot (W^{UK})^\\top"} fuses at training/export time into a single linear map from {"c_q"} to {"\\tilde{Q}"}, so at inference the per-head absorbed query is one matmul away from the Q latent.
-      </Prose>
+<Prose>{"Define "}<InlineMath>{"\\widetilde q=U_K^Tq^C"}</InlineMath>{", a vector with "}<InlineMath>{"d_c"}</InlineMath>{" coordinates. The content score can now be computed directly against the cached c. No historical content key needs to be expanded for that comparison. Keep the separate rotary dot product unchanged."}</Prose>
 
-      <H3>3.8 The absorbed form — no explicit V</H3>
+<Prose>{"This is ordinary associativity of matrix multiplication. It does not discard singular directions or approximate a probability. In a row-vector implementation, the same operation is "}<code>{"effective_query = content_query @ key_up"}</code>{", with the up-projection stored as output-by-input."}</Prose>
 
-      <Prose>
-        After softmax we have {"o_t^{h} = \\sum_s \\alpha_{t,s}^{h} V_s^{h} = \\sum_s \\alpha_{t,s}^{h} (W^{UV}_h c_{kv}^{(s)})"}. Factor {"W^{UV}_h"} out of the sum:
-      </Prose>
+<H3>{"Mix latents before expanding values"}</H3>
 
-      <MathBlock>{"o_t^{h} = W^{UV}_h \\left( \\sum_s \\alpha_{t,s}^{h} \\, c_{kv}^{(s)} \\right)"}</MathBlock>
+<Prose>{"Once the weights "}<InlineMath>{"a_s"}</InlineMath>{" are known,"}</Prose>
 
-      <Prose>
-        The inner sum is a weighted latent, {"d_c"}-dim per head; the outer matmul is a single {"d_c → d_h"} projection per head. This is faster than the naive {"\\sum_s \\alpha V"} because {"d_c ≈ 4 d_h"}, and crucially you never materialise the full V tensor.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"o_i=\\sum_s a_{s,i}U_{V,i}c_s\n=U_{V,i}\\left(\\sum_s a_{s,i}c_s\\right)."}</MathBlock></div>
 
-      <H3>3.9 Parameter and FLOP accounting</H3>
+<Prose>{"Compute a weighted latent "}<InlineMath>{"z_i=\\sum_s a_{s,i}c_s"}</InlineMath>{", then expand it once for this query/head. Each head still has its own weights and therefore its own z. The shared cache is not one shared output."}</Prose>
 
-      <Prose>
-        MLA adds compared to plain MHA: one {"d × d_c"} matrix {"W^{DKV}"}, one {"d × d_{c,q}"} matrix {"W^{DQ}"}, one {"d × d_r"} matrix {"W^{KR}"}, plus the up-projections. It removes the three plain {"d × d"} projections for Q, K, V — they are replaced by compressed paths. Net parameter count for DeepSeek-V2 MLA is close to plain MHA (within a few percent). KV cache shrinks from {"2 H d_h"} = 32768 to {"d_c + d_r"} = 576, a factor of 57. At inference in absorbed form, per-step attention FLOPs drop roughly by the same factor on the K and V paths.
-      </Prose>
+<Prose>{"If "}<InlineMath>{"W_{O,i}"}</InlineMath>{" is the output-map slice for head i, the residual contribution is"}</Prose>
 
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Everything below was run on PyTorch 2.6 with CUDA. Every {"# Output:"} block is real stdout. We build a DeepSeek-V2-shaped MLA module from scratch, verify that the naive-reconstruction path and the absorbed path produce identical outputs, benchmark the KV-cache memory savings at DeepSeek-V2 scale, and train a 2-layer MLA model end-to-end on a copy task to confirm gradients flow.
-      </Prose>
-
-      <H3>4.1 Setup and RoPE</H3>
-
-      <CodeBlock language="python">
-{`import math, time
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-torch.manual_seed(0)
-device = "cuda"
-
-# Tiny config so equivalence is easy to verify by eye
-D     = 64     # model dim
-H     = 8      # num heads
-D_H   = D // H # per-head dim = 8
-D_C   = 16     # KV latent dim (much smaller than H*D_H = 64)
-D_C_Q = 24     # Q latent dim (usually kept higher)
-D_R   = 4      # decoupled RoPE dim per head
-
-def rope_freqs(L, d_r, base=10000.0, device="cpu"):
-    inv = 1.0 / (base ** (torch.arange(0, d_r, 2, device=device).float() / d_r))
-    t   = torch.arange(L, device=device).float()
-    return torch.outer(t, inv)            # [L, d_r/2]
-
-def rope(x, freqs):
-    # x: [..., L, d_r], freqs: [L, d_r/2]
-    x1, x2 = x[..., 0::2], x[..., 1::2]
-    c, s = freqs.cos(), freqs.sin()
-    y1 = x1 * c - x2 * s
-    y2 = x1 * s + x2 * c
-    return torch.stack([y1, y2], dim=-1).flatten(-2)
-
-print("config:", dict(D=D, H=H, D_H=D_H, D_C=D_C, D_C_Q=D_C_Q, D_R=D_R))
-
-# Output:
-#   config: {'D': 64, 'H': 8, 'D_H': 8, 'D_C': 16, 'D_C_Q': 24, 'D_R': 4}`}
-      </CodeBlock>
-
-      <H3>4.2 MLA module with both forward paths</H3>
-
-      <CodeBlock language="python">
-{`class MLA(nn.Module):
-    def __init__(self, d=D, h=H, d_h=D_H, d_c=D_C, d_c_q=D_C_Q, d_r=D_R):
-        super().__init__()
-        self.d, self.h, self.d_h = d, h, d_h
-        self.d_c, self.d_c_q, self.d_r = d_c, d_c_q, d_r
-        # KV down-projection (produces cached latent)
-        self.W_DKV = nn.Linear(d, d_c, bias=False)
-        # K, V up-projections (packed across heads)
-        self.W_UK  = nn.Linear(d_c, h * d_h, bias=False)
-        self.W_UV  = nn.Linear(d_c, h * d_h, bias=False)
-        # Shared decoupled-RoPE K path
-        self.W_KR  = nn.Linear(d, d_r, bias=False)
-        # Q compression + up-projection
-        self.W_DQ  = nn.Linear(d, d_c_q, bias=False)
-        self.W_UQ  = nn.Linear(d_c_q, h * d_h, bias=False)
-        # Per-head RoPE Q
-        self.W_QR  = nn.Linear(d_c_q, h * d_r, bias=False)
-        # Output projection
-        self.W_O   = nn.Linear(h * d_h, d, bias=False)
-        # LayerNorms on the latents — DeepSeek-V2 keeps these fp32 for stability
-        self.ln_ckv = nn.LayerNorm(d_c)
-        self.ln_cq  = nn.LayerNorm(d_c_q)
-
-    def forward_naive(self, x, freqs, mask=None):
-        """Reference path: reconstruct K,V per head, then standard attention."""
-        B, L, _ = x.shape
-        c_kv = self.ln_ckv(self.W_DKV(x))                              # [B,L,d_c]
-        K    = self.W_UK(c_kv).view(B, L, self.h, self.d_h).transpose(1, 2)  # [B,H,L,d_h]
-        V    = self.W_UV(c_kv).view(B, L, self.h, self.d_h).transpose(1, 2)
-        c_q  = self.ln_cq(self.W_DQ(x))                                # [B,L,d_c_q]
-        Q    = self.W_UQ(c_q).view(B, L, self.h, self.d_h).transpose(1, 2)
-        # Decoupled RoPE: shared K, per-head Q
-        k_r  = rope(self.W_KR(x), freqs).unsqueeze(1).expand(B, self.h, L, self.d_r)
-        q_r  = rope(self.W_QR(c_q).view(B, L, self.h, self.d_r).transpose(1, 2), freqs)
-        # Concatenate content + RoPE along feature dim
-        Q_full = torch.cat([Q, q_r], dim=-1)
-        K_full = torch.cat([K, k_r], dim=-1)
-        scores = torch.matmul(Q_full, K_full.transpose(-2, -1)) / math.sqrt(self.d_h + self.d_r)
-        if mask is not None:
-            scores = scores.masked_fill(~mask, float("-inf"))
-        attn = F.softmax(scores, dim=-1)
-        ctx  = torch.matmul(attn, V).transpose(1, 2).reshape(B, L, self.h * self.d_h)
-        return self.W_O(ctx), attn, c_kv
-
-    @torch.no_grad()
-    def forward_absorbed(self, x, freqs, mask=None):
-        """Absorbed path: attention computed directly against c_kv, no K,V reconstruction."""
-        B, L, _ = x.shape
-        c_kv = self.ln_ckv(self.W_DKV(x))
-        c_q  = self.ln_cq(self.W_DQ(x))
-        Q    = self.W_UQ(c_q).view(B, L, self.h, self.d_h).transpose(1, 2)
-        # Absorb W_UK into Q: reshape to per-head [H, d_h, d_c]
-        W_UK_h  = self.W_UK.weight.view(self.h, self.d_h, self.d_c)
-        Q_tilde = torch.einsum("bhld,hdc->bhlc", Q, W_UK_h)             # [B,H,L,d_c]
-        content = torch.einsum("bhlc,bkc->bhlk", Q_tilde, c_kv)        # [B,H,L,L]
-        # RoPE branch unchanged
-        k_r = rope(self.W_KR(x), freqs)                                # [B,L,d_r]
-        q_r = rope(self.W_QR(c_q).view(B, L, self.h, self.d_r).transpose(1, 2), freqs)
-        rope_s = torch.einsum("bhld,bkd->bhlk", q_r, k_r)
-        scores = (content + rope_s) / math.sqrt(self.d_h + self.d_r)
-        if mask is not None:
-            scores = scores.masked_fill(~mask, float("-inf"))
-        attn = F.softmax(scores, dim=-1)
-        # Absorb W_UV: attend against c_kv first (cheap), then up-project
-        latent_ctx = torch.einsum("bhlk,bkc->bhlc", attn, c_kv)        # [B,H,L,d_c]
-        W_UV_h = self.W_UV.weight.view(self.h, self.d_h, self.d_c)
-        ctx    = torch.einsum("bhlc,hdc->bhld", latent_ctx, W_UV_h)
-        ctx    = ctx.transpose(1, 2).reshape(B, L, self.h * self.d_h)
-        return self.W_O(ctx), attn, c_kv
-
-def causal_mask(L, device):
-    return torch.tril(torch.ones(L, L, dtype=torch.bool, device=device))`}
-      </CodeBlock>
-
-      <Prose>
-        Two forward paths, same parameters. The naive path reconstructs {"K, V"} and runs standard scaled-dot-product attention. The absorbed path rewrites the math so attention is computed against {"c_{kv}"} directly. If MLA is correct, the two should agree to floating-point precision.
-      </Prose>
-
-      <H3>4.3 Equivalence test: naive vs absorbed</H3>
-
-      <CodeBlock language="python">
-{`mla = MLA().to(device)
-x = torch.randn(2, 12, D, device=device)
-freqs = rope_freqs(12, D_R, device=device)
-mask  = causal_mask(12, device)
-
-y_naive, a_naive, c_naive = mla.forward_naive(x, freqs, mask)
-y_abs,   a_abs,   c_abs   = mla.forward_absorbed(x, freqs, mask)
-
-print("y_naive shape         :", tuple(y_naive.shape))
-print("y_absorbed shape      :", tuple(y_abs.shape))
-print("max |y_naive - y_abs| :", f"{(y_naive - y_abs).abs().max().item():.3e}")
-print("max |a_naive - a_abs| :", f"{(a_naive - a_abs).abs().max().item():.3e}")
-
-# Output:
-#   y_naive shape         : (2, 12, 64)
-#   y_absorbed shape      : (2, 12, 64)
-#   max |y_naive - y_abs| : 1.192e-07
-#   max |a_naive - a_abs| : 5.960e-08`}
-      </CodeBlock>
-
-      <Prose>
-        Agreement to {"~1e-7"} — this is single-precision roundoff, not an approximation. The two paths are algebraically identical; the only difference is which intermediate tensors are materialised. This is the core invariant MLA depends on: the absorbed form is not an approximation of the naive form, it is the same computation reorganised.
-      </Prose>
-
-      <H3>4.4 KV cache memory at DeepSeek-V2 scale</H3>
-
-      <CodeBlock language="python">
-{`# DeepSeek-V2 actual config: d=5120, H=128, d_h=128, d_c=512, d_r=64, 60 layers
-d_h_v2, H_v2, d_c_v2, d_r_v2, N_layer = 128, 128, 512, 64, 60
-
-mha_tok   = 2 * H_v2 * d_h_v2           # K and V, all heads
-gqa8_tok  = 2 * 8   * d_h_v2            # 8 KV heads (LLaMA-2-70B style)
-mqa_tok   = 2 * 1   * d_h_v2            # one KV head
-mla_tok   = d_c_v2 + d_r_v2             # latent + shared RoPE K
-
-print(f"{'scheme':8s} {'floats/tok/layer':>18s}  {'KB/tok/layer (fp16)':>22s}")
-for name, n in [("MHA", mha_tok), ("GQA-8", gqa8_tok), ("MQA", mqa_tok), ("MLA", mla_tok)]:
-    print(f"{name:8s} {n:>18d}  {n * 2 / 1024:>22.2f}")
-
-print(f"\\nMLA savings vs MHA   : {(1 - mla_tok/mha_tok)*100:.1f} %")
-print(f"MLA savings vs GQA-8 : {(1 - mla_tok/gqa8_tok)*100:.1f} %")
-
-# 32k context, 60 layers, fp16
-L_ctx = 32768
-print(f"\\n32k context, {N_layer} layers, fp16:")
-for name, n in [("MHA", mha_tok), ("GQA-8", gqa8_tok), ("MLA", mla_tok)]:
-    gb = n * L_ctx * N_layer * 2 / (1024**3)
-    print(f"  {name:6s}: {gb:7.2f} GB")
-
-# Output:
-#   scheme   floats/tok/layer     KB/tok/layer (fp16)
-#   MHA                   32768                   64.00
-#   GQA-8                  2048                    4.00
-#   MQA                     256                    0.50
-#   MLA                     576                    1.12
-#
-#   MLA savings vs MHA   : 98.2 %
-#   MLA savings vs GQA-8 : 71.9 %
-#
-#   32k context, 60 layers, fp16:
-#     MHA   :  120.00 GB
-#     GQA-8 :    7.50 GB
-#     MLA   :    2.11 GB`}
-      </CodeBlock>
-
-      <Prose>
-        The paper's headline "93.3% KV-cache reduction" number comes from comparing to a specific MHA baseline with different channel accounting. Measured head-to-head against a plain 128-head MHA with the same total head-dim budget, the cache drops 98%, and the full-context serving picture flips dramatically: 120 GB becomes 2 GB. A 32k-token conversation that required cache offloading on an 80 GB GPU now fits ten times over.
-      </Prose>
-
-      <H3>4.5 Per-step generation latency at growing context</H3>
-
-      <Prose>
-        The memory savings are unconditional. The compute savings from the absorbed form only manifest when the sequence is long enough that attention dominates the step, because at short L the absorbed form has to materialise an {"[H, L, d_c]"} intermediate (latent-context) which is sometimes larger than the naive {"[H, L, d_h]"} intermediate. The crossover in the benchmark below is around L = 8k; beyond that the absorbed form wins.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# A larger MLA at inference scale
-D_big, H_big, d_h_b, d_c_b, d_r_b = 2048, 32, 64, 256, 32
-
-class MLAInfer(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.W_DKV = nn.Linear(D_big, d_c_b, bias=False).half()
-        self.W_UK  = nn.Linear(d_c_b, H_big*d_h_b, bias=False).half()
-        self.W_UV  = nn.Linear(d_c_b, H_big*d_h_b, bias=False).half()
-        self.W_KR  = nn.Linear(D_big, d_r_b, bias=False).half()
-        self.W_DQ  = nn.Linear(D_big, d_c_b, bias=False).half()
-        self.W_UQ  = nn.Linear(d_c_b, H_big*d_h_b, bias=False).half()
-        self.W_QR  = nn.Linear(d_c_b, H_big*d_r_b, bias=False).half()
-        self.W_O   = nn.Linear(H_big*d_h_b, D_big, bias=False).half()
-
-# [full step_naive and step_absorbed implementations not shown for brevity]
-# They wrap one token through the respective forward, extending the cache by one.
-
-# After warmup, benchmark over 50 steps at L = 1024, 4096, 16384:
-
-# Output:
-#   [per-step generation latency (ms) at growing context, fp16, single GPU]
-#        L   naive  absorbed  speedup
-#     1024   1.078     1.781    0.61x
-#     4096   0.833     1.608    0.52x
-#    16384   3.388     1.630    2.08x
-#
-#   At short L, absorbed form has overhead from materialising [H, L, d_c].
-#   At L = 16k the absorbed form is 2x faster and the naive form is already
-#   showing bandwidth saturation from repeatedly walking a large KV tensor.`}
-      </CodeBlock>
-
-      <Prose>
-        The memory picture is the real win; the compute picture is a secondary benefit that kicks in at long context. Production kernels fuse the absorbed-form matmuls into a single CUDA kernel that avoids the intermediate tensor materialisation, improving the crossover further.
-      </Prose>
-
-      <H3>4.6 End-to-end training on a copy task</H3>
-
-      <Prose>
-        A copy task is the standard smoke test for attention: given a sequence of random tokens followed by a separator, reproduce the sequence. A model with working attention learns this in a few hundred steps; a model with broken attention does not learn it at all. We stack two MLA blocks into a small decoder and train on length-8 copies.
-      </Prose>
-
-      <CodeBlock language="python">
-{`VOCAB  = 32
-L_COPY = 8
-L_TOT  = 2 * L_COPY + 1
-B      = 128
-
-def sample_copy(B, L=L_COPY):
-    SEP = VOCAB - 1
-    src = torch.randint(0, VOCAB - 1, (B, L), device=device)
-    sep = torch.full((B, 1), SEP, device=device, dtype=torch.long)
-    return torch.cat([src, sep, src], dim=1)
-
-class TinyMLAmodel(nn.Module):
-    def __init__(self, vocab=VOCAB, d=D, h=H, n_layers=2, L_max=L_TOT):
-        super().__init__()
-        self.tok = nn.Embedding(vocab, d)
-        self.pos = nn.Embedding(L_max, d)
-        self.blocks = nn.ModuleList([
-            nn.ModuleDict({
-                "attn": MLA(d=d, h=h),
-                "ln1":  nn.LayerNorm(d),
-                "ff":   nn.Sequential(nn.Linear(d, 4*d), nn.GELU(), nn.Linear(4*d, d)),
-                "ln2":  nn.LayerNorm(d),
-            }) for _ in range(n_layers)
-        ])
-        self.ln_f = nn.LayerNorm(d)
-        self.head = nn.Linear(d, vocab, bias=False)
-
-    def forward(self, x):
-        B, L = x.shape
-        freqs = rope_freqs(L, D_R, device=x.device)
-        mask  = causal_mask(L, x.device)
-        pos   = torch.arange(L, device=x.device).unsqueeze(0).expand(B, L)
-        h = self.tok(x) + self.pos(pos)
-        for blk in self.blocks:
-            a_out, _, _ = blk["attn"].forward_naive(blk["ln1"](h), freqs, mask)
-            h = h + a_out
-            h = h + blk["ff"](blk["ln2"](h))
-        return self.head(self.ln_f(h))
-
-model = TinyMLAmodel().to(device)
-opt   = torch.optim.Adam(model.parameters(), lr=3e-4)
-print(f"params: {sum(p.numel() for p in model.parameters())}")
-
-for step in range(1, 1501):
-    x = sample_copy(B)
-    logits = model(x)
-    loss = F.cross_entropy(logits[:, :-1].reshape(-1, VOCAB), x[:, 1:].reshape(-1))
-    opt.zero_grad(); loss.backward(); opt.step()
-    if step % 300 == 0:
-        print(f"  step {step:4d}   loss={loss.item():.4f}")
-
-# Copy accuracy
-model.eval()
-with torch.no_grad():
-    x = sample_copy(64)
-    pred = model(x).argmax(-1)
-    after_sep = pred[:, L_COPY:2*L_COPY]
-    gold      = x[:, L_COPY+1:2*L_COPY+1]
-    acc = (after_sep == gold).float().mean().item()
-print(f"copy accuracy: {acc:.3f}")
-
-# Output:
-#   params: 94688
-#   step  300   loss=1.7232
-#   step  600   loss=1.5215
-#   step  900   loss=1.5145
-#   step 1200   loss=1.5090
-#   step 1500   loss=1.5093
-#   copy accuracy: 1.000`}
-      </CodeBlock>
-
-      <Prose>
-        Perfect copy accuracy. The training loss plateaus at {"~1.5"} because the source tokens themselves have entropy roughly {"\\log 31 ≈ 3.43"} nats and we can only predict them from the position-0 context; the part we care about (after the SEP) saturates to accuracy 1.0. Gradients flow through the down-projection, up-projections, decoupled RoPE branches, and output projection cleanly. MLA is a drop-in attention replacement at training time.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production</H2>
-
-      <H3>5.1 DeepSeek-V2 and V3</H3>
-
-      <Prose>
-        Multi-Head Latent Attention debuted in DeepSeek-V2 (Liu et al. 2024), a 236B total-parameter MoE with 21B activated per token. The model has 60 layers, {"d"} = 5120, {"H"} = 128 heads at {"d_h"} = 128, {"d_c"} = 512 for KV compression, {"d_{c,q}"} = 1536 for Q compression, and {"d_r"} = 64 for decoupled RoPE. DeepSeek-V3 (671B total, 37B activated; arXiv:2412.19437, December 2024) kept the exact same MLA formulation — only the FFN side changed (fine-grained expert routing and auxiliary-loss-free load balancing). The fact that V3 did not touch MLA is the strongest endorsement: the DeepSeek team spent a year training and evaluating MLA across multiple scales and found no reason to modify the attention.
-      </Prose>
-
-      <H3>5.2 HuggingFace and open-source adoption</H3>
-
-      <Prose>
-        The HuggingFace Transformers library ships <Code>{"DeepseekV2ForCausalLM"}</Code> and <Code>{"DeepseekV3ForCausalLM"}</Code> with reference MLA implementations in both naive and absorbed forms. vLLM added an MLA backend in v0.5 (mid-2024) specifically for DeepSeek-V2 serving; SGLang added MLA with radix-tree prefix caching support; TensorRT-LLM added MLA kernels in its Q4 2024 release. All three use the absorbed form at inference to get full memory and compute benefits. Recompiling a LLaMA-style model to use MLA is not a simple swap — the projection structure is different, so the weights cannot be reused, and continued pre-training is required.
-      </Prose>
-
-      <H3>5.3 Training infrastructure considerations</H3>
-
-      <Prose>
-        DeepSeek's training infrastructure natively supports MLA through custom CUDA kernels that fuse the down-projection, up-projection, and attention score computation. During training, MLA is typically run in the naive form (full K, V reconstruction) because autograd through the absorbed form produces less numerically stable gradients — the activation tensors have dimensions {"d_c"} which makes layer norm statistics noisier. The LayerNorm on {"c_{kv}"} is kept in fp32 during training. Inference usually runs in bf16 or fp8 for DeepSeek-V3's native FP8 inference. The absorbed weights {"W^{UQ} \\cdot (W^{UK})^\\top"} and {"W^{UV}"} are fused at model export time into pre-multiplied matrices that the inference kernel consumes directly.
-      </Prose>
-
-      <H3>5.4 Not yet in LLaMA-family models</H3>
-
-      <Prose>
-        As of early 2026, none of LLaMA-3, Mistral, Qwen-2.5, or Gemma-2 use MLA — all of them use GQA. The reason is engineering inertia: these families have mature training stacks built around GQA, and switching to MLA requires rewriting not just the attention kernel but the activation memory accounting, the KV-cache management code, and the inference kernels. GQA's 4-8x cache reduction is "good enough" for most 8-70B-scale models, and the 10x further reduction from MLA is not worth the engineering cost when the model is going to be run at {"≤ 32k"} context anyway. MLA shines at {"≥ 128k"} context and at 100B+ scale, where cache bandwidth is the serving bottleneck. This is why DeepSeek-V3 is the most prominent MLA production model and why any LLaMA-like replacement at frontier scale will likely adopt it.
-      </Prose>
-
-      <H3>5.5 Custom inference kernels are the path to full speedup</H3>
-
-      <Prose>
-        A naive PyTorch implementation of the absorbed form pays overhead from materialising the {"[B, H, L, d_c]"} intermediate tensor, which at long context and large {"d_c"} can be comparable to the KV cache itself. Production kernels (vLLM's MLA-FlashAttention, SGLang's deepseek-v2 backend) fuse the absorbed-query computation, the attention score computation, and the absorbed-value reduction into a single CUDA kernel with tiling over the {"d_c"} dimension. The kernel never materialises the intermediate; instead it streams {"c_{kv}"} blocks through shared memory and accumulates the attention output directly. The result is inference throughput close to what you would get if the model were run at a fraction of its effective size.
-      </Prose>
-
-      <H3>5.6 Operational caveats</H3>
-
-      <Prose>
-        KV cache quantisation is easier with MLA because there is less to quantise: 576 floats per token instead of 32768 means the marginal benefit of 4-bit quantisation is smaller, and in practice DeepSeek serves V3 with bf16 MLA cache and finds no throughput gain from going lower. Prefix caching (reusing {"c_{kv}"} across requests that share a prompt prefix) is cleaner in MLA than in GQA because the cache tensor is smaller and the reuse grain is the single latent vector. Radix-tree prefix caching in SGLang achieves 30-50% prefix hit rates on common chat workloads for DeepSeek-V3.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 MLA forward pass: step by step</H3>
-
-      <StepTrace
-        label="MLA FORWARD (naive form, one token)"
-        steps={[
-          {
-            label: "1. Down-project input to KV latent",
-            render: () => (
-              <div>
-                <Prose>
-                  Input residual stream {"h ∈ R^d"}. Apply {"W^{DKV}"} to produce {"c_{kv} ∈ R^{d_c}"}. For DeepSeek-V2 this is a 5120 → 512 projection. The latent is LayerNorm-ed for stability. This is the vector that gets cached.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"h [d=5120] ──W^DKV──> c_kv [d_c=512]  ←── CACHED"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "2. Reconstruct per-head K, V",
-            render: () => (
-              <div>
-                <Prose>
-                  {"W^{UK}"} and {"W^{UV}"} expand {"c_{kv}"} back to {"H · d_h"}-dim tensors, reshaped to {"[H, d_h]"} — one K and one V per head. In training this path is explicit; at inference with the absorbed form it never happens.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"c_kv [d_c=512] ──W^UK──> K [H=128, d_h=128]"}<br />
-                  {"c_kv [d_c=512] ──W^UV──> V [H=128, d_h=128]"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "3. Compute RoPE K branch",
-            render: () => (
-              <div>
-                <Prose>
-                  Separately from the content path, compute a shared RoPE key {"k_R = \\mathrm{RoPE}(W^{KR} h; t) ∈ R^{d_r}"}. This vector is the same across all heads and carries position {"t"}'s rotation. Cached alongside {"c_{kv}"}.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"h [d=5120] ──W^KR──> tmp [d_r=64] ──RoPE(t)──> k_R [d_r=64]  ←── CACHED"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "4. Compute query (content + RoPE)",
-            render: () => (
-              <div>
-                <Prose>
-                  Query is similarly split: compress {"h"} to {"c_q"}, up-project to content Q per head, and compute a per-head RoPE Q of dim {"d_r"}. Concatenate along feature axis to get a full per-head Q of dim {"d_h + d_r"}.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"Q_h = [Q^content_h ; q_R_h]  ∈ R^{d_h + d_r}"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "5. Scaled dot-product attention",
-            render: () => (
-              <div>
-                <Prose>
-                  Standard attention on the concatenated Q, K. Softmax over the sequence axis, weighted sum of V. The score factors into content dot content plus RoPE dot RoPE; the RoPE term carries the positional signal that was otherwise discarded in the compression.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"s = (Q^content · K^content + q_R · k_R) / √(d_h + d_r)"}
-                </div>
-              </div>
-            ),
-          },
-          {
-            label: "6. Output projection",
-            render: () => (
-              <div>
-                <Prose>
-                  Per-head outputs are concatenated and projected back to the model dim by {"W^O"}. This is the final residual-stream contribution of the attention block. Total KV-cache cost: {"d_c + d_r"} floats per token per layer — 576 for DeepSeek-V2.
-                </Prose>
-                <div style={{ fontFamily: "monospace", fontSize: 12, color: colors.gold, marginTop: 8 }}>
-                  {"y = W^O · concat_h(attn_h · V_h)   ∈ R^d"}
-                </div>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6.2 KV cache growth with context length</H3>
-
-      <Prose>
-        Per-sample, per-layer KV cache memory in MB as the sequence grows, at DeepSeek-V2 scale ({"H = 128, d_h = 128, d_c = 512, d_r = 64"}), fp16. MHA grows at 64 KB/token; GQA-8 at 4 KB/token; MLA at 1.12 KB/token. The logarithmic separation is visible even at modest context lengths.
-      </Prose>
-
-      <Plot
-        label="KV CACHE (MB) VS CONTEXT LENGTH — PER LAYER, FP16"
-        xLabel="context length (tokens)"
-        yLabel="cache size (MB)"
-        width={560}
-        height={280}
-        series={[
-          { name: "MHA",   color: "#f87171", points: [[1024, 64], [4096, 256], [8192, 512], [16384, 1024], [32768, 2048], [65536, 4096]] },
-          { name: "GQA-8", color: "#60a5fa", points: [[1024, 4],  [4096, 16],  [8192, 32],  [16384, 64],   [32768, 128],  [65536, 256]] },
-          { name: "MLA",   color: "#e2b55a", points: [[1024, 1.12], [4096, 4.5], [8192, 9], [16384, 18],   [32768, 36],   [65536, 72]] },
-        ]}
-      />
-
-      <H3>6.3 Compression ratio across MLA configurations</H3>
-
-      <Prose>
-        Heatmap of MLA's cache saving factor {"(2 · H · d_h) / (d_c + d_r)"} over plain MHA, as a function of number of heads {"H"} and KV latent dim {"d_c"}. Larger {"H"} and smaller {"d_c"} mean more aggressive compression. DeepSeek-V2 sits at {"H = 128, d_c = 512"} (56x reduction). The configuration space is wide — models with smaller H still get meaningful savings.
-      </Prose>
-
-      <Heatmap
-        label="MLA COMPRESSION RATIO VS MHA (HIGHER = BETTER), d_h=128, d_r=64"
-        rowLabels={["H=16", "H=32", "H=64", "H=128", "H=256"]}
-        colLabels={["d_c=128", "d_c=256", "d_c=512", "d_c=1024", "d_c=2048"]}
-        matrix={[
-          [21, 12, 7,  4,  2],
-          [43, 25, 14, 8,  4],
-          [85, 51, 28, 15, 8],
-          [171, 102, 57, 30, 16],
-          [341, 204, 114, 60, 31],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6.4 Quality vs cache size — the Pareto frontier</H3>
-
-      <Prose>
-        Attention quality (approximate MMLU-style score on a held-out language task) plotted against KV cache size per token, at equal parameter count. The MHA point is at full cache; GQA-8 at 1/16; MLA at 1/57. MHA and MLA are nearly indistinguishable on quality; GQA-8 gives up about 0.4 MMLU points; MQA gives up 1.5 points. MLA pushes the Pareto frontier further down and to the left than any previous attention variant. Data is qualitative composite from DeepSeek-V2 paper Table 2 and GQA paper Table 1.
-      </Prose>
-
-      <Plot
-        label="ATTENTION QUALITY VS KV CACHE PER TOKEN"
-        xLabel="KV cache bytes/token/layer (log)"
-        yLabel="MMLU-like score (rel)"
-        width={560}
-        height={300}
-        series={[
-          { name: "MHA",   color: "#f87171", points: [[65536, 78.2]] },
-          { name: "GQA-8", color: "#60a5fa", points: [[4096,  77.8]] },
-          { name: "MQA",   color: "#c084fc", points: [[512,   76.7]] },
-          { name: "MLA",   color: "#e2b55a", points: [[1152,  78.4]] },
-        ]}
-      />
-
-      <Prose>
-        Even though MLA's cache is only 28% larger than MQA's, its quality is full-MHA-level. This is the plot the DeepSeek-V2 paper rides on, and it is the reason MLA is the state-of-the-art efficient-attention variant as of 2026.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>7.1 Designing a new LLM from scratch for efficient serving</H3>
-
-      <Prose>
-        Use MLA. If you are building a frontier model where long context and aggressive serving throughput are core requirements, the engineering investment to adopt MLA pays back within the first serving cluster. The quality gap vs MHA is zero in published ablations, and the cache reduction is 50-100x. At 128k context and beyond, MLA is effectively the only design that avoids cache-spill-to-host bottlenecks on single-GPU serving. Pair with fine-grained MoE (DeepSeek-V3 style) for the full compute-efficiency stack.
-      </Prose>
-
-      <H3>7.2 Retraining an existing LLaMA-style checkpoint</H3>
-
-      <Prose>
-        Do not bother. MLA weights cannot be initialised from MHA or GQA weights in any useful way — the projection structure is fundamentally different. Retrofitting MLA requires continued pre-training on trillions of tokens, which for most teams is not worth the 4-8x additional cache reduction on top of what GQA already gives. If you already have a GQA checkpoint at the scale you care about, keep GQA. If you are training from scratch, MLA is the better choice.
-      </Prose>
-
-      <H3>7.3 Research on attention variants</H3>
-
-      <Prose>
-        MLA is the state-of-the-art low-cache attention as of 2024-2026 and the baseline any new compression method must beat. Recent work (Multi-Latent Attention, Tensor-Product Attention, several unpublished follow-ups) builds on the MLA skeleton: shared low-rank latent, decoupled positional branch, absorbable up-projections. If you are publishing an attention variant, a side-by-side comparison with MLA on both quality and cache size is expected.
-      </Prose>
-
-      <H3>7.4 Short context, bandwidth-limited hardware</H3>
-
-      <Prose>
-        If your context is always {"≤ 4k"} tokens and you run on bandwidth-rich hardware (H100 with NVLink, TPU-v5), GQA-8 is sufficient and MLA's extra complexity is not worth it. The cache reduction only matters when cache walks become bandwidth-bound, which happens at long context and on memory-constrained GPUs (A100 40GB, consumer cards).
-      </Prose>
-
-      <H3>7.5 Mixture-of-Experts models</H3>
-
-      <Prose>
-        Use MLA. The MoE + MLA combination has become dominant for frontier compute-efficient models. MoE shrinks FFN compute per token; MLA shrinks attention cache per token. The two compress different axes and compose cleanly. DeepSeek-V3, which combines fine-grained expert routing, auxiliary-loss-free load balancing, MLA, and multi-token prediction, is the canonical example.
-      </Prose>
-
-      <H3>7.6 When MLA is wrong</H3>
-
-      <Prose>
-        MLA is wrong when you are building a model at {"≤ 1B"} parameters where the parameter cost of the additional projections is non-trivial compared to the cache savings. It is also wrong if your serving environment does not support custom inference kernels — naive MLA in PyTorch barely beats GQA in wall-clock terms, and the memory win is the only remaining benefit. And it is wrong for encoder-only models (BERT-family) where there is no autoregressive cache to compress.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 DeepSeek-V3 as the existence proof</H3>
-
-      <Prose>
-        DeepSeek-V3 is a 671B-parameter MoE with 37B activated per token. For comparable performance, a dense MHA model would need to be 400-500B dense, with a KV cache of roughly 60 GB per user at 32k context. V3 uses 2 GB at the same context thanks to MLA. This is the single biggest lever pulled by any frontier model in 2024-2025 for reducing inference cost: it lets V3 run on 8-GPU clusters for serving instead of the 64-GPU clusters a comparable MHA model would need. The published serving costs for V3 ({"~\\$2"} per million output tokens at launch) are roughly 10x cheaper than GPT-4o's. MLA is the biggest structural reason for that.
-      </Prose>
-
-      <H3>8.2 Scaling the number of heads</H3>
-
-      <Prose>
-        With MHA, doubling the head count doubles the cache. With GQA, doubling the heads doesn't change the cache (if groups scale with heads). With MLA, doubling the heads doesn't change the cache <em>and</em> doesn't increase per-head recompute because the absorbed form works at any H. This lets MLA models aggressively scale H — DeepSeek-V2 has 128 heads at {"d"} = 5120, giving a head-count to model-dim ratio of 0.025; plain LLaMA-2-70B has 64 heads at {"d"} = 8192, a ratio of 0.008. More heads means more representational flexibility in the attention subspaces. This is a free lunch that MLA unlocks.
-      </Prose>
-
-      <H3>8.3 Long-context capability</H3>
-
-      <Prose>
-        The decoupled RoPE branch preserves the full positional signal at every token, so MLA's long-context behavior matches MHA's. DeepSeek-V2 shipped with a 128k context window; V3 went to 128k native with YaRN-based extension to 160k. Both models maintain long-context evaluation scores comparable to GPT-4-class dense MHA models. The combination of cheap cache and position-preserving RoPE means MLA is the dominant architecture for very long context — 1M-token serving is practical on an 8-GPU cluster for DeepSeek-V3 but would require 100+ GPUs for a comparable MHA model.
-      </Prose>
-
-      <H3>8.4 MLA plus GQA is not standard</H3>
-
-      <Prose>
-        Conceptually one could apply MLA on top of GQA — compress the grouped K, V into a latent. In practice this is never done because MLA already subsumes GQA's compression goal and does it more effectively. GQA's within-group sharing is a restricted form of low-rank compression (rank = {"G"} over the head axis); MLA's latent is a general low-rank compression (rank = {"d_c"} over the feature axis). The latter dominates the former in expressivity per byte. The only sensible combination is MLA alone.
-      </Prose>
-
-      <H3>8.5 Compression ratio grows with model scale</H3>
-
-      <Prose>
-        The MLA compression ratio {"(2 H d_h) / (d_c + d_r)"} grows with {"H"} because {"d_c"} scales sublinearly with {"H"} in practice. DeepSeek-V2's {"H = 128, d_c = 512"} gives a 57x ratio. A hypothetical V4 with {"H = 256, d_c = 768"} would give a 85x ratio. As frontier models push head counts higher (recent research shows quality benefits of {"H > 128"} when compute is available), MLA's advantage over GQA grows correspondingly.
-      </Prose>
-
-      <H3>8.6 Quantisation stacks cleanly</H3>
-
-      <Prose>
-        Because MLA's cache is already small, further int8 or fp8 quantisation saves less absolute memory than applying the same quantisation to MHA — but it also makes the cache {"2-4"} KB per token easy to keep in GPU HBM even at million-token contexts. DeepSeek-V3's fp8 training infrastructure treats the MLA cache in fp8 natively without quality regression. Combined with MoE's sparse activation, fp8 MLA puts the serving footprint of a 671B-parameter model within reach of a single 8-GPU server for many workloads.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Forgetting the decoupled RoPE branch</H3>
-
-      <Prose>
-        The single biggest implementation mistake. If you compress K into {"c_{kv}"} and then RoPE-rotate the reconstructed K, you cannot absorb {"W^{UK}"} into Q anymore — position-dependent rotations do not commute with learned linear maps. Worse, if you skip RoPE entirely (either because you forget or because you mistakenly think compression handles position), the model has no way to encode sequence order and training diverges or plateaus far above the MLA-with-RoPE baseline. The correct design is the DeepSeek split: content path with RoPE-free low-rank K, positional path with tiny RoPE-rotated K. Both are essential.
-      </Prose>
-
-      <H3>9.2 Wrong absorb dimensions</H3>
-
-      <Prose>
-        Absorbing {"W^{UK}"} into the query requires reshaping the packed {"[H · d_h, d_c]"} weight into {"[H, d_h, d_c]"} and contracting along the correct axis. A common bug is to absorb the transpose or to collapse the H axis incorrectly, producing output tensors with subtly wrong shapes that pass through the rest of the layer without an obvious error. Always verify equivalence against the naive path on random inputs — the two should agree to fp32 epsilon or fp16 roundoff.
-      </Prose>
-
-      <H3>9.3 Up-projections too low-rank</H3>
-
-      <Prose>
-        {"d_c"} controls the expressivity of the reconstruction. DeepSeek-V2 uses {"d_c = 4 d_h = 512"}. Smaller values save more cache but at some point the reconstructed {"K, V"} cannot span the information needed for attention — the model plateaus in training and loses MMLU points. The V2 paper's ablation showed {"d_c = d_h"} (256) losing significant quality; {"d_c = 2 d_h"} (512) is the minimum safe, and {"d_c = 4 d_h"} is the paper's default. In smaller models (10-70B) you may get away with {"d_c = 3 d_h"}; frontier models should use {"4 d_h"} or higher.
-      </Prose>
-
-      <H3>9.4 Missing LayerNorm on latents</H3>
-
-      <Prose>
-        Without LayerNorm on {"c_{kv}"} (and similarly on {"c_q"}), the latent's statistics drift across the sequence and across training — some tokens have {"c_{kv}"} with large magnitude, others small, and the up-projections must absorb this variance. Training stability suffers, especially at fp16. DeepSeek-V2 puts LayerNorm on both latents and keeps the LayerNorm parameters in fp32. Omitting either norm is a reliable way to produce NaN losses midway through training.
-      </Prose>
-
-      <H3>9.5 Naive implementation with no absorption</H3>
-
-      <Prose>
-        Shipping MLA in naive form means you pay the cache savings (every reconstruction starts from the cached {"c_{kv}"}) but you also pay the up-projection compute at every generation step. The up-projection is {"O(L · H · d_h · d_c)"} FLOPs per step on the K side and the same on the V side. For long context and many tokens generated, this overhead swamps the attention savings. The absorbed form rewrites the math so the up-projection cost vanishes. Production inference must use absorbed form; naive is for training only.
-      </Prose>
-
-      <H3>9.6 Fp16 numerical precision in the latent</H3>
-
-      <Prose>
-        The latent {"c_{kv}"} is a bottleneck: information that is not preserved in it cannot be recovered in the up-projections. At fp16 or bf16, the mantissa of {"c_{kv}"} has 10-7 bits of precision, and with {"d_c = 512"} the accumulated rounding error in the up-projection can be comparable to the signal magnitude. Training with the latent in fp32 and the rest of the network in bf16 (mixed-precision with fp32 LayerNorm + latent) is the standard DeepSeek-V2/V3 recipe. Inference in bf16 is fine because the absorbed form does fewer FP operations on the latent.
-      </Prose>
-
-      <H3>9.7 Prefix-caching corner cases</H3>
-
-      <Prose>
-        MLA's compressed cache is cleaner to prefix-cache than MHA's, but the decoupled RoPE branch is position-dependent. When reusing a prefix cache across requests, the RoPE cache {"k_R^{(t)}"} is valid only if the prefix starts at the same absolute position in both requests. SGLang handles this via careful position-bookkeeping in its radix tree; a home-grown cache that indexes only by prefix content will silently produce wrong attention at reused prefixes. Always validate prefix cache correctness on a test suite with known-answer inputs.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        <strong>Liu, Feng, Wang, Zhu, Xu, Liu, et al. (DeepSeek-AI, 2024).</strong> "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model." arXiv:2405.04434. The MLA introduction paper. Sections 2.1 (MLA architecture), 2.1.2 (low-rank KV joint compression), 2.1.3 (decoupled RoPE), and the ablation in Table 2 that establishes MLA as matching or exceeding MHA quality while cutting cache by a factor of 57. Also introduces DeepSeekMoE's fine-grained expert routing which is the other half of the V2 efficiency story. The implementation details in Appendix A are the canonical reference for anyone implementing MLA from scratch.
-      </Prose>
-
-      <Prose>
-        <strong>DeepSeek-AI (2024).</strong> "DeepSeek-V3 Technical Report." arXiv:2412.19437. The V3 report is the existence proof that MLA scales cleanly to 671B parameters. Section 2.1 discusses MLA (kept unchanged from V2); the main architectural innovations are on the MoE side (auxiliary-loss-free balancing, multi-token prediction). The serving cost numbers at the end of section 5 are the strongest commercial evidence for MLA's value: V3 serves at {"~\\$2"}/million output tokens, roughly 10x cheaper than dense-MHA frontier competitors.
-      </Prose>
-
-      <Prose>
-        <strong>Ainslie, Lee-Thorp, de Jong, Zemlyanskiy, Lebrón, Sanghai (Google Research, 2023).</strong> "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints." arXiv:2305.13245. The baseline MLA is usually compared against. GQA partitions heads into {"G"} groups that share {"K, V"}, giving an {"n_heads / G"} cache reduction. Shipped in LLaMA-2 (34B, 70B) and became the industry default pre-MLA. The paper's quality-vs-G trade-off curves are the benchmark MLA has to beat, and it does — at 1/14 the cache of GQA-8 with no quality loss.
-      </Prose>
-
-      <Prose>
-        <strong>Shazeer, Noam (Google, 2019).</strong> "Fast Transformer Decoding: One Write-Head is All You Need." arXiv:1911.02150. The original Multi-Query Attention paper. MQA is the {"G = 1"} extreme of GQA — one {"K, V"} across all heads, cache reduced by {"n_heads"}. Historically important as the first serious attempt at cache compression but consistently showed quality loss ({"-1"} to {"-2"} MMLU points), which is what motivated GQA. MLA can be viewed as a reformulation of the MQA idea: rather than sharing {"K, V"} verbatim across heads, share a low-rank latent and reconstruct per-head {"K, V"} from it.
-      </Prose>
-
-      <Prose>
-        <strong>Su, Lu, Pan, Murtadha, Wen, Liu (2021).</strong> "RoFormer: Enhanced Transformer with Rotary Position Embedding." arXiv:2104.09864. Rotary Position Embedding is the positional encoding the decoupled RoPE branch of MLA preserves. RoPE's key property — that the attention score {"q_i · k_j"} depends only on the relative position {"i - j"} after rotation — is what makes long-context generalisation possible. MLA's cleverness is finding a way to preserve this property on top of the low-rank compression, via the small {"d_r"}-dim positional branch. Any MLA implementation rests on the RoPE formalism from this paper.
-      </Prose>
-
-      <Prose>
-        <strong>DeepSeek-AI (2024).</strong> DeepSeek-V2 implementation, HuggingFace model <Code>{"deepseek-ai/DeepSeek-V2"}</Code>. The reference MLA code in HuggingFace Transformers (<Code>{"modeling_deepseek.py"}</Code>) is the most readable production MLA implementation. Both naive and absorbed forms are present; the absorbed form is used at inference via <Code>{"use_cache=True"}</Code>. Worth reading alongside the V2 paper; many subtleties (LayerNorm placement, RoPE shape conventions, kv-cache data structure) are only apparent in the code.
-      </Prose>
-
-      <Prose>
-        <strong>vLLM and SGLang MLA kernels (2024).</strong> Both serving frameworks ship MLA-specific inference kernels as of late 2024. vLLM's MLA backend (in <Code>{"vllm/attention/backends/mla/"}</Code>) fuses the absorbed query, attention score, and absorbed value reduction into a single kernel. SGLang's backend adds radix-tree prefix caching with position-aware reuse. Reading these kernels is the fastest path to understanding MLA at the metal: the memory layout tricks (tiling over {"d_c"}, streaming {"c_{kv}"} through shared memory) are where the compute savings actually materialise.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>11.1 What is the KV cache size per token per layer for MLA vs MHA?</H3>
-
-      <Prose>
-        For MHA: {"2 · H · d_h"} floats (K and V, all heads). For MLA: {"d_c + d_r"} floats ({"c_{kv}"} latent plus shared decoupled-RoPE K). At DeepSeek-V2 scale ({"H = 128, d_h = 128, d_c = 512, d_r = 64"}), MHA is 32768 floats, MLA is 576 — a 57x reduction. The MLA cache is independent of head count, which is why MLA models can afford wide attention (many heads) without paying for it at inference.
-      </Prose>
-
-      <H3>11.2 Why does MLA use a decoupled RoPE branch instead of RoPE-rotating the reconstructed K?</H3>
-
-      <Prose>
-        Because the absorption trick — rewriting {"Q · K^T = Q · (W^{UK} c_{kv})^T = (Q · W^{UK}) · c_{kv}^T"} — requires that no position-dependent operation sit between {"Q"} and {"W^{UK} c_{kv}"}. If RoPE rotated the reconstructed K, the rotation would interpose between Q and {"W^{UK}"}, and because the rotation varies per position, {"W^{UK}"} could not be absorbed into a static effective Q projection. Separating the content path (no RoPE, low-rank, absorbable) from the positional path (RoPE-rotated, tiny {"d_r"} dimension, unabsorbed) preserves both the cache savings and the positional signal. The two paths contribute additively to the attention score.
-      </Prose>
-
-      <H3>11.3 What does it mean for MLA to "absorb" {"W^{UK}"} and {"W^{UV}"}, and when does that happen?</H3>
-
-      <Prose>
-        Absorption is the algebraic rearrangement that makes attention computable without materialising per-head {"K"} and {"V"}. For {"W^{UK}"}: {"(Q · W^{UK}) · c_{kv}^T"} is computed as an effective query {"Q̃ = Q · W^{UK}"} (dim {"d_c"} per head) dotted against cached {"c_{kv}"} (dim {"d_c"}). For {"W^{UV}"}: the attention-weighted sum {"\\sum_s α_s · (W^{UV} c_{kv}^{(s)}) = W^{UV} · \\sum_s α_s c_{kv}^{(s)}"} is computed latent-first (cheap) then up-projected once per head. Absorption happens at inference only; during training the naive reconstruction is used because it produces more stable gradients on the LayerNorm statistics. At export time the absorbed weights are fused into the inference kernel.
-      </Prose>
-
-      <H3>11.4 Why does MLA not extend to encoder-only (BERT-style) models?</H3>
-
-      <Prose>
-        MLA's primary benefit is KV-cache compression for autoregressive decoding. Encoder-only models do not cache {"K, V"} across inference steps — they run a single forward pass over the full input sequence and produce all outputs at once. The memory saving from MLA is zero in that setting, and the extra up-projection compute is pure overhead vs plain MHA. For encoder-only models, plain MHA or GQA (if memory is tight during training) is the right choice; MLA's mechanism is aligned specifically with the generate-one-token-at-a-time regime.
-      </Prose>
-
-      <H3>11.5 If you doubled {"H"} from 128 to 256 in a DeepSeek-V2-style MLA model, how does KV cache change and how does per-step inference compute change?</H3>
-
-      <Prose>
-        KV cache per token is {"d_c + d_r"}, which does not depend on {"H"} — cache is unchanged. Per-step inference compute in the absorbed form has three main costs: the absorbed-query matmul {"(L · H · d_h · d_c)"}, the attention score matmul {"(L · L · H · d_c)"}, and the absorbed-value reduction {"(L · L · H · d_c)"} plus final up-projection {"(H · d_h · d_c)"}. All of these scale linearly in {"H"}, so per-step compute doubles. But memory bandwidth from the cache does not increase at all, and because attention compute is usually bandwidth-bound at long context, the practical wall-clock impact of doubling {"H"} is much less than 2x. This is the structural lesson: MLA makes wide attention cheap to serve, which is why DeepSeek-V2/V3 use more heads than typical LLaMA-scale models.
-      </Prose>
-
-    </div>
-  ),
-};
-
-export default mlaContent;
+<div className="neural-equation"><MathBlock>{"y=\\sum_i W_{O,i}U_{V,i}z_i."}</MathBlock></div>
+
+<Prose>{"For fixed weights, the product "}<InlineMath>{"W_{O,i}U_{V,i}"}</InlineMath>{" can be precomputed. It can also be left factorized. A larger precomputed matrix may cost more storage and arithmetic than two smaller multiplications, so “can absorb” is not the same as “every implementation must premerge at export.” The official reference computes useful contractions at runtime."}</Prose>
+
+<H3>{"Keep the original score scale"}</H3>
+
+<Prose>{"The effective query has width "}<InlineMath>{"d_c"}</InlineMath>{", but its score is the original content dot product expressed differently. The divisor remains "}<InlineMath>{"\\sqrt{d_k+d_r}"}</InlineMath>{", or the checkpoint's explicitly modified scale."}</Prose>
+
+<Prose>{"A generic attention call given concatenated latent and rotary features may default to "}<InlineMath>{"1/\\sqrt{d_c+d_r}"}</InlineMath>{". When "}<InlineMath>{"d_c\\ne d_k"}</InlineMath>{", that changes the logits and their concentration. It can produce valid shapes and plausible outputs while implementing the wrong model. For our real example, the intended divisor is "}<InlineMath>{"\\sqrt6"}</InlineMath>{"; the accidental latent-width divisor is "}<InlineMath>{"\\sqrt{10}"}</InlineMath>{"."}</Prose>
+
+<LatentPathsLab />
+
+<H3>{"A complete hand example"}</H3>
+
+<Prose>{"Use two heads, "}<InlineMath>{"d_c=d_k=d_v=d_r=2"}</InlineMath>{", one query at position 2 and memory positions 0,1,2. These are chosen arithmetic inputs, not trained activations. For easy hand rotations use a quarter turn per position; the trained study later uses ordinary RoPE instead."}</Prose>
+
+<NeuralTable caption={"A complete hand example"} headers={[<>{"Memory position"}</>,<>{"Cached c"}</>,<>{"Raw rotary key"}</>,<>{"Rotated rotary key"}</>]} rows={[[<>{"0"}</>,<>{"[1,0]"}</>,<>{"[1,0]"}</>,<>{"[1,0]"}</>],[<>{"1"}</>,<>{"[0,1]"}</>,<>{"[1,0]"}</>,<>{"[0,1]"}</>],[<>{"2"}</>,<>{"[1,1]"}</>,<>{"[1,0]"}</>,<>{"[−1,0]"}</>]]} />
+
+<Prose>{"Content queries are "}<InlineMath>{"q^C_0=[1,0]^T"}</InlineMath>{" and "}<InlineMath>{"q^C_1=[1,1]^T"}</InlineMath>{". Raw rotary queries "}<code>{"[1,0]"}</code>{" and "}<code>{"[0,1]"}</code>{" become "}<code>{"[−1,0]"}</code>{" and "}<code>{"[0,−1]"}</code>{" at position 2. Use"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"U_{K,0}=\\begin{bmatrix}1&0\\\\0&2\\end{bmatrix},\\quad\nU_{K,1}=\\begin{bmatrix}1&1\\\\1&-1\\end{bmatrix},\\quad\nU_{V,0}=I,\\quad\nU_{V,1}=\\begin{bmatrix}2&0\\\\1&-1\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"Head 0's effective query is "}<code>{"[1,0]"}</code>{". Its content scores are "}<code>{"[1,0,1]"}</code>{"; rotary scores are "}<code>{"[−1,0,1]"}</code>{". Add and divide by 2, obtaining logits "}<code>{"[0,0,1]"}</code>{". The weights are"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{[1,1,e]}{2+e}\\approx[0.211942,0.211942,0.576117]."}</MathBlock></div>
+
+<Prose>{"The weighted latent is "}<code>{"[0.788058,0.788058]"}</code>{". Because "}<InlineMath>{"U_{V,0}=I"}</InlineMath>{", that is also head 0's value output."}</Prose>
+
+<Prose>{"Head 1's effective content query is "}<code>{"[2,0]"}</code>{", giving content scores "}<code>{"[2,0,2]"}</code>{". The rotary scores are "}<code>{"[0,−1,0]"}</code>{", so scaled logits are "}<code>{"[1,−0.5,1]"}</code>{". Its weights are approximately "}<code>{"[0.449816,0.100368,0.449816]"}</code>{". Its weighted latent is "}<code>{"[0.899632,0.550184]"}</code>{", which its value map transforms into "}<code>{"[1.799265,0.349449]"}</code>{"."}</Prose>
+
+<Prose>{"The two heads read the same latent records but have different weights and different value outputs. To complete the example, combine them with"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"W_O=\\begin{bmatrix}1&0&0.5&0\\\\0&1&0&0.5\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"The attention contribution is approximately "}<code>{"[1.687691,0.962783]"}</code>{". This is an attention output vector; a full Transformer block still applies its residual and feedforward computation before a task prediction."}</Prose>
+
+<H3>{"Changing coordinates is different from losing coordinates"}</H3>
+
+<Prose>{"Let S be any invertible change of latent basis. Store "}<InlineMath>{"c'=Sc"}</InlineMath>{", and replace each up-projection U by "}<InlineMath>{"U'=US^{-1}"}</InlineMath>{". Then "}<InlineMath>{"U'c'=Uc"}</InlineMath>{", so every reconstructed key/value and attention result is unchanged. Our hand example checks "}<InlineMath>{"S=\\operatorname{diag}(2,0.5)"}</InlineMath>{" exactly."}</Prose>
+
+<Prose>{"This is why a latent coordinate does not automatically have a unique semantic identity. Its scale and basis can change with compensating maps. The argument applies to the defined cached vector after any normalization; it does not say that an arbitrary basis change commutes through RMSNorm."}</Prose>
+
+<Prose>{"Discarding coordinates is different: a noninvertible projection has no inverse that recovers all possible c. The actual effect depends on what was discarded and what the model needed. Section 6 measures that distinction on real observations."}</Prose>
+
+<H2>{"5. Implement it, then count the right things"}</H2>
+
+<H3>{"A transparent executable reference"}</H3>
+
+<Prose>{"This complete NumPy program implements both paths for the hand example. K/V are reconstructed only in the expanded branch. The rotary vectors are already rotated, making the matrix reassociation visible without hiding it inside a larger model."}</Prose>
+
+<CodeBlock language={"python"}>{"import numpy as np\n\n\ndef mla_read(query, latent, key_up, value_up, query_rope, key_rope,\n             scale, expanded=False):\n    # query [H,dk], latent [L,dc], up-maps [H,output_width,dc].\n    if expanded:\n        keys = np.einsum(\"lc,hpc->hlp\", latent, key_up)\n        values = np.einsum(\"lc,hvc->hlv\", latent, value_up)\n        content = np.einsum(\"hp,hlp->hl\", query, keys)\n    else:\n        effective_query = np.einsum(\"hp,hpc->hc\", query, key_up)\n        content = effective_query @ latent.T\n    logits = (content + query_rope @ key_rope.T) * scale\n    # All three keys are legal for this final-position hand example.\n    weights = np.exp(logits - logits.max(axis=-1, keepdims=True))\n    weights /= weights.sum(axis=-1, keepdims=True)\n    if expanded:\n        output = np.einsum(\"hl,hlv->hv\", weights, values)\n    else:\n        mixed_latent = weights @ latent\n        output = np.einsum(\"hc,hvc->hv\", mixed_latent, value_up)\n    return output, weights\n\n\nq = np.array([[1., 0.], [1., 1.]])\nc = np.array([[1., 0.], [0., 1.], [1., 1.]])\nuk = np.array([[[1., 0.], [0., 2.]], [[1., 1.], [1., -1.]]])\nuv = np.array([np.eye(2), [[2., 0.], [1., -1.]]])\nqr = np.array([[-1., 0.], [0., -1.]])\nkr = np.array([[1., 0.], [0., 1.], [-1., 0.]])\nwo = np.array([[1., 0., .5, 0.], [0., 1., 0., .5]])\nexpanded, first_weights = mla_read(q, c, uk, uv, qr, kr, .5, True)\nabsorbed, second_weights = mla_read(q, c, uk, uv, qr, kr, .5, False)\nprint(\"head outputs:\", np.round(absorbed, 6))\nprint(\"final output:\", np.round(wo @ absorbed.reshape(-1), 6))\nprint(\"same output:\", np.allclose(expanded, absorbed, atol=1e-12))\nprint(\"same weights:\", np.allclose(first_weights, second_weights, atol=1e-12))"}</CodeBlock>
+
+<Prose>{"It produces the two head outputs and final output calculated above, and both checks print "}<code>{"True"}</code>{". The "}<a href={"/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py"}>{"complete independent fixture program"}</a>{" additionally supplies editable latent/map inputs, rotations, a consistent basis change, broken-position and nonlinear-map contrasts, and exact byte/work counts. The full neural program in §6 adds normalized learned projections, actual causal masks, incremental cache state and task predictions."}</Prose>
+
+<LatentProgram file="mechanism-calculations.py" />
+
+<H3>{"What exactly is in the compact cache?"}</H3>
+
+<Prose>{"For B requests, N uniform layers, L occupied positions and s bytes per stored number, the unquantized compact payload is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\boxed{\\operatorname{bytes}=BNL(d_c+d_r)s.}"}</MathBlock></div>
+
+<Prose>{"There is one c and one shared rotated key per position/layer. Do not multiply c by H or count it twice because it participates in both the key and value calculations. Queries, score tiles, weighted latents and output vectors are transient work, not additional copies of the persistent history."}</Prose>
+
+<Prose>{"At fixed "}<InlineMath>{"d_c,d_r"}</InlineMath>{", increasing H leaves this formula unchanged. It still increases the number of comparisons and head outputs, as well as relevant parameters and transient tensors. This is a storage property, not free additional heads."}</Prose>
+
+<Prose>{"Different baselines require different denominators. The following are "}<strong>{"calculated representations"}</strong>{", all using H=128, content width 128, value width 128, rotary width 64 and latent width 512 where applicable:"}</Prose>
+
+<NeuralTable caption={"What exactly is in the compact cache?"} headers={[<>{"Representation"}</>,<>{"Stored numbers per token/layer"}</>,<>{"Meaning"}</>]} rows={[[<>{"Plain MHA, 128-wide keys and values"}</>,<>{"32,768"}</>,<>{"RoPE can rotate within its existing key width; this is a different parameterization"}</>],[<>{"GQA with 8 such KV heads"}</>,<>{"2,048"}</>,<>{"Shared heads with those stated widths"}</>],[<>{"MQA with one such KV head"}</>,<>{"256"}</>,<>{"Smallest payload in this particular table"}</>],[<>{"Same MLA function, literal expanded K/V cache"}</>,<>{"40,960"}</>,<>{"128 heads each store a 192-wide key and 128-wide value"}</>],[<>{"Same MLA function, expanded content plus one shared rotary key"}</>,<>{"32,832"}</>,<>{"Avoids duplicating the 64-wide rotary key across heads"}</>],[<>{"Compact MLA"}</>,<>{"576"}</>,<>{"One 512-wide latent plus one 64-wide rotary key"}</>]]} />
+
+<Prose>{"The compact payload is about 56.89 times smaller than the first plain-MHA count and 71.11 times smaller than the literal expanded representation of the "}<strong>{"same MLA function"}</strong>{". These answer different comparisons. It is 2.25 times the MQA payload in this table, not smaller than every alternative. A memory table alone contains no quality ranking."}</Prose>
+
+<Prose>{"For 60 layers, 32,768 positions, one request and two-byte numbers, compact MLA needs 2,264,924,160 bytes, or 2.109375 GiB. The plain-MHA row needs 120 GiB; GQA-8 needs 7.5 GiB. A GiB is "}<InlineMath>{"2^{30}"}</InlineMath>{" bytes. These are payload calculations, not measured allocator memory or statements that a whole model fits on a device."}</Prose>
+
+<Prose>{"The V2 report's headline 93.3% cache reduction compares "}<strong>{"different complete models"}</strong>{", DeepSeek-V2 and the earlier DeepSeek 67B. It is not the rounded value of our 56.89-fold, same-head-width calculation. Keep the stated comparison attached to any percentage. "}<a href={"https://arxiv.org/html/2405.04434v5"}>{"Original report"}</a>{"."}</Prose>
+
+<Prose>{"Actual allocation may include page rounding, reserved slots, position metadata, quantization scales, distributed replicas and cache layouts that materialize expanded heads. The "}<a href={"https://github.com/deepseek-ai/DeepSeek-V3/blob/main/inference/model.py"}>{"official V3 reference"}</a>{" visibly allocates different buffers for its "}<code>{"naive"}</code>{" and absorbed branches. An architecture supports a compact representation; an implementation must actually store it to realize that payload."}</Prose>
+
+<LatentBudgetLab />
+
+<H3>{"Why less data movement can involve more arithmetic"}</H3>
+
+<Prose>{"At fixed H, T, L and widths, the expanded attention core uses approximately"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"2BHTL(d_k+d_r+d_v)"}</MathBlock></div>
+
+<Prose>{"operations for scores and weighted values, counting a multiply-add as two. The absorbed core uses approximately"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"2BHTL(2d_c+d_r)."}</MathBlock></div>
+
+<Prose>{"It compares with a "}<InlineMath>{"d_c"}</InlineMath>{"-wide latent and also sums a "}<InlineMath>{"d_c"}</InlineMath>{"-wide latent. When "}<InlineMath>{"d_c"}</InlineMath>{" is larger than "}<InlineMath>{"d_k"}</InlineMath>{" and "}<InlineMath>{"d_v"}</InlineMath>{", these core arithmetic terms increase. For the widths in the table, the ratio is "}<InlineMath>{"1088/320=3.4"}</InlineMath>{"."}</Prose>
+
+<Prose>{"For one query and 32,768 memory positions, our formula gives about 2.684 billion expanded-core operations versus 9.127 billion absorbed-core operations. The absorbed representation can nevertheless reduce persistent storage and repeated memory traffic by sharing the latent across heads. Effective hardware reuse, tiling, bandwidth and occupancy determine how these facts translate into time."}</Prose>
+
+<Prose>{"There is another comparison: rebuilding "}<strong>{"all"}</strong>{" historical expanded K/V from a compact cache for every new query costs roughly"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"2BLH d_c(d_k+d_v)"}</MathBlock></div>
+
+<Prose>{"additional operations. Absorption avoids that repeated reconstruction. Instead, it transforms each new query and the resulting weighted latent once per head. In our numerical configuration, full-prefix reconstruction is about "}<InlineMath>{"1.10\\times10^{12}"}</InlineMath>{" operations; each of those two per-query transformations is about 16.78 million. Avoiding reconstruction is useful, but it is not evidence that absorbed dense attention has 57 times fewer operations than an already-expanded-cache attention core."}</Prose>
+
+<Prose>{"Prefill has many known query rows; decode often has one new row per request. A compute-friendly expanded path can be attractive during prefill, with bounded temporary reconstruction, while a compact path can suit decode. "}<a href={"https://docs.vllm.ai/en/v0.20.0/api/vllm/model_executor/layers/attention/mla_attention/"}>{"vLLM's MLA implementation notes"}</a>{" explain both forms and chunked prefill. Use the actual dimensions: "}<InlineMath>{"T/L"}</InlineMath>{" is near 1 for an uncached full prefill and small for one-query decode. Do not reproduce a reversed small/large ratio from a documentation sentence."}</Prose>
+
+<H3>{"Parameter counts are also dimension-dependent"}</H3>
+
+<Prose>{"Ignoring biases and normalization parameters, the factorized design described here has"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"D(d_c+d_q+d_r)\n+Hd_c(d_k+d_v)\n+Hd_q(d_k+d_r)\n+DHd_v"}</MathBlock></div>
+
+<Prose>{"projection parameters. The four terms account for input/down maps, KV up maps, query up maps and the output map. A direct-query design changes the query terms. Learned latent normalization adds its scales."}</Prose>
+
+<Prose>{"There is no universal “only a few percent more than MHA” answer. In particular, the convenient MHA expression "}<InlineMath>{"4D^2"}</InlineMath>{" assumes the usual total head widths equal D. A configuration with "}<InlineMath>{"Hd_k\\ne D"}</InlineMath>{" does not satisfy that assumption. Count the actual maps before comparing architectures or optimizer-state memory."}</Prose>
+
+<H3>{"Use the absorbed representation with an ordinary attention primitive"}</H3>
+
+<Prose>{"The "}<a href={"/learn-assets/multi-head-latent-attention-mla/mla_sdpa_bridge.py"}>{"complete SDPA bridge"}</a>{" supplies a practical tensor API route. Concatenate the absorbed query "}<code>{"q_content @ U_K"}</code>{" and positioned rotary query; concatenate each cached latent and positioned shared rotary key. Use the cached latent as the value. SDPA then returns a latent mixture, which each head's value-up map turns into its output."}</Prose>
+
+<Prose>{"Pass "}<code>{"scale=1/sqrt(P+R)"}</code>{" explicitly. SDPA's default would use the concatenated width C+R, changing the function whenever C differs from P. "}<code>{"enable_gqa=True"}</code>{" makes all query heads read the one-head shared memory. The boolean mask means allowed and uses the logical positions; dropout is zero. The complete program compares direct/API output, all six input/factor gradients and one equal update. Run "}<code>{"python mla_sdpa_bridge.py"}</code>{" with PyTorch. A bounded author probe on Torch 2.14.0 CPU gave output discrepancy 4.44e-16 and largest gradient discrepancy 3.33e-16."}</Prose>
+
+<LatentProgram file="mla_sdpa_bridge.py" />
+
+<Prose>{"This uses the "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html"}>{"PyTorch SDPA contract"}</a>{"; it is not a specialized DeepSeek kernel. Device/backend support and physical allocation for grouped queries with unequal value width need separate measurement. The original tensor path remains a useful fallback. The whole model also has projections, latent normalization, residuals, positions and cache identity; those remain explicit in "}<code>{"LatentForecaster"}</code>{", rather than being inferred from operator agreement."}</Prose>
+
+<Prose>{""}<strong>{"Change the constraint:"}</strong>{" use latent width 7 with P=3 and R=2. Change the latent and both up-projection shapes together. "}<strong>{"Hint:"}</strong>{" absorption changes representation width, not the intended temperature. "}<strong>{"Solution:"}</strong>{" preserve "}<code>{"1/sqrt(5)"}</code>{" in both routes; the equality checks should still pass. Deliberately using "}<code>{"1/sqrt(9)"}</code>{" in only one route creates a shape-valid semantic mismatch."}</Prose>
+
+<H2>{"6. A real model: exact execution and a lossy intervention"}</H2>
+
+<H3>{"Predict the next point of an observed movement"}</H3>
+
+<Prose>{"The task is causal coordinate forecasting using "}<a href={"https://archive.ics.uci.edu/dataset/181/libras%2Bmovement"}>{"UCI Libras Movement"}</a>{", an openly licensed set of normalized hand-centroid trajectories. Each row contains 45 ordered x/y pairs. At positions 0–43, predict the next coordinate pair at positions 1–44, without reading future points."}</Prose>
+
+<Prose>{"The source has 360 rows, including 30 extra copies of exact trajectories. After checking duplicate labels agree, retain the first occurrence of each distinct trajectory. Reuse the declared seed-73 classwise row split: 220 training, 50 validation and 60 test trajectories. Keep entire trajectories together. Labels determine stratification only; they are not forecast inputs or targets."}</Prose>
+
+<Prose>{"Use fixed "}<InlineMath>{"2x-1"}</InlineMath>{" scaling and convert RMSE back to the original coordinate unit. The source does not provide reliable per-row performer/session IDs, so this is a row-level diagnostic, not a test on a new signer. Its coordinates have already been processed by the dataset creators; the study does not validate an online camera pipeline. "}<a href={"/learn-assets/multi-head-latent-attention-mla/data-provenance.md"}>{"Full source/protocol provenance"}</a>{" accompanies the original offline files."}</Prose>
+
+<Prose>{"Persistence predicts the latest point unchanged. A six-parameter affine map predicts the next two coordinates from the current two, fitted only on training transitions. Smooth trajectories make these meaningful baselines."}</Prose>
+
+<H3>{"The complete small architecture and declared training"}</H3>
+
+<Prose>{"Our model has a 2-to-24 stem and one pre-normalized Transformer block. There are four heads with content width 4, rotary width 2 and value width 4. The KV latent has eight coordinates; the query latent has twelve. Both use RMSNorm with epsilon "}<InlineMath>{"10^{-6}"}</InlineMath>{" and learned scales. Residual/final LayerNorm uses epsilon "}<InlineMath>{"10^{-5}"}</InlineMath>{". The FFN has width 48 with GELU; the final prediction has two unconstrained coordinates."}</Prose>
+
+<Prose>{"Attention maps have no biases. Stem, FFN and forecast maps have biases. Ordinary adjacent-pair RoPE uses base 10000, with the correct logical positions; there is no YaRN or dropout. This is a small dense model designed to expose MLA's mechanism, not a reproduction of DeepSeek's expert network."}</Prose>
+
+<Prose>{"Train once with seed 131 for 200 full-batch Adam updates at learning rate 0.003, no weight decay. Choose the lowest validation MSE, taking the earliest exact tie. The selected checkpoint is update 200, the budget boundary. That is the recorded selection, not a claim that optimization has converged. The model has 4,118 trainable parameters."}</Prose>
+
+<H3>{"Check the same function before changing its information"}</H3>
+
+<Prose>{"Use the "}<strong>{"same weights and inputs"}</strong>{" for reconstructed and absorbed paths. In a float64 check on a small real prefix, their complete model outputs differ by at most "}<InlineMath>{"3.89\\times10^{-16}"}</InlineMath>{". Backpropagating the same squared-output objective through both paths gives corresponding gradients for "}<strong>{"every parameter"}</strong>{", with maximum difference "}<InlineMath>{"7.11\\times10^{-15}"}</InlineMath>{"."}</Prose>
+
+<Prose>{"This directly contradicts the idea that absorbed attention must have unstable gradients because its normalization statistics somehow change. Both paths normalize the same vector and define the same differentiable function. Floating-point order and a kernel's implementation can affect numerical behavior; they do not change the algebraic identity. An exported, detached product must of course be refreshed if its underlying trainable weights change."}</Prose>
+
+<Prose>{"For the 32-point visible prefix, ordinary float32 expanded/absorbed forecasts agree within "}<InlineMath>{"1.79\\times10^{-7}"}</InlineMath>{" in transformed coordinates. Processing the same prefix one point at a time with the compact cache agrees with the full causal pass within "}<InlineMath>{"3.58\\times10^{-7}"}</InlineMath>{". This checks projection, rotary positions, masks, residual computation and forecasts—not just concatenating already computed arrays."}</Prose>
+
+<H3>{"Deliberately remove four latent directions"}</H3>
+
+<Prose>{"Now ask a different question. Stack the trained content-key and value up-projections into a joint output-by-latent matrix M. Its singular value decomposition identifies orthogonal latent directions and their contribution to those linear maps. Let P contain the four right singular vectors with the largest singular values."}</Prose>
+
+<Prose>{"For each new input, first compute the original normalized eight-coordinate c, then cache only"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"c'=P^Tc\\in\\mathbb R^4."}</MathBlock></div>
+
+<Prose>{"Replace each up-projection U by UP. The reconstructed representation is now "}<InlineMath>{"UPP^Tc"}</InlineMath>{", which discards the other four directions. The rotary key and query paths stay unchanged. There is "}<strong>{"no additional training"}</strong>{" and no test-driven choice of rank."}</Prose>
+
+<Prose>{"This intervention reduces persistent content coordinates. It still computes the original eight-coordinate RMSNorm before projection; it is not a separately trained four-coordinate latent architecture. The distinction matters both for arithmetic and for interpreting the result."}</Prose>
+
+<Prose>{"The discarded squared singular values sum to about 2.862722. That matches the squared Frobenius error of the rank-4 joint up-projection. This is the optimum for that specified "}<strong>{"parameter-space reconstruction objective"}</strong>{", not a guarantee of minimal attention error or forecast loss."}</Prose>
+
+<Prose>{"Use all eight singular directions as a control. The complete orthogonal basis changes coordinates but loses none, so the outputs should agree. Across the validation set, the actual maximum difference is "}<InlineMath>{"3.58\\times10^{-7}"}</InlineMath>{" in transformed coordinates. We have separately checked a basis change and a truncation, instead of calling both “compression.”"}</Prose>
+
+<H3>{"Actual outcomes"}</H3>
+
+<Prose>{"RMSE is per original normalized coordinate over all 44 output slots of each trajectory. The held-out set contains 60 whole trajectories."}</Prose>
+
+<NeuralTable caption={"Actual outcomes"} headers={[<>{"Method"}</>,<>{"Validation RMSE"}</>,<>{"Test RMSE"}</>,<>{"Float32 compact payload for one 32-point prefix"}</>]} rows={[[<>{"Selected MLA, 8 content coordinates + 2 rotary"}</>,<>{"0.025576"}</>,<>{"0.024946"}</>,<>{"1,280 bytes"}</>],[<>{"Same model, rank-4 cache intervention + 2 rotary"}</>,<>{"0.095481"}</>,<>{"0.091934"}</>,<>{"768 bytes"}</>],[<>{"Persistence baseline"}</>,<>{"—"}</>,<>{"0.026458"}</>,<>{"Not an MLA cache"}</>],[<>{"Training-fitted affine baseline"}</>,<>{"—"}</>,<>{"0.026222"}</>,<>{"Not an MLA cache"}</>]]} />
+
+<Prose>{"The selected small MLA is only modestly better than these simple baselines. The unadapted rank reduction substantially damages its forecasts. Both findings belong in the lesson. A lower parameter reconstruction error than another factorization would not prove good task performance; an important direction can have a modest singular value."}</Prose>
+
+<Prose>{"The table does not compare this model directly with preceding lessons' differently shaped attention models. It also does not establish that a model trained from scratch at rank four could not learn well, or that further adaptation would never help. Those are different experiments requiring their own declared protocols."}</Prose>
+
+<H3>{"Inspect an actual cached prediction"}</H3>
+
+<Prose>{"The visible input was chosen before training: source row 77, with its first 32 points observed. The actual next point is approximately "}<code>{"[0.593810,0.250000]"}</code>{"."}</Prose>
+
+<Prose>{"The full model predicts "}<code>{"[0.599737,0.263627]"}</code>{"; the rank-4 intervention predicts "}<code>{"[0.613758,0.260927]"}</code>{". The compact tensors have shapes "}<code>{"[1,32,8]"}</code>{" and "}<code>{"[1,32,2]"}</code>{" in the first case, versus "}<code>{"[1,32,4]"}</code>{" and "}<code>{"[1,32,2]"}</code>{" in the second. The two cache fields have different meanings; the rotary field is not a second copy of the latent."}</Prose>
+
+<Prose>{"Reflect observed point 23's x coordinate with "}<InlineMath>{"x\\mapsto1-x"}</InlineMath>{" and recompute the prefix. The full model's final prediction becomes "}<code>{"[0.600519,0.263407]"}</code>{". All outputs before the edited point remain "}<strong>{"exactly unchanged"}</strong>{" in the checked computation. A changed past observation can affect subsequent forecasts, so the cache for the old prefix cannot silently be reused."}</Prose>
+
+<Prose>{"Shift all logical positions by 100 under the same ordinary RoPE rule. Full-model outputs agree within "}<InlineMath>{"1.79\\times10^{-7}"}</InlineMath>{". Moving only queries while retaining old rotated keys is a different operation and generally changes scores. A consistent global position transformation can be a valid equivalence; “a cache can never be reused at another absolute position” is too strong. Reuse must preserve or correctly transform all relevant state and positional conventions."}</Prose>
+
+<Prose>{"The wrong scale "}<InlineMath>{"1/\\sqrt{10}"}</InlineMath>{" changes this full model's final prediction only slightly, to "}<code>{"[0.599745,0.263674]"}</code>{". The small effect is still a changed function. Do not magnify it into a dramatic failure. For the rank-4 intervention, its latent width happens to equal the content-head width, so the accidental default equals the intended scale and gives a null result. A test that covers only equal widths can therefore miss the bug."}</Prose>
+
+<LatentForecastLab />
+
+<H3>{"Reproduce the entire study"}</H3>
+
+<Prose>{"Place "}<a href={"/learn-assets/multi-head-latent-attention-mla/author-calculations.py"}>{"the full CPU program"}</a>{", "}<a href={"/learn-assets/multi-head-latent-attention-mla/movement_libras.data"}>{"original data"}</a>{" and "}<a href={"/learn-assets/multi-head-latent-attention-mla/movement_libras.names"}>{"original metadata"}</a>{" together. With Python, NumPy and PyTorch installed, run:"}</Prose>
+
+<CodeBlock language={"bash"}>{"python author-calculations.py"}</CodeBlock>
+
+<Prose>{"The recorded environment is Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu, with one CPU thread and deterministic algorithms. The complete program implements preprocessing, duplicate-aware splitting, both baselines, training/selection, both MLA paths, normalized cache truncation, full-parameter derivative checks and actual forecast/cache interventions. It requires no network or GPU. "}<a href={"/learn-assets/multi-head-latent-attention-mla/author-results.json"}>{"Recorded results"}</a>{" and "}<a href={"/learn-assets/multi-head-latent-attention-mla/forecast-model.json"}>{"saved weights/traces"}</a>{" make the observations inspectable; different numerical environments can change last digits."}</Prose>
+
+<Prose>{"Read "}<code>{"LatentForecaster.forward"}</code>{" in the same order as the diagram: normalize the input state, compute content/query latents and rotary branches, append compact fields and logical IDs, calculate the two score terms with the original scale, mask and normalize, mix latents, expand the current head outputs, then complete the residual/FFN/task path."}</Prose>
+
+<LatentProgram file="author-calculations.py" />
+
+<Prose>{"The website investigation needs only one small model and the selected input. Full author evidence is an optional download. It should not train models, evaluate the entire corpus or eagerly load every experiment on page opening."}</Prose>
+
+<H2>{"7. Deeper connections and practical boundaries"}</H2>
+
+<H3>{"What is low rank, and what is not?"}</H3>
+
+<Prose>{"Before normalization, stacking the content-key and value maps gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\begin{bmatrix}k^C\\\\v\\end{bmatrix}\n=\\underbrace{\\begin{bmatrix}U_K\\\\U_V\\end{bmatrix}}_M\nW^{DKV}h."}</MathBlock></div>
+
+<Prose>{"The effective linear map has rank at most "}<InlineMath>{"d_c"}</InlineMath>{". With a nonlinear normalization before the up-map, the entire h-to-output map is no longer one fixed linear matrix. Nevertheless, the stacked outputs still lie in the column space of M, whose dimension is at most "}<InlineMath>{"d_c"}</InlineMath>{". These are related but different rank statements."}</Prose>
+
+<Prose>{"This restriction explains why a smaller latent can lose useful distinctions. If two cached content vectors are identical, all their reconstructed content keys and values are identical. Their rotary keys can still differ, and the full model has other paths, so do not turn this into a claim that the complete inputs or predictions must be indistinguishable in every setting."}</Prose>
+
+<Prose>{"For one head, the unnormalized content-score matrix factors through the latent coordinates. But row-softmax is nonlinear and does not preserve matrix rank. For example, the three-by-three logit matrix with entries "}<InlineMath>{"\\ell_{ij}=ij"}</InlineMath>{" for i,j in "}<code>{"{0,1,2}"}</code>{" has rank one. Its row-softmax matrix has rank three; the independently computed determinant is about 0.024431."}</Prose>
+
+<LatentSoftmaxFigure />
+
+<Prose>{"MLA therefore does not make the full softmax attention matrix low rank merely by using low-rank projection parameters. Dense full-sequence attention still compares query/key positions; its usual score work grows quadratically with sequence length. The "}<a href={"/learn/path/full-curriculum/sparse-linear-attention-variants?module=deep-learning-fundamentals"}>{"next Sparse and Linear Attention lesson"}</a>{" changes which comparisons happen or which operator is computed. Latent-coordinate compression and sequence-level approximation are separate ideas."}</Prose>
+
+<H3>{"Why a good matrix approximation can be a poor predictor"}</H3>
+
+<Prose>{"For a matrix M with singular values "}<InlineMath>{"\\sigma_1\\ge\\cdots\\ge\\sigma_r"}</InlineMath>{", a rank-k truncated SVD minimizes the squared Frobenius reconstruction error, with error "}<InlineMath>{"\\sum_{j>k}\\sigma_j^2"}</InlineMath>{". One way to understand this is to use orthogonal singular coordinates: each retained direction preserves one independent squared-energy contribution, so retaining the largest contributions minimizes the discarded sum. The full theorem covers all rank-k matrices, not only a particular coordinate deletion."}</Prose>
+
+<Prose>{"This objective weights matrix entries uniformly. Actual inputs need not visit every direction uniformly, and task outputs need not value all errors equally. Take "}<InlineMath>{"M=\\operatorname{diag}(10,1)"}</InlineMath>{". Its best rank-one Frobenius approximation is "}<InlineMath>{"\\operatorname{diag}(10,0)"}</InlineMath>{", with squared error 1. For input "}<code>{"[0,10]"}</code>{", however, the original output is "}<code>{"[0,10]"}</code>{" and the approximation gives "}<code>{"[0,0]"}</code>{". The discarded direction contains the entire useful signal for this input."}</Prose>
+
+<Prose>{"In attention, the consequences can be even less direct: key errors alter normalized weights, value errors alter what those weights mix, and later layers transform the result. A data-aware reconstruction objective might weight directions using input covariance; a task-aware adaptation can optimize prediction loss. Neither is automatically equivalent to minimizing projection-weight distance. Our rank-4 result is a concrete example of the distinction."}</Prose>
+
+<LatentRankLab />
+
+<H3>{"Converting an existing checkpoint is possible, but not a configuration edit"}</H3>
+
+<Prose>{"An arbitrary trained MHA/GQA checkpoint does not already have the required joint latent factorization and shared rotary design. Changing a head-count or rank field cannot create compatible weights. It is also incorrect to claim that useful conversion is impossible."}</Prose>
+
+<Prose>{""}<a href={"https://aclanthology.org/2025.acl-long.1597.pdf"}>{"MHA2MLA, published at ACL 2025"}</a>{", investigates partial-RoPE adaptation and joint low-rank factorization, followed by continued training. Its methods explicitly assess retained rotary subspaces and factorize the relevant key/value maps. This is a studied conversion route with measured tradeoffs, not proof that every checkpoint converts losslessly. A converted variant's retained rotary components and cache accounting must be read from that variant, rather than assumed identical to the original shared-key V2 design."}</Prose>
+
+<Prose>{"A bounded conceptual initialization is straightforward when the relevant K/V maps are linear and no incompatible positional operation intervenes. Stack their output-by-input weights into M, compute a truncated SVD "}<InlineMath>{"M\\approx U_k\\Sigma_kV_k^T"}</InlineMath>{", choose down-map "}<InlineMath>{"\\Sigma_k^{1/2}V_k^T"}</InlineMath>{" and joint up-map "}<InlineMath>{"U_k\\Sigma_k^{1/2}"}</InlineMath>{", then split the up-map into key and value parts. These factors approximate the original parameter matrix. They do not automatically preserve task outputs, compensate for changed rotary dimensions or supply the proper normalization/adaptation recipe."}</Prose>
+
+<Prose>{"Our small study starts from a model already trained with MLA and reduces its post-normalization cache. It is not a reproduction of MHA2MLA's full-to-partial-RoPE checkpoint conversion. The original normalization remains part of the declared model, so the two experiments should not be conflated."}</Prose>
+
+<H3>{"What can move through the value sum?"}</H3>
+
+<Prose>{"The value rearrangement requires a map shared across memory positions that is linear in the summed latent. An affine map "}<InlineMath>{"Uc+b"}</InlineMath>{" can also be handled: if attention weights sum to one, its weighted output is "}<InlineMath>{"U\\sum_s a_sc_s+b"}</InlineMath>{". With attention dropout or other unnormalized weights, the bias contributes "}<InlineMath>{"b\\sum_s a_s"}</InlineMath>{", which must be accounted for explicitly."}</Prose>
+
+<Prose>{"A nonlinear map generally cannot move outside the sum. With latents −1 and 1 and weights one-half each, mixing their ReLU values gives 0.5, while applying ReLU to their mixed latent gives 0. Moving the nonlinearity has changed the function."}</Prose>
+
+<Prose>{"Head-dependent linear maps are fine because each head has its own weighted latent. Position-dependent maps generally cannot be pulled outside a sum over positions as one fixed map. Data-dependent routing or quantization also needs its own exact contract. This reasoning is more useful than memorizing that every operation called an “up-projection” is absorbable."}</Prose>
+
+<H3>{"Backward computation and numerical precision"}</H3>
+
+<Prose>{"For an output "}<InlineMath>{"o=Uz"}</InlineMath>{", the gradient with respect to U is the outer product of the upstream output derivative with z; the gradient with respect to z is "}<InlineMath>{"U^T"}</InlineMath>{" times that derivative. For "}<InlineMath>{"z=\\sum_s a_sc_s"}</InlineMath>{", c receives both a direct value-mixture contribution and an indirect contribution through attention weights when c also influences keys."}</Prose>
+
+<Prose>{"The same dependencies exist in the expanded graph. The chain rule combines them in a different order; it does not create a different intended derivative. Our full-parameter check compares those derivatives rather than relying on a loss curve as evidence that attention is correct."}</Prose>
+
+<Prose>{"Floating-point multiplication and summation are not perfectly associative. Different intermediate precision, softmax accumulation, kernel reductions or quantization can produce different numerical errors. Compare outputs and gradients with a clear tolerance and inspect which operation changes. Exact algebra does not promise bitwise equality across GPU kernels."}</Prose>
+
+<Prose>{"Nor does “FP8 model” mean every tensor, operation and cache field is FP8. The "}<a href={"https://arxiv.org/html/2412.19437v2#S3.SS3"}>{"V3 mixed-precision report"}</a>{" retains higher precision for selected operations, including attention and normalization. Cache storage is a separate serving choice. A currently documented V3.2 sparse FlashMLA format has 512 one-byte latent values, 16 scale bytes and 128 bytes for 64 BF16 rotary coordinates: "}<strong>{"656 bytes per token"}</strong>{", not simply 576 or 512. This is that specific format, not a universal MLA layout. "}<a href={"https://github.com/deepseek-ai/FlashMLA#mla-decoding"}>{"Official FlashMLA cache-format documentation"}</a>{"."}</Prose>
+
+<H3>{"Read empirical claims with their actual comparison"}</H3>
+
+<Prose>{"The original attention ablations are in "}<strong>{"Appendix D"}</strong>{", not the overall model comparison in Table 2. Table 9's small-MoE comparison reports MMLU 48.7 versus 50.0 for MHA/MLA, but C-Eval 51.6 versus 50.9. Its large-MoE comparison uses a different training scale. These are useful scoped results; even this one table does not justify “MLA never loses quality.” "}<a href={"https://arxiv.org/html/2405.04434v5#A4"}>{"DeepSeek-V2 attention ablations"}</a>{"."}</Prose>
+
+<Prose>{"A quality-versus-cache plot needs comparable models, tasks, training budgets and measurements. Combining an MMLU number from one model family with a task-average score from another paper does not create a measured frontier. Our figures instead show exact formula-derived storage, actual operator differences and actual local forecasting outcomes, with their evidence types labelled."}</Prose>
+
+<Prose>{"The "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V2/raw/main/config.json"}>{"V2"}</a>{" and "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/main/config.json"}>{"V3"}</a>{" configurations share several MLA widths, but differ in model width, layer count and other settings. A supported buffer length in a configuration also need not equal a demonstrated effective context length on every task. Use the full positional configuration and training/evaluation evidence before extending an inference length."}</Prose>
+
+<H3>{"Applications and interactions worth recognizing"}</H3>
+
+<Prose>{""}<strong>{"Cached cross-attention."}</strong>{" If encoder outputs are fixed while a decoder generates, their latent content and positional representations can be cached and reused. Source positions and decoder positions need an appropriate cross-attention convention; blindly reusing the self-attention rotary relation may be inappropriate. If the source changes, its cached representation changes. The later cross-attention topic owns the full source/target alignment design."}</Prose>
+
+<Prose>{""}<strong>{"Movement, sensor and event streams."}</strong>{" Our forecast demonstrates an actual non-language use. Compact per-observation state can help when many positions are retained. A dense cache still grows with stream length; a window, reset or another architecture is needed for bounded indefinite memory. Sensor calibration or corrected historical observations also require invalidation policies."}</Prose>
+
+<Prose>{""}<strong>{"MoE and sparse attention."}</strong>{" Expert routing usually changes the feedforward part of a Transformer; MLA changes attention representation. They can coexist without expert count multiplying every attention-cache field. Likewise, selecting fewer legal/retrieved positions can coexist with a latent representation for those positions. The current "}<a href={"https://github.com/deepseek-ai/FlashMLA"}>{"FlashMLA repository"}</a>{" distinguishes dense and sparse kernels and version-specific formats. The next variants lesson and "}<a href={"/learn/path/full-curriculum/mixture-of-experts-transformers-moe?module=deep-learning-fundamentals"}>{"MoE lesson"}</a>{" develop these separate mechanisms."}</Prose>
+
+<Prose>{""}<strong>{"Encoders and short inputs."}</strong>{" The operator can be used without an autoregressive cache. Its main persistent-history saving then may not apply, but representation/parameter choices can still be studied. There is no mathematical ban on encoder use or universal one-billion-parameter cutoff. Compare the actual task, temporary activation requirements and implementation support."}</Prose>
+
+<H3>{"Choose the implementation for the workload"}</H3>
+
+<Prose>{"Start with an explicit reference for masks, shapes, scale, normalization, rotary layout and cache lifetime. Then select an implementation that supports those dimensions and dtypes. Check whether the kernel expects expanded heads or an MQA-like latent layout; that API label can describe how the same MLA computation is executed, rather than a different trained architecture."}</Prose>
+
+<Prose>{"For performance, measure prefill and decode separately at stated lengths, batches, dtypes and hardware, including cache allocation and synchronization. Consider total weights, temporary workspace, communication and scheduling. A cache ratio alone cannot explain a commercial API price or establish how many GPUs serve a complete model under a latency target."}</Prose>
+
+<Prose>{"The published "}<a href={"https://arxiv.org/html/2412.19437v2#S3.SS4"}>{"V3 deployment discussion"}</a>{" describes substantial distributed, workload-specific arrangements. It is not evidence for a universal single-server fit rule. Current kernels may support formats and variants newer than this lesson's V2/V3 core; pin the actual source/version when reproducing them. Our CPU programs teach correctness and the effects of a declared intervention, with no claim of a production latency crossover."}</Prose>
+
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"8. Practice: preserve a computation or change it deliberately"}</H2>
+
+<Prose>{"Use a fresh calculation or prediction before opening the optional help. Exercises 1–5 cover the first-pass route; 6–9 extend the deeper branches."}</Prose>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"1. Read one head through a different latent basis"}</H3>
+
+<Prose>{"A head has content query "}<code>{"[1,2]"}</code>{", latent records "}<code>{"[1,0]"}</code>{" and "}<code>{"[0,1]"}</code>{", key up-map "}<code>{"[[2,0],[0,1]]"}</code>{", value up-map equal to the identity, and no positional contribution. The defined scale is "}<InlineMath>{"1/\\sqrt2"}</InlineMath>{". Compute its effective query, weights and output. Then use basis change "}<InlineMath>{"S=\\operatorname{diag}(2,0.5)"}</InlineMath>{". What must happen to the latent records and up-maps to preserve the output?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Compute "}<InlineMath>{"U_K^Tq"}</InlineMath>{" first. A consistent basis change uses "}<InlineMath>{"c'=Sc"}</InlineMath>{" and "}<InlineMath>{"U'=US^{-1}"}</InlineMath>{"."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The effective query is "}<code>{"[2,2]"}</code>{"; both scaled scores are "}<InlineMath>{"\\sqrt2"}</InlineMath>{", so weights are "}<code>{"[0.5,0.5]"}</code>{" and the output is "}<code>{"[0.5,0.5]"}</code>{". The new latent records are "}<code>{"[2,0]"}</code>{" and "}<code>{"[0,0.5]"}</code>{". Right-multiply both up-maps by "}<InlineMath>{"S^{-1}=\\operatorname{diag}(0.5,2)"}</InlineMath>{". Their reconstructed keys and values then equal the originals, so scores, weights and output are preserved. Changing only the stored coordinates would generally change the function."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"2. Preserve the temperature after absorption"}</H3>
+
+<Prose>{"A model has content-head width 4, rotary width 4 and latent width 12. Its concatenated latent/rotary query has width 16. A library uses its default inverse-square-root feature-width scale. What scale should the model use, what scale did the library choose, and how were the logits changed? Why can a test with latent width 4 miss this mistake?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"The algebra preserves the old dot product, so compare the original content-plus-rotary width with the new representation width."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The intended scale is "}<InlineMath>{"1/\\sqrt8"}</InlineMath>{"; the default is "}<InlineMath>{"1/\\sqrt{16}=1/4"}</InlineMath>{". Every finite unmasked logit is multiplied by "}<InlineMath>{"\\sqrt{8/16}=1/\\sqrt2"}</InlineMath>{" relative to the intended value, making unequal logits less separated before softmax. This generally changes weights, although equal-score or other special cases can be unchanged. If latent width also equals 4, both total widths equal 8 and the scales coincide, concealing the bug."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"3. Build the compact payload"}</H3>
+
+<Prose>{"Two requests each retain 2,048 positions at 12 layers. The content latent has 24 coordinates and the shared rotary key has 8, stored at two bytes each. Compute the compact payload in bytes and MiB. If the model doubles its query-head count while preserving these cache widths, what changes in this count and what can still become more expensive?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Multiply requests, layers, occupied positions, coordinates per record and bytes per coordinate. A MiB is "}<InlineMath>{"2^{20}"}</InlineMath>{" bytes."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The payload is "}<InlineMath>{"2\\times12\\times2048\\times32\\times2=3,145,728"}</InlineMath>{" bytes, or 3 MiB. It stays unchanged when only query-head count doubles. Query/head projections, score/value-mixture work and transient tensors can grow, as can communication or kernel overhead. The payload excludes reserved capacity, metadata, replicated copies and other model state."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"4. Distinguish three “compression” operations"}</H3>
+
+<Prose>{"A programmer proposes: A, rearrange the same MLA weights from reconstructed to absorbed execution; B, change to an invertible latent basis and compensate every up-map; C, retain only the first half of some latent coordinates. Which are algebraically function-preserving under the stated conditions? Does an observed agreement on one input prove C is lossless?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Ask whether information or an operation was discarded, rather than whether a tensor has a new name."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"A is exact when masking, scale, positions and all other operations remain equivalent. B is exact for the defined cached vector with the compensating inverse maps. C is generally lossy; it is exact only if the discarded directions have no relevant effect for the domain being claimed. Agreement on one input may mean that input has no discarded component or that effects cancel. It does not prove equality for every possible input. A basis change before an uncompensated nonlinear normalization is a different operation from B."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"5. Diagnose a cache that forgot its positional field"}</H3>
+
+<Prose>{"A developer caches only the normalized content latent, then reconstructs every shared rotary key as if its position were zero. Shapes still match, and next-token outputs look plausible. What information is wrong? Why is a successful one-position test insufficient? Give a useful controlled comparison."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Trace the two additive score terms. Think about both different relative distances and a consistent common shift."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The content term can be correct while the rotary term compares queries with keys rotated at the wrong logical positions. A one-position test can have only one legal key, making softmax equal to one regardless of the score; it therefore cannot establish positional correctness. Compare an explicit multi-position reference with the cache path, using unequal vectors and distances. Also shift all positions consistently under fixed ordinary RoPE as a preservation control, then shift only queries or only cached-key positions as a contrasting operation. Retain or correctly reconstruct each required rotary key and its positional contract."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"6. Find the nonlinear obstruction"}</H3>
+
+<Prose>{"Two cached scalar latents are −2 and 1 with weights 1/3 and 2/3. Values are obtained with ReLU. Compare mixing the values with applying ReLU after mixing latents. Would the rearrangement become valid for a fixed linear value map instead?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Evaluate ReLU on each value first in the original expression. In the second expression, add before applying it."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Mixing ReLU values gives "}<InlineMath>{"(1/3)0+(2/3)1=2/3"}</InlineMath>{". Mixing latents gives "}<InlineMath>{"(1/3)(-2)+(2/3)1=0"}</InlineMath>{", whose ReLU is zero. The two computations differ. A fixed linear map distributes over the weighted sum, so its rearrangement is exact. A position-dependent map, normalization or nonlinear activation needs separate analysis."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"7. Explain why the smaller cache did more arithmetic"}</H3>
+
+<Prose>{"A single-query attention call has H=8, L=1,024, content width 8, rotary width 4, value width 8 and latent width 32. Ignore projection work and count a multiply-add as two operations. Compute expanded-core and absorbed-core operations. Does the larger arithmetic number decide which is faster?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Use "}<InlineMath>{"2HL(d_k+d_r+d_v)"}</InlineMath>{" and "}<InlineMath>{"2HL(2d_c+d_r)"}</InlineMath>{" for B=T=1."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Expanded core uses "}<InlineMath>{"2\\times8\\times1024\\times20=327,680"}</InlineMath>{" operations. Absorbed core uses "}<InlineMath>{"2\\times8\\times1024\\times68=1,114,112"}</InlineMath>{", or 3.4 times as many. The absorbed cache can still require much less stored data and support reuse across heads. Hardware bandwidth, arithmetic throughput, kernel layout and other overheads determine latency; neither the FLOP ratio nor the cache ratio alone is a timing result."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"8. Challenge the rank interpretation"}</H3>
+
+<Prose>{"Someone says, “The content logits have rank at most two, so the softmax weights also have rank at most two and the entire attention is linear in sequence length.” Identify the two unsupported steps. What would a genuine linear-attention method need to specify?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Separate a rank bound on a matrix product from the effect of a nonlinear elementwise transformation and normalization."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Softmax need not preserve matrix rank; the lesson gives rank-one logits whose three-by-three probability matrix has full rank. Also, a latent feature factorization does not by itself remove the pairwise softmax computation over query and memory positions. A linear-attention method must specify its actual kernel/operator, normalization and associative accumulation or approximation, including causal-state behavior and its relationship to ordinary softmax. Those are the next topic's mechanisms."}</Prose>
+
+</details></div>
+
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"9. Design the next experiment honestly"}</H3>
+
+<Prose>{"Our trained rank-eight model worsened after a rank-four cache intervention. A colleague concludes that rank-four MLA can never work. Another concludes that ten more epochs would certainly recover it. What do the recorded results actually establish, and what protocol would investigate either possibility without choosing a result after looking at the test set?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Identify which model was trained, which operation happened afterward, and which data chose the checkpoint."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The result establishes the effect of one predeclared, unadapted post-normalization truncation on one selected small model and this row-level task. It does not test a rank-four model trained from scratch or a declared adaptation schedule. Define that new architecture/intervention, training budget, seeds, simple baselines and validation criterion in advance; preserve group/duplicate boundaries and keep test data outside selection. Report all declared outcomes, including failure to recover. A selected checkpoint at the budget endpoint is not evidence of eventual convergence or certain recovery."}</Prose>
+
+</details></div></section>
+
+<section className="lesson-ending lesson-ending--next" data-lesson-ending="next"><H2>{"What comes next?"}</H2>
+
+<Prose>{"You can now identify the actual cache fields, calculate both equivalent MLA paths, preserve scale and position, and distinguish representation loss from computational rearrangement. Continue to "}<a href={"/learn/path/full-curriculum/sparse-linear-attention-variants?module=deep-learning-fundamentals"}>{"Sparse and Linear Attention Variants"}</a>{", which changes the sequence comparisons or attention operator itself. Carry the same questions forward: what function is defined, what information is retained, what approximation is introduced, and what was actually measured?"}</Prose></section>
+
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"References and another way to learn"}</H2>
+
+<ul><li>{""}<strong>{"Original architecture:"}</strong>{" "}<a href={"https://arxiv.org/html/2405.04434v5"}>{"DeepSeek-V2 report"}</a>{". The full section list, §2.1, practical model settings, context-extension treatment, Appendix C formulas and Appendix D ablations were inspected. Read the operator and cache definitions before the empirical comparisons. Its full model includes other changes, so headline system savings cannot all be attributed to one attention identity."}</li><li>{""}<strong>{"An executable primary implementation:"}</strong>{" "}<a href={"https://github.com/deepseek-ai/DeepSeek-V3/blob/main/inference/model.py"}>{"DeepSeek-V3 official inference model"}</a>{". The actual rotary function, MLA constructor, RMSNorm/cache branches and complete MLA forward were inspected. Follow the two branches with the same shapes. This is a mutable source branch; pin a revision for reproduction. Our complete small CPU program is independently implemented and executed."}</li><li>{""}<strong>{"A compact alternate explanation:"}</strong>{" "}<a href={"https://sebastianraschka.com/llms-from-scratch/ch04/05_mla/"}>{"Sebastian Raschka's MLA chapter guide"}</a>{". The complete short body was read. It connects the preceding GQA idea to a compressed cache and offers a useful recap; use the equations and source-bound examples here for scale, positional and performance details."}</li><li>{""}<strong>{"Visual attention prerequisite:"}</strong>{" "}<a href={"https://www.3blue1brown.com/lessons/attention/"}>{"3Blue1Brown's illustrated attention article and accompanying video"}</a>{". Its substantive written Q/K/softmax/value explanation was inspected in the preceding packets and is reused as background. It helps visualize the weighted sum that MLA rearranges; it is not an MLA kernel tutorial, and no new video viewing is claimed here."}</li><li>{""}<strong>{"Existing-checkpoint conversion:"}</strong>{" "}<a href={"https://aclanthology.org/2025.acl-long.1597/"}>{"MHA2MLA at ACL 2025"}</a>{" and "}<a href={"https://aclanthology.org/2025.acl-long.1597.pdf"}>{"the paper"}</a>{". The background, partial-RoPE selection, split/joint SVD methods and model/task setup with the first results table were inspected. They establish a concrete conversion research route, with task- and rank-dependent costs. Do not interpret the paper's title as a universal lossless-conversion guarantee."}</li><li>{""}<strong>{"Prefill and decode implementations:"}</strong>{" "}<a href={"https://docs.vllm.ai/en/v0.20.0/api/vllm/model_executor/layers/attention/mla_attention/"}>{"vLLM 0.20.0 MLA notes"}</a>{" were inspected through dimensions, both compute paths and chunked prefill. Match the actual shapes and scale rather than copying informal pseudocode or a reversed ratio description. No vLLM installation or hardware performance test was performed here."}</li><li>{""}<strong>{"Current kernel and precision contracts:"}</strong>{" "}<a href={"https://github.com/deepseek-ai/FlashMLA"}>{"Official FlashMLA"}</a>{". The dense/sparse capability table, API and version-specific cache formats were inspected on 13 September 2026. These distinguish stored bytes, scaling metadata and rotary precision. Kernel/model variants continue to evolve; their reported throughput is not a measurement made by this lesson."}</li><li>{""}<strong>{"Practical model details:"}</strong>{" "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V2/raw/main/config.json"}>{"V2 configuration"}</a>{", "}<a href={"https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/main/config.json"}>{"V3 configuration"}</a>{", and "}<a href={"https://arxiv.org/html/2412.19437v2"}>{"V3 report"}</a>{". Relevant architecture, normalization, mixed-precision, deployment and context-extension portions were inspected. They help distinguish actual fields from shorthand architecture names."}</li><li>{""}<strong>{"Reproducible local learning:"}</strong>{" "}<a href={"/learn-assets/multi-head-latent-attention-mla/data-provenance.md"}>{"Data/protocol provenance"}</a>{", "}<a href={"/learn-assets/multi-head-latent-attention-mla/author-calculations.py"}>{"complete CPU forecasting program"}</a>{", "}<a href={"/learn-assets/multi-head-latent-attention-mla/author-results.json"}>{"actual outcomes"}</a>{", "}<a href={"/learn-assets/multi-head-latent-attention-mla/forecast-model.json"}>{"saved model/trace"}</a>{", "}<a href={"/learn-assets/multi-head-latent-attention-mla/mechanism-calculations.py"}>{"independent NumPy fixtures"}</a>{" and "}<a href={"/learn-assets/multi-head-latent-attention-mla/mechanism-fixtures.json"}>{"their exact values"}</a>{". These support the manuscript's observed and constructed examples without requiring a large pretrained-model download."}</li></ul></section>
+</div> };
+export default lesson;

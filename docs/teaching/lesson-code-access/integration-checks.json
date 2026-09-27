@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "recordedOn": "2026-09-28",
+  "checks": {
+    "productionBuild": "passed; existing >500 kB chunk warning retained",
+    "siteBuild": "passed: lazy section boundaries and published route entries",
+    "contentImportBoundary": "passed: 1357 modules, 238 direct math imports, 11 lightweight dependencies",
+    "teachingConservation": "passed: 234 topic trees, 257 revealed teaching disclosures, 1267 practice disclosures byte-identical; 9 authoring fixtures",
+    "codeControls": "passed: real handler copy, Blob payload and canonical URL/filename harness; native adapter limitations recorded",
+    "componentReview": "154 source identities, 278 SVG subtrees, 489 model/data hashes unchanged in bounded independent review"
+  },
+  "scope": "Presentation/runtime access only; unchanged scientific execution evidence reused",
+  "currentCheckpointsPreserved": 81,
+  "historicalLedgerRowsUnchanged": 96,
+  "publishedMappingsUnchanged": 234,
+  "additionalLayoutFix": {
+    "file": "src/learn/components/lesson-labs/gaussian-process.css",
+    "change": "min-width:0 on grid children so revealed table scrolls locally",
+    "browser": "390px viewport has no page overflow"
+  },
+  "limitations": [
+    "Representative browser checks, not every possible interactive state",
+    "Native browser clipboard/download adapter verification was inconclusive; exact component handlers and rendered canonical source were verified",
+    "No numerical experiments rerun for unchanged model/code assets"
+  ]
+}

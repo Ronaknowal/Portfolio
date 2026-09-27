@@ -1,0 +1,168 @@
+{
+  "passed": true,
+  "date": "2026-09-26",
+  "method": "CUA interaction and inline screenshot inspection of production preview on port 4196; bounded author review",
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 720,
+      "clientWidth": 1265,
+      "scrollWidth": 1265
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "clientWidth": 305,
+      "scrollWidth": 305
+    },
+    {
+      "width": 760,
+      "height": 900,
+      "clientWidth": 745,
+      "scrollWidth": 745,
+      "articleWidth": 389
+    }
+  ],
+  "inlineFigureFamilies": [
+    "memory-shelf",
+    "weighted-read",
+    "decoder-schedules",
+    "gradient-path",
+    "learning-curves",
+    "worked-alignment",
+    "same-context",
+    "location-features"
+  ],
+  "checks": [
+    "All eight inline figure families and seven live lab wrappers inspected; matrices and code scroll locally",
+    "Eleven section anchors resolve, zero KaTeX errors",
+    "Final compact window labels, checkbox size, paragraph spacing and container-based flow orientation visually confirmed",
+    "Native keyboard Home/End/ArrowRight, numeric edits, masks, model/form selectors, disclosures, invalid text and resets exercised",
+    "Complete canonical NumPy program fetched on disclosure; direct native/program verification separately checks downloaded source identity",
+    "Phone source-prefix intervention updates the live alignment matrix without document overflow",
+    "Temporary viewport override reset after verification"
+  ],
+  "observations": {
+    "changedValueB": {
+      "value": [
+        1,
+        2
+      ],
+      "context": [
+        0.952272,
+        0.753879
+      ],
+      "loss": 0.79726
+    },
+    "changedKeyB": {
+      "key": [
+        2,
+        1
+      ],
+      "context": [
+        0.960213,
+        0.961216
+      ],
+      "loss": 0.69265
+    },
+    "onlyMemoryAValid": {
+      "context": [
+        2,
+        0
+      ],
+      "lastValidCheckboxEnabled": false
+    },
+    "learningRateZero": {
+      "lossChange": 0
+    },
+    "learningRatePointTwo": {
+      "updatedLoss": 0.55737,
+      "lossChange": -0.11382502
+    },
+    "allValuesIdentical": {
+      "context": [
+        0.5,
+        0.5
+      ],
+      "queryGradient": [
+        0,
+        0
+      ],
+      "lossChange": 0
+    },
+    "linearCancellation": {
+      "query": 1.234,
+      "unchangedWeights": [
+        0.09421,
+        0.209668,
+        0.696122
+      ]
+    },
+    "forcedFirstEmission": {
+      "source": "cash",
+      "form": "past",
+      "prefix": "b",
+      "output": "bashed"
+    },
+    "freshSource": {
+      "source": "prone",
+      "form": "third_person",
+      "prefix": "b",
+      "output": "brones",
+      "capOneOutput": "b"
+    },
+    "generalModel": {
+      "source": "lactate",
+      "form": "past",
+      "output": "lactated",
+      "rows": 9
+    },
+    "invalidSpelling": {
+      "entered": "A",
+      "retained": "cash",
+      "inlineExplanation": true
+    },
+    "localWindow": {
+      "center": 2.37,
+      "radius": 1.19,
+      "excludedPositionFiveScore": -2.11,
+      "unchangedWeightSum": 0.66652481,
+      "unchangedContext": 1.68840725,
+      "renormalizedContext": 2.53314987
+    },
+    "copyOnly": {
+      "Ada": 0.7,
+      "met": 0.3,
+      "left": 0
+    },
+    "vocabularyOnly": {
+      "Ada": 0.1,
+      "met": 0.6,
+      "left": 0.3
+    },
+    "phonePointerDrag": {
+      "before": 0.63,
+      "after": 0.212378017462763,
+      "AdaAfter": 0.57257
+    },
+    "phoneSourceMatrix": {
+      "viewport": 320,
+      "regionClientWidth": 238,
+      "regionScrollWidth": 361,
+      "documentWidth": 305
+    },
+    "paddingEndedReference": "Independently exercised by reviewer: cry/participle, both PAD slots admitted, step 8; faulty crigging, clean crying, explicit clean-run-ended message"
+  },
+  "console": "No production-preview error observed. Two retained log entries are failed dynamic imports from the separately stalled development server on port 4194; they are not counted as successful verification.",
+  "limits": [
+    "Screenshots were inspected inline in the tool session; no saved PNG archive is claimed",
+    "No injected network failure, assistive-technology session, novice study or browser timing benchmark",
+    "Numerical and native program checks have separate source-bound receipts"
+  ],
+  "reviewedFiles": {
+    "src/learn/data/topics/attention.jsx": "5e0b7b4bcd52da5aae3c8857eefcb863454687f3dbf2121f2e5aca7f6e7c77f1",
+    "src/learn/components/lesson-labs/RecurrentAttentionLabs.jsx": "038fdee01417ac20d115c71445111bb7f2462457336ab50d18583d9d87371046",
+    "src/learn/components/lesson-labs/recurrent-attention-labs.css": "1480fd216bc08a1f641809d52b21f4a4d257e48eb2809abe0ba5fdfe91cc397a",
+    "src/learn/data/recurrent-attention-models.js": "fb5f5507c6c52db20772b7f789e6a48a20ff9265cadf6da8678204a8fce3c7f2"
+  }
+}

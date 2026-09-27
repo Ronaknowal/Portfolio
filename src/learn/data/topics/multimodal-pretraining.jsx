@@ -669,32 +669,32 @@ print(response)`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Derive the InfoNCE gradient</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Derive the InfoNCE gradient</H3>
       <Prose>
         Write out the partial derivative of <Code>L_clip</Code> with respect to the image embedding <Code>v_i</Code>. Show that the gradient has two terms: a positive term pulling <Code>v_i</Code> toward its matched text embedding <Code>t_i</Code>, and a negative term pushing it away from all other text embeddings in the batch, weighted by their current similarity. What does this tell you about why large batch sizes give stronger signal?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Why symmetric two-sided loss</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Why symmetric two-sided loss</H3>
       <Prose>
         CLIP uses both the image-to-text loss and the text-to-image loss. Imagine training with only the image-to-text loss. What failure mode would emerge? Specifically, what would happen to the text encoder's representations — would they remain well-distributed or would they collapse? Use the gradient analysis from Exercise 1 to reason about this.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Q-Former output count independent of resolution</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Q-Former output count independent of resolution</H3>
       <Prose>
         Explain in your own words why the Q-Former produces exactly M=32 output tokens regardless of whether the input image is 224×224 (196 patches) or 448×448 (784 patches). Now explain the tradeoff: what information is necessarily discarded when M=32 queries must summarise 784 visual features? Under what types of visual tasks would this compression hurt most?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Stage-1 vs stage-2 freezing strategy</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Stage-1 vs stage-2 freezing strategy</H3>
       <Prose>
         LLaVA trains the projector alone in stage 1, then unfreezes the LLM in stage 2. Why not skip stage 1 and start with stage 2 directly? What would happen to the projector's gradients if the LLM is also training from random initialisation of the projector? Separately, explain why the vision encoder stays frozen throughout both stages rather than being unfrozen in stage 2.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — When native multimodal is worth the cost</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — When native multimodal is worth the cost</H3>
       <Prose>
         You are building a product that must (a) retrieve the most relevant image from a database given a text query, (b) generate a detailed caption for a retrieved image, and (c) edit an image by generating a modified version from a text instruction. For each of these three capabilities, identify whether contrastive alignment, frozen-encoder+projector, or native multimodal training is the minimum architecture needed. Can all three be served by a single native multimodal model, and if so, what does that cost compared to running three purpose-built models?
-      </Prose>
+      </Prose></div></section>
     </div>
   ),
 };

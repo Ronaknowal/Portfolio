@@ -3,7 +3,7 @@ import { renderPreparedLesson } from './lib/prepared-lesson-renderer.mjs';
 const id = 'loss-functions-ce-mse-focal-contrastive-triplet';
 const packet = `docs/teaching/drafts/${id}`;
 writeFileSync('src/learn/data/loss-mechanisms-program.js', '// Generated from the canonical downloadable Python source.\nexport default ' + JSON.stringify(readFileSync(`public/learn-assets/${id}/loss-mechanisms.py`, 'utf8')) + ';\n');
-const rendered = renderPreparedLesson(readFileSync(`${packet}/lesson.md`, 'utf8'), {
+const rendered = renderPreparedLesson(readFileSync(`${packet}/lesson.md`, 'utf8'), { preserveOpeningFrom: `src/learn/data/topics/${id}.jsx`,
   assetBase: `/learn-assets/${id}/`,
   replacements: [
     ['**Visual — three linked views:**', '<LossUpdateFigure />'],

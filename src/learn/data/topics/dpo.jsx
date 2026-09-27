@@ -739,32 +739,32 @@ trainer.train()`}
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Derive the Z(x) cancellation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Derive the Z(x) cancellation</H3>
       <Prose>
         Starting from the rearranged optimal-policy identity <Code>r(x, y) = β log π*(y|x)/π_ref(y|x) + β log Z(x)</Code>, write out the full expression for <Code>r(x, y_w) − r(x, y_l)</Code> when both responses have the same prompt <Code>x</Code>. Show explicitly where <Code>Z(x)</Code> appears in each term and why it cancels. What structural property of the pairwise comparison is responsible for the cancellation? Would the same cancellation occur if you compared responses to two different prompts? What does this imply about whether DPO can be extended to compare responses across prompts — for example, to implement a contrastive objective over different prompt variants?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — What β = ∞ does to DPO</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — What β = ∞ does to DPO</H3>
       <Prose>
         In the DPO loss, <Code>β</Code> scales the log-ratio argument of the sigmoid. As <Code>β → ∞</Code>, what happens to the loss function? What does the resulting policy look like — how does it differ from the reference? Now consider <Code>β → 0</Code>. What does the loss approach in that limit, and what does it imply for the policy? Between these two extremes, explain intuitively why there is a "Goldilocks" range for <Code>β</Code> and what goes wrong on either side.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — Why length bias emerges</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — Why length bias emerges</H3>
       <Prose>
         Suppose a preference dataset has been collected such that for every pair <Code>(y_w, y_l)</Code>, the chosen response <Code>y_w</Code> is exactly twice the token length of the rejected response <Code>y_l</Code>, but both are otherwise equally good. Trace through the DPO loss and its gradient to explain why the trained policy will learn to prefer longer outputs. Is the issue in the loss function itself, in the data collection process, or in both? Propose a modification to the DPO loss that would make it length-agnostic and derive whether your modification changes the Z(x) cancellation argument.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Ablation for reference model effect</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Ablation for reference model effect</H3>
       <Prose>
         Design an ablation experiment to quantify how much of DPO's alignment quality improvement comes from the reference model constraint versus the preference signal itself. Specifically: what would you compare, what metrics would you use, what would a result showing "the reference model matters a lot" look like, and what would a result showing "the reference model barely matters" look like? How does SimPO's reference-free formulation inform this experiment?
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Detecting preference overfit</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Detecting preference overfit</H3>
       <Prose>
         You have trained a DPO model for 5 epochs and the training margin is very large (above 3.0). You suspect the model has overfit to the preference dataset. List three observable signals — from training metrics, held-out evaluations, or qualitative inspection — that would confirm your suspicion. For each signal, describe what it looks like when the model is healthy versus overfit. What is the causal mechanism linking the large training margin to each signal? As a follow-up: given that DPO has no explicit train/val split in the way supervised learning does, what would a principled early-stopping criterion look like for DPO specifically, and how would you compute it without a labeled preference validation set?
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

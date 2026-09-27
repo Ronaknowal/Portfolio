@@ -1,0 +1,182 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Independent SDPA full-model replay: 1 KV, constant",
+      "passed": true,
+      "maxError": 2.789644648615308e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 1 KV, constant",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 1 KV, constant",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 1 KV, alternating",
+      "passed": true,
+      "maxError": 9.465886019466296e-09
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 1 KV, alternating",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 1 KV, alternating",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 1 KV, curved",
+      "passed": true,
+      "maxError": 2.3091259238050554e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 1 KV, curved",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 1 KV, curved",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 2 KV, constant",
+      "passed": true,
+      "maxError": 5.487053311714618e-09
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 2 KV, constant",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 2 KV, constant",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 2 KV, alternating",
+      "passed": true,
+      "maxError": 1.0023595620189951e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 2 KV, alternating",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 2 KV, alternating",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 2 KV, curved",
+      "passed": true,
+      "maxError": 1.9147365470928435e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 2 KV, curved",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 2 KV, curved",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 4 KV, constant",
+      "passed": true,
+      "maxError": 1.531177756808333e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 4 KV, constant",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 4 KV, constant",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 4 KV, alternating",
+      "passed": true,
+      "maxError": 2.0422148971910303e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 4 KV, alternating",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 4 KV, alternating",
+      "passed": true
+    },
+    {
+      "name": "Independent SDPA full-model replay: 4 KV, curved",
+      "passed": true,
+      "maxError": 2.7468074037528822e-08
+    },
+    {
+      "name": "Three-point chunks match full causal inference: 4 KV, curved",
+      "passed": true
+    },
+    {
+      "name": "Rollout from full recomputation has no future feed: 4 KV, curved",
+      "passed": true
+    },
+    {
+      "name": "Arbitrarily large future keys and values have no effect",
+      "passed": true
+    },
+    {
+      "name": "Six-reader unequal-width native grouped output and Q/K/V shared gradients match explicit tied-head expansion",
+      "passed": true
+    },
+    {
+      "name": "Validation-only earliest minimum selects 4 KV checkpoint",
+      "passed": true
+    },
+    {
+      "name": "Validation-only earliest minimum selects 2 KV checkpoint",
+      "passed": true
+    },
+    {
+      "name": "Validation-only earliest minimum selects 1 KV checkpoint",
+      "passed": true
+    },
+    {
+      "name": "Deployed author-calculations.py is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed mechanism-calculations.py is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed author-results.json is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed forecast-models.json is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed mechanism-fixtures.json is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed data-provenance.md is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed movement_libras.data is byte-identical to reviewed source",
+      "passed": true
+    },
+    {
+      "name": "Deployed movement_libras.names is byte-identical to reviewed source",
+      "passed": true
+    }
+  ],
+  "maximumFullModelError": 2.789644648615308e-08,
+  "environment": {
+    "torch": "2.14.0+cpu",
+    "threads": 2
+  },
+  "limits": [
+    "No new training, no GPU timing, browser acceptance belongs to root."
+  ]
+}

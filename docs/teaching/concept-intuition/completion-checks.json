@@ -1,0 +1,51 @@
+{
+  "completedOn": "2026-09-26T16:15:15.279Z",
+  "passed": true,
+  "sourceIdentity": {
+    "currentScopedContent": 57,
+    "currentScopedImplementation": 57,
+    "unchangedOtherRows": 120,
+    "recordedContent": 177,
+    "recordedImplementation": 153,
+    "preparedDlRemaining": 24,
+    "publicationMappings": "Unchanged against baseline"
+  },
+  "inventoryCommand": "node scripts/build-curriculum-inventory.mjs",
+  "inventoryResult": {
+    "contentComplete": 57,
+    "implementationComplete": 57
+  },
+  "checks": [
+    {
+      "command": "node scripts/verify-lesson-delivery.mjs",
+      "result": {
+        "chunk_id": "4c967e",
+        "wall_time_seconds": 1.0622477,
+        "exit_code": 0,
+        "original_token_count": 170,
+        "output": "{\n  \"status\": \"passed\",\n  \"trackedTopics\": 177,\n  \"cases\": [\n    \"Missing content prevents finish; full/content requests can begin\",\n    \"Incomplete content and premature implementation are rejected\",\n    \"A complete matching manuscript/specification checkpoint permits finish only\",\n    \"Changed or missing specification invalidates a previously complete handoff\",\n    \"Implementation completion needs its own exact source checkpoint\",\n    \"Historical completion is preserved without blessing a changed revision\",\n    \"Malformed status, topic, hash and path cannot bypass the checkpoint\",\n    \"An active full rewrite cannot inherit an old allowlisted/user-approved status\"\n  ]\n}\n"
+      }
+    },
+    {
+      "command": "node scripts/verify-repository-files.mjs",
+      "result": {
+        "chunk_id": "7aa42e",
+        "wall_time_seconds": 1.8426957000000002,
+        "exit_code": 0,
+        "original_token_count": 42,
+        "output": "Repository ignore checks passed for 7435 current files and 9 future-path probes; caches and secrets remain excluded. Machine-global excludes are outside this check.\n"
+      }
+    },
+    {
+      "command": "git -c core.safecrlf=false diff --check",
+      "result": {
+        "chunk_id": "69daee",
+        "wall_time_seconds": 1.3168499,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  ],
+  "limits": "Scope is the 39 implemented Classical ML lessons and first 18 implemented DL lessons. Historical rows outside scope were preserved, not recertified."
+}

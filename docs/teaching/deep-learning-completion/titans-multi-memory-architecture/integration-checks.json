@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-26T22:26:45.729Z",
+  "topicId": "titans-multi-memory-architecture",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T22-20-57-020Z.json",
+  "buildReceiptHash": "9c390a93608f4743c7bebab2333fdd931f51dac18847c8484d09868c330098d7",
+  "publicationMapping": "./topics/titans-multi-memory-architecture.jsx",
+  "preservedPublicationCount": 232,
+  "scope": "Current topic runtime built and rendered; original mappings preserved. Whole-increment conservation is also checked at final handoff."
+}

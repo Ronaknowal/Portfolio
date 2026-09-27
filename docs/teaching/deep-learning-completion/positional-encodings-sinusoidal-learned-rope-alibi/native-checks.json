@@ -1,0 +1,77 @@
+{
+  "topicId": "positional-encodings-sinusoidal-learned-rope-alibi",
+  "passed": true,
+  "versions": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5"
+  },
+  "checks": [
+    {
+      "name": "Complete displayed NumPy position/cache program",
+      "passed": true
+    },
+    {
+      "name": "SDPA direct/library output and input-gradient parity for RoPE/ALiBi; repeated Embedding gradients",
+      "passed": true
+    },
+    {
+      "name": "Original data hash, duplicate groups and all split rows",
+      "passed": true
+    },
+    {
+      "name": "none checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.2865983247756958,
+        "correct": 33,
+        "total": 60,
+        "macro_f1": 0.5276719576719577
+      }
+    },
+    {
+      "name": "sinusoidal checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.0388890504837036,
+        "correct": 42,
+        "total": 60,
+        "macro_f1": 0.6893506493506493
+      }
+    },
+    {
+      "name": "learned checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.0166045427322388,
+        "correct": 40,
+        "total": 60,
+        "macro_f1": 0.6560846560846562
+      }
+    },
+    {
+      "name": "rope checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.1202930212020874,
+        "correct": 40,
+        "total": 60,
+        "macro_f1": 0.632029822029822
+      }
+    },
+    {
+      "name": "alibi checkpoint on all 60 retained test records",
+      "passed": true,
+      "actual": {
+        "loss": 1.2887177467346191,
+        "correct": 39,
+        "total": 60,
+        "macro_f1": 0.6236792836792837
+      }
+    }
+  ],
+  "limits": [
+    "All five historical fits retained unchanged; actual display checkpoints reevaluated, no new tuning.",
+    "No large language-model context-extension experiment claimed."
+  ]
+}

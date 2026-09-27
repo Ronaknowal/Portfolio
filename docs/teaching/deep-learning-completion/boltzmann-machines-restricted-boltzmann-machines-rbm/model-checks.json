@@ -1,0 +1,1688 @@
+{
+  "topicId": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+  "passed": true,
+  "checks": [
+    {
+      "name": "All original visible probabilities",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "All eight joint masses through normalized probability",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Marginals and hidden posterior marginal",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Five old-state gradient coordinates",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Updated data log likelihood",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Full alternating Gibbs transition",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 0",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 1",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 1",
+      "passed": true,
+      "maxAbsoluteError": 6.245004513516506e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 2",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 2",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 3",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 3",
+      "passed": true,
+      "maxAbsoluteError": 4.85722573273506e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 4",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 4",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 5",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 5",
+      "passed": true,
+      "maxAbsoluteError": 1.0408340855860843e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 6",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 6",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 7",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 7",
+      "passed": true,
+      "maxAbsoluteError": 9.020562075079397e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 8",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 8",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 9",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 9",
+      "passed": true,
+      "maxAbsoluteError": 6.245004513516506e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Exact mass at step 10",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Total variation at step 10",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Asymmetric/zero/extreme bounded native distribution 0.4,-1.2",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Asymmetric/zero/extreme expected statistics 0.4,-1.2",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Stationarity for altered model 0.4,-1.2",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Energy offset null -100 0.4,-1.2",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Energy offset null 100 0.4,-1.2",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Asymmetric/zero/extreme bounded native distribution 0,0",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Asymmetric/zero/extreme expected statistics 0,0",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Stationarity for altered model 0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Energy offset null -100 0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Energy offset null 100 0,0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Asymmetric/zero/extreme bounded native distribution 6,-6",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Asymmetric/zero/extreme expected statistics 6,-6",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Stationarity for altered model 6,-6",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Energy offset null -100 6,-6",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Energy offset null 100 6,-6",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "a1=ln2 normalized probability competition",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Model-as-data zero gradient",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Zero learning rate unchanged",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "One missing pixel posterior",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Unobserved placeholder null",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Zero-data, enumeration bound, hand random draw, threshold equality, seed replay and retained-particle provenance",
+      "passed": true
+    },
+    {
+      "name": "All80 exported real images retain original ID, label and every thresholded pixel",
+      "passed": true
+    },
+    {
+      "name": "exact-11 half completion",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.0816681711721685e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 none completion",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.0816681711721685e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.0816681711721685e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 2.1094237467877974e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.0816681711721685e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 1.5543122344752192e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 1.0658141036401503e-14,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 half completion",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 none completion",
+      "passed": true,
+      "maxAbsoluteError": 1.2212453270876722e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 2.1094237467877974e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 half completion",
+      "passed": true,
+      "maxAbsoluteError": 1.9984014443252818e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 none completion",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 6.661338147750939e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 1.5543122344752192e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 1.9984014443252818e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 half completion",
+      "passed": true,
+      "maxAbsoluteError": 2.6645352591003757e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 none completion",
+      "passed": true,
+      "maxAbsoluteError": 3.3306690738754696e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 2.6645352591003757e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.6653345369377348e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 half completion",
+      "passed": true,
+      "maxAbsoluteError": 1.887379141862766e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 none completion",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 4.163336342344337e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 1.3322676295501878e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 1.887379141862766e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 half completion",
+      "passed": true,
+      "maxAbsoluteError": 1.887379141862766e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 none completion",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 1.887379141862766e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 8.881784197001252e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 7.105427357601002e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 1.887379141862766e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 half completion",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 none completion",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 8.326672684688674e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 2.6645352591003757e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 7.105427357601002e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 half completion",
+      "passed": true,
+      "maxAbsoluteError": 3.4416913763379853e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 1.0658141036401503e-14,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 none completion",
+      "passed": true,
+      "maxAbsoluteError": 2.4424906541753444e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 1.0658141036401503e-14,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 1.0658141036401503e-14,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 3.774758283725532e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 1.0658141036401503e-14,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 1.7763568394002505e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 1.0658141036401503e-14,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 3.4416913763379853e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.3877787807814457e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 7.105427357601002e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 half completion",
+      "passed": true,
+      "maxAbsoluteError": 1.5543122344752192e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 half hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.0408340855860843e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 half full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 half reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 none completion",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 none hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.0408340855860843e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 none full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 none reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 all completion",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 all hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.0408340855860843e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 all full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 all reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 checkerboard completion",
+      "passed": true,
+      "maxAbsoluteError": 1.5543122344752192e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 checkerboard hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.0408340855860843e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 checkerboard full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 checkerboard reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 6.938893903907228e-18,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 edited completion",
+      "passed": true,
+      "maxAbsoluteError": 3.552713678800501e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 edited hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 1.249000902703301e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 edited full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 edited reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 2.7755575615628914e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 placeholder completion",
+      "passed": true,
+      "maxAbsoluteError": 1.5543122344752192e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 placeholder hidden conditional",
+      "passed": true,
+      "maxAbsoluteError": 2.220446049250313e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 placeholder full-input NLL",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 placeholder reconstruction MSE",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-11 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 5.218048215738236e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-29 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 3.774758283725532e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "exact-47 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-11 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-29 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 4.218847493575595e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "cd1-47 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 4.218847493575595e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-11 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 3.885780586188048e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-29 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 4.218847493575595e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "pcd1-47 every stored assessment completion",
+      "passed": true,
+      "maxAbsoluteError": 4.440892098500626e-15,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Library bridge matched hidden response 0",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Library bridge exact normalized probabilities 0",
+      "passed": true,
+      "maxAbsoluteError": 5.551115123125783e-17,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Library bridge matched hidden response 1",
+      "passed": true,
+      "maxAbsoluteError": 0,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Library bridge exact normalized probabilities 1",
+      "passed": true,
+      "maxAbsoluteError": 1.1102230246251565e-16,
+      "tolerance": 1e-10
+    },
+    {
+      "name": "Every public reproduction file is byte-identical; all9 sample galleries and clamped conditional sample contracts preserved",
+      "passed": true
+    },
+    {
+      "name": "Complete generated article and all4 topic components parse",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Actual scalar/array calculations checked; painted browser interactions and integration belong to root.",
+    "All recorded fits reused; no new benchmark fit or claimed GPU performance."
+  ]
+}

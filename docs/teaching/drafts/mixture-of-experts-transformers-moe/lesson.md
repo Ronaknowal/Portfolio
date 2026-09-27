@@ -163,7 +163,7 @@ If every route for a token is dropped, its MoE contribution is zero in a drop-wi
 
 Capacity competition can also make an output depend on batch companions or assignment order. A first-come policy may keep a route when a request runs alone and drop it when another request fills the bin. A causal decoder needs care if future positions influence which earlier assignments survive, especially with global priority selection. A causal attention mask alone does not repair a separate noncausal routing operation.
 
-**Investigation 2 — Fill the bins.** A fresh five-token problem asks you to predict overflow and token outputs at different capacities. Reorder dispatch while keeping token identities fixed. Then switch to dropless dispatch and explain which batch effects disappear.
+**Investigation 2 — Fill the bins.** A fresh five-token problem shows overflow and token outputs at different capacities. Reorder dispatch while keeping token identities fixed. Then switch to dropless dispatch and explain which batch effects disappear.
 
 Dropless systems avoid discarding assignments; they still need memory management and efficient kernels for varying expert loads. MegaBlocks formulates the work with block-sparse operations to avoid the forced choice between dropping routes and padding every expert to a large uniform size. Its reported speed comparisons belong to its measured setup, not every MoE. [MegaBlocks](https://proceedings.mlsys.org/paper_files/paper/2023/file/5a54f79333768effe7e8927bcccffe40-Paper-mlsys2023.pdf)
 
@@ -375,7 +375,7 @@ python moe_study.py
 
 It saves all selected weights and the full measured record. The [calculation program](moe_calculations.py) reloads those weights, compares gathered sparse execution against a dense reference including derivatives, and produces the worked/fresh intervention inputs without fitting again. The executed environment was Python 3.12.14, NumPy 2.3.5 and PyTorch 2.14.0+cpu.
 
-The full source is included in the expandable block below so the example remains understandable without finding hidden helper functions.
+The full source is included in the expandable block below so the example remains understandable without finding hidden helper functions. The implementation check replayed all twelve retained models on their original and stress inputs without fitting again. Sparse execution and the dense reference agree to 8.9×10⁻¹⁶ in output and 1.8×10⁻¹⁵ in all parameter gradients. The live JavaScript model was separately compared with 22 native image, temperature and expert-ablation cases; its largest checked intermediate or output difference is 1.60×10⁻⁶. These numerical comparisons do not replace checks of rendered controls and layout.
 
 
 <details><summary>Complete CPU training and evaluation program</summary>

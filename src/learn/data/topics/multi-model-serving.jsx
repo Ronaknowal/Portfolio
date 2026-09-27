@@ -956,9 +956,9 @@ UCB drives more traffic to challenger (large) as its quality advantage becomes c
       {/* ======================================================================
           11. SELF-CHECK EXERCISES
           ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Self-check exercises</H2>
 
-      <H3>Exercise 1 — Break-even hit rate</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 1 — Break-even hit rate</H3>
 
       <Prose>
         You are evaluating a two-model cascade: a small model costs $0.80/MTok input and $4.00/MTok output; a large model costs $15.00/MTok input and $75.00/MTok output. Typical requests average 400 input tokens and 200 output tokens. Compute the per-request cost for each model. Then derive the minimum hit rate <Code>h</Code> at which the cascade is cheaper than always routing to the large model. If your benchmark shows the small model achieving 78% hit rate on your traffic, should you use the cascade or route upfront with a classifier that achieves 92% tier-selection accuracy?
@@ -966,9 +966,9 @@ UCB drives more traffic to challenger (large) as its quality advantage becomes c
 
       <Prose>
         Answer: Small model per-request cost: <Code>(400 × 0.80 + 200 × 4.00) / 1,000,000 = $0.00032 + $0.00080 = $0.00112</Code>. Large model: <Code>(400 × 15.00 + 200 × 75.00) / 1,000,000 = $0.00600 + $0.01500 = $0.02100</Code>. Cascade expected cost at hit rate <Code>h</Code>: <Code>0.00112 + (1-h) × 0.02100</Code>. Break-even vs always-large: <Code>0.00112 + (1-h) × 0.02100 = 0.02100</Code>, giving <Code>h = 1 - 0.00112/0.02100 ≈ 94.7%</Code>. At 78% hit rate, the cascade costs <Code>0.00112 + 0.22 × 0.02100 = $0.00574</Code> per request — cheaper than always-large ($0.02100) but only 73% cheaper, not the 80%+ savings the simple formula suggests. Meanwhile, the 92% accurate classifier routes 92% of requests to small and 8% to large: <Code>0.92 × 0.00112 + 0.08 × 0.02100 = $0.00103 + $0.00168 = $0.00271</Code> per request — 54% cheaper than the cascade at 78% hit rate. Use the classifier; the cascade's 78% hit rate is below the 94.7% break-even threshold and costs more per request than accurate upfront routing.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 2 — Cascade escalation threshold tuning</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 2 — Cascade escalation threshold tuning</H3>
 
       <Prose>
         Your cascade router uses minimum log-probability as the escalation signal. At threshold <Code>τ = -3.0</Code>, you observe 23% escalation rate and 94% quality retention vs the always-large baseline. At <Code>τ = -2.0</Code>, escalation rate rises to 41% and quality retention rises to 97%. At <Code>τ = -4.0</Code>, escalation rate drops to 11% and quality retention drops to 89%. Compute the expected cost per request at each threshold (use the costs from Exercise 1) and recommend the threshold for: (a) a consumer product with a 95% quality retention SLA and cost minimization objective, and (b) an enterprise product with a 97% quality retention SLA and latency sensitivity (two-model calls add 1.8 seconds to escalated requests).
@@ -976,9 +976,9 @@ UCB drives more traffic to challenger (large) as its quality advantage becomes c
 
       <Prose>
         Answer: Expected cost per request at each threshold (small = $0.00112, large = $0.02100): <Code>τ=-4.0</Code>: <Code>0.00112 + 0.11 × 0.02100 = $0.00343</Code>; <Code>τ=-3.0</Code>: <Code>0.00112 + 0.23 × 0.02100 = $0.00595</Code>; <Code>τ=-2.0</Code>: <Code>0.00112 + 0.41 × 0.02100 = $0.00973</Code>. (a) Consumer product: 95% quality SLA eliminates <Code>τ=-4.0</Code> (89% quality). Both <Code>τ=-3.0</Code> (94%, violates SLA) and <Code>τ=-2.0</Code> (97%, meets SLA) are candidates, but only <Code>τ=-2.0</Code> meets the 95% threshold. Recommend <Code>τ=-2.0</Code> at $0.00973 per request — 54% cheaper than always-large despite the higher escalation rate. (b) Enterprise product: 97% quality SLA requires <Code>τ=-2.0</Code>. But 41% escalation rate means 41% of requests incur +1.8s latency. If the enterprise SLA also caps P99 latency, this may be unacceptable. Consider switching to an upfront classifier that achieves 97% quality retention without the latency penalty on escalated requests, or implement streaming with mid-generation escalation to hide the latency on the escalated path.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 3 — A/B test contamination diagnosis</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 3 — A/B test contamination diagnosis</H3>
 
       <Prose>
         Your A/B test is routing 10% of traffic to a new challenger model. After two weeks, quality metrics show: champion average score 0.834, challenger average score 0.841. You declare the challenger better and prepare to roll it out fully. A colleague notices that the challenger was assigned to requests using a per-turn hash (turn ID) rather than a per-session hash (session ID). Explain what this means for your quality measurements and whether the 0.841 challenger score is trustworthy.
@@ -986,9 +986,9 @@ UCB drives more traffic to challenger (large) as its quality advantage becomes c
 
       <Prose>
         Answer: Per-turn hashing means individual turns of a conversation may be split between champion and challenger. A conversation might have turns 1, 3, 5 routed to the champion and turns 2, 4, 6 routed to the challenger. The challenger never receives its own prior turns as conversation history — it receives the champion's outputs as the preceding context. This means the challenger is being evaluated on a chimeric conversation it did not generate, not on a coherent conversation it would have produced. The 0.841 score is not trustworthy: it conflates the quality of the challenger's responses with the quality of the conversation setup provided by the champion. The challenger may have benefited from the champion's strong prior turns, inflating its apparent score. Or it may have been penalized for inconsistencies it did not cause. The correct fix is to re-run the A/B test with session-level routing (all turns of a conversation route to the same arm) and measure quality on complete conversation trajectories. Discard the per-turn-hash results.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 4 — Design a routing system for an agentic pipeline</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 4 — Design a routing system for an agentic pipeline</H3>
 
       <Prose>
         You are building an agentic pipeline with four step types: (1) task decomposition — break a user goal into subtasks (10–20 per run, requires multi-step reasoning); (2) tool selection — choose the right API from a manifest of 50 tools (structured output, format-critical); (3) tool execution summarization — summarize the JSON output of an API call into one sentence; (4) final synthesis — combine all subtask results into a coherent user-facing response. Design a routing strategy for each step type, specifying model tier and routing paradigm. Explain how you would handle cost tracking across the four step types for a single end-to-end run.
@@ -996,9 +996,9 @@ UCB drives more traffic to challenger (large) as its quality advantage becomes c
 
       <Prose>
         Answer: Step 1 (task decomposition): Route to large tier (Opus-class). Multi-step reasoning is the task type that benefits most from scale. A small model that decomposes incorrectly propagates errors through all downstream steps, making a large-model error here far more costly than the per-step price implies. Use rule-based routing on task type (all decomposition steps → large), not a learned router — the signal is unambiguous. Step 2 (tool selection): Route to medium tier (Sonnet-class) with JSON output validation. Tool selection requires structured output precision, not frontier reasoning. The medium model handles it reliably; if the JSON fails to parse, escalate to large for one retry — this is a cascade with structural validation as the escalation signal. Step 3 (tool execution summarization): Route to small tier (Haiku-class). One-sentence summarization of structured data is a classic small-model task with minimal failure risk. Step 4 (final synthesis): Route to medium or large depending on run complexity. If the pipeline has more than 10 subtask results to synthesize, route to large for context management. Otherwise medium. Use the total context length (all subtask summaries) as a rule-based routing signal. Cost tracking: maintain a per-run cost accumulator, record each model call's (tier, input_tokens, output_tokens) tuple, compute cost per call using the tier's price rates, and sum across all four step types at run completion. Expose total-cost-per-run as a first-class metric alongside latency and quality.
-      </Prose>
+      </Prose></div>
 
-      <H3>Exercise 5 — Diagnosing silent quality degradation</H3>
+      <div className="lesson-exercise" data-lesson-exercise=""><H3>Exercise 5 — Diagnosing silent quality degradation</H3>
 
       <Prose>
         Your monitoring dashboard shows: overall mean quality score 0.847 (stable over 30 days). Per-tier quality scores: small tier 0.891, medium tier 0.852, large tier 0.893. Your routing distribution: 55% small, 38% medium, 7% large. A support escalation from a legal team reports that the product has been giving wrong answers on contract analysis questions for the past three weeks. Identify the likely failure mode, explain why the aggregate dashboard did not surface it, and describe the monitoring changes needed to catch it earlier.
@@ -1006,7 +1006,7 @@ UCB drives more traffic to challenger (large) as its quality advantage becomes c
 
       <Prose>
         Answer: The likely failure mode is systematic routing of contract analysis requests to the small tier, where they exceed the small model's capability. Contract analysis requires multi-step legal reasoning and precise extraction from dense structured text — a task type where small models fail on the hard tail. The aggregate quality score (0.847) did not surface this because legal queries are a small fraction of traffic (perhaps 2–3% of requests), and even a complete quality collapse on that category moves the aggregate by only 0.03–0.05 points — invisible against measurement noise. The per-tier quality scores are also misleading: the small tier's 0.891 average includes the many easy requests it handles correctly, masking the legal-query failure buried in its tail. Monitoring changes needed: (1) Stratify quality monitoring by task category (detected via topic classification on the prompt), not just by tier. Contract/legal should be its own quality bucket with its own alert threshold. (2) Track quality per (tier, task-type) cell — the cell (small, legal) is where the failure lives. (3) Implement a support-ticket-to-routing-decision correlation pipeline: when a support ticket arrives, look up the routing decision for that request and flag if the tier assignment was aggressive (small or medium for a request type that warrants large). This creates a closed-loop signal from support outcomes back to the routing system.
-      </Prose>
+      </Prose></div></section>
 
     </div>
   ),

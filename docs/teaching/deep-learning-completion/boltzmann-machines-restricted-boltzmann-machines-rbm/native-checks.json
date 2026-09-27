@@ -1,0 +1,252 @@
+{
+  "topicId": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Displayed/downloadable source equality: rbm-study.py",
+      "passed": true
+    },
+    {
+      "name": "Displayed/downloadable source equality: bernoulli_rbm_bridge.py",
+      "passed": true
+    },
+    {
+      "name": "Complete library fit/transform/gibbs/pseudo-likelihood program executed",
+      "passed": true
+    },
+    {
+      "name": "Scratch exact checks execute: direct joint enumeration, finite differences, stationary transition, energy offset and completion",
+      "passed": true
+    },
+    {
+      "name": "Original digit CSV identity",
+      "passed": true
+    },
+    {
+      "name": "Binary duplicate audit before split",
+      "passed": true
+    },
+    {
+      "name": "Reconstructed declared 238/80/80 source roles",
+      "passed": true
+    },
+    {
+      "name": "exact-11 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-11 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-11 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-11 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "exact-11 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "exact-29 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-29 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-29 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-29 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "exact-29 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "exact-47 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-47 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-47 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "exact-47 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "exact-47 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "cd1-11 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-11 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-11 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-11 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "cd1-11 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "cd1-29 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-29 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-29 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-29 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "cd1-29 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "cd1-47 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-47 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-47 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "cd1-47 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "cd1-47 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "pcd1-11 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-11 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-11 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-11 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "pcd1-11 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "pcd1-29 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-29 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-29 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-29 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "pcd1-29 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    },
+    {
+      "name": "pcd1-47 fit: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-47 development: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-47 assessment: every retained per-image NLL and reconstruction mean replay",
+      "passed": true,
+      "maxError": 0.0
+    },
+    {
+      "name": "pcd1-47 all 80 recorded completions and aggregate metrics",
+      "passed": true
+    },
+    {
+      "name": "pcd1-47 all16 original generated samples preserve order and hidden states",
+      "passed": true
+    }
+  ],
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "maximumThreads": 2
+  },
+  "limits": [
+    "Original nine 300-epoch fits reused without refitting; every final retained model and all recorded role metrics replayed.",
+    "No new image classification, GPU timing, large-state enumeration or browser acceptance claimed."
+  ]
+}

@@ -893,7 +893,7 @@ result = chain.invoke("What is the return window for international orders?")
       {/* ======================================================================
           11. EXERCISES
           ====================================================================== */}
-      <H2>11. Exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Exercises</H2>
 
       <Prose>
         <strong>Exercise 1 — Chunking ablation.</strong> Take a 10,000-word policy document. Chunk it three ways: fixed-size at 200 tokens (no overlap), fixed-size at 200 tokens with 40-token overlap, and paragraph-based. Build a 20-question validation set where you know which chunk contains the answer. Measure recall@5 for each chunking strategy using cosine similarity retrieval. Write a brief analysis of which question types each strategy fails on and why.
@@ -913,7 +913,7 @@ result = chain.invoke("What is the return window for international orders?")
 
       <Prose>
         <strong>Exercise 5 — RAGAS-style evaluation.</strong> Build a 50-question evaluation set for a domain of your choice: (question, ideal-answer, relevant-chunk-id) triples. Implement four metrics manually: (1) context precision — what fraction of retrieved chunks are relevant; (2) context recall — does the retrieved set contain the relevant chunk; (3) faithfulness — score (0/1) whether the generated answer is entailed by the retrieved chunks; (4) answer relevance — score (0/1) whether the answer addresses the question. Run your end-to-end RAG pipeline over all 50 questions and report a dashboard with all four metrics. Identify which metric is your current bottleneck and propose one concrete improvement to address it.
-      </Prose>
+      </Prose></section>
 
     </div>
   ),

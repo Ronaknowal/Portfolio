@@ -1,6 +1,6 @@
 # Interleaved / Cross-Attention Architectures
 
-**Explore as you read.** Edit rectangular Q/K/V cells, shape assignments, input order/availability, compressor entries and gate parameters. Show current read contributions, dependency legality, compression collisions and gradient routes. Saved image/question selectors reveal the actual retained outputs immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a cross-attention arrangement from what can be read, when it is available and what compression removes.
+**Explore as you read.** Change a query, edit what a memory slot holds, or remove an allowed connection. Follow the resulting weights and returned values, then compare what survives compression and what a new question can reuse.
 
 
 An image can contain a bicycle, a person and a road. “What is the person holding?” and “What surface is the bicycle on?” require different uses of the same image. A useful model needs more than one fixed sentence describing everything: it needs a way for its current question or partially written answer to read relevant information from the image.
@@ -130,7 +130,7 @@ Compression also loses information in some cases. A single uniform averaging slo
 
 The [long-context sequence-model lesson](/learn/path/full-curriculum/long-context-sequence-models-transformer-xl-griffin-perceiver?module=deep-learning-fundamentals) develops Perceiver and Perceiver IO, including repeated input reads and output queries. Here the important connection is that compression and fusion can be composed. Repeated reads must still be counted when estimating work.
 
-**Visual: a compression collision.** Feed the two value sets above through an editable one-slot averaging read. Ask whether a later “which set has larger spread?” query can succeed from the identical stored values. Then expose two separate slots and show which information was restored. Treat this as a precisely defined example of information loss, not a universal accuracy curve against latent count.
+**Visual: a compression collision.** Feed the two value sets above through an editable one-slot averaging read. Show how a later “which set has larger spread?” query receives identical stored values. Switch to two separate slots and inspect which information was restored. Treat this as a precisely defined example of information loss, not a universal accuracy curve against latent count.
 
 ### A gate controls the initial residual update
 
@@ -153,7 +153,7 @@ Why can learning start when the update is zero? For a scalar loss L,
 
 At zero, the adapter-weight gradient through this branch is zero, but the gate gradient can be nonzero. A gate update can open the route; later steps can change the adapter weights. If the adapter output is also identically zero, this particular route can stall. Other losses or shared routes can change that conclusion, so inspect the actual computation graph.
 
-For a hand calculation, set X=1, F=2 and L=½(Y−3)². At α=0, Y=1 and ∂L/∂α=−4. A gradient step with rate .1 gives α=.4 and Y≈1.7599 before changing F. The loss falls from 2 to about.7690. Setting F=0 instead makes the first gate gradient zero. The distinction is visible without inventing a characteristic 50-step delay for all gated models.
+For a hand calculation, set X=1, F=2 and L=½(Y−3)². At α=0, Y=1 and ∂L/∂α=−4. A gradient step with rate .1 gives α=.4 and Y≈1.7599 before changing F. The loss falls from 2 to about 0.7689. Setting F=0 instead makes the first gate gradient zero. The distinction is visible without inventing a characteristic 50-step delay for all gated models.
 
 **Visual: residual and gradient routes.** Show the unchanged X rail and a gated F rail. Let learners choose F and α, inspect the current gradient and take one exact step. Highlight parameter gradients separately from output values. The unchanged-output case should be as informative as the changing one.
 
@@ -170,7 +170,7 @@ These are dated, documented recipes, not assertions about hidden internals of ev
 | Model and primary source | Connection and training idea | What to inspect when adapting it |
 | --- | --- | --- |
 | [Flamingo, 2022](https://arxiv.org/html/2204.14198) | A resampler makes 64 visual tokens; gated cross-attention/dense blocks are inserted into a frozen language model. Inputs can interleave images and text. Text directly attends to its most recent preceding image; earlier text can carry older context. | Resampler latents also contribute K/V; image-availability masks, gate initialization and insertion frequency are part of the recipe. A latent is not a named image region. |
-| [BLIP-2, 2023](https://proceedings.mlr.press/v202/li23q/li23q.pdf) | A Q-Former uses 32 learned 768-wide queries; its vision and text submodules share self-attention, with masks determined by contrastive, matching or generation objectives. A later stage projects query outputs into a frozen language model. | Query–text interaction and vision cross-attention are different routes. The 188M-parameter Q-Former is substantial. OPT-style decoder training and FlanT 5-style encoder/decoder prefix training are different variants. |
+| [BLIP-2, 2023](https://proceedings.mlr.press/v202/li23q/li23q.pdf) | A Q-Former uses 32 learned 768-wide queries; its vision and text submodules share self-attention, with masks determined by contrastive, matching or generation objectives. A later stage projects query outputs into a frozen language model. | Query–text interaction and vision cross-attention are different routes. The 188M-parameter Q-Former is substantial. OPT-style decoder training and Flan-T5-style encoder/decoder prefix training are different variants. |
 | [LLaVA, 2023](https://arxiv.org/pdf/2304.08485) | A linear projection inserts CLIP image features into the language embedding stream. Its first alignment stage updates the projection; instruction tuning then updates projection and language model while keeping vision frozen. | Assistant-answer loss masking, feature choice and the training data are central. Do not silently substitute a later MLP-projector variant for the original linear design. |
 | [Idefics2, 2024](https://arxiv.org/pdf/2405.02246) | Uses a fully autoregressive multimodal stream with projection and learned pooling, commonly 64 visual tokens per image. | Its architecture study changes training choices as well as connection patterns. It is not simply a Flamingo-style gated cross-attention model. Small token count does not imply a separate visual-memory architecture. |
 
@@ -186,7 +186,7 @@ The [400-row offline CSV](digits-400.csv) comes from UCI Optical Recognition of 
 
 Split **images first**, then derive both questions. The program uses 240 fit images,80 development images and 80 assessment images, stratified by digit. Both questions from an image stay in the same split. Otherwise one question could expose the same image during fitting and another could appear as supposedly unseen evidence. Source IDs and duplicate checks are retained. Writer identities are unavailable here, so this is not a new-writer evaluation. Earlier lessons use the same source subset; these results are classroom evidence, not an untouched benchmark.
 
-Represent each question by a learned 24-dimensional vector. Split the 8×8 image into sixteen 2×2 patches; project each four-value patch to 24 dimensions and add a learned positional vector. Three attention heads read the resulting memory from the question. A residual feed-forward block and a12-class head predict digit 0–9 or even/odd classes 10–11. The classifier learns which part of that answer space each question uses.
+Represent each question by a learned 24-dimensional vector. Split the 8×8 image into sixteen 2×2 patches; project each four-value patch to 24 dimensions and add a learned positional vector. Three attention heads read the resulting memory from the question. A residual feed-forward block and a 12-class head predict digit 0–9 or even/odd classes 10–11. The classifier learns which part of that answer space each question uses.
 
 We compare an ordinary flat image-plus-question MLP, the cross-attention classifier and a version with a zero-initialized scalar gate. All train from scratch. They have different parameter counts and inductive biases. The gated version isolates a mechanism; it is not a frozen pretrained Flamingo model. The flat model is a useful baseline because a more elaborate architecture is not automatically better on 8×8 digits.
 
@@ -353,7 +353,7 @@ if __name__ == "__main__":
 
 ### Interpret the evidence
 
-These are the actual final assessment counts from the author’s CPU run. The full result file also preserves development counts, parameter counts and loss traces.
+These are the actual final assessment counts from the author’s CPU run. The full result file also preserves development counts, parameter counts and loss traces. The 27 September 2026 implementation check executed the complete nine-fit program again with PyTorch 2.14.0 CPU and one thread; every retained result reproduced exactly. The inspector additionally retains the first assessment image of each digit, both questions and all six cross/gated fits, chosen independently of whether an answer is correct. These are actual recorded outputs; selecting a case does not train a new model.
 
 | Model | Seed | Correct / 160 | Digit / 80 | Parity / 80 | Shuffled image / 160 |
 | --- | --- | --- | --- | --- | --- |
@@ -415,7 +415,7 @@ Run `python cross_attention_cache.py` with PyTorch. The bounded Torch 2.14.0 CPU
 
 This is inference caching under `no_grad()`. It does not replace the existing training experiment, where gradients must reach the intended projections and adapter. Cache storage is O(B H S (d_k+d_v)); each new question still reads its allowed S entries. Sharing image features across layers does not share projected K/V when layer projection weights differ, and sharing K/V does not share the question-specific answer.
 
-The deeper causal-encoder note has the same dependency test. If memory entry j is produced by a causal encoder, it can depend only on the encoder prefix through j; a bidirectional encoder can depend on later inputs too. Sharing those entries across decoder layers is valid only under the stated architecture, model version and availability relation. The [Long-Context/Perceiver prepared owner](../long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md) owns latent compression/repeated reads; this lesson owns source-versus-query roles and cache lifetime. Named systems' selective replay or shared index optimizations are separate engineering choices, not consequences of the generic cache identity proved here.
+The deeper causal-encoder note has the same dependency test. If memory entry j is produced by a causal encoder, it can depend only on the encoder prefix through j; a bidirectional encoder can depend on later inputs too. Sharing those entries across decoder layers is valid only under the stated architecture, model version and availability relation. The [Long-Context/Perceiver lesson](/learn/path/full-curriculum/long-context-sequence-models-transformer-xl-griffin-perceiver?module=deep-learning-fundamentals) owns latent compression/repeated reads; this lesson owns source-versus-query roles and cache lifetime. Named systems' selective replay or shared index optimizations are separate engineering choices, not consequences of the generic cache identity proved here.
 
 **Take control.** Reverse the memory storage order and reverse the mask columns with it. Then reverse only the memory. **Hint:** availability belongs to memory identity, not an accidental array slot. **Solution:** the consistent permutation leaves all outputs unchanged; changing only the memory can change which observations a query can access. Keep this test alongside full-versus-streamed equality whenever adding a new batching or cache layout.
 

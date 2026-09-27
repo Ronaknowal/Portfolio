@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "topicId": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+  "reviewer": "/root",
+  "checkedAt": "2026-09-26T19:55:11.369Z",
+  "buildReceipt": "docs/teaching/deep-learning-completion/builds/2026-09-26T19-51-16-447Z.json",
+  "sourceHashes": {
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/assessment-images.json": "be19ab30e2200b2864e3c6c35e0659cf7c6c94aa42beda1621ac8833acaf1550",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py": "623453c29a018ef4ab3152282246d44f2ad25d0263a6f8faafc4bd766d17125e",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/calculated-inputs.json": "217a5e81b51bda1397f99fae73918329a20c4e0c6f3dfd531a159d49c08da9ca",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md": "ace625dde8b461db7816540e94e0b1ed9e3d021c60d8009a64ef7db8ddb9849d",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-cd1-11.json": "bccafb850d52d53f78d265bf94981d241dc769f6ccaf6a6cb2d4d5488c06617b",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-cd1-29.json": "10d41ec974acd046e67316f6999cb5f67bfb91ca69202e7fc979c13cdeeb9b59",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-cd1-47.json": "065a4a6317fb7258709b7e84984fae6093b9cdd5bba448863f9c407926d9fa05",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-exact-11.json": "025fbce3d4a2729de9984964b7f83fb6456d17138a9a62d819ee350c7fd4c4f8",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-exact-29.json": "b1627ba875175988e73acc62c89d74193d0fdaa885c7c1ab62662307d894d521",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-exact-47.json": "90183517e7a3625ee926d7d4180bf400dfd320b16bb2107b415e41ff070521df",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-pcd1-11.json": "82bf0e4ae08a135aee92d4646e91fee86737439df569844ee68c0c976b36ff1a",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-pcd1-29.json": "38dc416eb9f84b8509ef266952735e1cba515b0a1eda9c5bbcdcd1e0555e444d",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/model-pcd1-47.json": "1e5597e4c455043e62f2162b3e8149c8ba4c74467e3c4718c2443eff83a08c66",
+    "public/learn-code/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py": "f57facd7f4aa07452c255f67ed1e320096cca37d7f1a77822161e57a3919baee",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "97a3e3b4bd5053a9dde53cc60485b2878700e349195a7c2e0e06c836f6e081e4",
+    "src/learn/components/lesson-labs/NeuralNumberControl.jsx": "b21ebb44a9baa18e87792d6a04ceb3ef13380806c4a43b65c09ec9594bbf425d",
+    "src/learn/components/lesson-labs/RbmDigitLabs.jsx": "b7e23837c02a0b8a3963417f5fda72424fa18c003947497d1c53a68c293f9294",
+    "src/learn/components/lesson-labs/RbmElements.jsx": "54a3a2510a0f719adfbd382a9ad1dc02aae4b650abbed100e9a343d6962040d5",
+    "src/learn/components/lesson-labs/RbmLabs.jsx": "f4eed411605442149b9bd628acdc1c0d16c39a66785a2ebe86b605fe7fc66ad4",
+    "src/learn/components/lesson-labs/RbmStructureFigures.jsx": "55380d1d8de6db6e397eb8a0d2f4ee4fef67c817f978eaa9921f1e402a566e59",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "b73cd8e309a490eed0357cdeb650218c24e7259de4a1a74856189d9699da1e63",
+    "src/learn/components/lesson-labs/neural-lesson-neutral.css": "d4273f8dee9703647c6e54762c7f0e79ccaf1d2e868a31a3f9f7a82aa2758063",
+    "src/learn/components/lesson-labs/neural-number-control.css": "add042fdb3f86e63c8ea3e0c67a12ea1bf1d3bcb3deb612193b5834ed953bc09",
+    "src/learn/components/lesson-labs/rbm-labs.css": "a42e6ccc1d5d728d7b968b6305fdc238458e01ecd4047a45fe67de1b18bffd08",
+    "src/learn/data/rbm-library-model.js": "3fbfefc2096736338c82a864670f6919f778aae04bee4b9f744c14b22f6526ac",
+    "src/learn/data/rbm-models.js": "20665699679dffa3faf1d512a3d21490597f6db56233df1472f22867382cf072",
+    "src/learn/data/rbm-study-summary.js": "a9682d63ad9c859c2413e9a6a41052195303156c7483cbf7df2ef45607b859b1",
+    "src/learn/data/topics/boltzmann-machines-restricted-boltzmann-machines-rbm.jsx": "b26bb23ec6b1bdc25ccc85f7b9d6ed3549962b5e45ffb040a3ec17ef1261172d",
+    "docs/teaching/deep-learning-completion/boltzmann-machines-restricted-boltzmann-machines-rbm/browser-review.md": "102f08569ff174f0d9efd7eaafb6c2940fca5ec8658363bda087f2f9bf9b8f66"
+  },
+  "checks": [
+    "Energy, exact gradient, Gibbs mass and particle, CD/PCD, reconstruction contrasts with observed numeric outputs",
+    "Real digit evidence/missingness null and allobserved/allmissing, three selected fitted models and sampling",
+    "Actual missing-model error and Retry recovery with generated asset restored and bytechecked",
+    "Desktop and320px screenshots, no page overflow, nominal SVGs, keyboard scrolling, invalid-reset, full code and solutions",
+    "Exact2^64/2^100 and current-equilibrium marker/fresh A edits verified in latest build"
+  ],
+  "findings": [
+    {
+      "issue": "Number rounding in exact binary-state count",
+      "status": "closed"
+    },
+    {
+      "issue": "Stationary marker description",
+      "status": "closed"
+    },
+    {
+      "issue": "Minibatch A could not be edited",
+      "status": "closed"
+    }
+  ],
+  "limitations": "Representative controls and models; broad numerical coverage retained independently. No retraining/GPU/learner study."
+}

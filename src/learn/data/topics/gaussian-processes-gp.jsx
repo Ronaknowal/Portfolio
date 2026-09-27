@@ -5,6 +5,7 @@ import { RunnableExample } from '../../components/lesson-labs/RunnableExample.js
 import { VectorFunctionFigure, ConditioningSliceFigure, ObservationMatrixFigure, KernelGeometryFigure, HistoricalForecastFigure, ProbeChoiceFigure } from '../../components/lesson-labs/GaussianProcessFigures.jsx';
 import { GaussianConditioningLab, GaussianForecastLab, GaussianProbeLab } from '../../components/lesson-labs/GaussianProcessLabs.jsx';
 import { gaussianProcessExamples } from '../gaussian-process-examples.js';
+import { LocallyPeriodicKernelFigure, GaussianEvidenceDirectionsFigure, InducingResidualFigure } from '../../components/lesson-labs/GaussianProcessIntuition.jsx';
 
 function MathBlock({ children }) {
   return <div className="gp-equation" role="region" tabIndex={0} aria-label="Equation; scroll horizontally if needed"><SharedMathBlock>{children}</SharedMathBlock></div>;
@@ -19,9 +20,9 @@ export default {
 
 <Prose>{"The key move is to describe how "}<strong>{"function values vary together"}</strong>{". If nearby temperatures usually move together, one reading tells us something about its neighbors. How far that information travels is a modeling decision, encoded in a covariance function."}</Prose>
 
-<Prose><strong>{"First pass:"}</strong>{" follow sections 1–7, including the two-observation calculation and the CO₂ experiment. You should finish able to explain a GP prediction, distinguish its two uncertainty bands, run a small regression, and recognize a misleading forecast. Section 8 explores measurement selection; section 9 develops classification, scalable inference, and the connection to kernel ridge regression. Those branches need the core equations but are optional on a first reading."}</Prose>
+<Prose opening="route"><strong>{"First pass:"}</strong>{" follow sections 1–7, including the two-observation calculation and the CO₂ experiment. You should finish able to explain a GP prediction, distinguish its two uncertainty bands, run a small regression, and recognize a misleading forecast. Section 8 explores measurement selection; section 9 develops classification, scalable inference, and the connection to kernel ridge regression. Those branches need the core equations but are optional on a first reading."}</Prose>
 
-<Prose>{"You need vectors, matrix multiplication, an average, and the idea of a normal distribution. A normal variable has a center called its mean and spread described by its variance; standard deviation is the square root of variance. We introduce the required Gaussian conditioning operation here. The previous CRF lesson modeled dependent discrete labels. Here the dependent quantities are numerical function values, and Gaussian algebra makes the basic regression calculation exact."}</Prose>
+<Prose opening="prerequisites">{"You need vectors, matrix multiplication, an average, and the idea of a normal distribution. A normal variable has a center called its mean and spread described by its variance; standard deviation is the square root of variance. We introduce the required Gaussian conditioning operation here. The previous CRF lesson modeled dependent discrete labels. Here the dependent quantities are numerical function values, and Gaussian algebra makes the basic regression calculation exact."}</Prose>
 
 <H2>{"1. A distribution over function values"}</H2>
 
@@ -45,7 +46,7 @@ export default {
 
 <Prose>{"There is a familiar finite-dimensional example. Let "}<Math>{"f(x)=a+bx"}</Math>{", with independent "}<Math>{"a,b\\sim\\mathcal N(0,1)"}</Math>{". Every vector of function values is a linear transformation of Gaussian weights, so this is a GP with "}<Math>{"m(x)=0"}</Math>{" and "}<Math>{"k(x,z)=1+xz"}</Math>{". Bayesian linear regression already supplies uncertainty over functions. More flexible kernels let us work without explicitly constructing a large feature vector. This connection is developed from both weight and function viewpoints in "}<a href={"https://gaussianprocess.org/gpml/chapters/RW2.pdf"}>{"GPML, chapter 2"}</a>{"."}</Prose>
 
-<Prose><strong>{"Quick prediction."}</strong>{" For this random-line prior, can a sampled curve have a sudden bend? No: its possible curves are straight lines. Gaussian marginals alone do not mean “anything can happen”; the covariance restricts how values relate."}</Prose>
+<Prose><strong>{"What this prior permits."}</strong>{" For this random-line prior, can a sampled curve have a sudden bend? No: its possible curves are straight lines. Gaussian marginals alone do not mean “anything can happen”; the covariance restricts how values relate."}</Prose>
 
 <H2>{"2. One measurement: the entire mechanism in two numbers"}</H2>
 
@@ -145,6 +146,7 @@ export default {
 
 <Prose>{"Multiplying valid kernels also gives a valid kernel. For example, periodic × RBF preserves seasonal resemblance while making it fade across distant years. This is often called locally periodic covariance. The resulting model is a GP with that product covariance; multiplying two GP sample functions does "}<strong>{"not"}</strong>{" generally produce Gaussian function values."}</Prose>
 
+<LocallyPeriodicKernelFigure />
 <Prose>{"For multiple input features, an RBF can use"}</Prose>
 
 <MathBlock>{"k(x,z)=\\sigma_f^2\\exp\\left[-\\frac12\\sum_j\\frac{(x_j-z_j)^2}{\\ell_j^2}\\right]."}</MathBlock>
@@ -161,6 +163,7 @@ export default {
 
 <Prose>{"The first term penalizes residuals in directions the covariance considers unlikely. The determinant accounts for the volume over which probability density is distributed. The last term normalizes the Gaussian. A model cannot freely broaden every direction to fit anything without changing how much density it gives the actual observations. Using "}<Math>{"C=LL^T"}</Math>{", compute half the log determinant as "}<Math>{"\\sum_i\\log L_{ii}"}</Math>{", as the program did."}</Prose>
 
+<GaussianEvidenceDirectionsFigure />
 <Prose>{"For our deliberately conflicting observations "}<Code>{"[1, −1]"}</Code>{", log marginal likelihood is −2.861021, −2.952256, and −4.022773 for lengths 0.3, 1, and 3. Among these three fixed candidates, the short scale gives the observations higher density. This is a small comparison, not proof that the short scale is globally optimal or that shorter scales always win."}</Prose>
 
 <Prose>{"Optimizing θ integrates out "}<Math>{"f"}</Math>{" but "}<strong>{"does not integrate out θ"}</strong>{". A single optimized setting is an empirical-Bayes, plug-in choice. Full hyperparameter inference averages predictions over a posterior on θ and can reflect additional uncertainty. Optimization can have local optima; multiple initialized fits and sensible bounds help diagnose this, but do not guarantee a global optimum. "}<a href={"https://gaussianprocess.org/gpml/chapters/RW5.pdf"}>{"GPML, chapter 5, §§5.3–5.4"}</a>{" treats marginal likelihood alongside cross-validation."}</Prose>
@@ -203,47 +206,47 @@ export default {
 
 <Prose>{"This example connects to "}<a href={"https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_gpr_co2.html"}>{"scikit-learn's longer CO₂ kernel-design walkthrough"}</a>{". Its locally periodic construction provides a useful extension; the experiment here uses a smaller, independently specified period and a held-out comparison."}</Prose>
 
-<H2>{"7. Practice: calculate, diagnose, and transfer"}</H2>
+<section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>{"7. Practice: calculate, diagnose, and transfer"}</H2>
 
-<H3>{"A. A weaker connection"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"A. A weaker connection"}</H3>
 
 <Prose>{"Both latent variances are one, observation noise variance is one, the cross-covariance is 0.4, and the observed value is −3. Calculate the posterior mean, latent variance, and a future observation variance with the same noise. What changes if the cross-covariance is zero?"}</Prose>
 
 <details><summary>{"Hint"}</summary><Prose>{"The observed variable's variance includes noise. Use that total in both denominators; add future noise only after calculating latent variance."}</Prose></details>
 
-<details><summary>{"Solution"}</summary><Prose>{"The observed variance is 2. Mean "}<Math>{"0.4(-3)/2=-0.6"}</Math>{"; latent variance "}<Math>{"1-0.16/2=0.92"}</Math>{"; observation variance "}<Math>{"0.92+1=1.92"}</Math>{". Zero cross-covariance gives mean 0, latent variance 1, and observation variance 2. An observation can be extreme while teaching nothing about an independent target."}</Prose></details>
+<details><summary>{"Solution"}</summary><Prose>{"The observed variance is 2. Mean "}<Math>{"0.4(-3)/2=-0.6"}</Math>{"; latent variance "}<Math>{"1-0.16/2=0.92"}</Math>{"; observation variance "}<Math>{"0.92+1=1.92"}</Math>{". Zero cross-covariance gives mean 0, latent variance 1, and observation variance 2. An observation can be extreme while teaching nothing about an independent target."}</Prose></details></div>
 
-<H3>{"B. A constant prior is a strong claim"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"B. A constant prior is a strong claim"}</H3>
 
 <Prose>{"Let "}<Math>{"k(x,z)=1"}</Math>{" everywhere, with zero observation noise. Can this model accommodate two distinct values, 1 and −1, at different inputs? Would a small jitter fix the modeling issue?"}</Prose>
 
 <details><summary>{"Hint"}</summary><Prose>{"Calculate the prior variance of "}<Math>{"f(x)-f(z)"}</Math>{"."}</Prose></details>
 
-<details><summary>{"Solution"}</summary><Prose>{"It is "}<Math>{"1+1-2=0"}</Math>{", so the values must be equal almost surely. The conflicting observations have no support under the model, and the covariance matrix is singular. Added diagonal variance permits observation disagreement only by changing the noise assumptions. Numerical stabilization does not make a constant latent function capable of varying."}</Prose></details>
+<details><summary>{"Solution"}</summary><Prose>{"It is "}<Math>{"1+1-2=0"}</Math>{", so the values must be equal almost surely. The conflicting observations have no support under the model, and the covariance matrix is singular. Added diagonal variance permits observation disagreement only by changing the noise assumptions. Numerical stabilization does not make a constant latent function capable of varying."}</Prose></details></div>
 
-<H3>{"C. Diagnose a suspicious improvement"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"C. Diagnose a suspicious improvement"}</H3>
 
 <Prose>{"A colleague changes observation values, leaves locations and all hyperparameters fixed, and reports much narrower latent bands. Name a precise check. Then explain when a changed width could be legitimate."}</Prose>
 
 <details><summary>{"Hint"}</summary><Prose>{"Find where "}<Math>{"y"}</Math>{" appears in the conditional covariance formula."}</Prose></details>
 
-<details><summary>{"Solution"}</summary><Prose>{"There is no "}<Math>{"y"}</Math>{" in that formula. Compare the two covariance arrays while holding kernel, noise, input preprocessing, and target grid fixed. In the supplied implementation they must match to numerical tolerance. If the fit also re-estimated kernel/noise parameters or target normalization, the model changed, and widths may legitimately differ. Log those settings before diagnosing the solver."}</Prose></details>
+<details><summary>{"Solution"}</summary><Prose>{"There is no "}<Math>{"y"}</Math>{" in that formula. Compare the two covariance arrays while holding kernel, noise, input preprocessing, and target grid fixed. In the supplied implementation they must match to numerical tolerance. If the fit also re-estimated kernel/noise parameters or target normalization, the model changed, and widths may legitimately differ. Log those settings before diagnosing the solver."}</Prose></details></div>
 
-<H3>{"D. A forecast review"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"D. A forecast review"}</H3>
 
 <Prose>{"An engineer says, “Our test MAE beats seasonal-naive, so the GP's 95% band is validated.” Write a short correction and one next study using the supplied experiment."}</Prose>
 
 <details><summary>{"Hint"}</summary><Prose>{"Point accuracy and interval performance measure different things. Preserve the used test's status."}</Prose></details>
 
-<details><summary>{"Solution"}</summary><Prose>{"“The GP improves test MAE from 3.813 to 1.234 ppm, but only 13 of 24 test observations are inside its nominal 95% intervals. That period does not support the interval claim.” An appropriate next study uses multiple earlier training cutoffs, forecasts a fixed horizon, and compares residual patterns and interval behavior for predeclared kernels/noise assumptions. Reserve a later, genuinely unused period for a subsequent final evaluation. Do not merely enlarge bands until this test count looks satisfactory."}</Prose></details>
+<details><summary>{"Solution"}</summary><Prose>{"“The GP improves test MAE from 3.813 to 1.234 ppm, but only 13 of 24 test observations are inside its nominal 95% intervals. That period does not support the interval claim.” An appropriate next study uses multiple earlier training cutoffs, forecasts a fixed horizon, and compares residual patterns and interval behavior for predeclared kernels/noise assumptions. Reserve a later, genuinely unused period for a subsequent final evaluation. Do not merely enlarge bands until this test count looks satisfactory."}</Prose></details></div>
 
-<H3>{"E. Your own kernel proposal"}</H3>
+<div className="lesson-exercise" data-lesson-exercise=""><H3>{"E. Your own kernel proposal"}</H3>
 
 <Prose>{"A sensor signal has a drifting baseline and a daily cycle whose shape slowly changes. Propose a covariance composition; explain how two distant readings at the same hour should relate."}</Prose>
 
 <details><summary>{"Hint"}</summary><Prose>{"The seasonal effect needs both recurrence and decay across days."}</Prose></details>
 
-<details><summary>{"Solution"}</summary><Prose>{"One defensible model is a long-scale RBF or explicit trend component plus periodic("}<Math>{"p=1"}</Math>{" day) × RBF with a longer day-to-day decay scale, plus separately modeled observation noise. Same-hour readings remain strongly related nearby in time, but the periodic component's covariance fades over many days. Validate the decay scale using held-out future periods. Different compositions can be justified if their assumptions and evaluation protocol are explicit."}</Prose></details>
+<details><summary>{"Solution"}</summary><Prose>{"One defensible model is a long-scale RBF or explicit trend component plus periodic("}<Math>{"p=1"}</Math>{" day) × RBF with a longer day-to-day decay scale, plus separately modeled observation noise. Same-hour readings remain strongly related nearby in time, but the periodic component's covariance fades over many days. Validate the decay scale using held-out future periods. Different compositions can be justified if their assumptions and evaluation protocol are explicit."}</Prose></details></div></section>
 
 <H2>{"8. Deeper application: where should we measure next?"}</H2>
 
@@ -260,6 +263,7 @@ export default {
 
 <Prose>{"An optimization goal is different. If you seek a small objective value, a common acquisition is expected improvement. For a noiseless incumbent "}<Math>{"b"}</Math>{", predictive mean μ and standard deviation "}<Math>{"s>0"}</Math>{", let "}<Math>{"z=(b-\\mu)/s"}</Math>{". Then"}</Prose>
 
+<Prose>Improvement means max(b−f,0): outcomes below the incumbent contribute how much better they are; outcomes above it contribute zero. Expected improvement averages those gains over the predictive distribution. It therefore depends on both the chance of crossing b and the sizes of the possible gains.</Prose>
 <MathBlock>{"\\operatorname{EI}=(b-\\mu)\\Phi(z)+s\\phi(z),"}</MathBlock>
 
 <Prose>{"where Φ and φ are the standard normal cumulative distribution and density. For "}<Math>{"b=1"}</Math>{", candidate A with μ=0.8, "}<Math>{"s=0.1"}</Math>{" has EI 0.200849; B with μ=1, "}<Math>{"s=0.5"}</Math>{" has EI 0.199471. A slightly wins despite B's greater uncertainty. At "}<Math>{"s=0"}</Math>{", use the continuous limit "}<Math>{"\\max(b-\\mu,0)"}</Math>{". With noisy observations, the best observed value need not be a known latent incumbent; noisy acquisitions must account for that distinction. Expected improvement chooses experiments that might improve an objective, while target-variance reduction chooses experiments that clarify a target. Neither is a universal “pick the most uncertain” rule."}</Prose>
@@ -280,6 +284,8 @@ export default {
 
 <Prose>{"The prediction integrates the sigmoid over uncertain latent values. Generally "}<Math>{"\\mathbb E[\\operatorname{sigmoid}(f_*)]\\ne\\operatorname{sigmoid}(\\mathbb E[f_*])"}</Math>{". The latter discards uncertainty before converting to probability. A probability close to 0.5 can reflect ambiguous outcomes or uncertain latent values; one probability alone does not separate those causes. Expectation propagation and variational inference provide other approximations. The "}<a href={"https://scikit-learn.org/stable/modules/gaussian_process.html"}>{"scikit-learn GP guide"}</a>{" explains its Laplace classifier and contrasts its multiclass strategies with a direct joint multiclass likelihood."}</Prose>
 
+<Prose>For an arithmetic illustration of the nonlinear averaging issue, suppose a latent value were equally likely to be −1 or 3. Its mean is 1, giving sigmoid(1)≈.7311. Converting each possible value first gives [.2689,.9526], whose average is about .6108. This two-point illustration is not a Gaussian approximation; it isolates why the order of averaging and applying a nonlinear link matters. A GP classifier performs the corresponding integration under its latent predictive distribution.</Prose>
+
 <H3>{"What makes exact regression expensive?"}</H3>
 
 <Prose>{"For dense "}<Math>{"n\\times n"}</Math>{" covariance, storage is "}<Math>{"O(n^2)"}</Math>{", and one Cholesky factorization is "}<Math>{"O(n^3)"}</Math>{". Hyperparameter fitting repeats expensive evaluations. After fitting, a single mean prediction takes "}<Math>{"O(n)"}</Math>{" algebra beyond kernel evaluation; its variance requires a triangular solve taking "}<Math>{"O(n^2)"}</Math>{". For many targets, batch solves reuse the factor. A full covariance among "}<Math>{"q"}</Math>{" targets additionally needs "}<Math>{"O(q^2)"}</Math>{" output storage and cross-target work. Prediction is not uniformly linear just because the mean is."}</Prose>
@@ -292,6 +298,7 @@ export default {
 
 <Prose>{"The trace term penalizes latent variance the inducing representation leaves unexplained. It is an approximation objective with a reason for its correction, not a claim that selected points exactly replace all data. Dense inducing calculations commonly involve "}<Math>{"O(nm^2+m^3)"}</Math>{" work. "}<a href={"https://proceedings.mlr.press/v5/titsias09a/titsias09a.pdf"}>{"Titsias, 2009, equation 9"}</a>{"."}</Prose>
 
+<InducingResidualFigure />
 <Prose>{"Stochastic variational methods keep a distribution "}<Math>{"q(u)"}</Math>{" and optimize an evidence lower bound whose likelihood contribution is a sum over observations. Minibatches estimate that sum, while a KL term compares "}<Math>{"q(u)"}</Math>{" with its prior. This gives a route to large datasets and non-Gaussian likelihoods; approximation quality still depends on the representation and optimization. "}<a href={"https://arxiv.org/abs/1309.6835"}>{"Hensman, Fusi and Lawrence, 2013"}</a>{"."}</Prose>
 
 <Prose>{"Structured kernel interpolation instead approximates covariance using interpolation onto inducing locations with useful grid structure. Fast matrix-vector products can support iterative linear solves, with costs depending on that structure and convergence. "}<a href={"https://proceedings.mlr.press/v37/wilson15.html"}>{"Wilson and Nickisch, 2015"}</a>{". Neither technique makes every arbitrary kernel calculation exact and linear-time."}</Prose>
@@ -324,7 +331,7 @@ export default {
 
 <details><summary>{"Solution"}</summary><Prose>{"The matching variance is "}<Math>{"40(0.025)=1"}</Math>{", not 0.025. Claiming posterior credible intervals from the deterministic KRR objective alone is unjustified: those intervals need probabilistic assumptions, including the GP prior and observation model."}</Prose></details>
 
-<H2>{"10. References & another way to learn it"}</H2>
+<section className="lesson-ending lesson-ending--resources" data-lesson-ending="resources"><H2>{"10. References & another way to learn it"}</H2>
 
 <ul><li><a href={"https://gaussianprocess.org/gpml/chapters/RW.pdf"}>{"Rasmussen and Williams, "}<em>{"Gaussian Processes for Machine Learning"}</em></a>{": the free canonical textbook. Chapter 2 develops regression from weights and functions; chapter 4 explains covariance choices; chapter 5 treats model selection. Chapters 3 and 8 extend the core to classification and approximations. Use these after the numerical conditioning example."}</li>
 <li><a href={"https://distill.pub/2019/visual-exploration-gaussian-processes/"}>{"Görtler, Kehlbeck and Deussen, "}<em>{"A Visual Exploration of Gaussian Processes"}</em></a>{": an interactive article for seeing joint Gaussians, conditioning, and function samples. Its geometric view is especially useful if matrix notation feels disconnected from the picture. Keep variance and standard deviation distinct when translating a covariance diagonal into a plotted width."}</li>
@@ -335,6 +342,6 @@ export default {
 <li><a href={"https://proceedings.mlr.press/v5/titsias09a.html"}>{"Titsias, variational inducing variables"}</a>{", "}<a href={"https://arxiv.org/abs/1309.6835"}>{"Hensman et al., stochastic variational GPs"}</a>{", and "}<a href={"https://proceedings.mlr.press/v37/wilson15.html"}>{"Wilson and Nickisch, structured kernel interpolation"}</a>{": three different mechanisms for scaling inference. Read the mechanism you need rather than treating their complexity statements as interchangeable."}</li></ul>
 
 <Prose>{"The next topic in this module is "}<strong>{"Semi-Supervised Learning"}</strong>{". Here unlabeled locations acquired predictions through a covariance model and observed numerical values. Next, unlabeled examples help classification through assumptions about input geometry, class structure, or agreeing views. A large unlabeled collection is useful only when those assumptions connect its structure to the labels we need. "}</Prose>
-<aside className="lesson-intro"><p><strong>Run the two examples offline.</strong> Download <a href="/learn/examples/gaussian-processes-gp/gp_conditioning.py" download>gp_conditioning.py</a>, <a href="/learn/examples/gaussian-processes-gp/co2_gp.py" download>co2_gp.py</a> and <a href="/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv" download>the NOAA monthly CSV</a>. Keep the CSV beside co2_gp.py. <a href="/learn/examples/gaussian-processes-gp/README.md" download>Data provenance and attribution</a>.</p></aside>
+<aside className="lesson-intro"><p><strong>Run the two examples offline.</strong> Download <a href="/learn/examples/gaussian-processes-gp/gp_conditioning.py" download>gp_conditioning.py</a>, <a href="/learn/examples/gaussian-processes-gp/co2_gp.py" download>co2_gp.py</a> and <a href="/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv" download>the NOAA monthly CSV</a>. Keep the CSV beside co2_gp.py. <a href="/learn/examples/gaussian-processes-gp/README.md" download>Data provenance and attribution</a>.</p></aside></section>
 </div>,
 };

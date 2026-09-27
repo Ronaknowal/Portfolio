@@ -934,7 +934,7 @@ InsightFinder LLM drift detection        insightfinder.com/blog/hidden-cost-llm-
       {/* ======================================================================
           11. EXERCISES
           ====================================================================== */}
-      <H2>11. Exercises</H2>
+      <section className="lesson-ending lesson-ending--practice" data-lesson-ending="practice"><H2>11. Exercises</H2>
 
       <Prose>
         <strong>Exercise 1 — Extend the tracer.</strong> Modify the OTel tracer from section 4a to support async context propagation across two simulated services. Write a function <Code>propagate_context(span)</Code> that serializes the current trace context to a dict (simulating HTTP headers), and a function <Code>extract_context(headers)</Code> that deserializes it and uses it as the parent for a new span. Demonstrate a complete trace across a simulated gateway and a simulated worker running in separate <Code>asyncio</Code> tasks.
@@ -954,7 +954,7 @@ InsightFinder LLM drift detection        insightfinder.com/blog/hidden-cost-llm-
 
       <Prose>
         <strong>Exercise 5 — Cost anomaly detector.</strong> Using the <Code>LLMMetrics</Code> class from section 4b, implement a rolling-window cost anomaly detector. Every 60 seconds (simulated), compute the total cost for the window and compare it to the mean of the last 10 windows. If the current window cost exceeds the rolling mean by more than 3× (a heuristic for runaway cost), emit a <Code>COST_SPIKE</Code> alert with the model breakdown. Test it by injecting a burst of high-token requests in one window.
-      </Prose>
+      </Prose></section>
     </div>
   ),
 };

@@ -1,0 +1,745 @@
+{
+  "topicId": "spectral-normalization-gradient-penalty",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Complete inline training program equals canonical executable",
+      "passed": true
+    },
+    {
+      "name": "Every original image produces its recorded ink profile",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "Whole-profile group split fit",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "Whole-profile group split development",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "Whole-profile group split assessment",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "Every empirical bootstrap point",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "Bootstrap directional discrepancy fit",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "Bootstrap directional discrepancy development",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "Bootstrap directional discrepancy assessment",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "Complete sensitivity program executed, including SVD gradient and parametrization export",
+      "passed": true
+    },
+    {
+      "name": "clipping-11 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 3.970802625596903e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 4.5207159404814234e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 5.077491968541459e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 4.489848701161314e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 5.725163815251122e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-11 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-11 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-11 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-11 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 5.714658669886408e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 4.454849482360412e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-11 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 1.0782976817003131e-08,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "clipping-29 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 6.400898694414181e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 7.627340384286363e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.0523519208827103e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 7.317559058694911e-11,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 6.01444657966077e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-29 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-29 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-29 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-29 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 8.541015381058337e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 6.133969859822841e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-29 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 2.244566199571807e-10,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "clipping-47 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 5.1976649151352916e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 7.800535800628339e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.5714681014800114e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.3082284908150221e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 8.000687057307942e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-47 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-47 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-47 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "clipping-47 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 1.0315887338796514e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 4.443522643587938e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "clipping-47 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 6.746333891527456e-08,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "gradient-penalty-11 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 7.711544480759613e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 9.014368806958828e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 2.240158336608289e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 2.2118304410234657e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 2.4345198357256237e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-11 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-11 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-11 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-11 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 1.915826136622556e-07,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 8.751552016406094e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-11 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 1.7114099826187612e-07,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "gradient-penalty-29 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 8.560356334896824e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 1.0926686289103316e-07,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 3.687836147570067e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 3.5697594880090833e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 4.0743369789097983e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-29 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-29 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-29 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-29 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 2.0799286160055885e-07,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 1.5655735086106404e-07,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-29 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 1.1781588948878152e-07,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "gradient-penalty-47 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 8.181317268096677e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 5.752843973416688e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.68508196285444e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.687881778789091e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.7496574744590987e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-47 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-47 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-47 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "gradient-penalty-47 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 1.6172319461382756e-07,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 1.9066891643326755e-07,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "gradient-penalty-47 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 7.171850082698938e-07,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "spectral-normalization-11 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 4.534800035482789e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 2.0695011648808048e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.78407529721758e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 9.207072985961684e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.531281618866176e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-11 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-11 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-11 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-11 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 2.719013081353694e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 6.155112280969988e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-11 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 3.384413860274549e-07,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "spectral-normalization-29 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 5.0881003244018785e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 5.665962760081911e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 2.1575105903226532e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.7280577732647906e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 3.3055605301590685e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-29 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-29 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-29 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-29 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 6.532601526387793e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 2.4390269526275432e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-29 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 2.782876398210732e-07,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "spectral-normalization-47 all256 generator outputs",
+      "passed": true,
+      "maxAbsoluteError": 4.873844366981572e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 all400 critic scores",
+      "passed": true,
+      "maxAbsoluteError": 5.766787306016319e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 fit discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 1.1640842144389207e-09,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 development discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 7.076162884811499e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 assessment discrepancy from current frozen outputs",
+      "passed": true,
+      "maxAbsoluteError": 5.606059262641683e-10,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 history 1 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-47 history 100 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-47 history 300 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-47 history 600 discrepancy",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 1e-12
+    },
+    {
+      "name": "spectral-normalization-47 all1681 grid scores",
+      "passed": true,
+      "maxAbsoluteError": 7.24106554439441e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 all1681 grid input derivatives",
+      "passed": true,
+      "maxAbsoluteError": 3.452863395203565e-08,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "spectral-normalization-47 matrix product bound",
+      "passed": true,
+      "maxAbsoluteError": 4.8697729404523216e-08,
+      "tolerance": 2e-06
+    },
+    {
+      "name": "Evaluation access preserves singular buffers",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "Actual library export preserves function",
+      "passed": true,
+      "maxAbsoluteError": 0.0,
+      "tolerance": 0
+    },
+    {
+      "name": "clipping canonical D/G optimizer steps, detached fake, retained generator derivative and finite parameters",
+      "passed": true
+    },
+    {
+      "name": "gradient-penalty canonical D/G optimizer steps, detached fake, retained generator derivative and finite parameters",
+      "passed": true
+    },
+    {
+      "name": "spectral-normalization canonical D/G optimizer steps, detached fake, retained generator derivative and finite parameters",
+      "passed": true
+    }
+  ],
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "maximumThreads": 2
+  },
+  "limits": [
+    "Original nine600-step fits reused; all final outputs, metrics and recorded histories replayed. One bounded actual D/G update per method checks derivative/optimizer contracts.",
+    "No new GAN benchmark, GPU/mixed-precision claim or browser acceptance."
+  ]
+}

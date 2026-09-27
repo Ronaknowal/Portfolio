@@ -1,0 +1,43 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { transform } from 'esbuild';
+import { attentionRead, messageDefault, multiHeadRead, attentionTrajectory, mixtures, attentionStorage } from '../src/learn/data/self-attention-models.js';
+const id = 'self-attention-multi-head-attention', folder = `docs/teaching/deep-learning-completion/${id}`, checks = [];
+const near = (a, b, tolerance = 1e-10) => assert.ok(Math.abs(a - b) <= tolerance, `${a} differs from ${b}`);
+const equal = (a, b, tolerance) => a.forEach((v, i) => Array.isArray(v) ? equal(v, b[i], tolerance) : near(v, b[i], tolerance));
+const input = messageDefault(), base = attentionRead(input.query, input.keys, input.values);
+const fixtures = JSON.parse(fs.readFileSync(`docs/teaching/drafts/${id}/additional-fixtures.json`));
+equal(base.output, fixtures.message_lab.output[0]); equal(base.weights, fixtures.message_lab.weights[0]);
+const edited = structuredClone(input); edited.values[2][1] = 2;
+equal(attentionRead(input.query, input.keys, edited.values).output, fixtures.message_lab.value_edit_output[0]);
+equal(attentionRead(input.query, input.keys, edited.values).weights, base.weights);
+equal(attentionRead(input.query, input.keys, input.values, { offset: 1000 }).weights, base.weights);
+assert.equal(attentionRead(input.query, input.keys, input.values, { allowed: [false, false, false] }).output, null);
+checks.push({ name: 'Independent native message fixtures, key/value separation, common-offset invariance, empty-row policy', passed: true });
+const identity = Object.fromEntries(['query', 'key', 'value', 'output'].map(name => [name, [[1, 0], [0, 1]]]));
+const one = multiHeadRead([[1, 0], [0, 1]], identity, 1), two = multiHeadRead([[1, 0], [0, 1]], identity, 2);
+equal(two.output[0], fixtures.two_heads_output); assert.ok(Math.abs(one.output[0][1] - two.output[0][1]) > .16);
+equal(multiHeadRead([[1, 0], [0, 1]], { ...identity, value: [[0, 0], [0, 0]] }, 2).output, [[0, 0], [0, 0]]);
+checks.push({ name: 'One/two-head independent expected outputs and zero-value null', passed: true });
+const same = mixtures([.6, .3, .1], [.2, .3, .5], [4, 2, 4]); near(same.outputA, 3.4); near(same.outputB, 3.4);
+const storage = attentionStorage(); assert.equal(storage.matrixBytes, 128 * 2 ** 20); assert.equal(storage.cacheBytes, 96 * 2 ** 20);
+const twice = attentionStorage({ length: 4096 }); assert.equal(twice.matrixBytes, 4 * storage.matrixBytes); assert.equal(twice.cacheBytes, 2 * storage.cacheBytes);
+checks.push({ name: 'Equal-mixture construction and exact storage scaling/nulls', passed: true });
+const data = JSON.parse(fs.readFileSync(`public/learn-assets/${id}/trajectory-model.json`)), native = JSON.parse(fs.readFileSync(`${folder}/native-fixtures.json`));
+assert.equal(native.length, 6);
+let maximumPortError = 0;
+for (const fixture of native) {
+  let points = structuredClone(data.points), valid;
+  if (fixture.variant === 'reverse') points.reverse();
+  if (fixture.variant === 'reflect') points[22][0] = 1 - points[22][0];
+  if (fixture.variant.startsWith('padding')) { points.push(...Array.from({ length: 5 }, () => [.75, .75])); if (fixture.variant === 'padding-masked') valid = [...Array(45).fill(true), ...Array(5).fill(false)]; }
+  if (fixture.variant === 'duplicate-first') points.push([...points[0]]);
+  const actual = attentionTrajectory(data.state_dict, points, valid);
+  actual.logits.forEach((v, i) => { maximumPortError = Math.max(maximumPortError, Math.abs(v - fixture.logits[i])); near(v, fixture.logits[i], 2e-5); });
+  equal(actual.heads.map(head => head[0].weights), fixture.selectedWeights, 1e-5);
+}
+checks.push({ name: 'Six native PyTorch frozen-input conditions; all15 logits and both selected head rows', passed: true, maximumPortError });
+for (const file of [`src/learn/data/topics/${id}.jsx`, 'src/learn/components/lesson-labs/SelfAttentionLabs.jsx', 'src/learn/components/lesson-labs/SelfAttentionFigures.jsx']) await transform(fs.readFileSync(file, 'utf8'), { loader: 'jsx' });
+checks.push({ name: 'Topic and component JSX syntax', passed: true });
+fs.writeFileSync(`${folder}/model-checks.json`, JSON.stringify({ passed: true, checks, maximumPortError }, null, 2) + '\n');
+console.log(JSON.stringify({ passed: true, checkGroups: checks.length, maximumPortError }));

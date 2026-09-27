@@ -1,0 +1,39 @@
+.self-attention-lesson { min-width: 0; overflow-wrap: anywhere; }
+.self-attention-figure { margin: 1.5rem 0; padding: 1rem; border-left: 2px solid #d5ac59; background: #151515; }
+.self-attention-lesson figcaption { color: #ecd296; font-weight: 600; margin-bottom: .8rem; }
+.self-attention-lane { padding: .8rem 0; border-top: 1px solid #4b4b4b; }
+.self-attention-lane > strong { display: block; color: #ebcd8d; margin-bottom: .35rem; }
+.self-attention-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1.2rem; align-items: start; }
+.attention-value-plane { max-width: 330px; margin: 1rem 0; }
+.attention-value-plane svg { display: block; width: 100%; height: auto; }
+.attention-weight-row { margin: 1rem 0; }
+.attention-bars { max-height: 340px; overflow-y: auto; padding: .3rem; }
+.attention-bars > div { display: grid; grid-template-columns: 2rem minmax(30px, 1fr) 5.6rem; gap: .5rem; align-items: center; min-height: 1.7rem; }
+.attention-bar-track { height: .6rem; background: #303030; }
+.attention-bar-track > div { height: 100%; background: #d5ab51; }
+.attention-bars output { font-size: .82rem; font-variant-numeric: tabular-nums; }
+.attention-edges { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1rem 0; }
+.attention-edges label { display: flex; align-items: center; gap: .4rem; }
+.self-attention-lesson details { margin: 1rem 0; }
+.self-attention-lesson summary { cursor: pointer; padding: .5rem 0; color: #ebcc8c; }
+.attention-path-diagram { max-width: 390px; margin: 1.5rem auto; }
+.attention-path-diagram svg, .attention-legal-diagram svg { display: block; width: 100%; height: auto; }
+.attention-path-diagram text, .attention-legal-diagram text { font-family: inherit; font-size: 12px; }
+.attention-legal-diagram { max-width: 420px; margin: 1rem auto; }
+.attention-pipeline-nodes { display: grid; gap: .5rem; text-align: center; }
+.attention-pipeline-nodes > div { border: 1px solid #826d45; background: #26221b; padding: .7rem; }
+.attention-pipeline-nodes > span { color: #d9c295; }
+.attention-diagram-scroll { max-width: 100%; overflow-x: auto; scrollbar-color: #b99451 #222; }
+.attention-diagram-scroll > svg { min-width: 340px; width: 100%; height: auto; display: block; }
+.attention-value-plane .attention-diagram-scroll > svg { min-width: 300px; }
+@media (max-width: 480px) { .self-attention-figure { padding: .65rem; } .attention-bars > div { grid-template-columns: 1.6rem minmax(20px, 1fr) 5rem; } }
+
+.self-attention-plot-scroll { min-width: 0; max-width: 100%; overflow-x: auto; }
+.self-attention-plot-scroll > .neural-plot { min-width: 340px; }
+
+.attention-balances { display: flex; flex-wrap: wrap; gap: 1rem; }
+.attention-balances > figure { flex: 1 1 240px; margin: 1rem 0; min-width: 0; }
+.attention-balance-row { display: grid; grid-template-columns: 1.5rem minmax(60px,1fr) 4.5rem; gap: .5rem; align-items: center; }
+.attention-balance-row > div { position: relative; height: .8rem; background: linear-gradient(90deg,#252525 49.8%,#aaa 49.8%,#aaa 50.2%,#252525 50.2%); }
+.attention-balance-row i { position: absolute; height: 100%; }
+.attention-balance-row output { font-variant-numeric: tabular-nums; font-size: .85rem; }
