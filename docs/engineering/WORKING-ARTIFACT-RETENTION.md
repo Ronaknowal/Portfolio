@@ -2,6 +2,8 @@
 
 The user's 11 September 2026 cleanup request applies to `scratch/` and temporary artifacts elsewhere in the workspace. Cleanup is part of finishing work, not a new recurring audit of every lesson.
 
+The lesson-authoring skill's [handoff and cleanup lifecycle](../../skills/lesson-authoring/references/handoffs-and-cleanup.md) defines routine housekeeping at each topic/phase boundary and an explicit scoped cleanup mode. Perform the relevant housekeeping within the authorized task; a separate cleanup request is unnecessary for its own confirmed disposable work. This is not a background deletion service. Preserve content-first handoffs, unresolved topic notes, active workers' inputs and required evidence; respect explicit read-only scope. This document retains ownership of repository-specific file retention and removal checks.
+
 ## What belongs where
 
 | Material | Location and lifetime |

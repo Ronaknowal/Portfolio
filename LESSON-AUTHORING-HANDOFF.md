@@ -91,19 +91,17 @@ and the topic's browser receipt for actual coverage and limits.
 
 ## Start here
 
-1. Read [the teaching standard](LESSON-TEACHING-STANDARD.md), starting with [delivery modes](LESSON-TEACHING-STANDARD.md#delivery-modes-and-stopping-boundaries), the [six-stage workflow](LESSON-TEACHING-STANDARD.md#six-stage-authoring-workflow) and **Keep verification bounded and reusable**. It owns phase boundaries, pedagogy, quality and completion requirements.
-2. Use [the domain playbook](docs/teaching/DOMAIN-PLAYBOOK.md) and [topic design workflow](docs/teaching/TOPIC-DESIGN-BRIEF.md) for the current subject. Choose representations for its mechanisms; do not impose identical labs or article sections.
-3. Read [the learning code standard](docs/engineering/LEARNING-CODE-STANDARD.md), including temporary-work retention. It owns semantic files, lazy loading and performance contracts.
-4. Read the [two-phase ledger](docs/teaching/lesson-delivery-progress.json) through `node scripts/build-curriculum-inventory.mjs --topic "Exact title or stable ID"`. Check `topic.delivery`, its linked record and destination notes. Read the complete current manuscript/specifications or implemented lesson appropriate to the requested phase. [Ledger instructions](docs/teaching/LESSON-DELIVERY-LEDGER.md) define checkpoint/version handling.
-5. Use [the curriculum plan](LEARNING-CURRICULUM-PLAN.md) and relevant specialist plans only when a scoped coverage question needs them. For DSA, also use [the practice standard](docs/teaching/DSA-PRACTICE-STANDARD.md).
+1. Use [$lesson-authoring](skills/lesson-authoring/SKILL.md). Its mode router owns the reading order for full implementation, research/write only, finishing prepared content, planning, review, improvement, resumption, scoped cleanup and significant research updates. Load the guidance relevant to the task; no need to read every reference for a small repair.
+2. Follow [the repository adapter](skills/lesson-authoring/references/portfolio-adapter.md) to the selected topic's preflight, complete sources, notes, engineering contracts and [two-phase ledger](docs/teaching/lesson-delivery-progress.json). [Ledger instructions](docs/teaching/LESSON-DELIVERY-LEDGER.md) remain the data contract.
+3. Keep current scope/status and approved reference context here. The skill owns reusable teaching guidance. The former standard, domain playbook and design brief preserve old links as forwarding indexes; do not append new policy to them. Historical receipts retain the exact versions they reviewed.
 
-Do not reread all historical batches or enumerate scratch to rediscover the task. Preserve passed evidence for unchanged source and continue from the recorded next action. Within an ongoing session, reuse current policies already available in context; retrieve missing or changed instructions when necessary. The standard's [source-bound review handoff](LESSON-TEACHING-STANDARD.md#source-bound-evidence-and-review-handoff) and code standard's [context/coordination rules](docs/engineering/LEARNING-CODE-STANDARD.md#efficient-context-tools-and-coordination) explain what to pass between authors, reviewers and the integration owner without repeating the whole history.
+Do not reread all historical batches or enumerate scratch to rediscover the task. Preserve passed evidence for unchanged source and continue from the recorded next action. The skill's [workflow](skills/lesson-authoring/references/workflow.md) and [review](skills/lesson-authoring/references/review.md) references own phase boundaries, quality and source-bound handoffs; the code standard owns repository coordination/cleanup.
 
 ## Request either delivery mode
 
-- **Full:** “Implement the next topic end to end.” Complete content, visual/lab implementation, all applicable review/fixes/checks and integration without an intermediate approval pause. This is the default for ordinary implementation requests.
-- **Content first:** “Research and write the next topic only, including detailed visual/lab specifications.” Deliver the complete manuscript, examples, practice/solutions and annotated resources plus actionable specifications. Implement the visuals/labs and website code in phase two, not during this request.
-- **Later continuation:** “Finish implementation and verification for the prepared topic.” Run the topic command with `--work finish`; it requires a complete, current content checkpoint. Consume that work and perform phase two, including necessary content corrections. A different agent can continue using the saved files.
+- **Full:** “$lesson-authoring implement the next topic end to end.”
+- **Content first:** “$lesson-authoring research and write the next topic only.”
+- **Later continuation:** “$lesson-authoring finish implementation and verification for the prepared topic.”
 
 The user's selected mode persists through the requested batch and clear continuations. A content-only completion must say that implementation remains pending. Publication, historical implementation review and user acceptance are separate from the current revision's two statuses. The active ledger and source hashes determine current effective status; historical migrations do not authorize a new queue.
 
@@ -111,27 +109,14 @@ The user's selected mode persists through the requested batch and clear continua
 
 ## Current teaching requirements
 
-Follow the standard's [quality-first rule](LESSON-TEACHING-STANDARD.md#quality-takes-priority-over-efficiency).
-Efficiency defaults never justify omitting necessary explanation, research or
-verification. Preserve from-scratch **and** normal library/tool routes with locally
-explained code, exact prerequisite reuse, stable/efficient algorithms, stated
-abstraction boundaries and customization practice. “Optimal” requires a workload
-and cost model; do not claim unmeasured universal performance. Content-first work
-must already include complete explained code and precise visual/lab specifications,
-not a task for the finish agent to research missing core teaching.
-
-Use topic-specific illustrations and playable investigations where they help.
-Apply the [teaching loop at every conceptual transition](LESSON-TEACHING-STANDARD.md#apply-the-teaching-loop-at-every-conceptual-transition), including variants, implementation choices and advanced branches. The topic's design map must locate the actual explanation, worked intermediate steps and useful representation for each new hurdle; an introductory analogy alone is insufficient.
-Changing a control should show its effect immediately; there is **no learner-
-prediction entry, even optional**, and no answer-unlock gate. Scientific model
-predictions and separate practice remain valid. Use multiple investigations when
-distinct mechanisms need them, not a fixed quota or identical plain boxes.
-
-For substantive verifier/model or visual work, consult the relevant sections of
-[verification pitfalls](docs/engineering/LESSON-VERIFICATION-PITFALLS.md): independent
-trust roots, painted versus nominal geometry, nonempty subject sets, meaningful
-failure checks, honest coverage, crash-safe mutation tools and preserved evidence.
-This consolidates reusable lessons from completed batches; it is not a new audit queue.
+The skill's [teaching](skills/lesson-authoring/references/teaching.md),
+[visuals/labs](skills/lesson-authoring/references/visuals-and-labs.md),
+[examples/code](skills/lesson-authoring/references/examples-and-code.md) and
+[review](skills/lesson-authoring/references/review.md) references now own these
+requirements in full. They preserve concept-by-concept intuition, visible teaching,
+live controls without prediction entry, explained scratch/library routes, meaningful
+practice and quality-first verification. [The engineering contract](docs/engineering/LEARNING-CODE-STANDARD.md)
+continues to own shared reader consistency, code controls and runtime performance.
 
 ## Guided projects and curriculum planning
 

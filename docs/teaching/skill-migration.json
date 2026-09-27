@@ -1,0 +1,139 @@
+{
+  "recordedAt": "2026-09-27T20:45:41.237Z",
+  "scope": "Instruction relocation only. No topic content, runtime, phase ledger or historical receipt edited.",
+  "sources": {
+    "LESSON-TEACHING-STANDARD.md": "a0cbd411f0c0f58b3ef3e0e79cf01df2563833cf1a3fa9a6ec9c86749a419b2f",
+    "docs/teaching/TOPIC-DESIGN-BRIEF.md": "f3e8b320f66bf401b81d5ad60cd3599ddd397b36edfc1d42df20e34c292cdb79",
+    "docs/teaching/DOMAIN-PLAYBOOK.md": "93704541b2ad6a20700565311aa59a72a53c20912b157fcb9c18b65d30815438",
+    "docs/teaching/DSA-PRACTICE-STANDARD.md": "5f30649bb84777fdced7afb60ed4987ff769209093d292a8f8af7014ea477ab3"
+  },
+  "retainedSections": [
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "9a44382545d0e5341daa8ad8aaeb6e6c88a072739f3c8f1f492810b6ad7a7e0d",
+      "destination": "skills/lesson-authoring/references/workflow.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "f19bac6482e08fcccc1ede3b1cc7f8496014d5efddb728c3046440ab81e0c254",
+      "destination": "skills/lesson-authoring/references/teaching.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "a348e692eb92b6aa7bf23b39eab37fd2410ea32dbda12e7cc96b312039842ef7",
+      "destination": "skills/lesson-authoring/references/teaching.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "8d53625823ca6ca502e4c7d620b18630ba4f4407ebeaa7de19cd0d9cf3a3b7e7",
+      "destination": "skills/lesson-authoring/references/teaching.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "413bfbfecf52c9e2de32f7375ee716f5e9ee2a46a6fd4325824fc211dab58dc2",
+      "destination": "skills/lesson-authoring/references/visuals-and-labs.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "a2d4d8f4b7cdabe0b91bc05d84dc64af2118e143d5aa1cbcbc58fee7a07cedf9",
+      "destination": "skills/lesson-authoring/references/examples-and-code.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "6a9960b54dcc1363c1e3386f32730e513bf4fa85d7178a03fd13326fa58d611e",
+      "destination": "skills/lesson-authoring/references/practice-and-resources.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "fa7600364d974fee2789171214962764b48f984b7e0f51a577dbaab807b1beea",
+      "destination": "skills/lesson-authoring/references/domain-playbook.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "ccb1c7d2f22b3f70c43328271d1a75b695bb5106455f3d27b7113c04de20f3ba",
+      "destination": "skills/lesson-authoring/references/practice-and-resources.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "4c1bad54a5848fc23bc0a19b2e4d9a4a4f1343c111d54f137b46dc29be39a4df",
+      "destination": "skills/lesson-authoring/references/review.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "aa93a1424725f910b5caf7fa8e70812f07315be49398178833a9c2983326882b",
+      "destination": "skills/lesson-authoring/references/review.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "b0baff82efd4fa2d44b758ffc1b15f7e76dd8959114515eefa66fff540f182ef",
+      "destination": "skills/lesson-authoring/references/workflow.md"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "sourceTextSha256": "880cdbd082ed1bd16c24566d9b54984a43eb4904c9c7ee322e2c2c657b24a46d",
+      "destination": "skills/lesson-authoring/references/workflow.md"
+    },
+    {
+      "source": "docs/teaching/TOPIC-DESIGN-BRIEF.md",
+      "sourceTextSha256": "04c251de7cd1ed18791a572a8e9ed34c983b16bfefb9be9fd20b999cafda313e",
+      "destination": "skills/lesson-authoring/references/topic-design.md"
+    },
+    {
+      "source": "docs/teaching/DOMAIN-PLAYBOOK.md",
+      "sourceTextSha256": "c0a614af0dc1d8dd4b746a14e331a8ca5dc5a3ebfb4968cd84f7afa8e8363c2d",
+      "destination": "skills/lesson-authoring/references/domain-playbook.md"
+    },
+    {
+      "source": "docs/teaching/DSA-PRACTICE-STANDARD.md",
+      "sourceTextSha256": "12d71fb684dd4e4eb865f755f5d85f9ee4992e5a7dcf9cb7432e89cb01a857f3",
+      "destination": "skills/lesson-authoring/references/dsa-practice.md"
+    }
+  ],
+  "corrections": [
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "destination": "skills/lesson-authoring/references/workflow.md",
+      "before": "Read [the current handoff](LESSON-AUTHORING-HANDOFF.md), this standard, [the domain playbook](docs/teaching/DOMAIN-PLAYBOOK.md), [the topic-design brief](docs/teaching/TOPIC-DESIGN-BRIEF.md), and the actual topic/component sources before editing. Read historical evidence only when needed for the topic. Preserve useful existing work.",
+      "after": "Start with this skill’s mode router, the current repository handoff and selected topic record. Load the teaching, design, domain and review guidance for the chosen task using the router; read actual affected sources before editing. Read historical evidence only when needed for the topic. Preserve useful existing work."
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "destination": "skills/lesson-authoring/references/workflow.md",
+      "before": "Apply section 11's bounded-verification guidance",
+      "after": "Apply the review reference's bounded-verification guidance"
+    },
+    {
+      "source": "LESSON-TEACHING-STANDARD.md",
+      "destination": "skills/lesson-authoring/references/teaching.md",
+      "before": "expandable derivations or secondary implementation details",
+      "after": "visible, clearly labeled derivations or secondary implementation details"
+    },
+    {
+      "source": "docs/teaching/DSA-PRACTICE-STANDARD.md",
+      "destination": "skills/lesson-authoring/references/dsa-practice.md",
+      "before": "interactive predictions, independent exercises",
+      "after": "live interactive investigations, independent exercises"
+    }
+  ],
+  "note": "Section text was migrated without summarizing. Relative links were redirected to skill references or explicit selected-repository paths. The dated standard preamble is superseded by the skill entrypoint; its live-lab rule remains in the visual reference. Hashes identify pre-migration input, not a fresh lesson review.",
+  "validation": {
+    "recordedAt": "2026-09-27T20:55:20.126Z",
+    "preservedSections": 16,
+    "dsaHistoryUnchanged": true,
+    "checkedLinks": 276,
+    "brokenLinks": 0,
+    "checks": {
+      "skillValidator": "Passed built-in quick_validate.py with UTF-8 and the existing local PyYAML dependency",
+      "uiMetadata": "Parsed YAML; description length and default invocation checked",
+      "repository": "Passed scripts/verify-repository-files.mjs for 8511 required files and 9 future-path probes",
+      "selectedPreflight": "Positional Encodings finish preflight retained complete/current content and implementation",
+      "independentReview": "Six read-only request scenarios checked; no blocking mode/phase regression; one legacy H1 anchor restored and checked",
+      "gitDiff": "Whitespace check passed",
+      "websiteBuild": "Not run: no lesson or browser runtime changes",
+      "installation": "Personal directory junction verified against versioned SKILL.md SHA256",
+      "cleanup": "Only owned scratch/lesson-skill-migration is disposable; prepared lessons and historical evidence retained"
+    }
+  },
+  "canonicalSkill": "skills/lesson-authoring/SKILL.md",
+  "personalSkill": "C:/Users/ronak/.agents/skills/lesson-authoring/SKILL.md"
+}

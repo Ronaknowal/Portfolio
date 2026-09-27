@@ -28,7 +28,7 @@ function ignored(files) {
   if (![0, 1].includes(result.status)) throw new Error(result.stderr || result.error?.message || "git check-ignore failed");
   return result.stdout.split("\0").filter(Boolean);
 }
-const roots = ["src", "public", "content", "apps", "scripts", "docs", ".github"];
+const roots = ["src", "public", "content", "apps", "scripts", "docs", "skills", ".github"];
 const required = (await Promise.all(roots.map(collect))).flat();
 for (const entry of await readdir(repositoryRoot, { withFileTypes: true })) {
   if (entry.isFile() && (/\.md$/i.test(entry.name) || ["package.json", "package-lock.json", "vite.config.js", "index.html", ".gitignore", ".env.example"].includes(entry.name))) required.push(entry.name);

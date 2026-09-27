@@ -4,6 +4,9 @@ A personal site with a home, portfolio, learning workspace and articles. This is
 one React/Vite application with independently loaded sections, not a portfolio
 component that owns the rest of the site.
 
+Source repository: [Ronaknowal/ronak.sh](https://github.com/Ronaknowal/ronak.sh).
+The npm package and Cloudflare Worker are named `ronak-site`.
+
 ## Development
 
 Use Node.js 20.19+ (or a supported newer LTS) and npm.

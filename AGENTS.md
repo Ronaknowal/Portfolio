@@ -7,7 +7,7 @@ Read [README.md](README.md) for commands and [the repository contract](docs/engi
 
 - Site UI/routing: [SITE-ARCHITECTURE.md](docs/engineering/SITE-ARCHITECTURE.md) and [.impeccable.md](.impeccable.md).
 - Article writing/publishing: [ARTICLE-AUTHORING.md](docs/writing/ARTICLE-AUTHORING.md).
-- Educational content: start at [LESSON-AUTHORING-HANDOFF.md](LESSON-AUTHORING-HANDOFF.md), then the applicable teaching standard and scoped ledger record. [Preserved workspace checkpoints](docs/teaching/WORKSPACE-INSTRUCTIONS.md) are historical context to consult only for a specific question, not a required second handoff. The teaching ledger owns current phases; historical snapshots are not new queues.
+- Educational content: read the current state in [LESSON-AUTHORING-HANDOFF.md](LESSON-AUTHORING-HANDOFF.md), then use [$lesson-authoring](skills/lesson-authoring/SKILL.md) for the requested mode and relevant guidance. The versioned skill owns reusable teaching instructions; the repository owns topic state, manuscripts, ledgers, evidence and engineering contracts. Old standard/design/playbook paths are forwarding indexes, not competing policies. [Preserved workspace checkpoints](docs/teaching/WORKSPACE-INSTRUCTIONS.md) are historical context only. Historical snapshots are not new queues.
 - Educational runtime: also [LEARNING-CODE-STANDARD.md](docs/engineering/LEARNING-CODE-STANDARD.md) and [LEARNING-WORKSPACE.md](docs/engineering/LEARNING-WORKSPACE.md).
 - Guided Learn projects: [PROJECT-AUTHORING-STANDARD.md](PROJECT-AUTHORING-STANDARD.md).
 - Independent deployed apps: [apps/README.md](apps/README.md).

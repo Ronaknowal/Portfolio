@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lesson Authoring"
+  short_description: "Research, write, implement and review technical lessons"
+  default_prompt: "Use $lesson-authoring for the topics I specify, preserving my chosen delivery mode and the current teaching standards."

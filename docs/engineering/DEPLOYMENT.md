@@ -26,7 +26,7 @@ the workflow. Avoid staging unrelated work wholesale.
 
 1. In Cloudflare, create an **Edit Cloudflare Workers** API token scoped to the
    intended account and domain zone. Copy that account's **Account ID**, not Zone ID.
-2. In [repository Actions secrets](https://github.com/Ronaknowal/Portfolio/settings/secrets/actions),
+2. In [repository Actions secrets](https://github.com/Ronaknowal/ronak.sh/settings/secrets/actions),
    add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. Keep the token out of source
    files and chat. The workflow uses repository secrets, not environment secrets.
 3. Open **Workers & Pages** and complete any account or `workers.dev` subdomain
