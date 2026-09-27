@@ -21,7 +21,7 @@ Theme: use the shared `--learn-*` tokens in `learning-workspace.css`: near-black
 
 ## Research project authoring
 
-Follow [PROJECT-AUTHORING-STANDARD.md](../../PROJECT-AUTHORING-STANDARD.md), the dedicated end-to-end project teaching and delivery manual. The earlier authoring rules from this section are preserved and expanded there, so future changes have one project-authoring owner rather than two competing checklists. This file continues to own information architecture, runtime boundaries and shared workspace integration.
+Follow [PROJECT-AUTHORING-STANDARD.md](../teaching/projects/PROJECT-AUTHORING-STANDARD.md), the dedicated end-to-end project teaching and delivery manual. The earlier authoring rules from this section are preserved and expanded there, so future changes have one project-authoring owner rather than two competing checklists. This file continues to own information architecture, runtime boundaries and shared workspace integration.
 
 The user selected the finished Typed Decision Model depth revision 2 as the teaching reference. Preserve locally explained mechanisms, actual scratch/tool implementations, contextual concept links, distinct live investigations without learner-prediction gates, and evidence-based interpretation. Adapt stages and visual forms to the project. Read the manual for planning, complete content-first packets, review, phase tracking and handoff; do not treat the reference's stage/lab counts as quotas.
 

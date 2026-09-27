@@ -7,12 +7,14 @@ Read [README.md](README.md) for commands and [the repository contract](docs/engi
 
 - Site UI/routing: [SITE-ARCHITECTURE.md](docs/engineering/SITE-ARCHITECTURE.md) and [.impeccable.md](.impeccable.md).
 - Article writing/publishing: [ARTICLE-AUTHORING.md](docs/writing/ARTICLE-AUTHORING.md).
-- Educational content: read the current state in [LESSON-AUTHORING-HANDOFF.md](LESSON-AUTHORING-HANDOFF.md), then use [$lesson-authoring](skills/lesson-authoring/SKILL.md) for the requested mode and relevant guidance. The versioned skill owns reusable teaching instructions; the repository owns topic state, manuscripts, ledgers, evidence and engineering contracts. Old standard/design/playbook paths are forwarding indexes, not competing policies. [Preserved workspace checkpoints](docs/teaching/WORKSPACE-INSTRUCTIONS.md) are historical context only. Historical snapshots are not new queues.
+- Educational content: read the current state in [LESSON-AUTHORING-HANDOFF.md](docs/teaching/LESSON-AUTHORING-HANDOFF.md), then use [$lesson-authoring](skills/lesson-authoring/SKILL.md) for the requested mode and relevant guidance. The versioned skill owns reusable teaching instructions; the repository owns topic state, manuscripts, ledgers, evidence and engineering contracts. [Preserved workspace checkpoints](docs/teaching/WORKSPACE-INSTRUCTIONS.md) are historical context only. Historical snapshots are not new queues.
 - Educational runtime: also [LEARNING-CODE-STANDARD.md](docs/engineering/LEARNING-CODE-STANDARD.md) and [LEARNING-WORKSPACE.md](docs/engineering/LEARNING-WORKSPACE.md).
-- Guided Learn projects: [PROJECT-AUTHORING-STANDARD.md](PROJECT-AUTHORING-STANDARD.md).
+- Guided Learn projects: [PROJECT-AUTHORING-STANDARD.md](docs/teaching/projects/PROJECT-AUTHORING-STANDARD.md).
 - Independent deployed apps: [apps/README.md](apps/README.md).
 
 Read the documents relevant to the authorized task. Site architecture work does not authorize lesson rewrites or a curriculum rollout. Do not reopen old lesson checks or recursively inspect scratch merely to orient a task. The current handoff summarizes live work; historical records retain completed batches without becoming future instructions.
+
+[docs/README.md](docs/README.md) indexes documentation by purpose. Keep new guidance and records in those directories; only README, AGENTS and the conventional hidden design context belong at the root. Extend the existing semantic owner instead of creating a report for every small fix. Use the [relocation map](docs/engineering/DOCUMENTATION-ORGANIZATION.md) when a frozen historical receipt names a former root document; do not rewrite its hashes or treat it as current policy.
 
 ## Common engineering rules
 

@@ -2,7 +2,7 @@
 
 Started 11 September 2026 after the completed DSA and mathematics rollout. The current user request authorizes the first ten topics of Classical Machine Learning in the module's existing order. Existing publication does not establish review under the current teaching standard.
 
-Read [the authoring handoff](LESSON-AUTHORING-HANDOFF.md), [teaching standard](LESSON-TEACHING-STANDARD.md), [domain playbook](docs/teaching/DOMAIN-PLAYBOOK.md), [design workflow](docs/teaching/TOPIC-DESIGN-BRIEF.md) and [code standard](docs/engineering/LEARNING-CODE-STANDARD.md). Preserve useful depth and all stable identities. Each topic needs its own assessed design, verified examples and claims, concept-specific visuals, changed independent practice and annotated alternative resources. The ten topics do not need identical layouts or lab counts.
+Read [the authoring handoff](../../teaching/LESSON-AUTHORING-HANDOFF.md), [teaching standard](../../../skills/lesson-authoring/SKILL.md), [domain playbook](../../teaching/DOMAIN-PLAYBOOK.md), [design workflow](../../teaching/TOPIC-DESIGN-BRIEF.md) and [code standard](../../engineering/LEARNING-CODE-STANDARD.md). Preserve useful depth and all stable identities. Each topic needs its own assessed design, verified examples and claims, concept-specific visuals, changed independent practice and annotated alternative resources. The ten topics do not need identical layouts or lab counts.
 
 ## Exact authorized scope
 
@@ -17,7 +17,7 @@ Read [the authoring handoff](LESSON-AUTHORING-HANDOFF.md), [teaching standard](L
 9. Multi-Label & Multi-Output Learning
 10. Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models)
 
-The [captured baseline](docs/teaching/evidence/classical-ml-supervised-baseline.json) preserves all 228 publication mappings, all 1,218 catalogue IDs, the complete module order and original lesson bytes. The [ten-topic progress ledger](docs/teaching/classical-ml-supervised-progress.json) owns implementation stages and later source-versioned review evidence. K-Means & Hierarchical Clustering is the actual next topic after this scope; it is not authorized for rewriting by this request.
+The [captured baseline](../../teaching/evidence/classical-ml-supervised-baseline.json) preserves all 228 publication mappings, all 1,218 catalogue IDs, the complete module order and original lesson bytes. The [ten-topic progress ledger](../../teaching/classical-ml-supervised-progress.json) owns implementation stages and later source-versioned review evidence. K-Means & Hierarchical Clustering is the actual next topic after this scope; it is not authorized for rewriting by this request.
 
 ## Shared learning decisions
 
@@ -33,12 +33,12 @@ Before closing the increment, verify source and publication conservation, fresh 
 
 ## Completed checkpoint — 11 September 2026
 
-All ten topics above are implementation-reviewed. Their author evidence, independently assessed source versions, resolved amendments and final production integration are linked from the [completed ledger](docs/teaching/classical-ml-supervised-progress.json). The [integration report](docs/teaching/CLASSICAL-ML-SUPERVISED-INTEGRATION.md) records fifteen passing production cases, exact catalogue/publication conservation, generated metadata, the build and measured dependency loading.
+All ten topics above are implementation-reviewed. Their author evidence, independently assessed source versions, resolved amendments and final production integration are linked from the [completed ledger](../../teaching/classical-ml-supervised-progress.json). The [integration report](../../teaching/CLASSICAL-ML-SUPERVISED-INTEGRATION.md) records fifteen passing production cases, exact catalogue/publication conservation, generated metadata, the build and measured dependency loading.
 
 No lesson or shared integration work remains in this increment. User acceptance is separate. Await the user's next scope; K-Means & Hierarchical Clustering is the actual next module topic and was not rewritten here. Completed DSA/mathematics work also remains closed. Reuse passed evidence for unchanged source.
 
 The final pass closed dense-input/stable-distance contracts, the SVM flat pair-update case, recommender fallback behavior, survival observation and Cox controls, narrow-screen formulas, explicit reading-time units and the metadata/blueprint consumer contracts. The exact topic records explain each correction and its affected verification; do not rerun all historical checks from these examples.
 
-Cleanup is complete: the main image pass removed 2,222 obsolete/duplicate captures (approximately 188 MB) and 35 temporary files outside scratch, followed by bounded topic-owned retirement of duplicate drafts, extractions and unused captures. Necessary production assets, original baselines, selected review evidence and dependency environments remain. Follow [the retention policy](docs/engineering/WORKING-ARTIFACT-RETENTION.md) at future topic closure rather than scanning historical scratch directories on every resume.
+Cleanup is complete: the main image pass removed 2,222 obsolete/duplicate captures (approximately 188 MB) and 35 temporary files outside scratch, followed by bounded topic-owned retirement of duplicate drafts, extractions and unused captures. Necessary production assets, original baselines, selected review evidence and dependency environments remain. Follow [the retention policy](../../engineering/WORKING-ARTIFACT-RETENTION.md) at future topic closure rather than scanning historical scratch directories on every resume.
 
 The reproducible native environments at scratch/lesson-tools/ and scratch/survival-tools/ remain useful inputs. Survival uses pandas 2.3.3 because lifelines 0.30.3 requires pandas below 3; earlier lessons retain their original environment. These retained tools and evidence are not unfinished work.

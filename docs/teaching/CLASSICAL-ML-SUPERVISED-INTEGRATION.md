@@ -1,6 +1,6 @@
 # Classical ML: first ten lessons, final integration
 
-Completed 11 September 2026. All ten authorized lessons have source-bound author verification, independent review and a passing production integration. The [implementation record](../../CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md) identifies the exact scope; the [ledger](classical-ml-supervised-progress.json) binds each reviewed source. User acceptance remains separate. No deployment was performed.
+Completed 11 September 2026. All ten authorized lessons have source-bound author verification, independent review and a passing production integration. The [implementation record](../archive/lesson-rollout/CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md) identifies the exact scope; the [ledger](classical-ml-supervised-progress.json) binds each reviewed source. User acceptance remains separate. No deployment was performed.
 
 ## Teaching and source ownership
 

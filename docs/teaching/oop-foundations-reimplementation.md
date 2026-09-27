@@ -1,6 +1,6 @@
 # Object-Oriented Programming in Python: implementation design and evidence
 
-Written 9 September 2026 for the user-authorized reimplementation of the first five topics. Stable ID: `object-oriented-programming-in-python`. This record describes this lesson; [the teaching standard](../../LESSON-TEACHING-STANDARD.md) remains policy and [the handoff](../../LESSON-AUTHORING-HANDOFF.md) owns the overall queue. User acceptance of this replacement is pending; the Linux lesson remains the approved quality reference.
+Written 9 September 2026 for the user-authorized reimplementation of the first five topics. Stable ID: `object-oriented-programming-in-python`. This record describes this lesson; [the teaching standard](../../skills/lesson-authoring/SKILL.md) remains policy and [the handoff](LESSON-AUTHORING-HANDOFF.md) owns the overall queue. User acceptance of this replacement is pending; the Linux lesson remains the approved quality reference.
 
 ## Learning contract and retained scope
 
@@ -101,7 +101,7 @@ Primary documentation retrieved 9 September 2026; `/3` pages identified themselv
 - Screenshots and machine-readable records: `scratch/oop-foundations/`. Scoped lab captures temporarily hide fixed site navigation during the screenshot only, then restore it for interactions; this prevents a tall element screenshot from including a fixed bar across its middle.
 - Visual review: original desktop/mobile screenshots inspected. Arrows, state identities, text failure labels and stacked flows remain readable. Clean scoped captures were regenerated after excluding the fixed-navigation screenshot artifact.
 - `scripts/review-programming-batch-one.cjs` now retains iterator checks and delegates the current Python/OOP reviews; the combined public entry point passed at 1440 and 390 pixels. Legacy OOP fixtures in the old native batch script are regression evidence, not complete coverage of this replacement.
-- [The first-five integration record](../../FIRST-FIVE-REIMPLEMENTATION.md) owns the final application build, curriculum conservation/inventory and cross-page integration checks. Those results are separate from this topic's model/runtime and browser evidence.
+- [The first-five integration record](../archive/lesson-rollout/FIRST-FIVE-REIMPLEMENTATION.md) owns the final application build, curriculum conservation/inventory and cross-page integration checks. Those results are separate from this topic's model/runtime and browser evidence.
 
 No external novice study or user acceptance has occurred. Runtime correctness and author walkthrough are evidence for this scoped implementation, not proof of mastery. Multiple inheritance, descriptor implementation, large-data performance and comprehensive type checker setup remain linked/deeper topics, while the core route reaches its small-design finish line.
 

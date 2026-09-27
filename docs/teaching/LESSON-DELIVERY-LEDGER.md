@@ -1,6 +1,6 @@
 # Tracking content and implementation separately
 
-Updated 12 September 2026. The [teaching standard](../../LESSON-TEACHING-STANDARD.md#delivery-modes-and-stopping-boundaries) owns the two delivery modes and quality requirements. This document owns the data contract and handoff procedure. It does not add another review campaign.
+Updated 12 September 2026. The [teaching standard](../../skills/lesson-authoring/references/workflow.md#delivery-modes-and-stopping-boundaries) owns the two delivery modes and quality requirements. This document owns the data contract and handoff procedure. It does not add another review campaign.
 
 ## One current phase ledger
 

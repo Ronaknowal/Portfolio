@@ -2,7 +2,7 @@
 
 Current visual follow-up, 10 September 2026: [scientific representation review](SCIENTIFIC-VISUAL-REVIEW.md) records the inline reshape/transpose comparison and fresh native/browser evidence. The existing labs and executable examples were retained; the dated reimplementation record below describes the prior increment.
 
-Date: 9 September 2026. Scope: topic 2 in the user's explicitly authorised first-five reimplementation. Stable topic ID: `numpy-arrays-broadcasting-vectorization`. This record implements the [teaching standard](../../LESSON-TEACHING-STANDARD.md); it does not replace the [current handoff](../../LESSON-AUTHORING-HANDOFF.md).
+Date: 9 September 2026. Scope: topic 2 in the user's explicitly authorised first-five reimplementation. Stable topic ID: `numpy-arrays-broadcasting-vectorization`. This record implements the [teaching standard](../../skills/lesson-authoring/SKILL.md); it does not replace the [current handoff](LESSON-AUTHORING-HANDOFF.md).
 
 ## Learning contract and original weaknesses
 
@@ -114,7 +114,7 @@ Retrieved 9 September 2026 with the web tool. Moving stable documentation identi
 - Inspected mobile broadcasting/storage and desktop selection/reduction screenshots; cell labels, source coordinates and equations remain readable. Tall NumPy element captures can include fixed global navigation at the capture's current scroll position; normal viewport/interaction checks passed. The final batch's scoped data-lab and OOP captures exclude fixed navigation during capture only; this does not change runtime behavior or hide navigation during normal interactions.
 - The continuation link was verified against the live catalogue and points to `scientific-file-formats-schemas-reliable-data-i-o`. No publication-based skipping was introduced.
 - `scripts/review-programming-batch-two.cjs` now retains decorator/testing checks and delegates current NumPy coverage to `numpy-foundations-browser.cjs`; the combined public command passed at 1440 and 390 pixels. The old native batch-two script retains earlier NumPy fixtures as regression evidence, not complete coverage of the rewritten lesson.
-- [The first-five integration record](../../FIRST-FIVE-REIMPLEMENTATION.md) owns final application build, cross-page browser evidence, curriculum conservation and shared handoff status.
+- [The first-five integration record](../archive/lesson-rollout/FIRST-FIVE-REIMPLEMENTATION.md) owns final application build, cross-page browser evidence, curriculum conservation and shared handoff status.
 
 ## Review status and limits
 

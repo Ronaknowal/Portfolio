@@ -6,7 +6,7 @@
 
 [Open the Linux lesson](http://127.0.0.1:5173/learn/topic/linux-basics-filesystems-processes). The local development server must be running; from this project use `npm.cmd run dev -- --host 127.0.0.1`. Nothing was deployed.
 
-The [lesson source](src/learn/data/topics/linux-basics-filesystems-processes.jsx) keeps its existing URL, eight runnable examples, useful conditions and failure explanations. The improvements implement [the teaching standard](LESSON-TEACHING-STANDARD.md) with several representations serving distinct learning questions.
+The [lesson source](../../../src/learn/data/topics/linux-basics-filesystems-processes.jsx) keeps its existing URL, eight runnable examples, useful conditions and failure explanations. The improvements implement [the teaching standard](../../../skills/lesson-authoring/SKILL.md) with several representations serving distinct learning questions.
 
 ## What was weak and what changed
 
@@ -46,7 +46,7 @@ Native tests use temporary Linux files, restore permission fixtures before clean
 
 One test correction mattered: after `2>&1 > combined.txt`, the producer's stderr message travels to the outer stdout destination. The UI groups terminal messages by their producer stream, while the native harness captures outer stdout/stderr separately. The corrected test verifies this distinction against actual Bash.
 
-Screenshots are under [scratch/linux-lesson-review](scratch/linux-lesson-review): `paths`, `streams`, `permissions`, and `process`, each at 1440 and 390 px. Browser checks use an existing Playwright package selected via `PLAYWRIGHT_PACKAGE`; no website dependency was added. The older batch-four browser script was adapted to the additional Linux labs and investigation instead of assuming exactly one lab/eight outputs.
+Screenshots are under [scratch/linux-lesson-review](../../../scratch/linux-lesson-review): `paths`, `streams`, `permissions`, and `process`, each at 1440 and 390 px. Browser checks use an existing Playwright package selected via `PLAYWRIGHT_PACKAGE`; no website dependency was added. The older batch-four browser script was adapted to the additional Linux labs and investigation instead of assuming exactly one lab/eight outputs.
 
 The adapted `scripts/review-programming-batch-four.cjs` also passed its existing Git/Linux regression checks at both widths; Git content was not edited in this increment.
 
@@ -63,4 +63,4 @@ Original prose, diagrams, controls and exercises are used. Primary references ch
 
 ## Continuation
 
-The original Linux implementation is complete, with the above model/native/browser evidence and user approval. On 10 September its four labs and existing programs were retained; annotated Missing Semester notes/video were added and the closing bridge was corrected to the live OS next position. The Linux model and desktop/mobile browser checks passed again; unchanged native examples retain the earlier explicitly dated evidence. [The current handoff](LESSON-AUTHORING-HANDOFF.md) owns active scope and the continuation queue; this report does not instruct a Bash rewrite.
+The original Linux implementation is complete, with the above model/native/browser evidence and user approval. On 10 September its four labs and existing programs were retained; annotated Missing Semester notes/video were added and the closing bridge was corrected to the live OS next position. The Linux model and desktop/mobile browser checks passed again; unchanged native examples retain the earlier explicitly dated evidence. [The current handoff](../../teaching/LESSON-AUTHORING-HANDOFF.md) owns active scope and the continuation queue; this report does not instruct a Bash rewrite.

@@ -35,10 +35,10 @@ There is no new required lesson template or diagram quota. A familiar table rema
 
 ## Detailed design and verification records
 
-- [Python foundations](docs/teaching/PYTHON-VISUAL-REVIEW.md): five topics, reference/cursor/lifetime mechanisms, source/runtime checks and 1440/390/320px review.
-- [Scientific computing](docs/teaching/SCIENTIFIC-VISUAL-REVIEW.md): five topics, shape/field/key/pivot/ownership contracts and native CSV/NumPy/Pandas/SQLite/Matplotlib checks.
-- [Developer workflows](docs/teaching/WORKFLOW-VISUAL-REVIEW.md): five topics, notebook/API/Git/Bash/thread contracts and independent Python/mypy/Bash/Git checks.
-- [Systems, DSA and pilots](docs/teaching/SYSTEMS-PILOTS-VISUAL-REVIEW.md): seven topics, retained Linux rationale, new diagrams and mathematical/browser evidence.
+- [Python foundations](../../teaching/PYTHON-VISUAL-REVIEW.md): five topics, reference/cursor/lifetime mechanisms, source/runtime checks and 1440/390/320px review.
+- [Scientific computing](../../teaching/SCIENTIFIC-VISUAL-REVIEW.md): five topics, shape/field/key/pivot/ownership contracts and native CSV/NumPy/Pandas/SQLite/Matplotlib checks.
+- [Developer workflows](../../teaching/WORKFLOW-VISUAL-REVIEW.md): five topics, notebook/API/Git/Bash/thread contracts and independent Python/mypy/Bash/Git checks.
+- [Systems, DSA and pilots](../../teaching/SYSTEMS-PILOTS-VISUAL-REVIEW.md): seven topics, retained Linux rationale, new diagrams and mathematical/browser evidence.
 
 Each record explains the original weakness, exact placement, concrete example, visual encoding, interaction/prediction where applicable, model limits, accessible/mobile behavior, evidence and retained content. Existing design records link their follow-up, and the current handoff links this complete review. Pandas' live blueprint now includes the pivot investigation rather than describing only its previous four labs.
 

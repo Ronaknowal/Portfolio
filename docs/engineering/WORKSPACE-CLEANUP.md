@@ -16,7 +16,7 @@ The exact [cleanup manifest](../teaching/evidence/workspace-cleanup-2026-09-11.j
 
 Automatic approval review rejected the initial broader deletion because it included drafts and verification material that might still be needed. That broader deletion did not run. The completed alternative was narrowed to editing utilities and the proven duplicate, with a byte-verified recovery archive created before removal. Verification artifacts and other uncertain files remain in place.
 
-Continue from [the current implementation checkpoint](../../CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md#resume-checkpoint--after-workspace-cleanup-11-september-2026), not from archived utilities or scratch folder names. This record is a completed cleanup report, not a recurring task.
+Continue from [the current implementation checkpoint](../archive/lesson-rollout/CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md#resume-checkpoint--after-workspace-cleanup-11-september-2026), not from archived utilities or scratch folder names. This record is a completed cleanup report, not a recurring task.
 
 ## Additional image and workspace cleanup
 

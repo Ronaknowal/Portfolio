@@ -70,7 +70,7 @@ At each topic/phase handoff, perform the relevant [handoff and cleanup steps](re
 
 ## Maintain one instruction source
 
-The versioned package is `skills/lesson-authoring/` in the site repository; the personal skill folder links to it. Edit this package, not copies at former policy paths. Those paths are compatibility indexes. Use the selected checkout's package when working in another branch/worktree; do not accidentally edit the installation target in a different checkout.
+The versioned package is `skills/lesson-authoring/` in the site repository; the personal skill folder links to it. Edit this package, not copies at former policy paths. Link directly to its relevant references. The repository adapter locates current state and any retained compatibility indexes. Use the selected checkout's package when working in another branch/worktree; do not accidentally edit the installation target in a different checkout.
 
 Repository state and engineering contracts remain in the repository. For another learning project, preserve this teaching/phase method but resolve that project's actual sources, commands, components, theme and ledger contract; the Portfolio paths embedded in the references are adapter examples, not permission to create them everywhere. A guided-project request also needs that repository's project-authoring standard and its separate project checkpoints. General articles or site-shell work do not acquire a lesson workflow merely by using this repository.
 

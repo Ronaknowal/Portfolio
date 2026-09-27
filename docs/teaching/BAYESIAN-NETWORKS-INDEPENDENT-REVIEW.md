@@ -11,7 +11,7 @@ command was run. The build directory `dist-bn/` was deleted and the preview on 4
 | Activity | What was actually done |
 | --- | --- |
 | **Executed** | Disposable reviewer scripts under `scratch/bn-independent/`, importing neither `bayesnet-models.js` nor `bayesnet-data.js` nor `bayesnet-examples.js` nor any `verify-bayesnet-*` script nor the packet's `network-experiments.py`, run with `scratch/lesson-tools/Scripts/python.exe` (Python 3.12.14, NumPy 2.3.5, pandas 3.0.1, SciPy 1.18.1, scikit-learn 1.9.1, mpmath 1.3.0). **94 exact-rational checks** of every finite constructed number the manuscript, the visual specification, the practice solutions and the lesson body state, in `fractions.Fraction` throughout — zero failures. **357,634 d-separation cases** decided three independent ways — zero disagreements. A full independent refit of the wine pipeline from the **served** CSV. A reviewer-written Playwright drive (`drive.cjs`, `drive2.cjs`, `geom2.cjs`, `play.cjs`, `play2.cjs`, `i3text.cjs`, `text*.cjs`) sharing no code with `verify-bayesnet-browser.cjs`, at 1366, 768, 390 and 320 px on Edge 153. |
-| **Read** | The frozen packet (`lesson.md`, `visual-specifications.md`, `design.md` including its appended Phase A and Phase C sections, `data-provenance.md`, `calculated-inputs.json`, `network-experiments.py`, `pgmpy-example.py`); the destination note; the lesson body, model layer, both generated modules, all three lab/figure/shared components and the CSS; all four verifiers line by line; the blueprint; `LESSON-TEACHING-STANDARD.md`; the three served assets and the attribution. |
+| **Read** | The frozen packet (`lesson.md`, `visual-specifications.md`, `design.md` including its appended Phase A and Phase C sections, `data-provenance.md`, `calculated-inputs.json`, `network-experiments.py`, `pgmpy-example.py`); the destination note; the lesson body, model layer, both generated modules, all three lab/figure/shared components and the CSS; all four verifiers line by line; the blueprint; `skills/lesson-authoring/SKILL.md`; the three served assets and the attribution. |
 | **Reused (declared)** | scikit-learn's `train_test_split` at the declared seeds, because the protocol *is* defined as that call — as the builder states. NumPy/pandas as general libraries. Two subagents for fan-out: verifier re-runs plus environment inspection, and a verifier-internals audit. **Every finding below that a subagent surfaced, I re-derived myself before reporting it** — I read each cited line in the source, and where the claim was empirical I measured it in the live page (S2 in particular). I also corrected one framing a subagent got wrong: see “A note on the 12-versus-13 count”. |
 
 ## Source versions reviewed (SHA-256)
@@ -297,7 +297,7 @@ sentences are false.
 Investigation 3 is clean for its purchase question: the distribution shown is for the currently revealed set, not for
 either candidate, and the blind fields work.
 
-**Why it matters.** `LESSON-TEACHING-STANDARD.md:316` requires that "a learner should have a chance to try before
+**Why it matters.** `skills/lesson-authoring/SKILL.md:316` requires that "a learner should have a chance to try before
 seeing the answer", and `:234` requires the prediction to be recorded *before acting*. Here the recorded prediction
 is a formality: the page has computed and displayed the answer next to the control that asks for it. This is the
 dominant defect class for this curriculum, and investigation 2 — the one the design record singles out as "the reason

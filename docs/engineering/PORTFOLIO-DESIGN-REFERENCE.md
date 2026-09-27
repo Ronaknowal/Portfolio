@@ -1,5 +1,10 @@
 # The Training Loop Portfolio — Design Reference Document
 
+This reference describes the portfolio section's original visual direction.
+Use [site architecture](SITE-ARCHITECTURE.md) and the root
+[design context](../../.impeccable.md) for the current whole-site theme and navigation.
+It is not the teaching standard or a mandate to apply portfolio layouts to Learn.
+
 > A complete reference for the design philosophy, visual language, code architecture, and decision rationale behind the AI-themed portfolio website. Use this document when extending, refactoring, or redesigning the site.
 
 ---

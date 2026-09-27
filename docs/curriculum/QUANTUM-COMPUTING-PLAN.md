@@ -1,6 +1,6 @@
 # Quantum computing, information and engineering curriculum
 
-Updated 18 September 2026. This is a catalogue expansion with named concept coverage, prerequisites and starting teaching briefs. It does not complete lesson research/write or implementation. The [handoff](../../LESSON-AUTHORING-HANDOFF.md), teaching standard and two-phase ledger continue to control authoring work.
+Updated 18 September 2026. This is a catalogue expansion with named concept coverage, prerequisites and starting teaching briefs. It does not complete lesson research/write or implementation. The [handoff](../teaching/LESSON-AUTHORING-HANDOFF.md), teaching standard and two-phase ledger continue to control authoring work.
 
 ## Live structure and preservation
 

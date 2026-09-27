@@ -42,13 +42,18 @@ scripts/             generators, authoring tools and verification
 docs/engineering/    architecture, implementation contracts and evidence
 docs/writing/        article publishing guidance
 docs/teaching/       lesson/project records, drafts, ledgers and evidence
+docs/curriculum/     coverage plans, syllabi and generated inventory
+docs/archive/        completed historical rollout records
+skills/lesson-authoring/  reusable teaching workflow and guidance
 scratch/             disposable local experiments; never an authoring source
 ```
 
-The existing teaching manuals remain at their established root paths so their
-links and authoring workflow keep working. Start learning work at
-[LESSON-AUTHORING-HANDOFF.md](LESSON-AUTHORING-HANDOFF.md); start repository work at
-[the structure guide](docs/engineering/REPOSITORY-STRUCTURE.md).
+Use the [documentation directory](docs/README.md) to find the relevant guide.
+Start learning work at the [current handoff](docs/teaching/LESSON-AUTHORING-HANDOFF.md)
+and [$lesson-authoring](skills/lesson-authoring/SKILL.md); start repository work at
+[the structure guide](docs/engineering/REPOSITORY-STRUCTURE.md). Keep detailed
+guides and implementation reports under their owners in `docs/`, rather than
+adding Markdown files to the repository root.
 
 ## Write an article
 

@@ -1,6 +1,6 @@
 # Graphs: Representations, BFS & DFS — independent verification
 
-10 September 2026. Scope: the third topic in the authorized sequential DSA implementation, following Trees and Heaps/Tries. Read with [the lesson design](GRAPHS-TRAVERSAL-LESSON-DESIGN.md), [DSA practice standard](DSA-PRACTICE-STANDARD.md), [teaching standard](../../LESSON-TEACHING-STANDARD.md) and [learning code standard](../engineering/LEARNING-CODE-STANDARD.md). The exact stable-ID topic plan and returned authoring notes were read before verification; no destination note or relevant unresolved routing item existed then. The coordinating author owns publication, the blueprint and curriculum integration.
+10 September 2026. Scope: the third topic in the authorized sequential DSA implementation, following Trees and Heaps/Tries. Read with [the lesson design](GRAPHS-TRAVERSAL-LESSON-DESIGN.md), [DSA practice standard](DSA-PRACTICE-STANDARD.md), [teaching standard](../../skills/lesson-authoring/SKILL.md) and [learning code standard](../engineering/LEARNING-CODE-STANDARD.md). The exact stable-ID topic plan and returned authoring notes were read before verification; no destination note or relevant unresolved routing item existed then. The coordinating author owns publication, the blueprint and curriculum integration.
 
 ## Teaching and contract review
 

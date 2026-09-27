@@ -4,7 +4,7 @@ Use this reference for the ronak site. These are repository contracts, not a sec
 
 ## Read the selected state
 
-1. `AGENTS.md` establishes source ownership and scope. `LESSON-AUTHORING-HANDOFF.md` owns current completion, selected evidence and the approved teaching reference. Read its current-state section and the requested topic record; do not reconstruct a queue from historical batches.
+1. `AGENTS.md` establishes source ownership and scope. `docs/teaching/LESSON-AUTHORING-HANDOFF.md` owns current completion, selected evidence and the approved teaching reference. Read its current-state section and the requested topic record; do not reconstruct a queue from historical batches.
 2. The user's approved Linux Basics teaching direction remains a reference for depth, approachable explanations and useful visual investigations. Its exact source/review pointers live in the handoff. It is not a universal section template. Later consistency requirements and concept-level intuition apply across subjects.
 3. Inspect `docs/teaching/lesson-delivery-progress.json` through the topic preflight. `docs/teaching/LESSON-DELIVERY-LEDGER.md` owns its exact schema, hashes, revision rules and update procedure. Read it before changing phase records. Never introduce competing current ledgers.
 
@@ -35,6 +35,13 @@ Use `topic.delivery` (including effective vs recorded status and `canFinish`), l
 | Published topic registration | `src/learn/data/lesson-manifest.json` and its generated metadata; only in authorized implementation. |
 | Phase status | Central delivery ledger, preserving prior revisions and exact reviewed files. |
 
+Use `docs/README.md` to locate repository guidance. Keep the current handoff under
+`docs/teaching/`, scope plans under `docs/curriculum/`, and project guidance under
+`docs/teaching/projects/`. Do not add root-level reports or duplicate this skill's
+instructions. Completed rollout history is indexed under `docs/archive/lesson-rollout/`.
+When a frozen receipt or source-bound packet uses a former root path, consult
+`docs/engineering/DOCUMENTATION-ORGANIZATION.md`; preserve its source/hash history.
+
 Full-mode work may use complete semantic production source as its content checkpoint; it need not duplicate the manuscript. Content-first work must leave published bodies, navigation and runtime untouched. A file explaining what a future agent should write is not a complete content checkpoint. Preserve prepared code, data, specs and research until consumed and retained appropriately.
 
 ## Load engineering guidance when implementing or reviewing runtime
@@ -53,10 +60,10 @@ Read only relevant evidence. Historical code-access/opening/ending/scientific re
 
 ## Load specialty context only when needed
 
-- Curriculum scope/order questions: `LEARNING-CURRICULUM-PLAN.md` and the applicable plan under `docs/curriculum/`. Preserve listed topics; no finite map promises every future fact or job/interview outcome.
+- Curriculum scope/order questions: `docs/curriculum/LEARNING-CURRICULUM-PLAN.md` and the applicable plan under `docs/curriculum/`. Preserve listed topics; no finite map promises every future fact or job/interview outcome.
 - DSA authoring: skill `dsa-practice.md` plus `docs/teaching/DSA-PRACTICE-STANDARD.md`, which retains the evolving site coverage map and dated evidence. Topic-specific links/data remain lazy.
 - Quantum: `docs/curriculum/QUANTUM-COMPUTING-PLAN.md` and its teaching contract. Other specialist modules similarly use their named plan from preflight.
-- Guided build projects: `PROJECT-AUTHORING-STANDARD.md`, the actual project sources and separate project ledger. Preserve the approved Typed Decision Model depth reference; do not turn project stages into lesson phase rows.
+- Guided build projects: `docs/teaching/projects/PROJECT-AUTHORING-STANDARD.md`, the actual project sources and separate project ledger. Preserve the approved Typed Decision Model depth reference; do not turn project stages into lesson phase rows.
 
 ## Scope checks and handoff honestly
 
@@ -80,4 +87,4 @@ An assessment alone leaves `lesson-delivery-progress.json`, published content, p
 
 The canonical versioned package is `skills/lesson-authoring/`. Personal discovery links `C:/Users/ronak/.agents/skills/lesson-authoring` to that directory. Do not create another separately maintained copy or a second repo-discovery entry with the same name. This keeps changes reviewable in Git without duplicate skill selectors. The personal link depends on this checkout remaining at its current path; recreate it deliberately when moving the repository.
 
-Future sessions use `$lesson-authoring` or ordinary matching requests. If discovery has not refreshed, start a new session/restart the app, or read the repository's `skills/lesson-authoring/SKILL.md` directly. The old standard, design brief and playbook paths are forwarding indexes for saved links. Maintain detailed teaching rules in this skill; maintain site engineering contracts and live evidence in their existing repo owners. Read `docs/teaching/skill-migration.json` only to investigate the relocation, not for ordinary authoring.
+Future sessions use `$lesson-authoring` or ordinary matching requests. If discovery has not refreshed, start a new session/restart the app, or read the repository's `skills/lesson-authoring/SKILL.md` directly. Link directly to the relevant skill reference. The repository's design brief and domain playbook indexes remain for existing consumers; the obsolete root teaching-standard index was removed. Maintain detailed teaching rules in this skill; maintain site engineering contracts and live evidence in their repo owners. Read `docs/teaching/skill-migration.json` and the documentation relocation record only to investigate a migration, not for ordinary authoring.

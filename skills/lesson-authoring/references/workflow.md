@@ -14,7 +14,7 @@ Part of [$lesson-authoring](../SKILL.md). Repository paths below are relative to
 
 Start with this skill’s mode router, the current repository handoff and selected topic record. Load the teaching, design, domain and review guidance for the chosen task using the router; read actual affected sources before editing. Read historical evidence only when needed for the topic. Preserve useful existing work.
 
-For end-to-end build guides, also follow PROJECT-AUTHORING-STANDARD.md (repository path: `PROJECT-AUTHORING-STANDARD.md`). It applies this shared teaching policy to project stages, runnable artifacts, contextual topic links, project-specific live investigations and separate project delivery checkpoints. The finished Typed Decision Model depth revision 2 is the user's project teaching reference; its stage count and subject are not a universal template.
+For end-to-end build guides, also follow docs/teaching/projects/PROJECT-AUTHORING-STANDARD.md (repository path: `docs/teaching/projects/PROJECT-AUTHORING-STANDARD.md`). It applies this shared teaching policy to project stages, runnable artifacts, contextual topic links, project-specific live investigations and separate project delivery checkpoints. The finished Typed Decision Model depth revision 2 is the user's project teaching reference; its stage count and subject are not a universal template.
 
 Follow the user's current scope and earlier authorizations. A request for one topic authorizes that topic, not the whole track. Do not repeatedly ask for permission within an already authorized batch. At an agreed review boundary, deliver the concrete changes and evidence before expanding the rollout. Curriculum planning may add detailed syllabus entries without authorizing full lesson rewrites. Do not infer the active scope from a dated batch report.
 
@@ -24,7 +24,7 @@ Follow the learning code standard (repository path: `docs/engineering/LEARNING-C
 
 Suggested future-session prompt:
 
-> Read LESSON-AUTHORING-HANDOFF.md and follow its reading order. Continue the existing educational improvement work for the topics I name. Preserve the approved Linux lesson's teaching strengths, adapt the flow to the domain, plan support for each conceptual hurdle, and report what changed, why, validation, and remaining gaps.
+> Read docs/teaching/LESSON-AUTHORING-HANDOFF.md and follow its reading order. Continue the existing educational improvement work for the topics I name. Preserve the approved Linux lesson's teaching strengths, adapt the flow to the domain, plan support for each conceptual hurdle, and report what changed, why, validation, and remaining gaps.
 
 ### Quality takes priority over efficiency
 
@@ -89,7 +89,7 @@ For each authorized increment, report what was weak, what changed and why, what 
 
 Maintain separate status fields: **implementation**, **computational verification**, **browser/visual review**, **user review**, and **next action**. Record unknown states as unknown. A test script's existence is not a passing result; a source comment claiming checks were run is not a fresh verification in the current session.
 
-Update the current handoff (repository path: `LESSON-AUTHORING-HANDOFF.md`), the relevant topic brief and an increment-specific evidence record when work advances. Do not append new instructions to archived pilot/batch reports. Replace superseded active instructions rather than accumulating competing versions. Expand the rollout only within the user's authorized scope.
+Update the current handoff (repository path: `docs/teaching/LESSON-AUTHORING-HANDOFF.md`), the relevant topic brief and an increment-specific evidence record when work advances. Do not append new instructions to archived pilot/batch reports. Replace superseded active instructions rather than accumulating competing versions. Expand the rollout only within the user's authorized scope.
 
 ## 13. Curriculum and authoring plans
 

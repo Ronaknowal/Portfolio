@@ -2,7 +2,7 @@
 
 User-authorized scope, 26 September 2026: all 39 implemented Classical ML topics and all 18 implemented Deep Learning Fundamentals & Architectures topics, in their module order. Improve the actual learner-facing content wherever a conceptual transition needs better buildup, explanation, a worked example or meaningful visual support. Preserve depth, code, measured results, independent practice, stable identities and module order. Prepared/unimplemented topics are not published by this request.
 
-The [teaching standard](../../../LESSON-TEACHING-STANDARD.md) now makes the repeated teaching loop explicit for every new conceptual transition. The [topic-design workflow](../TOPIC-DESIGN-BRIEF.md) requires an exact-location map covering the whole lesson. This applies to future writing as well as the present revision.
+The [teaching standard](../../../skills/lesson-authoring/SKILL.md) now makes the repeated teaching loop explicit for every new conceptual transition. The [topic-design workflow](../TOPIC-DESIGN-BRIEF.md) requires an exact-location map covering the whole lesson. This applies to future writing as well as the present revision.
 
 ## Work and evidence
 

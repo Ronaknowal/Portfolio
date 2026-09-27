@@ -1,6 +1,6 @@
 # Implementation depth: build, use and extend
 
-User-requested review, 21 September 2026. This is an assessment of how lessons teach implementation, not a new curriculum queue or a claim that a finite curriculum guarantees every research/engineering task. The [canonical standard](../../LESSON-TEACHING-STANDARD.md#build-the-mechanism-then-control-the-library) and [design ownership map](TOPIC-DESIGN-BRIEF.md#4-design-complete-examples-and-practice) now require both the mechanism and ordinary tool route, a bridge between them, meaningful customization practice and a high-quality, efficient reference implementation with stated limits.
+User-requested review, 21 September 2026. This is an assessment of how lessons teach implementation, not a new curriculum queue or a claim that a finite curriculum guarantees every research/engineering task. The [canonical standard](../../skills/lesson-authoring/references/examples-and-code.md#build-the-mechanism-then-control-the-library) and [design ownership map](TOPIC-DESIGN-BRIEF.md#4-design-complete-examples-and-practice) now require both the mechanism and ordinary tool route, a bridge between them, meaningful customization practice and a high-quality, efficient reference implementation with stated limits.
 
 ## What prompted the change
 

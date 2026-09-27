@@ -8,6 +8,9 @@ The lesson-authoring skill's [handoff and cleanup lifecycle](../../skills/lesson
 
 | Material | Location and lifetime |
 | --- | --- |
+| Reusable lesson teaching guidance | `skills/lesson-authoring/`; update its existing references instead of making another root manual. |
+| Current authoring handoff, curriculum plans and project instructions | `docs/teaching/LESSON-AUTHORING-HANDOFF.md`, `docs/curriculum/` and `docs/teaching/projects/`, indexed by `docs/README.md`. |
+| Useful completed rollout narratives | `docs/archive/lesson-rollout/`; preserve their evidence and label them as history. Remove redundant forwarding pages once active references use their destinations. |
 | Lesson content, figures used by the site, models and examples | Topic-owned `src/` files and actual runtime assets under `public/`; keep them. |
 | Reusable checks and example generators | Semantic files under `scripts/`; keep their documented inputs, avoid one script per tiny correction. |
 | Content-first manuscript and visual/lab specifications awaiting phase two | `docs/teaching/drafts/<stable-topic-id>/`; keep while referenced by the delivery ledger. They are required handoff inputs even when another agent/session will implement them. |

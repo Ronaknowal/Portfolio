@@ -2,7 +2,7 @@
 
 Authorized 13 September 2026: the user asked to continue the same research-and-writing-only work for the remaining topics in this module. The preceding thirty packets are complete. This scope covers the final three entries, positions 40–42, in actual module order. It does not authorize website implementation or starting a different module.
 
-The [central delivery ledger](lesson-delivery-progress.json) owns phase status and source checkpoints. Use the current [handoff](../../LESSON-AUTHORING-HANDOFF.md), [teaching standard](../../LESSON-TEACHING-STANDARD.md), [domain playbook](DOMAIN-PLAYBOOK.md), [topic design workflow](TOPIC-DESIGN-BRIEF.md) and code/retention instructions. The established parallel authoring workflow continues with disjoint topic files; root owns shared updates and sequence reconciliation.
+The [central delivery ledger](lesson-delivery-progress.json) owns phase status and source checkpoints. Use the current [handoff](LESSON-AUTHORING-HANDOFF.md), [teaching standard](../../skills/lesson-authoring/SKILL.md), [domain playbook](DOMAIN-PLAYBOOK.md), [topic design workflow](TOPIC-DESIGN-BRIEF.md) and code/retention instructions. The established parallel authoring workflow continues with disjoint topic files; root owns shared updates and sequence reconciliation.
 
 | Module position | Topic | Author | Packet |
 | --- | --- | --- | --- |

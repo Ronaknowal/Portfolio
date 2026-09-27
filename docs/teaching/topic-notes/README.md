@@ -1,6 +1,6 @@
 # Discoveries for a topic's future author
 
-This is the persistent routing mechanism required by [the teaching standard](../../../LESSON-TEACHING-STANDARD.md). Use it for useful coverage gaps, applications, facts, examples or title/scope suggestions discovered while working on another topic. It does not create a new rollout queue or authorize rewriting the destination now. No topic audit or new content recommendation was performed when establishing this mechanism.
+This is the persistent routing mechanism required by [the teaching standard](../../../skills/lesson-authoring/SKILL.md). Use it for useful coverage gaps, applications, facts, examples or title/scope suggestions discovered while working on another topic. It does not create a new rollout queue or authorize rewriting the destination now. No topic audit or new content recommendation was performed when establishing this mechanism.
 
 ## Write to the destination, then make a decision when authoring it
 

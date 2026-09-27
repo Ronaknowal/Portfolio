@@ -1,6 +1,6 @@
 # Bash and concurrency: design and source ledger
 
-Designed 10 September 2026 for the authorized completion of Programming & Scientific Computing. Teaching policy: LESSON-TEACHING-STANDARD.md. Linux remains the user-approved reference; these lessons require author verification and later user acceptance.
+Designed 10 September 2026 for the authorized completion of Programming & Scientific Computing. Teaching policy: skills/lesson-authoring/SKILL.md. Linux remains the user-approved reference; these lessons require author verification and later user acceptance.
 
 ## Bash Scripting & Command-Line Automation
 
@@ -28,7 +28,7 @@ Sources reviewed: Python current threading documentation (condition wait/reacqui
 
 ## Evidence
 
-Implementation and verification finished. [The module-completion record](../../PROGRAMMING-MODULE-COMPLETION.md) owns the aggregate evidence; [the Bash record](bash-completion-verification.md) records its native Bash/WSL and browser results.
+Implementation and verification finished. [The module-completion record](../archive/lesson-rollout/PROGRAMMING-MODULE-COMPLETION.md) owns the aggregate evidence; [the Bash record](bash-completion-verification.md) records its native Bash/WSL and browser results.
 
 Threads: all six displayed Python programs passed on 3.12.14, including a deliberately forced race and repaired counter, condition early/late publication, ordered transfers, future error collection, cooperative cancellation and bounded-queue practice. Eighteen changed queue cases across one/two/three workers match the sequential contract with no leaked workers or unfinished items. Exhaustive small-model exploration visits 73 distinct states and witnesses the unsafe race/deadlock while validating protected terminal invariants. Scripts: verify-thread-completion.mjs/.py.
 

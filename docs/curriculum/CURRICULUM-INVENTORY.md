@@ -6,7 +6,7 @@ Generated from the live catalogue by `node scripts/build-curriculum-inventory.mj
 
 **822 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 745 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
-See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
+See [the research and scope plan](LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../teaching/LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
 ## Module coverage
 

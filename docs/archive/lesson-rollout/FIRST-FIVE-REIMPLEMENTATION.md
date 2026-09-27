@@ -2,7 +2,7 @@
 
 Completed 9 September 2026 for the user's request to restart at the first topic and implement five using the approved Linux approach. The scope is the first five in ML Foundations and Complete Curriculum. Three earlier lessons were replaced; File I/O and SQL moved from outlines to complete registered lessons. User acceptance of this increment is pending. Linux remains the approved quality reference.
 
-[The handoff](LESSON-AUTHORING-HANDOFF.md) owns current scope and the queue. [The teaching standard](LESSON-TEACHING-STANDARD.md) and [domain playbook](docs/teaching/DOMAIN-PLAYBOOK.md) own authoring policy. This record explains the actual implementation and evidence; it is not a new mandatory page template.
+[The handoff](../../teaching/LESSON-AUTHORING-HANDOFF.md) owns current scope and the queue. [The teaching standard](../../../skills/lesson-authoring/SKILL.md) and [domain playbook](../../teaching/DOMAIN-PLAYBOOK.md) own authoring policy. This record explains the actual implementation and evidence; it is not a new mandatory page template.
 
 ## What changed and why
 
@@ -22,12 +22,12 @@ The initial File/SQL review led to stricter error-gate labels, explicit missing/
 
 Each record maps outcomes to hurdles, representations, practice, model limits and primary sources reviewed on 9 September 2026. It includes technical nuance and actual verification rather than treating research as proof that the code runs.
 
-- [Python design and claim ledger](docs/teaching/python-foundations-reimplementation.md)
-- [NumPy design and claim ledger](docs/teaching/numpy-foundations-reimplementation.md)
-- [File I/O and SQL design and claim ledger](docs/teaching/data-foundations-reimplementation.md)
-- [OOP design and claim ledger](docs/teaching/oop-foundations-reimplementation.md)
+- [Python design and claim ledger](../../teaching/python-foundations-reimplementation.md)
+- [NumPy design and claim ledger](../../teaching/numpy-foundations-reimplementation.md)
+- [File I/O and SQL design and claim ledger](../../teaching/data-foundations-reimplementation.md)
+- [OOP design and claim ledger](../../teaching/oop-foundations-reimplementation.md)
 
-The live [topic-owned briefs](src/learn/data/curriculum/blueprints/index.js) record the implemented flow, prerequisites, main and supporting representations, success criteria and links to these records. They override earlier starting briefs when the catalogue is assembled. Source ownership moved from batch bundles to stable topic files on 10 September 2026; [the migration record](docs/engineering/BLUEPRINT-ORGANIZATION.md) maps these historical batches to their current source. To inspect a future topic, run `node scripts/build-curriculum-inventory.mjs --topic "Exact topic title"`, then read its actual source and the current policy. Briefs are adaptable starting points, not a substitute for investigation.
+The live [topic-owned briefs](../../../src/learn/data/curriculum/blueprints/index.js) record the implemented flow, prerequisites, main and supporting representations, success criteria and links to these records. They override earlier starting briefs when the catalogue is assembled. Source ownership moved from batch bundles to stable topic files on 10 September 2026; [the migration record](../../engineering/BLUEPRINT-ORGANIZATION.md) maps these historical batches to their current source. To inspect a future topic, run `node scripts/build-curriculum-inventory.mjs --topic "Exact topic title"`, then read its actual source and the current policy. Briefs are adaptable starting points, not a substitute for investigation.
 
 ## Verification performed
 
@@ -49,10 +49,10 @@ Together the native checks executed **58 displayed examples/programs**; case com
 
 Evidence files:
 
-- [Python runtime](scratch/python-foundations/runtime-results.json) and [browser](scratch/python-foundations/browser-results.json)
-- [NumPy runtime](scratch/numpy-foundations/runtime-results.json) and [browser](scratch/numpy-foundations/browser-results.json)
-- [OOP runtime](scratch/oop-foundations/runtime-verification.json) and [browser](scratch/oop-foundations/browser-verification.json)
-- [File/SQL native results](scratch/first-five-review/data-native-results.json), [batch browser results](scratch/first-five-review/browser-results.json), [conservation comparison](scratch/first-five-review/conservation.json) and [final build log](scratch/first-five-review/build.log)
+- [Python runtime](../../../scratch/python-foundations/runtime-results.json) and [browser](../../../scratch/python-foundations/browser-results.json)
+- [NumPy runtime](../../../scratch/numpy-foundations/runtime-results.json) and [browser](../../../scratch/numpy-foundations/browser-results.json)
+- [OOP runtime](../../../scratch/oop-foundations/runtime-verification.json) and [browser](../../../scratch/oop-foundations/browser-verification.json)
+- [File/SQL native results](../../../scratch/first-five-review/data-native-results.json), [batch browser results](../../../scratch/first-five-review/browser-results.json), [conservation comparison](../../../scratch/first-five-review/conservation.json) and [final build log](../../../scratch/first-five-review/build.log)
 
 Desktop/mobile screenshots are in the same respective scratch directories. Root review inspected File/SQL labs at both widths and representative Python/NumPy/OOP visuals; the individual authors inspected their own lab captures. Tall isolated captures can accidentally include the fixed navigation at the capture scroll offset. File/SQL and OOP capture helpers hide that navigation only for isolated screenshots and restore it before interaction checks; ordinary viewport captures retain the complete interface. Python/NumPy captures may still include the documented composition artifact.
 

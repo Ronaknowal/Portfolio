@@ -17,7 +17,7 @@ The topic owns mechanisms, derivations, explained scratch programs, the library 
 
 ## Learning requirements
 
-Use the current [teaching standard](../../LESSON-TEACHING-STANDARD.md), especially scratch implementation followed by control of ordinary libraries. The [authored blueprint](../../src/learn/data/curriculum/blueprints/typed-decision-models-calibrated-neural-decision-systems.js) is the concrete scope; its named catalogue subtopics are discoverable scope obligations, not proof of completed teaching.
+Use the current [teaching standard](../../skills/lesson-authoring/SKILL.md), especially scratch implementation followed by control of ordinary libraries. The [authored blueprint](../../src/learn/data/curriculum/blueprints/typed-decision-models-calibrated-neural-decision-systems.js) is the concrete scope; its named catalogue subtopics are discoverable scope obligations, not proof of completed teaching.
 
 1. Start from a decision with observable consequences. Explain state, question, candidate meaning, probability report and action before architecture terminology. Reuse the same small task through the head, training, calibration and cost analysis.
 2. Build a small, inspectable dynamic candidate scorer. Reuse the existing transformer owner when available and identify the exact imports. Teach token/marker positions, masks, question-type conditioning and shared scoring; contrast fixed-class heads and constrained text generation. State assumptions under which candidate permutations should preserve the intended semantics, then test whether the model actually does so.

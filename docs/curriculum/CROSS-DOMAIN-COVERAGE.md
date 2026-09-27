@@ -62,11 +62,11 @@ Counts describe existing catalogue entries at the audit snapshot, including any 
 9. **Give advanced applications their real foundations.** Measure theory and RKHS point to real-analysis convergence; geometric deep learning points to the symmetry bridge; PINNs and neural operators point to PDE formulation; humanoid whole-body control points to hybrid legged mechanics. These new specialist entries remain optional for unrelated beginner routes.
 10. **Distinguish networking layers and CPU concurrency from GPU topics.** Packets/transport/sockets precede HTTP/service semantics. CPU process address spaces and shared-thread invariants are not replaced by a GPU unified-memory or warp-synchronization lesson. Reuse conceptual ideas with explicit execution-model differences.
 
-The selected override graph plus new cross-domain plans was checked for missing titles and cycles. A combined check including the GPU and neural additions and the GPU prerequisite overrides also passed at this snapshot, with no duplicate new cross-domain titles against those plans. Root catalogue and path integration is implemented and its combined structural checks pass. Any later changes to edges or titles must rerun those checks; see [the integration verification record](../../CURRICULUM-EXPANSION-VERIFICATION.md).
+The selected override graph plus new cross-domain plans was checked for missing titles and cycles. A combined check including the GPU and neural additions and the GPU prerequisite overrides also passed at this snapshot, with no duplicate new cross-domain titles against those plans. Root catalogue and path integration is implemented and its combined structural checks pass. Any later changes to edges or titles must rerun those checks; see [the integration verification record](../archive/lesson-rollout/CURRICULUM-EXPANSION-VERIFICATION.md).
 
 ## Authoring method: retain the established teaching direction
 
-Use [LESSON-TEACHING-STANDARD.md](../../LESSON-TEACHING-STANDARD.md) as the full reusable brief. For each selected topic:
+Use [LESSON-TEACHING-STANDARD.md](../../skills/lesson-authoring/SKILL.md) as the full reusable brief. For each selected topic:
 
 1. **Inspect its actual existing implementation.** Record what is worth preserving, which outcomes are already supported, and which explanation, visual or practice step is weak. A catalogue title is not evidence of coverage.
 2. **Start from a concrete question.** Explain entities and purpose in ordinary language, then introduce the terms and notation needed for the next step. State units, dimensions, operating context and data provenance where they matter.
@@ -123,10 +123,10 @@ The sources were consulted through course pages, indexed descriptions, documenta
 ## Status and next action
 
 - **Planning:** 85 new blueprints and 51 existing prerequisite bridges implemented; 26-track matrix complete.
-- **Catalogue integration:** implemented by the parent task, with combined catalogue and prerequisite-path checks passing. See [CURRICULUM-EXPANSION-VERIFICATION.md](../../CURRICULUM-EXPANSION-VERIFICATION.md) for the authoritative integrated counts and validation results.
+- **Catalogue integration:** implemented by the parent task, with combined catalogue and prerequisite-path checks passing. See [CURRICULUM-EXPANSION-VERIFICATION.md](../archive/lesson-rollout/CURRICULUM-EXPANSION-VERIFICATION.md) for the authoritative integrated counts and validation results.
 - **Full lessons and labs:** not created by this curriculum expansion.
 - **Structural verification:** source imports, required blueprint fields, unique new titles and combined GPU/neural/cross-domain prerequisite graph checked; no missing titles, cross-plan duplicates or cycles found.
 - **Numerical / behavioural verification:** no new lesson calculations or executable labs exist to validate yet.
 - **Browser / visual review:** the final integrated build and catalogue browser checks passed; the authoritative scope and limitations are in the linked verification record. Planned lesson visuals remain unimplemented.
 - **User review:** pending.
-- **Active lesson scope:** follow [LESSON-AUTHORING-HANDOFF.md](../../LESSON-AUTHORING-HANDOFF.md). This coverage document records subject boundaries and authoring contracts; it is not a live work queue and does not authorize starting another lesson or rewriting the website.
+- **Active lesson scope:** follow [LESSON-AUTHORING-HANDOFF.md](../teaching/LESSON-AUTHORING-HANDOFF.md). This coverage document records subject boundaries and authoring contracts; it is not a live work queue and does not authorize starting another lesson or rewriting the website.

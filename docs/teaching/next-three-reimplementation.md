@@ -31,7 +31,7 @@ Reviewed current primary-source semantics and suitable alternate resources durin
 
 ## Verification and handoff
 
-The [completed increment record](../../NEXT-THREE-REIMPLEMENTATION.md) gives actual results, exact commands, artifacts, runtime versions and limits: 35 runnable programs, 37 Pandas/Matplotlib cases, 46 native Git states, all 11 labs reviewed at desktop/mobile, retained browser-entry checks, curriculum conservation and production build passed. No user-acceptance claim is inferred from these checks. The current handoff owns the queue.
+The [completed increment record](../archive/lesson-rollout/NEXT-THREE-REIMPLEMENTATION.md) gives actual results, exact commands, artifacts, runtime versions and limits: 35 runnable programs, 37 Pandas/Matplotlib cases, 46 native Git states, all 11 labs reviewed at desktop/mobile, retained browser-entry checks, curriculum conservation and production build passed. No user-acceptance claim is inferred from these checks. The current handoff owns the queue.
 
 The native pass exposed deprecated `set_index(verify_integrity=...)` usage; the example now checks `index.is_unique`, consistent with current [set_index documentation](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.set_index.html). The small bisect fixture deliberately retains unchanged history steps using [commit --allow-empty](https://git-scm.com/docs/git-commit); its teaching explanation now states why. All exact outputs were rerun successfully after these fixes. Visual review shortened histogram count labels to `n=...` and stabilized lazy-image loading before screenshot capture.
 

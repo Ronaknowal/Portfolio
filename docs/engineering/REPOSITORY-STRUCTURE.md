@@ -27,11 +27,15 @@ or shared package justifies a separate dependency/build boundary.
 | `skills/lesson-authoring` | Versioned reusable teaching skill and selectively loaded references; linked from the personal skills folder | Current topic state, manuscript copies, completion ledgers or runtime imports |
 
 `src/main.jsx` remains the small mount; `src/index.css` remains the global reset.
-Root handoff and established lesson internals keep their stable paths. The teaching
-standard, topic design and domain playbook paths forward to `skills/lesson-authoring/`;
-edit their skill references rather than maintaining duplicate instruction copies.
-Ledgers, prepared manuscripts, review evidence and engineering contracts stay in
-their existing repository locations. Keep `skills/` trackable and out of runtime imports.
+The root keeps `README.md`, `AGENTS.md` and the conventional `.impeccable.md`
+design context. [The documentation directory](../README.md) maps current guidance,
+curriculum plans, teaching records and historical reports to their owners.
+The current handoff is `docs/teaching/LESSON-AUTHORING-HANDOFF.md`; reusable
+teaching guidance lives in `skills/lesson-authoring/`. Keep new reports out of
+the root and extend the existing semantic record rather than copying guidance.
+Ledgers, prepared manuscripts and source-bound review evidence retain their
+paths and hashes. [The relocation map](DOCUMENTATION-ORGANIZATION.md) explains
+former root paths in frozen snapshots. Keep `skills/` trackable and out of runtime imports.
 Do not rearrange thousands of lesson files for cosmetic symmetry. Domain CSS is
 scoped; the common header retains its 57px contract and neutral/amber palette.
 

@@ -6,7 +6,7 @@ This is a curriculum plan, not a completed course or a claim that a reader will 
 
 ## Where a future agent should start
 
-1. Read [the authoring handoff](../../LESSON-AUTHORING-HANDOFF.md) and [the teaching standard](../../LESSON-TEACHING-STANDARD.md). The accepted Linux lesson is the current experience benchmark: clear explanation, several mechanism-specific visuals where useful, guided practice, visible outputs and reasoned solutions.
+1. Read [the authoring handoff](../teaching/LESSON-AUTHORING-HANDOFF.md) and [the teaching standard](../../skills/lesson-authoring/SKILL.md). The accepted Linux lesson is the current experience benchmark: clear explanation, several mechanism-specific visuals where useful, guided practice, visible outputs and reasoned solutions.
 2. Read this subject plan and the selected topic's machine-readable blueprint in [neural-expansion.js](../../src/learn/data/curriculum/neural-expansion.js).
 3. Inspect the actual lesson, existing labs, prerequisite lessons and next lessons. A title being listed or a brief being present does not mean its content meets the new standard.
 4. Resolve prerequisite titles through the live catalogue. Follow prerequisite edges rather than trusting the order of the old neuroscience sections. If a prerequisite is only planned, provide a short accurate bridge or improve the prerequisite first within the authorized increment.

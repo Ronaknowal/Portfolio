@@ -2,7 +2,7 @@
 
 10 September 2026. Scope: the first newly implemented topic in the authorized sequential DSA increment. This record covers author review, exact displayed Python programs and integrated browser behavior. It does not claim an observed beginner study or user acceptance.
 
-Read with [lesson design](TREES-LESSON-DESIGN.md), [visual/model review](TREES-VISUAL-MODEL-REVIEW.md), the [teaching standard](../../LESSON-TEACHING-STANDARD.md) and [learning code standard](../engineering/LEARNING-CODE-STANDARD.md). The current exact-ID topic-plan command was run and its returned notes read; no destination note or relevant unresolved routing item existed.
+Read with [lesson design](TREES-LESSON-DESIGN.md), [visual/model review](TREES-VISUAL-MODEL-REVIEW.md), the [teaching standard](../../skills/lesson-authoring/SKILL.md) and [learning code standard](../engineering/LEARNING-CODE-STANDARD.md). The current exact-ID topic-plan command was run and its returned notes read; no destination note or relevant unresolved routing item existed.
 
 ## Teaching and correctness review
 

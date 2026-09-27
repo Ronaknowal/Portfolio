@@ -4,7 +4,7 @@ Planning revision: 9 September 2026. Scope: an end-to-end GPU software engineeri
 
 The authoritative individual briefs are in [gpu-expansion.js](../../src/learn/data/curriculum/gpu-expansion.js). That file adds 65 topics, gives individual briefs to the 32 pre-existing hardware topics, and exports exact-title prerequisites for the existing topics. The existing `hardware-systems` track remains the topic home. A GPU Engineering guided path should reuse those topics; the LLM Engineer path should reference the relevant shared portions. Do not create a second copy of CUDA, tensor parallelism or FlashAttention under LLM engineering.
 
-Read [the teaching standard](../../LESSON-TEACHING-STANDARD.md) first. The Linux lesson accepted by the user establishes the expected mechanism visibility: separate visuals for separate learning hurdles, worked examples, predictions, hints, independent transfer and honest model boundaries. Neither this plan nor its singular `visual` planning field limits a lesson to one diagram or one lab.
+Read [the teaching standard](../../skills/lesson-authoring/SKILL.md) first. The Linux lesson accepted by the user establishes the expected mechanism visibility: separate visuals for separate learning hurdles, worked examples, predictions, hints, independent transfer and honest model boundaries. Neither this plan nor its singular `visual` planning field limits a lesson to one diagram or one lab.
 
 ## What completion means
 

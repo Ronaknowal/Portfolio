@@ -1,6 +1,6 @@
 # Programming module completion and sequence repair
 
-Completed 10 September 2026 for the user's request: make reading follow topic order inside each module, then implement all remaining Programming & Scientific Computing lessons. This is an implementation/evidence record. [The handoff](LESSON-AUTHORING-HANDOFF.md) owns current scope and review status; [the standard](LESSON-TEACHING-STANDARD.md) owns policy.
+Completed 10 September 2026 for the user's request: make reading follow topic order inside each module, then implement all remaining Programming & Scientific Computing lessons. This is an implementation/evidence record. [The handoff](../../teaching/LESSON-AUTHORING-HANDOFF.md) owns current scope and review status; [the standard](../../../skills/lesson-authoring/SKILL.md) owns policy.
 
 ## Result
 
@@ -8,13 +8,13 @@ All **17 programming topics** now have complete lessons under the current teachi
 
 | Topic | What changed and why | Design and evidence |
 | --- | --- | --- |
-| Iterators, Iterables & Generators | Replaced a generic trace with cursor ownership, suspended-frame and pull-pipeline investigations; retained iterator/generator depth and added tee-buffering/first-crossing applications. Fourteen programs. | [Iteration/decorator record](docs/teaching/iteration-decorators-design.md) |
-| Decorators & Context Managers | Made wrapper call order, normal/error resource lifetime and ExitStack unwinding inspectable; retained complete examples and added independent nested-setting restoration. Eleven programs. | [Iteration/decorator record](docs/teaching/iteration-decorators-design.md) |
-| Testing, Debugging & Dependency Management | Added controlled execution, test discrimination and dependency-constraint investigations; deliberately broken implementations must fail the independent tests. Six programs. | [Reliability record](docs/teaching/reliability-authoring-design.md) |
-| Reproducible Notebooks & Experiment Structure | Separated document history from live kernel state, randomness consumption and provenance; actual fresh kernels verify reruns and reject hidden/stale assumptions. Seven programs/projects. | [Reliability record](docs/teaching/reliability-authoring-design.md) |
-| Code Documentation, Type Hints & API Design | Made validation, alias ownership and caller compatibility visible; preserved complete API/loader examples and added checked duration conversion contracts. Eight programs. | [Reliability record](docs/teaching/reliability-authoring-design.md) |
-| Bash Scripting & Command-Line Automation | Replaced the short strict-mode claim and missing train.py with exact argument/status explanations, three investigations and a complete staged report/collector. Eight executable programs plus data fixtures. | [Bash evidence](docs/teaching/bash-completion-verification.md), [initial design](docs/teaching/bash-and-concurrency-design.md) |
-| Threads, Concurrency, Locks & Deadlocks | Completed shared-state mechanisms, whole-operation locking, predicate waiting, wait-for cycles, result/error collection and bounded shutdown. Three investigations and six programs, including an independent sensor-validator queue. | [Design/source ledger](docs/teaching/bash-and-concurrency-design.md) and verification below |
+| Iterators, Iterables & Generators | Replaced a generic trace with cursor ownership, suspended-frame and pull-pipeline investigations; retained iterator/generator depth and added tee-buffering/first-crossing applications. Fourteen programs. | [Iteration/decorator record](../../teaching/iteration-decorators-design.md) |
+| Decorators & Context Managers | Made wrapper call order, normal/error resource lifetime and ExitStack unwinding inspectable; retained complete examples and added independent nested-setting restoration. Eleven programs. | [Iteration/decorator record](../../teaching/iteration-decorators-design.md) |
+| Testing, Debugging & Dependency Management | Added controlled execution, test discrimination and dependency-constraint investigations; deliberately broken implementations must fail the independent tests. Six programs. | [Reliability record](../../teaching/reliability-authoring-design.md) |
+| Reproducible Notebooks & Experiment Structure | Separated document history from live kernel state, randomness consumption and provenance; actual fresh kernels verify reruns and reject hidden/stale assumptions. Seven programs/projects. | [Reliability record](../../teaching/reliability-authoring-design.md) |
+| Code Documentation, Type Hints & API Design | Made validation, alias ownership and caller compatibility visible; preserved complete API/loader examples and added checked duration conversion contracts. Eight programs. | [Reliability record](../../teaching/reliability-authoring-design.md) |
+| Bash Scripting & Command-Line Automation | Replaced the short strict-mode claim and missing train.py with exact argument/status explanations, three investigations and a complete staged report/collector. Eight executable programs plus data fixtures. | [Bash evidence](../../teaching/bash-completion-verification.md), [initial design](../../teaching/bash-and-concurrency-design.md) |
+| Threads, Concurrency, Locks & Deadlocks | Completed shared-state mechanisms, whole-operation locking, predicate waiting, wait-for cycles, result/error collection and bounded shutdown. Three investigations and six programs, including an independent sensor-validator queue. | [Design/source ledger](../../teaching/bash-and-concurrency-design.md) and verification below |
 
 Three labs per lesson happened to fit these distinct hurdles. It is not a site template or quota. Static maps, tables and stepwise explanations accompany them. Videos are linked/annotated alternatives; the records distinguish transcript/notes review, metadata/description review and unperformed full-video viewing.
 
@@ -37,7 +37,7 @@ Updated closing bridges in Python, OOP, SQL, Matplotlib, Linux, OS and Linked Li
 
 ## Conservation and current inventory
 
-The pre-change snapshot is [pre-programming-module-completion.json](docs/curriculum/pre-programming-module-completion.json). `node scripts/verify-programming-module-conservation.mjs` passed:
+The pre-change snapshot is [pre-programming-module-completion.json](../../curriculum/pre-programming-module-completion.json). `node scripts/verify-programming-module-conservation.mjs` passed:
 
 - All **1,218 stable topic IDs**, all **28 module memberships** and all previously selected path topics remain.
 - Only the programming module's own syllabus order changed; global routes now follow module order deliberately.
@@ -65,7 +65,7 @@ Updated earlier browser/conservation scripts were syntax-checked after removing 
 
 ## Discoveries and boundaries
 
-The Threads instrument example distinguishes blocking/backpressure, every-sample recording and latest-sample display policies. Its detailed hardware/timing treatment belongs to the already planned neural firmware topic. [The destination note](docs/teaching/topic-notes/embedded-processing-fpga-pipelines-and-real-time-neural-firmware.md) records the reason, proposed comparison and source checks the future author should perform. It adds no new topic or authorization. Existing ML leakage, Hashing and Caching notes remain available.
+The Threads instrument example distinguishes blocking/backpressure, every-sample recording and latest-sample display policies. Its detailed hardware/timing treatment belongs to the already planned neural firmware topic. [The destination note](../../teaching/topic-notes/embedded-processing-fpga-pipelines-and-real-time-neural-firmware.md) records the reason, proposed comparison and source checks the future author should perform. It adds no new topic or authorization. Existing ML leakage, Hashing and Caching notes remain available.
 
 The complete module teaches its stated core and transfer tasks, not every detail of software engineering. Thread labs are abstract schedules, not bytecode simulators or performance benchmarks. Ordinary CPython was executed; free-threading differences were researched, not benchmarked. Bash staging tests concern trusted local single-publisher fixtures, not arbitrary network filesystems or power-loss durability. GNU manual pages timed out in the web reader; indexed identification and installed Bash help/probes are recorded honestly. No full-video watching, external learner study, deployment or new user approval is claimed.
 

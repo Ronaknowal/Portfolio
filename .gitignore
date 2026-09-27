@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # IMPORTANT: Markdown is intentionally NOT ignored anywhere in this repo.
-# The root *.md files and everything under docs/ are the authoring
-# instructions agents follow to implement lessons and learning content.
+# Root entry points, docs/ records and skills/ teaching guidance are required
+# sources for the website and its authoring workflow.
 # They must stay committed. Do not add *.md patterns here.
 # Also kept: public/learn-assets/ (loaded at runtime by lesson-labs),
 # src/learn/data/generated/ (imported by the build) and docs/**/*.json.

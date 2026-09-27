@@ -1,6 +1,6 @@
 # Operating-system and data-structure foundations
 
-Completed 10 September 2026. Authorized scope: targeted Linux updates, then the next three actual route entries: OS Processes, Virtual Memory & Isolation; Arrays, Strings & Hash Maps; Linked Lists, Stacks & Queues. All three started as planned outlines and are now registered lessons. Titles/IDs and existing work were preserved. The initial per-topic commands found no incoming destination notes for these four topics and an empty routing inbox. Final evidence and review limits are in [the increment record](../../SYSTEMS-STRUCTURES-IMPLEMENTATION.md).
+Completed 10 September 2026. Authorized scope: targeted Linux updates, then the next three actual route entries: OS Processes, Virtual Memory & Isolation; Arrays, Strings & Hash Maps; Linked Lists, Stacks & Queues. All three started as planned outlines and are now registered lessons. Titles/IDs and existing work were preserved. The initial per-topic commands found no incoming destination notes for these four topics and an empty routing inbox. Final evidence and review limits are in [the increment record](../archive/lesson-rollout/SYSTEMS-STRUCTURES-IMPLEMENTATION.md).
 
 ## Scope and learning decisions
 
@@ -48,4 +48,4 @@ All three titles were retained. Unicode policy, dynamic growth, process launch l
 
 Linked Lists now records Arrays and OOP as prerequisites. This adds missing prerequisite entries in two focused routes while preserving every prior topic and its relative route order. No module membership or stable ID changed. Full inventory: 1,218 topics, 28 modules, seven paths, 192 published lessons, 283 individual briefs, 333 recorded prerequisite reviews, 935 topics needing individual design.
 
-The implementation, independent native/model checks, browser and screenshot review are complete within [the evidence record's scope](../../SYSTEMS-STRUCTURES-IMPLEMENTATION.md). Windows and actual Ubuntu results are distinguished; no native scheduling/frame performance was measured. Targeted visual fixes and a demand-page mapping-table synchronization fix were verified. User acceptance of these new pages remains pending. The next unimplemented opening topic is Algebra, Functions, Exponentials & Logarithms.
+The implementation, independent native/model checks, browser and screenshot review are complete within [the evidence record's scope](../archive/lesson-rollout/SYSTEMS-STRUCTURES-IMPLEMENTATION.md). Windows and actual Ubuntu results are distinguished; no native scheduling/frame performance was measured. Targeted visual fixes and a demand-page mapping-table synchronization fix were verified. User acceptance of these new pages remains pending. The next unimplemented opening topic is Algebra, Functions, Exponentials & Logarithms.

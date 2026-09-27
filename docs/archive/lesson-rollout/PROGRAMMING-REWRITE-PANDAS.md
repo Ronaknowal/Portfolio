@@ -1,4 +1,4 @@
-> HISTORICAL RECORD — archived 9 September 2026. All queue, authorization, approval and teaching instructions below describe an earlier increment. They are not current policy. Start at [the current handoff](../../../LESSON-AUTHORING-HANDOFF.md).
+> HISTORICAL RECORD — archived 9 September 2026. All queue, authorization, approval and teaching instructions below describe an earlier increment. They are not current policy. Start at [the current handoff](../../teaching/LESSON-AUTHORING-HANDOFF.md).
 
 # Programming rewrite — Pandas single-topic increment
 

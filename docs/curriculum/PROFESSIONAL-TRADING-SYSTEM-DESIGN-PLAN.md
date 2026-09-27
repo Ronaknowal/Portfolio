@@ -1,6 +1,6 @@
 # Professional trading and system design curriculum
 
-Updated 17 September 2026. This increment adds catalogue coverage and starting briefs only. It does not write, implement or certify lessons. The [teaching standard](../../LESSON-TEACHING-STANDARD.md), [handoff](../../LESSON-AUTHORING-HANDOFF.md) and two-phase delivery ledger continue to own authoring and completion.
+Updated 17 September 2026. This increment adds catalogue coverage and starting briefs only. It does not write, implement or certify lessons. The [teaching standard](../../skills/lesson-authoring/SKILL.md), [handoff](../teaching/LESSON-AUTHORING-HANDOFF.md) and two-phase delivery ledger continue to own authoring and completion.
 
 ## What is in the website
 

@@ -1,6 +1,6 @@
 # Scientific computing: representation review
 
-10 September 2026. This is the scoped implementation record for the user's request to revisit previously improved lessons using concept-specific illustrations and labs. It supplements the [current teaching standard](../../LESSON-TEACHING-STANDARD.md), [first-five record](../../FIRST-FIVE-REIMPLEMENTATION.md) and [Pandas/plotting record](../../NEXT-THREE-REIMPLEMENTATION.md). It does not confer user acceptance.
+10 September 2026. This is the scoped implementation record for the user's request to revisit previously improved lessons using concept-specific illustrations and labs. It supplements the [current teaching standard](../../skills/lesson-authoring/SKILL.md), [first-five record](../archive/lesson-rollout/FIRST-FIVE-REIMPLEMENTATION.md) and [Pandas/plotting record](../archive/lesson-rollout/NEXT-THREE-REIMPLEMENTATION.md). It does not confer user acceptance.
 
 All five stable IDs were retrieved using `node scripts/build-curriculum-inventory.mjs --topic <id>`. No destination notes existed for them; the routing inbox had no unresolved discoveries. Current scope and titles remain appropriate. No topics, code examples, practice tasks, citations, deeper branches, memberships or progress identities were removed or renamed. No new claim of end-to-end curriculum completeness is made.
 

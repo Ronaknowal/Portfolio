@@ -3,7 +3,7 @@
 Condensed on 24 September 2026 from the completed lesson batches formerly repeated
 in the main authoring handoff. This is a reference for the relevant implementation
 or verifier change, not an instruction to reopen all completed lessons. The
-[teaching standard](../../LESSON-TEACHING-STANDARD.md) and
+[teaching standard](../../skills/lesson-authoring/SKILL.md) and
 [code standard](LEARNING-CODE-STANDARD.md) remain authoritative.
 
 ## Check the rendered mechanism, not only the numbers
